@@ -23,58 +23,88 @@ where the majority of URL paths require authentication.
 
 ## How to Make Authenticated EdgeX Calls
 
-In order to make an authenticated EdgeX service call,
-an EdgeX service must have a secret store token issued
-by the EdgeX secret store.
+In order to make an authenticated EdgeX service call to a REST API,
+an appropriate authentication token must be present
+on the HTTP `Authorization` header.
+To be recognized as valid,
+these tokens must be issued by EdgeX's secret store.
 
+Built-in EdgeX services already have a token that allows them access
+to the EdgeX secret store.
 The [Configuring Add-on Services](./Ch-Configuring-Add-On-Services.md)
 chapter contains details on what is required to
 enroll a new microservice into EdgeX,
 for the purpose of obtaining a secret store token.
+The secret store token is used to obtain a JWT
+that is used for authenticating EdgeX REST API calls.
+The service's secret store token is not used directly,
+as this would enable the receiver to access the senders
+private slice of the secret store.
+Instead, the identity of the caller is attested using a JWT authenticator.
 
-From this point forward, it is assumed that the calling code
-has a valid secret store token obtained using the above process.
+Non-services such as interactive users and script clients
+are also required to obtain a secret store token
+and exchange it for a JWT authenticator for REST API calls.
 
-### Remotely - API Gateway
+There are several possible authentication scenarios:
 
-The [API gateway](./Ch-APIGateway.md) chapter explains how
-to make authenticated requests through the API gateway.
-While it is possible to make internal requests through the API gateway,
-such requests must be made via TLS-encrypted HTTP,
-which requires additional configuration on both the client and server side.
-Specifically, the clients must know the external hostname of the API gateway,
-which may be unique per EdgeX deployment,
-and be configured to trust the API gateway TLS certificate.
+- Authentication for non-service clients (includes EdgeX UI)
 
-In non-secure mode of EdgeX, the API gateway is not started.
+- Local service-to-service clients using EdgeX service clients
+
+- Local service-to-service clients using the SecretProvider interface
 
 
-### Authenticating to EdgeX Microservice - Full Flow using Curl CLI
+The service-to-service scenario using the API gateway is not currently supported.
+The built-in service clients are not reverse-proxy-aware,
+and the lack of service prefixes in generated URLs
+will result in the API gateway blocking requests.
 
-Various use cases require hand-crafting
-authenticated calls to EdgeX microservices
-using command-line utilities such as `curl` or `postman`.
 
-This example will walk through the following steps,
-using `curl` as the example HTTP client:
+### Authentication for Non-service Clients
+
+Non-service clients include interactive users using the EdgeX UI,
+clients using hand-crafted REST API requests,
+or other API usages where the caller of an EdgeX microservice
+is not also an EdgeX microservice.
+
+Authentication consists of three steps:
 
 1. Creating a user identity
-2. Obtaining a JWT authentication token
-3. Using the JWT to call an EdgeX API
+2. Logging into the EdgeX secret store as that identity and obtaining a temporary token
+3. Exchanging the temporary token for an authentication JWT.
+4. Passing the JWT in a REST API call
+
+
+#### TL;DR.  Just Give Me a Token
+
+When running EdgeX in Docker using the `edgex-compose` repository,
+steps 1, 2, and 3 above have been automated by the following command:
+
+```shell
+make get-token
+```
+
+This method should only be used for development and testing:
+the username is fixed by the script,
+and the password is reset every time the script is run.
 
 The example will be done in the Docker environment.
 For snaps, refer [here](../../getting-started/Ch-GettingStartedSnapUsers/#adding-api-gateway-users).
-The docker network architecture is illustrated below:
 
-![Network diagram](authentication-network.jpg)
-
-It is assumed for these examples that the caller is on the host network.
-The API gateway is exposed to both internal an external callers.
-The EdgeX secret store and some EdgeX service
-are exposed on the docker network and on localhost,
-and this directly callable from a host command prompt.
+The long form of `make get-token` is below:
 
 #### 1. Creating a User Identity
+
+Internally, a user identity is a paring of a Vault identity
+and an associated `userpass` login method bound to that identity.
+Vault supports [many other authentication backends](https://developer.hashicorp.com/vault/docs/auth)
+besides `userpass`,
+making it possible to federate with enterprise single sign-on, for example,
+but `userpass` is the only authentication method enabled by default.
+
+The provided `secrets-config` tool includes two sub-functions,
+`adduser` and `deluser`, for creating user identities.
 
 Let use first set a shell variable to hold a username:
 
@@ -97,19 +127,32 @@ This is set at the time of account creation.
 password=$(docker exec -ti edgex-security-proxy-setup ./secrets-config proxy adduser --user "${username}" --tokenTTL 60 --jwtTTL 119m --useRootToken | jq -r '.password')
 ```
 
-#### 2. Obtaining a JWT authentication token
+The username and password created above should be saved for future use;
+they will be required in the future to obtain fresh JWT's.
 
-Obtaining a JWT is a multi-step process.
-First, obtain a secret store token using the username and password from the previous step.
-Second, exchange the secret store token for a JWT.
-The secret store token can be discarded or revoked after the JWT is obtained.
-(Internally, EdgeX microservices renew their tokens when half of their TTL is remaining, and use the token repeatedly to obtain fresh JWTs.
-This behavior is coded into go-mod-bootstrap.)
+#### 2. Obtaining a Temporary Secret Store Token
 
+Authenticate to the EdgeX secret store using the username and password generated above
+to obtain a temporary secret store token.
+This token must be exchanged for a JWT within the `tokenTTL` liveness period.
 
 ```shell
 vault_token=$(curl -ks "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq -r '.auth.client_token')
+```
 
+This temporary token can be discarded after the next step.
+
+In the microservice-to-microservice authentication scenario,
+secret store tokens are periodically renewed and used to request further JWTs and access the service's secret store.
+Tokens associated with user identities, however, only be used to obtain a JWT.
+
+
+#### 3. Obtaining a JWT authentication token
+
+The token created in the previous step is passed as an authenticator to Vault's identity secrets engine.
+The output is a JWT that expires after `jwtTTL` (see above) has passed.
+
+```shell
 id_token=$(curl -ks -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq -r '.data.token')
 
 echo "${id_token}"
@@ -118,43 +161,56 @@ echo "${id_token}"
 Optionally, if the secret store token (vault_token) isn't expired yet,
 it can be used to check the validity of an arbitrary JWT.
 This example checks the validity of the JWT that was issued above.
-Any JWT that passes this check should be accepted by the API gateway
-as well as any authenticated EdgeX microservice call.
+Any JWT that passes this check should suffice
+for making an authenticated EdgeX microservice call.
 
 ```shell
 introspect_result=$(curl -ks -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/introspect" -d "{\"token\":\"${id_token}\"}" | jq -r '.active')
 echo "${introspect_result}"
 ```
 
-IMPORTANT NOTE:
+#### 4. Using the JWT to Call an EdgeX API or EdgeX UI
 
-If running EdgeX in Docker using the `edgex-compose` repository,
-steps 1 and 2 above have been automated by the following command:
+##### Calls via EdgeX UI
 
-```shell
-make get-token
-```
+EdgeX UI users should supply the `id_token` to the prompt issued by the EdgeX UI.
+When the token eventually expires, obtain another token using the above process.
 
-#### 3. Using the JWT to call an EdgeX API
+##### Calls to Local Services
 
-To call an EdgeX service directly from host context,
-go directly to the service's localhost-mapped port:
+To call an EdgeX service directly from host context using a command-line interface,
+go directly to the service's localhost-mapped port,
+and pass the JWT as an HTTP `Authorization` header:
 
 ```shell
 curl -H"Authorization: Bearer ${id_token}" "http://localhost:59xxx/api/v2/version"
 ```
 
-It is also possible to call through the API gateway's external interface.
-This is done via TLS, and `ca.crt` is the CA certificate that is
-used to verify the TLS certificate presented by the API gateway.
-Notably, the fault TLS certificate on the API gateway is not trusted
-by default, and is assumed to have been replaced with a known certificate.
-The text `SERVICENAME` below is the name of the EdgeX service
-that is being proxied by the API gateway, such as `core-data`.
+##### Remote Calls to Services via API Gateway
+
+Calling an EdgeX service from a remote machine using the EdgeX API gateway
+looks similar to the above, with a few minor changes:
+
+* Accesses to the API gateway must use TLS
+* The service's URL prefix must be part of the request URL
+
+
+The docker network architecture is illustrated below:
+
+![Network diagram](authentication-network.jpg)
+
+
+In the example below, `ca.crt` is the CA certificate
+that is used to verify the TLS certificate presented by the API gateway,
+and `SERVICENAME` is the name of the EdgeX service
+that is being proxied by the API gateway, such as `core-data`:
 
 ```shell
 curl --cacert ca.crt -H"Authorization: Bearer ${id_token}" "https://`hostname --fqdn`:8443/SERVICENAME/api/v2/version"
 ```
+
+This is identical to what was done in EdgeX versions prior to 3.0.
+The only thing that has changed is the method use to obtain the JWT.
 
 
 ### Local Service-to-Service - Using EdgeX Service Clients
@@ -218,18 +274,6 @@ import (
   // to obtain a JWT and adds an Authorization header to the HTTP request
   err := jwtSecretProvider.AddAuthenticationData(req);
 ```
-
-### Remote Service-to-Service - Using API Gateway
-
-This scenario is not currently supported,
-as most services that a remote EdgeX service would need are blocked at the API gateway.
-Additionally, the built-in service clients are not reverse-proxy-aware,
-and would be dropped at the API gateway due to a lack of a service prefix in the URL.
-
-Instead, adopters should investigate advanced network topologies such as
-zero-trust networks, network overlays, network tunnels, or similar solutions
-that can create a virtual local network.
-
 
 ## Implementation Notes
 
