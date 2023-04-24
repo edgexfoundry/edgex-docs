@@ -89,6 +89,9 @@ This method should only be used for development and testing:
 the username is fixed by the script,
 and the password is reset every time the script is run.
 
+The example will be done in the Docker environment.
+For snaps, refer [here](../../getting-started/Ch-GettingStartedSnapUsers/#adding-api-gateway-users).
+
 The long form of `make get-token` is below:
 
 #### 1. Creating a User Identity
@@ -183,7 +186,7 @@ and pass the JWT as an HTTP `Authorization` header:
 curl -H"Authorization: Bearer ${id_token}" "http://localhost:59xxx/api/v2/version"
 ```
 
-##### Calls to From Remote Machines via API Gateway
+##### Remote Calls to Services via API Gateway
 
 Calling an EdgeX service from a remote machine using the EdgeX API gateway
 looks similar to the above, with a few minor changes:
@@ -192,8 +195,6 @@ looks similar to the above, with a few minor changes:
 * The service's URL prefix must be part of the request URL
 
 
-The example will be done in the Docker environment.
-For snaps, refer [here](../../getting-started/Ch-GettingStartedSnapUsers/#adding-api-gateway-users).
 The docker network architecture is illustrated below:
 
 ![Network diagram](authentication-network.jpg)
