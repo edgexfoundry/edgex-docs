@@ -21,7 +21,7 @@ Follow this guide to deploy and run the service.
 
           <div class="admonition note">
              <p class="admonition-title">Note</p>
-             <p>Recommended for secure and actual deployments</p>
+             <p>Recommended for secure and production level deployments</p>
           </div>
 
          ```bash
