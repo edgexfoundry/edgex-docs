@@ -440,30 +440,54 @@
 <nav aria-label="How to Make Authenticated EdgeX Calls" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#remotely-api-gateway">
-    Remotely - API Gateway
+<a class="md-nav__link" href="#authentication-for-non-service-clients">
+    Authentication for Non-service Clients
+  </a>
+<nav aria-label="Authentication for Non-service Clients" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tldr-just-give-me-a-token">
+    TL;DR.  Just Give Me a Token
   </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#authenticating-to-edgex-microservice-full-flow-using-curl-cli">
-    Authenticating to EdgeX Microservice - Full Flow using Curl CLI
-  </a>
-<nav aria-label="Authenticating to EdgeX Microservice - Full Flow using Curl CLI" class="md-nav">
-<ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#1-creating-a-user-identity">
     1. Creating a User Identity
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#2-obtaining-a-jwt-authentication-token">
-    2. Obtaining a JWT authentication token
+<a class="md-nav__link" href="#2-obtaining-a-temporary-secret-store-token">
+    2. Obtaining a Temporary Secret Store Token
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#3-using-the-jwt-to-call-an-edgex-api">
-    3. Using the JWT to call an EdgeX API
+<a class="md-nav__link" href="#3-obtaining-a-jwt-authentication-token">
+    3. Obtaining a JWT authentication token
   </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-using-the-jwt-to-call-an-edgex-api-or-edgex-ui">
+    4. Using the JWT to Call an EdgeX API or EdgeX UI
+  </a>
+<nav aria-label="4. Using the JWT to Call an EdgeX API or EdgeX UI" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#calls-via-edgex-ui">
+    Calls via EdgeX UI
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#calls-to-local-services">
+    Calls to Local Services
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#remote-calls-to-services-via-api-gateway">
+    Remote Calls to Services via API Gateway
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -476,11 +500,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#local-service-to-service-using-the-secretprovider-interface">
     Local Service-to-Service - Using the SecretProvider interface
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#remote-service-to-service-using-api-gateway">
-    Remote Service-to-Service - Using API Gateway
   </a>
 </li>
 </ul>
@@ -1213,30 +1232,54 @@
 <nav aria-label="How to Make Authenticated EdgeX Calls" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#remotely-api-gateway">
-    Remotely - API Gateway
+<a class="md-nav__link" href="#authentication-for-non-service-clients">
+    Authentication for Non-service Clients
+  </a>
+<nav aria-label="Authentication for Non-service Clients" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tldr-just-give-me-a-token">
+    TL;DR.  Just Give Me a Token
   </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#authenticating-to-edgex-microservice-full-flow-using-curl-cli">
-    Authenticating to EdgeX Microservice - Full Flow using Curl CLI
-  </a>
-<nav aria-label="Authenticating to EdgeX Microservice - Full Flow using Curl CLI" class="md-nav">
-<ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#1-creating-a-user-identity">
     1. Creating a User Identity
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#2-obtaining-a-jwt-authentication-token">
-    2. Obtaining a JWT authentication token
+<a class="md-nav__link" href="#2-obtaining-a-temporary-secret-store-token">
+    2. Obtaining a Temporary Secret Store Token
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#3-using-the-jwt-to-call-an-edgex-api">
-    3. Using the JWT to call an EdgeX API
+<a class="md-nav__link" href="#3-obtaining-a-jwt-authentication-token">
+    3. Obtaining a JWT authentication token
   </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-using-the-jwt-to-call-an-edgex-api-or-edgex-ui">
+    4. Using the JWT to Call an EdgeX API or EdgeX UI
+  </a>
+<nav aria-label="4. Using the JWT to Call an EdgeX API or EdgeX UI" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#calls-via-edgex-ui">
+    Calls via EdgeX UI
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#calls-to-local-services">
+    Calls to Local Services
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#remote-calls-to-services-via-api-gateway">
+    Remote Calls to Services via API Gateway
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -1249,11 +1292,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#local-service-to-service-using-the-secretprovider-interface">
     Local Service-to-Service - Using the SecretProvider interface
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#remote-service-to-service-using-api-gateway">
-    Remote Service-to-Service - Using API Gateway
   </a>
 </li>
 </ul>
@@ -1295,46 +1333,74 @@ In EdgeX 3.0, the <code>Authorization</code> header is <strong>additionally</str
 at the microservice level on a per-route basis,
 where the majority of URL paths require authentication.</p>
 <h2 id="how-to-make-authenticated-edgex-calls">How to Make Authenticated EdgeX Calls</h2>
-<p>In order to make an authenticated EdgeX service call,
-an EdgeX service must have a secret store token issued
-by the EdgeX secret store.</p>
-<p>The <a href="../Ch-Configuring-Add-On-Services/">Configuring Add-on Services</a>
+<p>In order to make an authenticated EdgeX service call to a REST API,
+an appropriate authentication token must be present
+on the HTTP <code>Authorization</code> header.
+To be recognized as valid,
+these tokens must be issued by EdgeX's secret store.</p>
+<p>Built-in EdgeX services already have a token that allows them access
+to the EdgeX secret store.
+The <a href="../Ch-Configuring-Add-On-Services/">Configuring Add-on Services</a>
 chapter contains details on what is required to
 enroll a new microservice into EdgeX,
-for the purpose of obtaining a secret store token.</p>
-<p>From this point forward, it is assumed that the calling code
-has a valid secret store token obtained using the above process.</p>
-<h3 id="remotely-api-gateway">Remotely - API Gateway</h3>
-<p>The <a href="../Ch-APIGateway/">API gateway</a> chapter explains how
-to make authenticated requests through the API gateway.
-While it is possible to make internal requests through the API gateway,
-such requests must be made via TLS-encrypted HTTP,
-which requires additional configuration on both the client and server side.
-Specifically, the clients must know the external hostname of the API gateway,
-which may be unique per EdgeX deployment,
-and be configured to trust the API gateway TLS certificate.</p>
-<p>In non-secure mode of EdgeX, the API gateway is not started.</p>
-<h3 id="authenticating-to-edgex-microservice-full-flow-using-curl-cli">Authenticating to EdgeX Microservice - Full Flow using Curl CLI</h3>
-<p>Various use cases require hand-crafting
-authenticated calls to EdgeX microservices
-using command-line utilities such as <code>curl</code> or <code>postman</code>.</p>
-<p>This example will walk through the following steps,
-using <code>curl</code> as the example HTTP client:</p>
+for the purpose of obtaining a secret store token.
+The secret store token is used to obtain a JWT
+that is used for authenticating EdgeX REST API calls.
+The service's secret store token is not used directly,
+as this would enable the receiver to access the senders
+private slice of the secret store.
+Instead, the identity of the caller is attested using a JWT authenticator.</p>
+<p>Non-services such as interactive users and script clients
+are also required to obtain a secret store token
+and exchange it for a JWT authenticator for REST API calls.</p>
+<p>There are several possible authentication scenarios:</p>
+<ul>
+<li>
+<p>Authentication for non-service clients (includes EdgeX UI)</p>
+</li>
+<li>
+<p>Local service-to-service clients using EdgeX service clients</p>
+</li>
+<li>
+<p>Local service-to-service clients using the SecretProvider interface</p>
+</li>
+</ul>
+<p>The service-to-service scenario using the API gateway is not currently supported.
+The built-in service clients are not reverse-proxy-aware,
+and the lack of service prefixes in generated URLs
+will result in the API gateway blocking requests.</p>
+<h3 id="authentication-for-non-service-clients">Authentication for Non-service Clients</h3>
+<p>Non-service clients include interactive users using the EdgeX UI,
+clients using hand-crafted REST API requests,
+or other API usages where the caller of an EdgeX microservice
+is not also an EdgeX microservice.</p>
+<p>Authentication consists of three steps:</p>
 <ol>
 <li>Creating a user identity</li>
-<li>Obtaining a JWT authentication token</li>
-<li>Using the JWT to call an EdgeX API</li>
+<li>Logging into the EdgeX secret store as that identity and obtaining a temporary token</li>
+<li>Exchanging the temporary token for an authentication JWT.</li>
+<li>Passing the JWT in a REST API call</li>
 </ol>
+<h4 id="tldr-just-give-me-a-token">TL;DR.  Just Give Me a Token</h4>
+<p>When running EdgeX in Docker using the <code>edgex-compose</code> repository,
+steps 1, 2, and 3 above have been automated by the following command:</p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>get-token
+</code></pre></div>
+<p>This method should only be used for development and testing:
+the username is fixed by the script,
+and the password is reset every time the script is run.</p>
 <p>The example will be done in the Docker environment.
-For snaps, refer <a href="../../getting-started/Ch-GettingStartedSnapUsers/#adding-api-gateway-users">here</a>.
-The docker network architecture is illustrated below:</p>
-<p><img alt="Network diagram" src="../authentication-network.jpg"/></p>
-<p>It is assumed for these examples that the caller is on the host network.
-The API gateway is exposed to both internal an external callers.
-The EdgeX secret store and some EdgeX service
-are exposed on the docker network and on localhost,
-and this directly callable from a host command prompt.</p>
+For snaps, refer <a href="../../getting-started/Ch-GettingStartedSnapUsers/#adding-api-gateway-users">here</a>.</p>
+<p>The long form of <code>make get-token</code> is below:</p>
 <h4 id="1-creating-a-user-identity">1. Creating a User Identity</h4>
+<p>Internally, a user identity is a paring of a Vault identity
+and an associated <code>userpass</code> login method bound to that identity.
+Vault supports <a href="https://developer.hashicorp.com/vault/docs/auth">many other authentication backends</a>
+besides <code>userpass</code>,
+making it possible to federate with enterprise single sign-on, for example,
+but <code>userpass</code> is the only authentication method enabled by default.</p>
+<p>The provided <code>secrets-config</code> tool includes two sub-functions,
+<code>adduser</code> and <code>deluser</code>, for creating user identities.</p>
 <p>Let use first set a shell variable to hold a username:</p>
 <div class="highlight"><pre><span></span><code><span class="nv">username</span><span class="o">=</span>exampleuser
 </code></pre></div>
@@ -1347,46 +1413,60 @@ and any JWTs that we create will have a 119 minute TTL.
 This is set at the time of account creation.</p>
 <div class="highlight"><pre><span></span><code><span class="nv">password</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-ti<span class="w"> </span>edgex-security-proxy-setup<span class="w"> </span>./secrets-config<span class="w"> </span>proxy<span class="w"> </span>adduser<span class="w"> </span>--user<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>--tokenTTL<span class="w"> </span><span class="m">60</span><span class="w"> </span>--jwtTTL<span class="w"> </span>119m<span class="w"> </span>--useRootToken<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.password'</span><span class="k">)</span>
 </code></pre></div>
-<h4 id="2-obtaining-a-jwt-authentication-token">2. Obtaining a JWT authentication token</h4>
-<p>Obtaining a JWT is a multi-step process.
-First, obtain a secret store token using the username and password from the previous step.
-Second, exchange the secret store token for a JWT.
-The secret store token can be discarded or revoked after the JWT is obtained.
-(Internally, EdgeX microservices renew their tokens when half of their TTL is remaining, and use the token repeatedly to obtain fresh JWTs.
-This behavior is coded into go-mod-bootstrap.)</p>
+<p>The username and password created above should be saved for future use;
+they will be required in the future to obtain fresh JWT's.</p>
+<h4 id="2-obtaining-a-temporary-secret-store-token">2. Obtaining a Temporary Secret Store Token</h4>
+<p>Authenticate to the EdgeX secret store using the username and password generated above
+to obtain a temporary secret store token.
+This token must be exchanged for a JWT within the <code>tokenTTL</code> liveness period.</p>
 <div class="highlight"><pre><span></span><code><span class="nv">vault_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span><span class="s2">"http://localhost:8200/v1/auth/userpass/login/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"{\"password\":\"</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">\"}"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.auth.client_token'</span><span class="k">)</span>
-
-<span class="nv">id_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">vault_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:8200/v1/identity/oidc/token/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.data.token'</span><span class="k">)</span>
+</code></pre></div>
+<p>This temporary token can be discarded after the next step.</p>
+<p>In the microservice-to-microservice authentication scenario,
+secret store tokens are periodically renewed and used to request further JWTs and access the service's secret store.
+Tokens associated with user identities, however, only be used to obtain a JWT.</p>
+<h4 id="3-obtaining-a-jwt-authentication-token">3. Obtaining a JWT authentication token</h4>
+<p>The token created in the previous step is passed as an authenticator to Vault's identity secrets engine.
+The output is a JWT that expires after <code>jwtTTL</code> (see above) has passed.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">id_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">vault_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:8200/v1/identity/oidc/token/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.data.token'</span><span class="k">)</span>
 
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">"</span>
 </code></pre></div>
 <p>Optionally, if the secret store token (vault_token) isn't expired yet,
 it can be used to check the validity of an arbitrary JWT.
 This example checks the validity of the JWT that was issued above.
-Any JWT that passes this check should be accepted by the API gateway
-as well as any authenticated EdgeX microservice call.</p>
+Any JWT that passes this check should suffice
+for making an authenticated EdgeX microservice call.</p>
 <div class="highlight"><pre><span></span><code><span class="nv">introspect_result</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">vault_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:8200/v1/identity/oidc/introspect"</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"{\"token\":\"</span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">\"}"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.active'</span><span class="k">)</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">introspect_result</span><span class="si">}</span><span class="s2">"</span>
 </code></pre></div>
-<p>IMPORTANT NOTE:</p>
-<p>If running EdgeX in Docker using the <code>edgex-compose</code> repository,
-steps 1 and 2 above have been automated by the following command:</p>
-<div class="highlight"><pre><span></span><code>make<span class="w"> </span>get-token
-</code></pre></div>
-<h4 id="3-using-the-jwt-to-call-an-edgex-api">3. Using the JWT to call an EdgeX API</h4>
-<p>To call an EdgeX service directly from host context,
-go directly to the service's localhost-mapped port:</p>
+<h4 id="4-using-the-jwt-to-call-an-edgex-api-or-edgex-ui">4. Using the JWT to Call an EdgeX API or EdgeX UI</h4>
+<h5 id="calls-via-edgex-ui">Calls via EdgeX UI</h5>
+<p>EdgeX UI users should supply the <code>id_token</code> to the prompt issued by the EdgeX UI.
+When the token eventually expires, obtain another token using the above process.</p>
+<h5 id="calls-to-local-services">Calls to Local Services</h5>
+<p>To call an EdgeX service directly from host context using a command-line interface,
+go directly to the service's localhost-mapped port,
+and pass the JWT as an HTTP <code>Authorization</code> header:</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-H<span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:59xxx/api/v2/version"</span>
 </code></pre></div>
-<p>It is also possible to call through the API gateway's external interface.
-This is done via TLS, and <code>ca.crt</code> is the CA certificate that is
-used to verify the TLS certificate presented by the API gateway.
-Notably, the fault TLS certificate on the API gateway is not trusted
-by default, and is assumed to have been replaced with a known certificate.
-The text <code>SERVICENAME</code> below is the name of the EdgeX service
-that is being proxied by the API gateway, such as <code>core-data</code>.</p>
+<h5 id="remote-calls-to-services-via-api-gateway">Remote Calls to Services via API Gateway</h5>
+<p>Calling an EdgeX service from a remote machine using the EdgeX API gateway
+looks similar to the above, with a few minor changes:</p>
+<ul>
+<li>Accesses to the API gateway must use TLS</li>
+<li>The service's URL prefix must be part of the request URL</li>
+</ul>
+<p>The docker network architecture is illustrated below:</p>
+<p><img alt="Network diagram" src="../authentication-network.jpg"/></p>
+<p>In the example below, <code>ca.crt</code> is the CA certificate
+that is used to verify the TLS certificate presented by the API gateway,
+and <code>SERVICENAME</code> is the name of the EdgeX service
+that is being proxied by the API gateway, such as <code>core-data</code>:</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--cacert<span class="w"> </span>ca.crt<span class="w"> </span>-H<span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"https://`hostname --fqdn`:8443/SERVICENAME/api/v2/version"</span>
 </code></pre></div>
+<p>This is identical to what was done in EdgeX versions prior to 3.0.
+The only thing that has changed is the method use to obtain the JWT.</p>
 <h3 id="local-service-to-service-using-edgex-service-clients">Local Service-to-Service - Using EdgeX Service Clients</h3>
 <p>The preferred method of making an authenticated
 call to an EdgeX microservice is to use
@@ -1435,14 +1515,6 @@ to an outgoing HTTP request, req.</p>
 <span class="w">  </span><span class="c1">// to obtain a JWT and adds an Authorization header to the HTTP request</span>
 <span class="w">  </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">jwtSecretProvider</span><span class="p">.</span><span class="nx">AddAuthenticationData</span><span class="p">(</span><span class="nx">req</span><span class="p">);</span>
 </code></pre></div>
-<h3 id="remote-service-to-service-using-api-gateway">Remote Service-to-Service - Using API Gateway</h3>
-<p>This scenario is not currently supported,
-as most services that a remote EdgeX service would need are blocked at the API gateway.
-Additionally, the built-in service clients are not reverse-proxy-aware,
-and would be dropped at the API gateway due to a lack of a service prefix in the URL.</p>
-<p>Instead, adopters should investigate advanced network topologies such as
-zero-trust networks, network overlays, network tunnels, or similar solutions
-that can create a virtual local network.</p>
 <h2 id="implementation-notes">Implementation Notes</h2>
 <p>Internally, the receiving microservice will call the secret store's
 <a href="https://developer.hashicorp.com/vault/api-docs/secret/identity/tokens#introspect-a-signed-id-token">token introspection endpoint</a>
