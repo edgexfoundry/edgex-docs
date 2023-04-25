@@ -1634,7 +1634,7 @@ the external MQTT Broker on the topic specified by the <code>PublishTopic</code>
 </code></pre></div>
 </div>
 <p>Now the custom trigger is configured to be used rather than one of the built-in triggers.</p>
-<p>A complete working example can be found <a href="https://github.com/edgexfoundry/edgex-examples/tree/v2.3.0/application-services/custom/custom-trigger"><strong>here</strong></a></p>
+<p>A complete working example can be found <a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/custom-trigger"><strong>here</strong></a></p>
 <h2 id="publish-topic-placeholders">Publish Topic Placeholders</h2>
 <p>Both the <code>EdgeX MessageBus</code>and the <code>External MQTT</code> triggers support the new <strong>Publish Topic Placeholders</strong> capability. The configured <code>PublishTopic</code> for either of these triggers can contain placeholders for runtime replacements. The placeholders are replaced with values from the new <code>Context Storage</code> whose key match the placeholder name. Function pipelines can add values to the <code>Context Storage</code> which can then be used as replacement values in the publish topic. If an EdgeX Event is received by the configured trigger the Event's <code>profilename</code>, <code>devicename</code> and <code>sourcename</code> as well as the will be seeded into the <code>Context Storage</code>. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> documentation for more details.</p>
 <p>The <strong>Publish Topic Placeholders</strong> format is a simple <code>{&lt;key-name&gt;}</code> that can appear anywhere in the topic multiple times. An error will occur if a specified placeholder does not exist in the  <code>Context Storage</code>. </p>

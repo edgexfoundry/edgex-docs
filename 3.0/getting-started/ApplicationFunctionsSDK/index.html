@@ -1249,7 +1249,7 @@ After placing the above function in your code, the next step is to modify the pi
 <span class="w">    </span><span class="o">...</span>
 <span class="p">}</span>
 </code></pre></div>
-Set the Trigger type to <code>http</code> in <a href="https://github.com/edgexfoundry/edgex-examples/blob/v2.3.0/application-services/custom/simple-filter-xml/res/configuration.toml">res/configuration.toml</a></p>
+Set the Trigger type to <code>http</code> in <a href="https://github.com/edgexfoundry/edgex-examples/blob/main/application-services/custom/simple-filter-xml/res/configuration.toml">res/configuration.toml</a></p>
 <div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
 <span class="n">Type</span><span class="o">=</span><span class="s">"http"</span>
 </code></pre></div>
@@ -1282,7 +1282,7 @@ Set the Trigger type to <code>http</code> in <a href="https://github.com/edgexfo
 <p>After making the above modifications, you should now see data printing out to the console in XML when an event is triggered.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You can find this complete example "<a href="https://github.com/edgexfoundry/edgex-examples/tree/v2.3.0/application-services/custom/simple-filter-xml">Simple Filter XML</a>" and more examples located in the <a href="../../examples/AppServiceExamples/">examples</a> section.</p>
+<p>You can find this complete example "<a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/simple-filter-xml">Simple Filter XML</a>" and more examples located in the <a href="../../examples/AppServiceExamples/">examples</a> section.</p>
 </div>
 <p>Up until this point, the pipeline has been <a href="../../microservices/application/Triggers/">triggered</a> by an event over HTTP and the data at the end of that pipeline lands in the last function specified. In the example, data ends up printed to the console. Perhaps we'd like to send the data back to where it came from. In the case of an HTTP trigger, this would be the HTTP response. In the case of  EdgeX MessageBus, this could be a new topic to send the data back to the MessageBus for other applications that wish to receive it. To do this, simply call <code>ctx.SetResponseData(data []byte)</code> passing in the data you wish to "respond" with. In the above <code>printXMLToConsole(...)</code> function, replace <code>println(xml)</code> with <code>ctx.SetResponseData([]byte(xml))</code>. You should now see the response in your postman window when testing the pipeline.</p>
 </article>
