@@ -1,17 +1,17 @@
 # Environment Variables
 
-There are three types of environment variables used by all EdgeX services. They are `standard`, `command-line overrides`  and `configuration overrides`. 
+There are three types of environment variables used by all EdgeX services. They are *standard*, *command-line overrides*  and *configuration overrides*. 
 
 ## Standard Environment Variables
 
-This section describes the `standard` environment variables common to all EdgeX services. Standard environment variables do not override any command line flag or service configuration. Some services may have additional  `standard` environment variables which are documented in those service specific sections. See [Notable Other Standard Environment Variables](#notable-other-standard-environment-variables) below for list of these additional standard environment variables.
+This section describes the *standard* environment variables common to all EdgeX services. Standard environment variables do not override any command line flag or service configuration. Some services may have additional  *standard* environment variables which are documented in those service specific sections. See [Notable Other Standard Environment Variables](#notable-other-standard-environment-variables) below for list of these additional standard environment variables.
 
 !!! note
-    All `standard` environment variables have the `EDGEX_` prefix
+    All *standard* environment variables have the `EDGEX_` prefix
 
 ### EDGEX_SECURITY_SECRET_STORE
 
-This environment variables indicates whether the service is expected to initialize the secure SecretStore which allows the service to access secrets from Vault. Defaults to `true` if not set or not set to `false`. When set to `true` the EdgeX security services must be running. If running EdgeX in `non-secure` mode you then want this explicitly set to `false`.
+This environment variable indicates whether the service is expected to initialize the secure SecretStore which allows the service to access secrets from Vault. Defaults to `true` if not set or not set to `false`. When set to `true` the EdgeX security services must be running. If running EdgeX in `non-secure` mode you then want this explicitly set to `false`.
 
 !!! example "Example - Using docker-compose to disable secure SecretStore"
     ```yaml
@@ -96,10 +96,10 @@ See [IKM HOOK](../../../threat-models/secret-store/vault_master_key_encryption/#
 
 ## Command-line Overrides
 
-This section describes the command-line overrides that are common to most services.  These overrides allow the use of the specific command-line flag to be overridden each time a service starts up.
+This section describes the *command-line overrides* that are common to most services.  These overrides allow the use of the specific command-line flag to be overridden each time a service starts up.
 
 !!! note
-    All `command-line overrides` also have the `EDGEX_` prefix.
+    All *command-line overrides* also have the `EDGEX_` prefix.
 
 #### EDGEX_CONFIG_DIR
 
@@ -198,10 +198,10 @@ This environment variable overrides the [`-r/--registry` command-line option](..
 ## Configuration Overrides
 
 !!! edgex - "EdgeX 3.0"
-    New in EdgeX 3.0. When used, the Configuration Provider is the **System of Record** for all configuration. Environment variable overrides no longer have the highest precedence. 
+    New in EdgeX 3.0. When used, the Configuration Provider is the **System of Record** for all configuration. The environment variables for configuration overrides no longer have the highest precedence. However, environment variables for standard and command-line overrides still maintain their role and high precedence.
 
-!!! important - "Configuration Provider is the **System of Record** for all configuration"
-    When using the Configuration Provider,  it is the **System of Record** for all configuration. Environment variable overrides are only applied when configuration is read from file. The overridden values are used to seed the services' configuration into the Configuration Provider. Once the Configuration Provider has been seeded, service's always get their configuration from the Configuration Provider on start up. Any changes to configuration must be done via the Configuration Provider. Changing an environment variable override and restating the service will not impact the service's configuration.
+!!! important - "Configuration Provider is the **System of Record** for all configurations"
+    When using the Configuration Provider,  it is the **System of Record** for all configurations. Environment variables for configuration are only applied when configuration is first read from file. The overridden values are used to seed the services' configuration into the Configuration Provider. Once the Configuration Provider has been seeded, services always get their configuration from the Configuration Provider on start up. Any changes to configuration must be done via the Configuration Provider. Changing a environment variable override for configuration and restating the service will not impact the service's configuration.
 
 ### Service Configuration Overrides
 
@@ -212,42 +212,16 @@ Any configuration setting from a service's `configuration.yaml` file can be over
 <SECTION-NAME>_<SUB-SECTION-NAME>_<KEY-NAME>
 ```
 
-!!! example "Example - Environment Variable Overrides of Configuration"
-    ```yaml   
-    CONFIG  : Writable:    
-               LogLevel: "INFO"    
-    ENVVAR : WRITABLE_LOGLEVEL=DEBUG    
-    
-    CONFIG : Service:
-               Host: "localhost"
-    ENVVAR : SERVICE_HOST=edgex-core-data    
-    ```
-
-#### Application of Configuration Overrides
-
-Service configuration overrides are applied at two levels, which are **common** and **private**.
-
-##### Common Configuration Overrides
-
-When using the Configuration Provider, the common configuration overrides are applied to the **core-common-config-bootstrapper** service. This service is solely responsible with seeding the Configuration Provider with the common configuration. These common configuration overrides are only applied when the **core-common-config-bootstrapper** service reads the common configuration from file and pushes the values in to the Configuration Provider. The  **core-common-config-bootstrapper** service only does this if the Configuration Provider doesn't already have the common configuration. 
-
-When not using the Configuration Provider, the common configuration is provided from the file specified by [`-cc/--commonConfig` command line option](../CommonCommandLineOptions/#common-config). The common configuration overrides are applied when this file is loaded. This occurs on every time a service starts. These common overrides must be set on the individual services rather than a central service since each service is loading the common configuration file. 
-
-##### Private Configuration Overrides
-
-Each service has private configuration which is initially loaded from file. Private configuration overrides are only applied when the private configuration is load from file. These private configuration overrides must be set on the individual services since each service is loading its own private configuration file. 
-
-When using the Configuration Provider,  the values are pushed to the service's private section in the Configuration Provider. Once the private file and overrides have been used to seed the Configuration Provider, they are no longer used. The services will pull their private configuration directly from the Configuration Provider on future start-ups.
-
-When not using the Configuration Provider, the private overrides are applied when the configuration is load from this file and then used by the service. This occurs on every time a service starts.
+!!! example "Example - Environment Variable Overrides of Configuration" 
+    | Service configuration YAML | Environment variable |
+    |||
+    | Writable:<pre>  LogLevel: "INFO"</pre> | WRITABLE_LOGLEVEL=DEBUG |
+    | Service:<pre>  Host: "localhost"</pre>| SERVICE_HOST=edgex-core-data |
 
 !!! important
     Private configuration overrides are only applied to configuration settings that exist in the service's private configuration file.
 
 ### SecretStore Configuration Overrides
-
-!!! edgey "EdgeX 3.0"
-    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files and the Configuration Provider. It now has default values which can be overridden with [Configuration Overrides](#configuration-overrides).
 
 The environment variables overrides for **SecretStore** configuration follow the same rules as the regular configuration overrides. The following are the **SecretStore** fields that are commonly overridden.
 
@@ -256,10 +230,8 @@ The environment variables overrides for **SecretStore** configuration follow the
 - SECRETSTORE_RUNTIMETOKENPROVIDER_HOST
 
 !!! example - "Example SecretStore Configuration Override"
-    ```yaml
-    CONFIG : SecretStore.Host
-    ENVVAR : SECRETSTORE_HOST=edgex-vault
-    ```
+    <pre>**Configuration Setting**: SecretStore.Host
+    **Environment Variable Override**: SECRETSTORE_HOST=edgex-vault</pre>
 
 The  complete list of **SecretStore** fields and defaults can be found in the file [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/main/config/types.go). **TODO: Fix link to use release tag**
 The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.

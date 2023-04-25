@@ -1,12 +1,12 @@
 # Service Configuration   
 
-The configuration for EdgeX services is broken into 2 or 3 layers, 1 or 2 common layers and one private layer. The layers are as follows:
+The configuration for EdgeX services is broken into multiple layers. The layers are as follows:
 
 1. Common configuration for all services
 2. Common configuration for Application or Device Services. 
 3. Private configuration for each service 
 
- Each layer is applied upon the previous layer so the lowest layer has highest precedence. This allows the lower layers to overwrite the configuration values specified in the upper layers.
+Subsequent layers have higher precedence. As a result, the configuration values set in subsequent layers override those of underlying layers.
 
 !!! edgey - "EdgeX 3.0"
     This layered configuration is new in EdgeX 3.0
@@ -131,28 +131,20 @@ The tables in each of the tabs below document configuration properties that are 
 
 ## Private Configuration
 
-Each EdgeX service has private configuration that contains values specific to the service. Some of these values may override values found in the common configuration layers described above. This private configuration is initially found in the service's `configuration.yaml` file. 
+Each EdgeX service has a private configuration with values specific to that service. Some of these values may override values found in the common configuration layers described above. This private configuration is initially found in the service's `configuration.yaml` file. 
 
-When the Configuration Provider is used, the EdgeX services will self-seed their private configuration, with environment variable overrides applied, into the Configuration Provider on first start-up. On restarts, the services will pull their private configuration from the Configuration Provider and applied it over the common configuration previously loaded from the Configuration Provider.
+When the Configuration Provider is used, the EdgeX services will self-seed their private configuration, with environment variable overrides applied, into the Configuration Provider on first start-up. On restarts, the services will pull their private configuration from the Configuration Provider and apply it over the common configuration previously loaded from the Configuration Provider.
 
 When the Configuration Provider is not used the service's private configuration will be applied over the common configuration loaded via the [`-cc/--commonConfig` command-line option](../CommonCommandLineOptions/#common-config).
 
 !!! note
-    The `-cc/--commonConfig` option is not require when the Configuration Provider is not used.  If it is not provided, the service's private configuration must be complete for its needs. Some of the Security services that do not use the Configuration Provider operate in this manner since they do not have common configuration like other EdgeX services.
+    The `-cc/--commonConfig` option is not required when the Configuration Provider is not used.  If it is not provided, the service's private configuration must be complete for its needs.  A complete configuration will have the private configuration settings as well as the necessary common configuration settings. Some of the Security services that do not use the Configuration Provider operate in this manner since they do not have common configuration like other EdgeX services.
 
 The service specific private values and additional settings can be found on the respective documentation page for each service [here](http://localhost:8008/3.0/microservices/general/).
 
 ## Writable vs Readable Settings
 
-Within the three sections of common configuration and a each service's private configuration, there are settings whose values can be edited via the Configuration Provider and change the behavior of the service while it is running.  These writable settings are grouped under `Writable` in each section. For example, the Writable for the common configuration sections and Core Data private are:
-
-- /edgex/v3/core-common-config-bootstrapper/all-services/Writable
-- /edgex/v3/core-common-config-bootstrapper/app-services/Writable
-- /edgex/v3/core-common-config-bootstrapper/device-services/Writable
-- /edgex/v3/core-data/Writable
-
-Any configuration settings found in a common or private`Writable` section may be changed and affect a service's behavior without a restart. Any
-modifications to the other settings (read-only configuration) require a restart of the service(s).
+Within each configuration layer, there are settings whose values can be edited via the Configuration Provider and change the behavior of the service while it is running.  These writable settings are grouped under `Writable` in each layer. Any configuration settings found in a common or private `Writable` section may be changed and affect a service's behavior without a restart. Any modifications to the other settings (read-only configuration) require a restart of the service(s).
 
 !!! note
-    Run time changes to a common Writable setting will be ignored by services which have that setting overridden in a lower layer, i.e. app/device or private. This is to avoid changing values that have been explicitly overridden in a lower layer Writable section by changing the same setting in a higher layer Writable section. The setting value should be changed at the lowest layer in which it exists for a service.
+    Runtime changes to a common Writable setting will be ignored by services which have that setting overridden in a subsequent layer, i.e. app/device or private. This is to avoid changing values that have been explicitly overridden in a lower layer Writable section by changing the same setting in a higher layer Writable section. The setting value should be changed at the lowest layer in which it exists for a service.
