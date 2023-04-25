@@ -1,6 +1,6 @@
 # Environment Variables
 
-There are three types of environment variables used by all EdgeX services. They are *standard*, *command-line overrides*  and *configuration overrides*. 
+There are three types of environment variables used by all EdgeX services. They are *standard*, *command-line overrides*,  and *configuration overrides*. 
 
 ## Standard Environment Variables
 
@@ -105,9 +105,6 @@ This section describes the *command-line overrides* that are common to most serv
 
 This environment variable overrides the [`-cd/--configDir` command-line option](../CommonCommandLineOptions/#confdir). 
 
-!!! note
-     All EdgeX service Docker images have this option set to `/res`.
-
 !!! example "Example - Using docker-compose to override the configuration folder name"
     ```yaml
     environment: 
@@ -198,10 +195,10 @@ This environment variable overrides the [`-r/--registry` command-line option](..
 ## Configuration Overrides
 
 !!! edgex - "EdgeX 3.0"
-    New in EdgeX 3.0. When used, the Configuration Provider is the **System of Record** for all configuration. The environment variables for configuration overrides no longer have the highest precedence. However, environment variables for standard and command-line overrides still maintain their role and high precedence.
+    New in EdgeX 3.0. When used, the Configuration Provider is the **System of Record** for all configuration. The environment variables for configuration overrides no longer have the highest precedence. However, environment variables for standard and command-line overrides still maintain their role and higher precedence.
 
 !!! important - "Configuration Provider is the **System of Record** for all configurations"
-    When using the Configuration Provider,  it is the **System of Record** for all configurations. Environment variables for configuration are only applied when configuration is first read from file. The overridden values are used to seed the services' configuration into the Configuration Provider. Once the Configuration Provider has been seeded, services always get their configuration from the Configuration Provider on start up. Any changes to configuration must be done via the Configuration Provider. Changing a environment variable override for configuration and restating the service will not impact the service's configuration.
+    When using the Configuration Provider,  it is the **System of Record** for all configurations. Environment variables are only applied when the configuration is first read from file. These overridden values are used to seed the services' configuration into the Configuration Provider. Once the Configuration Provider has been seeded, services always get their configuration from the Configuration Provider on start up. Any subsequent changes to configuration must be done via the Configuration Provider. Changing an environment variable override for configuration and restating the service will not impact the service's configuration. The services configuration must first be removed from the Configuration Provider for any new/updated environment variable override(s) to impact the service's configuration.
 
 ### Service Configuration Overrides
 
@@ -233,7 +230,7 @@ The environment variables overrides for **SecretStore** configuration follow the
     <pre>**Configuration Setting**: SecretStore.Host
     **Environment Variable Override**: SECRETSTORE_HOST=edgex-vault</pre>
 
-The  complete list of **SecretStore** fields and defaults can be found in the file [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/main/config/types.go). **TODO: Fix link to use release tag**
+The  complete list of **SecretStore** fields and defaults can be found in the file [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/{{version}}/config/types.go). 
 The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.
 
 ### Notable Configuration Overrides
