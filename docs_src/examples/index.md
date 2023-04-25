@@ -1,6 +1,6 @@
 # EdgeX Examples
 
-In addition to the examples listed in this section of the documentation, you will find other examples in the [EdgeX Examples Repository](https://github.com/edgexfoundry/edgex-examples/tree/{{latest_released_version}}).
+In addition to the examples listed in this section of the documentation, you will find other examples in the [EdgeX Examples Repository](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}).
 
 The tabs below provide a listing (may be partial based on latest updates) for reference.
 
@@ -10,20 +10,20 @@ The tabs below provide a listing (may be partial based on latest updates) for re
 === "Deployment"
     |Example|Location|
     |---|---|
-    |Helm (Kubernetes)|[Github - examples, deployment](https://github.com/edgexfoundry/edgex-examples/tree/{{latest_released_version}}/deployment/helm)|
-    |Raspberry Pi 4|[Github - examples, raspberry-pi-4](https://github.com/edgexfoundry/edgex-examples/tree/{{latest_released_version}}/deployment/raspberry-pi-4)|
-    |Cloud deployments|[Github - examples, cloud deployment templates](https://github.com/edgexfoundry/edgex-examples/tree/{{latest_released_version}}/deployment/templates)|
+    |Helm (Kubernetes)|[Github - examples, deployment](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/deployment/helm)|
+    |Raspberry Pi 4|[Github - examples, raspberry-pi-4](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/deployment/raspberry-pi-4)|
+    |Cloud deployments|[Github - examples, cloud deployment templates](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/deployment/templates)|
 
 === "Device Services"
     |Example|Location|
     |---|---|
-    |Random Number Device Service (simulation)|[Github - examples, device-random](https://github.com/edgexfoundry/edgex-examples/tree/{{latest_released_version}}/device-services/device-random)|
-    |Grove Device Service in C|[Github - examples, device-grove-c](https://github.com/edgexfoundry/edgex-examples/tree/{{latest_released_version}}/device-services/grove-c) |
+    |Random Number Device Service (simulation)|[Github - examples, device-random](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/device-services/device-random)|
+    |Grove Device Service in C|[Github - examples, device-grove-c](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/device-services/grove-c) |
 
 === "Security"
     |Example|Location|
     |---|---|
-    |security-enabled EdgeX Remote Device Service|[Github - examples, security](https://github.com/edgexfoundry/edgex-examples/tree/{{latest_released_version}}/security/remote_devices/spiffe_and_ssh)|
+    |security-enabled EdgeX Remote Device Service|[Github - examples, security](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/security/remote_devices/spiffe_and_ssh)|
 
 
 

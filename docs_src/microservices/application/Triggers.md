@@ -296,7 +296,7 @@ appService.RegisterCustomTriggerFactory("custom-stdin", func(config appsdk.Trigg
 
 Now the custom trigger is configured to be used rather than one of the built-in triggers.
 
-A complete working example can be found [**here**](https://github.com/edgexfoundry/edgex-examples/tree/{{latest_released_version}}/application-services/custom/custom-trigger)
+A complete working example can be found [**here**](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/application-services/custom/custom-trigger)
 
 ## Publish Topic Placeholders
 
