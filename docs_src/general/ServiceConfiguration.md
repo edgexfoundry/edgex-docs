@@ -29,7 +29,7 @@ Please refer to the general [Common Configuration documentation](../microservice
     |Services Name|	Configuration Reference|
     |---|---|
     |device-service	|[General Device Service Configuration](../microservices/device/Ch-DeviceServices.md#configuration-properties)|
-    |device-virtual	|[Virtual Device Service Configuration](../microservices/device/virtual/Ch-VirtualDevice.md#configuration-properties)|
+    |device-virtual	|[Virtual Device Service Configuration](../microservices/device/supported/device-virtual/Ch-VirtualDevice.md#configuration-properties)|
 === "Security"
     |Services Name|	Configuration Reference|
     |---|---|

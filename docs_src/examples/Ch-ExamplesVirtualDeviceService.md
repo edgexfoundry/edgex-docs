@@ -18,7 +18,7 @@ to simulate virtual resources.
 
 ## Introduction
 
-For information on the virtual device service see [virtual device](../microservices/device/virtual/Ch-VirtualDevice.md#) under the Microservices tab.
+For information on the virtual device service see [virtual device](../microservices/device/supported/device-virtual/Ch-VirtualDevice.md#) under the Microservices tab.
 
 ## Working with the Virtual Device Service
 
