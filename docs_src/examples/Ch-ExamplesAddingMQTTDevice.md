@@ -44,10 +44,7 @@ deviceList:
     - "test"
   protocols:
     mqtt:
-       # Comment out/remove below to use multi-level topics
-       CommandTopic: "CommandTopic"
-       # Uncomment below to use multi-level topics
-       # CommandTopic: "command/my-custom-device"
+       CommandTopic: "command/my-custom-device"
   autoEvents:
    interval: "30s"
    onChange: false
@@ -158,60 +155,6 @@ Create a docker-compose file `docker-compose.override.yml` [to extend the compos
 !!! note
     Replace the `/path/to/custom-config` in the example with the correct path
 
-## Enabling Multi-Level Topics
-
-To use the optional setting for MQTT device services with multi-level
-topics, make the following changes in the device service configuration files:
-
-1. There are two ways to set the environment variables for multi-level topics. 
-
-    1. If the code is built with compose builder, modify the docker-compose.override.yml file:
-
-        ```yaml
-        # docker-compose.override.yml
-      
-        device-mqtt:
-          ... 
-          environment:
-            MQTTBROKERINFO_INCOMINGTOPIC: "incoming/data/#"
-            MQTTBROKERINFO_RESPONSETOPIC: "command/response/#"
-            MQTTBROKERINFO_USETOPICLEVELS: "true"
-            ...
-        ```
-
-    2. Otherwise if the device service is built locally, modify these lines in `configuration.yaml`:
-
-        ``` yaml
-        # Comment out/remove when using multi-level topics
-        #IncomingTopic: "DataTopic"
-        #ResponseTopic: "ResponseTopic"
-        #UseTopicLevels: false
-        
-        # Uncomment to use multi-level topics
-        IncomingTopic: "incoming/data/#"
-        ResponseTopic: "command/response/#"
-        UseTopicLevels: true
-        ```
-      
-        !!! note
-            If you have previously run Device MQTT locally, you will need to remove the services configuration from Consul. This can be done with: `curl --request DELETE http://localhost:8500/v1/kv/edgex/devices/2.0/device-mqtt?recurse=true`
-              
-
-2. In  `my.custom.device.config.yaml`:
-
-    ``` yaml
-    protocols:
-      mqtt:
-        # Comment out/remove below to use multi-level topics
-        # CommandTopic: "CommandTopic"
-        # Uncomment below to use multi-level topics
-        CommandTopic: "command/my-custom-device"
-    ```
-    
-    !!! note 
-        If you have run Device-MQTT before, you will need to delete the previously registered device(s) by replacing <device-name> in the command below: `curl --request DELETE http://localhost:59881/api/v2/device/name/<device-name>` where `<device-name>` can be found by running: `curl --request GET http://localhost:59881/api/v2/device/all | json_pp`
-
-
 
 ## Start EdgeX Foundry on Docker
 
@@ -233,12 +176,7 @@ Using the detailed script below as a simulator, there are three behaviors:
 
 1. Publish random number data every 15 seconds.
 
-    **Default (single-level) Topic:**
-    The simulator publishes the data to the MQTT broker with topic `DataTopic` and the message is similar to the following:
-    ```
-    {"name":"my-custom-device", "cmd":"randnum", "method":"get", "randnum":4161.3549}
-    ```
-   **Using Multi-level Topic:**
+    **Default (Multi-level) Topic:**
    The simulator publishes the data to the MQTT broker with topic `incoming/data/my-custom-device/randnum` and the message is similar to the following:
 
     ```
@@ -247,18 +185,7 @@ Using the detailed script below as a simulator, there are three behaviors:
 
 2. Receive the reading request, then return the response.
 
-    **Default (single-level) Topic:**
-    
-    1. The simulator receives the request from the MQTT broker, the topic is `CommandTopic` and the message is similar to the following:
-        ```   
-        {"cmd":"randnum", "method":"get", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f"}
-        ```
-    2. The simulator returns the response to the MQTT broker, the topic is `ResponseTopic` and the message is similar to the following:
-        ```   
-        {"cmd":"randnum", "method":"get", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f", "randnum":42.0}
-        ```
-
-    **Using Multi-level Topic:**
+    **Default (Multi-level) Topic:**
     
     1. The simulator receives the request from the MQTT broker, the topic is `command/my-custom-device/randnum/get/293d7a00-66e1-4374-ace0-07520103c95f` and message returned is similar to the following:
     
@@ -274,21 +201,7 @@ Using the detailed script below as a simulator, there are three behaviors:
     
 3. Receive the set request, then change the device value.
 
-    **Default (single-level) Topic:**
-    
-    1. The simulator receives the request from the MQTT broker, the topic is `CommandTopic` and the message is similar to the following:
-    
-        ```   
-        {"cmd":"message", "method":"set", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f", "message":"test message..."}
-        ```
-    
-    2. The simulator changes the device value and returns the response to the MQTT broker, the topic is `ResponseTopic` and the message is similar to the following:
-    
-        ```   
-        {"cmd":"message", "method":"set", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f"}
-        ```
-    
-    **Using Multi-level Topic:**
+    **Default (Multi-level) Topic:**
     
     1. The simulator receives the request from the MQTT broker, the topic is `command/my-custom-device/testmessage/set/293d7a00-66e1-4374-ace0-07520103c95f` and the message is similar to the following:
     
@@ -305,62 +218,7 @@ Using the detailed script below as a simulator, there are three behaviors:
 ### Creating and Running a MQTT Device Simulator
 To implement the simulated custom-defined MQTT device, create a javascript, named `mock-device.js`, with the following content:
 
-**Default (single-level) Topic:**
-
-``` javascript
-function getRandomFloat(min, max) {
-    return Math.random() * (max - min) + min;
-}
-
-const deviceName = "my-custom-device";
-let message = "test-message";
-let json = {"name" : "My JSON"};
-
-// DataSender sends async value to MQTT broker every 15 seconds
-schedule('*/15 * * * * *', ()=>{
-    let body = {
-        "name": deviceName,
-        "cmd": "randnum",
-        "randnum": getRandomFloat(25,29).toFixed(1)
-    };
-    publish( 'DataTopic', JSON.stringify(body));
-});
-
-// CommandHandler receives commands and sends response to MQTT broker
-// 1. Receive the reading request, then return the response
-// 2. Receive the set request, then change the device value
-subscribe( "CommandTopic" , (topic, val) => {
-    var data = val;
-    if (data.method == "set") {
-        switch(data.cmd) {
-            case "message":
-                message = data[data.cmd];
-              break;
-            case "json":
-                json = data[data.cmd];
-                break;
-        }
-    }else{
-        switch(data.cmd) {
-            case "ping":
-              data.ping = "pong";
-              break;
-            case "message":
-              data.message = message;
-              break;
-            case "randnum":
-                data.randnum = 12.123;
-                break;
-            case "json":
-                data.json = json;
-                break;
-          }
-    }
-    publish( "ResponseTopic", JSON.stringify(data));
-});
-```
-
-**Using Multi-level Topic:**
+**Default (Multi-level) Topic:**
 
 ``` javascript
 function getRandomFloat(min, max) {
