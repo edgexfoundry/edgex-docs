@@ -176,7 +176,7 @@ Using the detailed script below as a simulator, there are three behaviors:
 
 1. Publish random number data every 15 seconds.
 
-    **Default (Multi-level) Topic:**
+
    The simulator publishes the data to the MQTT broker with topic `incoming/data/my-custom-device/randnum` and the message is similar to the following:
 
     ```
@@ -185,7 +185,6 @@ Using the detailed script below as a simulator, there are three behaviors:
 
 2. Receive the reading request, then return the response.
 
-    **Default (Multi-level) Topic:**
     
     1. The simulator receives the request from the MQTT broker, the topic is `command/my-custom-device/randnum/get/293d7a00-66e1-4374-ace0-07520103c95f` and message returned is similar to the following:
     
@@ -201,7 +200,6 @@ Using the detailed script below as a simulator, there are three behaviors:
     
 3. Receive the set request, then change the device value.
 
-    **Default (Multi-level) Topic:**
     
     1. The simulator receives the request from the MQTT broker, the topic is `command/my-custom-device/testmessage/set/293d7a00-66e1-4374-ace0-07520103c95f` and the message is similar to the following:
     
@@ -218,7 +216,6 @@ Using the detailed script below as a simulator, there are three behaviors:
 ### Creating and Running a MQTT Device Simulator
 To implement the simulated custom-defined MQTT device, create a javascript, named `mock-device.js`, with the following content:
 
-**Default (Multi-level) Topic:**
 
 ``` javascript
 function getRandomFloat(min, max) {
