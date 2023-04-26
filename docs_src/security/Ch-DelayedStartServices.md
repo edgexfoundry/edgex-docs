@@ -20,6 +20,32 @@ in order to use delayed start services.
 
 ## How to Enable (Docker)
 
+### Enable Custom Application or Device Services (Optional)
+If using EdgeX with custom Application or Device services in Secure mode, first generate a docker-compose.yml file by running the following command from edgex-compose/compose-builder
+
+```shell
+$ make gen delayed-start
+```
+
+Open the generated docker-compose.yml file and set the SPIFFE_CUSTOM_SERVICES Environment variable. 
+
+```yaml
+  security-spire-config:
+    ...
+    environment:
+      ...
+      SPIFFE_CUSTOM_SERVICES: <custom-service> <custom-service-2>
+```
+
+Run the modified Docker Compose file
+
+```shell
+$ docker compose -p edgex up -d
+```
+
+Refer to the [configuration steps below](#configure-and-verify-services) to finish setting up any custom/non-core services.
+
+### Running in Delayed Start Mode
 Using the Docker run scripts, start the framework with the `delayed-start` option:
 
 ```shell
@@ -33,6 +59,7 @@ This will cause the following microservices to be started:
 * **edgex-security-spire-agent** - local node attestation agent
 * **edgex-security-spiffe-token-provider** - EdgeX microservice that exchanges a SPIFFE token for a secret store token
 
+### Configure and Verify Services
 Next, pass the following environment variables to any non-core EdgeX microservice
 that has SPIFFE/SPIRE support compiled-in:
 
