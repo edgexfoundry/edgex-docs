@@ -596,6 +596,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#developer-mode">
+    Developer Mode
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#help">
     Help
   </a>
@@ -1474,6 +1479,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#developer-mode">
+    Developer Mode
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#help">
     Help
   </a>
@@ -1537,10 +1547,21 @@
 <h2 id="overwrite">Overwrite</h2>
 <p><code>-o/--overwrite</code></p>
 <p>Overwrite configuration in provider with local configuration.</p>
-<div class="admonition cation">
+<div class="admonition caution">
 <p class="admonition-title">Use with cation</p>
 </div>
 <p>This will clobber existing settings in provider, problematic if those settings were edited by hand intentionally. Typically only used during development.</p>
+<h2 id="developer-mode">Developer Mode</h2>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>New in EdgeX 3.0</p>
+</div>
+<p><code>-d/--dev</code></p>
+<p>Indicates service should run in developer mode. The allows the service running from command-line to properly communicate with other EdgeX services running in Docker (aka hybrid mode). This flag cause all <code>Host</code> configuration values pulled from common configuration via the Configuration Provider to be overridden with the value "localhost". </p>
+<div class="admonition caution">
+<p class="admonition-title">Development Only</p>
+<p>This flag should only be used for development purposes when running from command-line.</p>
+</div>
 <h2 id="help">Help</h2>
 <p><code>-h/--help</code></p>
 <p>Show the help message</p>
