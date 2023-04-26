@@ -73,8 +73,20 @@ Can be overridden with [EDGEX_USE_REGISTRY](./CommonEnvironmentVariables.md#edge
 
 Overwrite configuration in provider with local configuration.
 
-!!! cation "Use with cation" 
+!!! caution "Use with cation" 
    This will clobber existing settings in provider, problematic if those settings were edited by hand intentionally. Typically only used during development.
+
+## Developer Mode
+
+!!! edgey "EdgeX 3.0"
+    New in EdgeX 3.0
+
+`-d/--dev`
+
+Indicates service should run in developer mode. The allows the service running from command-line to properly communicate with other EdgeX services running in Docker (aka hybrid mode). This flag cause all `Host` configuration values pulled from common configuration via the Configuration Provider to be overridden with the value "localhost". 
+
+!!! caution "Development Only"
+    This flag should only be used for development purposes when running from command-line.
 
 ## Help
 
