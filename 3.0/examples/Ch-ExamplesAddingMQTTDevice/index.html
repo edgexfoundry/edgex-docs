@@ -1194,11 +1194,6 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#enabling-multi-level-topics">
-    Enabling Multi-Level Topics
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#start-edgex-foundry-on-docker">
     Start EdgeX Foundry on Docker
   </a>
@@ -1557,11 +1552,6 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#enabling-multi-level-topics">
-    Enabling Multi-Level Topics
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#start-edgex-foundry-on-docker">
     Start EdgeX Foundry on Docker
   </a>
@@ -1682,10 +1672,7 @@ device-mqtt generates a relative instance on start-up.</p>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"test"</span>
 <span class="w">  </span><span class="nt">protocols</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">mqtt</span><span class="p">:</span>
-<span class="w">       </span><span class="c1"># Comment out/remove below to use multi-level topics</span>
-<span class="w">       </span><span class="nt">CommandTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"CommandTopic"</span>
-<span class="w">       </span><span class="c1"># Uncomment below to use multi-level topics</span>
-<span class="w">       </span><span class="c1"># CommandTopic: "command/my-custom-device"</span>
+<span class="w">       </span><span class="nt">CommandTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"command/my-custom-device"</span>
 <span class="w">  </span><span class="nt">autoEvents</span><span class="p">:</span>
 <span class="w">   </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="s">"30s"</span>
 <span class="w">   </span><span class="nt">onChange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
@@ -1784,60 +1771,6 @@ docker-compose.yml
 <p class="admonition-title">Note</p>
 <p>Replace the <code>/path/to/custom-config</code> in the example with the correct path</p>
 </div>
-<h2 id="enabling-multi-level-topics">Enabling Multi-Level Topics</h2>
-<p>To use the optional setting for MQTT device services with multi-level
-topics, make the following changes in the device service configuration files:</p>
-<ol>
-<li>
-<p>There are two ways to set the environment variables for multi-level topics. </p>
-<ol>
-<li>
-<p>If the code is built with compose builder, modify the docker-compose.override.yml file:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># docker-compose.override.yml</span>
-
-<span class="nt">device-mqtt</span><span class="p">:</span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"> </span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span>
-<span class="w">    </span><span class="nt">MQTTBROKERINFO_INCOMINGTOPIC</span><span class="p">:</span><span class="w"> </span><span class="s">"incoming/data/#"</span>
-<span class="w">    </span><span class="nt">MQTTBROKERINFO_RESPONSETOPIC</span><span class="p">:</span><span class="w"> </span><span class="s">"command/response/#"</span>
-<span class="w">    </span><span class="nt">MQTTBROKERINFO_USETOPICLEVELS</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
-</code></pre></div>
-</li>
-<li>
-<p>Otherwise if the device service is built locally, modify these lines in <code>configuration.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Comment out/remove when using multi-level topics</span>
-<span class="c1">#IncomingTopic: "DataTopic"</span>
-<span class="c1">#ResponseTopic: "ResponseTopic"</span>
-<span class="c1">#UseTopicLevels: false</span>
-
-<span class="c1"># Uncomment to use multi-level topics</span>
-<span class="nt">IncomingTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"incoming/data/#"</span>
-<span class="nt">ResponseTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"command/response/#"</span>
-<span class="nt">UseTopicLevels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you have previously run Device MQTT locally, you will need to remove the services configuration from Consul. This can be done with: <code>curl --request DELETE http://localhost:8500/v1/kv/edgex/devices/2.0/device-mqtt?recurse=true</code></p>
-</div>
-</li>
-</ol>
-</li>
-<li>
-<p>In  <code>my.custom.device.config.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">protocols</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">mqtt</span><span class="p">:</span>
-<span class="w">    </span><span class="c1"># Comment out/remove below to use multi-level topics</span>
-<span class="w">    </span><span class="c1"># CommandTopic: "CommandTopic"</span>
-<span class="w">    </span><span class="c1"># Uncomment below to use multi-level topics</span>
-<span class="w">    </span><span class="nt">CommandTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"command/my-custom-device"</span>
-</code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you have run Device-MQTT before, you will need to delete the previously registered device(s) by replacing <device-name> in the command below: <code>curl --request DELETE http://localhost:59881/api/v2/device/name/&lt;device-name&gt;</code> where <code>&lt;device-name&gt;</code> can be found by running: <code>curl --request GET http://localhost:59881/api/v2/device/all | json_pp</code></device-name></p>
-</div>
-</li>
-</ol>
 <h2 id="start-edgex-foundry-on-docker">Start EdgeX Foundry on Docker</h2>
 <p>Deploy EdgeX using the following commands:
 <div class="highlight"><pre><span></span><code>$ cd edgex-compose/compose-builder
@@ -1850,29 +1783,16 @@ $ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 <h3 id="expected-behaviors">Expected Behaviors</h3>
 <p>Using the detailed script below as a simulator, there are three behaviors:</p>
 <ol>
-<li>
-<p>Publish random number data every 15 seconds.</p>
-<p><strong>Default (single-level) Topic:</strong>
-The simulator publishes the data to the MQTT broker with topic <code>DataTopic</code> and the message is similar to the following:
-<div class="highlight"><pre><span></span><code>{"name":"my-custom-device", "cmd":"randnum", "method":"get", "randnum":4161.3549}
+<li>Publish random number data every 15 seconds.</li>
+</ol>
+<p>The simulator publishes the data to the MQTT broker with topic <code>incoming/data/my-custom-device/randnum</code> and the message is similar to the following:</p>
+<div class="codehilite"><pre><span></span><code>```
+{"randnum":4161.3549}
+```
 </code></pre></div>
-<strong>Using Multi-level Topic:</strong>
-   The simulator publishes the data to the MQTT broker with topic <code>incoming/data/my-custom-device/randnum</code> and the message is similar to the following:</p>
-<div class="highlight"><pre><span></span><code>{"randnum":4161.3549}
-</code></pre></div>
-</li>
+<ol>
 <li>
 <p>Receive the reading request, then return the response.</p>
-<p><strong>Default (single-level) Topic:</strong></p>
-<ol>
-<li>The simulator receives the request from the MQTT broker, the topic is <code>CommandTopic</code> and the message is similar to the following:
-    <div class="highlight"><pre><span></span><code>{"cmd":"randnum", "method":"get", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f"}
-</code></pre></div></li>
-<li>The simulator returns the response to the MQTT broker, the topic is <code>ResponseTopic</code> and the message is similar to the following:
-    <div class="highlight"><pre><span></span><code>{"cmd":"randnum", "method":"get", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f", "randnum":42.0}
-</code></pre></div></li>
-</ol>
-<p><strong>Using Multi-level Topic:</strong></p>
 <ol>
 <li>
 <p>The simulator receives the request from the MQTT broker, the topic is <code>command/my-custom-device/randnum/get/293d7a00-66e1-4374-ace0-07520103c95f</code> and message returned is similar to the following:</p>
@@ -1888,20 +1808,6 @@ The simulator publishes the data to the MQTT broker with topic <code>DataTopic</
 </li>
 <li>
 <p>Receive the set request, then change the device value.</p>
-<p><strong>Default (single-level) Topic:</strong></p>
-<ol>
-<li>
-<p>The simulator receives the request from the MQTT broker, the topic is <code>CommandTopic</code> and the message is similar to the following:</p>
-<div class="highlight"><pre><span></span><code>{"cmd":"message", "method":"set", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f", "message":"test message..."}
-</code></pre></div>
-</li>
-<li>
-<p>The simulator changes the device value and returns the response to the MQTT broker, the topic is <code>ResponseTopic</code> and the message is similar to the following:</p>
-<div class="highlight"><pre><span></span><code>{"cmd":"message", "method":"set", "uuid":"293d7a00-66e1-4374-ace0-07520103c95f"}
-</code></pre></div>
-</li>
-</ol>
-<p><strong>Using Multi-level Topic:</strong></p>
 <ol>
 <li>
 <p>The simulator receives the request from the MQTT broker, the topic is <code>command/my-custom-device/testmessage/set/293d7a00-66e1-4374-ace0-07520103c95f</code> and the message is similar to the following:</p>
@@ -1918,59 +1824,6 @@ The simulator publishes the data to the MQTT broker with topic <code>DataTopic</
 </ol>
 <h3 id="creating-and-running-a-mqtt-device-simulator">Creating and Running a MQTT Device Simulator</h3>
 <p>To implement the simulated custom-defined MQTT device, create a javascript, named <code>mock-device.js</code>, with the following content:</p>
-<p><strong>Default (single-level) Topic:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">getRandomFloat</span><span class="p">(</span><span class="nx">min</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="nx">max</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">min</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">min</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kd">const</span><span class="w"> </span><span class="nx">deviceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"my-custom-device"</span><span class="p">;</span>
-<span class="kd">let</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"test-message"</span><span class="p">;</span>
-<span class="kd">let</span><span class="w"> </span><span class="nx">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s2">"name"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">"My JSON"</span><span class="p">};</span>
-
-<span class="c1">// DataSender sends async value to MQTT broker every 15 seconds</span>
-<span class="nx">schedule</span><span class="p">(</span><span class="s1">'*/15 * * * * *'</span><span class="p">,</span><span class="w"> </span><span class="p">()=&gt;{</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="s2">"name"</span><span class="o">:</span><span class="w"> </span><span class="nx">deviceName</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">"cmd"</span><span class="o">:</span><span class="w"> </span><span class="s2">"randnum"</span><span class="p">,</span>
-<span class="w">        </span><span class="s2">"randnum"</span><span class="o">:</span><span class="w"> </span><span class="nx">getRandomFloat</span><span class="p">(</span><span class="mf">25</span><span class="p">,</span><span class="mf">29</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
-<span class="w">    </span><span class="p">};</span>
-<span class="w">    </span><span class="nx">publish</span><span class="p">(</span><span class="w"> </span><span class="s1">'DataTopic'</span><span class="p">,</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">body</span><span class="p">));</span>
-<span class="p">});</span>
-
-<span class="c1">// CommandHandler receives commands and sends response to MQTT broker</span>
-<span class="c1">// 1. Receive the reading request, then return the response</span>
-<span class="c1">// 2. Receive the set request, then change the device value</span>
-<span class="nx">subscribe</span><span class="p">(</span><span class="w"> </span><span class="s2">"CommandTopic"</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">topic</span><span class="p">,</span><span class="w"> </span><span class="nx">val</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">val</span><span class="p">;</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">method</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"set"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">switch</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">cmd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s2">"message"</span><span class="o">:</span>
-<span class="w">                </span><span class="nx">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">cmd</span><span class="p">];</span>
-<span class="w">              </span><span class="k">break</span><span class="p">;</span>
-<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s2">"json"</span><span class="o">:</span>
-<span class="w">                </span><span class="nx">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">cmd</span><span class="p">];</span>
-<span class="w">                </span><span class="k">break</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
-<span class="w">        </span><span class="k">switch</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">cmd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s2">"ping"</span><span class="o">:</span>
-<span class="w">              </span><span class="nx">data</span><span class="p">.</span><span class="nx">ping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"pong"</span><span class="p">;</span>
-<span class="w">              </span><span class="k">break</span><span class="p">;</span>
-<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s2">"message"</span><span class="o">:</span>
-<span class="w">              </span><span class="nx">data</span><span class="p">.</span><span class="nx">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">message</span><span class="p">;</span>
-<span class="w">              </span><span class="k">break</span><span class="p">;</span>
-<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s2">"randnum"</span><span class="o">:</span>
-<span class="w">                </span><span class="nx">data</span><span class="p">.</span><span class="nx">randnum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">12.123</span><span class="p">;</span>
-<span class="w">                </span><span class="k">break</span><span class="p">;</span>
-<span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="s2">"json"</span><span class="o">:</span>
-<span class="w">                </span><span class="nx">data</span><span class="p">.</span><span class="nx">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">json</span><span class="p">;</span>
-<span class="w">                </span><span class="k">break</span><span class="p">;</span>
-<span class="w">          </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="nx">publish</span><span class="p">(</span><span class="w"> </span><span class="s2">"ResponseTopic"</span><span class="p">,</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
-<span class="p">});</span>
-</code></pre></div>
-<p><strong>Using Multi-level Topic:</strong></p>
 <p><div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">getRandomFloat</span><span class="p">(</span><span class="nx">min</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="nx">max</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">min</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">min</span><span class="p">;</span>
 <span class="p">}</span>
