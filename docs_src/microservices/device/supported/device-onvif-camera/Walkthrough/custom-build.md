@@ -71,7 +71,7 @@ Configuring pre-defined devices will allow the service to automatically provisio
          mode = "usernametoken" # assign "digest" | "usernametoken" | "both" | "none"
 
       [Writable.InsecureSecrets.credentials002]
-      secretName = "credentials002"s
+      secretName = "credentials002"
          [Writable.InsecureSecrets.credentials002.SecretData]
          username = "<Credentials 1 password>"
          password = "<Credentials 2 password>"
