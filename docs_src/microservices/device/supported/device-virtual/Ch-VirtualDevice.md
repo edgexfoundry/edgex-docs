@@ -4,9 +4,9 @@
 
 ## Introduction
 
-The virtual device service simulates different kinds of [devices](../../../general/Definitions.md#device) to
-generate events and readings to the [core data](../../core/data/Ch-CoreData.md) micro service, and users
-send commands and get responses through the [command and control](../../core/command/Ch-Command.md) micro service. These features of the virtual device services are useful
+The virtual device service simulates different kinds of [devices](../../../../general/Definitions.md#device) to
+generate events and readings to the [core data](../../../core/data/Ch-CoreData.md) micro service, and users
+send commands and get responses through the [command and control](../../../core/command/Ch-Command.md) micro service. These features of the virtual device services are useful
 when executing functional or performance tests without having any real devices.
 
 The virtual device service, built in Go and based on the device service Go SDK, can simulate sensors by generating data of the following data types:
@@ -67,7 +67,7 @@ Use the following core command service APIs to execute commands against the virt
 
 ## Configuration Properties
 
-Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration properties common to all services.
+Please refer to the general [Common Configuration documentation](../../../configuration/CommonConfiguration.md) for configuration properties common to all services.
 
 For each device, the virual device service will contain a DeviceList with associated Protocols and AutoEvents as shown by the example below.
 === "DeviceList"   
