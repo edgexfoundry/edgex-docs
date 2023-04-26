@@ -27,14 +27,15 @@ If using EdgeX with custom Application or Device services in Secure mode, first 
 $ make gen delayed-start
 ```
 
-Open the generated docker-compose.yml file and set the SPIFFE_CUSTOM_SERVICES Environment variable. 
+Open the generated docker-compose.yml file and set the `EDGEX_SPIFFE_CUSTOM_SERVICES` Environment variable. 
+To set multiple custom services, use a white space delimiter. 
 
 ```yaml
   security-spire-config:
     ...
     environment:
       ...
-      SPIFFE_CUSTOM_SERVICES: <custom-service> <custom-service-2>
+      EDGEX_SPIFFE_CUSTOM_SERVICES: '<custom-service> <custom-service-2>'
 ```
 
 Run the modified Docker Compose file
