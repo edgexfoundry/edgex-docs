@@ -10,23 +10,38 @@ Follow this guide to deploy and run the service.
          ```bash
          cd edgex-compose/compose-builder/
          ```
+      2. Run Edgex with the ONVIF microservice in secure or non-secure mode.
 
-      2. Run EdgeX with the microservice in non-secure mode:
+        ##### Non-secure mode
 
-         ```bash
-         make run no-secty ds-onvif-camera
-         ```
-      
-      3. Run EdgeX with the microservice in secure mode:
+        ```bash
+        make run no-secty ds-onvif-camera
+        ```
+    
+        ##### Secure mode 
 
-          <div class="admonition note">
+         <div class="admonition note">
              <p class="admonition-title">Note</p>
-             <p>Recommended for secure and production level deployments</p>
+             <p>Recommended for secure and production level deployments. Make a note of Consul ACL token and JWT token generated
+                which are needed to map credentials and execute apis.
+             </p>
           </div>
 
          ```bash
          make run ds-onvif-camera
+         make get-consul-acl-token
+         make get-token
          ```
+
+        <div class="admonition note">
+             <p class="admonition-title">Note</p>
+             <p>Secrets such as passwords, certificates, tokens and more in Edgex are stored in a secret store which is implemented using Vault by Hashicorp.
+                Vault supports security features by issuing of consul tokens. JWT token is required for the API Gateway which is a trust boundry for Edgex services. 
+                It allows for external clients to be verified when issuing REST requests to the microservices. 
+                For more info refer [Secure Consul](../../../../../security/Ch-Secure-Consul.md), [API Gateway](../../../../../security/Ch-APIGateway.md) 
+                and [Edgex Security](../../../../../security/Ch-Security.md).
+            </p>
+          </div>
 
 === "Native"
 
@@ -87,13 +102,24 @@ Follow this guide to deploy and run the service.
 
       2. Check whether the device service is added to EdgeX:
 
+         <div class="admonition note">
+             <p class="admonition-title">Note</p>
+             <p>If running in secure mode all the api executions need jwt token generated previously. E.g.
+                ```bash
+                curl --location --request GET 'http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera' \
+                --header 'Authorization: Bearer eyJhbGciOiJFUzM4NCIsImtpZCI6ImIzNTY3ZmJjLTlhZTctMjkyNy0xY2IxLWE2NzAzZGQwMWM1ZCJ9.eyJhdWQiOiJlZGdleCIsImV4cCI6MTY4MjcyNDExMCwiaWF0IjoxNjgyNzIwNTEwLCJpc3MiOiIvdjEvaWRlbnRpdHkvb2lkYyIsIm5hbWUiOiJlZGdleHVzZXIiLCJuYW1lc3BhY2UiOiJyb290Iiwic3ViIjoiMTA2NzczMDItMmY0Yi00MjE4LTFhZmUtNzZlOTYwMGJiMmQ5In0.NP0deI0HyQMvdsFwk85N5RwNpgh5lUa507z9Ft2CDT9OEeR8iYOLYmwRLZim3j_BoVSdWxiJf3tmnWo64-mffHoktbFSRooQveakAeoFYuvCXu7tO1-b-QGzzzyWfSjc' \
+                --data-raw ''
+                ```
+            </p>
+          </div>
+
          ```bash
-         curl -s http://localhost:59881/api/v2/deviceservice/name/device-onvif-camera | jq .
+         curl -s http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera | jq .
          ```
          Good response:
          ```json
             {
-               "apiVersion": "v2",
+               "apiVersion": "v3",
                "statusCode": 200,
                "service": {
                   "created": 1657227634593,
@@ -108,7 +134,7 @@ Follow this guide to deploy and run the service.
          Bad response:
          ```json
          {
-            "apiVersion": "v2",
+            "apiVersion": "v3",
             "message": "fail to query device service by name device-onvif-camer",
             "statusCode": 404
          }
@@ -118,7 +144,7 @@ Follow this guide to deploy and run the service.
       3. Check whether the device profile is added:
 
          ```bash
-         curl -s http://localhost:59881/api/v2/deviceprofile/name/onvif-camera | jq -r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)'
+         curl -s http://localhost:59881/api/v3/deviceprofile/name/onvif-camera | jq -r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)'
 
          ```
          Good response:
@@ -140,6 +166,11 @@ Follow this guide to deploy and run the service.
             
 
 === "via EdgeX UI"
+
+    <div class="admonition note">
+    <p class="admonition-title">Note</p>
+    <p>Secure mode login to Edgex UI requires JWT token generated in the above step</p>
+    </div>
 
       1. Visit http://localhost:4000 to go to the dashboard for EdgeX Console GUI:
 
@@ -172,19 +203,19 @@ Follow these instructions to update devices.
 
 #### Add Device
 
-      <div class='admonition warning'>
-         <p class='admonition-title'>Warning</p>
-         <p>Be careful when storing any potentially important information, including the ip and mac address of your ONVIF camera.</p>
-      </div>
+  <div class='admonition warning'>
+     <p class='admonition-title'>Warning</p>
+     <p>Be careful when storing any potentially important information, including the ip and mac address of your ONVIF camera.</p>
+  </div>
 
 1. Edit the information to appropriately match the camera. The fields `Address`, `MACAddress` and `Port` should match that of the camera:
 
       ```bash
       curl -X POST -H 'Content-Type: application/json'  \
-      http://localhost:59881/api/v2/device \
+      http://localhost:59881/api/v3/device \
       -d '[
                {
-                  "apiVersion": "v2",
+                  "apiVersion": "v3",
                   "device": {
                      "name":"Camera001",
                      "serviceName": "device-onvif-camera",
@@ -210,11 +241,12 @@ Follow these instructions to update devices.
 
       Example Output: 
       ```bash
-      [{"apiVersion":"v2","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
+      [{"apiVersion":"v3","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
       ```
-
+!!! Note
+        If running EdgeX in Secure Mode, you will need Consul ACL and JWT token generated previously for mapping credentials.
 2. Map credentials using the `map-credentials.sh` script.  
-      a. Run `bin/map-credentials.sh`    
+      a. Run `bin/map-credentials.sh`
       b. Select `(Create New)`
             ![](../images/creds-pick.png)  
       c. Enter the Secret Name to associate with these credentials  
@@ -279,7 +311,7 @@ Follow these instructions to update devices.
 1. Verify device(s) have been succesfully added to core-metadata.
 
       ```bash
-      curl -s http://localhost:59881/api/v2/device/all | jq -r '"deviceName: " + '.devices[].name''
+      curl -s http://localhost:59881/api/v3/device/all | jq -r '"deviceName: " + '.devices[].name''
       ```
 
       Example Output: 
@@ -301,7 +333,7 @@ Follow these instructions to update devices.
 
    ```bash
    curl -X 'DELETE' \
-   'http://localhost:59881/api/v2/device/name/<device name>' \
+   'http://localhost:59881/api/v3/device/name/<device name>' \
    -H 'accept: application/json' 
    ```
 
