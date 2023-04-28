@@ -1,7 +1,7 @@
 # Utility Scripts
 
-> **NOTE:** If running EdgeX in Secure Mode, you will need a **[Consul ACL Token](https://docs.edgexfoundry.org/2.1/security/Ch-Secure-Consul/#how-to-get-consul-acl-token)**
-> in order to use these scripts.
+!!! Note
+      If running EdgeX in Secure Mode, you will need a [Consul ACL Token](https://docs.edgexfoundry.org/2.1/security/Ch-Secure-Consul/#how-to-get-consul-acl-token) in order to use these scripts.
 
 ## Use Cases
 ### Create new credentials and assign MAC Addresses
@@ -20,9 +20,8 @@
    ![](../images/creds-mac.png)
 
 ### Assign MAC Addresses to existing credentials
-> **Note:** Currently EdgeX is unable to provide a way to query the names of existing secrets from the secret store, so this method
-> only works with credentials which have a key in the CredentialsMap. If the credentials were added via these
-> utility scripts, a placeholder key was added for you to the CredentialsMap.
+!!! Note
+      Currently EdgeX is unable to provide a way to query the names of existing secrets from the secret store, so this method only works with credentials which have a key in the CredentialsMap. If the credentials were added via these utility scripts, a placeholder key was added for you to the CredentialsMap.
 
 1. Run `bin/map-credentials.sh`
 2. Select the name of the existing credentials you want to assign devices to
@@ -33,9 +32,10 @@
 ### Modify existing credentials
 1. Run `bin/edit-credentials.sh`
 2. Select the name of the existing credentials you want to modify
-    > **NOTE:** This will modify the username/password for ALL devices using these credentials. Proceed with caution!
+!!! Note
+         This will modify the username/password for ALL devices using these credentials. Proceed with caution!
 
-    ![](../images/creds-pick-existing.png)
+   ![](../images/creds-pick-existing.png)
 
 3. Enter the new username
    ![](../images/creds-edit-user.png)
