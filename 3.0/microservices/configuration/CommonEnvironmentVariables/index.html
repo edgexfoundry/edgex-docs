@@ -10,7 +10,7 @@
 <link href="https://docs.edgexfoundry.org/3.0/microservices/configuration/CommonEnvironmentVariables/" rel="canonical"/>
 <link href="../../../assets/logo_edgex.png" rel="icon"/>
 <meta content="mkdocs-1.4.2, mkdocs-material-8.5.8" name="generator"/>
-<title>Common Environment Variables - EdgeX Foundry Documentation</title>
+<title>Environment Variables - EdgeX Foundry Documentation</title>
 <link href="../../../assets/stylesheets/main.20d9efc8.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.815d1a91.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -29,7 +29,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#common-environment-variables">
+<a class="md-skip" href="#environment-variables">
           Skip to content
         </a>
 </div>
@@ -53,7 +53,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Common Environment Variables
+              Environment Variables
             
           </span>
 </div>
@@ -542,22 +542,22 @@
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="../CommonConfiguration/">
-        Common Configuration
+        Service Configuration
       </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../CommonCommandLineOptions/">
-        Common Command Line Options
+        Command Line Options
       </a>
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
-          Common Environment Variables
+          Environment Variables
           <span class="md-nav__icon md-icon"></span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./">
-        Common Environment Variables
+        Environment Variables
       </a>
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">
@@ -595,11 +595,39 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#environment-overrides">
-    Environment Overrides
+<a class="md-nav__link" href="#notable-other-standard-environment-variables">
+    Notable Other Standard Environment Variables
   </a>
-<nav aria-label="Environment Overrides" class="md-nav">
+<nav aria-label="Notable Other Standard Environment Variables" class="md-nav">
 <ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex_add_secretstore_tokens">
+    EDGEX_ADD_SECRETSTORE_TOKENS
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex_add_known_secrets">
+    EDGEX_ADD_KNOWN_SECRETS
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex_add_registry_acl_roles">
+    EDGEX_ADD_REGISTRY_ACL_ROLES
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex_add_proxy_route">
+    EDGEX_ADD_PROXY_ROUTE
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex_ikm_hook">
+    EDGEX_IKM_HOOK
+  </a>
+</li>
+</ul>
+</nav>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#command-line-overrides">
     Command-line Overrides
@@ -643,10 +671,16 @@
 <a class="md-nav__link" href="#configuration-overrides">
     Configuration Overrides
   </a>
+<nav aria-label="Configuration Overrides" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#service-configuration-overrides">
+    Service Configuration Overrides
+  </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#secretstore-overrides">
-    SecretStore Overrides
+<a class="md-nav__link" href="#secretstore-configuration-overrides">
+    SecretStore Configuration Overrides
   </a>
 </li>
 <li class="md-nav__item">
@@ -1529,11 +1563,39 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#environment-overrides">
-    Environment Overrides
+<a class="md-nav__link" href="#notable-other-standard-environment-variables">
+    Notable Other Standard Environment Variables
   </a>
-<nav aria-label="Environment Overrides" class="md-nav">
+<nav aria-label="Notable Other Standard Environment Variables" class="md-nav">
 <ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex_add_secretstore_tokens">
+    EDGEX_ADD_SECRETSTORE_TOKENS
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex_add_known_secrets">
+    EDGEX_ADD_KNOWN_SECRETS
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex_add_registry_acl_roles">
+    EDGEX_ADD_REGISTRY_ACL_ROLES
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex_add_proxy_route">
+    EDGEX_ADD_PROXY_ROUTE
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex_ikm_hook">
+    EDGEX_IKM_HOOK
+  </a>
+</li>
+</ul>
+</nav>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#command-line-overrides">
     Command-line Overrides
@@ -1577,10 +1639,16 @@
 <a class="md-nav__link" href="#configuration-overrides">
     Configuration Overrides
   </a>
+<nav aria-label="Configuration Overrides" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#service-configuration-overrides">
+    Service Configuration Overrides
+  </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#secretstore-overrides">
-    SecretStore Overrides
+<a class="md-nav__link" href="#secretstore-configuration-overrides">
+    SecretStore Configuration Overrides
   </a>
 </li>
 <li class="md-nav__item">
@@ -1610,19 +1678,23 @@
 <a class="md-content__button md-icon" href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/microservices/configuration/CommonEnvironmentVariables.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
 </a>
-<h1 id="common-environment-variables">Common Environment Variables</h1>
-<p>There are two types of environment variables used by all EdgeX services. They are <code>standard</code> and <code>overrides</code>. The only difference is that the <code>overrides</code> apply to command-line options and service configuration settings where as <code>standard</code> do not have any corresponding command-line option or configuration setting.</p>
+<h1 id="environment-variables">Environment Variables</h1>
+<p>There are three types of environment variables used by all EdgeX services. They are <em>standard</em>, <em>command-line overrides</em>,  and <em>configuration overrides</em>. </p>
 <h2 id="standard-environment-variables">Standard Environment Variables</h2>
-<p>This section describes the <code>standard</code> environment variables common to all EdgeX services. Some service may have additional  <code>standard</code> environment variables which are documented in those service specific sections.</p>
-<h4 id="edgex_security_secret_store">EDGEX_SECURITY_SECRET_STORE</h4>
-<p>This environment variables indicates whether the service is expected to initialize the secure SecretStore which allows the service to access secrets from Vault. Defaults to <code>true</code> if not set or not set to <code>false</code>. When set to <code>true</code> the EdgeX security services must be running. If running EdgeX in <code>non-secure</code> mode you then want this explicitly set to <code>false</code>.</p>
+<p>This section describes the <em>standard</em> environment variables common to all EdgeX services. Standard environment variables do not override any command line flag or service configuration. Some services may have additional  <em>standard</em> environment variables which are documented in those service specific sections. See <a href="#notable-other-standard-environment-variables">Notable Other Standard Environment Variables</a> below for list of these additional standard environment variables.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All <em>standard</em> environment variables have the <code>EDGEX_</code> prefix</p>
+</div>
+<h3 id="edgex_security_secret_store">EDGEX_SECURITY_SECRET_STORE</h3>
+<p>This environment variable indicates whether the service is expected to initialize the secure SecretStore which allows the service to access secrets from Vault. Defaults to <code>true</code> if not set or not set to <code>false</code>. When set to <code>true</code> the EdgeX security services must be running. If running EdgeX in <code>non-secure</code> mode you then want this explicitly set to <code>false</code>.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to disable secure SecretStore</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
 <span class="w">  </span><span class="nt">EDGEX_SECURITY_SECRET_STORE</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
 </code></pre></div>
 </div>
-<h4 id="edgex_disable_jwt_validation">EDGEX_DISABLE_JWT_VALIDATION</h4>
+<h3 id="edgex_disable_jwt_validation">EDGEX_DISABLE_JWT_VALIDATION</h3>
 <p>This environment variable disables, at the microservice-level, validation of the <code>Authorization</code> HTTP header of inbound REST API requests.
 (Microservice-level authentication was added in EdgeX 3.0.)</p>
 <p>Normally, when <code>EDGEX_SECURITY_SECRET_STORE</code> is unset or <code>true</code>,
@@ -1642,7 +1714,7 @@ it may be necessary to disable JWT validation in the receiving microservice.</p>
 <p>Regardless of the setting of this variable, the API gateway
 (and related security-proxy-auth microservice)
 will always validate the incoming JWT.</p>
-<h4 id="edgex_startup_duration">EDGEX_STARTUP_DURATION</h4>
+<h3 id="edgex_startup_duration">EDGEX_STARTUP_DURATION</h3>
 <p>This environment variable sets the total duration in seconds allowed for the services to complete the bootstrap start-up. Default is 60 seconds.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to set start-up duration to 120 seconds</p>
@@ -1650,7 +1722,7 @@ will always validate the incoming JWT.</p>
 <span class="w">  </span><span class="nt">EDGEX_STARTUP_DURATION</span><span class="p">:</span><span class="w"> </span><span class="s">"120"</span>
 </code></pre></div>
 </div>
-<h4 id="edgex_startup_interval">EDGEX_STARTUP_INTERVAL</h4>
+<h3 id="edgex_startup_interval">EDGEX_STARTUP_INTERVAL</h3>
 <p>This environment variable sets the retry interval in seconds for the services retrying a failed action during the bootstrap start-up. Default is 1 second.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to set start-up interval to 3 seconds</p>
@@ -1658,19 +1730,31 @@ will always validate the incoming JWT.</p>
 <span class="w">  </span><span class="nt">EDGEX_STARTUP_INTERVAL</span><span class="p">:</span><span class="w"> </span><span class="s">"3"</span>
 </code></pre></div>
 </div>
-<h2 id="environment-overrides">Environment Overrides</h2>
-<p>There are two types of environment overrides which are <code>command-line</code> and <code>configuration</code>. </p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Environment variable overrides have precedence over all command-line, local configuration and remote configuration. i.e. configuration setting changed in Consul will be overridden after the service loads the configuration from Consul if that setting has an environment override.</p>
-</div>
-<h3 id="command-line-overrides">Command-line Overrides</h3>
-<h4 id="edgex_config_dir">EDGEX_CONFIG_DIR</h4>
-<p>This environment variable overrides the <a href="../CommonCommandLineOptions/#confdir"><code>-cd/--configDir</code> command-line option</a>. </p>
+<h2 id="notable-other-standard-environment-variables">Notable Other Standard Environment Variables</h2>
+<p>This section covers other standard environment variables that are not common to all services.</p>
+<h3 id="edgex_add_secretstore_tokens">EDGEX_ADD_SECRETSTORE_TOKENS</h3>
+<p>This environment variable tells the Secret Store Setup service which add-on services to generate SecretStore tokens for. 
+See <a href="../../../security/Ch-Configuring-Add-On-Services/#configure-the-services-secret-store-to-use">Configure Service's Secret Store</a> section for more details.</p>
+<h3 id="edgex_add_known_secrets">EDGEX_ADD_KNOWN_SECRETS</h3>
+<p>This environment variable tells the Secret Store Setup service which add-on services need which known secrets added to their Secret Stores. 
+See <a href="../../../security/Ch-Configuring-Add-On-Services/#optional-configure-known-secrets-for-add-on-services">Configure Known Secrets</a> section for more details.</p>
+<h3 id="edgex_add_registry_acl_roles">EDGEX_ADD_REGISTRY_ACL_ROLES</h3>
+<p>This environment variable tells the Consul service entry point script which add-on services need ACL roles created. 
+See <a href="../../../security/Ch-Configuring-Add-On-Services/#optional-configure-the-acl-role-of-configurationregistry-to-use-if-the-service-depends-on-it">Configure ACL Role</a> section for more details.</p>
+<h3 id="edgex_add_proxy_route">EDGEX_ADD_PROXY_ROUTE</h3>
+<p>This environment variable tells the Proxy Setup Service which additional routes need to be added for add-on services. 
+See <a href="../../../security/Ch-Configuring-Add-On-Services/#optional-configure-the-api-gateway-access-route-for-add-on-service">Configure API Gateway Route</a> section for more details.</p>
+<h3 id="edgex_ikm_hook">EDGEX_IKM_HOOK</h3>
+<p>This environment variable tells the Secret Store Setup service the path to an executable that implements the IKM interface. 
+See <a href="../../../threat-models/secret-store/vault_master_key_encryption/#ikm-hook">IKM HOOK</a> section for more details.</p>
+<h2 id="command-line-overrides">Command-line Overrides</h2>
+<p>This section describes the <em>command-line overrides</em> that are common to most services.  These overrides allow the use of the specific command-line flag to be overridden each time a service starts up.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>All EdgeX service Docker images have this option set to <code>/res</code>.</p>
+<p>All <em>command-line overrides</em> also have the <code>EDGEX_</code> prefix.</p>
 </div>
+<h4 id="edgex_config_dir">EDGEX_CONFIG_DIR</h4>
+<p>This environment variable overrides the <a href="../CommonCommandLineOptions/#confdir"><code>-cd/--configDir</code> command-line option</a>. </p>
 <div class="admonition example">
 <p class="admonition-title">Example - Using docker-compose to override the configuration folder name</p>
 <div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
@@ -1751,41 +1835,64 @@ $<span class="w"> </span>./core-data
 <span class="w">  </span><span class="nt">EDGEX_USE_REGISTRY</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
 </code></pre></div>
 </div>
-<h3 id="configuration-overrides">Configuration Overrides</h3>
+<h2 id="configuration-overrides">Configuration Overrides</h2>
+<div class="admonition edgex -">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>New in EdgeX 3.0. When used, the Configuration Provider is the <strong>System of Record</strong> for all configuration. The environment variables for configuration overrides no longer have the highest precedence. However, environment variables for standard and command-line overrides still maintain their role and higher precedence.</p>
+</div>
+<div class="admonition important -">
+<p class="admonition-title">Configuration Provider is the <strong>System of Record</strong> for all configurations</p>
+<p>When using the Configuration Provider,  it is the <strong>System of Record</strong> for all configurations. Environment variables are only applied when the configuration is first read from file. These overridden values are used to seed the services' configuration into the Configuration Provider. Once the Configuration Provider has been seeded, services always get their configuration from the Configuration Provider on start up. Any subsequent changes to configuration must be done via the Configuration Provider. Changing an environment variable override for configuration and restating the service will not impact the service's configuration. The services configuration must first be removed from the Configuration Provider for any new/updated environment variable override(s) to impact the service's configuration.</p>
+</div>
+<h3 id="service-configuration-overrides">Service Configuration Overrides</h3>
 <p>Any configuration setting from a service's <code>configuration.yaml</code> file can be overridden by environment variables. The environment variable names have the following format:</p>
 <div class="highlight"><pre><span></span><code>&lt;SECTION-NAME&gt;_&lt;KEY-NAME&gt;
 &lt;SECTION-NAME&gt;_&lt;SUB-SECTION-NAME&gt;_&lt;KEY-NAME&gt;
 </code></pre></div>
 <div class="admonition example">
-<p class="admonition-title">Example - Environment Overrides of Configuration</p>
-<div class="highlight"><pre><span></span><code><span class="nt">CONFIG  : Writable</span><span class="p">:</span><span class="w">    </span>
-<span class="w">           </span><span class="nt">LogLevel</span><span class="p">:</span><span class="w"> </span><span class="s">"INFO"</span><span class="w">    </span>
-<span class="nt">ENVVAR </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WRITABLE_LOGLEVEL=DEBUG</span><span class="w">    </span>
-
-<span class="nt">CONFIG : Clients</span><span class="p">:</span>
-<span class="w">           </span><span class="nt">core-data</span><span class="p">:</span>
-<span class="w">             </span><span class="nt">Host</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost"</span>
-<span class="nt">ENVVAR </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CLIENTS_CORE_DATA_HOST=edgex-core-data</span><span class="w">    </span>
-</code></pre></div>
+<p class="admonition-title">Example - Environment Variable Overrides of Configuration</p>
+<table>
+<thead>
+<tr>
+<th>Service configuration YAML</th>
+<th>Environment variable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Writable:<pre>  LogLevel: "INFO"</pre></td>
+<td>WRITABLE_LOGLEVEL=DEBUG</td>
+</tr>
+<tr>
+<td>Service:<pre>  Host: "localhost"</pre></td>
+<td>SERVICE_HOST=edgex-core-data</td>
+</tr>
+</tbody>
+</table>
 </div>
-<h3 id="secretstore-overrides">SecretStore Overrides</h3>
-<div class="admonition edgey">
-<p class="admonition-title">EdgeX 3.0</p>
-<p>For EdgeX 3.0 the <strong>SecretStore</strong> configuration has been removed from each service's configuration files. It now has default values which can be overridden with environment variables.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Private configuration overrides are only applied to configuration settings that exist in the service's private configuration file.</p>
 </div>
-<p>The environment variables overrides for <strong>SecretStore</strong> configuration remain the same as in 2.x releases. The following are SecretStore** fields that commonly need to be overridden.</p>
+<h3 id="secretstore-configuration-overrides">SecretStore Configuration Overrides</h3>
+<p>The environment variables overrides for <strong>SecretStore</strong> configuration follow the same rules as the regular configuration overrides. The following are the <strong>SecretStore</strong> fields that are commonly overridden.</p>
 <ul>
 <li>SECRETSTORE_HOST</li>
 <li>SECRETSTORE_RUNTIMETOKENPROVIDER_ENABLED</li>
 <li>SECRETSTORE_RUNTIMETOKENPROVIDER_HOST</li>
 </ul>
-<p>The  complete list of <strong>SecretStore</strong> fields and defaults can be found in the file <a href="https://github.com/edgexfoundry/go-mod-bootstrap/blob/main/config/types.go">here</a> (search for SecretStoreInfo). The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.</p>
+<div class="admonition example -">
+<p class="admonition-title">Example SecretStore Configuration Override</p>
+<p><pre><strong>Configuration Setting</strong>: SecretStore.Host
+<strong>Environment Variable Override</strong>: SECRETSTORE_HOST=edgex-vault</pre></p>
+</div>
+<p>The  complete list of <strong>SecretStore</strong> fields and defaults can be found in the file <a href="https://github.com/edgexfoundry/go-mod-bootstrap/blob/main/config/types.go">here</a>. 
+The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.</p>
 <h3 id="notable-configuration-overrides">Notable Configuration Overrides</h3>
-<p>This section describes environment variable overrides that have special utility,
-such as enabling a debug capability or facilitating code development.</p>
+<p>This section describes configuration overrides that have special utility, such as enabling a debug capability or facilitating code development.</p>
 <h4 id="tokenfileprovider_defaulttokenttl-security-secretstore-setup-service">TOKENFILEPROVIDER_DEFAULTTOKENTTL (security-secretstore-setup service)</h4>
-<p>This variable controls the TTL of the default secretstore tokens that are created for EdgeX microservices.
-This variable defaults to <code>1h</code> (one hour) if unspecified.
+<p>This configuration override variable controls the TTL of the default SecretStore tokens that are created for EdgeX microservices by the 
+Secret Store Setup service. This variable defaults to <code>1h</code> (one hour) if unspecified.
 It is often useful when developing a new microservice to set this value to a higher value, such as <code>12h</code>.
 This higher value will allow the secret store token to remain valid long enough
 for a developer to get a new microservice working and into a state where it can renew its own token.
@@ -1796,7 +1903,7 @@ for a developer to get a new microservice working and into a state where it can 
 </main>
 <footer class="md-footer">
 <nav aria-label="Footer" class="md-footer__inner md-grid">
-<a aria-label="Previous: Common Command Line Options" class="md-footer__link md-footer__link--prev" href="../CommonCommandLineOptions/" rel="prev">
+<a aria-label="Previous: Command Line Options" class="md-footer__link md-footer__link--prev" href="../CommonCommandLineOptions/" rel="prev">
 <div class="md-footer__button md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
 </div>
@@ -1805,7 +1912,7 @@ for a developer to get a new microservice working and into a state where it can 
 <span class="md-footer__direction">
                 Previous
               </span>
-              Common Command Line Options
+              Command Line Options
             </div>
 </div>
 </a>

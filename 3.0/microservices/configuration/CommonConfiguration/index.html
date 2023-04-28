@@ -10,7 +10,7 @@
 <link href="https://docs.edgexfoundry.org/3.0/microservices/configuration/CommonConfiguration/" rel="canonical"/>
 <link href="../../../assets/logo_edgex.png" rel="icon"/>
 <meta content="mkdocs-1.4.2, mkdocs-material-8.5.8" name="generator"/>
-<title>Common Configuration - EdgeX Foundry Documentation</title>
+<title>Service Configuration - EdgeX Foundry Documentation</title>
 <link href="../../../assets/stylesheets/main.20d9efc8.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.815d1a91.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -29,7 +29,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#common-configuration">
+<a class="md-skip" href="#service-configuration">
           Skip to content
         </a>
 </div>
@@ -53,7 +53,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Common Configuration
+              Service Configuration
             
           </span>
 </div>
@@ -543,11 +543,11 @@
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
-          Common Configuration
+          Service Configuration
           <span class="md-nav__icon md-icon"></span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./">
-        Common Configuration
+        Service Configuration
       </a>
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">
@@ -556,8 +556,22 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#configuration-properties">
-    Configuration Properties
+<a class="md-nav__link" href="#common-configuration">
+    Common Configuration
+  </a>
+<nav aria-label="Common Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-configuration-properties">
+    Common Configuration Properties
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#private-configuration">
+    Private Configuration
   </a>
 </li>
 <li class="md-nav__item">
@@ -570,12 +584,12 @@
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../CommonCommandLineOptions/">
-        Common Command Line Options
+        Command Line Options
       </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../CommonEnvironmentVariables/">
-        Common Environment Variables
+        Environment Variables
       </a>
 </li>
 <li class="md-nav__item">
@@ -1409,8 +1423,22 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#configuration-properties">
-    Configuration Properties
+<a class="md-nav__link" href="#common-configuration">
+    Common Configuration
+  </a>
+<nav aria-label="Common Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-configuration-properties">
+    Common Configuration Properties
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#private-configuration">
+    Private Configuration
   </a>
 </li>
 <li class="md-nav__item">
@@ -1428,14 +1456,24 @@
 <a class="md-content__button md-icon" href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/microservices/configuration/CommonConfiguration.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
 </a>
-<h1 id="common-configuration">Common Configuration</h1>
-<p>The tables in each of the tabs below document configuration properties that are common to all services in the EdgeX Foundry platform. 
-Service specific properties can be found on the respective documentation page for each service.</p>
+<h1 id="service-configuration">Service Configuration</h1>
+<p>The configuration for EdgeX services is broken into multiple layers. The layers are as follows:</p>
+<ol>
+<li>Common configuration for all services</li>
+<li>Common configuration for Application or Device Services. </li>
+<li>Private configuration for each service </li>
+</ol>
+<p>Subsequent layers have higher precedence. As a result, the configuration values set in subsequent layers override those of underlying layers.</p>
 <div class="admonition edgey -">
 <p class="admonition-title">EdgeX 3.0</p>
-<p>New in Edgex 3.0 the common configuration is now in a single location. The source file is loaded into the common section in the Configuration Provider. In prior releases the common configuration was duplicated in each service's configuration and in each service's section in the Configuration Provider.</p>
+<p>This layered configuration is new in EdgeX 3.0</p>
 </div>
-<p>The common configuration is managed by the <strong>core-common-config-bootstrapper</strong> service, which is divided into 3 sections:</p>
+<h2 id="common-configuration">Common Configuration</h2>
+<div class="admonition edgey -">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>Common configuration is new in Edgex 3.0 </p>
+</div>
+<p>The common configuration is divided into 3 sections:</p>
 <ul>
 <li>
 <p><strong>All Services</strong>- Configuration that is common to all EdgeX Services See below for details.</p>
@@ -1445,10 +1483,16 @@ Service specific properties can be found on the respective documentation page fo
 </li>
 <li><strong>Device Services</strong>- Configuration that is common to just devices services. See <a href="../../device/Ch-DeviceServices/#configuration-properties">Device Service Configuration</a> section for more details.</li>
 </ul>
-<h2 id="configuration-properties">Configuration Properties</h2>
+<p>When the Configuration Provider is used, the common configuration is seeded by the <strong>core-common-config-bootstrapper</strong> service, otherwise the common configuration comes from a file specified by the <a href="../CommonCommandLineOptions/#common-config"><code>-cc/--commonConfig</code> command-line option</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Common environment variable overrides set on the <strong>core-common-config-bootstrapper</strong> service are applied to the common configuration prior to seeding the values into the Configuration Provider. See <a href="../CommonEnvironmentVariables/#common-configuration-overrides">Common Configuration Overrides</a> section for more details.</p>
+</div>
+<h3 id="common-configuration-properties">Common Configuration Properties</h3>
+<p>The tables in each of the tabs below document configuration properties that are common to all services in the EdgeX Foundry platform. </p>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 3.0</p>
-<p>For EdgeX 3.0 the <strong>SecretStore</strong> configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the <a href="../CommonEnvironmentVariables/#secretstore-overrides">SecretStore Overrides</a> section for more details.</p>
+<p>For EdgeX 3.0 the <strong>SecretStore</strong> configuration has been removed from each service's configuration files. It now has default values which can be overridden with environment variables. See the <a href="../CommonEnvironmentVariables/#secretstore-configuration-overrides">SecretStore Overrides</a> section for more details.</p>
 </div>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 3.0</p>
@@ -1485,7 +1529,7 @@ Service specific properties can be found on the respective documentation page fo
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>LogLevel is included here for documentation purposes since all services have this setting. Since it should always be set at an individual service level it is not included in the new common configuration file and is present in all the individual service configuration files.</p>
+<p>LogLevel is included here for documentation purposes since all services have this setting. Since it should always be set at an individual service level it is not included in the new common configuration file and is present in all the individual service private configuration.</p>
 </div>
 </div>
 <div class="tabbed-block">
@@ -1871,19 +1915,20 @@ Service specific properties can be found on the respective documentation page fo
 </div>
 </div>
 </input></input></input></input></input></input></input></input></div>
-<h2 id="writable-vs-readable-settings">Writable vs Readable Settings</h2>
-<p>Within the three sections of common configuration and a each service's private configuration, there are settings whose values can be edited via the Configuration Provider and change the behavior of the service while it is running.  These writable settings are grouped under <code>Writable</code> in each section. For example, the Writable for common configuration and Core Data are:</p>
-<ul>
-<li>/edgex/v3/core-common-config-bootstrapper/all-services/Writable</li>
-<li>/edgex/v3/core-common-config-bootstrapper/app-services/Writable</li>
-<li>/edgex/v3/core-common-config-bootstrapper/device-services/Writable</li>
-<li>/edgex/v3/core-data/Writable</li>
-</ul>
-<p>Any configuration settings found in a common or service's <code>Writable</code> section may be changed and affect a service's behavior without a restart. Any
-modifications to the other settings (read-only configuration) require a restart.</p>
+<h2 id="private-configuration">Private Configuration</h2>
+<p>Each EdgeX service has a private configuration with values specific to that service. Some of these values may override values found in the common configuration layers described above. This private configuration is initially found in the service's <code>configuration.yaml</code> file. </p>
+<p>When the Configuration Provider is used, the EdgeX services will self-seed their private configuration, with environment variable overrides applied, into the Configuration Provider on first start-up. On restarts, the services will pull their private configuration from the Configuration Provider and apply it over the common configuration previously loaded from the Configuration Provider.</p>
+<p>When the Configuration Provider is not used the service's private configuration will be applied over the common configuration loaded via the <a href="../CommonCommandLineOptions/#common-config"><code>-cc/--commonConfig</code> command-line option</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Run time changes to a common Writable setting will be ignored for services which have that setting overridden in the service's private configuration. This is to avoid changing values that have been explicitly overridden in a service's private configuration. If the service's Writable setting needs to be changed,  it can be done directly in the service's private Writable section from the Configuration Provider.</p>
+<p>The <code>-cc/--commonConfig</code> option is not required when the Configuration Provider is not used.  If it is not provided, the service's private configuration must be complete for its needs.  A complete configuration will have the private configuration settings as well as the necessary common configuration settings. Some of the Security services that do not use the Configuration Provider operate in this manner since they do not have common configuration like other EdgeX services.</p>
+</div>
+<p>The service specific private values and additional settings can be found on the respective documentation page for each service <a href="http://localhost:8008/3.0/microservices/general/">here</a>.</p>
+<h2 id="writable-vs-readable-settings">Writable vs Readable Settings</h2>
+<p>Within each configuration layer, there are settings whose values can be edited via the Configuration Provider and change the behavior of the service while it is running.  These writable settings are grouped under <code>Writable</code> in each layer. Any configuration settings found in a common or private <code>Writable</code> section may be changed and affect a service's behavior without a restart. Any modifications to the other settings (read-only configuration) require a restart of the service(s).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Runtime changes to a common Writable setting will be ignored by services which have that setting overridden in a subsequent layer, i.e. app/device or private. This is to avoid changing values that have been explicitly overridden in a lower layer Writable section by changing the same setting in a higher layer Writable section. The setting value should be changed at the lowest layer in which it exists for a service.</p>
 </div>
 </article>
 </div>
@@ -1904,13 +1949,13 @@ modifications to the other settings (read-only configuration) require a restart.
             </div>
 </div>
 </a>
-<a aria-label="Next: Common Command Line Options" class="md-footer__link md-footer__link--next" href="../CommonCommandLineOptions/" rel="next">
+<a aria-label="Next: Command Line Options" class="md-footer__link md-footer__link--next" href="../CommonCommandLineOptions/" rel="next">
 <div class="md-footer__title">
 <div class="md-ellipsis">
 <span class="md-footer__direction">
                 Next
               </span>
-              Common Command Line Options
+              Command Line Options
             </div>
 </div>
 <div class="md-footer__button md-icon">
