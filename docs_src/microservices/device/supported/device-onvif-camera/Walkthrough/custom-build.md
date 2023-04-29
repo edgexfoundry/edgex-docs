@@ -31,7 +31,7 @@ Configuring pre-defined devices will allow the service to automatically provisio
 
       <div class='admonition warning'>
          <p class='admonition-title'>Warning</p>
-         <p>Be careful when storing any potentially important information, including the ip address of your ONVIF camera.</p>
+         <p>Be careful when storing any potentially important information in cleartext on files in your computer. Potentially sensitive information in this case could include the IP address of your ONVIF camera or any custom metadata you configure.</p>
       </div>
 
 
@@ -69,7 +69,7 @@ Configuring pre-defined devices will allow the service to automatically provisio
 
       <div class='admonition warning'>
          <p class='admonition-title'>Warning</p>
-         <p>Be careful when storing any potentially important information. These credentials are stored in plaintext in the `configuration.yaml` file on your system.</p>
+         <p>Be careful when storing any potentially important information in cleartext on files in your computer. In this case, the credentials for the camera(s) are stored in cleartext in the `configuration.yaml` file on your system. </p>
       </div>
 
       ```yaml

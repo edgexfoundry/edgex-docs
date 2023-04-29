@@ -22,7 +22,7 @@ Follow this guide to deploy and run the service.
 
          <div class="admonition note">
              <p class="admonition-title">Note</p>
-             <p>Recommended for secure and production level deployments. Make a note of Consul ACL token and JWT token generated
+             <p>Recommended for secure and production level deployments. Make a note of the Consul ACL token and JWT token generated
                 which are needed to map credentials and execute apis.
              </p>
           </div>
@@ -167,10 +167,16 @@ Follow this guide to deploy and run the service.
 
 === "via EdgeX UI"
 
-    <div class="admonition note">
-    <p class="admonition-title">Note</p>
-    <p>Secure mode login to Edgex UI requires JWT token generated in the above step</p>
-    </div>
+      <div class="admonition note">
+      <p class="admonition-title">Note</p>
+      <p>Secure mode login to Edgex UI requires JWT token generated in the above step</p>
+      </div>
+
+      <details>
+      <summary><strong>Entering the JWT token</strong></summary>
+         ![](../images/EdgeXJWTLogin.png)
+      </details>
+   
 
       1. Visit http://localhost:4000 to go to the dashboard for EdgeX Console GUI:
 
