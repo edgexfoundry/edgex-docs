@@ -255,10 +255,6 @@ Follow these instructions to update devices.
       ```bash
       [{"apiVersion":"v3","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
       ```
-   <div class='admonition note'>
-      <p class='admonition-title'>Warning</p>
-      <p>If running EdgeX in Secure Mode, you will need Consul ACL and JWT token generated previously for mapping credentials.</p>
-   </div>     
 
 2. Map credentials using the `map-credentials.sh` script.  
 
