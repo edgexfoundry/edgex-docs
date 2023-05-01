@@ -1,14 +1,17 @@
-# Common Environment Variables
+# Environment Variables
 
-There are two types of environment variables used by all EdgeX services. They are `standard` and `overrides`. The only difference is that the `overrides` apply to command-line options and service configuration settings where as `standard` do not have any corresponding command-line option or configuration setting.
+There are three types of environment variables used by all EdgeX services. They are *standard*, *command-line overrides*,  and *configuration overrides*. 
 
 ## Standard Environment Variables
 
-This section describes the `standard` environment variables common to all EdgeX services. Some service may have additional  `standard` environment variables which are documented in those service specific sections.
+This section describes the *standard* environment variables common to all EdgeX services. Standard environment variables do not override any command line flag or service configuration. Some services may have additional  *standard* environment variables which are documented in those service specific sections. See [Notable Other Standard Environment Variables](#notable-other-standard-environment-variables) below for list of these additional standard environment variables.
 
-#### EDGEX_SECURITY_SECRET_STORE
+!!! note
+    All *standard* environment variables have the `EDGEX_` prefix
 
-This environment variables indicates whether the service is expected to initialize the secure SecretStore which allows the service to access secrets from Vault. Defaults to `true` if not set or not set to `false`. When set to `true` the EdgeX security services must be running. If running EdgeX in `non-secure` mode you then want this explicitly set to `false`.
+### EDGEX_SECURITY_SECRET_STORE
+
+This environment variable indicates whether the service is expected to initialize the secure SecretStore which allows the service to access secrets from Vault. Defaults to `true` if not set or not set to `false`. When set to `true` the EdgeX security services must be running. If running EdgeX in `non-secure` mode you then want this explicitly set to `false`.
 
 !!! example "Example - Using docker-compose to disable secure SecretStore"
     ```yaml
@@ -16,7 +19,7 @@ This environment variables indicates whether the service is expected to initiali
       EDGEX_SECURITY_SECRET_STORE: "false"
     ```
 
-#### EDGEX_DISABLE_JWT_VALIDATION
+### EDGEX_DISABLE_JWT_VALIDATION
 
 This environment variable disables, at the microservice-level, validation of the `Authorization` HTTP header of inbound REST API requests.
 (Microservice-level authentication was added in EdgeX 3.0.)
@@ -42,7 +45,7 @@ Regardless of the setting of this variable, the API gateway
 will always validate the incoming JWT.
 
 
-#### EDGEX_STARTUP_DURATION
+### EDGEX_STARTUP_DURATION
 
 This environment variable sets the total duration in seconds allowed for the services to complete the bootstrap start-up. Default is 60 seconds.
 
@@ -52,7 +55,7 @@ This environment variable sets the total duration in seconds allowed for the ser
       EDGEX_STARTUP_DURATION: "120"
     ```
 
-#### EDGEX_STARTUP_INTERVAL
+### EDGEX_STARTUP_INTERVAL
 
 This environment variable sets the retry interval in seconds for the services retrying a failed action during the bootstrap start-up. Default is 1 second.
 
@@ -62,21 +65,45 @@ This environment variable sets the retry interval in seconds for the services re
       EDGEX_STARTUP_INTERVAL: "3"
     ```
 
-## Environment Overrides
+## Notable Other Standard Environment Variables
 
-There are two types of environment overrides which are `command-line` and `configuration`. 
+This section covers other standard environment variables that are not common to all services.
 
-!!! important
-    Environment variable overrides have precedence over all command-line, local configuration and remote configuration. i.e. configuration setting changed in Consul will be overridden after the service loads the configuration from Consul if that setting has an environment override.
+### EDGEX_ADD_SECRETSTORE_TOKENS
 
-### Command-line Overrides
+This environment variable tells the Secret Store Setup service which add-on services to generate SecretStore tokens for. 
+See [Configure Service's Secret Store](../../../security/Ch-Configuring-Add-On-Services/#configure-the-services-secret-store-to-use) section for more details.
+
+### EDGEX_ADD_KNOWN_SECRETS
+
+This environment variable tells the Secret Store Setup service which add-on services need which known secrets added to their Secret Stores. 
+See [Configure Known Secrets](../../../security/Ch-Configuring-Add-On-Services/#optional-configure-known-secrets-for-add-on-services) section for more details.
+
+### EDGEX_ADD_REGISTRY_ACL_ROLES
+
+This environment variable tells the Consul service entry point script which add-on services need ACL roles created. 
+See [Configure ACL Role](../../../security/Ch-Configuring-Add-On-Services/#optional-configure-the-acl-role-of-configurationregistry-to-use-if-the-service-depends-on-it) section for more details.
+
+### EDGEX_ADD_PROXY_ROUTE
+
+This environment variable tells the Proxy Setup Service which additional routes need to be added for add-on services. 
+See [Configure API Gateway Route](../../../security/Ch-Configuring-Add-On-Services/#optional-configure-the-api-gateway-access-route-for-add-on-service) section for more details.
+
+### EDGEX_IKM_HOOK 
+
+This environment variable tells the Secret Store Setup service the path to an executable that implements the IKM interface. 
+See [IKM HOOK](../../../threat-models/secret-store/vault_master_key_encryption/#ikm-hook) section for more details.
+
+## Command-line Overrides
+
+This section describes the *command-line overrides* that are common to most services.  These overrides allow the use of the specific command-line flag to be overridden each time a service starts up.
+
+!!! note
+    All *command-line overrides* also have the `EDGEX_` prefix.
 
 #### EDGEX_CONFIG_DIR
 
 This environment variable overrides the [`-cd/--configDir` command-line option](../CommonCommandLineOptions/#confdir). 
-
-!!! note
-     All EdgeX service Docker images have this option set to `/res`.
 
 !!! example "Example - Using docker-compose to override the configuration folder name"
     ```yaml
@@ -165,7 +192,15 @@ This environment variable overrides the [`-r/--registry` command-line option](..
       EDGEX_USE_REGISTRY: "false"
     ```
 
-### Configuration Overrides
+## Configuration Overrides
+
+!!! edgex - "EdgeX 3.0"
+    New in EdgeX 3.0. When used, the Configuration Provider is the **System of Record** for all configuration. The environment variables for configuration overrides no longer have the highest precedence. However, environment variables for standard and command-line overrides still maintain their role and higher precedence.
+
+!!! important - "Configuration Provider is the **System of Record** for all configurations"
+    When using the Configuration Provider,  it is the **System of Record** for all configurations. Environment variables are only applied when the configuration is first read from file. These overridden values are used to seed the services' configuration into the Configuration Provider. Once the Configuration Provider has been seeded, services always get their configuration from the Configuration Provider on start up. Any subsequent changes to configuration must be done via the Configuration Provider. Changing an environment variable override for configuration and restating the service will not impact the service's configuration. The services configuration must first be removed from the Configuration Provider for any new/updated environment variable override(s) to impact the service's configuration.
+
+### Service Configuration Overrides
 
 Any configuration setting from a service's `configuration.yaml` file can be overridden by environment variables. The environment variable names have the following format:
 
@@ -174,40 +209,38 @@ Any configuration setting from a service's `configuration.yaml` file can be over
 <SECTION-NAME>_<SUB-SECTION-NAME>_<KEY-NAME>
 ```
 
-!!! example "Example - Environment Overrides of Configuration"
-    ``` yaml   
-    CONFIG  : Writable:    
-               LogLevel: "INFO"    
-    ENVVAR : WRITABLE_LOGLEVEL=DEBUG    
+!!! example "Example - Environment Variable Overrides of Configuration" 
+    | Service configuration YAML | Environment variable |
+    |||
+    | Writable:<pre>  LogLevel: "INFO"</pre> | WRITABLE_LOGLEVEL=DEBUG |
+    | Service:<pre>  Host: "localhost"</pre>| SERVICE_HOST=edgex-core-data |
 
-    CONFIG : Clients:
-               core-data:
-                 Host: "localhost"
-    ENVVAR : CLIENTS_CORE_DATA_HOST=edgex-core-data    
-    ```    
+!!! important
+    Private configuration overrides are only applied to configuration settings that exist in the service's private configuration file.
 
-### SecretStore Overrides
+### SecretStore Configuration Overrides
 
-!!! edgey "EdgeX 3.0"
-    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It now has default values which can be overridden with environment variables.
-
-The environment variables overrides for **SecretStore** configuration remain the same as in 2.x releases. The following are SecretStore** fields that commonly need to be overridden.
+The environment variables overrides for **SecretStore** configuration follow the same rules as the regular configuration overrides. The following are the **SecretStore** fields that are commonly overridden.
 
 - SECRETSTORE_HOST
 - SECRETSTORE_RUNTIMETOKENPROVIDER_ENABLED
 - SECRETSTORE_RUNTIMETOKENPROVIDER_HOST
 
-The  complete list of **SecretStore** fields and defaults can be found in the file [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/main/config/types.go) (search for SecretStoreInfo). The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.
+!!! example - "Example SecretStore Configuration Override"
+    <pre>**Configuration Setting**: SecretStore.Host
+    **Environment Variable Override**: SECRETSTORE_HOST=edgex-vault</pre>
+
+The  complete list of **SecretStore** fields and defaults can be found in the file [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/{{version}}/config/types.go). 
+The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.
 
 ### Notable Configuration Overrides
 
-This section describes environment variable overrides that have special utility,
-such as enabling a debug capability or facilitating code development.
+This section describes configuration overrides that have special utility, such as enabling a debug capability or facilitating code development.
 
 #### TOKENFILEPROVIDER_DEFAULTTOKENTTL (security-secretstore-setup service)
 
-This variable controls the TTL of the default secretstore tokens that are created for EdgeX microservices.
-This variable defaults to `1h` (one hour) if unspecified.
+This configuration override variable controls the TTL of the default SecretStore tokens that are created for EdgeX microservices by the 
+Secret Store Setup service. This variable defaults to `1h` (one hour) if unspecified.
 It is often useful when developing a new microservice to set this value to a higher value, such as `12h`.
 This higher value will allow the secret store token to remain valid long enough
 for a developer to get a new microservice working and into a state where it can renew its own token.

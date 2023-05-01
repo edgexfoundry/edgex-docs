@@ -164,8 +164,8 @@ Please refer to the general [Common Configuration documentation](../configuratio
     |DataTransform|true|Controls whether transformations are applied to numeric readings|
     |MaxCmdOps|128|Maximum number of resources in a device command (hence, readings in an event)|
     |MaxCmdResultLen|256|Maximum JSON string length for command results|
-    |ProfilesDir|'./res/profiles'|If set, directory containing profile definition files to upload to core-metadata|
-    |DevicesDir|'./res/devices'|If set, directory containing device definition files to upload to core-metadata|
+    |ProfilesDir|'./res/profiles'|If set, directory containing profile definition files to upload to core-metadata. Also may be in device service private config so it can be overridden with environment variable|
+    |DevicesDir|'./res/devices'|If set, directory containing device definition files to upload to core-metadata. Also may be in device service private config so it can be overridden with environment variable|
     |ProvisionWatchersDir|''|If set, directory containing provision watcher definition files to upload to core-metadata (service specific when needed)|
     |EnableAsyncReadings| true| Enables/Disables the Device Service ability to handle async readings |
     |AsyncBufferSize| 16| Size of the buffer for async readings|
