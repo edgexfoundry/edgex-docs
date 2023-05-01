@@ -22,7 +22,7 @@ Follow this guide to deploy and run the service.
 
          <div class="admonition note">
              <p class="admonition-title">Note</p>
-             <p>Recommended for secure and production level deployments. Make a note of the Consul ACL token and JWT token generated
+             <p>Recommended for secure and production level deployments. Make a note of the Consul ACL token and the JWT token generated
                 which are needed to map credentials and execute apis.
              </p>
           </div>
@@ -104,7 +104,7 @@ Follow this guide to deploy and run the service.
 
          <div class="admonition note">
              <p class="admonition-title">Note</p>
-             <p>If running in secure mode all the api executions need jwt token generated previously. E.g.
+             <p>If running in secure mode all the api executions need the JWT token generated previously. E.g.
                 ```bash
                 curl --location --request GET 'http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera' \
                 --header 'Authorization: Bearer eyJhbGciOiJFUzM4NCIsImtpZCI6ImIzNTY3ZmJjLTlhZTctMjkyNy0xY2IxLWE2NzAzZGQwMWM1ZCJ9.eyJhdWQiOiJlZGdleCIsImV4cCI6MTY4MjcyNDExMCwiaWF0IjoxNjgyNzIwNTEwLCJpc3MiOiIvdjEvaWRlbnRpdHkvb2lkYyIsIm5hbWUiOiJlZGdleHVzZXIiLCJuYW1lc3BhY2UiOiJyb290Iiwic3ViIjoiMTA2NzczMDItMmY0Yi00MjE4LTFhZmUtNzZlOTYwMGJiMmQ5In0.NP0deI0HyQMvdsFwk85N5RwNpgh5lUa507z9Ft2CDT9OEeR8iYOLYmwRLZim3j_BoVSdWxiJf3tmnWo64-mffHoktbFSRooQveakAeoFYuvCXu7tO1-b-QGzzzyWfSjc' \
@@ -169,7 +169,7 @@ Follow this guide to deploy and run the service.
 
       <div class="admonition note">
       <p class="admonition-title">Note</p>
-      <p>Secure mode login to Edgex UI requires JWT token generated in the above step</p>
+      <p>Secure mode login to Edgex UI requires the JWT token generated in the above step</p>
       </div>
 
       <details>
@@ -216,6 +216,12 @@ Follow these instructions to update devices.
 
 1. Edit the information to appropriately match the camera. The fields `Address`, `MACAddress` and `Port` should match that of the camera:
 
+    <div class="admonition note">
+             <p class="admonition-title">Note</p>
+             <p>If running in secure mode all the api executions need the JWT token generated previously.
+            </p>
+    </div>
+
       ```bash
       curl -X POST -H 'Content-Type: application/json'  \
       http://localhost:59881/api/v3/device \
@@ -249,10 +255,17 @@ Follow these instructions to update devices.
       ```bash
       [{"apiVersion":"v3","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
       ```
-!!! Note
-        If running EdgeX in Secure Mode, you will need Consul ACL and JWT token generated previously for mapping credentials.
+   
 2. Map credentials using the `map-credentials.sh` script.  
+
+    <div class="admonition note">
+             <p class="admonition-title">Note</p>
+             <p>If running in secure mode Consul ACL and the JWT token generated previously are needed for mapping credentials.
+            </p>
+    </div>
+
       a. Run `bin/map-credentials.sh`
+
       b. Select `(Create New)`
             ![](../images/creds-pick.png)  
       c. Enter the Secret Name to associate with these credentials  
@@ -314,7 +327,7 @@ Follow these instructions to update devices.
       Response [200] true
       ``` 
 
-1. Verify device(s) have been succesfully added to core-metadata.
+3. Verify device(s) have been succesfully added to core-metadata.
 
       ```bash
       curl -s http://localhost:59881/api/v3/device/all | jq -r '"deviceName: " + '.devices[].name''
