@@ -48,8 +48,8 @@ For more information, please visit the [EdgeX Security documentation](../../../.
 
 
 ## Resources
-[Learn more about EdgeX Core Metadata](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/{{latest_released_version}})  
-[Learn more about EdgeX Core Command](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/2.1.0)
+[Learn more about EdgeX Core Metadata](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/{{version}})  
+[Learn more about EdgeX Core Command](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/{{version}})
 
 
 ## References
