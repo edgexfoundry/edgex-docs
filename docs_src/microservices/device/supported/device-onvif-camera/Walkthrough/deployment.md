@@ -211,7 +211,7 @@ Follow these instructions to update devices.
 
   <div class='admonition warning'>
      <p class='admonition-title'>Warning</p>
-     <p>Be careful when storing any potentially important information, including the ip and mac address of your ONVIF camera.</p>
+     <p>Be careful when storing any potentially important information in cleartext on files in your computer. This includes information such as your camera IP and MAC addresses.</p>
   </div>
 
 1. Edit the information to appropriately match the camera. The fields `Address`, `MACAddress` and `Port` should match that of the camera:
@@ -255,7 +255,11 @@ Follow these instructions to update devices.
       ```bash
       [{"apiVersion":"v3","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
       ```
-   
+   <div class='admonition note'>
+      <p class='admonition-title'>Warning</p>
+      <p>If running EdgeX in Secure Mode, you will need Consul ACL and JWT token generated previously for mapping credentials.</p>
+   </div>     
+
 2. Map credentials using the `map-credentials.sh` script.  
 
     <div class="admonition note">
