@@ -67,28 +67,27 @@ Configuring pre-defined devices will allow the service to automatically provisio
       
 1. Under `secretName`, set `username` and `password` to your camera credentials. If you have multiple cameras copy the `Writable.InsecureSecrets` section and edit to include the new information.
 
-      <div class='admonition warning'>
-         <p class='admonition-title'>Warning</p>
-         <p>Be careful when storing any potentially important information in cleartext on files in your computer. In this case, the credentials for the camera(s) are stored in cleartext in the `configuration.yaml` file on your system. </p>
-      </div>
+    !!! Caution
+        Be careful when storing any potentially important information in cleartext on files in your computer. In this case, the credentials for the camera(s) are stored in cleartext in the `configuration.yaml` file on your system.
 
-      ```yaml
-      Writable:
-      LogLevel: INFO
-      InsecureSecrets:
-         credentials001:
-            SecretName: credentials001
-            SecretData:
-            username: <Credentials 1 username>
-            password: <Credentials 1 password>
-            mode: usernametoken   # assign "digest" | "usernametoken" | "both" | "none"
-         credentials002:
-            SecretName: credentials002
-            SecretData:
-            username: <Credentials 2 username>
-            password: <Credentials 2 password>
-            mode: usernametoken    # assign "digest" | "usernametoken" | "both" | "none"
-      ```
+
+    ```yaml
+    Writable:
+    LogLevel: INFO
+    InsecureSecrets:
+        credentials001:
+        SecretName: credentials001
+        SecretData:
+        username: <Credentials 1 username>
+        password: <Credentials 1 password>
+        mode: usernametoken   # assign "digest" | "usernametoken" | "both" | "none"
+        credentials002:
+        SecretName: credentials002
+        SecretData:
+        username: <Credentials 2 username>
+        password: <Credentials 2 password>
+        mode: usernametoken    # assign "digest" | "usernametoken" | "both" | "none"
+    ```
 
       <p align="left">
          <i>Sample: Snippet from configuration.yaml</i>
