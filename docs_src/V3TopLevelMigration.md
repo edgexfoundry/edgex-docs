@@ -41,7 +41,7 @@ The same applies for custom device and application service once they have been m
 
 ### Configuration File
 
-If you have custom the service configuration files for any EdgeX service (core, support, device, etc.) that configuration will need to be migrated. 
+If you have customed the service configuration files for any EdgeX service (core, support, device, etc.) that configuration will need to be migrated. 
 
 The biggest two changes to the service configuration files are:
 
@@ -52,7 +52,7 @@ See [V3 Migration of Common Configuration](../microservices/configuration/V3Migr
 
 The [tool here](https://www.convertsimple.com/convert-toml-to-yaml/) can be used to convert your customized service configuration file from TOML to YAML. This should be done once all the common configuration has been removed.
 
-The following are where you can find the configuration migration specifics for individual core/support the services
+The following are where you can find the configuration migration specifics for individual EdgeX services
 
 - [Core Data](../microservices/core/data/Ch-CoreData/#v3-configuration-migration-guide) 
 - [Core Metadata](../microservices/core/metadata/Ch-Metadata/#v3-configuration-migration-guide) 
@@ -146,7 +146,7 @@ If you are running EdgeX locally, i.e. not in Docker or snaps and in **non-secur
 redis-cli FLUSHDB
 ```
 
-This will not work if running EdgeX V2 in running in secure mode since you will not have the random generated Redis password unless you created an Admin password when you installed Redis.
+This will not work if running EdgeX in running in secure mode since you will not have the random generated Redis password unless you created an Admin password when you installed Redis.
 
 ## Custom Device Service
 
