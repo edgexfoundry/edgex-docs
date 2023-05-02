@@ -83,7 +83,6 @@ Configuring pre-defined devices will allow the service to automatically provisio
             password: <Credentials 2 password>
             mode: usernametoken    # assign "digest" | "usernametoken" | "both" | "none"
       ```
-
       <p align="left">
          <i>Sample: Snippet from configuration.yaml</i>
       </p>
