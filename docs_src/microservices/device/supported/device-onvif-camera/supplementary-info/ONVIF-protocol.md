@@ -213,7 +213,7 @@ For the concept of implementation:
 ```
 
 !!! warning
-    Both REST and soap commands over can be subject to attacks while in transit. Please take all necessary precautions to protect network traffic.
+    Both REST and SOAP commands over the network can be subject to attacks while in transit. Please take all necessary precautions to protect network traffic.
 
 ## Tested Onvif Cameras
 The following table shows the Onvif functions tested for various Onvif cameras:
