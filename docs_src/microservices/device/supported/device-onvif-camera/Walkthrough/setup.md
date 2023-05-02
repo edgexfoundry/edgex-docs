@@ -54,14 +54,14 @@ To enable running Docker commands without the preface of sudo, add the user to t
          <p>If the group already exists, `groupadd` outputs a message: **groupadd: group `docker` already exists**. This is OK.</p>
       </div>
       
-1. Add User to group:
+2. Add User to group:
    ```bash
    sudo usermod -aG docker $USER
    ```
 
-1. Restart your computer for the changes to take effect.
+3. Restart your computer for the changes to take effect.
 
-1. To verify the Docker installation, run <code>hello-world</code>:
+4. To verify the Docker installation, run <code>hello-world</code>:
       ```bash
       docker run hello-world
       ```
@@ -107,12 +107,12 @@ The table below lists command line tools this guide uses to help with EdgeX conf
    git clone https://github.com/edgexfoundry/edgex-compose.git
    ```
 
-1. Navigate to the `edgex-compose` directory:
+2. Navigate to the `edgex-compose` directory:
    ```bash
    cd edgex-compose
    ```
 
-1. Navigate back to your home directory:
+3. Navigate back to your home directory:
       ```bash
       cd ~
       ```

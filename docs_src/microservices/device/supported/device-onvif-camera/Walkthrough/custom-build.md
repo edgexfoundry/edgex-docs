@@ -11,8 +11,8 @@ Follow this guide to make custom configurations and build the device service ima
    ```bash
    git clone https://github.com/edgexfoundry/device-onvif-camera.git
    ```
-
-1. Navigate into the directory
+   
+2. Navigate into the directory
    ```bash
    cd device-onvif-camera
    ```
@@ -29,13 +29,10 @@ Configuring pre-defined devices will allow the service to automatically provisio
    cp ./cmd/res/devices/camera.yaml.example ./cmd/res/devices/camera.yaml
    ```
 
-      <div class='admonition warning'>
-         <p class='admonition-title'>Warning</p>
-         <p>Be careful when storing any potentially important information in cleartext on files in your computer. Potentially sensitive information in this case could include the IP address of your ONVIF camera or any custom metadata you configure.</p>
-      </div>
+    !!! Warning
+        Be careful when storing any potentially important information in cleartext on files in your computer. Potentially sensitive information in this case could include the IP address of your ONVIF camera or any custom metadata you configure.
 
-
-1. Open the `cmd/res/devices/camera.yaml` file using your preferred text editor and update the `Address` and `Port` fields to match the IP address of the Camera and port used for ONVIF services:
+2. Open the `cmd/res/devices/camera.yaml` file using your preferred text editor and update the `Address` and `Port` fields to match the IP address of the Camera and port used for ONVIF services:
 
       ```yaml
       deviceList:
@@ -53,24 +50,21 @@ Configuring pre-defined devices will allow the service to automatically provisio
          <i>Sample: Snippet from camera.yaml</i>
       </p>
 
-1. Optionally, modify the `Name` and `Description` fields to more easily identify the camera. The `Name` is the camera name used when using ONVIF Device Service Rest APIs. The `Description` is simply a more detailed explanation of the camera.
-1. You can also optionally configure the `CustomMetadata` with custom fields and values to store any extra information you would like.
+3. Optionally, modify the `Name` and `Description` fields to more easily identify the camera. The `Name` is the camera name used when using ONVIF Device Service Rest APIs. The `Description` is simply a more detailed explanation of the camera.
+4. You can also optionally configure the `CustomMetadata` with custom fields and values to store any extra information you would like.
 
-1. To add more pre-defined devices, copy the above configuration and edit to match your extra devices.
+5. To add more pre-defined devices, copy the above configuration and edit to match your extra devices.
 
 
 ### Configure the Device Service
 1. Open the `cmd/res/configuration.yaml` file using your preferred text editor
 
-1. Make sure `secret name` is set to match `SecretName` in `camera.yaml`. In the sample below, it is `"credentials001"`. If you have multiple cameras, make sure the secret names match.
+2. Make sure `secret name` is set to match `SecretName` in `camera.yaml`. In the sample below, it is `"credentials001"`. If you have multiple cameras, make sure the secret names match.
+ 
+3. Under `secretName`, set `username` and `password` to your camera credentials. If you have multiple cameras copy the `Writable.InsecureSecrets` section and edit to include the new information.
 
-      
-1. Under `secretName`, set `username` and `password` to your camera credentials. If you have multiple cameras copy the `Writable.InsecureSecrets` section and edit to include the new information.
-
-      <div class='admonition warning'>
-         <p class='admonition-title'>Warning</p>
-         <p>Be careful when storing any potentially important information in cleartext on files in your computer. In this case, the credentials for the camera(s) are stored in cleartext in the `configuration.yaml` file on your system. </p>
-      </div>
+    !!! Warning
+          Be careful when storing any potentially important information in cleartext on files in your computer. In this case, the credentials for the camera(s) are stored in cleartext in the `configuration.yaml` file on your system.
 
       ```yaml
       Writable:
@@ -112,7 +106,7 @@ For optional configurations, see [here.](#additional-configuration)
             See [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder#gen) `nat-bus` option to generate compose file for NATS and local dev images.
       </details>
 
-1. Verify the ONVIF Device Service Docker image was successfully created:
+2. Verify the ONVIF Device Service Docker image was successfully created:
       ```bash
       docker images
       ```
@@ -121,18 +115,18 @@ For optional configurations, see [here.](#additional-configuration)
       edgexfoundry-holding/device-onvif-camera   0.0.0-dev    75684e673feb   6 weeks ago    21.3MB
       ```   
 
-1. Navigate to `edgex-compose` and enter the `compose-builder` directory.     
+3. Navigate to `edgex-compose` and enter the `compose-builder` directory.     
       ```bash
       cd edgex-compose/compose-builder
    ```
 
-1. Update `.env` file to add the registry and image version variable for device-onvif-camera:
+4. Update `.env` file to add the registry and image version variable for device-onvif-camera:
       Add the following registry and version information:
       ```env
       DEVICE_ONVIFCAM_VERSION=0.0.0-dev
       ```
 
-1. Update the `add-device-onvif-camera.yml` to point to the local image.
+5. Update the `add-device-onvif-camera.yml` to point to the local image.
       ```yml
       services:
          device-onvif-camera:

@@ -209,10 +209,8 @@ Follow these instructions to update devices.
 
 #### Add Device
 
-  <div class='admonition warning'>
-     <p class='admonition-title'>Warning</p>
-     <p>Be careful when storing any potentially important information in cleartext on files in your computer. This includes information such as your camera IP and MAC addresses.</p>
-  </div>
+!!! Warning
+    Be careful when storing any potentially important information in cleartext on files in your computer. This includes information such as your camera IP and MAC addresses.
 
 1. Edit the information to appropriately match the camera. The fields `Address`, `MACAddress` and `Port` should match that of the camera:
 
