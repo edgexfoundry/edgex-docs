@@ -4,8 +4,8 @@ This document will describe how to execute some of the most important types of c
 
 ## Execute GetStreamURI Command through EdgeX
 
-!!! Note
-      Make sure to replace `Camera001` in all the commands below, with the proper deviceName.  
+!!! note
+    Make sure to replace `Camera001` in all the commands below, with the proper deviceName.  
 
 
 1. <a name="step1"></a>Get the profile token by executing the `GetProfiles` command:

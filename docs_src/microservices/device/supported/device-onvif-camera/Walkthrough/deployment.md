@@ -20,12 +20,9 @@ Follow this guide to deploy and run the service.
     
         ##### Secure mode 
 
-         <div class="admonition note">
-             <p class="admonition-title">Note</p>
-             <p>Recommended for secure and production level deployments. Make a note of the Consul ACL token and the JWT token generated
-                which are needed to map credentials and execute apis.
-             </p>
-          </div>
+        !!! note
+            Recommended for secure and production level deployments. Make a note of the Consul ACL token and the JWT token generated 
+            which are needed to map credentials and execute apis.
 
          ```bash
          make run ds-onvif-camera
@@ -33,24 +30,17 @@ Follow this guide to deploy and run the service.
          make get-token
          ```
 
-        <div class="admonition note">
-             <p class="admonition-title">Note</p>
-             <p>Secrets such as passwords, certificates, tokens and more in Edgex are stored in a secret store which is implemented using Vault by Hashicorp.
-                Vault supports security features by issuing of consul tokens. JWT token is required for the API Gateway which is a trust boundry for Edgex services. 
-                It allows for external clients to be verified when issuing REST requests to the microservices. 
-                For more info refer [Secure Consul](../../../../../security/Ch-Secure-Consul.md), [API Gateway](../../../../../security/Ch-APIGateway.md) 
-                and [Edgex Security](../../../../../security/Ch-Security.md).
-            </p>
-          </div>
+        !!! note
+            Secrets such as passwords, certificates, tokens and more in Edgex are stored in a secret store which is implemented using Vault by Hashicorp.
+            Vault supports security features by issuing of consul tokens. JWT token is required for the API Gateway which is a trust boundry for Edgex services. 
+            It allows for external clients to be verified when issuing REST requests to the microservices. 
+            For more info refer [Secure Consul](../../../../../security/Ch-Secure-Consul.md), [API Gateway](../../../../../security/Ch-APIGateway.md) 
+            and [Edgex Security](../../../../../security/Ch-Security.md).
 
 === "Native"
 
-
-      <div class="admonition note">
-         <p class="admonition-title">Note</p>
-         <p>Go version 1.20+ is required to run natively. See <a href="https://go.dev/doc/install">here</a> for more information.</p>
-      </div>
-
+    !!! note
+        Go version 1.20+ is required to run natively. See <a href="https://go.dev/doc/install">here</a> for more information.
 
       1. Navigate to the EdgeX `compose-builder` directory:
 
@@ -158,19 +148,13 @@ Follow this guide to deploy and run the service.
          statusCode: 404
          ```
 
-         <div class="admonition note">
-            <p class="admonition-title">Note</p>
-            <p>`jq -r` is used to reduce the size of the displayed response. The entire device profile with all resources can be seen by removing `-r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)', and replacing it with '.'`</p>
-         </div>
-      
-            
+    !!! note
+        jq -r` is used to reduce the size of the displayed response. The entire device profile with all resources can be seen by removing `-r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)', and replacing it with '.'`
 
 === "via EdgeX UI"
 
-      <div class="admonition note">
-      <p class="admonition-title">Note</p>
-      <p>Secure mode login to Edgex UI requires the JWT token generated in the above step</p>
-      </div>
+    !!! note
+        Secure mode login to Edgex UI requires the JWT token generated in the above step
 
       <details>
       <summary><strong>Entering the JWT token</strong></summary>
@@ -214,56 +198,49 @@ Follow these instructions to update devices.
 
 1. Edit the information to appropriately match the camera. The fields `Address`, `MACAddress` and `Port` should match that of the camera:
 
-    <div class="admonition note">
-             <p class="admonition-title">Note</p>
-             <p>If running in secure mode all the api executions need the JWT token generated previously.
-            </p>
-    </div>
+    !!! note
+        If running in secure mode all the api executions need the JWT token generated previously.
 
-      ```bash
-      curl -X POST -H 'Content-Type: application/json'  \
-      http://localhost:59881/api/v3/device \
-      -d '[
-               {
-                  "apiVersion": "v3",
-                  "device": {
-                     "name":"Camera001",
-                     "serviceName": "device-onvif-camera",
-                     "profileName": "onvif-camera",
-                     "description": "My test camera",
-                     "adminState": "UNLOCKED",
-                     "operatingState": "UP",
-                     "protocols": {
-                        "Onvif": {
-                           "Address": "10.0.0.0",
-                           "Port": "10000",
-                           "MACAddress": "aa:bb:cc:11:22:33",
-                           "FriendlyName":"Default Camera"
-                        },
-                        "CustomMetadata": {
-                           "Location":"Front door"
-                        }
-                     }
-                  }
-               }
-      ]'
-      ```
-
-      Example Output: 
-      ```bash
-      [{"apiVersion":"v3","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
-      ```
-
+    ```bash
+    curl -X POST -H 'Content-Type: application/json'  \
+    http://localhost:59881/api/v3/device \
+    -d '[
+             {
+                "apiVersion": "v3",
+                "device": {
+                   "name":"Camera001",
+                   "serviceName": "device-onvif-camera",
+                   "profileName": "onvif-camera",
+                   "description": "My test camera",
+                   "adminState": "UNLOCKED",
+                   "operatingState": "UP",
+                   "protocols": {
+                      "Onvif": {
+                         "Address": "10.0.0.0",
+                         "Port": "10000",
+                         "MACAddress": "aa:bb:cc:11:22:33",
+                         "FriendlyName":"Default Camera"
+                      },
+                      "CustomMetadata": {
+                         "Location":"Front door"
+                      }
+                   }
+                }
+             }
+    ]'
+    ```
+    
+    Example Output: 
+    ```bash
+    [{"apiVersion":"v3","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
+    ```
+    
 2. Map credentials using the `map-credentials.sh` script.  
 
-    <div class="admonition note">
-             <p class="admonition-title">Note</p>
-             <p>If running in secure mode Consul ACL and the JWT token generated previously are needed for mapping credentials.
-            </p>
-    </div>
+    !!! note
+        If running in secure mode Consul ACL and the JWT token generated previously are needed for mapping credentials.
 
       a. Run `bin/map-credentials.sh`
-
       b. Select `(Create New)`
             ![](../images/creds-pick.png)  
       c. Enter the Secret Name to associate with these credentials  
@@ -336,11 +313,9 @@ Follow these instructions to update devices.
       deviceName: Camera001
       deviceName: device-onvif-camera
      ```
-
-      <div class="admonition note">
-         <p class="admonition-title">Note</p>
-         <p>`jq -r` is used to reduce the size of the displayed response. The entire device with all information can be seen by removing `-r '"deviceName: " + '.devices[].name'', and replacing it with '.'`</p>
-      </div>
+     
+    !!! note
+        `jq -r` is used to reduce the size of the displayed response. The entire device with all information can be seen by removing `-r '"deviceName: " + '.devices[].name'', and replacing it with '.'`
 
 #### Update Device
 

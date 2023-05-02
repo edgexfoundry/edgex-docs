@@ -1,6 +1,6 @@
 # Utility Scripts
 
-!!! Note
+!!! note
       If running EdgeX in Secure Mode, you will need a [Consul ACL Token](../../../../../security/Ch-Secure-Consul.md#how-to-get-consul-acl-token) 
       and [JWT Token](../../../../../security/Ch-APIGateway.md#creating-access-token-for-api-gateway-authentication) in order to use these scripts.
 
@@ -21,7 +21,7 @@
    ![](../images/creds-mac.png)
 
 ### Assign MAC Addresses to existing credentials
-!!! Note
+!!! note
       Currently EdgeX is unable to provide a way to query the names of existing secrets from the secret store, so this method only works with credentials which have a key in the CredentialsMap. If the credentials were added via these utility scripts, a placeholder key was added for you to the CredentialsMap.
 
 1. Run `bin/map-credentials.sh`

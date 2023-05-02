@@ -8,8 +8,8 @@ Follow this guide to set up your system to run the ONVIF Device Service.
 - Ubuntu 20.04.4 LTS or later
 - ONVIF-compliant Camera
 
-!!!NOTE 
-      The instructions in this guide were developed and tested using Ubuntu 20.04 LTS and the Tapo C200 Pan/Tilt Wi-Fi Camera, referred to throughout this document as the **Tapo C200 Camera**. However, the software may work with other Linux distributions and ONVIF-compliant cameras. Refer to our [list of tested cameras for more information](../supplementary-info/ONVIF-protocol.md#tested-onvif-cameras)
+!!! note
+    The instructions in this guide were developed and tested using Ubuntu 20.04 LTS and the Tapo C200 Pan/Tilt Wi-Fi Camera, referred to throughout this document as the **Tapo C200 Camera**. However, the software may work with other Linux distributions and ONVIF-compliant cameras. Refer to our [list of tested cameras for more information](../supplementary-info/ONVIF-protocol.md#tested-onvif-cameras)
 
 **Other Requirements**
 
@@ -48,11 +48,9 @@ To enable running Docker commands without the preface of sudo, add the user to t
    ```bash
    sudo groupadd docker
    ```
-
-      <div class="admonition note">
-         <p class="admonition-title">Note</p>
-         <p>If the group already exists, `groupadd` outputs a message: **groupadd: group `docker` already exists**. This is OK.</p>
-      </div>
+   
+    !!! note
+        If the group already exists, `groupadd` outputs a message: **groupadd: group `docker` already exists**. This is OK.
       
 2. Add User to group:
    ```bash
