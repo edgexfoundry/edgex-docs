@@ -2,7 +2,7 @@
 
 Follow this guide to make custom configurations and build the device service image from the source.
 
-!!! Warning
+!!! warning
       This is not the recommended method of deploying the service. To use the default images, see [here](./deployment.md).
 
 ## Get the Source Code
@@ -29,7 +29,7 @@ Configuring pre-defined devices will allow the service to automatically provisio
    cp ./cmd/res/devices/camera.yaml.example ./cmd/res/devices/camera.yaml
    ```
 
-    !!! Warning
+    !!! warning
         Be careful when storing any potentially important information in cleartext on files in your computer. Potentially sensitive information in this case could include the IP address of your ONVIF camera or any custom metadata you configure.
 
 2. Open the `cmd/res/devices/camera.yaml` file using your preferred text editor and update the `Address` and `Port` fields to match the IP address of the Camera and port used for ONVIF services:
@@ -63,29 +63,28 @@ Configuring pre-defined devices will allow the service to automatically provisio
  
 3. Under `secretName`, set `username` and `password` to your camera credentials. If you have multiple cameras copy the `Writable.InsecureSecrets` section and edit to include the new information.
 
-    !!! Warning
-          Be careful when storing any potentially important information in cleartext on files in your computer. In this case, the credentials for the camera(s) are stored in cleartext in the `configuration.yaml` file on your system.
+    !!! warning
+        Be careful when storing any potentially important information in cleartext on files in your computer. In this case, the credentials for the camera(s) are stored in cleartext in the `configuration.yaml` file on your system.
+        `InsecureSecrets` is for non-production use only.
 
-      ```yaml
-      Writable:
-      LogLevel: INFO
-      InsecureSecrets:
-         credentials001:
-            SecretName: credentials001
-            SecretData:
-            username: <Credentials 1 username>
-            password: <Credentials 1 password>
-            mode: usernametoken   # assign "digest" | "usernametoken" | "both" | "none"
-         credentials002:
-            SecretName: credentials002
-            SecretData:
-            username: <Credentials 2 username>
-            password: <Credentials 2 password>
-            mode: usernametoken    # assign "digest" | "usernametoken" | "both" | "none"
-      ```
-      <p align="left">
-         <i>Sample: Snippet from configuration.yaml</i>
-      </p>
+    !!! example - "Sample: Snippet from configuration.yaml"
+        ```yaml
+        Writable:
+        LogLevel: INFO
+        InsecureSecrets:
+           credentials001:
+              SecretName: credentials001
+              SecretData:
+              username: <Credentials 1 username>
+              password: <Credentials 1 password>
+              mode: usernametoken   # assign "digest" | "usernametoken" | "both" | "none"
+           credentials002:
+              SecretName: credentials002
+              SecretData:
+              username: <Credentials 2 username>
+              password: <Credentials 2 password>
+              mode: usernametoken    # assign "digest" | "usernametoken" | "both" | "none"
+        ```
 
 ### Additional Configuration Options
 For optional configurations, see [here.](#additional-configuration)

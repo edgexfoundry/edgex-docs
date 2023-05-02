@@ -33,8 +33,8 @@
 ### Modify existing credentials
 1. Run `bin/edit-credentials.sh`
 2. Select the name of the existing credentials you want to modify
-!!! Note
-         This will modify the username/password for ALL devices using these credentials. Proceed with caution!
+!!! warning
+    This will modify the username/password for ALL devices using these credentials. Proceed with caution!
 
    ![](../images/creds-pick-existing.png)
 
