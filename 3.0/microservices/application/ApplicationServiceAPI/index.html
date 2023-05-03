@@ -1122,6 +1122,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#removeallfunctionpipelines">
+    RemoveAllFunctionPipelines
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#makeitrun">
     MakeItRun
   </a>
@@ -1711,6 +1716,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#removeallfunctionpipelines">
+    RemoveAllFunctionPipelines
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#makeitrun">
     MakeItRun
   </a>
@@ -1878,8 +1888,9 @@
 <span class="w">    </span><span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">config</span><span class="w"> </span><span class="nx">UpdatableConfig</span><span class="p">,</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="nx">configToWatch</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">changedCallback</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{}))</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">SetDefaultFunctionsPipeline</span><span class="p">(</span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
-<span class="w">    </span><span class="nx">AddFunctionsPipelineByTopics</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">topics</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">AddFunctionsPipelineForTopics</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">topics</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">LoadConfigurableFunctionPipelines</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">FunctionPipeline</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">RemoveAllFunctionPipelines</span><span class="p">()</span>
 <span class="w">    </span><span class="nx">MakeItRun</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">MakeItStop</span><span class="p">()</span>
 <span class="w">    </span><span class="nx">SecretProvider</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SecretProvider</span>
@@ -2157,6 +2168,9 @@
 <span class="p">}</span>
 </code></pre></div>
 </div>
+<h3 id="removeallfunctionpipelines">RemoveAllFunctionPipelines</h3>
+<p><code>RemoveAllFunctionPipelines()</code></p>
+<p>This API removes all existing functions pipelines previously added via <code>SetDefaultFunctionsPipeline</code>, <code>AddFunctionsPipelineForTopics</code> or <code>LoadConfigurableFunctionPipelines</code></p>
 <h3 id="makeitrun">MakeItRun</h3>
 <p><code>MakeItRun() error</code></p>
 <p>This API starts the configured trigger to allow the Functions Pipeline to execute when the trigger receives data. The internal webserver is also started. This is a long running API which does not return until the service is stopped or MakeItStop() is called. An error is returned if the trigger can not be create or initialized or if the internal webserver encounters an error.</p>
