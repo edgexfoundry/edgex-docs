@@ -21,18 +21,23 @@ Follow this guide to deploy and run the service.
         ##### Secure mode 
 
         !!! note
-            Recommended for secure and production level deployments. Make a note of the Consul ACL token and the JWT token generated 
-            which are needed to map credentials and execute apis.
+            Recommended for secure and production level deployments. 
 
          ```bash
          make run ds-onvif-camera
-         make get-consul-acl-token
-         make get-token
          ```
+        !!! note
+            Need to wait for sometime for the services to be fully up before executing the next set of commands.
+            Make a note of the Consul ACL token and the JWT token generated which are needed to map credentials and execute apis.
+
+        ```bash
+        make get-consul-acl-token
+        make get-token
+        ```
 
         !!! note
-            Secrets such as passwords, certificates, tokens and more in Edgex are stored in a secret store which is implemented using Vault by Hashicorp.
-            Vault supports security features by issuing of consul tokens. JWT token is required for the API Gateway which is a trust boundry for Edgex services. 
+            Secrets such as passwords, certificates, tokens and more in Edgex are stored in a secret store which is implemented using Vault a product of Hashicorp.
+            Vault supports security features allowing for the issuing of consul tokens. JWT token is required for the API Gateway which is a trust boundry for Edgex services. 
             It allows for external clients to be verified when issuing REST requests to the microservices. 
             For more info refer [Secure Consul](../../../../../security/Ch-Secure-Consul.md), [API Gateway](../../../../../security/Ch-APIGateway.md) 
             and [Edgex Security](../../../../../security/Ch-Security.md).
