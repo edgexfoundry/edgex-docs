@@ -21,9 +21,10 @@ type ApplicationService interface {
 	LoadCustomConfig(config UpdatableConfig, sectionName string) error
 	ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error
     SetDefaultFunctionsPipeline(transforms ...AppFunction) error
-	AddFunctionsPipelineByTopics(id string, topics []string, transforms ...AppFunction) error
+	AddFunctionsPipelineForTopics(id string, topics []string, transforms ...AppFunction) error
 	LoadConfigurableFunctionPipelines() (map[string]FunctionPipeline, error)
-	MakeItRun() error
+    RemoveAllFunctionPipelines()
+    MakeItRun() error
 	MakeItStop()
     SecretProvider() interfaces.SecretProvider
 	LoggingClient() logger.LoggingClient
@@ -362,6 +363,12 @@ This API loads the function pipelines (default and per topic) from configuration
         }
     }
     ```
+
+### RemoveAllFunctionPipelines
+
+`RemoveAllFunctionPipelines()`
+
+This API removes all existing functions pipelines previously added via `SetDefaultFunctionsPipeline`, `AddFunctionsPipelineForTopics` or `LoadConfigurableFunctionPipelines`
 
 ### MakeItRun
 
