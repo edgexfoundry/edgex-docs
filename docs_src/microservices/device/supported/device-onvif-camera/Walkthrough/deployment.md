@@ -28,7 +28,8 @@ Follow this guide to deploy and run the service.
          ```
         !!! note
             Need to wait for sometime for the services to be fully up before executing the next set of commands.
-            Make a note of the Consul ACL token and the JWT token generated which are needed to map credentials and execute apis.
+            Securely store Consul ACL token and the JWT token generated which are needed to map credentials and execute apis.
+            It is not recommended to store these secrets in cleartext in your machine.
 
         ```bash
         make get-consul-acl-token
@@ -307,7 +308,7 @@ Follow these instructions to update devices.
       Response [200] true
       ``` 
 
-3. Verify device(s) have been succesfully added to core-metadata.
+3. Verify device(s) have been successfully added to core-metadata.
 
       ```bash
       curl -s http://localhost:59881/api/v3/device/all | jq -r '"deviceName: " + '.devices[].name''
