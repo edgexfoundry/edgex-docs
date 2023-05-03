@@ -1790,10 +1790,12 @@ $ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 <ol>
 <li>Publish random number data every 15 seconds.</li>
 </ol>
-<p>The simulator publishes the data to the MQTT broker with topic <code>incoming/data/my-custom-device/randnum</code> and the message is similar to the following:</p>
-<div class="codehilite"><pre><span></span><code>```
-{"randnum":4161.3549}
-```
+<p>The simulator publishes the data to the MQTT broker with topic <code>incoming/data/my-custom-device/values</code> and the message is similar to the following:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"randnum"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">4161.3549</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"ping"</span><span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="s2">"pong"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello World"</span>
+<span class="p">}</span>
 </code></pre></div>
 <ol>
 <li>
@@ -1801,12 +1803,12 @@ $ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 <ol>
 <li>
 <p>The simulator receives the request from the MQTT broker, the topic is <code>command/my-custom-device/randnum/get/293d7a00-66e1-4374-ace0-07520103c95f</code> and message returned is similar to the following:</p>
-<div class="highlight"><pre><span></span><code>{"randnum":"42.0"}
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"randnum"</span><span class="p">:</span><span class="s2">"42.0"</span><span class="p">}</span>
 </code></pre></div>
 </li>
 <li>
 <p>The simulator returns the response to the MQTT broker, the topic is <code>command/response/#</code> and the message is similar to the following:</p>
-<div class="highlight"><pre><span></span><code>{"randnum":"4.20e+01"}
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"randnum"</span><span class="p">:</span><span class="s2">"4.20e+01"</span><span class="p">}</span>
 </code></pre></div>
 </li>
 </ol>
@@ -1816,12 +1818,12 @@ $ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 <ol>
 <li>
 <p>The simulator receives the request from the MQTT broker, the topic is <code>command/my-custom-device/testmessage/set/293d7a00-66e1-4374-ace0-07520103c95f</code> and the message is similar to the following:</p>
-<div class="highlight"><pre><span></span><code>{"message":"test message..."}
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"test message..."</span><span class="p">}</span>
 </code></pre></div>
 </li>
 <li>
 <p>The simulator changes the device value and returns the response to the MQTT broker, the topic is <code>command/response/#</code> and the message is similar to the following:</p>
-<div class="highlight"><pre><span></span><code>{"message":"test message..."}
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"test message..."</span><span class="p">}</span>
 </code></pre></div>
 </li>
 </ol>
@@ -1839,8 +1841,12 @@ $ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 
 <span class="c1">// DataSender sends async value to MQTT broker every 15 seconds</span>
 <span class="nx">schedule</span><span class="p">(</span><span class="s1">'*/15 * * * * *'</span><span class="p">,</span><span class="w"> </span><span class="p">()=&gt;{</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getRandomFloat</span><span class="p">(</span><span class="mf">25</span><span class="p">,</span><span class="mf">29</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
-<span class="w">    </span><span class="nx">publish</span><span class="p">(</span><span class="w"> </span><span class="s1">'incoming/data/my-custom-device/randnum'</span><span class="p">,</span><span class="w"> </span><span class="nx">body</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">    </span><span class="nx">data</span><span class="p">.</span><span class="nx">randnum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getRandomFloat</span><span class="p">(</span><span class="mf">25</span><span class="p">,</span><span class="mf">29</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">data</span><span class="p">.</span><span class="nx">ping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"pong"</span>
+<span class="w">    </span><span class="nx">data</span><span class="p">.</span><span class="nx">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Hello World"</span>
+
+<span class="w">    </span><span class="nx">publish</span><span class="p">(</span><span class="w"> </span><span class="s1">'incoming/data/my-custom-device/values'</span><span class="p">,</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
 <span class="p">});</span>
 
 <span class="c1">// CommandHandler receives commands and sends response to MQTT broker</span>
