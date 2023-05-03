@@ -9,7 +9,7 @@
 <meta content="Michael Johanson" name="author"/>
 <link href="https://docs.edgexfoundry.org/3.0/microservices/device/supported/device-onvif-camera/supplementary-info/utility-scripts/" rel="canonical"/>
 <link href="../../../../../../assets/logo_edgex.png" rel="icon"/>
-<meta content="mkdocs-1.4.2, mkdocs-material-8.5.8" name="generator"/>
+<meta content="mkdocs-1.4.3, mkdocs-material-8.5.8" name="generator"/>
 <title>Utility Scripts - EdgeX Foundry Documentation</title>
 <link href="../../../../../../assets/stylesheets/main.20d9efc8.min.css" rel="stylesheet"/>
 <link href="../../../../../../assets/stylesheets/palette.815d1a91.min.css" rel="stylesheet"/>
@@ -1629,10 +1629,11 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
 </a>
 <h1 id="utility-scripts">Utility Scripts</h1>
-<blockquote>
-<p><strong>NOTE:</strong> If running EdgeX in Secure Mode, you will need a <strong><a href="https://docs.edgexfoundry.org/2.1/security/Ch-Secure-Consul/#how-to-get-consul-acl-token">Consul ACL Token</a></strong>
-in order to use these scripts.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If running EdgeX in Secure Mode, you will need a <a href="../../../../../../security/Ch-Secure-Consul/#how-to-get-consul-acl-token">Consul ACL Token</a> 
+  and <a href="../../../../../../security/Ch-APIGateway/#creating-access-token-for-api-gateway-authentication">JWT Token</a> in order to use these scripts.</p>
+</div>
 <h2 id="use-cases">Use Cases</h2>
 <h3 id="create-new-credentials-and-assign-mac-addresses">Create new credentials and assign MAC Addresses</h3>
 <ol>
@@ -1651,11 +1652,10 @@ in order to use these scripts.</p>
    <img alt="" src="../../images/creds-mac.png"/></li>
 </ol>
 <h3 id="assign-mac-addresses-to-existing-credentials">Assign MAC Addresses to existing credentials</h3>
-<blockquote>
-<p><strong>Note:</strong> Currently EdgeX is unable to provide a way to query the names of existing secrets from the secret store, so this method
-only works with credentials which have a key in the CredentialsMap. If the credentials were added via these
-utility scripts, a placeholder key was added for you to the CredentialsMap.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Currently EdgeX is unable to provide a way to query the names of existing secrets from the secret store, so this method only works with credentials which have a key in the CredentialsMap. If the credentials were added via these utility scripts, a placeholder key was added for you to the CredentialsMap.</p>
+</div>
 <ol>
 <li>Run <code>bin/map-credentials.sh</code></li>
 <li>Select the name of the existing credentials you want to assign devices to
@@ -1666,15 +1666,16 @@ utility scripts, a placeholder key was added for you to the CredentialsMap.</p>
 <h3 id="modify-existing-credentials">Modify existing credentials</h3>
 <ol>
 <li>Run <code>bin/edit-credentials.sh</code></li>
-<li>
-<p>Select the name of the existing credentials you want to modify
-    &gt; <strong>NOTE:</strong> This will modify the username/password for ALL devices using these credentials. Proceed with caution!</p>
+<li>Select the name of the existing credentials you want to modify</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This will modify the username/password for ALL devices using these credentials. Proceed with caution!</p>
+</div>
 <p><img alt="" src="../../images/creds-pick-existing.png"/></p>
-</li>
-<li>
-<p>Enter the new username
-   <img alt="" src="../../images/creds-edit-user.png"/></p>
-</li>
+<ol>
+<li>Enter the new username
+   <img alt="" src="../../images/creds-edit-user.png"/></li>
 <li>Enter the new password
    <img alt="" src="../../images/creds-edit-password.png"/></li>
 <li>Choose the new Authentication Mode

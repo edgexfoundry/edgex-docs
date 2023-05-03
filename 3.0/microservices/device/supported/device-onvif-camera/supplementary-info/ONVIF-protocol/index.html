@@ -9,7 +9,7 @@
 <meta content="Michael Johanson" name="author"/>
 <link href="https://docs.edgexfoundry.org/3.0/microservices/device/supported/device-onvif-camera/supplementary-info/ONVIF-protocol/" rel="canonical"/>
 <link href="../../../../../../assets/logo_edgex.png" rel="icon"/>
-<meta content="mkdocs-1.4.2, mkdocs-material-8.5.8" name="generator"/>
+<meta content="mkdocs-1.4.3, mkdocs-material-8.5.8" name="generator"/>
 <title>Onvif Camera Device Service Specifications - EdgeX Foundry Documentation</title>
 <link href="../../../../../../assets/stylesheets/main.20d9efc8.min.css" rel="stylesheet"/>
 <link href="../../../../../../assets/stylesheets/palette.815d1a91.min.css" rel="stylesheet"/>
@@ -835,6 +835,11 @@
 <nav aria-label="Tested Onvif Cameras" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#camera-documentation">
+    Camera Documentation
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#user-authentication">
     User Authentication
   </a>
@@ -1564,6 +1569,11 @@
 <nav aria-label="Tested Onvif Cameras" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#camera-documentation">
+    Camera Documentation
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#user-authentication">
     User Authentication
   </a>
@@ -2201,8 +2211,8 @@
 </tbody>
 </table>
 <div class="admonition note">
-<p class="admonition-title">Note<p>The functions in the bold text are <strong>mandatory</strong> for Onvif protocol.</p>
-</p>
+<p class="admonition-title">Note</p>
+<p>The functions in the bold text are <strong>mandatory</strong> for Onvif protocol.</p>
 </div>
 <h2 id="custom-features">Custom Features</h2>
 <p>The device service also include custom function to enhance the usage for the EdgeX user.</p>
@@ -2350,6 +2360,10 @@ And the response should be like the following XML data:
 │              │                    │                    │               │                 │
 └──────────────┘                    └────────────────────┘               └─────────────────┘
 </code></pre></div></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Both REST and SOAP commands over the network can be subject to attacks while in transit. Please take all necessary precautions to protect network traffic.</p>
+</div>
 <h2 id="tested-onvif-cameras">Tested Onvif Cameras</h2>
 <p>The following table shows the Onvif functions tested for various Onvif cameras:</p>
 <ul>
@@ -2357,6 +2371,15 @@ And the response should be like the following XML data:
 <li>'❌' means the function does not work or is not implemented by the specified camera.</li>
 <li>'ⓘ' means there is additional details available. Click it to read more.</li>
 <li>Empty cells means the function has not yet been tested.</li>
+</ul>
+<h3 id="camera-documentation">Camera Documentation</h3>
+<p>Use these links to access maufacturer documentation</p>
+<ul>
+<li><a href="https://www.authority.com.tw/product-detail-2707792.html">Hikvision DFI6256TE</a></li>
+<li><a href="https://www.tapo.com/us/product/smart-camera/tapo-c200/">Tapo C200</a></li>
+<li><a href="https://commerce.boschsecurity.com/tw/en/DINION-IP-starlight-6000-HD/p/20827877387/">BOSCH DINION IP starlight 6000 HD</a></li>
+<li><a href="https://www.geovision.com.tw/product/GV-BX8700-FD">GeoVision GV-BX8700</a></li>
+<li><a href="https://us.hikvision.com/en/products/cameras/network-ptz-camera/value-series/ir/outdoor/4-mp-4x-ir-outdoor-network-ptz-camera-ds">Hikvision DS-2DE2A404IW-DE3</a></li>
 </ul>
 <h3 id="user-authentication">User Authentication</h3>
 <table>

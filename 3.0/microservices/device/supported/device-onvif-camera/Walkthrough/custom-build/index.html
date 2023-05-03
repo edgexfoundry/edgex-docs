@@ -9,7 +9,7 @@
 <meta content="Michael Johanson" name="author"/>
 <link href="https://docs.edgexfoundry.org/3.0/microservices/device/supported/device-onvif-camera/Walkthrough/custom-build/" rel="canonical"/>
 <link href="../../../../../../assets/logo_edgex.png" rel="icon"/>
-<meta content="mkdocs-1.4.2, mkdocs-material-8.5.8" name="generator"/>
+<meta content="mkdocs-1.4.3, mkdocs-material-8.5.8" name="generator"/>
 <title>Custom Build - EdgeX Foundry Documentation</title>
 <link href="../../../../../../assets/stylesheets/main.20d9efc8.min.css" rel="stylesheet"/>
 <link href="../../../../../../assets/stylesheets/palette.815d1a91.min.css" rel="stylesheet"/>
@@ -1561,23 +1561,27 @@
 <p>Make a copy of the <code>camera.yaml.example</code>:<br/>
 <div class="highlight"><pre><span></span><code>cp<span class="w"> </span>./cmd/res/devices/camera.yaml.example<span class="w"> </span>./cmd/res/devices/camera.yaml
 </code></pre></div></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be careful when storing any potentially important information in cleartext on files in your computer. Potentially sensitive information in this case could include the IP address of your ONVIF camera or any custom metadata you configure.</p>
+</div>
 </li>
 <li>
 <p>Open the <code>cmd/res/devices/camera.yaml</code> file using your preferred text editor and update the <code>Address</code> and <code>Port</code> fields to match the IP address of the Camera and port used for ONVIF services:</p>
-<p><div class="highlight"><pre><span></span><code><span class="nt">deviceList</span><span class="p">:</span>
+<div class="admonition example -">
+<p class="admonition-title">Sample: Snippet from camera.yaml</p>
+<div class="highlight"><pre><span></span><code><span class="nt">deviceList</span><span class="p">:</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Camera001</span><span class="w">                         </span><span class="c1"># Modify as desired</span>
 <span class="w">   </span><span class="nt">profileName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">onvif-camera</span><span class="w">              </span><span class="c1"># Default profile</span>
 <span class="w">   </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">onvif conformant camera</span><span class="w">   </span><span class="c1"># Modify as desired</span>
 <span class="w">   </span><span class="nt">protocols</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">Onvif</span><span class="p">:</span>
-<span class="w">         </span><span class="nt">Address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">191.168.86.34</span><span class="w">              </span><span class="c1"># Set to your camera IP address</span>
-<span class="w">         </span><span class="nt">Port</span><span class="p">:</span><span class="w"> </span><span class="s">'2020'</span><span class="w">                           </span><span class="c1"># Set to the port your camera uses</span>
+<span class="w">         </span><span class="nt">Address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">191.168.86.34</span><span class="w">           </span><span class="c1"># Set to your camera IP address</span>
+<span class="w">         </span><span class="nt">Port</span><span class="p">:</span><span class="w"> </span><span class="s">'2020'</span><span class="w">                     </span><span class="c1"># Set to the port your camera uses</span>
 <span class="w">      </span><span class="nt">CustomMetadata</span><span class="p">:</span>
 <span class="w">         </span><span class="nt">CommonName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Outdoor camera</span>
 </code></pre></div>
-<p align="left">
-<i>Sample: Snippet from camera.yaml</i>
-</p></p>
+</div>
 </li>
 <li>
 <p>Optionally, modify the <code>Name</code> and <code>Description</code> fields to more easily identify the camera. The <code>Name</code> is the camera name used when using ONVIF Device Service Rest APIs. The <code>Description</code> is simply a more detailed explanation of the camera.</p>
@@ -1599,27 +1603,32 @@
 </li>
 <li>
 <p>Under <code>secretName</code>, set <code>username</code> and <code>password</code> to your camera credentials. If you have multiple cameras copy the <code>Writable.InsecureSecrets</code> section and edit to include the new information.</p>
-</li>
-</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be careful when storing any potentially important information in cleartext on files in your computer. In this case, the credentials for the camera(s) are stored in cleartext in the <code>configuration.yaml</code> file on your system.
+<code>InsecureSecrets</code> is for non-production use only.</p>
+</div>
+<div class="admonition example -">
+<p class="admonition-title">Sample: Snippet from configuration.yaml</p>
 <div class="highlight"><pre><span></span><code><span class="nt">Writable</span><span class="p">:</span>
 <span class="nt">LogLevel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INFO</span>
 <span class="nt">InsecureSecrets</span><span class="p">:</span>
 <span class="w">   </span><span class="nt">credentials001</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">credentials001</span>
 <span class="w">      </span><span class="nt">SecretData</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Credentials 1 username&gt;</span>
-<span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Credentials 1 password&gt;</span>
-<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usernametoken</span><span class="w">   </span><span class="c1"># assign "digest" | "usernametoken" | "both" | "none"</span>
+<span class="w">         </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Credentials 1 username&gt;</span>
+<span class="w">         </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Credentials 1 password&gt;</span>
+<span class="w">         </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usernametoken</span><span class="w">   </span><span class="c1"># assign "digest" | "usernametoken" | "both" | "none"</span>
 <span class="w">   </span><span class="nt">credentials002</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">credentials002</span>
 <span class="w">      </span><span class="nt">SecretData</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Credentials 2 username&gt;</span>
-<span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Credentials 2 password&gt;</span>
-<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usernametoken</span><span class="w">    </span><span class="c1"># assign "digest" | "usernametoken" | "both" | "none"</span>
+<span class="w">         </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Credentials 2 username&gt;</span>
+<span class="w">         </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Credentials 2 password&gt;</span>
+<span class="w">         </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usernametoken</span><span class="w">    </span><span class="c1"># assign "digest" | "usernametoken" | "both" | "none"</span>
 </code></pre></div>
-<p align="left">
-<i>Sample: Snippet from configuration.yaml</i>
-</p>
+</div>
+</li>
+</ol>
 <h3 id="additional-configuration-options">Additional Configuration Options</h3>
 <p>For optional configurations, see <a href="#additional-configuration">here.</a></p>
 <h2 id="build-the-docker-image">Build the Docker Image</h2>
@@ -1667,13 +1676,14 @@ edgexfoundry-holding/device-onvif-camera<span class="w">   </span><span class="m
 <p>Here is some information on how to specially configure parts of the service beyond the provided defaults.  </p>
 <h3 id="configure-the-device-profiles">Configure the Device Profiles</h3>
 <p>The device profile contains general information about the camera and includes all of the device resources and commands that the device resources can use to manage the cameras. The default profile found at <code>cmd/res/devices/camera.yaml</code> contains all possible resources a camera could implement. Enable and disable supported resources in this file, or create an entirely new profile. It is important to set up the device profile to match the capabilities of the camera. Information on the resources supported by specific cameras can be found <a href="../../supplementary-info/ONVIF-protocol/#tested-onvif-cameras">here</a>. Learn more about device profiles in EdgeX <a href="https://docs.edgexfoundry.org/1.2/microservices/device/profile/Ch-DeviceProfile/">here.</a></p>
+<div class="admonition example -">
+<p class="admonition-title">Sample: Snippet from camera.yaml</p>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"onvif-camera"</span><span class="w"> </span><span class="c1"># general information about the profile</span>
 <span class="nt">manufacturer</span><span class="p">:</span><span class="w">  </span><span class="s">"Generic"</span>
 <span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">"Generic</span><span class="nv"> </span><span class="s">ONVIF"</span>
 <span class="nt">labels</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"onvif"</span>
-<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"EdgeX</span><span class="nv"> </span><span class="s">device</span><span class="nv"> </span><span class="s">profile</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">ONVIF-compliant</span><span class="nv"> </span><span class="s">IP</span><span class="nv"> </span><span class="s">camera."</span>
-
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"EdgeX</span><span class="nv"> </span><span class="s">device</span><span class="nv"> </span><span class="s">profile</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">ONVIF-compliant</span><span class="nv"> </span><span class="s">IP</span><span class="nv"> </span><span class="s">camera."</span><span class="w">      </span>
 <span class="nt">deviceResources</span><span class="p">:</span>
 <span class="w">  </span><span class="c1"># Network Configuration</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"Hostname"</span><span class="w"> </span><span class="c1"># an example of a resource with get/set values</span>
@@ -1687,11 +1697,11 @@ edgexfoundry-holding/device-onvif-camera<span class="w">   </span><span class="m
 <span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">"Object"</span>
 <span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">"RW"</span>
 </code></pre></div>
-<p align="left">
-<i>Sample: Snippet from camera.yaml</i>
-</p>
+</div>
 <h3 id="configure-the-provision-watchers">Configure the Provision Watchers</h3>
 <p>The provision watcher sets up parameters for EdgeX to automatically add devices to core-metadata. They can be configured to look for certain features, as well as block features. The default provision watcher is sufficient unless you plan on having multiple different cameras with different profiles and resources. Learn more about provision watchers <a href="https://docs.edgexfoundry.org/2.2/microservices/core/metadata/Ch-Metadata/#provision-watcher">here</a>.</p>
+<div class="admonition example -">
+<p class="admonition-title">Sample: Snippet from generic.provision.watcher.yaml</p>
 <div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generic-Onvif-Provision-Watcher</span>
 <span class="nt">identifiers</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">Address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span>
@@ -1702,9 +1712,7 @@ edgexfoundry-holding/device-onvif-camera<span class="w">   </span><span class="m
 <span class="w">    </span><span class="nt">profileName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">onvif-camera</span>
 <span class="w">    </span><span class="nt">adminState</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UNLOCKED</span>
 </code></pre></div>
-<p align="left">
-<i>Sample: Snippet from generic.provision.watcher.yaml</i>
-</p>
+</div>
 <h2 id="next-steps">Next Steps</h2>
 <p><a class="md-button" href="../deployment/">Deploy and Run the Service&gt;</a></p>
 <h2 id="license">License</h2>

@@ -9,7 +9,7 @@
 <meta content="Michael Johanson" name="author"/>
 <link href="https://docs.edgexfoundry.org/3.0/microservices/device/supported/device-onvif-camera/Walkthrough/general-usage/" rel="canonical"/>
 <link href="../../../../../../assets/logo_edgex.png" rel="icon"/>
-<meta content="mkdocs-1.4.2, mkdocs-material-8.5.8" name="generator"/>
+<meta content="mkdocs-1.4.3, mkdocs-material-8.5.8" name="generator"/>
 <title>General Usage - EdgeX Foundry Documentation</title>
 <link href="../../../../../../assets/stylesheets/main.20d9efc8.min.css" rel="stylesheet"/>
 <link href="../../../../../../assets/stylesheets/palette.815d1a91.min.css" rel="stylesheet"/>
@@ -1428,7 +1428,7 @@
 <ol>
 <li>
 <p><a name="step1"></a>Get the profile token by executing the <code>GetProfiles</code> command:
-        <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://0.0.0.0:59882/api/v2/device/name/Camera001/Profiles<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'"profileToken: " + '</span>.event.readings<span class="o">[]</span>.objectValue.Profiles<span class="o">[]</span>.Token<span class="s1">''</span>
+        <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://0.0.0.0:59882/api/v3/device/name/Camera001/Profiles<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'"profileToken: " + '</span>.event.readings<span class="o">[]</span>.objectValue.Profiles<span class="o">[]</span>.Token<span class="s1">''</span>
 </code></pre></div>
         Example Output: 
         <div class="highlight"><pre><span></span><code>profileToken:<span class="w"> </span>profile_1
@@ -1438,7 +1438,7 @@ profileToken:<span class="w"> </span>profile_2
 <li>
 <p>To get the RTSP URI from the ONVIF device, execute the <code>GetStreamURI</code> command, using a profileToken found in step 1:<br/>
         In this example, <code>profile_1</code> is the profileToken:<br/>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">"http://0.0.0.0:59882/api/v2/device/name/Camera001/StreamUri?jsonObject=</span><span class="k">$(</span>base64<span class="w"> </span>-w<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="s1">'{</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">"http://0.0.0.0:59882/api/v3/device/name/Camera001/StreamUri?jsonObject=</span><span class="k">$(</span>base64<span class="w"> </span>-w<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="s1">'{</span>
 <span class="s1">    "StreamSetup" : {</span>
 <span class="s1">        "Stream" : "RTP-Unicast",</span>
 <span class="s1">        "Transport" : {</span>
@@ -1454,6 +1454,10 @@ profileToken:<span class="w"> </span>profile_2
 </li>
 <li>
 <p>Stream the RTSP stream. 
+        <div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>RTSP streams are insecure, as the credentials are included in plaintext. Always keep this in mind when streaming via RTSP.</p>
+</div>
         ffplay can be used to stream. The command follows this format: 
         <div class="highlight"><pre><span></span><code>ffplay<span class="w"> </span>-rtsp_transport<span class="w"> </span>tcp<span class="w"> </span><span class="s2">"rtsp://&lt;user&gt;:&lt;password&gt;@&lt;IP address&gt;:&lt;port&gt;/&lt;streamname&gt;"</span>
 </code></pre></div>
@@ -1470,7 +1474,7 @@ profileToken:<span class="w"> </span>profile_2
 <p>To shut down ffplay, use the ctrl-c command.</p>
 </li>
 </ol>
-<p><iframe class="swagger-ui-iframe" frameborder="0" id="2ef94e5a" src="swagger-2ef94e5a.html" style="overflow:hidden;width:100%;" width="100%"></iframe></p>
+<p><iframe class="swagger-ui-iframe" frameborder="0" id="4c1e5076" src="swagger-4c1e5076.html" style="overflow:hidden;width:100%;" width="100%"></iframe></p>
 <h1 id="license">License</h1>
 <p><a href="https://github.com/edgexfoundry-holding/device-onvif-camera/blob/main/LICENSE">Apache-2.0</a></p>
 </article>

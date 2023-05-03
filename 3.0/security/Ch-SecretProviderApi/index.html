@@ -9,7 +9,7 @@
 <meta content="Michael Johanson" name="author"/>
 <link href="https://docs.edgexfoundry.org/3.0/security/Ch-SecretProviderApi/" rel="canonical"/>
 <link href="../../assets/logo_edgex.png" rel="icon"/>
-<meta content="mkdocs-1.4.2, mkdocs-material-8.5.8" name="generator"/>
+<meta content="mkdocs-1.4.3, mkdocs-material-8.5.8" name="generator"/>
 <title>Secret Provider API - EdgeX Foundry Documentation</title>
 <link href="../../assets/stylesheets/main.20d9efc8.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.815d1a91.min.css" rel="stylesheet"/>
@@ -475,8 +475,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#registeredsecretupdatedcallback">
-    RegisteredSecretUpdatedCallback
+<a class="md-nav__link" href="#registersecretupdatedcallback">
+    RegisterSecretUpdatedCallback
   </a>
 </li>
 <li class="md-nav__item">
@@ -1494,8 +1494,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#registeredsecretupdatedcallback">
-    RegisteredSecretUpdatedCallback
+<a class="md-nav__link" href="#registersecretupdatedcallback">
+    RegisterSecretUpdatedCallback
   </a>
 </li>
 <li class="md-nav__item">
@@ -1527,37 +1527,45 @@
 <span class="w">    </span><span class="nx">HasSecret</span><span class="p">(</span><span class="nx">secretName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
 <span class="w">    </span><span class="nx">ListSecretNames</span><span class="p">()</span><span class="w"> </span><span class="p">([]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
 <span class="w">    </span><span class="nx">SecretsLastUpdated</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="w">  </span>
-<span class="w">    </span><span class="nx">RegisteredSecretUpdatedCallback</span><span class="p">(</span><span class="nx">secretName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">RegisterSecretUpdatedCallback</span><span class="p">(</span><span class="nx">secretName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">secretName</span><span class="w"> </span><span class="kt">string</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">DeregisterSecretUpdatedCallback</span><span class="p">(</span><span class="nx">secretName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="storesecret">StoreSecret</h3>
 <p><code>StoreSecret(secretName string, secrets map[string]string) error</code></p>
-<p>Stores new secrets into the service's SecretStore at the specified path (aka secret name). An error is returned if the secrets can not be stored.</p>
+<p>Stores new secrets into the service's SecretStore at the specified <code>secretName</code>. An error is returned if the secrets can not be stored.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This API is only valid to call when in secure mode. It will return an error when in non-secure mode. Insecure Secrets should be added/updated directly in the configuration file or via the Configuration Provider (aka Consul).</p>
 </div>
 <h3 id="getsecret">GetSecret</h3>
 <p><code>GetSecret(secretName string, keys ...string) (map[string]string, error)</code></p>
-<p>Retrieves the secrets from the service's SecretStore for the specified path (aka secret name). The list of keys is optional and limits the secret data returned to just those keys specified, otherwise all keys are returned. An error is returned if the path doesn't exist in the service's Secret Store or if one or more of the optional keys specified are not present.</p>
+<p>Retrieves the secrets from the service's SecretStore for the specified <code>secretName</code>. The list of keys is optional and limits the secret data returned to just those keys specified, otherwise all keys are returned. An error is returned if the <code>secretName</code> doesn't exist in the service's Secret Store or if one or more of the optional keys specified are not present.</p>
 <h3 id="hassecret">HasSecret</h3>
 <p><code>HasSecret(secretName string) (bool, error)</code></p>
-<p>Returns true if the service's Secret Store contains a secret at the specified path  (aka secret name) . An error is retuned if the Secret Store can not be accessed.</p>
+<p>Returns true if the service's Secret Store contains a secret at the specified <code>secretName</code>. An error is returned if the Secret Store can not be accessed.</p>
 <h3 id="listsecretnames">ListSecretNames</h3>
 <p><code>ListSecretNames() ([]string, error)</code></p>
-<p>Returns a list of paths (aka secret names) from the current service's Secret Store. An error is retuned if the Secret Store can not be accessed.</p>
+<p>Returns a list of secret names from the current service's Secret Store. An error is returned if the Secret Store can not be accessed.</p>
 <h3 id="secretslastupdated">SecretsLastUpdated</h3>
 <p><code>SecretsLastUpdated() time.Time</code></p>
 <p>Returns the timestamp for last time when the service's secrets were updated in its Secret Store. This is useful when using external client that is initialized with the secret and needs to be recreated if the secret has changed. </p>
-<h3 id="registeredsecretupdatedcallback">RegisteredSecretUpdatedCallback</h3>
-<div class="codehilite"><pre><span></span><code>RegisteredSecretUpdatedCallback(secretName string, callback func(path string)) error
+<h3 id="registersecretupdatedcallback">RegisterSecretUpdatedCallback</h3>
+<div class="codehilite"><pre><span></span><code>RegisterSecretUpdatedCallback(secretName string, callback func(secretName string)) error
 </code></pre></div>
-<p>Registers a callback for when the  specified <code>secretName</code> is added or updated.</p>
+<p>Registers a callback for when the specified <code>secretName</code> is added or updated. The <code>secretName</code> that changed is provided as an argument to the callback so that the same callback can be utilized for multiple secrets if desired.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The constant value <code>secret.WildcardName</code> can be used to register a callback for when <em>any</em> secret has changed. The actual <code>secretName</code> that changed will be passed to the callback. Note that the callbacks set for a specific <code>secretName</code> are given a higher precedence over wildcard ones, and will be called <em>instead of</em> the wildcard one if both are present.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function will return an error if there is already a callback registered for the specified <code>secretName</code>. Please call <code>DeregisterSecretUpdatedCallback</code> first before attempting to register a new one.</p>
+</div>
 <h3 id="deregistersecretupdatedcallback">DeregisterSecretUpdatedCallback</h3>
 <div class="codehilite"><pre><span></span><code><span class="n">DeregisterSecretUpdatedCallback</span><span class="p">(</span><span class="n">secretName</span><span class="w"> </span><span class="k">string</span><span class="p">)</span>
 </code></pre></div>
-<p>Removes the registered callback for the specified <code>secretName</code></p>
+<p>Removes the registered callback for the specified <code>secretName</code>. If none exist, this is a no-op.</p>
 </article>
 </div>
 </div>

@@ -9,7 +9,7 @@
 <meta content="Michael Johanson" name="author"/>
 <link href="https://docs.edgexfoundry.org/3.0/microservices/device/supported/device-onvif-camera/Walkthrough/deployment/" rel="canonical"/>
 <link href="../../../../../../assets/logo_edgex.png" rel="icon"/>
-<meta content="mkdocs-1.4.2, mkdocs-material-8.5.8" name="generator"/>
+<meta content="mkdocs-1.4.3, mkdocs-material-8.5.8" name="generator"/>
 <title>Deployment - EdgeX Foundry Documentation</title>
 <link href="../../../../../../assets/stylesheets/main.20d9efc8.min.css" rel="stylesheet"/>
 <link href="../../../../../../assets/stylesheets/palette.815d1a91.min.css" rel="stylesheet"/>
@@ -765,6 +765,20 @@
 <a class="md-nav__link" href="#deploy-edgex-and-onvif-device-camera-microservice">
     Deploy EdgeX and ONVIF Device Camera Microservice
   </a>
+<nav aria-label="Deploy EdgeX and ONVIF Device Camera Microservice" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#non-secure-mode">
+    Non-secure mode
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#secure-mode">
+    Secure mode
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#verify-service-and-device-profiles">
@@ -1455,6 +1469,20 @@
 <a class="md-nav__link" href="#deploy-edgex-and-onvif-device-camera-microservice">
     Deploy EdgeX and ONVIF Device Camera Microservice
   </a>
+<nav aria-label="Deploy EdgeX and ONVIF Device Camera Microservice" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#non-secure-mode">
+    Non-secure mode
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#secure-mode">
+    Secure mode
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#verify-service-and-device-profiles">
@@ -1527,22 +1555,42 @@
 </code></pre></div>
 </li>
 <li>
-<p>Run EdgeX with the microservice in non-secure mode:</p>
+<p>Run Edgex with the ONVIF microservice in secure or non-secure mode.</p>
+<h5 id="non-secure-mode">Non-secure mode</h5>
 <div class="highlight"><pre><span></span><code>make<span class="w"> </span>run<span class="w"> </span>no-secty<span class="w"> </span>ds-onvif-camera
 </code></pre></div>
-</li>
-<li>
-<p>Run EdgeX with the microservice in secure mode:</p>
+<h5 id="secure-mode">Secure mode</h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Recommended for secure and production level deployments. </p>
+</div>
 <div class="highlight"><pre><span></span><code>make<span class="w"> </span>run<span class="w"> </span>ds-onvif-camera
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Need to wait for sometime for the services to be fully up before executing the next set of commands.
+Securely store Consul ACL token and the JWT token generated which are needed to map credentials and execute apis.
+It is not recommended to store these secrets in cleartext in your machine.</p>
+</div>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>get-consul-acl-token
+make<span class="w"> </span>get-token
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Secrets such as passwords, certificates, tokens and more in Edgex are stored in a secret store which is implemented using Vault a product of Hashicorp.
+Vault supports security features allowing for the issuing of consul tokens. JWT token is required for the API Gateway which is a trust boundry for Edgex services. 
+It allows for external clients to be verified when issuing REST requests to the microservices. 
+For more info refer <a href="../../../../../../security/Ch-Secure-Consul/">Secure Consul</a>, <a href="../../../../../../security/Ch-APIGateway/">API Gateway</a> 
+and <a href="../../../../../../security/Ch-Security/">Edgex Security</a>.</p>
+</div>
 </li>
 </ol>
 </div>
 <div class="tabbed-block">
-<p><div class="admonition note">
+<div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Go version 1.20+ is required to run natively. See <a href="https://go.dev/doc/install">here</a> for more information.</p>
-</div></p>
+</div>
 <ol>
 <li>
 <p>Navigate to the EdgeX <code>compose-builder</code> directory:</p>
@@ -1590,11 +1638,20 @@
 </li>
 <li>
 <p>Check whether the device service is added to EdgeX:</p>
-<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59881/api/v2/deviceservice/name/device-onvif-camera<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<p><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If running in secure mode all the api executions need the JWT token generated previously. E.g.
+        <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--location<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera'</span><span class="w"> </span><span class="se">\</span>
+--header<span class="w"> </span><span class="s1">'Authorization: Bearer eyJhbGciOiJFUzM4NCIsImtpZCI6ImIzNTY3ZmJjLTlhZTctMjkyNy0xY2IxLWE2NzAzZGQwMWM1ZCJ9.eyJhdWQiOiJlZGdleCIsImV4cCI6MTY4MjcyNDExMCwiaWF0IjoxNjgyNzIwNTEwLCJpc3MiOiIvdjEvaWRlbnRpdHkvb2lkYyIsIm5hbWUiOiJlZGdleHVzZXIiLCJuYW1lc3BhY2UiOiJyb290Iiwic3ViIjoiMTA2NzczMDItMmY0Yi00MjE4LTFhZmUtNzZlOTYwMGJiMmQ5In0.NP0deI0HyQMvdsFwk85N5RwNpgh5lUa507z9Ft2CDT9OEeR8iYOLYmwRLZim3j_BoVSdWxiJf3tmnWo64-mffHoktbFSRooQveakAeoFYuvCXu7tO1-b-QGzzzyWfSjc'</span><span class="w"> </span><span class="se">\</span>
+--data-raw<span class="w"> </span><span class="s1">''</span>
+</code></pre></div>
+</p>
+</div></p>
+<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 </code></pre></div>
  Good response:
  <div class="highlight"><pre><span></span><code><span class="w">   </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">"service"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">         </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="mi">1657227634593</span><span class="p">,</span>
@@ -1608,7 +1665,7 @@
 </code></pre></div>
  Bad response:
  <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">   </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">   </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fail to query device service by name device-onvif-camer"</span><span class="p">,</span>
 <span class="w">   </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span>
 <span class="p">}</span>
@@ -1616,7 +1673,7 @@
 </li>
 <li>
 <p>Check whether the device profile is added:</p>
-<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59881/api/v2/deviceprofile/name/onvif-camera<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'"profileName: " + '</span>.profile.name<span class="s1">' + "\nstatusCode: " + (.statusCode|tostring)'</span>
+<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59881/api/v3/deviceprofile/name/onvif-camera<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'"profileName: " + '</span>.profile.name<span class="s1">' + "\nstatusCode: " + (.statusCode|tostring)'</span>
 </code></pre></div>
  Good response:
  <div class="highlight"><pre><span></span><code>profileName:<span class="w"> </span>onvif-camera
@@ -1626,14 +1683,22 @@ statusCode:<span class="w"> </span><span class="m">200</span>
  <div class="highlight"><pre><span></span><code>profileName:<span class="w"> </span>
 statusCode:<span class="w"> </span><span class="m">404</span>
 </code></pre></div></p>
-<p><div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>jq -r</code> is used to reduce the size of the displayed response. The entire device profile with all resources can be seen by removing <code>-r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)', and replacing it with '.'</code></p>
-</div></p>
 </li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>jq -r<code>is used to reduce the size of the displayed response. The entire device profile with all resources can be seen by removing</code>-r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)', and replacing it with '.'`</p>
+</div>
 </div>
 <div class="tabbed-block">
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Secure mode login to Edgex UI requires the JWT token generated in the above step</p>
+</div>
+<p><details>
+<summary><strong>Entering the JWT token</strong></summary>
+<img alt="" src="../../images/EdgeXJWTLogin.png">
+</img></details></p>
 <ol>
 <li>
 <p>Visit http://localhost:4000 to go to the dashboard for EdgeX Console GUI:</p>
@@ -1644,10 +1709,10 @@ statusCode:<span class="w"> </span><span class="m">404</span>
 </li>
 <li>
 <p>To see <strong>Device Services</strong>, <strong>Devices</strong>, or <strong>Device Profiles</strong>, click on their respective tab:</p>
-<p><img alt="EdgeXConsoleDeviceServices" src="../../images/EdgeXDeviceServices.png">
+<p><img alt="EdgeXConsoleDeviceServices" src="../../images/EdgeXDeviceServices.png"/>
 <p align="left">
 <i>Figure 2: EdgeX Console Device Service List</i>
-</p></img></p>
+</p></p>
 <p><img alt="EdgeXConsoleDeviceList" src="../../images/EdgeXDeviceList.png"/>
 <p align="left">
 <i>Figure 3: EdgeX Console Device List</i>
@@ -1665,14 +1730,22 @@ statusCode:<span class="w"> </span><span class="m">404</span>
 <p>Follow these instructions to update devices.</p>
 <h3 id="curl-commands">Curl Commands</h3>
 <h4 id="add-device">Add Device</h4>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be careful when storing any potentially important information in cleartext on files in your computer. This includes information such as your camera IP and MAC addresses.</p>
+</div>
 <ol>
 <li>
 <p>Edit the information to appropriately match the camera. The fields <code>Address</code>, <code>MACAddress</code> and <code>Port</code> should match that of the camera:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If running in secure mode all the api executions need the JWT token generated previously.</p>
+</div>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w">  </span><span class="se">\</span>
-http://localhost:59881/api/v2/device<span class="w"> </span><span class="se">\</span>
+http://localhost:59881/api/v3/device<span class="w"> </span><span class="se">\</span>
 -d<span class="w"> </span><span class="s1">'[</span>
 <span class="s1">         {</span>
-<span class="s1">            "apiVersion": "v2",</span>
+<span class="s1">            "apiVersion": "v3",</span>
 <span class="s1">            "device": {</span>
 <span class="s1">               "name":"Camera001",</span>
 <span class="s1">               "serviceName": "device-onvif-camera",</span>
@@ -1696,25 +1769,29 @@ http://localhost:59881/api/v2/device<span class="w"> </span><span class="se">\</
 <span class="s1">]'</span>
 </code></pre></div>
 <p>Example Output: 
-  <div class="highlight"><pre><span></span><code><span class="o">[{</span><span class="s2">"apiVersion"</span>:<span class="s2">"v2"</span>,<span class="s2">"statusCode"</span>:201,<span class="s2">"id"</span>:<span class="s2">"fb5fb7f2-768b-4298-a916-d4779523c6b5"</span><span class="o">}]</span>
+<div class="highlight"><pre><span></span><code><span class="o">[{</span><span class="s2">"apiVersion"</span>:<span class="s2">"v3"</span>,<span class="s2">"statusCode"</span>:201,<span class="s2">"id"</span>:<span class="s2">"fb5fb7f2-768b-4298-a916-d4779523c6b5"</span><span class="o">}]</span>
 </code></pre></div></p>
 </li>
 <li>
-<p>Map credentials using the <code>map-credentials.sh</code> script.<br/>
-      a. Run <code>bin/map-credentials.sh</code> <br/>
-      b. Select <code>(Create New)</code>
+<p>Map credentials using the <code>map-credentials.sh</code> script.  </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If running in secure mode Consul ACL and the JWT token generated previously are needed for mapping credentials.</p>
+</div>
+<p>a. Run <code>bin/map-credentials.sh</code>
+  b. Select <code>(Create New)</code>
 <img alt="" src="../../images/creds-pick.png"/><br/>
-      c. Enter the Secret Name to associate with these credentials<br/>
+  c. Enter the Secret Name to associate with these credentials<br/>
 <img alt="" src="../../images/creds-name.png"/> <br/>
-      d. Enter the username<br/>
+  d. Enter the username<br/>
 <img alt="" src="../../images/creds-username.png"/><br/>
-      e.  Enter the password<br/>
+  e.  Enter the password<br/>
 <img alt="" src="../../images/creds-password.png"/><br/>
-      f. Choose the Authentication Mode<br/>
+  f. Choose the Authentication Mode<br/>
 <img alt="" src="../../images/creds-method.png"/><br/>
-      g. Assign one or more MAC Addresses to the credential group<br/>
+  g. Assign one or more MAC Addresses to the credential group<br/>
 <img alt="" src="../../images/creds-mac.png"/><br/>
-      h. Learn more about updating credentials <a href="../../supplementary-info/utility-scripts/">here</a> </p>
+  h. Learn more about updating credentials <a href="../../supplementary-info/utility-scripts/">here</a> </p>
 <p>Successful:</p>
 <div class="highlight"><pre><span></span><code>Dependencies<span class="w"> </span>Check:<span class="w"> </span>Success
 <span class="w">      </span>Consul<span class="w"> </span>Check:<span class="w"> </span>...
@@ -1761,24 +1838,24 @@ Response<span class="w"> </span><span class="o">[</span><span class="m">200</spa
 </code></pre></div>
 </li>
 <li>
-<p>Verify device(s) have been succesfully added to core-metadata.</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59881/api/v2/device/all<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'"deviceName: " + '</span>.devices<span class="o">[]</span>.name<span class="s1">''</span>
+<p>Verify device(s) have been successfully added to core-metadata.</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59881/api/v3/device/all<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'"deviceName: " + '</span>.devices<span class="o">[]</span>.name<span class="s1">''</span>
 </code></pre></div>
 <p>Example Output: 
   <code>bash
   deviceName: Camera001
   deviceName: device-onvif-camera</code></p>
-<p><div class="admonition note">
+<div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code>jq -r</code> is used to reduce the size of the displayed response. The entire device with all information can be seen by removing <code>-r '"deviceName: " + '.devices[].name'', and replacing it with '.'</code></p>
-</div></p>
+</div>
 </li>
 </ol>
 <h4 id="update-device">Update Device</h4>
 <p>There are multiple commands that can update aspects of the camera entry in meta-data. Refer to the <a href="../general-usage/">Swagger documentation</a> for Core Metadata for more information. For editing specific fields, see the <a href="../general-usage/">General Usage</a> tab.</p>
 <h4 id="delete-device">Delete Device</h4>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">'DELETE'</span><span class="w"> </span><span class="se">\</span>
-<span class="s1">'http://localhost:59881/api/v2/device/name/&lt;device name&gt;'</span><span class="w"> </span><span class="se">\</span>
+<span class="s1">'http://localhost:59881/api/v3/device/name/&lt;device name&gt;'</span><span class="w"> </span><span class="se">\</span>
 -H<span class="w"> </span><span class="s1">'accept: application/json'</span><span class="w"> </span>
 </code></pre></div>
 <h2 id="shutting-down">Shutting Down</h2>
