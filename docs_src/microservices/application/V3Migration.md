@@ -1,4 +1,7 @@
-# V2 Migration Guide
+# V3 Migration Guide
+
+!!! warning
+    Updates to this migration guide for V3 are still pending. Content/structure below is from V2
 
 ## Custom Application Services
 

@@ -392,13 +392,6 @@ Below are only the additional settings and sections that are specific to Core Me
 
 Coming soon
 
-#### Writable
-
-The following settings are available in the `Writable.ProfileChage` section.
-
-- StrictDeviceProfileChanges
-- StrictDeviceProfileDeletes
-
 ## Device System Events
 
 Device System Events are events triggered by the add, update or delete of devices. A System Event DTO is published to the EdgeX MessageBus each time a new Device is added, an existing Device is updated or when an existing Device is deleted.

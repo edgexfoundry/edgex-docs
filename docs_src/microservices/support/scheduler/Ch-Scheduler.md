@@ -146,9 +146,9 @@ Below are only the additional settings and sections that are specific to Support
     |Interval|midnight|run the operation every midnight as specified by the configuration defined interval|
 
 
-### V2 Configuration Migration Guide
+### V3 Configuration Migration Guide
 
-Refer to the [Common Configuration Migration Guide](../../../configuration/V2MigrationCommonConfig) for details on migrating the common configuration sections such as `Service`.
+Coming soon
 
 ## API Reference
 

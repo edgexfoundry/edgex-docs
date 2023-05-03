@@ -152,51 +152,6 @@ Below are only the additional settings and sections that are specific to Core Da
 
 Coming soon
 
-#### Writable
-
-The following settings have been removed from the `Writable` section
-
-- DeviceUpdateLastConnected
-- MetaDataCheck
-- ServiceUpdateLastConnected
-- ValidateCheck
-- ChecksumAlgo
-
-#### MessageQueue
-
-The following `MessageQueue` setting values have changed:
-
-- Host - Override value for docker is now `edgex-redis`
-- Protocol = "redis"
-- Port = 6379
-- Type = 'redis'
-
-The following setting has been removed from the `MessageQueue` section
-
-- Topic
-
-The following new settings have been added to  `MessageQueue` section
-
-- PublishTopicPrefix = 'edgex/events/core'
-- SubscribeTopic = 'edgex/events/device/#'
-
-- AuthMode = 'usernamepassword'
-- SecretName = 'redisdb'
-- PublishTopicPrefix = 'edgex/events/core'
-- SubscribeEnabled = true
-
-#### MessageQueue.Optional
-
-The following settings have been removed from `MessageQueue.Optional` section for when using MQTT for the MessageBus. Secure MessageBus using MQTT is not yet supported and will be retrieved from the Secret Store in a future release.
-
-- Username
-- Password
-  
-#### MaxEventSize
-
-!!! Note
-    The default value for MaxEventSize is 25000KB (25MB).
-
 ## API Reference
 
 [Core Data API Reference](../../../api/core/Ch-APICoreData.md)
