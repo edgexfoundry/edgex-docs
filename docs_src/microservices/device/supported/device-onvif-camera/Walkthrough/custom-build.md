@@ -33,22 +33,20 @@ Configuring pre-defined devices will allow the service to automatically provisio
         Be careful when storing any potentially important information in cleartext on files in your computer. Potentially sensitive information in this case could include the IP address of your ONVIF camera or any custom metadata you configure.
 
 2. Open the `cmd/res/devices/camera.yaml` file using your preferred text editor and update the `Address` and `Port` fields to match the IP address of the Camera and port used for ONVIF services:
-
-      ```yaml
-      deviceList:
-      - name: Camera001                         # Modify as desired
-         profileName: onvif-camera              # Default profile
-         description: onvif conformant camera   # Modify as desired
-         protocols:
-            Onvif:
-               Address: 191.168.86.34              # Set to your camera IP address
-               Port: '2020'                           # Set to the port your camera uses
-            CustomMetadata:
-               CommonName: Outdoor camera
-      ```
-      <p align="left">
-         <i>Sample: Snippet from camera.yaml</i>
-      </p>
+    
+    !!! example - "Sample: Snippet from camera.yaml"
+        ```yaml
+        deviceList:
+        - name: Camera001                         # Modify as desired
+           profileName: onvif-camera              # Default profile
+           description: onvif conformant camera   # Modify as desired
+           protocols:
+              Onvif:
+                 Address: 191.168.86.34           # Set to your camera IP address
+                 Port: '2020'                     # Set to the port your camera uses
+              CustomMetadata:
+                 CommonName: Outdoor camera
+        ```
 
 3. Optionally, modify the `Name` and `Description` fields to more easily identify the camera. The `Name` is the camera name used when using ONVIF Device Service Rest APIs. The `Description` is simply a more detailed explanation of the camera.
 4. You can also optionally configure the `CustomMetadata` with custom fields and values to store any extra information you would like.
@@ -75,15 +73,15 @@ Configuring pre-defined devices will allow the service to automatically provisio
            credentials001:
               SecretName: credentials001
               SecretData:
-              username: <Credentials 1 username>
-              password: <Credentials 1 password>
-              mode: usernametoken   # assign "digest" | "usernametoken" | "both" | "none"
+                 username: <Credentials 1 username>
+                 password: <Credentials 1 password>
+                 mode: usernametoken   # assign "digest" | "usernametoken" | "both" | "none"
            credentials002:
               SecretName: credentials002
               SecretData:
-              username: <Credentials 2 username>
-              password: <Credentials 2 password>
-              mode: usernametoken    # assign "digest" | "usernametoken" | "both" | "none"
+                 username: <Credentials 2 username>
+                 password: <Credentials 2 password>
+                 mode: usernametoken    # assign "digest" | "usernametoken" | "both" | "none"
         ```
 
 ### Additional Configuration Options
@@ -139,50 +137,44 @@ Here is some information on how to specially configure parts of the service beyo
 
 The device profile contains general information about the camera and includes all of the device resources and commands that the device resources can use to manage the cameras. The default profile found at `cmd/res/devices/camera.yaml` contains all possible resources a camera could implement. Enable and disable supported resources in this file, or create an entirely new profile. It is important to set up the device profile to match the capabilities of the camera. Information on the resources supported by specific cameras can be found [here](../supplementary-info/ONVIF-protocol.md#tested-onvif-cameras). Learn more about device profiles in EdgeX [here.](https://docs.edgexfoundry.org/1.2/microservices/device/profile/Ch-DeviceProfile/)
 
-```yaml
-name: "onvif-camera" # general information about the profile
-manufacturer:  "Generic"
-model: "Generic ONVIF"
-labels:
-  - "onvif"
-description: "EdgeX device profile for ONVIF-compliant IP camera."
-
-deviceResources:
-  # Network Configuration
-  - name: "Hostname" # an example of a resource with get/set values
-    isHidden: false
-    description: "Camera Hostname"
-    attributes:
-      service: "Device"
-      getFunction: "GetHostname"
-      setFunction: "SetHostname"
-    properties:
-      valueType: "Object"
-      readWrite: "RW"
-```
-<p align="left">
-   <i>Sample: Snippet from camera.yaml</i>
-</p>
-
+!!! example - "Sample: Snippet from camera.yaml"
+       ```yaml
+       name: "onvif-camera" # general information about the profile
+       manufacturer:  "Generic"
+       model: "Generic ONVIF"
+       labels:
+         - "onvif"
+       description: "EdgeX device profile for ONVIF-compliant IP camera."      
+       deviceResources:
+         # Network Configuration
+         - name: "Hostname" # an example of a resource with get/set values
+           isHidden: false
+           description: "Camera Hostname"
+           attributes:
+             service: "Device"
+             getFunction: "GetHostname"
+             setFunction: "SetHostname"
+           properties:
+             valueType: "Object"
+             readWrite: "RW"
+       ```
 
 ### Configure the Provision Watchers
 
 The provision watcher sets up parameters for EdgeX to automatically add devices to core-metadata. They can be configured to look for certain features, as well as block features. The default provision watcher is sufficient unless you plan on having multiple different cameras with different profiles and resources. Learn more about provision watchers [here](https://docs.edgexfoundry.org/2.2/microservices/core/metadata/Ch-Metadata/#provision-watcher).
-
-```yaml
-name: Generic-Onvif-Provision-Watcher
-identifiers:
-  Address: .
-blockingIdentifiers: {}
-adminState: UNLOCKED
-discoveredDevice:
-    serviceName: device-onvif-camera
-    profileName: onvif-camera
+ 
+!!! example - "Sample: Snippet from generic.provision.watcher.yaml"
+    ```yaml
+    name: Generic-Onvif-Provision-Watcher
+    identifiers:
+      Address: .
+    blockingIdentifiers: {}
     adminState: UNLOCKED
-```
-<p align="left">
-   <i>Sample: Snippet from generic.provision.watcher.yaml</i>
-</p>
+    discoveredDevice:
+        serviceName: device-onvif-camera
+        profileName: onvif-camera
+        adminState: UNLOCKED
+    ```
 
 ## Next Steps
 [Deploy and Run the Service>](./deployment.md){: .md-button}
