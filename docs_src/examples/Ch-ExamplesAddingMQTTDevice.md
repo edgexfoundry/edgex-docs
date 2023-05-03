@@ -177,39 +177,44 @@ Using the detailed script below as a simulator, there are three behaviors:
 1. Publish random number data every 15 seconds.
 
 
-   The simulator publishes the data to the MQTT broker with topic `incoming/data/my-custom-device/randnum` and the message is similar to the following:
+   The simulator publishes the data to the MQTT broker with topic `incoming/data/my-custom-device/values` and the message is similar to the following:
 
-    ```
-    {"randnum":4161.3549}
-    ```
+
+```json
+{
+  "randnum" : 4161.3549,
+  "ping"    : "pong",
+  "message" : "Hello World"
+}
+```
 
 2. Receive the reading request, then return the response.
 
-    
+   
     1. The simulator receives the request from the MQTT broker, the topic is `command/my-custom-device/randnum/get/293d7a00-66e1-4374-ace0-07520103c95f` and message returned is similar to the following:
     
-        ```
+        ```json
         {"randnum":"42.0"}
         ```
     
     2. The simulator returns the response to the MQTT broker, the topic is `command/response/#` and the message is similar to the following:
     
-        ```
+        ```json
         {"randnum":"4.20e+01"}
         ```
     
 3. Receive the set request, then change the device value.
 
-    
+   
     1. The simulator receives the request from the MQTT broker, the topic is `command/my-custom-device/testmessage/set/293d7a00-66e1-4374-ace0-07520103c95f` and the message is similar to the following:
     
-        ```   
+        ```json   
         {"message":"test message..."}
         ```
     
     2. The simulator changes the device value and returns the response to the MQTT broker, the topic is `command/response/#` and the message is similar to the following:
     
-        ```   
+        ```json   
         {"message":"test message..."}
         ```
     
@@ -228,8 +233,12 @@ let json = {"name" : "My JSON"};
 
 // DataSender sends async value to MQTT broker every 15 seconds
 schedule('*/15 * * * * *', ()=>{
-    let body = getRandomFloat(25,29).toFixed(1);
-    publish( 'incoming/data/my-custom-device/randnum', body);
+    var data = {};
+    data.randnum = getRandomFloat(25,29).toFixed(1);
+    data.ping = "pong"
+    data.message = "Hello World"
+
+    publish( 'incoming/data/my-custom-device/values', JSON.stringify(data));
 });
 
 // CommandHandler receives commands and sends response to MQTT broker
