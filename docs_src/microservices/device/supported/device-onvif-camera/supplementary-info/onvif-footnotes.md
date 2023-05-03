@@ -1,7 +1,7 @@
 # ONVIF Footnotes
 
-!!! Warning
-      Information in this page may be outdated.
+!!! warning
+    Information in this page may be outdated.
       
 ## Command Support
 

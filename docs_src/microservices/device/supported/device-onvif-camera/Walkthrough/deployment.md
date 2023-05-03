@@ -10,27 +10,43 @@ Follow this guide to deploy and run the service.
          ```bash
          cd edgex-compose/compose-builder/
          ```
+      2. Run Edgex with the ONVIF microservice in secure or non-secure mode.
 
-      2. Run EdgeX with the microservice in non-secure mode:
+        ##### Non-secure mode
 
-         ```bash
-         make run no-secty ds-onvif-camera
-         ```
-      
-      3. Run EdgeX with the microservice in secure mode:
+        ```bash
+        make run no-secty ds-onvif-camera
+        ```
+    
+        ##### Secure mode 
+
+        !!! note
+            Recommended for secure and production level deployments. 
 
          ```bash
          make run ds-onvif-camera
          ```
+        !!! note
+            Need to wait for sometime for the services to be fully up before executing the next set of commands.
+            Securely store Consul ACL token and the JWT token generated which are needed to map credentials and execute apis.
+            It is not recommended to store these secrets in cleartext in your machine.
+
+        ```bash
+        make get-consul-acl-token
+        make get-token
+        ```
+
+        !!! note
+            Secrets such as passwords, certificates, tokens and more in Edgex are stored in a secret store which is implemented using Vault a product of Hashicorp.
+            Vault supports security features allowing for the issuing of consul tokens. JWT token is required for the API Gateway which is a trust boundry for Edgex services. 
+            It allows for external clients to be verified when issuing REST requests to the microservices. 
+            For more info refer [Secure Consul](../../../../../security/Ch-Secure-Consul.md), [API Gateway](../../../../../security/Ch-APIGateway.md) 
+            and [Edgex Security](../../../../../security/Ch-Security.md).
 
 === "Native"
 
-
-      <div class="admonition note">
-         <p class="admonition-title">Note</p>
-         <p>Go version 1.20+ is required to run natively. See <a href="https://go.dev/doc/install">here</a> for more information.</p>
-      </div>
-
+    !!! note
+        Go version 1.20+ is required to run natively. See <a href="https://go.dev/doc/install">here</a> for more information.
 
       1. Navigate to the EdgeX `compose-builder` directory:
 
@@ -82,13 +98,24 @@ Follow this guide to deploy and run the service.
 
       2. Check whether the device service is added to EdgeX:
 
+         <div class="admonition note">
+             <p class="admonition-title">Note</p>
+             <p>If running in secure mode all the api executions need the JWT token generated previously. E.g.
+                ```bash
+                curl --location --request GET 'http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera' \
+                --header 'Authorization: Bearer eyJhbGciOiJFUzM4NCIsImtpZCI6ImIzNTY3ZmJjLTlhZTctMjkyNy0xY2IxLWE2NzAzZGQwMWM1ZCJ9.eyJhdWQiOiJlZGdleCIsImV4cCI6MTY4MjcyNDExMCwiaWF0IjoxNjgyNzIwNTEwLCJpc3MiOiIvdjEvaWRlbnRpdHkvb2lkYyIsIm5hbWUiOiJlZGdleHVzZXIiLCJuYW1lc3BhY2UiOiJyb290Iiwic3ViIjoiMTA2NzczMDItMmY0Yi00MjE4LTFhZmUtNzZlOTYwMGJiMmQ5In0.NP0deI0HyQMvdsFwk85N5RwNpgh5lUa507z9Ft2CDT9OEeR8iYOLYmwRLZim3j_BoVSdWxiJf3tmnWo64-mffHoktbFSRooQveakAeoFYuvCXu7tO1-b-QGzzzyWfSjc' \
+                --data-raw ''
+                ```
+            </p>
+          </div>
+
          ```bash
-         curl -s http://localhost:59881/api/v2/deviceservice/name/device-onvif-camera | jq .
+         curl -s http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera | jq .
          ```
          Good response:
          ```json
             {
-               "apiVersion": "v2",
+               "apiVersion": "v3",
                "statusCode": 200,
                "service": {
                   "created": 1657227634593,
@@ -103,7 +130,7 @@ Follow this guide to deploy and run the service.
          Bad response:
          ```json
          {
-            "apiVersion": "v2",
+            "apiVersion": "v3",
             "message": "fail to query device service by name device-onvif-camer",
             "statusCode": 404
          }
@@ -113,7 +140,7 @@ Follow this guide to deploy and run the service.
       3. Check whether the device profile is added:
 
          ```bash
-         curl -s http://localhost:59881/api/v2/deviceprofile/name/onvif-camera | jq -r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)'
+         curl -s http://localhost:59881/api/v3/deviceprofile/name/onvif-camera | jq -r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)'
 
          ```
          Good response:
@@ -127,14 +154,19 @@ Follow this guide to deploy and run the service.
          statusCode: 404
          ```
 
-         <div class="admonition note">
-            <p class="admonition-title">Note</p>
-            <p>`jq -r` is used to reduce the size of the displayed response. The entire device profile with all resources can be seen by removing `-r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)', and replacing it with '.'`</p>
-         </div>
-      
-            
+    !!! note
+        jq -r` is used to reduce the size of the displayed response. The entire device profile with all resources can be seen by removing `-r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)', and replacing it with '.'`
 
 === "via EdgeX UI"
+
+    !!! note
+        Secure mode login to Edgex UI requires the JWT token generated in the above step
+
+      <details>
+      <summary><strong>Entering the JWT token</strong></summary>
+         ![](../images/EdgeXJWTLogin.png)
+      </details>
+   
 
       1. Visit http://localhost:4000 to go to the dashboard for EdgeX Console GUI:
 
@@ -167,44 +199,54 @@ Follow these instructions to update devices.
 
 #### Add Device
 
+!!! warning
+    Be careful when storing any potentially important information in cleartext on files in your computer. This includes information such as your camera IP and MAC addresses.
+
 1. Edit the information to appropriately match the camera. The fields `Address`, `MACAddress` and `Port` should match that of the camera:
 
-      ```bash
-      curl -X POST -H 'Content-Type: application/json'  \
-      http://localhost:59881/api/v2/device \
-      -d '[
-               {
-                  "apiVersion": "v2",
-                  "device": {
-                     "name":"Camera001",
-                     "serviceName": "device-onvif-camera",
-                     "profileName": "onvif-camera",
-                     "description": "My test camera",
-                     "adminState": "UNLOCKED",
-                     "operatingState": "UP",
-                     "protocols": {
-                        "Onvif": {
-                           "Address": "10.0.0.0",
-                           "Port": "10000",
-                           "MACAddress": "aa:bb:cc:11:22:33",
-                           "FriendlyName":"Default Camera"
-                        },
-                        "CustomMetadata": {
-                           "Location":"Front door"
-                        }
-                     }
-                  }
-               }
-      ]'
-      ```
+    !!! note
+        If running in secure mode all the api executions need the JWT token generated previously.
 
-      Example Output: 
-      ```bash
-      [{"apiVersion":"v2","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
-      ```
-
+    ```bash
+    curl -X POST -H 'Content-Type: application/json'  \
+    http://localhost:59881/api/v3/device \
+    -d '[
+             {
+                "apiVersion": "v3",
+                "device": {
+                   "name":"Camera001",
+                   "serviceName": "device-onvif-camera",
+                   "profileName": "onvif-camera",
+                   "description": "My test camera",
+                   "adminState": "UNLOCKED",
+                   "operatingState": "UP",
+                   "protocols": {
+                      "Onvif": {
+                         "Address": "10.0.0.0",
+                         "Port": "10000",
+                         "MACAddress": "aa:bb:cc:11:22:33",
+                         "FriendlyName":"Default Camera"
+                      },
+                      "CustomMetadata": {
+                         "Location":"Front door"
+                      }
+                   }
+                }
+             }
+    ]'
+    ```
+    
+    Example Output: 
+    ```bash
+    [{"apiVersion":"v3","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
+    ```
+    
 2. Map credentials using the `map-credentials.sh` script.  
-      a. Run `bin/map-credentials.sh`    
+
+    !!! note
+        If running in secure mode Consul ACL and the JWT token generated previously are needed for mapping credentials.
+
+      a. Run `bin/map-credentials.sh`
       b. Select `(Create New)`
             ![](../images/creds-pick.png)  
       c. Enter the Secret Name to associate with these credentials  
@@ -266,10 +308,10 @@ Follow these instructions to update devices.
       Response [200] true
       ``` 
 
-1. Verify device(s) have been succesfully added to core-metadata.
+3. Verify device(s) have been successfully added to core-metadata.
 
       ```bash
-      curl -s http://localhost:59881/api/v2/device/all | jq -r '"deviceName: " + '.devices[].name''
+      curl -s http://localhost:59881/api/v3/device/all | jq -r '"deviceName: " + '.devices[].name''
       ```
 
       Example Output: 
@@ -277,11 +319,9 @@ Follow these instructions to update devices.
       deviceName: Camera001
       deviceName: device-onvif-camera
      ```
-
-      <div class="admonition note">
-         <p class="admonition-title">Note</p>
-         <p>`jq -r` is used to reduce the size of the displayed response. The entire device with all information can be seen by removing `-r '"deviceName: " + '.devices[].name'', and replacing it with '.'`</p>
-      </div>
+     
+    !!! note
+        `jq -r` is used to reduce the size of the displayed response. The entire device with all information can be seen by removing `-r '"deviceName: " + '.devices[].name'', and replacing it with '.'`
 
 #### Update Device
 
@@ -291,7 +331,7 @@ Follow these instructions to update devices.
 
    ```bash
    curl -X 'DELETE' \
-   'http://localhost:59881/api/v2/device/name/<device name>' \
+   'http://localhost:59881/api/v3/device/name/<device name>' \
    -H 'accept: application/json' 
    ```
 

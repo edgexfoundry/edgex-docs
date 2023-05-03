@@ -4,13 +4,13 @@ This document will describe how to execute some of the most important types of c
 
 ## Execute GetStreamURI Command through EdgeX
 
-!!! Note
-      Make sure to replace `Camera001` in all the commands below, with the proper deviceName.  
+!!! note
+    Make sure to replace `Camera001` in all the commands below, with the proper deviceName.  
 
 
 1. <a name="step1"></a>Get the profile token by executing the `GetProfiles` command:
         ```bash
-        curl -s http://0.0.0.0:59882/api/v2/device/name/Camera001/Profiles | jq -r '"profileToken: " + '.event.readings[].objectValue.Profiles[].Token''
+        curl -s http://0.0.0.0:59882/api/v3/device/name/Camera001/Profiles | jq -r '"profileToken: " + '.event.readings[].objectValue.Profiles[].Token''
         ```
         Example Output: 
         ```bash
@@ -21,7 +21,7 @@ This document will describe how to execute some of the most important types of c
 2. To get the RTSP URI from the ONVIF device, execute the `GetStreamURI` command, using a profileToken found in step 1:  
         In this example, `profile_1` is the profileToken:  
         ```bash
-        curl -s "http://0.0.0.0:59882/api/v2/device/name/Camera001/StreamUri?jsonObject=$(base64 -w 0 <<< '{
+        curl -s "http://0.0.0.0:59882/api/v3/device/name/Camera001/StreamUri?jsonObject=$(base64 -w 0 <<< '{
             "StreamSetup" : {
                 "Stream" : "RTP-Unicast",
                 "Transport" : {
@@ -37,6 +37,10 @@ This document will describe how to execute some of the most important types of c
         ``` 
 
 3. Stream the RTSP stream. 
+        <div class='admonition warning'>
+                <p class='admonition-title'>Warning</p>
+                <p>RTSP streams are insecure, as the credentials are included in plaintext. Always keep this in mind when streaming via RTSP.</p>
+        </div>
         ffplay can be used to stream. The command follows this format: 
         ```bash
         ffplay -rtsp_transport tcp "rtsp://<user>:<password>@<IP address>:<port>/<streamname>"

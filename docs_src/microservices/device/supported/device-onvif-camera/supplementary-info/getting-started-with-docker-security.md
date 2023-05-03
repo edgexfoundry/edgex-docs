@@ -1,6 +1,6 @@
 # Getting Started With Docker (Security Mode)
 
-!!! Warning
+!!! warning
       Information in this page may be outdated.
 
 This section describes how to run **device-onvif-camera** with **docker** and **EdgeX security mode**.

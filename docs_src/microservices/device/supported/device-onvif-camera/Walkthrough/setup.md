@@ -8,12 +8,14 @@ Follow this guide to set up your system to run the ONVIF Device Service.
 - Ubuntu 20.04.4 LTS or later
 - ONVIF-compliant Camera
 
-!!!NOTE 
-      The instructions in this guide were developed and tested using Ubuntu 20.04 LTS and the Tapo C200 Pan/Tilt Wi-Fi Camera, referred to throughout this document as the **Tapo C200 Camera**. However, the software may work with other Linux distributions and ONVIF-compliant cameras. Refer to our [list of tested cameras for more information](../supplementary-info/ONVIF-protocol.md#tested-onvif-cameras)
+!!! note
+    The instructions in this guide were developed and tested using Ubuntu 20.04 LTS and the Tapo C200 Pan/Tilt Wi-Fi Camera, referred to throughout this document as the **Tapo C200 Camera**. However, the software may work with other Linux distributions and ONVIF-compliant cameras. Refer to our [list of tested cameras for more information](../supplementary-info/ONVIF-protocol.md#tested-onvif-cameras)
 
 **Other Requirements**
 
-You must have administrator (sudo) privileges to execute the user guide commands.
+You must have administrator (sudo) privileges to execute the user guide commands.  
+
+Make sure that the cameras are secured and the computer system runnning this software is secure.
 
 ## Dependencies
 The software has dependencies, including Git, Docker, Docker Compose, and assorted tools. Follow the instructions below to install any dependency that is not already installed. 
@@ -46,20 +48,18 @@ To enable running Docker commands without the preface of sudo, add the user to t
    ```bash
    sudo groupadd docker
    ```
-
-      <div class="admonition note">
-         <p class="admonition-title">Note</p>
-         <p>If the group already exists, `groupadd` outputs a message: **groupadd: group `docker` already exists**. This is OK.</p>
-      </div>
+   
+    !!! note
+        If the group already exists, `groupadd` outputs a message: **groupadd: group `docker` already exists**. This is OK.
       
-1. Add User to group:
+2. Add User to group:
    ```bash
    sudo usermod -aG docker $USER
    ```
 
-1. Restart your computer for the changes to take effect.
+3. Restart your computer for the changes to take effect.
 
-1. To verify the Docker installation, run <code>hello-world</code>:
+4. To verify the Docker installation, run <code>hello-world</code>:
       ```bash
       docker run hello-world
       ```
@@ -105,12 +105,12 @@ The table below lists command line tools this guide uses to help with EdgeX conf
    git clone https://github.com/edgexfoundry/edgex-compose.git
    ```
 
-1. Navigate to the `edgex-compose` directory:
+2. Navigate to the `edgex-compose` directory:
    ```bash
    cd edgex-compose
    ```
 
-1. Navigate back to your home directory:
+3. Navigate back to your home directory:
       ```bash
       cd ~
       ```

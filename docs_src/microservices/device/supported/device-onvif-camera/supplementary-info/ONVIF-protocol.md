@@ -105,8 +105,8 @@ The device service supports the onvif features listed in the following table:
 |                                                                         |                   | [GetRuleOptions](https://www.onvif.org/ver20/analytics/wsdl/analytics.wsdl#op.GetRuleOptions)                                   | Object           |
 |                                                                         |                   | [ModifyRule](https://www.onvif.org/ver20/analytics/wsdl/analytics.wsdl#op.ModifyRules)                                          | Object           |
 
-!!! Note
-		The functions in the bold text are **mandatory** for Onvif protocol.
+!!! note
+    The functions in the bold text are **mandatory** for Onvif protocol.
 
 ## Custom Features
 The device service also include custom function to enhance the usage for the EdgeX user.
@@ -212,6 +212,9 @@ For the concept of implementation:
 └──────────────┘                    └────────────────────┘               └─────────────────┘
 ```
 
+!!! warning
+    Both REST and SOAP commands over the network can be subject to attacks while in transit. Please take all necessary precautions to protect network traffic.
+
 ## Tested Onvif Cameras
 The following table shows the Onvif functions tested for various Onvif cameras:
 
@@ -219,6 +222,15 @@ The following table shows the Onvif functions tested for various Onvif cameras:
 * '❌' means the function does not work or is not implemented by the specified camera.
 * 'ⓘ' means there is additional details available. Click it to read more.
 * Empty cells means the function has not yet been tested.
+
+### Camera Documentation
+Use these links to access maufacturer documentation
+
+- [Hikvision DFI6256TE](https://www.authority.com.tw/product-detail-2707792.html)
+- [Tapo C200](https://www.tapo.com/us/product/smart-camera/tapo-c200/)
+- [BOSCH DINION IP starlight 6000 HD](https://commerce.boschsecurity.com/tw/en/DINION-IP-starlight-6000-HD/p/20827877387/)
+- [GeoVision GV-BX8700](https://www.geovision.com.tw/product/GV-BX8700-FD)
+- [Hikvision DS-2DE2A404IW-DE3](https://us.hikvision.com/en/products/cameras/network-ptz-camera/value-series/ir/outdoor/4-mp-4x-ir-outdoor-network-ptz-camera-ds)
 
 ### User Authentication
 | Onvif Web Service | Onvif Function   | Hikvision DFI6256TE | Tapo C200 | BOSCH DINION IP starlight 6000 HD | GeoVision GV-BX8700 | Hikvision DS-2DE2A404IW-DE3|

@@ -1,6 +1,6 @@
 # Onvif User Authentication
 
-!!! Warning
+!!! warning
       Information in this page may be outdated.
 According to the Onvif user authentication flow, the device service shall:
 * Implement WS-Usernametoken according to WS-security as covered by the core specification.
