@@ -1,13 +1,5 @@
 # Advanced Options
 
-## Contents
-[Video Options](#video-options)  
-[Camera Paths](#keep-the-paths-of-existing-camera-up-to-date)  
-[RTSP Server](#configurable-rtsp-server-hostname-and-port)  
-[CameraStatus Command](#camerastatus-command)  
-[License](#license)  
-
-
 ## Video options
 There are two types of options:
 - The options start with `Input` prefix are used for the camera, such as specifying the image size and pixel format.
@@ -19,14 +11,14 @@ Query parameter:
 - `device name`: The name of the camera
 
 For example:
-```shell
-curl -X PUT -d '{
-    "StartStreaming": {
-      "InputImageSize": "640x480",
-      "OutputVideoQuality": "5"
-    }
-}' http://localhost:59882/api/v2/device/name/<device name>/StartStreaming
-```
+    ```shell
+    curl -X PUT -d '{
+        "StartStreaming": {
+        "InputImageSize": "640x480",
+        "OutputVideoQuality": "5"
+        }
+    }' http://localhost:59882/api/v2/device/name/<device name>/StartStreaming
+    ```
 
 Supported Input options:
 - `InputFps`: Ignore original timestamps and instead generate timestamps assuming constant frame rate fps. (default - same as source)
@@ -46,21 +38,22 @@ The attribute name consists of a prefix "default" and the option name.
 
 For example:
 
-```yaml
-deviceResources:
-  - name: "StartStreaming"
-    description: "Start streaming process."
-    attributes:
-      { command: "VIDEO_START_STREAMING",
-        defaultInputFrameSize: "320x240",
-        defaultOutputVideoQuality: "31"
-      }
-    properties:
-      valueType: "Object"
-      readWrite: "W"
-```
+    ```yaml
+    deviceResources:
+    - name: "StartStreaming"
+        description: "Start streaming process."
+        attributes:
+        { command: "VIDEO_START_STREAMING",
+            defaultInputFrameSize: "320x240",
+            defaultOutputVideoQuality: "31"
+        }
+        properties:
+        valueType: "Object"
+        readWrite: "W"
+    ```
 
-> NOTE: It's NOT recommended to set default video options in the [cmd/res/profiles/general.usb.camera.yaml](cmd/res/profiles/general.usb.camera.yaml) as they may not be supported by every camera.
+!!! Note
+    It's **NOT** recommended to set default video options in the 'cmd/res/profiles/general.usb.camera.yaml' as they may not be supported by every camera.
 
 
 ## Keep the paths of existing camera up to date
@@ -70,9 +63,9 @@ If there is a mismatch between them, the device service will scan all paths to f
 
 This check can also be triggered by using the Device Service API `/refreshdevicepaths`.
 For example:
-```shell
-curl -X POST http://localhost:59983/api/v2/refreshdevicepaths
-```
+    ```shell
+    curl -X POST http://localhost:59983/api/v2/refreshdevicepaths
+    ```
 
 It's recommended to trigger a check after re-plugging cameras.
 
@@ -86,22 +79,25 @@ Driver:
   RtspServerHostName: "localhost"
   RtspTcpPort: "8554"
 ```
+
+
 ## CameraStatus Command
 Use the following query to determine the status of the camera.
 URL parameter:
 - **DeviceName**: The name of the camera
 - **InputIndex**: indicates the current index of the video input (if a camera only has one source for video, the index needs to be set to '0')
-```
-curl -X GET http://localhost:59882/api/v2/device/name/<DeviceName>/CameraStatus?InputIndex=0 | jq -r '"CameraStatus: " + (.event.readings[].value|tostring)'
-```
-   Example Output: 
-   ```
+    ```
+    curl -X GET http://localhost:59882/api/v2/device/name/<DeviceName>/CameraStatus?InputIndex=0 | jq -r '"CameraStatus: " + (.event.readings[].value|tostring)'
+    ```
+    Example Output: 
+    ```
     CameraStatus: 0
-   ```
+    ```
    **Response meanings**:
+   
 | Response   | Description |
 | ---------- | ----------- |
-| 0 | Ready |
+| 0          | Ready |
 | 1 | No Power |
 | 2 | No Signal |
 | 3 | No Color |    
