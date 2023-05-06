@@ -75,13 +75,12 @@ Install Docker compose from the official repository as documented on the [Docker
 
 ### Install Tools
 Install the build, media streaming, and parsing tools:
-
     ```bash
     sudo apt install build-essential jq curl
     ```
 
-NOTE: The device service ONLY works on Linux with kernel v5.10 or higher.  
-
+!!! Note 
+    The device service ONLY works on Linux with kernel v5.10 or higher.  
 
 
 The table below lists command line tools this guide uses to help with EdgeX configuration and device setup.
@@ -114,13 +113,9 @@ The table below lists command line tools this guide uses to help with EdgeX conf
 
 ## Next Steps
 
-   [Default Images>](./deployment.md){: .md-button }
+[Deploy the service with default images>](./deployment.md){: .md-button }
 
 !!! Warning
-      While not recommended, you can follow the process for manually building the images.
+    While not recommended, you can follow the process for manually building the images.
 
-   [Build Images>](./custom-build.md){: .md-button } 
-
-
-# License
-[Apache-2.0](LICENSE)
+[Build a custom image for the service>](./custom-build.md){: .md-button } 

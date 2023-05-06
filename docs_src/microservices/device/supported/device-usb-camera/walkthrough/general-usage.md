@@ -1,4 +1,4 @@
-## General Usage 
+# General Usage 
 This document will describe how to execute some of the most important types of commands used with the device service.
 
 ## Start Video Streaming
@@ -13,7 +13,7 @@ These options can be passed in through Object value when calling StartStreaming.
 Query parameter:
 - `device name`: The name of the camera
 
-For example:
+!!! example - "Example Query Command"
     ```shell
     curl -X PUT -d '{
         "StartStreaming": {
@@ -23,18 +23,20 @@ For example:
     }' http://localhost:59882/api/v2/device/name/<device name>/StartStreaming
     ```
 
-Supported Input options:
-- `InputFps`: Ignore original timestamps and instead generate timestamps assuming constant frame rate fps. (default - same as source)
-- `InputImageSize`: Specifies the image size of the camera. The format is `wxh`, for example "640x480". (default - automatically selected by FFmpeg)
-- `InputPixelFormat`: Set the preferred pixel format (for raw video). (default - automatically selected by FFmpeg)
+Supported Input options:  
 
-Supported Output options:
-- `OutputFrames`: Set the number of video frames to output. (default - no limitation on frames)
-- `OutputFps`: Duplicate or drop input frames to achieve constant output frame rate fps. (default - same as InputFps)
-- `OutputImageSize`: Performs image rescaling. The format is `wxh`, for example "640x480". (default - same as InputImageSize)
-- `OutputAspect`: Set the video display aspect ratio specified by aspect. For example "4:3", "16:9". (default - same as source)
-- `OutputVideoCodec`: Set the video codec. For example "mpeg4", "h264". (default - mpeg4)
-- `OutputVideoQuality`: Use fixed video quality level. Range is a integer number between 1 to 31, with 31 being the worst quality. (default - dynamically set by FFmpeg)
+- `InputFps`: Ignore original timestamps and instead generate timestamps assuming constant frame rate fps. (default - same as source)  
+- `InputImageSize`: Specifies the image size of the camera. The format is `wxh`, for example "640x480". (default - automatically selected by FFmpeg)  
+- `InputPixelFormat`: Set the preferred pixel format (for raw video). (default - automatically selected by FFmpeg)  
+
+Supported Output options: 
+
+- `OutputFrames`: Set the number of video frames to output. (default - no limitation on frames)  
+- `OutputFps`: Duplicate or drop input frames to achieve constant output frame rate fps. (default - same as InputFps)  
+- `OutputImageSize`: Performs image rescaling. The format is `wxh`, for example "640x480". (default - same as InputImageSize)  
+- `OutputAspect`: Set the video display aspect ratio specified by aspect. For example "4:3", "16:9". (default - same as source)  
+- `OutputVideoCodec`: Set the video codec. For example "mpeg4", "h264". (default - mpeg4)  
+- `OutputVideoQuality`: Use fixed video quality level. Range is a integer number between 1 to 31, with 31 being the worst quality. (default - dynamically set by FFmpeg)  
 
 
 ### Determine Stream Uri of Camera
@@ -42,30 +44,28 @@ The device service provides a way to determine the stream URI of a camera.
 
 Query parameter:
 - `device name`: The name of the camera
-
     ```bash
     curl -s http://localhost:59882/api/v2/device/name/<device name>/StreamURI | jq -r '"StreamURI: " + '.event.readings[].value''
     ```
 
 The response to the above call should look similar to the following:
-
-    ```
-    StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
-    ```
+```
+StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
+```
 
 ### Play the RTSP stream. 
 
-    mplayer can be used to stream. The command follows this format: 
+mplayer can be used to stream. The command follows this format: 
 
-    `mplayer rtsp://<IP address>:<port>/<streamname>`.
+`mplayer rtsp://<IP address>:<port>/<streamname>`.
 
-    Using the `streamURI` returned from the previous step, run mplayer:
+Using the `streamURI` returned from the previous step, run mplayer:
 
-    ```bash
-    mplayer rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
-    ```
+```bash
+mplayer rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
+```
 
-    - To shut down mplayer, use the ctrl-c command.
+To shut down mplayer, use the ctrl-c command.
 
 
 ### Stop Video Streaming
@@ -133,7 +133,3 @@ In the case of Ubuntu 20.04, one is not available in the normal repositories, so
 wget https://launchpad.net/~canonical-kernel-team/+archive/ubuntu/bootstrap/+build/20950478/+files/linux-libc-dev_5.10.0-14.15_amd64.deb
 sudo dpkg -i linux-libc-dev_5.10.0-14.15_amd64.deb
 ```    
-
-# License
-[Apache-2.0](LICENSE)
-
