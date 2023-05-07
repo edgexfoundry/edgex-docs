@@ -13,13 +13,14 @@ Dynamic discovery is enabled by default to make setup easier. It can be disabled
 ### Disable discovery
 
 === "configuration.yaml"
-    ```yaml
-    Device: 
-    ...
-        Discovery:
-        Enabled: false
-        Interval: "1h"
-    ```
+    !!! example - "Snippet from device.yaml"
+        ```yaml
+        Device: 
+        ...
+            Discovery:
+            Enabled: false
+            Interval: "1h"
+        ```
 
 === "Docker / Env Vars"
     ```shell
@@ -29,13 +30,14 @@ Dynamic discovery is enabled by default to make setup easier. It can be disabled
 
 ### Configure discovery interval
 === "configuration.yaml"
-    ```yaml
-    Device: 
-    ...
-        Discovery:
-        Enabled: true
-        Interval: "1h"
-    ```
+    !!! example - "Snippet from device.yaml"
+        ```yaml
+        Device: 
+        ...
+            Discovery:
+            Enabled: true
+            Interval: "1h"
+        ```
 
 === "Docker / Env Vars"
     ```shell
@@ -66,22 +68,22 @@ manually trigger discovery is explained [here](#dynamic-discovery-function)
 The provision watcher sets up parameters for EdgeX to automatically add devices to core-metadata. They can be configured to look for certain features, as well as block features. The default provision watcher is sufficient unless you plan on having multiple different cameras with different profiles and resources. Learn more about provision watchers [here](https://docs.edgexfoundry.org/latest/microservices/core/metadata/Ch-Metadata/#provision-watcher). The provision watchers are located at `./cmd/res/provision_watchers`.
 
 
-
-```shell
-curl -X POST \
--d '[
-   {
-      "provisionwatcher":{
-         "apiVersion":"v2",
-         "name":"USB-Camera-Provision-Watcher",
-         "adminState":"UNLOCKED",
-         "identifiers":{
-            "Path": "."
-         },
-         "serviceName": "device-usb-camera",
-         "profileName": "USB-Camera-General"
-      },
-      "apiVersion":"v2"
-   }
-]' http://localhost:59881/api/v2/provisionwatcher
-```
+!!! example - "Example Command"
+    ```shell
+    curl -X POST \
+    -d '[
+    {
+        "provisionwatcher":{
+            "apiVersion":"v2",
+            "name":"USB-Camera-Provision-Watcher",
+            "adminState":"UNLOCKED",
+            "identifiers":{
+                "Path": "."
+            },
+            "serviceName": "device-usb-camera",
+            "profileName": "USB-Camera-General"
+        },
+        "apiVersion":"v2"
+    }
+    ]' http://localhost:59881/api/v2/provisionwatcher
+    ```

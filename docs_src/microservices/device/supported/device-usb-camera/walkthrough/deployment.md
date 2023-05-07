@@ -113,7 +113,8 @@ Devices can either be added to the service by defining them in a static configur
    * `Path` is a file descriptor of camera created by the OS. Use the `Path` determined in the previous step.
    * `AutoStreaming` indicates whether the device service should automatically start video streaming for cameras. Default value is false.
    
-    !!! Sample
+    !!! example - "Example Command"
+        ```bash
         curl -X POST -H 'Content-Type: application/json'  \
         http://localhost:59881/api/v2/device \
         -d '[
@@ -136,6 +137,7 @@ Devices can either be added to the service by defining them in a static configur
             }
             }
         ]'
+        ```
 
     Example Output: 
     ```bash
