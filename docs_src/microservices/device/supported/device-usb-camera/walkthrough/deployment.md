@@ -11,15 +11,39 @@ Follow this guide to deploy and run the service.
 
     2. Run EdgeX with the microservice:  
 
-        !!! Note
-            This command runs the EdgeX microservices in non secure mode.
+        - For non secure mode
+            ```
+            make gen ds-usb-camera no-secty
+            ```
+        - For secure mode 
+            ```
+            make gen ds-usb-camera
+            ```
+        - Docker Compose start command
+            ```
+            docker-compose -p edgex up -d
+            ```
 
-        ```bash
-        make run no-secty ds-usb-camera 
-        ```
+        - Docker Compose clean command
+            ```bash
+            make clean
+            ```  
 
 === "Native"
+    1. Build the executable  
+    ```shell
+    make build
+    ```
 
+        <details>
+            <summary>[Optional] Build with NATS Messaging</summary>
+            Currently, the NATS Messaging capability (NATS MessageBus) is opt-in at build time. To build using NATS, run make build-nats:
+            ```bash
+            make build-nats
+            ```    
+        </details>
+
+    2. Deploy the service
     ```
     cd cmd && EDGEX_SECURITY_SECRET_STORE=false ./device-usb-camera
     ```
