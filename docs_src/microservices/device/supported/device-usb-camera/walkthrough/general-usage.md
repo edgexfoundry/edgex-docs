@@ -10,7 +10,7 @@ There are two types of options:
 
 These options can be passed in through Object value when calling StartStreaming.
 
-Query parameter:
+Query parameter:  
 - `device name`: The name of the camera
 
 !!! example - "Example Query Command"
@@ -42,7 +42,7 @@ Supported Output options:
 ### Determine Stream Uri of Camera
 The device service provides a way to determine the stream URI of a camera.
 
-Query parameter:
+Query parameter:  
 - `device name`: The name of the camera
     ```bash
     curl -s http://localhost:59882/api/v2/device/name/<device name>/StreamURI | jq -r '"StreamURI: " + '.event.readings[].value''
@@ -71,7 +71,7 @@ To shut down mplayer, use the ctrl-c command.
 ### Stop Video Streaming
 To stop the usb camera from live streaming, use the following command:
 
-Query parameter:
+Query parameter:  
 - `device name`: The name of the camera
 
 For example:
@@ -108,7 +108,7 @@ To stop all EdgeX services (containers), execute the `make down` command:
 ### StreamingStatus
 To verify the usb camera is set to stream video, use the command below. 
 
-Query parameter:
+Query parameter:  
 - `device name`: The name of the camera
 
 ```bash
