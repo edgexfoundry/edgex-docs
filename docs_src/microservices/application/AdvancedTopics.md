@@ -386,7 +386,7 @@ Application Services using the MessageBus trigger can request a background publi
      		Functions,
      	)
      	
-     	service.MakeItRun()
+     	service.Run()
      
      	os.Exit(0)
       }		
@@ -394,7 +394,7 @@ Application Services using the MessageBus trigger can request a background publi
 
 ### Stopping the Service
 
-Application Services will listen for SIGTERM / SIGINT signals from the OS and stop the function pipeline in response.  The pipeline can also be exited programmatically by calling `sdk.MakeItStop()` on the running `ApplicationService` instance.  This can be useful for cases where you want to stop a service in response to a runtime condition, e.g. receiving a "poison pill" message through its trigger.
+Application Services will listen for SIGTERM / SIGINT signals from the OS and stop the function pipeline in response.  The pipeline can also be exited programmatically by calling `sdk.Stop()` on the running `ApplicationService` instance.  This can be useful for cases where you want to stop a service in response to a runtime condition, e.g. receiving a "poison pill" message through its trigger.
 
 ### Received Topic
 

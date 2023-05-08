@@ -24,8 +24,8 @@ type ApplicationService interface {
 	AddFunctionsPipelineForTopics(id string, topics []string, transforms ...AppFunction) error
 	LoadConfigurableFunctionPipelines() (map[string]FunctionPipeline, error)
     RemoveAllFunctionPipelines()
-    MakeItRun() error
-	MakeItStop()
+    Run() error
+	Stop()
     SecretProvider() interfaces.SecretProvider
 	LoggingClient() logger.LoggingClient
 	EventClient() interfaces.EventClient
@@ -370,17 +370,17 @@ This API loads the function pipelines (default and per topic) from configuration
 
 This API removes all existing functions pipelines previously added via `SetDefaultFunctionsPipeline`, `AddFunctionsPipelineForTopics` or `LoadConfigurableFunctionPipelines`
 
-### MakeItRun
+### Run
 
-`MakeItRun() error`
+`Run() error`
 
-This API starts the configured trigger to allow the Functions Pipeline to execute when the trigger receives data. The internal webserver is also started. This is a long running API which does not return until the service is stopped or MakeItStop() is called. An error is returned if the trigger can not be create or initialized or if the internal webserver encounters an error.
+This API starts the configured trigger to allow the Functions Pipeline to execute when the trigger receives data. The internal webserver is also started. This is a long running API which does not return until the service is stopped or Stop() is called. An error is returned if the trigger can not be create or initialized or if the internal webserver encounters an error.
 
-!!! example "Example - MakeItRun"
+!!! example "Example - Run"
 
     ```go
-    if err := service.MakeItRun(); err != nil {
-       logger.Errorf("MakeItRun returned error: %s", err.Error())
+    if err := service.Run(); err != nil {
+       logger.Errorf("Run returned error: %s", err.Error())
        os.exit(-1)
     }
     
@@ -389,16 +389,16 @@ This API starts the configured trigger to allow the Functions Pipeline to execut
     os.exit(0)
     ```
 
-### MakeItStop
+### Stop
 
-`MakeItStop()`
+`Stop()`
 
 This API  stops the configured trigger so that the functions pipeline no longer executes. The internal webserver continues to accept requests. See [Stopping the Service](../AdvancedTopics/#stopping-the-service) advanced topic for more details
 
-!!! example "Example - MakeItStop"
+!!! example "Example - Stop"
 
     ```go
-    service.MakeItStop()
+    service.Stop()
     ...
     ```
 
