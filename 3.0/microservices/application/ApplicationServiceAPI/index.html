@@ -1127,13 +1127,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#makeitrun">
-    MakeItRun
+<a class="md-nav__link" href="#run">
+    Run
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#makeitstop">
-    MakeItStop
+<a class="md-nav__link" href="#stop">
+    Stop
   </a>
 </li>
 </ul>
@@ -1721,13 +1721,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#makeitrun">
-    MakeItRun
+<a class="md-nav__link" href="#run">
+    Run
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#makeitstop">
-    MakeItStop
+<a class="md-nav__link" href="#stop">
+    Stop
   </a>
 </li>
 </ul>
@@ -1891,8 +1891,8 @@
 <span class="w">    </span><span class="nx">AddFunctionsPipelineForTopics</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">topics</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">LoadConfigurableFunctionPipelines</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">FunctionPipeline</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
 <span class="w">    </span><span class="nx">RemoveAllFunctionPipelines</span><span class="p">()</span>
-<span class="w">    </span><span class="nx">MakeItRun</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span>
-<span class="w">    </span><span class="nx">MakeItStop</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">Run</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">Stop</span><span class="p">()</span>
 <span class="w">    </span><span class="nx">SecretProvider</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SecretProvider</span>
 <span class="w">    </span><span class="nx">LoggingClient</span><span class="p">()</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
 <span class="w">    </span><span class="nx">EventClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">EventClient</span>
@@ -2171,13 +2171,13 @@
 <h3 id="removeallfunctionpipelines">RemoveAllFunctionPipelines</h3>
 <p><code>RemoveAllFunctionPipelines()</code></p>
 <p>This API removes all existing functions pipelines previously added via <code>SetDefaultFunctionsPipeline</code>, <code>AddFunctionsPipelineForTopics</code> or <code>LoadConfigurableFunctionPipelines</code></p>
-<h3 id="makeitrun">MakeItRun</h3>
-<p><code>MakeItRun() error</code></p>
-<p>This API starts the configured trigger to allow the Functions Pipeline to execute when the trigger receives data. The internal webserver is also started. This is a long running API which does not return until the service is stopped or MakeItStop() is called. An error is returned if the trigger can not be create or initialized or if the internal webserver encounters an error.</p>
+<h3 id="run">Run</h3>
+<p><code>Run() error</code></p>
+<p>This API starts the configured trigger to allow the Functions Pipeline to execute when the trigger receives data. The internal webserver is also started. This is a long running API which does not return until the service is stopped or Stop() is called. An error is returned if the trigger can not be create or initialized or if the internal webserver encounters an error.</p>
 <div class="admonition example">
-<p class="admonition-title">Example - MakeItRun</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="w">   </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">"MakeItRun returned error: %s"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<p class="admonition-title">Example - Run</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">Run</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">"Run returned error: %s"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
 <span class="w">   </span><span class="nx">os</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 <span class="p">}</span>
 
@@ -2186,12 +2186,12 @@
 <span class="nx">os</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<h3 id="makeitstop">MakeItStop</h3>
-<p><code>MakeItStop()</code></p>
+<h3 id="stop">Stop</h3>
+<p><code>Stop()</code></p>
 <p>This API  stops the configured trigger so that the functions pipeline no longer executes. The internal webserver continues to accept requests. See <a href="../AdvancedTopics/#stopping-the-service">Stopping the Service</a> advanced topic for more details</p>
 <div class="admonition example">
-<p class="admonition-title">Example - MakeItStop</p>
-<div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="p">.</span><span class="nx">MakeItStop</span><span class="p">()</span>
+<p class="admonition-title">Example - Stop</p>
+<div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="p">.</span><span class="nx">Stop</span><span class="p">()</span>
 <span class="o">...</span>
 </code></pre></div>
 </div>

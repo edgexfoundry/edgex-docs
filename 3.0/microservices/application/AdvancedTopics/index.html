@@ -2079,14 +2079,14 @@ A factory function to create these clients can then be registered with your serv
 <span class="w">        </span><span class="nx">Functions</span><span class="p">,</span>
 <span class="w">    </span><span class="p">)</span>
 
-<span class="w">    </span><span class="nx">service</span><span class="p">.</span><span class="nx">MakeItRun</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">service</span><span class="p">.</span><span class="nx">Run</span><span class="p">()</span>
 
 <span class="w">    </span><span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="w">  </span><span class="p">}</span><span class="w">     </span>
 </code></pre></div>
 </div>
 <h3 id="stopping-the-service">Stopping the Service</h3>
-<p>Application Services will listen for SIGTERM / SIGINT signals from the OS and stop the function pipeline in response.  The pipeline can also be exited programmatically by calling <code>sdk.MakeItStop()</code> on the running <code>ApplicationService</code> instance.  This can be useful for cases where you want to stop a service in response to a runtime condition, e.g. receiving a "poison pill" message through its trigger.</p>
+<p>Application Services will listen for SIGTERM / SIGINT signals from the OS and stop the function pipeline in response.  The pipeline can also be exited programmatically by calling <code>sdk.Stop()</code> on the running <code>ApplicationService</code> instance.  This can be useful for cases where you want to stop a service in response to a runtime condition, e.g. receiving a "poison pill" message through its trigger.</p>
 <h3 id="received-topic">Received Topic</h3>
 <p>When messages are received via the EdgeX MessageBus or External MQTT triggers, the topic that the data was received on is seeded into the new Context Storage on the <code>AppFunctionContext</code> with the key <code>receivedtopic</code>. This make the <code>Received Topic</code> available to all functions in the pipeline. The SDK provides the <code>interfaces.RECEIVEDTOPIC</code> constant for this key. See the <a href="../AppFunctionContextAPI/#context-storage">Context Storage</a> section for more details on extracting values.</p>
 <h3 id="pipeline-per-topics">Pipeline Per Topics</h3>
