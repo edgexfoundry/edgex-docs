@@ -312,11 +312,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#change-the-configuration">
-    Change the configuration
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#run-the-service-code-natively">
     Run the service code natively.
   </a>
@@ -1464,11 +1459,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#change-the-configuration">
-    Change the configuration
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#run-the-service-code-natively">
     Run the service code natively.
   </a>
@@ -1508,7 +1498,7 @@ docker-compose<span class="w"> </span>stop<span class="w"> </span>device-virtual
 <em>Run the EdgeX containers and then stop the service container that you are going to work on - in this case the virtual device service container.</em></img></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>These notes assume you are working with the EdgeX Ireland release.  It also assumes you have downloaded the appropriate Docker Compose file and have named it <code>docker-compose.yml</code> so you don't have to specify the file name each time you run a Docker Compose command.  Some versions of EdgeX may require other or additional containers to run.</p>
+<p>These notes assume you are working with the EdgeX Minnesota or later release.  It also assumes you have downloaded the appropriate Docker Compose file and have named it <code>docker-compose.yml</code> so you don't have to specify the file name each time you run a Docker Compose command.  Some versions of EdgeX may require other or additional containers to run.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1524,9 +1514,8 @@ docker-compose<span class="w"> </span>stop<span class="w"> </span>device-virtual
 <h2 id="get-build-and-run-the-non-docker-service">Get, Build and Run the (non-Docker) Service</h2>
 <p>With the EdgeX containers running, you can now download, build and run natively (outside of a container) the service you want to work on.  In this example, the virtual device service is used to exemplify the steps necessary to get, build and run the native service with the EdgeX containerized services.  However, the practice could be applied to any service.</p>
 <h3 id="get-the-service-code">Get the service code</h3>
-<p>Per <a href="../Ch-GettingStartedGoDevelopers/#Get-the-code">Getting Started Go Developers</a>, pull the micro service code you want to work on from GitHub. In
-this example, we use the device-virtual-go as the micro service that is going to be worked on.</p>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/edgexfoundry/device-virtual-go.git
+<p>Per <a href="../Ch-GettingStartedGoDevelopers/#Get-the-code">Getting Started Go Developers</a>, pull the micro service code you want to work on from GitHub. In this example, we use the latest released tag for device-virtual-go as the micro service that is going to be worked on. The main branch is the development branch for the next release. The latest release tag should always be used so you are worked with the most recent stable code. The release tags can be found <a href="https://github.com/edgexfoundry/device-virtual-go/tags">here</a>. Release tags are those tags to do not have <code>-dev</code> in the name.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>&lt;latest-release-tag&gt;<span class="w"> </span>https://github.com/edgexfoundry/device-virtual-go.git
 </code></pre></div>
 <h3 id="build-the-service-code">Build the service code</h3>
 <p>At this time, you can add or modify the code to make the service changes you need.  Once ready, you must compile and build the service into an executable.  Change folders to the cloned micro service directory and build the service.</p>
@@ -1535,19 +1524,24 @@ make<span class="w"> </span>build
 </code></pre></div>
 <p><img alt="image" src="../EdgeX_GettingStartedHybridBuild.png">
 <em>Clone the service from Github, make your code changes and then build the service locally.</em></img></p>
-<h3 id="change-the-configuration">Change the configuration</h3>
-<p>Depending on the service you are working on, you may need to change the configuration of the service to point to and use the other services that are containerized (running in Docker).  In particular, if the service you are working on is not on the same host as the Docker Engine running the containerized services, you will likely need to change the configuration.</p>
-<p>Examine the <strong>configuration.toml</strong> file in the cmd/res folder of the device-virtual-go. Note that the Service (located in the [Service] section of the configuration), Registry (located in the [Registry] section) and all the "Clients" (located in the [Clients] section) suggest that the <code>Host</code> of these services is "localhost".  These and other host configuration elements need to change when the services are not running on the same host - specifically the localhost.  When your service is running on a different host than the rest of EdgeX, change the [Service] <code>Host</code> to be the address of the machine hosting your service.  Change the [Registry] and [Clients] <code>Host</code> configuration to specify the location of the machine hosting these services.  If you do have to change the configuration, save the configuration.toml file after making changes.</p>
 <h3 id="run-the-service-code-natively">Run the service code natively.</h3>
 <p>The executable created by the <code>make build</code> command is found in the cmd folder of the service.  Change folders to the location of the executable.  Set any environment variables needed depending on your EdgeX setup.  In this example, we did not start the security elements so we need to set <code>EDGEX_SECURITY_SECRET_STORE</code> to <code>false</code> in order to turn off security.   Finally, run the service right from a terminal.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>cmd
 <span class="nb">export</span><span class="w"> </span><span class="nv">EDGEX_SECURITY_SECRET_STORE</span><span class="o">=</span><span class="nb">false</span>
-./device-virtual
+./device-virtual<span class="w"> </span>-cp<span class="w"> </span>-d
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>-cp</code> flag tells the service to use the Configuration Provider. This is required so that the service can pull the common configuration. The <code>-d</code> flag tells the service to run in developer mode (aka hybrid mode) so that any <code>Host</code> names in configuration for dependent services are automatically changed from their Docker network names to <code>localhost</code> allowing the service to find the dependent services.</p>
+</div>
+<div class="admonition edgey -">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>Common configuration is new in EdgeX 3.0. EdgeX services now have a reduced local configuration file that only contains the services' private configuration. All other configuration settings are now in the common configuration. See the <a href="../../microservices/configuration/CommonConfiguration">Service Configuration</a> section for more details.</p>
+</div>
 <p><img alt="image" src="../EdgeX_GettingStartedHybridRun.png"/>
 <em>Change folders to the service's cmd/ folder, set env vars, and then execute the service executable in the cmd folder.</em></p>
 <h3 id="check-the-results">Check the results</h3>
-<p>At this time, your virtual device micro service should be communicating with the other EdgeX micro services running in their Docker containers. Because Core Metadata callbacks do not work in the hybrid environment, the virtual device service will not receive the Add Device callbacks on the inital run after creating them in Core Metadata.  The simple work around for this issue is to stop (<code>Ctrl-c</code> from the terminal) and restart the virtual device service (again with <code>./device-virtual</code> execution).</p>
+<p>At this time, your virtual device micro service should be communicating with the other EdgeX micro services running in their Docker containers. Because Core Metadata callbacks do not work in the hybrid environment, the virtual device service will not receive the Add Device callbacks on the initial run after creating them in Core Metadata.  The simple work around for this issue is to stop (<code>Ctrl-c</code> from the terminal) and restart the virtual device service (again with <code>./device-virtual -cp -d</code> execution).</p>
 <p><img alt="image" src="../EdgeX_GettingStartedHybridDeviceVirtualLog.png"/>
 <em>The virtual device service log after stopping and restarting.</em></p>
 <p>Give the virtual device a few seconds or so to initialize itself and start sending data to Core Data. To check that it is working properly, open a browser and point your browser to Core Data
