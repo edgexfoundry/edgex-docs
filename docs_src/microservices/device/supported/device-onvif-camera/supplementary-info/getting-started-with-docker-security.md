@@ -32,10 +32,10 @@ $ make get-consul-acl-token
 
 ## 4. Add the Username and Password for the Onvif Camera
 ```shell
-curl --location --request POST 'http://0.0.0.0:59984/api/v2/secret' \
+curl --location --request POST 'http://0.0.0.0:59984/api/v3/secret' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "apiVersion":"v2",
+    "apiVersion":"v3",
     "secretName": "bosch",
     "secretData":[
         {
@@ -58,7 +58,7 @@ curl --location --request POST 'http://0.0.0.0:59984/api/v2/secret' \
 ## 5. Add the device profile to EdgeX
 Change directory back to the `device-onvif-camera` and add the device profile to core-metadata service with the following command:
 ```shell
-curl http://localhost:59881/api/v2/deviceprofile/uploadfile \
+curl http://localhost:59881/api/v3/deviceprofile/uploadfile \
   -F "file=@./cmd/res/profiles/camera.yaml"
 ```
 
@@ -66,10 +66,10 @@ curl http://localhost:59881/api/v2/deviceprofile/uploadfile \
 Add the device data to core-metadata service with the following command:
 ```shell
 curl -X POST -H 'Content-Type: application/json'  \
-  http://localhost:59881/api/v2/device \
+  http://localhost:59881/api/v3/device \
   -d '[
           {
-            "apiVersion": "v2",
+            "apiVersion": "v3",
             "device": {
                 "name":"Camera003",
                 "serviceName": "device-onvif-camera",
@@ -92,9 +92,9 @@ curl -X POST -H 'Content-Type: application/json'  \
 
 Check the available commands from core-command service:
 ```shell
-$ curl http://localhost:59882/api/v2/device/name/Camera003 | jq .
+$ curl http://localhost:59882/api/v3/device/name/Camera003 | jq .
 {
-   "apiVersion" : "v2",
+   "apiVersion" : "v3",
    "deviceCoreCommand" : {
       "coreCommands" : [
          {
@@ -107,7 +107,7 @@ $ curl http://localhost:59882/api/v2/device/name/Camera003 | jq .
                   "valueType" : "Object"
                }
             ],
-            "path" : "/api/v2/device/name/Camera003/DNS",
+            "path" : "/api/v3/device/name/Camera003/DNS",
             "url" : "http://edgex-core-command:59882"
          },
          ...
@@ -120,7 +120,7 @@ $ curl http://localhost:59882/api/v2/device/name/Camera003 | jq .
                   "valueType" : "Object"
                }
             ],
-            "path" : "/api/v2/device/name/Camera003/StreamUri",
+            "path" : "/api/v3/device/name/Camera003/StreamUri",
             "url" : "http://edgex-core-command:59882"
          }
       ],
@@ -133,11 +133,11 @@ $ curl http://localhost:59882/api/v2/device/name/Camera003 | jq .
 
 ## 7. Execute a Get Command
 ```shell
-$ curl http://0.0.0.0:59882/api/v2/device/name/Camera003/Users | jq .
+$ curl http://0.0.0.0:59882/api/v3/device/name/Camera003/Users | jq .
 {
-   "apiVersion" : "v2",
+   "apiVersion" : "v3",
    "event" : {
-      "apiVersion" : "v2",
+      "apiVersion" : "v3",
       "deviceName" : "Camera003",
       "id" : "c0826f49-2840-421b-9474-7ad63a443302",
       "origin" : 1639525215434025100,
