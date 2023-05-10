@@ -1498,7 +1498,7 @@ FriendlyName device resource is used to set <code>FriendlyName</code> of a camer
 <ol>
 <li>Use this command to set FriendlyName field.</li>
 </ol>
-<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/&lt;device name&gt;/FriendlyName'</span><span class="w"> </span><span class="se">\</span>
+<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/&lt;device name&gt;/FriendlyName'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">            "FriendlyName":"Home camera"</span>
@@ -1506,7 +1506,7 @@ FriendlyName device resource is used to set <code>FriendlyName</code> of a camer
 </code></pre></div>
 2. The response from the curl command.
 <div class="highlight"><pre><span></span><code>{
-    "apiVersion": "v2",
+    "apiVersion": "v3",
     "statusCode": 200
 }
 </code></pre></div></p>
@@ -1519,14 +1519,14 @@ FriendlyName device resource is used to set <code>FriendlyName</code> of a camer
 <ol>
 <li>Use this command to return FriendlyName field.</li>
 </ol>
-<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v2/device/name/&lt;device<span class="w"> </span>name&gt;/FriendlyName<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/FriendlyName<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 </code></pre></div>
 2. Response from the curl command. FriendlyName value can be found under <code>value</code> field in the json response.
 <div class="highlight"><pre><span></span><code><span class="o">{</span>
-<span class="w">  </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">  </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">  </span><span class="s2">"statusCode"</span>:<span class="w"> </span><span class="m">200</span>,
 <span class="w">  </span><span class="s2">"event"</span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">    </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">    </span><span class="s2">"id"</span>:<span class="w"> </span><span class="s2">"5b924351-31c7-469e-a9ba-dea063fdbf3a"</span>,
 <span class="w">    </span><span class="s2">"deviceName"</span>:<span class="w"> </span><span class="s2">"TP-Link-C200-3fa1fe68-b915-4053-a3e1-cc32e5000688"</span>,
 <span class="w">    </span><span class="s2">"profileName"</span>:<span class="w"> </span><span class="s2">"onvif-camera"</span>,
@@ -1563,7 +1563,7 @@ Since the MAC is used to map credentials for cameras, it is important to have th
 <p>Device resource MACAddress is used to set <code>MACAddress</code> of a camera.</p>
 <ol>
 <li>Use this command to set MACAddress field.
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/&lt;device name&gt;/MACAddress'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/&lt;device name&gt;/MACAddress'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">            "MACAddress":"11:22:33:44:55:66"</span>
@@ -1571,7 +1571,7 @@ Since the MAC is used to map credentials for cameras, it is important to have th
 </code></pre></div></li>
 <li>The response from the curl command.
 <div class="highlight"><pre><span></span><code>{
-    "apiVersion": "v2",
+    "apiVersion": "v3",
     "statusCode": 200
 }
 </code></pre></div></li>
@@ -1585,14 +1585,14 @@ Since the MAC is used to map credentials for cameras, it is important to have th
 <ol>
 <li>Use this command to return MACAddress field.</li>
 </ol>
-<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v2/device/name/&lt;device<span class="w"> </span>name&gt;/MACAddress<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/MACAddress<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 </code></pre></div>
 2. Response from the curl command. MACAddress value can be found under <code>value</code> field in the json response.
 <div class="highlight"><pre><span></span><code><span class="o">{</span>
-<span class="w">  </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">  </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">  </span><span class="s2">"statusCode"</span>:<span class="w"> </span><span class="m">200</span>,
 <span class="w">  </span><span class="s2">"event"</span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">    </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">    </span><span class="s2">"id"</span>:<span class="w"> </span><span class="s2">"c13245b0-397f-47c0-84b2-4de3d2fb891d"</span>,
 <span class="w">    </span><span class="s2">"deviceName"</span>:<span class="w"> </span><span class="s2">"TP-Link-C200-3fa1fe68-b915-4053-a3e1-1027f5ea8888"</span>,
 <span class="w">    </span><span class="s2">"profileName"</span>:<span class="w"> </span><span class="s2">"onvif-camera"</span>,

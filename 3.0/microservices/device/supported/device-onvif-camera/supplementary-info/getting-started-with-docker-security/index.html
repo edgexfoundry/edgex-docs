@@ -1529,10 +1529,10 @@
 </ol>
 <p><img alt="Consul" src="../../images/getting-started-with-docker-consul.jpg"/></p>
 <h2 id="4-add-the-username-and-password-for-the-onvif-camera">4. Add the Username and Password for the Onvif Camera</h2>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--location<span class="w"> </span>--request<span class="w"> </span>POST<span class="w"> </span><span class="s1">'http://0.0.0.0:59984/api/v2/secret'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--location<span class="w"> </span>--request<span class="w"> </span>POST<span class="w"> </span><span class="s1">'http://0.0.0.0:59984/api/v3/secret'</span><span class="w"> </span><span class="se">\</span>
 --header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 --data-raw<span class="w"> </span><span class="s1">'{</span>
-<span class="s1">    "apiVersion":"v2",</span>
+<span class="s1">    "apiVersion":"v3",</span>
 <span class="s1">    "secretName": "bosch",</span>
 <span class="s1">    "secretData":[</span>
 <span class="s1">        {</span>
@@ -1552,16 +1552,16 @@
 </code></pre></div>
 <h2 id="5-add-the-device-profile-to-edgex">5. Add the device profile to EdgeX</h2>
 <p>Change directory back to the <code>device-onvif-camera</code> and add the device profile to core-metadata service with the following command:
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59881/api/v2/deviceprofile/uploadfile<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59881/api/v3/deviceprofile/uploadfile<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-F<span class="w"> </span><span class="s2">"file=@./cmd/res/profiles/camera.yaml"</span>
 </code></pre></div></p>
 <h2 id="6-add-the-device-to-edgex">6. Add the device to EdgeX</h2>
 <p>Add the device data to core-metadata service with the following command:
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w">  </span><span class="se">\</span>
-<span class="w">  </span>http://localhost:59881/api/v2/device<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://localhost:59881/api/v3/device<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span><span class="s1">'[</span>
 <span class="s1">          {</span>
-<span class="s1">            "apiVersion": "v2",</span>
+<span class="s1">            "apiVersion": "v3",</span>
 <span class="s1">            "device": {</span>
 <span class="s1">                "name":"Camera003",</span>
 <span class="s1">                "serviceName": "device-onvif-camera",</span>
@@ -1582,9 +1582,9 @@
 <span class="s1">  ]'</span>
 </code></pre></div></p>
 <p>Check the available commands from core-command service:
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>http://localhost:59882/api/v2/device/name/Camera003<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>http://localhost:59882/api/v3/device/name/Camera003<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="o">{</span>
-<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">   </span><span class="s2">"deviceCoreCommand"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
 <span class="w">      </span><span class="s2">"coreCommands"</span><span class="w"> </span>:<span class="w"> </span><span class="o">[</span>
 <span class="w">         </span><span class="o">{</span>
@@ -1597,7 +1597,7 @@
 <span class="w">                  </span><span class="s2">"valueType"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Object"</span>
 <span class="w">               </span><span class="o">}</span>
 <span class="w">            </span><span class="o">]</span>,
-<span class="w">            </span><span class="s2">"path"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"/api/v2/device/name/Camera003/DNS"</span>,
+<span class="w">            </span><span class="s2">"path"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"/api/v3/device/name/Camera003/DNS"</span>,
 <span class="w">            </span><span class="s2">"url"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"http://edgex-core-command:59882"</span>
 <span class="w">         </span><span class="o">}</span>,
 <span class="w">         </span>...
@@ -1610,7 +1610,7 @@
 <span class="w">                  </span><span class="s2">"valueType"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Object"</span>
 <span class="w">               </span><span class="o">}</span>
 <span class="w">            </span><span class="o">]</span>,
-<span class="w">            </span><span class="s2">"path"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"/api/v2/device/name/Camera003/StreamUri"</span>,
+<span class="w">            </span><span class="s2">"path"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"/api/v3/device/name/Camera003/StreamUri"</span>,
 <span class="w">            </span><span class="s2">"url"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"http://edgex-core-command:59882"</span>
 <span class="w">         </span><span class="o">}</span>
 <span class="w">      </span><span class="o">]</span>,
@@ -1621,11 +1621,11 @@
 <span class="o">}</span>
 </code></pre></div></p>
 <h2 id="7-execute-a-get-command">7. Execute a Get Command</h2>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>http://0.0.0.0:59882/api/v2/device/name/Camera003/Users<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>http://0.0.0.0:59882/api/v3/device/name/Camera003/Users<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="o">{</span>
-<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">   </span><span class="s2">"event"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">      </span><span class="s2">"deviceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Camera003"</span>,
 <span class="w">      </span><span class="s2">"id"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"c0826f49-2840-421b-9474-7ad63a443302"</span>,
 <span class="w">      </span><span class="s2">"origin"</span><span class="w"> </span>:<span class="w"> </span><span class="m">1639525215434025100</span>,

@@ -1539,9 +1539,9 @@
 <p>For more information, please refer to the Annex D. Radiometry https://www.onvif.org/specs/srv/analytics/ONVIF-Analytics-Service-Spec.pdf</p>
 <h2 id="manage-the-analytics-module-configuration">Manage the Analytics Module Configuration</h2>
 <h3 id="query-the-analytics-module">Query the Analytics Module</h3>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera003/AnalyticsModules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsModules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="o">{</span>
-<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">   </span><span class="s2">"event"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
 <span class="w">      </span>...
 <span class="w">      </span><span class="s2">"profileName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"onvif-camera"</span>,
@@ -1581,12 +1581,12 @@
 </div>
 <p><img alt="query-analytics-module" src="../../images/api-analytic-support-query-analytics-module.jpg"/></p>
 <h3 id="query-the-supported-analytics-module-and-options">Query the Supported Analytics Module and Options</h3>
-<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera003/GetSupportedAnalyticsModules'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera003/SupportedAnalyticsModules'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="w">  </span>%<span class="w"> </span>Total<span class="w">    </span>%<span class="w"> </span>Received<span class="w"> </span>%<span class="w"> </span>Xferd<span class="w">  </span>Average<span class="w"> </span>Speed<span class="w">   </span>Time<span class="w">    </span>Time<span class="w">     </span>Time<span class="w">  </span>Current
 <span class="w">                                 </span>Dload<span class="w">  </span>Upload<span class="w">   </span>Total<span class="w">   </span>Spent<span class="w">    </span>Left<span class="w">  </span>Speed
 <span class="m">100</span><span class="w">   </span><span class="m">692</span><span class="w">  </span><span class="m">100</span><span class="w">   </span><span class="m">692</span><span class="w">    </span><span class="m">0</span><span class="w">     </span><span class="m">0</span><span class="w">   </span><span class="m">2134</span><span class="w">      </span><span class="m">0</span><span class="w"> </span>--:--:--<span class="w"> </span>--:--:--<span class="w"> </span>--:--:--<span class="w">  </span><span class="m">2217</span>
 <span class="o">{</span>
-<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">   </span><span class="s2">"event"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
 <span class="w">      </span>...
 <span class="w">      </span><span class="s2">"readings"</span><span class="w"> </span>:<span class="w"> </span><span class="o">[</span>
@@ -1618,14 +1618,14 @@
 <span class="w">            </span><span class="o">}</span>,
 <span class="w">         </span><span class="o">}</span>
 <span class="w">      </span><span class="o">]</span>,
-<span class="w">      </span><span class="s2">"sourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"GetSupportedAnalyticsModules"</span>
+<span class="w">      </span><span class="s2">"sourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"SupportedAnalyticsModules"</span>
 <span class="w">   </span><span class="o">}</span>,
 <span class="w">   </span><span class="s2">"statusCode"</span><span class="w"> </span>:<span class="w"> </span><span class="m">200</span>
 <span class="o">}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera003/GetAnalyticsModuleOptions?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsModuleOptions?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="o">{</span>
-<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">   </span><span class="s2">"event"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
 <span class="w">      </span><span class="s2">"deviceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Camera003"</span>,
 <span class="w">      </span><span class="s2">"profileName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"onvif-camera"</span>,
@@ -1663,11 +1663,11 @@
 <span class="w">               </span><span class="o">]</span>
 <span class="w">            </span><span class="o">}</span>,
 <span class="w">            </span>...
-<span class="w">            </span><span class="s2">"resourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"GetAnalyticsModuleOptions"</span>,
+<span class="w">            </span><span class="s2">"resourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"AnalyticsModuleOptions"</span>,
 <span class="w">            </span><span class="s2">"valueType"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Object"</span>
 <span class="w">         </span><span class="o">}</span>
 <span class="w">      </span><span class="o">]</span>,
-<span class="w">      </span><span class="s2">"sourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"GetAnalyticsModuleOptions"</span>
+<span class="w">      </span><span class="s2">"sourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"AnalyticsModuleOptions"</span>
 <span class="w">   </span><span class="o">}</span>,
 <span class="w">   </span><span class="s2">"statusCode"</span><span class="w"> </span>:<span class="w"> </span><span class="m">200</span>
 <span class="o">}</span>
@@ -1679,7 +1679,7 @@
 <p><img alt="query-analytics-module" src="../../images/api-analytic-support-query-analytics-module-options-1.jpg"/>
 <img alt="query-analytics-module" src="../../images/api-analytic-support-query-analytics-module-options-2.jpg"/></p>
 <h3 id="modify-the-analytics-module-options">Modify the Analytics Module Options</h3>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera003/AnalyticsModules'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsModules'</span><span class="w"> </span><span class="se">\</span>
 --header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 --data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">     "AnalyticsModules": {</span>
@@ -1708,11 +1708,11 @@
 </code></pre></div>
 <h2 id="manage-the-rule-configuration">Manage the Rule Configuration</h2>
 <h3 id="query-the-rules">Query the Rules</h3>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera003/Rules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera003/Rules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="o">{</span>
-<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">   </span><span class="s2">"event"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">      </span><span class="s2">"deviceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Camera003"</span>,
 <span class="w">      </span><span class="s2">"profileName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"onvif-camera"</span>,
 <span class="w">      </span>...
@@ -1753,14 +1753,14 @@
 </div>
 <p><img alt="query-analytics-module" src="../../images/api-analytic-support-query-rules.jpg"/></p>
 <h3 id="query-the-supported-rule-and-options">Query the Supported Rule and Options</h3>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera003/GetSupportedRules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera003/SupportedRules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="w">  </span>%<span class="w"> </span>Total<span class="w">    </span>%<span class="w"> </span>Received<span class="w"> </span>%<span class="w"> </span>Xferd<span class="w">  </span>Average<span class="w"> </span>Speed<span class="w">   </span>Time<span class="w">    </span>Time<span class="w">     </span>Time<span class="w">  </span>Current
 <span class="w">                                 </span>Dload<span class="w">  </span>Upload<span class="w">   </span>Total<span class="w">   </span>Spent<span class="w">    </span>Left<span class="w">  </span>Speed
 <span class="m">100</span><span class="w">  </span><span class="m">9799</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">9799</span><span class="w">    </span><span class="m">0</span><span class="w">     </span><span class="m">0</span><span class="w">   </span><span class="m">9605</span><span class="w">      </span><span class="m">0</span><span class="w"> </span>--:--:--<span class="w">  </span><span class="m">0</span>:00:01<span class="w"> </span>--:--:--<span class="w">  </span><span class="m">9740</span>
 <span class="o">{</span>
-<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">   </span><span class="s2">"event"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">      </span><span class="s2">"deviceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Camera003"</span>,
 <span class="w">      </span><span class="s2">"id"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"07f7b42e-835b-4ecc-97b1-fe4d5f52575b"</span>,
 <span class="w">      </span><span class="s2">"origin"</span><span class="w"> </span>:<span class="w"> </span><span class="m">1639482296788863000</span>,
@@ -1832,23 +1832,23 @@
 <span class="w">            </span><span class="o">}</span>,
 <span class="w">            </span><span class="s2">"origin"</span><span class="w"> </span>:<span class="w"> </span><span class="m">1639482296788863000</span>,
 <span class="w">            </span><span class="s2">"profileName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"onvif-camera"</span>,
-<span class="w">            </span><span class="s2">"resourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"GetSupportedRules"</span>,
+<span class="w">            </span><span class="s2">"resourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"SupportedRules"</span>,
 <span class="w">            </span><span class="s2">"valueType"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Object"</span>
 <span class="w">         </span><span class="o">}</span>
 <span class="w">      </span><span class="o">]</span>,
-<span class="w">      </span><span class="s2">"sourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"GetSupportedRules"</span>
+<span class="w">      </span><span class="s2">"sourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"SupportedRules"</span>
 <span class="w">   </span><span class="o">}</span>,
 <span class="w">   </span><span class="s2">"statusCode"</span><span class="w"> </span>:<span class="w"> </span><span class="m">200</span>
 <span class="o">}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera003/GetRuleOptions?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera003/RuleOptions?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="w">  </span>%<span class="w"> </span>Total<span class="w">    </span>%<span class="w"> </span>Received<span class="w"> </span>%<span class="w"> </span>Xferd<span class="w">  </span>Average<span class="w"> </span>Speed<span class="w">   </span>Time<span class="w">    </span>Time<span class="w">     </span>Time<span class="w">  </span>Current
 <span class="w">                                 </span>Dload<span class="w">  </span>Upload<span class="w">   </span>Total<span class="w">   </span>Spent<span class="w">    </span>Left<span class="w">  </span>Speed
 <span class="m">100</span><span class="w">  </span><span class="m">1168</span><span class="w">  </span><span class="m">100</span><span class="w">  </span><span class="m">1168</span><span class="w">    </span><span class="m">0</span><span class="w">     </span><span class="m">0</span><span class="w">    </span><span class="m">755</span><span class="w">      </span><span class="m">0</span><span class="w">  </span><span class="m">0</span>:00:01<span class="w">  </span><span class="m">0</span>:00:01<span class="w"> </span>--:--:--<span class="w">   </span><span class="m">759</span>
 <span class="o">{</span>
-<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">   </span><span class="s2">"event"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">      </span><span class="s2">"deviceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Camera003"</span>,
 <span class="w">      </span><span class="s2">"id"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"3ac81a5c-48f2-46d7-a3f9-d4919f97ae8d"</span>,
 <span class="w">      </span><span class="s2">"origin"</span><span class="w"> </span>:<span class="w"> </span><span class="m">1639482979553667000</span>,
@@ -1892,17 +1892,17 @@
 <span class="w">            </span><span class="o">}</span>,
 <span class="w">            </span><span class="s2">"origin"</span><span class="w"> </span>:<span class="w"> </span><span class="m">1639482979553667000</span>,
 <span class="w">            </span><span class="s2">"profileName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"onvif-camera"</span>,
-<span class="w">            </span><span class="s2">"resourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"GetRuleOptions"</span>,
+<span class="w">            </span><span class="s2">"resourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"RuleOptions"</span>,
 <span class="w">            </span><span class="s2">"valueType"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Object"</span>
 <span class="w">         </span><span class="o">}</span>
 <span class="w">      </span><span class="o">]</span>,
-<span class="w">      </span><span class="s2">"sourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"GetRuleOptions"</span>
+<span class="w">      </span><span class="s2">"sourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"RuleOptions"</span>
 <span class="w">   </span><span class="o">}</span>,
 <span class="w">   </span><span class="s2">"statusCode"</span><span class="w"> </span>:<span class="w"> </span><span class="m">200</span>
 <span class="o">}</span>
 </code></pre></div>
 <h3 id="add-the-rule">Add the Rule</h3>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--location<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera003/CreateRules'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--location<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera003/CreateRules'</span><span class="w"> </span><span class="se">\</span>
 --header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 --data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">    "CreateRules": {</span>

@@ -1433,7 +1433,7 @@
 <h2 id="how-does-the-rebootneeded-work-with-edgex">How does the RebootNeeded work with EdgeX?</h2>
 <ol>
 <li>Execute Set command to change the networkInterfaces setting:
-   <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera001/NetworkInterfaces'</span><span class="w"> </span><span class="se">\</span>
+   <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera001/NetworkInterfaces'</span><span class="w"> </span><span class="se">\</span>
 --header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 --data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">   "NetworkInterfaces": {</span>
@@ -1449,11 +1449,11 @@
 </code></pre></div></li>
 <li>
 <p>Check the RebootNeeded value:
-   <div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera001/RebootNeeded'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+   <div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera001/RebootNeeded'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="o">{</span>
-<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">   </span><span class="s2">"event"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">      </span><span class="s2">"deviceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Camera001"</span>,
 <span class="w">      </span><span class="s2">"id"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"e370bbb5-55d2-4392-84ca-8d9e7f097dae"</span>,
 <span class="w">      </span><span class="s2">"origin"</span><span class="w"> </span>:<span class="w"> </span><span class="m">1635750695886624000</span>,
@@ -1478,7 +1478,7 @@
 </li>
 <li>
 <p>Reboot the camera to apply the change:
-   <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera001/SystemReboot'</span><span class="w"> </span><span class="se">\</span>
+   <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera001/SystemReboot'</span><span class="w"> </span><span class="se">\</span>
 --header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 --data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">   "SystemReboot": {}</span>
@@ -1487,11 +1487,11 @@
 </li>
 <li>
 <p>Check The RebootNeeded value:
-   <div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera001/RebootNeeded'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+   <div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera001/RebootNeeded'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="o">{</span>
-<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">   </span><span class="s2">"event"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">      </span><span class="s2">"deviceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Camera001"</span>,
 <span class="w">      </span><span class="s2">"id"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"53585696-ec1a-4ac7-9a42-7d480c0a75d9"</span>,
 <span class="w">      </span><span class="s2">"origin"</span><span class="w"> </span>:<span class="w"> </span><span class="m">1635750854455262000</span>,

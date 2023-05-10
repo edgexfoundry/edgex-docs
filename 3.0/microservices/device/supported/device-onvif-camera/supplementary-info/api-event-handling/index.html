@@ -1604,8 +1604,8 @@
 </li>
 </ul>
 <p>Device service will generate the following path for pushing event from Camera to device service:
-- {BaseNotificationURL}/api/v2/resource/{DeviceName}/{ResourceName}
-- {BaseNotificationURL}/api/v2/resource/Camera1/CameraEvent</p>
+- {BaseNotificationURL}/api/v3/resource/{DeviceName}/{ResourceName}
+- {BaseNotificationURL}/api/v3/resource/Camera1/CameraEvent</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The user can also override the config from the docker-compose environment variable:</p>
@@ -1629,11 +1629,11 @@ Then the device service can be accessed by the external camera from the other su
 </code></pre></div>
 <h2 id="find-the-supported-event-topics">Find the supported Event Topics</h2>
 <p>Finding out what notifications a camera supports and what information they contain:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://localhost:59882/api/v2/device/name/Camera003/GetEventProperties'</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://localhost:59882/api/v3/device/name/Camera003/EventProperties'</span>
 </code></pre></div>
 <h2 id="create-a-pull-point">Create a Pull Point</h2>
 <p>User can create pull point with the following command:
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://localhost:59882/api/v2/device/name/Camera003/PullPointSubscription'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://localhost:59882/api/v3/device/name/Camera003/PullPointSubscription'</span><span class="w"> </span><span class="se">\</span>
 --header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 --data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">    "PullPointSubscription": {</span>
@@ -1653,7 +1653,7 @@ Then the device service can be accessed by the external camera from the other su
 </div>
 <h2 id="create-a-basenotification">Create a BaseNotification</h2>
 <p>User can create subscription, the InitialTerminationTime is required and should greater than ten seconds:
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://localhost:59882/api/v2/device/name/Camera003/BaseNotificationSubscription'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://localhost:59882/api/v3/device/name/Camera003/BaseNotificationSubscription'</span><span class="w"> </span><span class="se">\</span>
 --header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 --data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">    "BaseNotificationSubscription": {</span>
@@ -1671,7 +1671,7 @@ Then the device service can be accessed by the external camera from the other su
 </div>
 <h2 id="unsubscribe-all-subscriptions">Unsubscribe all subscriptions</h2>
 <p>The user can unsubscribe all subscriptions(PullPoint and BaseNotification) from the camera with the following command:
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://localhsot:59882/api/v2/device/name/Camera003/UnsubscribeCameraEvent'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://localhsot:59882/api/v3/device/name/Camera003/UnsubscribeCameraEvent'</span><span class="w"> </span><span class="se">\</span>
 --header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 --data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">    "UnsubscribeCameraEvent": {</span>

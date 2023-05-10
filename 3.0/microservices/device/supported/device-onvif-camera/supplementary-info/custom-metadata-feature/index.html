@@ -1503,7 +1503,7 @@
 <p>Use the CustomMetadata resource to set the fields of <code>CustomMetadata</code>. Choose the key/value pairs to represent your custom fields.</p>
 <ol>
 <li>Use this command to put the data in the CustomMetadata field.
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/&lt;device name&gt;/CustomMetadata'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/&lt;device name&gt;/CustomMetadata'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">        "CustomMetadata": {</span>
@@ -1515,7 +1515,7 @@
 </code></pre></div></li>
 <li>The response from the curl command.
 <div class="highlight"><pre><span></span><code>{
-    "apiVersion": "v2",
+    "apiVersion": "v3",
     "statusCode": 200
 }
 </code></pre></div></li>
@@ -1529,13 +1529,13 @@
 <ol>
 <li>Use this command to return all of the data in the CustomMetadata field.</li>
 </ol>
-<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v2/device/name/&lt;device<span class="w"> </span>name&gt;/CustomMetadata<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/CustomMetadata<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 </code></pre></div>
 2. The repsonse from the curl command.
 <div class="highlight"><pre><span></span><code><span class="o">{</span>
-<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">   </span><span class="s2">"event"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">      </span><span class="s2">"deviceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"3fa1fe68-b915-4053-a3e1-cc32e5000688"</span>,
 <span class="w">      </span><span class="s2">"id"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"ba3987f9-b45b-480a-b582-f5501d673c4d"</span>,
 <span class="w">      </span><span class="s2">"origin"</span><span class="w"> </span>:<span class="w"> </span><span class="m">1655409814077374935</span>,
@@ -1587,15 +1587,15 @@
 </li>
 <li>
 <p>Use this command to query the fields you provided in the json object.
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v2/device/name/&lt;device<span class="w"> </span>name&gt;/CustomMetadata?jsonObject<span class="o">=</span><span class="nv">WwogICAgIkNvbG9yIiwKICAgICJMb2NhdGlvbiIKXQo</span><span class="o">=</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/CustomMetadata?jsonObject<span class="o">=</span><span class="nv">WwogICAgIkNvbG9yIiwKICAgICJMb2NhdGlvbiIKXQo</span><span class="o">=</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 </code></pre></div></p>
 </li>
 <li>
 <p>Curl response. 
 <div class="highlight"><pre><span></span><code><span class="o">{</span>
-<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">   </span><span class="s2">"event"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">      </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">      </span><span class="s2">"deviceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"3fa1fe68-b915-4053-a3e1-cc32e5000688"</span>,
 <span class="w">      </span><span class="s2">"id"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"24c3eb0a-48b1-4afe-b874-965aeb2e42a2"</span>,
 <span class="w">      </span><span class="s2">"origin"</span><span class="w"> </span>:<span class="w"> </span><span class="m">1655410556448058195</span>,
@@ -1626,7 +1626,7 @@
 <p>Use the DeleteCustomMetadata resource to delete entries in custom metadata</p>
 <ol>
 <li>Use this command to delete fields.
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/&lt;device name&gt;/DeleteCustomMetadata'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/&lt;device name&gt;/DeleteCustomMetadata'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">        "DeleteCustomMetadata": [</span>
@@ -1636,7 +1636,7 @@
 </code></pre></div></li>
 <li>The response from the curl command.
 <div class="highlight"><pre><span></span><code>{
-    "apiVersion": "v2",
+    "apiVersion": "v3",
     "statusCode": 200
 }
 </code></pre></div></li>

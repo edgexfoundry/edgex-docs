@@ -1462,11 +1462,11 @@
 <p>The spec can refer to https://www.onvif.org/ver10/device/wsdl/devicemgmt.wsdl</p>
 <h2 id="getusers">GetUsers</h2>
 <p>This operation lists the registered users and corresponding credentials on a device.
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera001/Users'</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera001/Users'</span>
 </code></pre></div></p>
 <h2 id="createusers">CreateUsers</h2>
 <p>This operation creates new camera users and corresponding credentials on a device for authentication purposes.
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera001/CreateUsers'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera001/CreateUsers'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">        "CreateUsers": {</span>
@@ -1487,7 +1487,7 @@
 </code></pre></div></p>
 <h2 id="setuser">SetUser</h2>
 <p>This operation updates the settings for one or several users on a device for authentication purposes.
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera001/Users'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera001/Users'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">        "Users": {</span>
@@ -1506,7 +1506,7 @@
 </code></pre></div></p>
 <h2 id="deleteusers">DeleteUsers</h2>
 <p>This operation deletes users on a device.
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v2/device/name/Camera001/DeleteUsers'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera001/DeleteUsers'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--data-raw<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">        "DeleteUsers": {</span>
