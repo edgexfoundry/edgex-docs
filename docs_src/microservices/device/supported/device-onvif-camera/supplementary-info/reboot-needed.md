@@ -12,7 +12,7 @@ Since the Set command can't return the **RebootNeeded** value in the command res
 
 1. Execute Set command to change the networkInterfaces setting:
    ```bash
-   curl --request PUT 'http://0.0.0.0:59882/api/v2/device/name/Camera001/NetworkInterfaces' \
+   curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/Camera001/NetworkInterfaces' \
    --header 'Content-Type: application/json' \
    --data-raw '{
       "NetworkInterfaces": {
@@ -28,11 +28,11 @@ Since the Set command can't return the **RebootNeeded** value in the command res
    ```
 2. Check the RebootNeeded value:
    ```bash
-   $ curl 'http://0.0.0.0:59882/api/v2/device/name/Camera001/RebootNeeded' | jq .
+   $ curl 'http://0.0.0.0:59882/api/v3/device/name/Camera001/RebootNeeded' | jq .
    {
-      "apiVersion" : "v2",
+      "apiVersion" : "v3",
       "event" : {
-         "apiVersion" : "v2",
+         "apiVersion" : "v3",
          "deviceName" : "Camera001",
          "id" : "e370bbb5-55d2-4392-84ca-8d9e7f097dae",
          "origin" : 1635750695886624000,
@@ -57,7 +57,7 @@ Since the Set command can't return the **RebootNeeded** value in the command res
 
 3. Reboot the camera to apply the change:
    ```shell
-   curl --request PUT 'http://0.0.0.0:59882/api/v2/device/name/Camera001/SystemReboot' \
+   curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/Camera001/SystemReboot' \
    --header 'Content-Type: application/json' \
    --data-raw '{
       "SystemReboot": {}
@@ -66,11 +66,11 @@ Since the Set command can't return the **RebootNeeded** value in the command res
 
 4. Check The RebootNeeded value:
    ```shell
-   $ curl 'http://0.0.0.0:59882/api/v2/device/name/Camera001/RebootNeeded' | jq .
+   $ curl 'http://0.0.0.0:59882/api/v3/device/name/Camera001/RebootNeeded' | jq .
    {
-      "apiVersion" : "v2",
+      "apiVersion" : "v3",
       "event" : {
-         "apiVersion" : "v2",
+         "apiVersion" : "v3",
          "deviceName" : "Camera001",
          "id" : "53585696-ec1a-4ac7-9a42-7d480c0a75d9",
          "origin" : 1635750854455262000,

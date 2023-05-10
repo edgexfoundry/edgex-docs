@@ -100,11 +100,11 @@ or by configuring the `AppCustom.CredentialsMap` which maps one or more MAC Addr
     </div>
 
     ```shell
-    curl --location --request POST 'http://localhost:59984/api/v2/secret' \
+    curl --location --request POST 'http://localhost:59984/api/v3/secret' \
         --header 'Content-Type: application/json' \
         --data-raw '
     {
-        "apiVersion":"v2",
+        "apiVersion":"v3",
         "name": "<secret-name>",
         "secretData":[
             {

@@ -29,7 +29,7 @@ Use the CustomMetadata resource to set the fields of `CustomMetadata`. Choose th
 
 1. Use this command to put the data in the CustomMetadata field.
 ```shell
-curl --request PUT 'http://0.0.0.0:59882/api/v2/device/name/<device name>/CustomMetadata' \
+curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/<device name>/CustomMetadata' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "CustomMetadata": {
@@ -42,7 +42,7 @@ curl --request PUT 'http://0.0.0.0:59882/api/v2/device/name/<device name>/Custom
 2. The response from the curl command.
 ```
 {
-    "apiVersion": "v2",
+    "apiVersion": "v3",
     "statusCode": 200
 }
 ```
@@ -57,14 +57,14 @@ Use the CustomMetadata resource to get and display the fields of `CustomMetadata
 1. Use this command to return all of the data in the CustomMetadata field.
 
 ```shell
-curl http://localhost:59882/api/v2/device/name/<device name>/CustomMetadata | jq .
+curl http://localhost:59882/api/v3/device/name/<device name>/CustomMetadata | jq .
 ```
 2. The repsonse from the curl command.
 ```shell
 {
-   "apiVersion" : "v2",
+   "apiVersion" : "v3",
    "event" : {
-      "apiVersion" : "v2",
+      "apiVersion" : "v3",
       "deviceName" : "3fa1fe68-b915-4053-a3e1-cc32e5000688",
       "id" : "ba3987f9-b45b-480a-b582-f5501d673c4d",
       "origin" : 1655409814077374935,
@@ -119,16 +119,16 @@ WwogICAgIkNvbG9yIiwKICAgICJMb2NhdGlvbiIKXQo=
 
 4. Use this command to query the fields you provided in the json object.
 ```shell
-curl http://localhost:59882/api/v2/device/name/<device name>/CustomMetadata?jsonObject=WwogICAgIkNvbG9yIiwKICAgICJMb2NhdGlvbiIKXQo= | jq .
+curl http://localhost:59882/api/v3/device/name/<device name>/CustomMetadata?jsonObject=WwogICAgIkNvbG9yIiwKICAgICJMb2NhdGlvbiIKXQo= | jq .
 
 ```
 
 5. Curl response. 
 ```shell
 {
-   "apiVersion" : "v2",
+   "apiVersion" : "v3",
    "event" : {
-      "apiVersion" : "v2",
+      "apiVersion" : "v3",
       "deviceName" : "3fa1fe68-b915-4053-a3e1-cc32e5000688",
       "id" : "24c3eb0a-48b1-4afe-b874-965aeb2e42a2",
       "origin" : 1655410556448058195,
@@ -160,7 +160,7 @@ Use the DeleteCustomMetadata resource to delete entries in custom metadata
 
 1. Use this command to delete fields.
 ```shell
-curl --request PUT 'http://0.0.0.0:59882/api/v2/device/name/<device name>/DeleteCustomMetadata' \
+curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/<device name>/DeleteCustomMetadata' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "DeleteCustomMetadata": [
@@ -171,7 +171,7 @@ curl --request PUT 'http://0.0.0.0:59882/api/v2/device/name/<device name>/Delete
 2. The response from the curl command.
 ```
 {
-    "apiVersion": "v2",
+    "apiVersion": "v3",
     "statusCode": 200
 }
 ```

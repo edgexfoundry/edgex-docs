@@ -12,7 +12,7 @@ For more info on how WS-Discovery works, see [here](./ws-discovery.md).
 Device discovery is triggered by the device SDK. Once the device service starts, it will discover the Onvif camera(s) at the specified interval.
 
 !!! Note
-    You can also manually trigger discovery using this command: `curl -X POST http://<service-host>:59984/api/v2/discovery`
+    You can also manually trigger discovery using this command: `curl -X POST http://<service-host>:59984/api/v3/discovery`
 
 ### Step 1. Discovery Configuration
 
