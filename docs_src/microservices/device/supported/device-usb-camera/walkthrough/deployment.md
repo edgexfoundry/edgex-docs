@@ -109,6 +109,28 @@ Follow this guide to deploy and run the service.
     !!! Note 
         The `jq -r` option is used to reduce the size of the displayed response. The entire device with all information can be seen by removing `-r '"deviceName: " + '.devices[].name'', and replacing it with '.'`
 
+1. Add credentials to for the rtsp stream.
+
+    === "Curl Commands"
+
+        1. Set the username.
+            ```bash
+            curl --data '<username>' -H X-Consul-Token: -X PUT http://localhost:8500/v1/kv/edgex/v3/device-usb-camera/Writable/InsecureSecrets/rtspauth/SecretData/username
+            ```
+        1. Set the password.
+            ```bash
+            curl --data '<password>' -H X-Consul-Token: -X PUT http://localhost:8500/v1/kv/edgex/v3/device-usb-camera/Writable/InsecureSecrets/rtspauth/SecretData/password
+            ```
+        
+    === "Consul UI"
+
+        1. Navigate to the [Consul UI](http://localhost:8500/ui/dc1/kv/edgex/v3/device-usb-camera/Writable/InsecureSecrets/rtspauth/SecretData/)
+
+        1. Select the username option and input the username.
+
+        1. Select the password option and input the password.
+
+
 ## Manage Devices
 
 !!! Note 

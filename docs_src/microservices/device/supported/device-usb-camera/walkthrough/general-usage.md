@@ -57,13 +57,17 @@ StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217
 
 mplayer can be used to stream. The command follows this format: 
 
-`mplayer rtsp://<IP address>:<port>/<streamname>`.
+```bash
+mplayer rtsp://'<username>:<password>'@<IP address>:<port>/<streamname>`.
+```
 
 Using the `streamURI` returned from the previous step, run mplayer:
 
-```bash
-mplayer rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
-```
+!!! example - "Example Strean Command"
+    ```bash
+    mplayer rtsp://'admin:admin'@localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
+    ```
+
 
 To shut down mplayer, use the ctrl-c command.
 
