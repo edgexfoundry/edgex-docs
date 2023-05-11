@@ -68,13 +68,13 @@ Follow this guide to deploy and run the service.
 1. Check that the device service is added to EdgeX:
 
     ```bash
-    curl -s http://localhost:59881/api/v2/deviceservice/name/device-usb-camera | jq .
+    curl -s http://localhost:59881/api/v3/deviceservice/name/device-usb-camera | jq .
     ```
 
     Successful:
     ```json
     {
-        "apiVersion": "v2",
+        "apiVersion": "v3",
         "statusCode": 200,
         "service": {
             "created": 1658769423192,
@@ -89,7 +89,7 @@ Follow this guide to deploy and run the service.
     Unsuccessful:
     ```json
     {
-        "apiVersion": "v2",
+        "apiVersion": "v3",
         "message": "fail to query device service by name device-usb-camera",
         "statusCode": 404
     }
@@ -98,7 +98,7 @@ Follow this guide to deploy and run the service.
 1. Verify device(s) have been successfully added to core-metadata.
 
     ```bash
-    curl -s http://localhost:59881/api/v2/device/all | jq -r '"deviceName: " + '.devices[].name''
+    curl -s http://localhost:59881/api/v3/device/all | jq -r '"deviceName: " + '.devices[].name''
     ```
 
     Example Output: 
@@ -140,10 +140,10 @@ Devices can either be added to the service by defining them in a static configur
     !!! example - "Example Command"
         ```bash
         curl -X POST -H 'Content-Type: application/json'  \
-        http://localhost:59881/api/v2/device \
+        http://localhost:59881/api/v3/device \
         -d '[
             {
-            "apiVersion": "v2",
+            "apiVersion": "v3",
             "device": {
                 "name": "Camera001",
                 "serviceName": "device-usb-camera",
@@ -165,7 +165,7 @@ Devices can either be added to the service by defining them in a static configur
 
     Example Output: 
     ```bash
-    [{"apiVersion":"v2","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
+    [{"apiVersion":"v3","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
     ```
 
 

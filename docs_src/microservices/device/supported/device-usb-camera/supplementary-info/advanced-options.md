@@ -17,7 +17,7 @@ Query parameter:
         "InputImageSize": "640x480",
         "OutputVideoQuality": "5"
         }
-    }' http://localhost:59882/api/v2/device/name/<device name>/StartStreaming
+    }' http://localhost:59882/api/v3/device/name/<device name>/StartStreaming
     ```
 
 Supported Input options:  
@@ -64,7 +64,7 @@ If there is a mismatch between them, the device service will scan all paths to f
 
 This check can also be triggered by using the Device Service API `/refreshdevicepaths`.
 ```shell
-curl -X POST http://localhost:59983/api/v2/refreshdevicepaths
+curl -X POST http://localhost:59983/api/v3/refreshdevicepaths
 ```
 
 It's recommended to trigger a check after re-plugging cameras.
@@ -89,7 +89,7 @@ URL parameter:
 - **InputIndex**: indicates the current index of the video input (if a camera only has one source for video, the index needs to be set to '0')  
 !!! example - "Example Query Command"
     ```
-    curl -X GET http://localhost:59882/api/v2/device/name/<DeviceName>/CameraStatus?InputIndex=0 | jq -r '"CameraStatus: " + (.event.readings[].value|tostring)'
+    curl -X GET http://localhost:59882/api/v3/device/name/<DeviceName>/CameraStatus?InputIndex=0 | jq -r '"CameraStatus: " + (.event.readings[].value|tostring)'
     ```
 
 Example Output: 
