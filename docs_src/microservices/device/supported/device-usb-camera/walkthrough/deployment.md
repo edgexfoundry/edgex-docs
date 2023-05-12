@@ -111,9 +111,14 @@ Follow this guide to deploy and run the service.
 
 1. Add credentials to for the rtsp stream.
 
+    !!! note
+        If you want to disable rtsp authentication entirely, you must [build a custom image](../walkthrough/custom-build.md).
+
     === "Scripts"
+
         !!! note 
-            If running in secure mode Consul ACL and the JWT token generated previously are needed for mapping credentials.
+            If running in secure mode the [JWT token](../../../../../security/Ch-APIGateway.md#creating-access-token-for-api-gateway-authentication) generated previously is needed for mapping credentials.
+
         a. Enter JWT token if in secure mode.  
             ![](../images/enter-jwt-token.png)  
         b. Set the username.  
@@ -163,7 +168,7 @@ Follow this guide to deploy and run the service.
         
     === "Consul UI"
         !!! note 
-                If running in secure mode Consul ACL and the JWT token generated previously are needed for mapping credentials.
+                If running in secure mode the [Consul ACL](../../../../../security/Ch-Secure-Consul.md#how-to-get-consul-acl-token) is needed to access consul.
 
         1. Navigate to the [Consul UI](http://localhost:8500/ui/dc1/kv/edgex/v3/device-usb-camera/Writable/InsecureSecrets/rtspauth/SecretData/)
 

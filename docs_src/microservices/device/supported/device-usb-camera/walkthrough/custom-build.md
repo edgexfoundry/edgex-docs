@@ -103,7 +103,7 @@ Set the username and password
                 password: ""
     ```
 
-For more information on rtsp authentication see [here](../supplementary-info/advanced-options.md#rtsp-auth)
+For more information on rtsp authentication, including how to disable it, see [here](../supplementary-info/advanced-options.md#rtsp-auth)
 
 ## Building the docker image
 1. Change into newly created directory:
