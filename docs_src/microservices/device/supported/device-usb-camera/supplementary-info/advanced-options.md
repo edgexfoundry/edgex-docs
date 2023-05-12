@@ -1,5 +1,34 @@
 # Advanced Options
 
+## RTSP Auth
+The device service allows for rtsp stream authentication using the [rtsp-simple-server](https://github.com/aler9/mediamtx). Authentication is enabled by default.
+
+To configure the username and password for the authentication when buiding your own images, edit the fields in the 'configuration.yaml'
+!!! note 
+    Leaving the fields blank will **NOT** disable authentication. The stream will not be able to be authenticated until credentials are provided.
+
+!!! example - "Snippet from configuration.yaml"
+    ```yaml
+    ...
+    Writable:
+        LogLevel: "INFO"
+        InsecureSecrets:
+            rtspauth:
+            SecretName: rtspauth
+            SecretData:
+                username: ""
+                password: ""
+    ```
+
+To disable authentication, comment out the externalAuthenticationURL line in the `Dockerfile`.
+!!! example - "Snippet from the Dockerfile"
+    ```Dockerfile
+    # disable unused rtsp-simple-server listeners
+    ...
+    # RUN sed -i 's,externalAuthenticationURL:,externalAuthenticationURL: http://localhost:8000/rtspauth,g' rtsp-simple-server.yml
+    ```
+
+
 ## Video options
 There are two types of options:
 - The options start with `Input` prefix are used for the camera, such as specifying the image size and pixel format.
@@ -76,8 +105,9 @@ The hostname and port of the RTSP server to which the device service publishes v
 !!! example - "Snippet from configuration.yaml"
     ```yaml
     Driver:
-    RtspServerHostName: "localhost"
-    RtspTcpPort: "8554"
+        RtspServerHostName: "localhost"
+        RtspTcpPort: "8554"
+        RtspAuthenticationServer: "localhost:8000"
     ```
 
 

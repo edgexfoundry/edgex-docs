@@ -111,18 +111,59 @@ Follow this guide to deploy and run the service.
 
 1. Add credentials to for the rtsp stream.
 
-    === "Curl Commands"
+    === "Scripts"
+        !!! note 
+            If running in secure mode Consul ACL and the JWT token generated previously are needed for mapping credentials.
+        a. Enter JWT token if in secure mode.  
+            ![](../images/enter-jwt-token.png)  
+        b. Set the username.  
+            ![](../images/set-username.png)  
+        c. Set the password.  
+            ![](../images/set-username.png)  
 
-        1. Set the username.
-            ```bash
-            curl --data '<username>' -H X-Consul-Token: -X PUT http://localhost:8500/v1/kv/edgex/v3/device-usb-camera/Writable/InsecureSecrets/rtspauth/SecretData/username
-            ```
-        1. Set the password.
-            ```bash
-            curl --data '<password>' -H X-Consul-Token: -X PUT http://localhost:8500/v1/kv/edgex/v3/device-usb-camera/Writable/InsecureSecrets/rtspauth/SecretData/password
-            ```
+        Successful:
+        ```bash
+        Dependencies Check: Success
+            Consul Check: ...
+                            [
+        {
+            "Resource": "key",
+            "Access": "read",
+            "Allow": false
+        },
+        {
+            "Resource": "key",
+            "Access": "write",
+            "Allow": false
+        }
+        ]
+
+        curl --data '{
+            "apiVersion":"v3",
+            "secretName": "rtspauth",
+            "secretData":[
+                {
+                    "key":"username",
+                    "value":"username"
+                },
+                {
+                    "key":"<redacted>",
+                    "value":"<redacted>"
+                }
+            ]
+        }' -H Authorization:Bearer <redacted> -X POST http://localhost:59983/api/v3/secret
+        Response [201] {
+        "apiVersion": "v3",
+        "statusCode": 201
+        }
+
+
+        Success
+        ```
         
     === "Consul UI"
+        !!! note 
+                If running in secure mode Consul ACL and the JWT token generated previously are needed for mapping credentials.
 
         1. Navigate to the [Consul UI](http://localhost:8500/ui/dc1/kv/edgex/v3/device-usb-camera/Writable/InsecureSecrets/rtspauth/SecretData/)
 

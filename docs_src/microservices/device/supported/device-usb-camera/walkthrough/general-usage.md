@@ -13,7 +13,7 @@ These options can be passed in through Object value when calling StartStreaming.
 Query parameter:  
 - `device name`: The name of the camera
 
-!!! example - "Example Query Command"
+!!! example - "Example StartStreaming Command"
     ```shell
     curl -X PUT -d '{
         "StartStreaming": {
@@ -63,7 +63,7 @@ mplayer rtsp://'<username>:<password>'@<IP address>:<port>/<streamname>`.
 
 Using the `streamURI` returned from the previous step, run mplayer:
 
-!!! example - "Example Strean Command"
+!!! example - "Example Stream Command"
     ```bash
     mplayer rtsp://'admin:admin'@localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
     ```

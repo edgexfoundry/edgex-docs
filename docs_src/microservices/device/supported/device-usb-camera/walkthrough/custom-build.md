@@ -85,7 +85,25 @@ The hostname and port of the RTSP server can be configured in the `Driver` secti
     Driver:
         RtspServerHostName: "localhost"
         RtspTcpPort: "8554"
+        RtspAuthenticationServer: "localhost:8000"
     ```
+
+## Configurable RTSP authentication
+Set the username and password 
+!!! example - "Snippet from configuration.yaml"
+    ```yaml
+    ...
+    Writable:
+        LogLevel: "INFO"
+        InsecureSecrets:
+            rtspauth:
+            SecretName: rtspauth
+            SecretData:
+                username: ""
+                password: ""
+    ```
+
+For more information on rtsp authentication see [here](../supplementary-info/advanced-options.md#rtsp-auth)
 
 ## Building the docker image
 1. Change into newly created directory:
