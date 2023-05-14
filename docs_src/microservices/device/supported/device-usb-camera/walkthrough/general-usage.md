@@ -65,7 +65,7 @@ Using the `streamURI` returned from the previous step, run mplayer:
 
 !!! example - "Example Stream Command"
     ```bash
-    mplayer rtsp://'admin:admin'@localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
+    mplayer rtsp://'admin:pass'@localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
     ```
 
 

@@ -78,7 +78,7 @@ See the examples at `cmd/res/devices`
     When a new device is created in Core Metadata, a callback function of the device service will be called to add the device card name and serial number to protocol properties for identification purposes. These two pieces of information are obtained through `V4L2` API and `udev` utility.
 
 ## Configurable RTSP server hostname and port
-The hostname and port of the RTSP server can be configured in the `Driver` section of the `device-usb-camera/cmd/res/configuration.yaml` file. The default values can be used for this guide.
+The hostname and port of the RTSP server can be configured in the `Driver` section of the `device-usb-camera/cmd/res/configuration.yaml` file. The default values can be used for this guide. The `RtspAuthenticationServer` value indicated the hostname and port on which the authentication server will run. If this value is changed, you will have to also change the [mediamtx configuration]()
 
 !!! example - "Snippet from configuration.yaml"
     ```yaml
@@ -99,8 +99,8 @@ Set the username and password
             rtspauth:
             SecretName: rtspauth
             SecretData:
-                username: ""
-                password: ""
+                username: "<set-username>"
+                password: "<set-password>"
     ```
 
 For more information on rtsp authentication, including how to disable it, see [here](../supplementary-info/advanced-options.md#rtsp-auth)

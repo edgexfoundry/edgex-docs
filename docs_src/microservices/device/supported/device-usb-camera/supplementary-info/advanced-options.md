@@ -3,7 +3,13 @@
 ## RTSP Auth
 The device service allows for rtsp stream authentication using the [rtsp-simple-server](https://github.com/aler9/mediamtx). Authentication is enabled by default.
 
-To configure the username and password for the authentication when buiding your own images, edit the fields in the 'configuration.yaml'
+### Secret Configuration
+To configure the username and password for the authentication when buiding your own images, edit the fields in the 'configuration.yaml'. This shoudl only be used when you are in non-secure mode.
+
+!!! warning
+    Be careful when storing any potentially important information in cleartext on files in your computer. In this case, the credentials for the stream are stored in cleartext in the `configuration.yaml` file on your system.
+    `InsecureSecrets` is for non-production use only.
+    
 !!! note 
     Leaving the fields blank will **NOT** disable authentication. The stream will not be able to be authenticated until credentials are provided.
 
@@ -16,16 +22,15 @@ To configure the username and password for the authentication when buiding your 
             rtspauth:
             SecretName: rtspauth
             SecretData:
-                username: ""
-                password: ""
+                username: "<enter-username>"
+                password: "<enter-password>"
     ```
-
-To disable authentication, comment out the externalAuthenticationURL line in the `Dockerfile`.
-!!! example - "Snippet from the Dockerfile"
+### Authentication Server Configuration
+You can configure the authentication server to run from a different port by editing the externalAuthenticationURL value in the `device-usb-camera/Dockerfile`.
+To disable authentication entirely, comment out the externalAuthenticationURL line in `device-usb-camera/Dockerfile`.
+!!! example - "externalAuthenticationURL line from the Dockerfile"
     ```Dockerfile
-    # disable unused rtsp-simple-server listeners
-    ...
-    # RUN sed -i 's,externalAuthenticationURL:,externalAuthenticationURL: http://localhost:8000/rtspauth,g' rtsp-simple-server.yml
+    RUN sed -i 's,externalAuthenticationURL:,externalAuthenticationURL: http://localhost:8000/rtspauth,g' rtsp-simple-server.yml
     ```
 
 
