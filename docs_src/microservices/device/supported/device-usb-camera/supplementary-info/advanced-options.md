@@ -1,6 +1,6 @@
 # Advanced Options
 
-## RTSP Auth
+## RTSP Authentication
 The device service allows for rtsp stream authentication using the [rtsp-simple-server](https://github.com/aler9/mediamtx). Authentication is enabled by default.
 
 ### Secret Configuration
@@ -25,9 +25,11 @@ To configure the username and password for the authentication when buiding your 
                 username: "<enter-username>"
                 password: "<enter-password>"
     ```
+
 ### Authentication Server Configuration
-You can configure the authentication server to run from a different port by editing the externalAuthenticationURL value in the `device-usb-camera/Dockerfile`.
-To disable authentication entirely, comment out the externalAuthenticationURL line in `device-usb-camera/Dockerfile`.
+- You can configure the authentication server to run from a different port by editing the externalAuthenticationURL value in the [Dockerfile](https://github.com/edgexfoundry/device-usb-camera/blob/main/Dockerfile).  
+- To disable authentication entirely, comment out the externalAuthenticationURL line in the [Dockerfile](https://github.com/edgexfoundry/device-usb-camera/blob/main/Dockerfile).  
+
 !!! example - "externalAuthenticationURL line from the Dockerfile"
     ```Dockerfile
     RUN sed -i 's,externalAuthenticationURL:,externalAuthenticationURL: http://localhost:8000/rtspauth,g' rtsp-simple-server.yml
@@ -36,12 +38,12 @@ To disable authentication entirely, comment out the externalAuthenticationURL li
 
 ## Video options
 There are two types of options:
-- The options start with `Input` prefix are used for the camera, such as specifying the image size and pixel format.
-- The options start with `Output` prefix are used for the output video, such as specifying aspect ratio and quality.
+- The options start with `Input` prefix are used for the camera, such as specifying the image size and pixel format.  
+- The options start with `Output` prefix are used for the output video, such as specifying aspect ratio and quality.  
 
 These options can be passed in through object value when calling `StartStreaming`.
 
-Query parameter:
+Query parameter:  
 - `device name`: The name of the camera
 
 !!! example - "Example Query Command"

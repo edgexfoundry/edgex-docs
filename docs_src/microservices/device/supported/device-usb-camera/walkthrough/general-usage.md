@@ -44,6 +44,7 @@ The device service provides a way to determine the stream URI of a camera.
 
 Query parameter:  
 - `device name`: The name of the camera
+!!! example - "Example StreamURI Command"
     ```bash
     curl -s http://localhost:59882/api/v3/device/name/<device name>/StreamURI | jq -r '"StreamURI: " + '.event.readings[].value''
     ```
@@ -78,12 +79,13 @@ To stop the usb camera from live streaming, use the following command:
 Query parameter:  
 - `device name`: The name of the camera
 
-For example:
+!!! example - "Example StopStreaming Command"
     ```shell
     curl -X PUT -d '{
         "StopStreaming": "true"
     }' http://localhost:59882/api/v3/device/name/<device name>/StopStreaming
     ```
+
 ## Optional: Shutting Down
 
 To stop all EdgeX services (containers), execute the `make down` command:

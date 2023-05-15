@@ -117,7 +117,7 @@ Follow this guide to deploy and run the service.
     === "Scripts"
 
         !!! note 
-            If running in secure mode the [JWT token](../../../../../security/Ch-APIGateway.md#creating-access-token-for-api-gateway-authentication) generated previously is needed for mapping credentials.
+            If running in secure mode the [JWT token](../../../../../security/Ch-APIGateway.md#creating-access-token-for-api-gateway-authentication) is needed for mapping credentials.
 
         a. Enter JWT token if in secure mode.  
             ![](../images/enter-jwt-token.png)  
