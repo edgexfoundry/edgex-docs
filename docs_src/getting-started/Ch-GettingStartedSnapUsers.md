@@ -409,7 +409,7 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
     each run will overwrite the password from the previous run
     with a new random password.
 
-!!! example "Generating a JWT token for the example user"
+!!! example "Generating a JWT token (ID Token) for the example user"
     Some additional work is required to generate a JWT that is usable for API gateway authentication.
 
     ```bash
@@ -422,6 +422,7 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
     
     echo "${id_token}" > id-token.txt
     ```
+    The ID Token gets written to `id-token.txt`.
 
 Once you have the token, you can access the services via the API Gateway (the vault token can be discarded).
 To obtain a new JWT token once the current one is expired, repeat the above snippet of code.
@@ -451,7 +452,7 @@ Consul API and UI can be accessed using the consul token (Secret ID). For the sn
     Through the API Gateway:  
     We need to pass both the Consul token and Secret Store token obtained in [Adding API Gateway users](#adding-api-gateway-users) examples.
     ```bash
-    curl --insecure --silent https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)" -H "Authorization: Bearer $(cat id-token.txt)"
+    curl --insecure --silent --show-err https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)" -H "Authorization: Bearer $(cat id-token.txt)"
     ```
 
 #### Changing TLS certificates
