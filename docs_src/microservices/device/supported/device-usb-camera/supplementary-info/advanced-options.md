@@ -20,10 +20,10 @@ To configure the username and password for the authentication when buiding your 
         LogLevel: "INFO"
         InsecureSecrets:
             rtspauth:
-            SecretName: rtspauth
-            SecretData:
-                username: "<enter-username>"
-                password: "<enter-password>"
+                SecretName: rtspauth
+                SecretData:
+                    username: "<enter-username>"
+                    password: "<enter-password>"
     ```
 
 ### Authentication Server Configuration
