@@ -111,6 +111,10 @@ The following sections describe what you need to be aware for the different serv
 
 The Event/Reading data stored by Core Data is considered transient and of little value once it has become old. The V3 versions of these data collections have minimal changes from their V2 counter parts. 
 
+#### API Change
+- Add Event
+    POST endpoint is now  `/event/{serviceName}/{profileName}/{deviceName}/{sourceName}`. This is so that the metadata contains the device service which generated the new event
+
 #### Reading
 
  There are no changes to the V3 Reading from that in V2
@@ -119,15 +123,43 @@ The Event/Reading data stored by Core Data is considered transient and of little
 
 The field that has changed in V3 is the `apiVersion` which is now set to `v3`.
 
+See [Core Data API document](https://docs.edgexfoundry.org/{version}/api/core/Ch-APICoreData/) for more details
+
 ### Core Metadata
 
 Most of the data stored by Core Metadata will be recreated when the V3 versions of the Device Services start-up. The statically declared devices will automatically be created and device discovery will find and add existing devices. Any device profiles, devices, provision watchers created manually via the V2 REST APIs will have to be recreated using the V3 REST API. Any manually-applied `AdministrativeState` settings will also need to be re-applied.
+
+#### API Change
+- Add/ Update/ Get device
+    - Remove `LastConnected`, `LastReported` and `UpdateLastConnected` from device model
+    - Updated ProtocolProperties to have typed value
+
+- Add/ Update/ Get deviceprofile
+    - Added `optional` field in ResourceProperties
+    - Updated the data type of `mask`, `shift`, `scale`, `base`, `maximum` and `minimum` from `string` to `number` in ResourceProperties
+
+- Get UOM 
+    - Changed the response format from TOML to YAML
+
+- Add/ Update ProvisionWatcher
+    - Allowed empty string profile name when adding or updating the ProvisionWatcher
+
+See [Core Metadata API document](https://docs.edgexfoundry.org/{version}/api/core/Ch-APICoreMetadata/) for more details
+
+### Core Command
+#### API Change
+- Get Command
+    - Updated `ds-pushevent` and `ds-returnevent` to use bool value
+
+See [Core Command API document](https://docs.edgexfoundry.org/{version}/api/core/Ch-APICoreCommand/) for more details
 
 ### Support Notifications
 
 Any `Subscriptions` created via the V2 REST API will have to be recreated using the V3 REST API. The `Notification` and `Transmission`collections will be empty until new notifications are sent using EdgeX V3 
 
 ### Support Scheduler
+#### API Change
+- Added `authmethod` to support-scheduler actions DTO, which indicates how to authenticate the outbound URL. Its value can be `NONE` or `JWT`.
 
 The statically declared `Interval` and `IntervalAction` will be created automatically. Any `Interval` and/or `IntervalAction` created via the V2 REST API will have to be recreated using the V3 REST API. If you have created a custom configuration with additional statically declared `Interval`s and `IntervalActions` see the [Configuration File](#configuration-file) section under [Customized Configuration](#customized-configuration) below.
 

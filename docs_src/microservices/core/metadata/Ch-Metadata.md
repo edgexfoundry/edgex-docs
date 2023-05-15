@@ -389,8 +389,7 @@ Below are only the additional settings and sections that are specific to Core Me
     |ClientId|"core-metadata|Id used when connecting to MQTT or NATS base MessageBus |
 
 ### V3 Configuration Migration Guide
-
-Coming soon
+- Changed database configuration from `Databases map[string]bootstrapConfig.Database` to `Database bootstrapConfig.Database`
 
 ## Device System Events
 
