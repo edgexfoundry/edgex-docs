@@ -41,12 +41,12 @@ The same applies for custom device and application service once they have been m
 
 ### Configuration File
 
-If you have customed the service configuration files for any EdgeX service (core, support, device, etc.) that configuration will need to be migrated. 
+If you have customized the service configuration files for any EdgeX service (core, support, device, etc.) that configuration will need to be migrated. 
 
 The biggest two changes to the service configuration files are:
 
 1. File format has changed to YAML
-2. Settings that are common have been removed
+2. Settings that are common have been removed from each service's local private configuration file
 
 See [V3 Migration of Common Configuration](../microservices/configuration/V3MigrationCommonConfig/) for the details on migrating configuration common to all EdgeX services.
 
@@ -62,11 +62,15 @@ The following are where you can find the configuration migration specifics for i
 - [Application Services](../microservices/application/V3Migration/#configuration)
 - [Device Services (common)](../microservices/device/V3Migration/#configuration)
 - [Device MQTT](../microservices/device/V3Migration/#device-mqtt)
-- TODO: add others. USB & Onvif Camera services??
+- [Device ONVIF Camera](../microservices/device/V3Migration/#device-onvif-camera)
+- [Device USB Camera](../microservices/device/V3Migration/#device-usb-camera)
 
 ### Customized Environment Overrides
 
 If you have custom [environment overrides](../microservices/configuration/CommonEnvironmentVariables/#environment-overrides) for configuration impacted by the V3 changes you will also need to migrate your overrides to use the new name or value depending on what has changed. Refer to the links above and/or below for details for migration of common and/or the service specific configuration to determine if your overrides require migrating.
+
+!!! note
+   When using the Configuration Provider, the environment overrides for common configuration are applied to the **core-common-config-bootstrapper** service. They no longer work when applied to the individual services as the common configuration setting no longer exist in the private configuration.
 
 ## Custom Compose File
 
@@ -76,7 +80,7 @@ The latest V3 compose files can be found here: [Compose Files](https://github.co
 
 ### Compose Builder
 
-If the add-on service(s) in your custom compose file are EdgeX released device or app services, it is highly recommended that you use the Compose Builder to regenerate your custom compose file. 
+If the additional service(s) in your custom compose file are EdgeX released device or app services, it is highly recommended that you use the Compose Builder to regenerate your custom compose file. 
 
 The latest V3 Compose Builder can be found here: [Compose Builder Readme](https://github.com/edgexfoundry/edgex-compose/tree/{{version}}/compose-builder/README.md) 
 
@@ -178,7 +182,41 @@ When security is enable,  all V3 EdgeX services REST APIs require a JWT authoriz
 
 ## eKuiper
 
-TBD
+### Rules
 
+#### Rest Action
 
+##### None Secure Mode
 
+If running EdgeX in none secure mode and you have rules with `rest` action that reference an EdgeX service the endpoint API version will need to be changed from v2 to V3
+
+!!! example - "Example migration of `rest` action with EdgeX endpoint"
+    **V2:**
+    ```json
+    "actions": [
+        {
+          "rest": {
+            "url": "http://edgex-core-command:59882/api/v2/device/name/Random-Integer-Device/Int64",       
+            ...
+          }
+        }
+      ]
+    ```
+​    **V3:**
+    ```json
+    "actions": [
+        {
+          "rest": {
+            "url": "http://edgex-core-command:59882/api/v3/device/name/Random-Integer-Device/Int64",       
+            ...
+          }
+        }
+      ]
+    ```
+
+##### Secure Mode
+
+If running EdgeX in secure mode and  you have rules with `rest` action that reference an EdgeX Core Command you will need to convert the rule to use Command via External MQTT. See [eKuiper documentation here](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/edgex/edgex_rule_engine_command.md#option-2-use-messaging) for more details. This is due to the new microservice authorization on all EdgeX services' endpoints requiring a JWT token which eKuiper doesn't have.
+
+!!! note
+    This approach requires an external MQTT broker to send the command requests. The default EdgeX compose files do not include a MQTT Broker. This broker is supposed to be external to EdgeX. 
