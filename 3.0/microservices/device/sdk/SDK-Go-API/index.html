@@ -788,13 +788,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#driverconfigs">
-    DriverConfigs
+<a class="md-nav__link" href="#patchdevice">
+    PatchDevice
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#setdeviceopstate">
-    SetDeviceOpState
+<a class="md-nav__link" href="#deviceexistsforname">
+    DeviceExistsForName
   </a>
 </li>
 </ul>
@@ -923,13 +923,18 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#asyncreadings">
-    AsyncReadings
+<a class="md-nav__link" href="#driverconfigs">
+    DriverConfigs
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#devicediscovery">
-    DeviceDiscovery
+<a class="md-nav__link" href="#asyncreadingsenabled">
+    AsyncReadingsEnabled
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#devicediscoveryenabled">
+    DeviceDiscoveryEnabled
   </a>
 </li>
 <li class="md-nav__item">
@@ -955,6 +960,20 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#stop">
     Stop
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#internal">
+    Internal
+  </a>
+<nav aria-label="Internal" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#run">
+    Run
   </a>
 </li>
 </ul>
@@ -1815,13 +1834,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#driverconfigs">
-    DriverConfigs
+<a class="md-nav__link" href="#patchdevice">
+    PatchDevice
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#setdeviceopstate">
-    SetDeviceOpState
+<a class="md-nav__link" href="#deviceexistsforname">
+    DeviceExistsForName
   </a>
 </li>
 </ul>
@@ -1950,13 +1969,18 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#asyncreadings">
-    AsyncReadings
+<a class="md-nav__link" href="#driverconfigs">
+    DriverConfigs
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#devicediscovery">
-    DeviceDiscovery
+<a class="md-nav__link" href="#asyncreadingsenabled">
+    AsyncReadingsEnabled
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#devicediscoveryenabled">
+    DeviceDiscoveryEnabled
   </a>
 </li>
 <li class="md-nav__item">
@@ -1987,6 +2011,20 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#internal">
+    Internal
+  </a>
+<nav aria-label="Internal" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#run">
+    Run
+  </a>
+</li>
+</ul>
+</nav>
+</li>
 </ul>
 </nav>
 </li>
@@ -2003,38 +2041,42 @@
 <h1 id="go-device-sdk-api">Go Device SDK API</h1>
 <p>The <code>DeviceServiceSDK</code> API provides the following APIs for the device service developer to use.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">DeviceServiceSDK</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">AddDeviceAutoEvent</span><span class="p">(</span><span class="nx">deviceName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">AutoEvent</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
-<span class="w">    </span><span class="nx">RemoveDeviceAutoEvent</span><span class="p">(</span><span class="nx">deviceName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">AutoEvent</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">AddDevice</span><span class="p">(</span><span class="nx">device</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">Device</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
 <span class="w">    </span><span class="nx">Devices</span><span class="p">()</span><span class="w"> </span><span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Device</span>
 <span class="w">    </span><span class="nx">GetDeviceByName</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">Device</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">UpdateDevice</span><span class="p">(</span><span class="nx">device</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">Device</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">RemoveDeviceByName</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
-<span class="w">    </span><span class="nx">UpdateDeviceOperatingState</span><span class="p">(</span><span class="nx">deviceName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">state</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">AddDeviceProfile</span><span class="p">(</span><span class="nx">profile</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">DeviceProfile</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
 <span class="w">    </span><span class="nx">DeviceProfiles</span><span class="p">()</span><span class="w"> </span><span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">DeviceProfile</span>
 <span class="w">    </span><span class="nx">GetProfileByName</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">DeviceProfile</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
-<span class="w">    </span><span class="nx">RemoveDeviceProfileByName</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">UpdateDeviceProfile</span><span class="p">(</span><span class="nx">profile</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">DeviceProfile</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
-<span class="w">    </span><span class="nx">DeviceCommand</span><span class="p">(</span><span class="nx">deviceName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">commandName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">DeviceCommand</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span>
-<span class="w">    </span><span class="nx">DeviceResource</span><span class="p">(</span><span class="nx">deviceName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">deviceResource</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">DeviceResource</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">RemoveDeviceProfileByName</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">AddProvisionWatcher</span><span class="p">(</span><span class="nx">watcher</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">ProvisionWatcher</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
 <span class="w">    </span><span class="nx">ProvisionWatchers</span><span class="p">()</span><span class="w"> </span><span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">ProvisionWatcher</span>
 <span class="w">    </span><span class="nx">GetProvisionWatcherByName</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">ProvisionWatcher</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
-<span class="w">    </span><span class="nx">RemoveProvisionWatcher</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">UpdateProvisionWatcher</span><span class="p">(</span><span class="nx">watcher</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">ProvisionWatcher</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">RemoveProvisionWatcher</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">DeviceResource</span><span class="p">(</span><span class="nx">deviceName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">deviceResource</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">DeviceResource</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">DeviceCommand</span><span class="p">(</span><span class="nx">deviceName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">commandName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">models</span><span class="p">.</span><span class="nx">DeviceCommand</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">AddDeviceAutoEvent</span><span class="p">(</span><span class="nx">deviceName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">AutoEvent</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">RemoveDeviceAutoEvent</span><span class="p">(</span><span class="nx">deviceName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">AutoEvent</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">UpdateDeviceOperatingState</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">state</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">OperatingState</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">DeviceExistsForName</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">    </span><span class="nx">PatchDevice</span><span class="p">(</span><span class="nx">updateDevice</span><span class="w"> </span><span class="nx">dtos</span><span class="p">.</span><span class="nx">UpdateDevice</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">Run</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">Name</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span>
 <span class="w">    </span><span class="nx">Version</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span>
-<span class="w">    </span><span class="nx">AsyncReadings</span><span class="p">()</span><span class="w"> </span><span class="kt">bool</span>
-<span class="w">    </span><span class="nx">DeviceDiscovery</span><span class="p">()</span><span class="w"> </span><span class="kt">bool</span>
-<span class="w">    </span><span class="nx">AddRoute</span><span class="p">(</span><span class="nx">route</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">),</span><span class="w"> </span><span class="nx">methods</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
-<span class="w">    </span><span class="nx">Stop</span><span class="p">(</span><span class="nx">force</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span>
-<span class="w">    </span><span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">customConfig</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">UpdatableConfig</span><span class="p">,</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
-<span class="w">    </span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="nx">configToWatch</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">changedCallback</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{}))</span><span class="w"> </span><span class="kt">error</span>
-<span class="w">    </span><span class="nx">GetLoggingClient</span><span class="p">()</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
-<span class="w">    </span><span class="nx">GetSecretProvider</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SecretProvider</span>
-<span class="w">    </span><span class="nx">GetMetricsManager</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">MetricsManager</span>
+<span class="w">    </span><span class="nx">AsyncReadingsEnabled</span><span class="p">()</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">    </span><span class="nx">AsyncValuesChannel</span><span class="p">()</span><span class="w"> </span><span class="kd">chan</span><span class="w"> </span><span class="o">*</span><span class="nx">sdkModels</span><span class="p">.</span><span class="nx">AsyncValues</span>
+<span class="w">    </span><span class="nx">DiscoveredDeviceChannel</span><span class="p">()</span><span class="w"> </span><span class="kd">chan</span><span class="w"> </span><span class="p">[]</span><span class="nx">sdkModels</span><span class="p">.</span><span class="nx">DiscoveredDevice</span>
+<span class="w">    </span><span class="nx">DeviceDiscoveryEnabled</span><span class="p">()</span><span class="w"> </span><span class="kt">bool</span>
 <span class="w">    </span><span class="nx">DriverConfigs</span><span class="p">()</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
-<span class="w">    </span><span class="nx">SetDeviceOpState</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">state</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">OperatingState</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">AddRoute</span><span class="p">(</span><span class="nx">route</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">),</span><span class="w"> </span><span class="nx">methods</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">customConfig</span><span class="w"> </span><span class="nx">UpdatableConfig</span><span class="p">,</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="nx">configToWatch</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">changedCallback</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{}))</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">LoggingClient</span><span class="p">()</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
+<span class="w">    </span><span class="nx">SecretProvider</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SecretProvider</span>
+<span class="w">    </span><span class="nx">MetricsManager</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">MetricsManager</span>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="access-functions">Access Functions</h2>
@@ -2077,12 +2119,28 @@
 <h4 id="getdevicebyname">GetDeviceByName</h4>
 <p><code>GetDeviceByName(name string) (models.Device, error)</code></p>
 <p>This API returns the Device by its name if it exists in the device service's cache, or returns an error.</p>
-<h4 id="driverconfigs">DriverConfigs</h4>
-<p><code>DriverConfigs() map[string]string</code></p>
-<p>This API returns the driver specific configuration</p>
-<h4 id="setdeviceopstate">SetDeviceOpState</h4>
-<p><code>SetDeviceOpState(name string, state models.OperatingState) error</code></p>
-<p>This API sets the operating state of a specified device</p>
+<h4 id="patchdevice">PatchDevice</h4>
+<p><code>PatchDevice(updateDevice dtos.UpdateDevice) error</code> </p>
+<p>This API patches the specified device properties in Core Metadata. Device name is required
+to be provided in the UpdateDevice. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All properties of UpdateDevice are pointers and anything that is <code>nil</code> will not modify the device. In the case of Arrays and Maps, the whole new value
+must be sent, as it is applied as an overwrite operation.</p>
+</div>
+<div class="admonition example -">
+<p class="admonition-title">Example - PatchDevice()</p>
+<div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">Service</span><span class="p">()</span>
+<span class="nx">locked</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">Locked</span>
+<span class="k">return</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">PatchDevice</span><span class="p">(</span><span class="nx">dtos</span><span class="p">.</span><span class="nx">UpdateDevice</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Name</span><span class="p">:</span><span class="w">       </span><span class="o">&amp;</span><span class="nx">name</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">AdminState</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">locked</span><span class="p">,</span>
+<span class="p">})</span>
+</code></pre></div>
+</div>
+<h4 id="deviceexistsforname">DeviceExistsForName</h4>
+<p><code>DeviceExistsForName(name string) bool</code> </p>
+<p>This API returns true if a device exists in cache with the specified name, otherwise it returns false.</p>
 <h3 id="device-profile">Device Profile</h3>
 <h4 id="adddeviceprofile">AddDeviceProfile</h4>
 <p><code>AddDeviceProfile(profile models.DeviceProfile) (string, error)</code></p>
@@ -2137,11 +2195,14 @@
 <h4 id="version">Version</h4>
 <p><code>Version() string</code></p>
 <p>This API returns the version number of the Device Service.</p>
-<h4 id="asyncreadings">AsyncReadings</h4>
-<p><code>AsyncReadings() bool</code></p>
+<h4 id="driverconfigs">DriverConfigs</h4>
+<p><code>DriverConfigs() map[string]string</code></p>
+<p>This API returns the driver specific configuration</p>
+<h4 id="asyncreadingsenabled">AsyncReadingsEnabled</h4>
+<p><code>AsyncReadingsEnabled() bool</code></p>
 <p>This API returns a bool value to indicate whether the asynchronous reading is enabled via configuration.</p>
-<h4 id="devicediscovery">DeviceDiscovery</h4>
-<p><code>DeviceDiscovery() bool</code></p>
+<h4 id="devicediscoveryenabled">DeviceDiscoveryEnabled</h4>
+<p><code>DeviceDiscoveryEnabled() bool</code></p>
 <p>This API returns a bool value to indicate whether the device discovery is enabled via configuration.</p>
 <h4 id="addroute">AddRoute</h4>
 <p><code>AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error</code></p>
@@ -2158,6 +2219,11 @@
 <h4 id="stop">Stop</h4>
 <p><code>Stop(force bool)</code></p>
 <p>This API shuts down the device service gracefully.</p>
+<h3 id="internal">Internal</h3>
+<h4 id="run">Run</h4>
+<p><code>Run() error</code></p>
+<p>This internal API call starts this Device Service. It should not be called directly by a device service.
+Instead, call <code>startup.Bootstrap(...)</code>.</p>
 </article>
 </div>
 </div>
