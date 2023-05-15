@@ -26,7 +26,8 @@ type DeviceServiceSDK interface {
     UpdateDeviceOperatingState(name string, state models.OperatingState) error
     DeviceExistsForName(name string) bool
     PatchDevice(updateDevice dtos.UpdateDevice) error
-    Name() string
+    Run() error
+	Name() string
     Version() string
     AsyncReadingsEnabled() bool
     AsyncValuesChannel() chan *sdkModels.AsyncValues
@@ -300,3 +301,12 @@ This API returns the MetricsManager used to register custom service metrics. See
 `Stop(force bool)`
 
 This API shuts down the device service gracefully.
+
+### Internal
+
+#### Run
+
+`Run() error`
+
+This internal API call starts this Device Service. It should not be called directly by a device service.
+Instead, call `startup.Bootstrap(...)`.
