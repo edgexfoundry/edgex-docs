@@ -4,7 +4,10 @@
 The device service allows for rtsp stream authentication using the [rtsp-simple-server](https://github.com/aler9/mediamtx). Authentication is enabled by default.
 
 ### Secret Configuration
-To configure the username and password for the authentication when buiding your own images, edit the fields in the 'configuration.yaml'. This shoudl only be used when you are in non-secure mode.
+To configure the username and password for rtsp authentication when building your own images, edit the fields in the 'configuration.yaml'. 
+
+!!! note 
+    This should only be used when you are in non-secure mode.
 
 !!! warning
     Be careful when storing any potentially important information in cleartext on files in your computer. In this case, the credentials for the stream are stored in cleartext in the `configuration.yaml` file on your system.
