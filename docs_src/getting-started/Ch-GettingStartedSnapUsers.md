@@ -21,8 +21,7 @@ snap install edgex-ui --edge
     The above examples use the latest development versions of EdgeX snaps.
     This should be replaced by the latest stable v3, once available.
 
-EdgeX has security enabled by default. But for simplicity, we'll disable it here.
-If not disabled, you could skip to step 3 and additionally add a user and authenticate as described [here](#adding-api-gateway-users). To access the UI, you need to generate a JWT.
+EdgeX has security enabled by default. But for the sake of quick start's simplicity, we'll disable it here.
 
 2) Disable security in each of the installed snaps:
 ```bash
@@ -32,12 +31,20 @@ snap set edgex-ui config.edgex-security-secret-store=false
 ```
 Refer to [disabling security] for details.
 
-3) Start the device and UI services:
+3) Start the services:
 ```bash
+# Core and Support services in the platform snap
+sudo snap start edgexfoundry.consul edgexfoundry.redis \
+    edgexfoundry.core-common-config-bootstrapper \
+    edgexfoundry.core-data edgexfoundry.core-metadata edgexfoundry.core-command \
+    edgexfoundry.support-scheduler edgexfoundry.support-notifications
+
+# Device Virtual
 snap start edgex-device-virtual
+
+# EdgeX UI
 snap start edgex-ui
 ```
-This is because those services disabled and not started by default.
 
 You should now be able to access the UI using a browser at [http://localhost:4000](http://localhost:4000)
 
@@ -157,19 +164,34 @@ Mapping examples:
 
     The [platform snap] snap does NOT allow the security to be re-enabled. The only way to re-enable it is to re-install the snap.
 
-Disabling security involves two steps:
+Disabling security involves a few steps:
 
 1. Stopping the security services and disabling them so that they don't run again.
 2. Configuring EdgeX services to NOT use the Secret Store by setting [EDGEX_SECURITY_SECRET_STORE](../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store) to false. The services include Core Data, Core Command, Core Metadata, EdgeX UI, device services, app services, and any other service that uses EdgeX's [go-mod-bootstrap](https://github.com/edgexfoundry/go-mod-bootstrap).
+3. Restarting non-security services
 
-The [platform snap] includes all the reference security components. The security components are enabled by default. The platform snap provides a convenience way to perform both of the above by setting `security=false`:
+The [platform snap] which includes all the reference security components
+provides a convenience option to help disabling security:
 ```bash
-snap set edgexfoundry security=false
+sudo snap set edgexfoundry security=false
+```
+The above command results in stopping everything (if active), disabling the security components (by setting their [autostart](#service-autostart) option to false), as well as setting `EDGEX_SECURITY_SECRET_STORE` internally so that the included core/support services stop using the Secret Store. 
+
+The non-security services need to be selectively started using:
+```bash
+sudo snap start edgexfoundry.consul edgexfoundry.redis \
+    edgexfoundry.core-common-config-bootstrapper \
+    edgexfoundry.core-data edgexfoundry.core-metadata edgexfoundry.core-command \
+    edgexfoundry.support-scheduler edgexfoundry.support-notifications
 ```
 
-The above command results in stopping and disabling the security components as well as setting `config.edgex-security-secret-store=false` internally so that core services stop using the Secret Store. The services are automatically restarted to pick up the new configuration.
+or by setting the [autostart](#service-autostart) option globally:
+```bash
+sudo snap set edgexfoundry autostart=true
+```
 
-After disabling the security on the platform, the external services should be similarly configured by setting `config.edgex-security-secret-store=false` such that they don't attempt to initialize the security.
+
+After disabling the security on the platform, the external services should be similarly configured by setting `EDGEX_SECURITY_SECRET_STORE=false` such that they don't attempt to initialize the security.
 
 !!! Example
     To disable security for the [edgex-ui] snap:
