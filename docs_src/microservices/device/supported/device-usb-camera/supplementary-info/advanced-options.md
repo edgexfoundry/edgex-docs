@@ -49,7 +49,7 @@ These options can be passed in through object value when calling `StartStreaming
 Query parameter:  
 - `device name`: The name of the camera
 
-!!! example - "Example Query Command"
+!!! example - "Example StartStreaming Command"
     ```shell
     curl -X PUT -d '{
         "StartStreaming": {
@@ -127,7 +127,7 @@ URL parameter:
 
 - **DeviceName**: The name of the camera  
 - **InputIndex**: indicates the current index of the video input (if a camera only has one source for video, the index needs to be set to '0')  
-!!! example - "Example Query Command"
+!!! example - "Example CameraStatus Command"
     ```
     curl -X GET http://localhost:59882/api/v3/device/name/<DeviceName>/CameraStatus?InputIndex=0 | jq -r '"CameraStatus: " + (.event.readings[].value|tostring)'
     ```
