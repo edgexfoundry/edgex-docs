@@ -4,38 +4,42 @@ The `DeviceServiceSDK` API provides the following APIs for the device service de
 
 ```go
 type DeviceServiceSDK interface {
-	AddDeviceAutoEvent(deviceName string, event models.AutoEvent) error
-	RemoveDeviceAutoEvent(deviceName string, event models.AutoEvent) error
-	AddDevice(device models.Device) (string, error)
-	Devices() []models.Device
-	GetDeviceByName(name string) (models.Device, error)
-	RemoveDeviceByName(name string) error
-	UpdateDeviceOperatingState(deviceName string, state string) error
-	AddDeviceProfile(profile models.DeviceProfile) (string, error)
-	DeviceProfiles() []models.DeviceProfile
-	GetProfileByName(name string) (models.DeviceProfile, error)
-	RemoveDeviceProfileByName(name string) error
-	UpdateDeviceProfile(profile models.DeviceProfile) error
-	DeviceCommand(deviceName string, commandName string) (models.DeviceCommand, bool)
-	DeviceResource(deviceName string, deviceResource string) (models.DeviceResource, bool)
-	AddProvisionWatcher(watcher models.ProvisionWatcher) (string, error)
-	ProvisionWatchers() []models.ProvisionWatcher
-	GetProvisionWatcherByName(name string) (models.ProvisionWatcher, error)
-	RemoveProvisionWatcher(name string) error
-	UpdateProvisionWatcher(watcher models.ProvisionWatcher) error
+    AddDevice(device models.Device) (string, error)
+    Devices() []models.Device
+    GetDeviceByName(name string) (models.Device, error)
+    UpdateDevice(device models.Device) error
+    RemoveDeviceByName(name string) error
+    AddDeviceProfile(profile models.DeviceProfile) (string, error)
+    DeviceProfiles() []models.DeviceProfile
+    GetProfileByName(name string) (models.DeviceProfile, error)
+    UpdateDeviceProfile(profile models.DeviceProfile) error
+    RemoveDeviceProfileByName(name string) error
+    AddProvisionWatcher(watcher models.ProvisionWatcher) (string, error)
+    ProvisionWatchers() []models.ProvisionWatcher
+    GetProvisionWatcherByName(name string) (models.ProvisionWatcher, error)
+    UpdateProvisionWatcher(watcher models.ProvisionWatcher) error
+    RemoveProvisionWatcher(name string) error
+    DeviceResource(deviceName string, deviceResource string) (models.DeviceResource, bool)
+    DeviceCommand(deviceName string, commandName string) (models.DeviceCommand, bool)
+    AddDeviceAutoEvent(deviceName string, event models.AutoEvent) error
+    RemoveDeviceAutoEvent(deviceName string, event models.AutoEvent) error
+    UpdateDeviceOperatingState(name string, state models.OperatingState) error
+    DeviceExistsForName(name string) bool
+    PatchDevice(updateDevice dtos.UpdateDevice) error
+    Run() error
 	Name() string
-	Version() string
-	AsyncReadings() bool
-	DeviceDiscovery() bool
-	AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
-	Stop(force bool)
-	LoadCustomConfig(customConfig service.UpdatableConfig, sectionName string) error
-	ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error
-	GetLoggingClient() logger.LoggingClient
-	GetSecretProvider() interfaces.SecretProvider
-    GetMetricsManager() interfaces.MetricsManager
-	DriverConfigs() map[string]string
-	SetDeviceOpState(name string, state models.OperatingState) error
+    Version() string
+    AsyncReadingsEnabled() bool
+    AsyncValuesChannel() chan *sdkModels.AsyncValues
+    DiscoveredDeviceChannel() chan []sdkModels.DiscoveredDevice
+    DeviceDiscoveryEnabled() bool
+    DriverConfigs() map[string]string
+    AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
+    LoadCustomConfig(customConfig UpdatableConfig, sectionName string) error
+    ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error
+    LoggingClient() logger.LoggingClient
+    SecretProvider() interfaces.SecretProvider
+    MetricsManager() interfaces.MetricsManager
 }
 ```
 
@@ -115,17 +119,32 @@ This API returns all managed Devices from the device service's cache
 
 This API returns the Device by its name if it exists in the device service's cache, or returns an error.
 
-#### DriverConfigs
+#### PatchDevice  
 
-`DriverConfigs() map[string]string`
+`PatchDevice(updateDevice dtos.UpdateDevice) error`  
 
-This API returns the driver specific configuration
+This API patches the specified device properties in Core Metadata. Device name is required
+to be provided in the UpdateDevice. 
 
-#### SetDeviceOpState
+!!! Note
+    All properties of UpdateDevice are pointers and anything that is `nil` will not modify the device. In the case of Arrays and Maps, the whole new value
+    must be sent, as it is applied as an overwrite operation.
 
-`SetDeviceOpState(name string, state models.OperatingState) error`
+!!! example - "Example - PatchDevice()"
+    ```go
+    service := interfaces.Service()
+    locked := models.Locked
+    return service.PatchDevice(dtos.UpdateDevice{
+        Name:       &name,
+        AdminState: &locked,
+    })
+    ```
 
-This API sets the operating state of a specified device
+#### DeviceExistsForName  
+
+`DeviceExistsForName(name string) bool`  
+
+This API returns true if a device exists in cache with the specified name, otherwise it returns false.
 
 ### Device Profile
 
@@ -234,15 +253,21 @@ This API returns the name of the Device Service.
 
 This API returns the version number of the Device Service.
 
-#### AsyncReadings
+#### DriverConfigs
 
-` AsyncReadings() bool`
+`DriverConfigs() map[string]string`
+
+This API returns the driver specific configuration
+
+#### AsyncReadingsEnabled
+
+`AsyncReadingsEnabled() bool`
 
 This API returns a bool value to indicate whether the asynchronous reading is enabled via configuration.
 
-#### DeviceDiscovery
+#### DeviceDiscoveryEnabled
 
-`   DeviceDiscovery() bool`
+`DeviceDiscoveryEnabled() bool`
 
 This API returns a bool value to indicate whether the device discovery is enabled via configuration.
 
@@ -276,3 +301,12 @@ This API returns the MetricsManager used to register custom service metrics. See
 `Stop(force bool)`
 
 This API shuts down the device service gracefully.
+
+### Internal
+
+#### Run
+
+`Run() error`
+
+This internal API call starts this Device Service. It should not be called directly by a device service.
+Instead, call `startup.Bootstrap(...)`.
