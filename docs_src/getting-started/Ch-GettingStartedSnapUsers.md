@@ -6,46 +6,45 @@
 secure, cross‐platform and self-contained.
 Snaps can be installed on any Linux distribution with [snap support](https://snapcraft.io/docs/installing-snapd).
 
-### Quick Start
+!!! Tip "Quick Start"
+    Spinning up EdgeX with snaps is extremely easy.
+    For demonstration purposes, let's install the platform, along with the virtual device service and EdgeX UI.
 
-Spinning up EdgeX with snaps is extremely easy.
-For demonstration purposes, let's install the platform, along with the virtual device service and EdgeX UI.
-
-1) Install the [platform snap], [Device Virtual](#device-virtual) and [EdgeX UI](#edgex-ui):
-```bash
-snap install edgexfoundry edgex-device-virtual edgex-ui
-```
-This installs the latest stable version of the snaps. The [installation](#installation) section provides more explanations.
+    1) Install the [platform snap], [Device Virtual](#device-virtual) and [EdgeX UI](#edgex-ui):
+    ```bash
+    snap install edgexfoundry edgex-device-virtual edgex-ui
+    ```
+    This installs the latest stable version of the snaps. The [installation](#installation) section provides more explanations.
 
 
-2) Disable security in each of the installed snaps:
-```bash
-snap set edgexfoundry security=false
-snap set edgex-device-virtual config.edgex-security-secret-store=false
-snap set edgex-ui config.edgex-security-secret-store=false
-```
+    2) Disable security in each of the installed snaps:
+    ```bash
+    snap set edgexfoundry security=false
+    snap set edgex-device-virtual config.edgex-security-secret-store=false
+    snap set edgex-ui config.edgex-security-secret-store=false
+    ```
 
-Beware that this leaves the services at risk! We do it here only to simplify the quick start.
-Refer to [disabling security] for details.
+    Beware that this leaves the services at risk! We do it here only to simplify the quick start.
+    Refer to [disabling security] for details.
 
-3) Start the services:
-```bash
-# start Core and Support services in the platform snap
-sudo snap start edgexfoundry.consul edgexfoundry.redis \
-    edgexfoundry.core-common-config-bootstrapper \
-    edgexfoundry.core-data edgexfoundry.core-metadata edgexfoundry.core-command \
-    edgexfoundry.support-scheduler edgexfoundry.support-notifications
+    3) Start the services:
+    ```bash
+    # start Core and Support services in the platform snap
+    sudo snap start edgexfoundry.consul edgexfoundry.redis \
+        edgexfoundry.core-common-config-bootstrapper \
+        edgexfoundry.core-data edgexfoundry.core-metadata edgexfoundry.core-command \
+        edgexfoundry.support-scheduler edgexfoundry.support-notifications
 
-# start Device Virtual
-snap start edgex-device-virtual
+    # start Device Virtual
+    snap start edgex-device-virtual
 
-# start EdgeX UI
-snap start edgex-ui
-```
+    # start EdgeX UI
+    snap start edgex-ui
+    ```
 
-You should now be able to access the UI using a browser at [http://localhost:4000](http://localhost:4000)
+    You should now be able to access the UI using a browser at [http://localhost:4000](http://localhost:4000)
 
-![EdgeX UI](EdgeX-GettingStartedSnapUsersUI.png)
+    ![EdgeX UI](EdgeX-GettingStartedSnapUsersUI.png)
 
     *To run the services with security, skip step 2 and refer to [platform snap] for starting all platform services and adding an API Gateway user to generate a JWT. The JWT is needed to access the secured EdgeX UI.*
 
