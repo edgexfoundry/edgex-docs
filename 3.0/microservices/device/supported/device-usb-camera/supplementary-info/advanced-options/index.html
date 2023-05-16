@@ -1032,6 +1032,25 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#rtsp-authentication">
+    RTSP Authentication
+  </a>
+<nav aria-label="RTSP Authentication" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#secret-configuration">
+    Secret Configuration
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#authentication-server-configuration">
+    Authentication Server Configuration
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#video-options">
     Video options
   </a>
@@ -1499,6 +1518,25 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#rtsp-authentication">
+    RTSP Authentication
+  </a>
+<nav aria-label="RTSP Authentication" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#secret-configuration">
+    Secret Configuration
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#authentication-server-configuration">
+    Authentication Server Configuration
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#video-options">
     Video options
   </a>
@@ -1529,15 +1567,55 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
 </a>
 <h1 id="advanced-options">Advanced Options</h1>
+<h2 id="rtsp-authentication">RTSP Authentication</h2>
+<p>The device service allows for rtsp stream authentication using the <a href="https://github.com/aler9/mediamtx">rtsp-simple-server</a>. Authentication is enabled by default.</p>
+<h3 id="secret-configuration">Secret Configuration</h3>
+<p>To configure the username and password for rtsp authentication when building your own images, edit the fields in the 'configuration.yaml'. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This should only be used when you are in non-secure mode.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be careful when storing any potentially important information in cleartext on files in your computer. In this case, the credentials for the stream are stored in cleartext in the <code>configuration.yaml</code> file on your system.
+<code>InsecureSecrets</code> is for non-production use only.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Leaving the fields blank will <strong>NOT</strong> disable authentication. The stream will not be able to be authenticated until credentials are provided.</p>
+</div>
+<div class="admonition example -">
+<p class="admonition-title">Snippet from configuration.yaml</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="nt">Writable</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">LogLevel</span><span class="p">:</span><span class="w"> </span><span class="s">"INFO"</span>
+<span class="w">    </span><span class="nt">InsecureSecrets</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">rtspauth</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rtspauth</span>
+<span class="w">            </span><span class="nt">SecretData</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;enter-username&gt;"</span>
+<span class="w">                </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;enter-password&gt;"</span>
+</code></pre></div>
+</div>
+<h3 id="authentication-server-configuration">Authentication Server Configuration</h3>
+<ul>
+<li>You can configure the authentication server to run from a different port by editing the externalAuthenticationURL value in the <a href="https://github.com/edgexfoundry/device-usb-camera/blob/main/Dockerfile">Dockerfile</a>.  </li>
+<li>To disable authentication entirely, comment out the externalAuthenticationURL line in the <a href="https://github.com/edgexfoundry/device-usb-camera/blob/main/Dockerfile">Dockerfile</a>.  </li>
+</ul>
+<div class="admonition example -">
+<p class="admonition-title">externalAuthenticationURL line from the Dockerfile</p>
+<div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'s,externalAuthenticationURL:,externalAuthenticationURL: http://localhost:8000/rtspauth,g'</span><span class="w"> </span>rtsp-simple-server.yml
+</code></pre></div>
+</div>
 <h2 id="video-options">Video options</h2>
 <p>There are two types of options:
-- The options start with <code>Input</code> prefix are used for the camera, such as specifying the image size and pixel format.
-- The options start with <code>Output</code> prefix are used for the output video, such as specifying aspect ratio and quality.</p>
+- The options start with <code>Input</code> prefix are used for the camera, such as specifying the image size and pixel format.<br/>
+- The options start with <code>Output</code> prefix are used for the output video, such as specifying aspect ratio and quality.  </p>
 <p>These options can be passed in through object value when calling <code>StartStreaming</code>.</p>
-<p>Query parameter:
+<p>Query parameter:<br/>
 - <code>device name</code>: The name of the camera</p>
 <div class="admonition example -">
-<p class="admonition-title">Example Query Command</p>
+<p class="admonition-title">Example StartStreaming Command</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">    "StartStreaming": {</span>
 <span class="s1">    "InputImageSize": "640x480",</span>
@@ -1595,8 +1673,9 @@ If there is a mismatch between them, the device service will scan all paths to f
 <div class="admonition example -">
 <p class="admonition-title">Snippet from configuration.yaml</p>
 <div class="highlight"><pre><span></span><code><span class="nt">Driver</span><span class="p">:</span>
-<span class="nt">RtspServerHostName</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost"</span>
-<span class="nt">RtspTcpPort</span><span class="p">:</span><span class="w"> </span><span class="s">"8554"</span>
+<span class="w">    </span><span class="nt">RtspServerHostName</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost"</span>
+<span class="w">    </span><span class="nt">RtspTcpPort</span><span class="p">:</span><span class="w"> </span><span class="s">"8554"</span>
+<span class="w">    </span><span class="nt">RtspAuthenticationServer</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost:8000"</span>
 </code></pre></div>
 </div>
 <h2 id="camerastatus-command">CameraStatus Command</h2>
@@ -1607,7 +1686,7 @@ URL parameter:</p>
 <li><strong>InputIndex</strong>: indicates the current index of the video input (if a camera only has one source for video, the index needs to be set to '0')  </li>
 </ul>
 <div class="admonition example -">
-<p class="admonition-title">Example Query Command</p>
+<p class="admonition-title">Example CameraStatus Command</p>
 <div class="highlight"><pre><span></span><code>curl -X GET http://localhost:59882/api/v3/device/name/&lt;DeviceName&gt;/CameraStatus?InputIndex=0 | jq -r '"CameraStatus: " + (.event.readings[].value|tostring)'
 </code></pre></div>
 </div>

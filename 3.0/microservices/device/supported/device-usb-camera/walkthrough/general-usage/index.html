@@ -1595,7 +1595,7 @@
 <p>Query parameter:<br/>
 - <code>device name</code>: The name of the camera</p>
 <div class="admonition example -">
-<p class="admonition-title">Example Query Command</p>
+<p class="admonition-title">Example StartStreaming Command</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">    "StartStreaming": {</span>
 <span class="s1">    "InputImageSize": "640x480",</span>
@@ -1622,28 +1622,37 @@
 <h3 id="determine-stream-uri-of-camera">Determine Stream Uri of Camera</h3>
 <p>The device service provides a way to determine the stream URI of a camera.</p>
 <p>Query parameter:<br/>
-- <code>device name</code>: The name of the camera
-    <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/StreamURI<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'"StreamURI: " + '</span>.event.readings<span class="o">[]</span>.value<span class="s1">''</span>
-</code></pre></div></p>
+- <code>device name</code>: The name of the camera</p>
+<div class="admonition example -">
+<p class="admonition-title">Example StreamURI Command</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/StreamURI<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'"StreamURI: " + '</span>.event.readings<span class="o">[]</span>.value<span class="s1">''</span>
+</code></pre></div>
+</div>
 <p>The response to the above call should look similar to the following:
 <div class="highlight"><pre><span></span><code>StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
 </code></pre></div></p>
 <h3 id="play-the-rtsp-stream">Play the RTSP stream.</h3>
 <p>mplayer can be used to stream. The command follows this format: </p>
-<p><code>mplayer rtsp://&lt;IP address&gt;:&lt;port&gt;/&lt;streamname&gt;</code>.</p>
-<p>Using the <code>streamURI</code> returned from the previous step, run mplayer:</p>
-<div class="highlight"><pre><span></span><code>mplayer<span class="w"> </span>rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
+<div class="highlight"><pre><span></span><code>mplayer<span class="w"> </span>rtsp://<span class="s1">'&lt;username&gt;:&lt;password&gt;'</span>@&lt;IP<span class="w"> </span>address&gt;:&lt;port&gt;/&lt;streamname&gt;<span class="sb">`</span>.
 </code></pre></div>
+<p>Using the <code>streamURI</code> returned from the previous step, run mplayer:</p>
+<div class="admonition example -">
+<p class="admonition-title">Example Stream Command</p>
+<div class="highlight"><pre><span></span><code>mplayer<span class="w"> </span>rtsp://<span class="s1">'admin:pass'</span>@localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
+</code></pre></div>
+</div>
 <p>To shut down mplayer, use the ctrl-c command.</p>
 <h3 id="stop-video-streaming">Stop Video Streaming</h3>
 <p>To stop the usb camera from live streaming, use the following command:</p>
 <p>Query parameter:<br/>
 - <code>device name</code>: The name of the camera</p>
-<p>For example:
-    <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{</span>
+<div class="admonition example -">
+<p class="admonition-title">Example StopStreaming Command</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">    "StopStreaming": "true"</span>
 <span class="s1">}'</span><span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/StopStreaming
-</code></pre></div></p>
+</code></pre></div>
+</div>
 <h2 id="optional-shutting-down">Optional: Shutting Down</h2>
 <p>To stop all EdgeX services (containers), execute the <code>make down</code> command:</p>
 <ol>
