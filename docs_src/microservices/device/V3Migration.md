@@ -1,7 +1,13 @@
 # V3 Migration Guide
 
 !!! warning
-    Updates to this migration guide for V3 are still pending. Content/structure below is from V2
+Updates to this migration guide for V3 are still pending. Content/structure below is from V2
+
+## Device Files
+
+## Device Profile Files
+
+## Provision Watcher files
 
 ## Custom Device Services
 
@@ -279,125 +285,31 @@ Notice that we renamed some fields:
 - `Frequency` is renamed to `Interval`  
 - `Resource` is renamed to `SourceName`
 
+## Supported Device Services
+
 ## Device MQTT
 
-!!! warning
-    Updates to this migration guide for V3 are still pending. Content/structure below is from V2
+TBD
 
-The Device MQTT service specific `[Driver]` and `[DeviceList.Protocols.mqtt]` sections have changed for V2. The MQTT Broker connection configuration has been consolidated to just one MQTT Client and now supports SecretStore for the authentication credentials.
+### Metadata in MQTT Topics
 
-### Driver => MQTTBrokerInfo
+## Device Profile Files
 
-The `[Driver]` section has been replaced with the new `[MQTTBrokerInfo]`structured custom configuration section. The setting under `[MQTTBrokerInfo.Writable]`can be dynamically updated from Consul without needing to restart the service.
+### Configuration
 
-!!! example "Example - V1 Driver configuration"
-    ```toml
-    # Driver configs
-    [Driver]
-    IncomingSchema = 'tcp'
-    IncomingHost = '0.0.0.0'
-    IncomingPort = '1883'
-    IncomingUser = 'admin'
-    IncomingPassword = 'public'
-    IncomingQos = '0'
-    IncomingKeepAlive = '3600'
-    IncomingClientId = 'IncomingDataSubscriber'
-    IncomingTopic = 'DataTopic'
-    ResponseSchema = 'tcp'
-    ResponseHost = '0.0.0.0'
-    ResponsePort = '1883'
-    ResponseUser = 'admin'
-    ResponsePassword = 'public'
-    ResponseQos = '0'
-    ResponseKeepAlive = '3600'
-    ResponseClientId = 'CommandResponseSubscriber'
-    ResponseTopic = 'ResponseTopic'
-    ConnEstablishingRetry = '10'
-    ConnRetryWaitTime = '5'
-    ```
+## Device ONVIF Camera
 
-!!! example "Example - V2 MQTTBrokerInfo configuration section"
-    ```toml
-    [MQTTBrokerInfo]
-    Schema = "tcp"
-    Host = "0.0.0.0"
-    Port = 1883
-    Qos = 0
-    KeepAlive = 3600
-    ClientId = "device-mqtt"
-    
-    CredentialsRetryTime = 120 # Seconds
-    CredentialsRetryWait = 1 # Seconds
-    ConnEstablishingRetry = 10
-    ConnRetryWaitTime = 5
-    
-    # AuthMode is the MQTT broker authentication mechanism. 
-    # Currently, "none" and "usernamepassword" is the only AuthMode
-    # supported by this service, and the secret keys are "username" and "password".
-    AuthMode = "none"
-    CredentialsPath = "credentials"
-    
-    IncomingTopic = "DataTopic"
-    responseTopic = "ResponseTopic"
-    
-        [MQTTBrokerInfo.Writable]
-        # ResponseFetchInterval specifies the retry 
-        # interval(milliseconds) to fetch the command response from the MQTT broker
-        ResponseFetchInterval = 500
-    ```
+TBD
 
-### DeviceList.Protocols.mqtt
+### Configuration
 
-Now that there is a single MQTT Broker connection, the configuration in `[DeviceList.Protocols.mqtt]` for each device has been greatly simplified to just the CommandTopic the device is subscribed. Note that this topic needs to be a unique topic for each device defined.
+### Device Profile
 
-!!! example "Example - V1 DeviceList.Protocols.mqtt device configuration section"
-    ```toml
-    [DeviceList.Protocols]
-      [DeviceList.Protocols.mqtt]
-       Schema = 'tcp'
-       Host = '0.0.0.0'
-       Port = '1883'
-       ClientId = 'CommandPublisher'
-       User = 'admin'
-       Password = 'public'
-       Topic = 'CommandTopic'
-    ```
+## Device USB Camera
 
-!!! example "Example - V2 DeviceList.Protocols.mqtt device configuration section"
-    ```toml
-      [DeviceList.Protocols]
-        [DeviceList.Protocols.mqtt]
-           CommandTopic = 'CommandTopic'
-    ```
+TBD
 
-### SecretStore
+### Configuration
 
-#### Secure
+### Device Profile
 
-See the [Secret API reference](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.0.0#/default/post_secret) for injecting authentication credentials into a Device Service's secure SecretStore. 
-
-!!! example - "Example - Authentication credentials injected via Device MQTT's `Secret` endpoint"
-    ```bash
-    curl -X POST http://localhost:59982/api/v2/secret  -H 'Content-Type: application/json' -d '{ "apiVersion": "v2", "requestId": "e6e8a2f4-eb14-4649-9e2b-175247911369", "path": "credentials", "secretData": [  {   "key": "username", "value": "mqtt-user"  }, {  "key": "password", "value": "mqtt-password" } ]}'  
-    ```
-
-!!! note
-    The service has to be running for this endpoint to be available.  The following `[MQTTBrokerInfo]` settings from above allow a window of time to inject the credentials.
-    ```toml
-    CredentialsRetryTime = 120 # Seconds
-    CredentialsRetryWait = 1 # Seconds
-    ```
-
-#### Non Secure
-
-For non-secure mode the authentication credentials need to be added to the [InsecureSecrets] configuration section. 
-
-!!! example - "Example - Authentication credentials in Device MQTT's `[InsecureSecrets]` configuration section"
-    ```toml
-    [Writable.InsecureSecrets]
-      [Writable.InsecureSecrets.MQTT]
-      path = "credentials"
-        [Writable.InsecureSecrets.MQTT.Secrets]
-        username = "mqtt-user"
-        password = "mqtt-password"
-    ```
