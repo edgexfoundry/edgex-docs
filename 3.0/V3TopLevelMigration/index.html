@@ -356,6 +356,38 @@
 <a class="md-nav__link" href="#ekuiper">
     eKuiper
   </a>
+<nav aria-label="eKuiper" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rules">
+    Rules
+  </a>
+<nav aria-label="Rules" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rest-action">
+    Rest Action
+  </a>
+<nav aria-label="Rest Action" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#none-secure-mode">
+    None Secure Mode
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#secure-mode">
+    Secure Mode
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -1785,6 +1817,38 @@
 <a class="md-nav__link" href="#ekuiper">
     eKuiper
   </a>
+<nav aria-label="eKuiper" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rules">
+    Rules
+  </a>
+<nav aria-label="Rules" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rest-action">
+    Rest Action
+  </a>
+<nav aria-label="Rest Action" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#none-secure-mode">
+    None Secure Mode
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#secure-mode">
+    Secure Mode
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -1833,11 +1897,11 @@
 </code></pre></div></p>
 </div>
 <h3 id="configuration-file">Configuration File</h3>
-<p>If you have customed the service configuration files for any EdgeX service (core, support, device, etc.) that configuration will need to be migrated. </p>
+<p>If you have customized the service configuration files for any EdgeX service (core, support, device, etc.) that configuration will need to be migrated. </p>
 <p>The biggest two changes to the service configuration files are:</p>
 <ol>
 <li>File format has changed to YAML</li>
-<li>Settings that are common have been removed</li>
+<li>Settings that are common have been removed from each service's local private configuration file</li>
 </ol>
 <p>See <a href="../microservices/configuration/V3MigrationCommonConfig/">V3 Migration of Common Configuration</a> for the details on migrating configuration common to all EdgeX services.</p>
 <p>The <a href="https://www.convertsimple.com/convert-toml-to-yaml/">tool here</a> can be used to convert your customized service configuration file from TOML to YAML. This should be done once all the common configuration has been removed.</p>
@@ -1851,15 +1915,20 @@
 <li><a href="../microservices/application/V3Migration/#configuration">Application Services</a></li>
 <li><a href="../microservices/device/V3Migration/#configuration">Device Services (common)</a></li>
 <li><a href="../microservices/device/V3Migration/#device-mqtt">Device MQTT</a></li>
-<li>TODO: add others. USB &amp; Onvif Camera services??</li>
+<li><a href="../microservices/device/V3Migration/#device-onvif-camera">Device ONVIF Camera</a></li>
+<li><a href="../microservices/device/V3Migration/#device-usb-camera">Device USB Camera</a></li>
 </ul>
 <h3 id="customized-environment-overrides">Customized Environment Overrides</h3>
 <p>If you have custom <a href="../microservices/configuration/CommonEnvironmentVariables/#environment-overrides">environment overrides</a> for configuration impacted by the V3 changes you will also need to migrate your overrides to use the new name or value depending on what has changed. Refer to the links above and/or below for details for migration of common and/or the service specific configuration to determine if your overrides require migrating.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>When using the Configuration Provider, the environment overrides for common configuration are applied to the <strong>core-common-config-bootstrapper</strong> service. They no longer work when applied to the individual services as the common configuration setting no longer exist in the private configuration.</p>
 <h2 id="custom-compose-file">Custom Compose File</h2>
 <p>The compose files for V3 have many changes from their V2 counter parts. If you have customized a V2 compose file to add additional services and/or add or modify configuration overrides,  it is highly recommended that you start with the appropriate V3 compose file and re-add your customizations. It is very likely that the sections for your additional services will need to be migrated to have the proper environment overrides. Best approach is to use one of the V3 service sections that closest matches your service  as a template.</p>
 <p>The latest V3 compose files can be found here: <a href="https://github.com/edgexfoundry/edgex-compose/tree/main">Compose Files</a></p>
 <h3 id="compose-builder">Compose Builder</h3>
-<p>If the add-on service(s) in your custom compose file are EdgeX released device or app services, it is highly recommended that you use the Compose Builder to regenerate your custom compose file. </p>
+<p>If the additional service(s) in your custom compose file are EdgeX released device or app services, it is highly recommended that you use the Compose Builder to regenerate your custom compose file. </p>
 <p>The latest V3 Compose Builder can be found here: <a href="https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder/README.md">Compose Builder Readme</a> </p>
 <h2 id="database">Database</h2>
 <p>There currently is no migration path for the data stored in the database. If possible, the database should be cleared prior to starting V3 EdgeX. This will allow the database to be V3 compliant from the start. See <a href="#clearing-redis-database">Clearing Redis Database</a> section below for details on how to clear the Redis database.</p>
@@ -1916,7 +1985,39 @@
 <h3 id="authenticated-rest-apis">Authenticated REST APIs</h3>
 <p>When security is enable,  all V3 EdgeX services REST APIs require a JWT authorization token. See <a href="../security/V3Migration">Security Services V3 Migration Guide</a> for more details.</p>
 <h2 id="ekuiper">eKuiper</h2>
-<p>TBD</p>
+<h3 id="rules">Rules</h3>
+<h4 id="rest-action">Rest Action</h4>
+<h5 id="none-secure-mode">None Secure Mode</h5>
+<p>If running EdgeX in none secure mode and you have rules with <code>rest</code> action that reference an EdgeX service the endpoint API version will need to be changed from v2 to V3</p>
+<div class="admonition example -">
+<p class="admonition-title">Example migration of <code>rest</code> action with EdgeX endpoint</p>
+<p><strong>V2:</strong>
+<div class="highlight"><pre><span></span><code><span class="nt">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"rest"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://edgex-core-command:59882/api/v2/device/name/Random-Integer-Device/Int64"</span><span class="p">,</span><span class="w">       </span>
+<span class="w">        </span><span class="err">...</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+</code></pre></div></p>
+</div>
+<p>​    <strong>V3:</strong>
+<div class="highlight"><pre><span></span><code><span class="nt">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"rest"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://edgex-core-command:59882/api/v3/device/name/Random-Integer-Device/Int64"</span><span class="p">,</span><span class="w">       </span>
+<span class="w">        </span><span class="err">...</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+</code></pre></div></p>
+<h5 id="secure-mode">Secure Mode</h5>
+<p>If running EdgeX in secure mode and  you have rules with <code>rest</code> action that reference an EdgeX Core Command you will need to convert the rule to use Command via External MQTT. See <a href="https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/edgex/edgex_rule_engine_command.md#option-2-use-messaging">eKuiper documentation here</a> for more details. This is due to the new microservice authorization on all EdgeX services' endpoints requiring a JWT token which eKuiper doesn't have.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This approach requires an external MQTT broker to send the command requests. The default EdgeX compose files do not include a MQTT Broker. This broker is supposed to be external to EdgeX. </p>
+</div>
 </article>
 </div>
 </div>
