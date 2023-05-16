@@ -375,14 +375,14 @@ To find all EdgeX snaps on the public Snap Store, [search by keyword](https://sn
 The main platform snap, simply called `edgexfoundry` contains
 all reference core and security services along with support-scheduler and support-notifications.
 
-Upon installation, the services are disabled and stopped. They can be started altogether or selectively; see [managing services].
-
+Upon installation, the services **stopped** and **disabled**. They can be started altogether or selectively; see [managing services].
 For example, to start all the services, run:
 ```bash
 sudo snap start edgexfoundry
 ```
 
 For the configuration of services, refer to [configuration].
+Read below for other deployment-related instructions about this snap.
 
 #### Adding API Gateway users
 The API gateway will pass any request that authenticates using a
@@ -402,7 +402,9 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
 !!! example "Creating an example user"
     Use `secrets-config` to add an `example` user (note: always specify `--useRootToken` for the snap deployment of EdgeX):
     ```bash
-    sudo edgexfoundry.secrets-config proxy adduser --user example --useRootToken | jq --raw-output '.password' > password.txt
+    sudo edgexfoundry.secrets-config proxy adduser --user example --useRootToken \
+        | jq --raw-output '.password' \
+        > password.txt
     ```
     On success, the above command writes the system-generated password for `example` user to `password.txt`.
     If the "adduser" command is run multiple times,
@@ -416,11 +418,12 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
     username=example
     password=$(cat password.txt)
     
-    vault_token=$(curl --silent --show-err "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq --raw-output '.auth.client_token')
+    vault_token=$(curl --silent --show-err "http://localhost:8200/v1/auth/userpass/login/${username}" --data "{\"password\":\"${password}\"}" \
+        | jq --raw-output '.auth.client_token')
     
-    id_token=$(curl --silent --show-err -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq --raw-output '.data.token')
-    
-    echo "${id_token}" > id-token.txt
+    curl --silent --show-err -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" \
+        | jq --raw-output '.data.token' \
+        > id-token.txt
     ```
     The ID Token gets written to `id-token.txt`.
 
@@ -440,9 +443,11 @@ Consul API and UI can be accessed using the consul token (Secret ID). For the sn
 !!! example
     To get the token:
     ```bash
-    sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/mgmt_token.json | jq -r '.SecretID' | tee consul-token.txt
+    sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/mgmt_token.json \
+        | jq -r '.SecretID' \
+        > consul-token.txt
     ```
-    The output is printed out and written to `consul-token.txt`. Example output: `ee3964d0-505f-6b62-4c88-0d29a8226daa`
+    The output gets written to `consul-token.txt`.
 
     Try it out locally:
     ```bash
@@ -452,7 +457,7 @@ Consul API and UI can be accessed using the consul token (Secret ID). For the sn
     Through the API Gateway:  
     We need to pass both the Consul token and Secret Store token obtained in [Adding API Gateway users](#adding-api-gateway-users) examples.
     ```bash
-    curl --insecure --silent --show-err https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)" -H "Authorization: Bearer $(cat id-token.txt)"
+    curl --insecure --silent --show-err https://localhost:8443/consul/v1/kv/edgex/v3/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)" -H "Authorization: Bearer $(cat id-token.txt)"
     ```
 
 #### Changing TLS certificates
@@ -483,11 +488,26 @@ Refer to the [secrets-config proxy](../../security/secrets-config-proxy/) docume
       * `server.key` user-provided private key (replacing the default)
       * `ca.crt` Certificate Authority certificate (that signed `server.crt`, directly or indirectly)
     
+    ??? example "Create a self-signed certificate"
+        For example, to generate a CA and issue a certificate valid for 30 days:
+        ```
+        # Generate the Certificate Authority (CA) Private Key
+        openssl ecparam -name prime256v1 -genkey -noout -out ca.key
+        # Generate the Certificate Authority Certificate
+        openssl req -new -x509 -sha256 -key ca.key -out ca.crt -subj "/CN=getting-started-ca"
+        # Generate the Server Certificate Private Key
+        openssl ecparam -name prime256v1 -genkey -noout -out server.key
+        # Generate the Server Certificate Signing Request
+        openssl req -new -sha256 -key server.key -out server.csr -subj "/CN=localhost"
+        # Generate the Server Certificate
+        openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 30 -sha256
+        ```
+    
     Perform the following steps:
     
-    1. Move `server.crt` and `server.key` to the snap
+    1. Copy `server.crt` and `server.key` to the snap
     ```bash
-    sudo mv server.crt server.key /var/snap/edgexfoundry/common/
+    sudo cp server.crt server.key /var/snap/edgexfoundry/common/
     ```
     We do this to allow temporary access to the files by the confined application.  
     Instead of temporarily adding the files to the snap, the files can be read directly from the root user's home (`/root`) or a removable media, after granting the [home](https://snapcraft.io/docs/home-interface) or [removable-media](https://snapcraft.io/docs/removable-media-interface) permissions.
@@ -504,18 +524,16 @@ Refer to the [secrets-config proxy](../../security/secrets-config-proxy/) docume
     ```bash
     sudo snap restart --reload edgexfoundry.nginx
     ```
-
-    
     
     Try it out:
     ```bash
-    curl --cacert ca.crt https://localhost:8443/core-data/api/v3/ping
+    curl --verbose --cacert ca.crt https://localhost:8443/core-data/api/v3/ping
     ```
     The output should include a message indicating that the request is unauthorized.  
     This means that TLS is setup correctly, but the request misses the required authentication. 
     See [Adding API Gateway users](#adding-api-gateway-users).
 
-    Set the `-v` command for diagnosing TLS issues.
+    In the information about the TLS, look for the Server certificate's issuer and make sure it matches your CA. For example, `issuer: CN=getting-started-ca`.
 
     The `--cacert` can be omitted if the CA is available in root certificates (e.g. CA-signed or pre-installed CA certificate).
 
