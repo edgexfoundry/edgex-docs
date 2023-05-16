@@ -1,16 +1,55 @@
 # Advanced Options
 
+## RTSP Authentication
+The device service allows for rtsp stream authentication using the [rtsp-simple-server](https://github.com/aler9/mediamtx). Authentication is enabled by default.
+
+### Secret Configuration
+To configure the username and password for rtsp authentication when building your own images, edit the fields in the 'configuration.yaml'. 
+
+!!! note 
+    This should only be used when you are in non-secure mode.
+
+!!! warning
+    Be careful when storing any potentially important information in cleartext on files in your computer. In this case, the credentials for the stream are stored in cleartext in the `configuration.yaml` file on your system.
+    `InsecureSecrets` is for non-production use only.
+    
+!!! note 
+    Leaving the fields blank will **NOT** disable authentication. The stream will not be able to be authenticated until credentials are provided.
+
+!!! example - "Snippet from configuration.yaml"
+    ```yaml
+    ...
+    Writable:
+        LogLevel: "INFO"
+        InsecureSecrets:
+            rtspauth:
+                SecretName: rtspauth
+                SecretData:
+                    username: "<enter-username>"
+                    password: "<enter-password>"
+    ```
+
+### Authentication Server Configuration
+- You can configure the authentication server to run from a different port by editing the externalAuthenticationURL value in the [Dockerfile](https://github.com/edgexfoundry/device-usb-camera/blob/main/Dockerfile).  
+- To disable authentication entirely, comment out the externalAuthenticationURL line in the [Dockerfile](https://github.com/edgexfoundry/device-usb-camera/blob/main/Dockerfile).  
+
+!!! example - "externalAuthenticationURL line from the Dockerfile"
+    ```Dockerfile
+    RUN sed -i 's,externalAuthenticationURL:,externalAuthenticationURL: http://localhost:8000/rtspauth,g' rtsp-simple-server.yml
+    ```
+
+
 ## Video options
 There are two types of options:
-- The options start with `Input` prefix are used for the camera, such as specifying the image size and pixel format.
-- The options start with `Output` prefix are used for the output video, such as specifying aspect ratio and quality.
+- The options start with `Input` prefix are used for the camera, such as specifying the image size and pixel format.  
+- The options start with `Output` prefix are used for the output video, such as specifying aspect ratio and quality.  
 
 These options can be passed in through object value when calling `StartStreaming`.
 
-Query parameter:
+Query parameter:  
 - `device name`: The name of the camera
 
-!!! example - "Example Query Command"
+!!! example - "Example StartStreaming Command"
     ```shell
     curl -X PUT -d '{
         "StartStreaming": {
@@ -76,8 +115,9 @@ The hostname and port of the RTSP server to which the device service publishes v
 !!! example - "Snippet from configuration.yaml"
     ```yaml
     Driver:
-    RtspServerHostName: "localhost"
-    RtspTcpPort: "8554"
+        RtspServerHostName: "localhost"
+        RtspTcpPort: "8554"
+        RtspAuthenticationServer: "localhost:8000"
     ```
 
 
@@ -87,7 +127,7 @@ URL parameter:
 
 - **DeviceName**: The name of the camera  
 - **InputIndex**: indicates the current index of the video input (if a camera only has one source for video, the index needs to be set to '0')  
-!!! example - "Example Query Command"
+!!! example - "Example CameraStatus Command"
     ```
     curl -X GET http://localhost:59882/api/v3/device/name/<DeviceName>/CameraStatus?InputIndex=0 | jq -r '"CameraStatus: " + (.event.readings[].value|tostring)'
     ```

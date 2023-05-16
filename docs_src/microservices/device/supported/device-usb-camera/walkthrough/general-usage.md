@@ -13,7 +13,7 @@ These options can be passed in through Object value when calling StartStreaming.
 Query parameter:  
 - `device name`: The name of the camera
 
-!!! example - "Example Query Command"
+!!! example - "Example StartStreaming Command"
     ```shell
     curl -X PUT -d '{
         "StartStreaming": {
@@ -44,6 +44,7 @@ The device service provides a way to determine the stream URI of a camera.
 
 Query parameter:  
 - `device name`: The name of the camera
+!!! example - "Example StreamURI Command"
     ```bash
     curl -s http://localhost:59882/api/v3/device/name/<device name>/StreamURI | jq -r '"StreamURI: " + '.event.readings[].value''
     ```
@@ -57,13 +58,17 @@ StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217
 
 mplayer can be used to stream. The command follows this format: 
 
-`mplayer rtsp://<IP address>:<port>/<streamname>`.
+```bash
+mplayer rtsp://'<username>:<password>'@<IP address>:<port>/<streamname>`.
+```
 
 Using the `streamURI` returned from the previous step, run mplayer:
 
-```bash
-mplayer rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
-```
+!!! example - "Example Stream Command"
+    ```bash
+    mplayer rtsp://'admin:pass'@localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
+    ```
+
 
 To shut down mplayer, use the ctrl-c command.
 
@@ -74,12 +79,13 @@ To stop the usb camera from live streaming, use the following command:
 Query parameter:  
 - `device name`: The name of the camera
 
-For example:
+!!! example - "Example StopStreaming Command"
     ```shell
     curl -X PUT -d '{
         "StopStreaming": "true"
     }' http://localhost:59882/api/v3/device/name/<device name>/StopStreaming
     ```
+
 ## Optional: Shutting Down
 
 To stop all EdgeX services (containers), execute the `make down` command:
