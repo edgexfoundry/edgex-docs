@@ -115,7 +115,7 @@ Follow this guide to deploy and run the service.
         If you want to disable rtsp authentication entirely, you must [build a custom image](../walkthrough/custom-build.md).
 
 === "Non-secure Mode" 
-    1. Enter your chosen credentials in this command to set the secure secrets.
+    1. Enter your chosen username and password into this command, and then execute it to set the insecure secrets.
     !!! example - "Example credential command"
             ```bash
             curl --data '{
@@ -139,7 +139,7 @@ Follow this guide to deploy and run the service.
         ```bash
         make get-token
         ```
-    1. Enter your chosen credentials in this command to set the secure secrets.
+    1. Enter your chosen username and password, and the generated JWT into this command, and then execute it to set the secure secrets.
     !!! example - "Example credential command"
         ```bash
         curl --data '{
