@@ -12,7 +12,7 @@ Any configuration that is common to all EdgeX services or all EdgeX Application 
 - See [Application Service Configuration](../GeneralAppServiceConfig) section for details about configuration that is common to all EdgeX Application Services.
 
 !!! note
-    With this change, the any custom application service must be run with either the `-cp/--configProvider` flag or the `-cc/--commonConfig` flag in order for the service to receive the common configuration that has been removed from its private configuration. See [Config Provider](../../configuration/CommonCommandLineOptions/#config-provider) and [Common Config](../../configuration/CommonCommandLineOptions/#common-config) sections for more details on these flags.
+    With this change, any custom application service must be run with either the `-cp/--configProvider` flag or the `-cc/--commonConfig` flag in order for the service to receive the common configuration that has been removed from its private configuration. See [Config Provider](../../configuration/CommonCommandLineOptions/#config-provider) and [Common Config](../../configuration/CommonCommandLineOptions/#common-config) sections for more details on these flags.
 
 ### MessageBus
 
