@@ -48,11 +48,11 @@ Commands can be one of two types:
     ```
 
 
-For all supported commands, refer to the sample at [general.usb.camera.yaml](../cmd/res/profiles/general.usb.camera.yaml).
+For all supported commands, refer to the sample at `cmd/res/profiles/general.usb.camera.yaml`.
 !!! Note 
     In general, this sample should be applicable to all types of USB cameras.
 !!! Note
-    You don't need to define device profile yourself unless you want to modify resource names or set default values for [video options](./advanced-options.md#video-options).
+    You don't need to define device profile yourself unless you want to modify resource names or set default values for [video options](../supplementary-info/advanced-options.md#video-options).
 
 ### Define the device
 
