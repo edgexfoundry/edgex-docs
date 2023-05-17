@@ -1620,78 +1620,40 @@ Unsuccessful:
 <p class="admonition-title">Note</p>
 <p>If you want to disable rtsp authentication entirely, you must <a href="../custom-build/">build a custom image</a>.</p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Scripts</label><label for="__tabbed_2_2">Consul UI</label><label for="__tabbed_2_3">Secure mode Curl</label></div>
+</li>
+</ol>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Non-secure Mode</label><label for="__tabbed_2_2">Secure Mode</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If running in secure mode the <a href="../../../../../../security/Ch-APIGateway/#creating-access-token-for-api-gateway-authentication">JWT token</a> is needed for mapping credentials.</p>
-</div>
-<p>a. Enter JWT token if in secure mode.<br/>
-<img alt="" src="../../images/enter-jwt-token.png"><br/>
-b. Set the username.<br/>
-<img alt="" src="../../images/set-username.png"><br/>
-c. Set the password.<br/>
-<img alt="" src="../../images/set-username.png"/> </img></img></p>
-<p>Successful:
-<div class="highlight"><pre><span></span><code>Dependencies<span class="w"> </span>Check:<span class="w"> </span>Success
-<span class="w">    </span>Consul<span class="w"> </span>Check:<span class="w"> </span>...
-<span class="w">                    </span><span class="o">[</span>
-<span class="o">{</span>
-<span class="w">    </span><span class="s2">"Resource"</span>:<span class="w"> </span><span class="s2">"key"</span>,
-<span class="w">    </span><span class="s2">"Access"</span>:<span class="w"> </span><span class="s2">"read"</span>,
-<span class="w">    </span><span class="s2">"Allow"</span>:<span class="w"> </span><span class="nb">false</span>
-<span class="o">}</span>,
-<span class="o">{</span>
-<span class="w">    </span><span class="s2">"Resource"</span>:<span class="w"> </span><span class="s2">"key"</span>,
-<span class="w">    </span><span class="s2">"Access"</span>:<span class="w"> </span><span class="s2">"write"</span>,
-<span class="w">    </span><span class="s2">"Allow"</span>:<span class="w"> </span><span class="nb">false</span>
-<span class="o">}</span>
-<span class="o">]</span>
-
-curl<span class="w"> </span>--data<span class="w"> </span><span class="s1">'{</span>
+<ol>
+<li>Enter your chosen username and password into this command, and then execute it to set the insecure secrets.</li>
+</ol>
+<div class="admonition example -">
+<p class="admonition-title">Example credential command<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--data<span class="w"> </span><span class="s1">'{</span>
 <span class="s1">    "apiVersion":"v3",</span>
 <span class="s1">    "secretName": "rtspauth",</span>
 <span class="s1">    "secretData":[</span>
 <span class="s1">        {</span>
 <span class="s1">            "key":"username",</span>
-<span class="s1">            "value":"username"</span>
+<span class="s1">            "value":"&lt;pick-a-username&gt;"</span>
 <span class="s1">        },</span>
 <span class="s1">        {</span>
 <span class="s1">            "key":"password",</span>
-<span class="s1">            "value":"&lt;redacted&gt;"</span>
+<span class="s1">            "value":"&lt;pick-a-secure-password&gt;"</span>
 <span class="s1">        }</span>
 <span class="s1">    ]</span>
-<span class="s1">}'</span><span class="w"> </span>-H<span class="w"> </span>Authorization:Bearer<span class="w"> </span>&lt;redacted&gt;<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:59983/api/v3/secret
-Response<span class="w"> </span><span class="o">[</span><span class="m">201</span><span class="o">]</span><span class="w"> </span><span class="o">{</span>
-<span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v3"</span>,
-<span class="s2">"statusCode"</span>:<span class="w"> </span><span class="m">201</span>
-<span class="o">}</span>
-
-
-Success
-</code></pre></div></p>
-</div>
-<div class="tabbed-block">
-<div class="admonition note">
-<p class="admonition-title">Note<p>If running in secure mode, these instructions do not apply.</p>
+<span class="s1">}'</span><span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:59983/api/v3/secret
+</code></pre></div>
 </p>
 </div>
-<ol>
-<li>
-<p>Navigate to the <a href="http://localhost:8500/ui/dc1/kv/edgex/v3/device-usb-camera/Writable/InsecureSecrets/rtspauth/SecretData/">Consul UI</a></p>
-</li>
-<li>
-<p>Select the username option and input the username.</p>
-</li>
-<li>
-<p>Select the password option and input the password.</p>
-</li>
-</ol>
 </div>
 <div class="tabbed-block">
 <ol>
-<li>Enter your chosen credentials in this command to set the secure secrets.</li>
+<li>Navigate to the <code>edgex-compose/compose-builder</code> directory.</li>
+<li>Generate a JWT token
+    <div class="highlight"><pre><span></span><code>make<span class="w"> </span>get-token
+</code></pre></div></li>
+<li>Enter your chosen username and password, and the generated JWT into this command, and then execute it to set the secure secrets.</li>
 </ol>
 <div class="admonition example -">
 <p class="admonition-title">Example credential command</p>
@@ -1713,9 +1675,7 @@ Success
 </div>
 </div>
 </div>
-</input></input></input></div>
-</li>
-</ol>
+</input></input></div>
 <h2 id="manage-devices">Manage Devices</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
