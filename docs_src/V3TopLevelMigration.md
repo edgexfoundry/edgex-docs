@@ -71,7 +71,7 @@ The following are where you can find the configuration migration specifics for i
 If you have custom [environment overrides](../microservices/configuration/CommonEnvironmentVariables/#environment-overrides) for configuration impacted by the V3 changes you will also need to migrate your overrides to use the new name or value depending on what has changed. Refer to the links above and/or below for details for migration of common and/or the service specific configuration to determine if your overrides require migrating.
 
 !!! note
-   When using the Configuration Provider, the environment overrides for common configuration are applied to the **core-common-config-bootstrapper** service. They no longer work when applied to the individual services as the common configuration setting no longer exist in the private configuration.
+    When using the Configuration Provider, the environment overrides for common configuration are applied to the **core-common-config-bootstrapper** service. They no longer work when applied to the individual services as the common configuration setting no longer exist in the private configuration.
 
 ## Custom Compose File
 
@@ -113,8 +113,9 @@ The Event/Reading data stored by Core Data is considered transient and of little
 
 #### API Change
 - Add Event
-    POST endpoint is now  `/event/{serviceName}/{profileName}/{deviceName}/{sourceName}`. This is so that the metadata contains the device service which generated the new event
+    To identify which device service generating the new event, POST endpoint is now changed from `/event/{profileName}/{deviceName}/{sourceName}` to `/event/{serviceName}/{profileName}/{deviceName}/{sourceName}`
 
+See [Core Data API Reference](../../../api/core/Ch-APICoreData.md) for complete details.
 #### Reading
 
  There are no changes to the V3 Reading from that in V2
@@ -122,8 +123,6 @@ The Event/Reading data stored by Core Data is considered transient and of little
 #### Event
 
 The field that has changed in V3 is the `apiVersion` which is now set to `v3`.
-
-See [Core Data API document](https://docs.edgexfoundry.org/{version}/api/core/Ch-APICoreData/) for more details
 
 ### Core Metadata
 
@@ -141,17 +140,20 @@ Most of the data stored by Core Metadata will be recreated when the V3 versions 
 - Get UOM 
     - Changed the response format from TOML to YAML
 
-- Add/ Update ProvisionWatcher
+- Add/ Get/ Update ProvisionWatcher
     - Allowed empty string profile name when adding or updating the ProvisionWatcher
+    - The ProvisionWatcher DTO is restructured by moving the Device related fields into a new object field, `DiscoveredDevice`; such as `profileName`, Device `adminState`, and `autoEvents`.
+    - Added a new properties field in the `DiscoveredDevice` object to allow any additional or customized data.
+    - ProvisionWatcher contains its own `adminState` now. The Device `adminState` is moved into the `DiscoveredDevice` object.
 
-See [Core Metadata API document](https://docs.edgexfoundry.org/{version}/api/core/Ch-APICoreMetadata/) for more details
+See [Core Metadata API Reference](../../../api/core/Ch-APICoreMetadata.md) for complete details.
 
 ### Core Command
 #### API Change
 - Get Command
-    - Updated `ds-pushevent` and `ds-returnevent` to use bool value
+    - Updated `ds-pushevent` and `ds-returnevent` to use bool value, `true` or `false`, instead of `yes` or `no`
 
-See [Core Command API document](https://docs.edgexfoundry.org/{version}/api/core/Ch-APICoreCommand/) for more details
+See [Core Command API Reference](../../../api/core/Ch-APICoreCommand.md) for complete details.
 
 ### Support Notifications
 
@@ -159,7 +161,9 @@ Any `Subscriptions` created via the V2 REST API will have to be recreated using 
 
 ### Support Scheduler
 #### API Change
-- Added `authmethod` to support-scheduler actions DTO, which indicates how to authenticate the outbound URL. Its value can be `NONE` or `JWT`.
+- Added `authmethod` to support-scheduler actions DTO, which indicates how to authenticate the outbound URL. Use `NONE` when running in non-secure mode and `JWT` when running in secure mode.
+
+See [Support Scheduler API Reference](../../../api/support/Ch-APISupportScheduler.md) for complete details.
 
 The statically declared `Interval` and `IntervalAction` will be created automatically. Any `Interval` and/or `IntervalAction` created via the V2 REST API will have to be recreated using the V3 REST API. If you have created a custom configuration with additional statically declared `Interval`s and `IntervalActions` see the [Configuration File](#configuration-file) section under [Customized Configuration](#customized-configuration) below.
 

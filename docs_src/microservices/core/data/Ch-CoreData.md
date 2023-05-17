@@ -149,8 +149,9 @@ Below are only the additional settings and sections that are specific to Core Da
     | MaxEventSize|25000|maximum event size in kilobytes accepted via REST or MessageBus. 0 represents default to system max.|
 
 ### V3 Configuration Migration Guide
-- Changed database configuration from `Databases map[string]bootstrapConfig.Database` to `Database bootstrapConfig.Database`
+No configuration updated
 
+See [Common Configuration Reference](../../../configuration/V3MigrationCommonConfig/) for complete details on common configuration changes.
 ## API Reference
 
 [Core Data API Reference](../../../api/core/Ch-APICoreData.md)

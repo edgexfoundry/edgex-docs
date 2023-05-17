@@ -147,9 +147,10 @@ Below are only the additional settings and sections that are specific to Support
 
 
 ### V3 Configuration Migration Guide
+- Removed `RequireMessageBus` 
+- A new field `AuthMethod` is added to `IntervalActions.ScrubAged`
 
-Coming soon
-
+See [Common Configuration Reference](../../../configuration/V3MigrationCommonConfig/) for complete details on common configuration changes.
 ## API Reference
 
-[Support Scheduler API Reference](../../../api/support/Ch-APISupportScheduler.md )
+[Support Scheduler API Reference](../../../api/support/Ch-APISupportScheduler.md)

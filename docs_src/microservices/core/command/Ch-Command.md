@@ -146,9 +146,10 @@ Below are only the additional settings and sections that are specific to Core Co
     | QueryResponseTopic | `edgex/commandquery/response` | For publishing command query responses back to 3rd party systems |
 
 ### V3 Configuration Migration Guide
+- Removed `RequireMessageBus` 
+- MessageQueue.External moved to ExternalMQTT
 
-Coming soon
-
+See [Common Configuration Reference](../../../configuration/V3MigrationCommonConfig/) for complete details on common configuration changes.
 ## Commands via Messaging
 
 ### Introduction
