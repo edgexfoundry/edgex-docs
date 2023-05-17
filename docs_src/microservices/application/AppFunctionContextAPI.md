@@ -12,8 +12,6 @@ type AppFunctionContext interface {
     SetResponseContentType(string)
     ResponseContentType() string
     SetRetryData(data []byte)
-    GetSecret(path string, keys ...string) (map[string]string, error)
-    SecretsLastUpdated() time.Time
     SecretProvider() interfaces.SecretProvider
     LoggingClient() logger.LoggingClient
     EventClient() interfaces.EventClient

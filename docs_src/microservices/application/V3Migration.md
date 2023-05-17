@@ -1,336 +1,234 @@
 # V3 Migration Guide
 
-!!! warning
-    Updates to this migration guide for V3 are still pending. Content/structure below is from V2
+## Configuration
 
-## Custom Application Services
+The migration of any Application Service's configuration starts with migrating configuration common to all EdgeX services. See the [V3 Migration of Common Configuration](../../configuration/V3MigrationCommonConfig) section for details including the change from **TOML** format to **YAML** format for the configuration file. The remainder of this section focuses on configuration specific to Application Services.
 
-### Configuration
+### Common Configuration Removed
 
-The migration of any Application Service's configuration starts with migrating configuration common to all EdgeX services. See the [V2 Migration of Common Configuration](../../configuration/V2MigrationCommonConfig) section for details. The remainder of this section focuses on configuration specific to Application Services.
+Any configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom application service's private configuration. 
 
-#### SecretStoreExclusive
+- See [Common Service Configuration](../../configuration/CommonConfiguration/) section for details about configuration that is common to all Edgex services. 
+- See [Application Service Configuration](../GeneralAppServiceConfig) section for details about configuration that is common to all EdgeX Application Services.
 
-The `SecretStoreExclusive` section has been removed in EdgeX 2.0. With EdgeX 2.0 all SecretStores are exclusive, so the existing `SecretStore` section is all that is required. Services requiring `known secrets` such as `redisdb` must inform the `Security SecretStore Setup` service (via environment variables) that the application service requires the secret added to its SecretStore. See the [Configuring Add-on Services](../../../security/Ch-Configuring-Add-On-Services) section for more details.
+!!! note
+    With this change, any custom application service must be run with either the `-cp/--configProvider` flag or the `-cc/--commonConfig` flag in order for the service to receive the common configuration that has been removed from its private configuration. See [Config Provider](../../configuration/CommonCommandLineOptions/#config-provider) and [Common Config](../../configuration/CommonCommandLineOptions/#common-config) sections for more details on these flags.
 
-#### Clients
+### MessageBus
 
-The client used for the version validation check has changed to being from Core Metadata, rather than Core Data. This is because Core Data is now optional when persistence isn't required since all Device Services publish directly to the EdgeX MessageBus. The configuration for Core Metadata is the only `Clients` entry required, all other (see below) are optional based on use case needs. 
+The EdgeX MessageBus configuration has been moved out of the Trigger configuration and most values are placed in the common configuration. The only values remaining in the application service's private configuration are:
 
-!!! note 
-    The port numbers for all EdgeX services have changed which must be reflected in the `Clients` configuration. Please see the [Default Service Ports](../../../general/ServicePorts) section for complete list of the new port assignments. 
+- `Disabled` - Used to disable the use of the EdgeX MessageBus when not using metrics and not using `edgex-messagebus` Trigger type. Value need to be present so that it can be overridden with environment variable.
+- `Optional.ClientId` - Unique name needed for when MQTT or NATS are used as the MessageBus implementation.
 
-!!! example "Example - Core Metadata client configuration"
-    ```toml
-      [Clients]
-        [Clients.core-metadata]
-        Protocol = "http"
-        Host = "localhost"
-        Port = 59881
+!!! example - "Example Application Service specific MessageBus section for 3.0"
+   ```yaml
+   MessageBus:
+     Disabled: false  # Set to true if not using metrics and not using `edgex-messagebus` Trigger type
+     Optional:
+       ClientId: "<service-key>"
+   ```
+
+### Trigger
+
+#### edgex-messagebus changes
+
+As noted above the EdgeX MessageBus configuration has been removed from the **Trigger** configuration. In addition the `SubscribeTopics` and `PublishTopic` settings have been move to the top level of the **Trigger** configuration. Most application services can simply use the default trigger configuration from application service common configuration.
+
+!!! example - "Example application service Trigger configuration - From Common Configuration "
+    ```yaml
+    Trigger:
+      Type: "edgex-messagebus"
+      SubscribeTopics: "events/#" # Base topic is prepended to this topic when using edgex-messagebus
     ```
 
-!!! example "Example - All available clients configured with new port numbers"
-    ```toml
-      [Clients]
-        # Used for version check on start-up
-        # Also used for DeviceService, DeviceProfile and Device clients
-        [Clients.core-metadata]
-        Protocol = "http"
-        Host = "localhost"
-        Port = 59881
-        
-        # Used for Event client which is used by PushToCoreData function
-        [Clients.core-data]
-        Protocol = "http"
-        Host = "localhost"
-        Port = 59880
-        
-        # Used for Command client
-        [Clients.core-command]
-        Protocol = "http"
-        Host = "localhost"
-        Port = 59882
-        
-        # Used for Notification and Subscription clients
-        [Clients.support-notifications]
-        Protocol = "http"
-        Host = "localhost"
-        Port = 59860
+!!! example - "Example local application service Trigger configuration - **None**"
+```yaml
+# Using default Trigger config from common config
+```
+
+Some application services may need to publish results back to the EdgeX MessageBus. In this case the `PublishTopic` will remain in the service private configuration.
+
+!!! example - "Example local application service Trigger configuration - **PublishTopic**"
+    ```yaml
+    Trigger:
+      # Default value for SubscribeTopics is aslo set in common config
+      PublishTopic: "<my-topic>"  # Base topic is prepended to this topic when using edgex-messagebus
     ```
 
-#### Trigger
+!!! note
+    In EdgeX 3.0 Application services, the base topic in MessageBus common configuration is prepended to the configured `SubscribeTopics` and `PublishTopic` values. The default base topic is `edgex`; thus,  all topics start with `edgex/`
 
-The `Trigger` section (previously named `Binding`) has been restructured with `EdgexMessageBus` (previously named `MessageBus`) and `ExternalMqtt` (previously named `MqttBroker` ) moved under it. The `SubscribeTopics` (previously named `SubscribeTopic`) has been moved under the `EdgexMessageBus.SubscribeHost` and `ExternalMqtt` sections. The `PublishTopic` has been moved under the `EdgexMessageBus.PublishHost` and `ExternalMqtt` sections.
+#### edgex-messagebus Trigger Migration
 
-##### EdgeX MessageBus
+- If the common Trigger configuration is what your service needs
+    1. Remove your **Trigger** configuration completely
 
-If your Application Service is using the EdgeX MessageBus trigger, you can then simply copy the complete `Trigger` configuration from the example below and tweak it as needed. 
+- If your service publishes back to the EdgeX MessageBus
+    1. Move your `PublishTopic` to top level in your **Trigger** configuration
+    2. Remove `edgex/` prefix if used
+    3. Remove remaining **Trigger** configuration
 
-!!! example "Example - EdgeX MessageBus trigger configuration"
+- If your service uses filter by topic
+    1. Move `SubscribeTopics` to top level in your **Trigger** configuration
+    2. Remove `edgex/` prefix from each topic if used
+    3. Replace `#` between levels with `+` . See [Multi-level topics and wildcards](../../general/messagebus/#multi-level-topics-and-wildcards) section for more details
+    4. Remove remaining **Trigger** configuration
 
-    ```toml
-    [Trigger]
-    Type="edgex-messagebus"
-      [Trigger.EdgexMessageBus]
-      Type = "redis"
-        [Trigger.EdgexMessageBus.SubscribeHost]
-        Host = "localhost"
-        Port = 6379
-        Protocol = "redis"
-        SubscribeTopics="edgex/events/#"
-        [Trigger.EdgexMessageBus.PublishHost]
-        Host = "localhost"
-        Port = 6379
-        Protocol = "redis"
-        PublishTopic="example"
-        [Trigger.EdgexMessageBus.Optional]
-        AuthMode = "usernamepassword"  # required for redis messagebus (secure or insecure).
-        SecretName = "redisdb"
-    ```
+#### External MQTT changes
 
-From the above example you can see the improved structure and the following changes:
-
-- Default `EdgexMessageBus` type has changed from `ZeroMQ` to `Redis`.
-- Type value for `Redis` has changed from `redistreams` to `redis`. This is because the implementation no longer uses Redis Streams. It now uses Redis Pub/Sub.
-- `SubscribeTopics` is now plural since it now accepts a comma separated list of topics. The default value uses a multi-level topic with a wild card. This is because Core Data and Device Services now publish to a multi-level topics which have`edgex/events` as their base. This allows Application Services to filter by topic rather then receive the data and then filter it out via a pipeline filter function. See the [Filter By Topics](../Triggers/#filter-by-topics) section for more details.
-- The EdgeX MessageBus using Redis is a Secure MessageBus, thus the addition of the `AuthMode` and `SecretName` settings which allow the credentials to be pulled from the service's SecretStore. See the [Secure MessageBus](../../../security/Ch-Secure-MessageBus) secure for more details.
-
-##### External MQTT
-
-If your Application service is using the **External MQTT** trigger do the following:
-
-1. Move your existing `MqttBroker` configuration under the `Trigger` section (renaming it to `ExternalMqtt`)
-2. Move your `SubscribeTopic` (renaming it to `SubscribeTopics`) under the `ExternalMqtt` section.
-3. Move your `PublishTopic` under the `ExternalMqtt` section.
+The **External MQTT** trigger configuration remains under **Trigger** configuration, but the `SubscribeTopics` and `PublishTopic` setting have been moved to the top level of the **Trigger** configuration. 
 
 !!! example "Example - External MQTT trigger configuration"
-
-    ```toml
-    [Trigger]
-    Type="external-mqtt"
-      [Trigger.ExternalMqtt]
-      Url = "tcp://broker.hivemq.com:1883"
-      SubscribeTopics = "edgex-trigger"
-      PublishTopic = "edgex-trigger-response"
-      ClientId = "app-my-service"
-      ConnectTimeout = "30s"
-      AutoReconnect = false
-      KeepAlive = 60
-      QoS = 0
-      Retain = false
-      SkipCertVerify = false
-      SecretPath = ""
-      AuthMode = "none"
+    ```yaml
+    Trigger:
+      Type: "external-mqtt"
+      SubscribeTopics: "external-request/#"
+      PublishTopic: "" # optional if publishing response back to the the External MQTT Broker
+      ExternalMqtt:
+        Url: "tcp://broker.hivemq.com:1883" #  fully qualified URL to connect to the MQTT broker
+        ClientId: "app-my-service"
+        ConnectTimeout: "30s" 
+        AutoReconnect: true
+        KeepAlive: 10 # Seconds (must be 2 or greater)
+        QoS: 0 # Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once)
+        Retain: true
+        SkipCertVerify: false
+        SecretName: "mqtt-trigger" 
+        AuthMode: "none"
     ```
 
-##### HTTP
+####  external-mqtt **Trigger** Migration
 
-The HTTP trigger configuration has not changed beyond the renaming of `Binding` to `Trigger`.
+1. Move your `SubscribeTopics` and `PublishTopic` top level of the **Trigger** configuration
 
-!!! example "Example - HTTP trigger configuration"
+#### HTTP Changes
 
-    ```toml
-    [Trigger]
-    Type="http"
-    ```
+The HTTP trigger configuration has not changed for EdgeX 3.0
+
+### Writable Pipeline
+
+See [Pipeline Configuration](#pipeline-configuration) section below for changes to the Writable Pipeline configuration
+
+## Custom Application Service 
 
 ### Code
 
 #### Dependencies
 
-You first need to update the `go.mod` file to specify `go 1.16` and the V2 versions of the App Functions SDK and any EdgeX go-mods directly used by your service. Note the extra `/v2` for the modules.
+You first need to update the `go.mod` file to specify `go 1.20` and the v3 versions of the App Functions SDK and any EdgeX go-mods directly used by your service. 
 
-!!! example "Example go.mod for V2"
+!!! example "Example go.mod for V3"
 
     ```go
     module <your service>
     
-    go 1.16
+    go 1.20
     
     require (
-    	github.com/edgexfoundry/app-functions-sdk-go/v2 v2.0.0
-    	github.com/edgexfoundry/go-mod-core-contracts/v2 v2.0.0
+    	github.com/edgexfoundry/app-functions-sdk-go/v3 v3.0.0
+    	github.com/edgexfoundry/go-mod-core-contracts/v3 v3.0.0
     )
     ```
 
-Once that is complete then the import statements for these dependencies must be updated to include the `/v2` in the path. 
+Once that is complete then the import statements for these dependencies must be updated to include the `/v3` in the path. 
 
-!!! example "Example import statements for V2"
+!!! example "Example import statements for V3"
 
     ```go
     import (
     	...
         
-    	"github.com/edgexfoundry/app-functions-sdk-go/v2/pkg/interfaces"
-    	"github.com/edgexfoundry/go-mod-core-contracts/v2/dtos"
+    	"github.com/edgexfoundry/app-functions-sdk-go/v3/pkg/interfaces"
+    	"github.com/edgexfoundry/go-mod-core-contracts/v3/dtos"
     )
     ```
 
-#### New APIs
+#### API Changes
 
-Next changes you will encounter in your code are that the `AppFunctionsSDK` and `Context` structs have been abstracted into the new `ApplicationService` and `AppFunctionContext` APIs. See the [Application Service API](../ApplicationServiceAPI) and [App Function Context API](../AppFunctionContextAPI) sections for complete details on these new APIs. The following sections cover migrating your code for these new APIs.
+##### ApplicationService API
 
-#### main()
+The `ApplicationService` API has the following changes:
 
-The following changes to your `main()` function will be necessary.
+1.  `SetFunctionsPipeline` has been removed. Use `SetDefaultFunctionsPipeline ` instead
+2. `MakeItRun` has been renamed to `Run`
+3. `MakeItStop` has been renamed to `Stop`
+4. `GetSecret` has been removed. Use `SecretProvider().GetSecret`
+5. `StoreSecret` has been removed. Use `SecretProvider().StoreSecret`
+6. `LoadConfigurablePipeline` has been removed. Use `LoadConfigurableFunctionPipelines`
+7. `CommandClient` `Get` API's `dsPushEvent` and `dsReturnEvent` parameters changed to be type `bool`
 
-##### Create and Initialize
+See [Application Service API](../ApplicationServiceAPI) section for completed details on this API, including some new capabilities.
 
-Your `main()` will change to use a factory function to create and initialize the Application Service instance, rather than create instance of `AppFunctionsSDK` and call `Initialize()` 
+##### AppFunctionContext API
 
-!!! example "Example - Create Application Service instance"
+The `AppFunctionContext ` API has the following changes:
 
-    ```go
-        const serviceKey = "app-myservice"
-        ...
-    
-        service, ok := pkg.NewAppService(serviceKey)
-        if !ok {
-            os.Exit(-1)
-        }
-    ```
+1. Deprecated `PushToCore` has been removed. Use [WrapIntoEvent](..//BuiltIn/#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](../Triggers/#publishtopic) or [Background Publisher](../ApplicationServiceAPI/#background-publisher-apis) sections for more details on publishing data back to the EdgeX MessageBus.
+2. `GetSecret` has been removed. Use `SecretProvider().GetSecret`
+3. `StoreSecret` has been removed. Use `SecretProvider().StoreSecret`
+4. `SecretsLastUpdated` has been removed. Use `SecretProvider().SecretsLastUpdated`
+5. `CommandClient` `Get` API's `dsPushEvent` and `dsReturnEvent` parameters changed to be type `bool`
 
-!!! example "Example - Create Application Service instance with Target Type specified"
+#### Pipeline Functions
 
-    ```go
-        const serviceKey = "app-myservice"
-        ...
-    
-        service, ok := pkg.NewAppServiceWithTargetType(serviceKey, &[]byte{})
-        if !ok {
-            os.Exit(-1)
-        }
-    ```
+- **AESProtection**
+    - `NewAESProtection` signature has changes. 
+        - `secretName ` parameter renamed to`secretValueKey` 
+        - `secretPath` parameter renamed to `secretName ` 
+    - `Encrypt` pipeline function now require a `*AESProtection` for the receiver
+    - `NewAESProtection` now returns a `*AESProtection`
+- **Compression**
+    - All `Compression` pipeline functions now require a `*Compression` for the receiver
+    - `NewCompression` now returns a `*Compression`
+- **Conversion**
+    - All `Conversion` pipeline functions now require a `*Conversion` for the receiver
+    - `NewConversion` now returns a `*Conversion`
+- **CoreData**- Removed
+    - The deprecated `PushToCoreData ` function has been removed. Use [WrapIntoEvent](..//BuiltIn/#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](../Triggers/#publishtopic) or [Background Publisher](../ApplicationServiceAPI/#background-publisher-apis) sections for more details on publishing data back to the EdgeX MessageBus.
+- **Encryption** - Removed
+    - The deprecated `EncryptWithAES` function has been removed, use `AESProtection.Encrypt` instead. See [AES Protection](../BuiltIn/#aesprotection) for more details
+- **Filter**
+    - All `Filter` pipeline functions now requires a `*Filter` for the receiver
+    - `NewFilterFor` and `NewFilterOut` now return a `*Filter`
+- **HTTPSender**
+    - `NewHTTPSenderWithSecretHeader` signature has changed
+        - `secretName ` parameter renamed to`secretValueKey` 
+        - `secretPath` parameter renamed to `secretName ` 
+- **JSONLogic**
+    - `Evaluate` pipeline function now requires a `*JSONLogic` for the receiver
+    - `NewJSONLogic` now returns a `*JSONLogic`
+- **MQTTSecretSender**
+    - `MQTTSecretConfig ` has changed
+        - `SecretPath` field renamed to `SecretName ` 
+- **ResponseData**
+    - `SetResponseData` pipeline function now requires a `*ResponseData` for the receiver
+    - `NewResponseData` now returns a `*ResponseData`
+- **Tags**
+    - Factory function `NewGenericTags` has been removed and replaced with new version of `NewTags` which takes ` map[string]interface{}` for the `tags` parameter.
+    - `NewTags` now returns a `*Tags`
 
-Since the factory function logs all errors, all you need to do is exit if it returns `false`. 
+## App Service Configurable
 
-##### Logging Client
+### Profiles
 
-The `Logging` client is now accessible from the `service.LoggingClient()` API. 
+- `PushToCore` profile has been removed. Use [WrapIntoEvent](..//BuiltIn/#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](../Triggers/#publishtopic) or [Background Publisher](../ApplicationServiceAPI/#background-publisher-apis) sections for more details on publishing data back to the EdgeX MessageBus.
 
-!!! note "New extended Logging Client API"
-    The Logging Client API now has `formatted` versions of all the logging APIs, which are `Infof`, `Debugf`, `Tracef`, `Warnf `and `Errorf`. If your code uses `fmt.Sprintf` to format your log messages then it can now be simplified by using these new APIs.
+### Custom Profiles
 
-##### Application Settings
+Custom profiles for App Service Configurable must be migrated in a similar fashion to the configuration for custom application services.  All configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom profiles. See [Common Service Configuration](../../configuration/CommonConfiguration/) section for details about configuration that is common to all Edgex services. See [Application Service Configuration](../GeneralAppServiceConfig) section for details about configuration that is common to all EdgeX Application Services. Use the App Service Configurable provided profiles as examples of what configuration is left after removing the common configuration.
 
-The access functions for retrieving the service's custom Application Settings (`ApplicationSettings`, `GetAppSettingStrings`,  and `GetAppSetting` ) have not changed. An improved capability to have structured custom configuration has been added. See the [Structure Custom Configuration](../AdvancedTopics/#structure-custom-configuration) section for more details.
+### Pipeline Configuration
 
-##### Functions Pipeline
+- **Writable.Pipeline.TargetType** has change from a bool to a string with valid values or `raw`, `event` or `metric`
+- Topic wild cards have changed to conform 100% with MQTT scheme. The `#` between level has be replaced with `+` . See [Multi-level topics and wildcards](../../general/messagebus/#multi-level-topics-and-wildcards) for more details.
+- **HTTPExport** function configuration
+    - Parameter `SecretName`  renamed to be  `SecretValueKey`  
+    - Parameter `SecretPath` renamed to be `SecretName` 
+- **Encrypt** function configuration 
+    - Parameter `SecretName`  renamed to be  `SecretValueKey`  
+    - Parameter `SecretPath` renamed to be `SecretName` 
 
-Setting the  Functions Pipeline has not changed, but the name of some built in functions have changed and new ones have been added. See the [Built-In Pipeline Functions](../BuiltIn) section for more details.
+### Environment Variable Overrides
 
-!!! example "Example - Setting Functions Pipeline"
-
-    ```go
-    if err := service.SetFunctionsPipeline(
-    	transforms.NewFilterFor(deviceNames).FilterByDeviceName,
-    	transforms.NewConversion().TransformToXML,
-    	transforms.NewHTTPSender(exportUrl, "application/xml", false).HTTPPost,
-    ); err != nil {
-    	lc.Errorf("SetFunctionsPipeline returned error: %s", err.Error())
-    	os.Exit(-1)
-    }
-    ```
-
-##### MakeItRun
-
-The `MakeItRun` API has not changed.
-
-!!! example "Example - Call to MakeItRun"
-
-    ```go
-    err = service.MakeItRun()
-    if err != nil {
-    	lc.Errorf("MakeItRun returned error: %s", err.Error())
-    	os.Exit(-1)
-    }
-    ```
-
-#### Custom Pipeline Functions
-
-##### Pipeline Function signature
-
-The major change to custom Pipeline Functions for EdgeX 2.0 is the new function signature which drives all the other changes.
-
-!!! example "Example - New Pipeline Function signature"
-
-    ```go
-    type AppFunction = func(ctx AppFunctionContext, data interface{}) (bool, interface{})
-    ```
-
-This function signature passes in an instance of the new AppFunctionContext API for the context and now has only a single `data` instance for the function to operate on.
-
-##### Return Values
-
-The definitions for the Pipeline Function return values have not changed.
-
-##### Data
-
-The `data` passed in is set either to a data object for the function to process or nil.  Check the length of the incoming data is no longer needed. The default `TargetType` for pipeline functions has changed from `models.Event` to `dtos.Event`. The data type should be validated to ensure the data received is the type the function expects to process.
-
-!!! example - "Example - Validating data before processing"
-
-    ```go
-    	if data == nil {
-    		return false, errors.New("No Data Received")
-    	}
-    	
-    	event, ok := data.(dtos.Event)
-        if !ok {
-            return false, fmt.Errorf("data type received is not an Event")
-        }
-    ```
-
-!!! note
-    The `models.Event` still exists, but is for internal use only for those services that persist the `Events` to a database.
-
-##### Logging Client
-
-The `Logging` client is now accessible from the `ctx.LoggingClient()` API. 
-
-##### Clients
-
-The available clients have changed with a few additions and `ValueDescriptorClient` has been removed. See the [Context Clients](../AppFunctionContextAPI/#clients) section for complete list of available clients.
-
-##### ResponseData
-
-The `SetResponseData` and `ResponseData` APIs replace the previous `Complete` function and direct access to the `OutputData` field.
-
-##### ResponseContentType
-
-The `SetResponseContentType` and `ResponseContentType` APIs replace the previous direct access to the `ResponseContentType` field.
-
-##### RetryData
-
-The `SetRetryData` API replaces the `SetRetryData` function and direct access to the `RetryData` field.
-
-##### MarkAsPushed
-
-The `MarkAsPushed` capability has been removed
-
-##### PushToCore
-
-The `PushToCore` API replaces the `PushToCoreData` function. The API signature has changed. See the [PushToCore](../AppFunctionContextAPI/#pushtocore) section for more details.
-
-##### New Capabilities
-
-Some new capabilities have been added to the new `AppFunctionContext` API. See the [App Function Context](../AppFunctionContextAPI) API section for complete details.
-
-## App Service Configurable Profiles
-
-Custom profiles used with App Service Configurable are configuration files. These follow the same migration above for custom  [Application Service configuration](#configuration), except for the Configurable Functions Pipeline items.  The following are the changes for the Configurable Functions Pipeline:
-
-1. `FilterByValueDescriptor` changed to `FilterByResourceName`. See the [FilterByResourceName](../AppServiceConfigurable/#filterbyresourcename) section for details.
-2. `TransformToXML` and `TransformToJSON` have been collapsed into `Transform` with additional parameters. See the [Transform](../AppServiceConfigurable/#transform) section for more details.
-3. `CompressWithGZIP` and `CompressWithZLIB` have been collapsed into `Compress` with additional parameters. See the [Compress](../AppServiceConfigurable/#compress) section for more details.
-4. `EncryptWithAES` has been changed to `Encrypt` with additional parameters. See the [Encrypt](../AppServiceConfigurable/#encrypt) section for more details.
-5. `BatchByCount`, `BatchByTime` and `BatchByTimeAndCount` have been collapsed into `Batch` with additional parameters. See the [Batch](../AppServiceConfigurable/#batch) section for more details.
-6. `SetOutputData` has been renamed to `SetResponseData`. See the [SetResponseData](../AppServiceConfigurable/#setresponsedata) section for more details.
-7. `PushToCore` parameters have changed. See the [PushToCore](../AppServiceConfigurable/#pushtocore) section for more details.
-8. `HTTPPost`, `HTTPPostJSON`, `HTTPPostXML`, `HTTPPut`, `HTTPPutJSON` and `HTTPPutXML` have been collapsed into `HTTPExport` with additional parameters. See the [HTTPExport](../AppServiceConfigurable/#httpexport) section for more details.
-9. `MQTTSecretSend` has been renamed to `MQTTExport` with additional parameters. See the [MQTTExport](../AppServiceConfigurable/#mqttexport) section for more details.
-10. `MarkAsPushed` has been removed. The mark as push capability has been removed from Core Data, which this depended on.
-11. `MQTTSend` has been removed. This has been replaced by `MQTTExport`. See the [MQTTExport](../AppServiceConfigurable/#mqttexport) section for more details.
-12. `FilterByProfileName` and `FilterBySourceName` have been added. See the [FilterByProfileName](../AppServiceConfigurable/#filterbyprofilename) and  [FilterBySourceName](../AppServiceConfigurable/#filterbysourcename) sections for more details.
-13. Ability to define multiple instances of the same Configurable Pipeline Function has been added. See the [Multiple Instances of Function](../AppServiceConfigurable/#multiple-instances-of-function) section for more details.
-
+Environment variable overrides must be adjusted appropriately for the above changes. Remove any overrides that apply to common configuration.
