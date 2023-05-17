@@ -23,7 +23,7 @@ The EdgeX MessageBus configuration has been moved out of the Trigger configurati
    MessageBus:
      Disabled: false  # Set to true if not using metrics and not using `edgex-messagebus` Trigger type
      Optional:
-       ClientId: "<service-key"
+       ClientId: "<service-key>"
    ```
 
 ### Trigger
@@ -44,13 +44,13 @@ As noted above the EdgeX MessageBus configuration has been removed from the **Tr
 # Using default Trigger config from common config
 ```
 
-Some application service many need to publish result back to the EdgeX MessageBus. In this case the `PublisTopic` will remain in the service private configuration.
+Some application service many need to publish result back to the EdgeX MessageBus. In this case the `PublishTopic` will remain in the service private configuration.
 
 !!! example - "Example local application service Trigger configuration - **PublishTopic**"
     ```yaml
     Trigger:
       # Default value for SubscribeTopics is aslo set in common config
-      PublishTopic: "<my-topic"  # Base topic is prepended to this topic when using edgex-messagebus
+      PublishTopic: "<my-topic>"  # Base topic is prepended to this topic when using edgex-messagebus
     ```
 
 !!! note
