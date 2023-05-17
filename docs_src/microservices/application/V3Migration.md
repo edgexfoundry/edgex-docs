@@ -6,14 +6,17 @@ The migration of any Application Service's configuration starts with migrating c
 
 ### Common Configuration Removed
 
-All configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom application service's private configuration. See [Common Service Configuration](../../configuration/CommonConfiguration/) section for details about configuration that is common to all Edgex services. See [Application Service Configuration](../GeneralAppServiceConfig) section for details about configuration that is common to all EdgeX Application Services.
+Any configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom application service's private configuration. 
+
+- See [Common Service Configuration](../../configuration/CommonConfiguration/) section for details about configuration that is common to all Edgex services. 
+- See [Application Service Configuration](../GeneralAppServiceConfig) section for details about configuration that is common to all EdgeX Application Services.
 
 !!! note
-    With this change, the your custom application service must be run with either the `-cp/--configProvider` flag or the `-cc/--commonConfig` flag in order for the service to receive the common configuration that has been removed from its private configuration. See [Config Provider](../../configuration/CommonCommandLineOptions/#config-provider) and [Common Config](../../configuration/CommonCommandLineOptions/#common-config) sections for more details on these flags.
+    With this change, the any custom application service must be run with either the `-cp/--configProvider` flag or the `-cc/--commonConfig` flag in order for the service to receive the common configuration that has been removed from its private configuration. See [Config Provider](../../configuration/CommonCommandLineOptions/#config-provider) and [Common Config](../../configuration/CommonCommandLineOptions/#common-config) sections for more details on these flags.
 
 ### MessageBus
 
-The EdgeX MessageBus configuration has been moved out of the Trigger configuration and most values are pulled from the common configuration. The only values that need to be in the application service's private configuration are:
+The EdgeX MessageBus configuration has been moved out of the Trigger configuration and most values are placed in the common configuration. The only values remaining in the application service's private configuration are:
 
 - `Disabled` - Used to disable the use of the EdgeX MessageBus when not using metrics and not using `edgex-messagebus` Trigger type. Value need to be present so that it can be overridden with environment variable.
 - `Optional.ClientId` - Unique name needed for when MQTT or NATS are used as the MessageBus implementation.
@@ -44,7 +47,7 @@ As noted above the EdgeX MessageBus configuration has been removed from the **Tr
 # Using default Trigger config from common config
 ```
 
-Some application service many need to publish result back to the EdgeX MessageBus. In this case the `PublishTopic` will remain in the service private configuration.
+Some application services may need to publish results back to the EdgeX MessageBus. In this case the `PublishTopic` will remain in the service private configuration.
 
 !!! example - "Example local application service Trigger configuration - **PublishTopic**"
     ```yaml
@@ -54,7 +57,7 @@ Some application service many need to publish result back to the EdgeX MessageBu
     ```
 
 !!! note
-    In EdgeX 3.0 Application services, the base topic set in MessageBus common configuration is prepended to the configured `SubscribeTopics` and `PublishTopic` values. The default base topic is set to `edgex` so that all topics start with `edgex/`
+    In EdgeX 3.0 Application services, the base topic in MessageBus common configuration is prepended to the configured `SubscribeTopics` and `PublishTopic` values. The default base topic is `edgex`; thus,  all topics start with `edgex/`
 
 #### edgex-messagebus Trigger Migration
 
@@ -228,4 +231,4 @@ Custom profiles for App Service Configurable must be migrated in a similar fashi
 
 ### Environment Variable Overrides
 
-Environment variable override must be adjusted appropriately for the above changes. Remove those overrides that apply to any common configuration.
+Environment variable overrides must be adjusted appropriately for the above changes. Remove any overrides that apply to common configuration.
