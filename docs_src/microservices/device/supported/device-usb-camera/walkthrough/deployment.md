@@ -114,72 +114,9 @@ Follow this guide to deploy and run the service.
     !!! note
         If you want to disable rtsp authentication entirely, you must [build a custom image](../walkthrough/custom-build.md).
 
-    === "Scripts"
-
-        !!! note 
-            If running in secure mode the [JWT token](../../../../../security/Ch-APIGateway.md#creating-access-token-for-api-gateway-authentication) is needed for mapping credentials.
-
-        a. Enter JWT token if in secure mode.  
-            ![](../images/enter-jwt-token.png)  
-        b. Set the username.  
-            ![](../images/set-username.png)  
-        c. Set the password.  
-            ![](../images/set-username.png)  
-
-        Successful:
-        ```bash
-        Dependencies Check: Success
-            Consul Check: ...
-                            [
-        {
-            "Resource": "key",
-            "Access": "read",
-            "Allow": false
-        },
-        {
-            "Resource": "key",
-            "Access": "write",
-            "Allow": false
-        }
-        ]
-
-        curl --data '{
-            "apiVersion":"v3",
-            "secretName": "rtspauth",
-            "secretData":[
-                {
-                    "key":"username",
-                    "value":"username"
-                },
-                {
-                    "key":"password",
-                    "value":"<redacted>"
-                }
-            ]
-        }' -H Authorization:Bearer <redacted> -X POST http://localhost:59983/api/v3/secret
-        Response [201] {
-        "apiVersion": "v3",
-        "statusCode": 201
-        }
-
-
-        Success
-        ```
-        
-    === "Consul UI"
-        !!! note 
-                If running in secure mode, these instructions do not apply.
-
-        1. Navigate to the [Consul UI](http://localhost:8500/ui/dc1/kv/edgex/v3/device-usb-camera/Writable/InsecureSecrets/rtspauth/SecretData/)
-
-        1. Select the username option and input the username.
-
-        1. Select the password option and input the password.
-    
-    === "Secure mode Curl"
-        1. Enter your chosen credentials in this command to set the secure secrets.
-
-        !!! example - "Example credential command"
+=== "Non-secure Mode" 
+    1. Enter your chosen username and password into this command, and then execute it to set the insecure secrets.
+    !!! example - "Example credential command"
             ```bash
             curl --data '{
                 "apiVersion":"v3",
@@ -194,8 +131,33 @@ Follow this guide to deploy and run the service.
                         "value":"<pick-a-secure-password>"
                     }
                 ]
-            }' -H Authorization:Bearer "<enter your JWT token here (make get-token)>" -X POST http://localhost:59983/api/v3/secret
+            }' -X POST http://localhost:59983/api/v3/secret
             ```
+=== "Secure Mode"  
+    1. Navigate to the `edgex-compose/compose-builder` directory.
+    1. Generate a JWT token
+        ```bash
+        make get-token
+        ```
+    1. Enter your chosen username and password, and the generated JWT into this command, and then execute it to set the secure secrets.
+    !!! example - "Example credential command"
+        ```bash
+        curl --data '{
+            "apiVersion":"v3",
+            "secretName": "rtspauth",
+            "secretData":[
+                {
+                    "key":"username",
+                    "value":"<pick-a-username>"
+                },
+                {
+                    "key":"password",
+                    "value":"<pick-a-secure-password>"
+                }
+            ]
+        }' -H Authorization:Bearer "<enter your JWT token here (make get-token)>" -X POST http://localhost:59983/api/v3/secret
+        ```
+
 
 ## Manage Devices
 
