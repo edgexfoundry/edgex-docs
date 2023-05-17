@@ -7,6 +7,7 @@ This section describes how to migrate from V2 to V3  at a high level and refers 
 
 - [Customized Configuration](#customized-configuration)
 - [Custom Compose File](#custom-compose-file)
+- [Command-Line Flags and Environment Variables](#command-line-flags-and-environment Variables)
 - [Database](#database)
 - [Custom Device Service](#custom-device-service)
 - [Custom Device Profile](#custom-device-profile)
@@ -83,6 +84,22 @@ The latest V3 compose files can be found here: [Compose Files](https://github.co
 If the additional service(s) in your custom compose file are EdgeX released device or app services, it is highly recommended that you use the Compose Builder to regenerate your custom compose file. 
 
 The latest V3 Compose Builder can be found here: [Compose Builder Readme](https://github.com/edgexfoundry/edgex-compose/tree/{{version}}/compose-builder/README.md) 
+
+## Command-Line Options and Environment Variables
+
+The following command-line options and corresponding environment variables have be renamed for consistency
+
+-  `-c/--confdir`  is replaced by `-cd/--configDir`
+    - `EDGEX_CONF_DIR` environment variable is replaced by `EDGEX_CONFIG_DIR`
+-  `-f/--file`  is replaced by `-cf/--configFile` 
+    - `EDGEX_CONFIG_FILE` has not changed
+-  `-cp/ --configProvider` has not changed
+  -  `EDGEX_CONFIGURATION_PROVIDER` environment variable is replaced by `EDGEX_CONFIG_PROVIDER`
+
+
+If your solution uses any of the renamed options or environment variables you will need to make the appropriate changes to use the new names.
+
+See [Command Line Options](../microservices/configuration/CommonCommandLineOptions/#config-provider) page for more details on the above options and the [Command-line Overrides](../microservices/configuration/CommonEnvironmentVariables/#command-line-overrides) section for more details on the above environment variables
 
 ## Database
 
