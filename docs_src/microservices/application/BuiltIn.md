@@ -104,17 +104,6 @@ There are two conversions included in the SDK that can be added to your pipeline
     ```go
     NewConversion().TransformToXML
     ```
-
-## Core Data 
-
-There is one Core Data function that enables interactions with the Core Data REST API
-
-| Factory Method                                                                                         | Description                                                                                                                                                         |
-|--------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| NewCoreDataSimpleReading(profileName string, deviceName string, resourceName string, valueType string) | This factory function returns a `CoreData` instance configured to push a `Simple` reading. The`CoreData` instance returned  is used to access core data functions.  |
-| NewCoreDataBinaryReading(profileName string, deviceName string, resourceName string, mediaType string) | This factory function returns a `CoreData` instance configured to push a `Binary` reading. The `CoreData` instance returned  is used to access core data functions. |
-| NewCoreDataObjectReading(profileName string, deviceName string, resourceName string)                   | This factory function returns a `CoreData` instance configured to push an `Object` reading. The `CoreData` instance returned is used to access core data functions. |
-
 ## Event
 
 This enables the ability to wrap data into an Event/Reading
