@@ -9,7 +9,7 @@ The migration of any Application Service's configuration starts with migrating c
 All configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom application service's private configuration. See [Common Service Configuration](../../configuration/CommonConfiguration/) section for details about configuration that is common to all Edgex services. See [Application Service Configuration](../GeneralAppServiceConfig) section for details about configuration that is common to all EdgeX Application Services.
 
 !!! note
-    With this change, the your custom application service must be run with either the `-cp--configProvider` flag or the `-cc/-commonConfig` flag in order for the service to receive the common configuration that has been removed from its private configuration. See [Config Provider](../../configuration/CommonCommandLineOptions/#config-provider) and [Common Config](../../configuration/CommonCommandLineOptions/#common-config) sections for more details on these flags.
+    With this change, the your custom application service must be run with either the `-cp/--configProvider` flag or the `-cc/--commonConfig` flag in order for the service to receive the common configuration that has been removed from its private configuration. See [Config Provider](../../configuration/CommonCommandLineOptions/#config-provider) and [Common Config](../../configuration/CommonCommandLineOptions/#common-config) sections for more details on these flags.
 
 ### MessageBus
 
