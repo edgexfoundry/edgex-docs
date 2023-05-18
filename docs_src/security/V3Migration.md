@@ -5,7 +5,7 @@
 EdgeX 3.0 ("Minnesota") release implements a significant change to its security architecture.
 
 In EdgeX "Fuji" release, EdgeX introduced an opt-in secure mode that featured
-a secret store capability based on Hashicorp Vault and a API gateway based on Kong.
+a secret store capability based on Hashicorp Vault and an API gateway based on Kong.
 The API gateway served to separate the outside Internet-facing network, which was "untrusted",
 from the internally-facing network, which was a "trusted".
 
@@ -13,8 +13,9 @@ EdgeX 3.0 takes significant steps to put limits on that trust.
 Whereas in EdgeX 1.0 and 2.0, microservice security was enforced at the API gateway,
 in EdgeX 3.0 microservice security is now also enforced at the individual microservice level.
 EdgeX 2.0 already enabled authentication for third-party components such as the EdgeX database,
-the EdgeX registry, the EdgeX configuration store, the EdgeX secret store, the EdgeX API gateway,
-and the EdgeX message bus, but the EdgeX microservices themselves did not require authentication
+the EdgeX service registry, the EdgeX configuration provider, the EdgeX secret store,
+the EdgeX API gateway and the EdgeX message bus, 
+but the EdgeX microservices themselves did not require authentication
 if the request originated from behind the API gateway.
 In EdgeX 3.0, even internal calls to EdgeX microservices now require an authentication token.
 
@@ -86,6 +87,8 @@ that worked fine in EdgeX 2.0 that may suddenly experience authentication failur
 This new behavior may also create issues for 3rd party components,
 such as the eKuiper rules engine,
 because of its ability to issue ad-hoc HTTP requests in response to certain events.
+The [main V3 migration guide](https://docs.edgexfoundry.org/3.0/V3TopLevelMigration/#secure-mode)
+contains specific guidance for handling eKuiper rules that call back in to EdgeX.
 
 To revert to legacy EdgeX 2.0 behavior--no authentication at the microservice level--
 set the environment variable `EDGEX_DISABLE_JWT_VALIDATION` to `true`.
@@ -104,11 +107,12 @@ explains in greater detail how to use these two methods.
 
 ## Breaking Changes to API Gateway TLS Configuration
 
-Some minor changes have been made to the `secrets-config proxy tls` command.
-For starters, the `--snis` argument is no longer supported--the
-supplied TLS certificate and key will be used for all TLS connections.
-Other minor changes include renaming `--incert` to `--inCert`
-and `--inkey` to `--inKey`, for example.
+Some minor changes have been made to the `secrets-config proxy tls` command:
+
+- The `--snis` argument is no longer supported:
+  the supplied TLS certificate and key will be used for all TLS connections.
+- The `--incert` option is renamed to `--inCert`, and
+- The `--inkey` option is renamed to `--inKey` for consistency of flag names.
 
 
 ## References
