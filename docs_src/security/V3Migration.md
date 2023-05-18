@@ -114,6 +114,19 @@ Some minor changes have been made to the `secrets-config proxy tls` command:
 - The `--incert` option is renamed to `--inCert`, and
 - The `--inkey` option is renamed to `--inKey` for consistency of flag names.
 
+## Breaking Environment Variable Changes
+
+Several security-related environment variables have been renamed in EdgeX 3.0:
+
+
+| Old Name                       | New Name                        |
+| ------------------------------ | ------------------------------- |
+| ADD_KNOWN_SECRETS              | EDGEX_ADD_KNOWN_SECRETS         |
+| ADD_PROXY_ROUTE                | EDGEX_ADD_PROXY_ROUTE           |
+| ADD_REGISTRY_ACL_ROLES         | EDGEX_ADD_REGISTRY_ACL_ROLES    |
+| ADD_SECRETSTORE_TOKENS         | EDGEX_ADD_SECRETSTORE_TOKENS    |
+| IKM_HOOK                       | EDGEX_IKM_HOOK                  |
+
 
 ## References
 
