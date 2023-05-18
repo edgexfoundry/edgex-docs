@@ -268,7 +268,7 @@ curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsS
             "deviceName" : "Camera003",
             "id" : "6fca707b-3c52-4694-be37-2e23ecf65de1",
             "objectValue" : {
-               "AnalyticsSupportedRules" : {
+               "SupportedRules" : {
                   "RuleDescription" : [
                      ....
                      {
