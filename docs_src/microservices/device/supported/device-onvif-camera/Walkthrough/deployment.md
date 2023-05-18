@@ -214,7 +214,7 @@ Follow these instructions to update devices.
 1. Edit the information to appropriately match the camera. The fields `Address`, `MACAddress` and `Port` should match that of the camera:
 
     !!! note
-        If running in secure mode all the api executions need the JWT token generated previously.
+        If running in secure mode the commands might need the JWT or consul token generated previously.
 
     ```bash
     curl -X POST -H 'Content-Type: application/json'  \
@@ -259,7 +259,55 @@ Follow these instructions to update devices.
     !!! note
         If running in secure mode all the api executions need the [JWT token](#token-generation) generated previously.
 
-    a. Check the status of the credentials map.
+    
+    a. Enter your chosen credentials name and then execute the command to set the mapping name.
+
+    !!! note
+        To edit credentials, this command may be skipped, and then use one of the existing credential mappings in the following commands.
+
+    ```bash
+    curl --data '<creds-name>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretName"
+    ```
+    
+    b. Enter your chosen credentials name and then execute the command to create the mapping.
+    ```bash
+    curl -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
+    ```
+
+    c. Enter your chosen username, password and credentials name and then execute the command to create the mapping.
+    curl --data '{
+                "apiVersion":"v3",
+                "secretName": "<creds-name>",
+                "secretData":[
+                    {
+                        "key":"username",
+                        "value":"<username>"
+                    },
+                    {
+                        "key":"password",
+                        "value":"<password>"
+                    }
+                ]
+            }' -H Authorization:Bearer "<enter your JWT token here>" -X POST "http://localhost:59983/api/v3/secret"
+
+    d. Enter your chosen authentication method and the name of the corresponding credentials, and then execute the command to set the authentication method.
+        
+    !!! note
+        The options are: `usernametoken`, `digest`, or `both`
+
+    ```bash
+    curl --data '<auth-method>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/mode"
+    ```
+
+    e. Enter your the mac-address(es) and then execute the command to add the mac address(es) to the mapping.
+    !!! note
+        If you want to map multiple mac addresses, enter a comma separated list in the command
+
+    ```bash
+    curl --data '<mac-address>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
+    ```
+    
+    f. Check the status of the credentials map.
     ```bash
     curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap?keys=true" | jq .
     ```
@@ -272,50 +320,7 @@ Follow these instructions to update devices.
     ]
     ```
 
-        
-
-    b. Enter your chosen credentials name and then execute the command to set the mapping name.
-
-    !!! note
-        To edit credentials, this command may be skipped, and then use one of the existing credentials from the previous response in the following commands.
-
-    ```bash
-    curl --data '<creds-name>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretName"
-    ```
-    
-    c. Enter your chosen username and the name of the corresponding credentials, and then execute the command to set the username.
-    ```bash
-    curl --data '<username>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<creds-name>/SecretData/username"
-    ```
-
-    d. Enter your chosen password and the name of the corresponding credentials, and then execute the command to set the password.
-    ```bash
-    curl --data '<password>' -H "X-Consul-Token:<consul-token>"-X PUT 'http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<creds-name>/SecretData/password'"
-    ```
-
-    e. Enter your chosen authentication method and the name of the corresponding credentials, and then execute the command to set the authentication method.
-        
-    !!! note
-        The options are: `usernametoken`, `digest`, or `both`
-
-    ```bash
-    curl --data '<auth-method>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/mode"
-    ```
-
-    f. Enter your chosen credentials name and then execute the command to create the mapping.
-    ```bash
-    curl -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
-    ```
-
-    g. Enter your the mac-address(es) and then execute the command to add the mac address(es) to the mapping.
-    !!! note
-        If you want to map multiple mac addresses, enter a comma separated list in the command
-
-    ```bash
-    curl --data '<mac-address>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
-    ```
-    
-    h. To query the mappings, enter the credentials name in this command and execute it.
+    g. To query the mappings, enter the credentials name in this command and execute it.
     ```bash
     curl -H "X-Consul-Token:<consul-token> -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>?raw=true"
     ```
