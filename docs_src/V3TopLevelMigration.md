@@ -7,7 +7,7 @@ This section describes how to migrate from V2 to V3  at a high level and refers 
 
 - [Customized Configuration](#customized-configuration)
 - [Custom Compose File](#custom-compose-file)
-- [Command-Line Flags and Environment Variables](#command-line-flags-and-environment Variables)
+- [Command Line Options](#command-line-options)
 - [Database](#database)
 - [Custom Device Service](#custom-device-service)
 - [Custom Device Profile](#custom-device-profile)
@@ -85,7 +85,7 @@ If the additional service(s) in your custom compose file are EdgeX released devi
 
 The latest V3 Compose Builder can be found here: [Compose Builder Readme](https://github.com/edgexfoundry/edgex-compose/tree/{{version}}/compose-builder/README.md) 
 
-## Command-Line Options and Environment Variables
+## Command Line Options
 
 The following command-line options and corresponding environment variables have be renamed for consistency
 
@@ -99,7 +99,7 @@ The following command-line options and corresponding environment variables have 
 
 If your solution uses any of the renamed options or environment variables you will need to make the appropriate changes to use the new names.
 
-See [Command Line Options](../microservices/configuration/CommonCommandLineOptions/#config-provider) page for more details on the above options and the [Command-line Overrides](../microservices/configuration/CommonEnvironmentVariables/#command-line-overrides) section for more details on the above environment variables
+See [Command Line Options](../microservices/configuration/CommonCommandLineOptions/#config-provider) page for more details on the above options and the [Command Line Overrides](../microservices/configuration/CommonEnvironmentVariables/#command-line-overrides) section for more details on the above environment variables
 
 ## Database
 
