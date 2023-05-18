@@ -250,7 +250,10 @@ Follow these instructions to update devices.
     [{"apiVersion":"v3","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
     ```
     
-2. Map credentials using the `map-credentials.sh` script.  
+2. Map the credentials for the camera.
+
+!!! note
+    The preferred method for setting the credentials is through the use of the curl commands.
 
 === "Curl Command"
     !!! note

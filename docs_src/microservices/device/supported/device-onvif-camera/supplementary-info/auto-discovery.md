@@ -51,7 +51,6 @@ Example Output: `192.168.1.0/24`
     DiscoverySubnets: "192.168.1.0/24" # Fill in with your actual subnet(s)
     ```
 
-
 === "Docker / Env Vars"
 
     Define the following environment variables in `docker-compose.yaml`:
