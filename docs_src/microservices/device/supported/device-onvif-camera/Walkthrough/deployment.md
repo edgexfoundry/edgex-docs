@@ -26,11 +26,13 @@ Follow this guide to deploy and run the service.
          ```bash
          make run ds-onvif-camera
          ```
+
+        ### Token Generation
         !!! note
             Need to wait for sometime for the services to be fully up before executing the next set of commands.
             Securely store Consul ACL token and the JWT token generated which are needed to map credentials and execute apis.
-            It is not recommended to store these secrets in cleartext in your machine.
-
+            It is not recommended to store these secrets in cleartext in your machine. 
+        
         ```bash
         make get-consul-acl-token
         make get-token
@@ -42,6 +44,7 @@ Follow this guide to deploy and run the service.
             It allows for external clients to be verified when issuing REST requests to the microservices. 
             For more info refer [Secure Consul](../../../../../security/Ch-Secure-Consul.md), [API Gateway](../../../../../security/Ch-APIGateway.md) 
             and [Edgex Security](../../../../../security/Ch-Security.md).
+
 
 === "Native"
 
@@ -81,78 +84,75 @@ Follow this guide to deploy and run the service.
 ## Verify Service and Device Profiles
 
 === "via Command Line"
-      1. Check the status of the container:
+    1. Check the status of the container:
 
-         ```bash 
-         docker ps
-         ```
+        ```bash 
+        docker ps
+        ```
 
-         The status column will indicate if the container is running, and how long it has been up.
+        The status column will indicate if the container is running, and how long it has been up.
 
-         Example Output:
+        Example Output:
 
-         ```docker
-         CONTAINER ID   IMAGE                                                       COMMAND                  CREATED       STATUS          PORTS                                                                                         NAMES
-         33f9c5ecb70e   nexus3.edgexfoundry.org:10004/device-onvif-camera:latest    "/device-onvif-camer…"   7 weeks ago   Up 48 minutes   127.0.0.1:59985->59985/tcp                                                                    edgex-device-onvif-camera
-         ```
+        ```docker
+        CONTAINER ID   IMAGE                                                       COMMAND                  CREATED       STATUS          PORTS                                                                                         NAMES
+        33f9c5ecb70e   nexus3.edgexfoundry.org:10004/device-onvif-camera:latest    "/device-onvif-camer…"   7 weeks ago   Up 48 minutes   127.0.0.1:59985->59985/tcp                                                                    edgex-device-onvif-camera
+        ```
 
-      2. Check whether the device service is added to EdgeX:
+    2. Check whether the device service is added to EdgeX:
 
-         <div class="admonition note">
-             <p class="admonition-title">Note</p>
-             <p>If running in secure mode all the api executions need the JWT token generated previously. E.g.
-                ```bash
-                curl --location --request GET 'http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera' \
-                --header 'Authorization: Bearer eyJhbGciOiJFUzM4NCIsImtpZCI6ImIzNTY3ZmJjLTlhZTctMjkyNy0xY2IxLWE2NzAzZGQwMWM1ZCJ9.eyJhdWQiOiJlZGdleCIsImV4cCI6MTY4MjcyNDExMCwiaWF0IjoxNjgyNzIwNTEwLCJpc3MiOiIvdjEvaWRlbnRpdHkvb2lkYyIsIm5hbWUiOiJlZGdleHVzZXIiLCJuYW1lc3BhY2UiOiJyb290Iiwic3ViIjoiMTA2NzczMDItMmY0Yi00MjE4LTFhZmUtNzZlOTYwMGJiMmQ5In0.NP0deI0HyQMvdsFwk85N5RwNpgh5lUa507z9Ft2CDT9OEeR8iYOLYmwRLZim3j_BoVSdWxiJf3tmnWo64-mffHoktbFSRooQveakAeoFYuvCXu7tO1-b-QGzzzyWfSjc' \
-                --data-raw ''
-                ```
-            </p>
-          </div>
+        !!! note
+            If running in secure mode all the api executions need the JWT token generated previously. E.g.
+            ```bash
+            curl --location --request GET 'http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera' \
+            --header 'Authorization: Bearer eyJhbGciOiJFUzM4NCIsImtpZCI6ImIzNTY3ZmJjLTlhZTctMjkyNy0xY2IxLWE2NzAzZGQwMWM1ZCJ9.eyJhdWQiOiJlZGdleCIsImV4cCI6MTY4MjcyNDExMCwiaWF0IjoxNjgyNzIwNTEwLCJpc3MiOiIvdjEvaWRlbnRpdHkvb2lkYyIsIm5hbWUiOiJlZGdleHVzZXIiLCJuYW1lc3BhY2UiOiJyb290Iiwic3ViIjoiMTA2NzczMDItMmY0Yi00MjE4LTFhZmUtNzZlOTYwMGJiMmQ5In0.NP0deI0HyQMvdsFwk85N5RwNpgh5lUa507z9Ft2CDT9OEeR8iYOLYmwRLZim3j_BoVSdWxiJf3tmnWo64-mffHoktbFSRooQveakAeoFYuvCXu7tO1-b-QGzzzyWfSjc' \
+            --data-raw ''
+            ```
 
-         ```bash
-         curl -s http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera | jq .
-         ```
-         Good response:
-         ```json
-            {
-               "apiVersion": "v3",
-               "statusCode": 200,
-               "service": {
-                  "created": 1657227634593,
-                  "modified": 1657291447649,
-                  "id": "e1883aa7-f440-447f-ad4d-effa2aeb0ade",
-                  "name": "device-onvif-camera",
-                  "baseAddress": "http://edgex-device-onvif-camera:59984",
-                  "adminState": "UNLOCKED"
-               }         
-            }
-         ```
-         Bad response:
-         ```json
-         {
+        ```bash
+        curl -s http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera | jq .
+        ```
+        Good response:
+        ```json
+        {
             "apiVersion": "v3",
-            "message": "fail to query device service by name device-onvif-camer",
-            "statusCode": 404
-         }
-         ```
+            "statusCode": 200,
+            "service": {
+                "created": 1657227634593,
+                "modified": 1657291447649,
+                "id": "e1883aa7-f440-447f-ad4d-effa2aeb0ade",
+                "name": "device-onvif-camera",
+                "baseAddress": "http://edgex-device-onvif-camera:59984",
+                "adminState": "UNLOCKED"
+            }         
+        }
+        ```
+        Bad response:
+        ```json
+        {
+        "apiVersion": "v3",
+        "message": "fail to query device service by name device-onvif-camer",
+        "statusCode": 404
+        }
+        ```
 
 
-      3. Check whether the device profile is added:
+    3. Check whether the device profile is added:
 
-         ```bash
-         curl -s http://localhost:59881/api/v3/deviceprofile/name/onvif-camera | jq -r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)'
+        ```bash
+        curl -s http://localhost:59881/api/v3/deviceprofile/name/onvif-camera | jq -r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)'
 
-         ```
-         Good response:
-         ```bash
-         profileName: onvif-camera
-         statusCode: 200
-         ```
-         Bad response:
-         ```bash
-         profileName: 
-         statusCode: 404
-         ```
+        ```
+        Good response:
+        ```bash
+        profileName: onvif-camera
+        statusCode: 200
+        ```
+        Bad response:
+        ```bash
+        profileName: 
+        statusCode: 404
+        ```
 
     !!! note
         jq -r` is used to reduce the size of the displayed response. The entire device profile with all resources can be seen by removing `-r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)', and replacing it with '.'`
@@ -160,7 +160,8 @@ Follow this guide to deploy and run the service.
 === "via EdgeX UI"
 
     !!! note
-        Secure mode login to Edgex UI requires the JWT token generated in the above step
+        Secure mode login to Edgex UI requires the [JWT token](#token-generation) generated in the above step
+
 
       <details>
       <summary><strong>Entering the JWT token</strong></summary>
@@ -191,6 +192,14 @@ Follow this guide to deploy and run the service.
          <p align="left">
             <i>Figure 4: EdgeX Console Device Profile List</i>
          </p>
+
+Additionally, ensure that the service config has been deployed and that Consul is reachable.
+!!! note
+    If running in secure mode this command needs the [JWT token](#token-generation) generated previously.
+
+```bash
+curl -H "X-Consul-Token:<token>" -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera?keys=true"
+```     
 ## Manage Devices
 Follow these instructions to update devices.
 
@@ -243,6 +252,72 @@ Follow these instructions to update devices.
     
 2. Map credentials using the `map-credentials.sh` script.  
 
+=== "Curl Command"
+    !!! note
+        If running in secure mode all the api executions need the [JWT token](#token-generation) generated previously.
+
+    a. Check the status of the credentials map.
+    ```bash
+    curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap?keys=true" | jq .
+    ```
+    Example response:
+    ```bash
+    [
+    "edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/NoAuth",
+    "edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/credentials001",
+    "edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/credentials002"
+    ]
+    ```
+
+        
+
+    b. Enter your chosen credentials name and then execute the command to set the mapping name.
+
+    !!! note
+        To edit credentials, this command may be skipped, and then use one of the existing credentials from the previous response in the following commands.
+
+    ```bash
+    curl --data '<creds-name>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretName"
+    ```
+    
+    c. Enter your chosen username and the name of the corresponding credentials, and then execute the command to set the username.
+    ```bash
+    curl --data '<username>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<creds-name>/SecretData/username"
+    ```
+
+    d. Enter your chosen password and the name of the corresponding credentials, and then execute the command to set the password.
+    ```bash
+    curl --data '<password>' -H "X-Consul-Token:<consul-token>"-X PUT 'http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<creds-name>/SecretData/password'"
+    ```
+
+    e. Enter your chosen authentication method and the name of the corresponding credentials, and then execute the command to set the authentication method.
+        
+    !!! note
+        The options are: `usernametoken`, `digest`, or `both`
+
+    ```bash
+    curl --data '<auth-method>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/mode"
+    ```
+
+    f. Enter your chosen credentials name and then execute the command to create the mapping.
+    ```bash
+    curl -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
+    ```
+
+    g. Enter your the mac-address(es) and then execute the command to add the mac address(es) to the mapping.
+    !!! note
+        If you want to map multiple mac addresses, enter a comma separated list in the command
+
+    ```bash
+    curl --data '<mac-address>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
+    ```
+    
+    h. To query the mappings, enter the credentials name in this command and execute it.
+    ```bash
+    curl -H "X-Consul-Token:<consul-token> -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>?raw=true"
+    ```
+    
+=== "Scripts"
     !!! note
         If running in secure mode Consul ACL and the JWT token generated previously are needed for mapping credentials.
 
@@ -263,50 +338,47 @@ Follow these instructions to update devices.
 
       Successful:
 
-      ```bash 
-      Dependencies Check: Success
-            Consul Check: ...
-                        curl -X GET http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera?keys=true
-      Response [200]      Success
-      curl -X GET http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap?keys=true
-      Response [200] 
-      Secret Name: a
-      curl -X GET http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/a?raw=true
-      Response [404] 
-      Failed! curl returned a status code of '404'
-      Setting InsecureSecret: a/SecretName
-      curl --data "<redacted>" -X PUT http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/a/SecretName
-      Response [200] true
+    ```bash 
+    Dependencies Check: Success
+      Consul Check: ...
+                    curl -H X-Consul-Token: -X GET http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera?keys=true
+    Response [200]      Success
+    curl -H X-Consul-Token: -X GET http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap?keys=true
+    Response [200] 
+    Secret Name: credentials001
+    Setting InsecureSecret: credentials001/SecretName
+    curl --data 'credentials001' -H X-Consul-Token: -X PUT http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretName
+    Response [200] true
 
 
-      Setting InsecureSecret: a/SecretData/username
-      curl --data "<redacted>" -X PUT http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/a/SecretData/username
-      Response [200] true
+    Setting InsecureSecret: credentials001/SecretData/username
+    curl --data '<redacted>' -H X-Consul-Token: -X PUT http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/username
+    Response [200] true
 
 
-      Setting InsecureSecret: a/SecretData/password
-      curl --data "<redacted>" -X PUT http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/a/SecretData/password
-      Response [200] true
+    Setting InsecureSecret: credentials001/SecretData/password
+    curl --data '<redacted>' -H X-Consul-Token: -X PUT http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/password
+    Response [200] true
 
 
-      Setting InsecureSecret: a/SecretData/mode
-      curl --data "usern<redacted>metoken" -X PUT http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/a/SecretData/mode
-      Response [200] true
+    Setting InsecureSecret: credentials001/SecretData/mode
+    curl --data 'usernametoken' -H X-Consul-Token: -X PUT http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/mode
+    Response [200] true
 
 
-      Setting Credentials Map: a = ''
-      curl -X PUT http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/a
-      Response [200] true
+    Setting Credentials Map: credentials001 = ''
+    curl -H X-Consul-Token: -X PUT http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/credentials001
+    Response [200] true
 
 
 
-      Secret Name: a
-      curl -X GET http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/a?raw=true
-      Response [200] 
-      Setting Credentials Map: a = '11:22:33:44:55:66'
-      curl --data "11:22:33:44:55:66" -X PUT http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/a
-      Response [200] true
-      ``` 
+    Secret Name: credentials001
+    curl -H X-Consul-Token: -X GET http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/credentials001?raw=true
+    Response [200] 
+    Setting Credentials Map: credentials001 = 'cc:32:e5:00:06:88'
+    curl --data '11:22:33:44:55:66' -H X-Consul-Token: -X PUT http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/credentials001
+    Response [200] true
+    ``` 
 
 3. Verify device(s) have been successfully added to core-metadata.
 
