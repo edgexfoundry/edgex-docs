@@ -242,6 +242,11 @@
 </nav>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#command-line-options">
+    Command Line Options
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#database">
     Database
   </a>
@@ -1703,6 +1708,11 @@
 </nav>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#command-line-options">
+    Command Line Options
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#database">
     Database
   </a>
@@ -1869,6 +1879,7 @@
 <ul>
 <li><a href="#customized-configuration">Customized Configuration</a></li>
 <li><a href="#custom-compose-file">Custom Compose File</a></li>
+<li><a href="#command-line-options">Command Line Options</a></li>
 <li><a href="#database">Database</a></li>
 <li><a href="#custom-device-service">Custom Device Service</a></li>
 <li><a href="#custom-device-profile">Custom Device Profile</a></li>
@@ -1930,6 +1941,22 @@
 <h3 id="compose-builder">Compose Builder</h3>
 <p>If the additional service(s) in your custom compose file are EdgeX released device or app services, it is highly recommended that you use the Compose Builder to regenerate your custom compose file. </p>
 <p>The latest V3 Compose Builder can be found here: <a href="https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder/README.md">Compose Builder Readme</a> </p>
+<h2 id="command-line-options">Command Line Options</h2>
+<p>The following command-line options and corresponding environment variables have be renamed for consistency</p>
+<ul>
+<li><code>-c/--confdir</code>  is replaced by <code>-cd/--configDir</code><ul>
+<li><code>EDGEX_CONF_DIR</code> environment variable is replaced by <code>EDGEX_CONFIG_DIR</code></li>
+</ul>
+</li>
+<li><code>-f/--file</code>  is replaced by <code>-cf/--configFile</code> <ul>
+<li><code>EDGEX_CONFIG_FILE</code> has not changed</li>
+</ul>
+</li>
+<li><code>-cp/ --configProvider</code> has not changed</li>
+<li><code>EDGEX_CONFIGURATION_PROVIDER</code> environment variable is replaced by <code>EDGEX_CONFIG_PROVIDER</code></li>
+</ul>
+<p>If your solution uses any of the renamed options or environment variables you will need to make the appropriate changes to use the new names.</p>
+<p>See <a href="../microservices/configuration/CommonCommandLineOptions/#config-provider">Command Line Options</a> page for more details on the above options and the <a href="../microservices/configuration/CommonEnvironmentVariables/#command-line-overrides">Command Line Overrides</a> section for more details on the above environment variables</p>
 <h2 id="database">Database</h2>
 <p>There currently is no migration path for the data stored in the database. If possible, the database should be cleared prior to starting V3 EdgeX. This will allow the database to be V3 compliant from the start. See <a href="#clearing-redis-database">Clearing Redis Database</a> section below for details on how to clear the Redis database.</p>
 <p>The following sections describe what you need to be aware for the different services that create data in the database.</p>
