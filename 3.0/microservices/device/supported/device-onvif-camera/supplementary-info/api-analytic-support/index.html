@@ -1783,7 +1783,7 @@
 </code></pre></div>
 <h2 id="manage-the-rule-configuration">Manage the Rule Configuration</h2>
 <h3 id="query-the-rules">Query the Rules</h3>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera003/Rules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsRules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="o">{</span>
 <span class="w">   </span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">   </span><span class="s2">"event"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
@@ -1813,11 +1813,11 @@
 <span class="w">            </span><span class="o">}</span>,
 <span class="w">            </span><span class="s2">"origin"</span><span class="w"> </span>:<span class="w"> </span><span class="m">1639480270526564000</span>,
 <span class="w">            </span><span class="s2">"profileName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"onvif-camera"</span>,
-<span class="w">            </span><span class="s2">"resourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Rules"</span>,
+<span class="w">            </span><span class="s2">"resourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"AnalyticsRules"</span>,
 <span class="w">            </span><span class="s2">"valueType"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Object"</span>
 <span class="w">         </span><span class="o">}</span>
 <span class="w">      </span><span class="o">]</span>,
-<span class="w">      </span><span class="s2">"sourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Rules"</span>
+<span class="w">      </span><span class="s2">"sourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"AnalyticsRules"</span>
 <span class="w">   </span><span class="o">}</span>,
 <span class="w">   </span><span class="s2">"statusCode"</span><span class="w"> </span>:<span class="w"> </span><span class="m">200</span>
 <span class="o">}</span>
@@ -1828,7 +1828,7 @@
 </div>
 <p><img alt="query-analytics-module" src="../../images/api-analytic-support-query-rules.jpg"/></p>
 <h3 id="query-the-supported-rule-and-options">Query the Supported Rule and Options</h3>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera003/SupportedRules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsSupportedRules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="w">  </span>%<span class="w"> </span>Total<span class="w">    </span>%<span class="w"> </span>Received<span class="w"> </span>%<span class="w"> </span>Xferd<span class="w">  </span>Average<span class="w"> </span>Speed<span class="w">   </span>Time<span class="w">    </span>Time<span class="w">     </span>Time<span class="w">  </span>Current
 <span class="w">                                 </span>Dload<span class="w">  </span>Upload<span class="w">   </span>Total<span class="w">   </span>Spent<span class="w">    </span>Left<span class="w">  </span>Speed
 <span class="m">100</span><span class="w">  </span><span class="m">9799</span><span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">9799</span><span class="w">    </span><span class="m">0</span><span class="w">     </span><span class="m">0</span><span class="w">   </span><span class="m">9605</span><span class="w">      </span><span class="m">0</span><span class="w"> </span>--:--:--<span class="w">  </span><span class="m">0</span>:00:01<span class="w"> </span>--:--:--<span class="w">  </span><span class="m">9740</span>
@@ -1907,11 +1907,11 @@
 <span class="w">            </span><span class="o">}</span>,
 <span class="w">            </span><span class="s2">"origin"</span><span class="w"> </span>:<span class="w"> </span><span class="m">1639482296788863000</span>,
 <span class="w">            </span><span class="s2">"profileName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"onvif-camera"</span>,
-<span class="w">            </span><span class="s2">"resourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"SupportedRules"</span>,
+<span class="w">            </span><span class="s2">"resourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"AnalyticsSupportedRules"</span>,
 <span class="w">            </span><span class="s2">"valueType"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"Object"</span>
 <span class="w">         </span><span class="o">}</span>
 <span class="w">      </span><span class="o">]</span>,
-<span class="w">      </span><span class="s2">"sourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"SupportedRules"</span>
+<span class="w">      </span><span class="s2">"sourceName"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"AnalyticsSupportedRules"</span>
 <span class="w">   </span><span class="o">}</span>,
 <span class="w">   </span><span class="s2">"statusCode"</span><span class="w"> </span>:<span class="w"> </span><span class="m">200</span>
 <span class="o">}</span>
@@ -1977,10 +1977,10 @@
 <span class="o">}</span>
 </code></pre></div>
 <h3 id="add-the-rule">Add the Rule</h3>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--location<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera003/CreateRules'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--location<span class="w"> </span>--request<span class="w"> </span>PUT<span class="w"> </span><span class="s1">'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsCreateRules'</span><span class="w"> </span><span class="se">\</span>
 --header<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 --data-raw<span class="w"> </span><span class="s1">'{</span>
-<span class="s1">    "CreateRules": {</span>
+<span class="s1">    "AnalyticsCreateRules": {</span>
 <span class="s1">        "ConfigurationToken": "1",</span>
 <span class="s1">        "Rule": [</span>
 <span class="s1">            {</span>
