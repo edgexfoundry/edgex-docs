@@ -10,7 +10,7 @@ This document will describe how to execute some of the most important types of c
 
 1. <a name="step1"></a>Get the profile token by executing the `GetProfiles` command:
         ```bash
-        curl -s http://0.0.0.0:59882/api/v3/device/name/Camera001/Profiles | jq -r '"profileToken: " + '.event.readings[].objectValue.Profiles[].Token''
+        curl -s http://0.0.0.0:59882/api/v3/device/name/Camera001/MediaProfiles | jq -r '"profileToken: " + '.event.readings[].objectValue.Profiles[].Token''
         ```
         Example Output: 
         ```bash

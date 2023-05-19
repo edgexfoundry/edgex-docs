@@ -205,7 +205,7 @@ curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsM
 ### Query the Rules
 
 ```shell
-curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/Rules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0=' | jq .
+curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsRules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0=' | jq .
 {
    "apiVersion" : "v3",
    "event" : {
@@ -235,11 +235,11 @@ curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/Rules?json
             },
             "origin" : 1639480270526564000,
             "profileName" : "onvif-camera",
-            "resourceName" : "Rules",
+            "resourceName" : "AnalyticsRules",
             "valueType" : "Object"
          }
       ],
-      "sourceName" : "Rules"
+      "sourceName" : "AnalyticsRules"
    },
    "statusCode" : 200
 }
@@ -251,7 +251,7 @@ curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/Rules?json
 
 ### Query the Supported Rule and Options
 ```shell
-curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/SupportedRules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0=' | jq .
+curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsSupportedRules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0=' | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  9799    0  9799    0     0   9605      0 --:--:--  0:00:01 --:--:--  9740
@@ -330,11 +330,11 @@ curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/SupportedR
             },
             "origin" : 1639482296788863000,
             "profileName" : "onvif-camera",
-            "resourceName" : "SupportedRules",
+            "resourceName" : "AnalyticsSupportedRules",
             "valueType" : "Object"
          }
       ],
-      "sourceName" : "SupportedRules"
+      "sourceName" : "AnalyticsSupportedRules"
    },
    "statusCode" : 200
 }
@@ -405,10 +405,10 @@ curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/RuleOption
 ### Add the Rule
 
 ```shell
-curl --location --request PUT 'http://0.0.0.0:59882/api/v3/device/name/Camera003/CreateRules' \
+curl --location --request PUT 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsCreateRules' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "CreateRules": {
+    "AnalyticsCreateRules": {
         "ConfigurationToken": "1",
         "Rule": [
             {
