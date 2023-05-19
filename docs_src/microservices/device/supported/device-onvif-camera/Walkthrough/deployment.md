@@ -288,7 +288,7 @@ Follow these instructions to update devices.
                     ]
                 }' -H Authorization:Bearer "<enter your JWT token here>" -X POST "http://localhost:59983/api/v3/secret"
         ```
-        
+
         d. Enter your chosen authentication method and the name of the corresponding credentials, and then execute the command to set the authentication method.
             
         !!! note
@@ -341,7 +341,7 @@ Follow these instructions to update devices.
         
         b. Enter your chosen credentials name and then execute the command to create the mapping.
         ```bash
-        curl -H -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
+        curl -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
         ```
 
         c. Enter your chosen username, password and credentials name and then execute the command to create the mapping.
@@ -368,7 +368,7 @@ Follow these instructions to update devices.
             The options are: `usernametoken`, `digest`, or `both`
 
         ```bash
-        curl --data '<auth-method>'  -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/mode"
+        curl --data '<auth-method>' -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/mode"
         ```
 
         e. Enter your mac-address(es) and then execute the command to add the mac address(es) to the mapping.
@@ -381,7 +381,7 @@ Follow these instructions to update devices.
         
         f. Check the status of the credentials map.
         ```bash
-        curl -H -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap?keys=true" | jq .
+        curl -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap?keys=true" | jq .
         ```
         Example response:
         ```bash
