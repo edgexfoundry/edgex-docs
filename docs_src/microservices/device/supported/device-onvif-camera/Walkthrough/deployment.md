@@ -286,7 +286,7 @@ Follow these instructions to update devices.
                             "value":"<password>"
                         }
                     ]
-                }' -H Authorization:Bearer "<enter your JWT token here>" -X POST "http://localhost:59983/api/v3/secret"
+                }' -H Authorization:Bearer "<enter your JWT token here>" -X POST "http://localhost:59984/api/v3/secret"
         ```
 
         d. Enter your chosen authentication method and the name of the corresponding credentials, and then execute the command to set the authentication method.
@@ -359,7 +359,7 @@ Follow these instructions to update devices.
                             "value":"<password>"
                         }
                     ]
-                }' -X POST "http://localhost:59983/api/v3/secret"
+                }' -X POST "http://localhost:59984/api/v3/secret"
         ```
 
         d. Enter your chosen authentication method and the name of the corresponding credentials, and then execute the command to set the authentication method.
