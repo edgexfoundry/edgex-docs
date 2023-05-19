@@ -299,7 +299,7 @@ Follow these instructions to update devices.
     curl --data '<auth-method>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/mode"
     ```
 
-    e. Enter your the mac-address(es) and then execute the command to add the mac address(es) to the mapping.
+    e. Enter your mac-address(es) and then execute the command to add the mac address(es) to the mapping.
     !!! note
         If you want to map multiple mac addresses, enter a comma separated list in the command
 
