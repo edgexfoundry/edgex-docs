@@ -172,7 +172,7 @@ provides a convenience option to help disabling security:
 ```bash
 sudo snap set edgexfoundry security=false
 ```
-The above command results in stopping everything (if active), disabling the security components (by setting their [autostart](#service-autostart) options to false), as well as setting `EDGEX_SECURITY_SECRET_STORE` internally so that the included core/support services stop using the Secret Store. 
+The above command results in stopping everything (if active), disabling the security components (by setting their [autostart](#service-autostart) options to false), as well as setting `EDGEX_SECURITY_SECRET_STORE=false` internally so that the included core/support services stop using the Secret Store. 
 
 Now, to start the platform without security components, either start the non-security services selectively:
 ```bash
@@ -182,7 +182,7 @@ sudo snap start edgexfoundry.consul edgexfoundry.redis \
     edgexfoundry.support-scheduler edgexfoundry.support-notifications
 ```
 
-or by set the [autostart](#service-autostart) option globally:
+or set the [autostart](#service-autostart) option globally:
 ```bash
 sudo snap set edgexfoundry autostart=true
 ```
@@ -372,10 +372,13 @@ To find all EdgeX snaps on the public Snap Store, [search by keyword](https://sn
 [platform snap]: #platform-snap
 | [Installation][edgexfoundry] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/edgex-go/tree/main/snap) |
 
-The main platform snap, simply called `edgexfoundry` contains
-all reference core and security services along with support-scheduler and support-notifications.
+The main platform snap, simply called `edgexfoundry` contains all reference
+[core](../../microservices/core/Ch-CoreServices/) and
+[security](../../security/Ch-Security/) services along with
+[support-scheduler](../../microservices/support/scheduler/Ch-Scheduler/) and
+[support-notifications](../../microservices/support/notifications/Ch-AlertsNotifications/).
 
-Upon installation, the services **stopped** and **disabled**. They can be started altogether or selectively; see [managing services].
+Upon installation, the services are **stopped** and **disabled**. They can be started altogether or selectively; see [managing services].
 For example, to start all the services, run:
 ```bash
 sudo snap start edgexfoundry
