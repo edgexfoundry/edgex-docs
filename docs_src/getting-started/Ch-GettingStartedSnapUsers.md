@@ -6,44 +6,48 @@
 secure, cross‐platform and self-contained.
 Snaps can be installed on any Linux distribution with [snap support](https://snapcraft.io/docs/installing-snapd).
 
-### Quick Start
+!!! Tip "Quick Start"
+    Spinning up EdgeX with snaps is extremely easy.
+    For demonstration purposes, let's install the platform, along with the virtual device service and EdgeX UI.
 
-Spinning up EdgeX with snaps is extremely easy.
-For demonstration purposes, let's install the platform, along with the virtual device service and EdgeX UI.
+    1) Install the [platform snap], [Device Virtual](#device-virtual) and [EdgeX UI](#edgex-ui):
+    ```bash
+    snap install edgexfoundry edgex-device-virtual edgex-ui
+    ```
+    This installs the latest stable version of the snaps. The [installation](#installation) section provides more explanations.
 
-1) Install the [platform snap], [Device Virtual](#device-virtual) and [EdgeX UI](#edgex-ui):
-```bash
-snap install edgexfoundry --edge
-snap install edgex-device-virtual --edge
-snap install edgex-ui --edge
-```
-!!! danger
-    The above examples use the latest development versions of EdgeX snaps.
-    This should be replaced by the latest stable v3, once available.
 
-EdgeX has security enabled by default. But for simplicity, we'll disable it here.
-If not disabled, you could skip to step 3 and additionally add a user and authenticate as described [here](#adding-api-gateway-users). To access the UI, you need to generate a JWT.
+    2) Disable security in each of the installed snaps:
+    ```bash
+    snap set edgexfoundry security=false
+    snap set edgex-device-virtual config.edgex-security-secret-store=false
+    snap set edgex-ui config.edgex-security-secret-store=false
+    ```
 
-2) Disable security in each of the installed snaps:
-```bash
-snap set edgexfoundry security=false
-snap set edgex-device-virtual config.edgex-security-secret-store=false
-snap set edgex-ui config.edgex-security-secret-store=false
-```
-Refer to [disabling security] for details.
+    Beware that this leaves the services at risk! We do it here only to simplify the quick start.
+    Refer to [disabling security] for details.
 
-3) Start the device and UI services:
-```bash
-snap start edgex-device-virtual
-snap start edgex-ui
-```
-This is because those services disabled and not started by default.
+    3) Start the services:
+    ```bash
+    # start Core and Support services in the platform snap
+    sudo snap start edgexfoundry.consul edgexfoundry.redis \
+        edgexfoundry.core-common-config-bootstrapper \
+        edgexfoundry.core-data edgexfoundry.core-metadata edgexfoundry.core-command \
+        edgexfoundry.support-scheduler edgexfoundry.support-notifications
 
-You should now be able to access the UI using a browser at [http://localhost:4000](http://localhost:4000)
+    # start Device Virtual
+    snap start edgex-device-virtual
 
-![EdgeX UI](EdgeX-GettingStartedSnapUsersUI.png)
+    # start EdgeX UI
+    snap start edgex-ui
+    ```
 
----
+    You should now be able to access the UI using a browser at [http://localhost:4000](http://localhost:4000)
+
+    ![EdgeX UI](EdgeX-GettingStartedSnapUsersUI.png)
+
+    *To run the services with security, skip step 2 and refer to [platform snap] for starting all platform services and adding an API Gateway user to generate a JWT. The JWT is needed to access the secured EdgeX UI.*
+
 
 The following sub-sections provide generic instructions for [installation], [configuration], and [managing services] using snaps. 
 
@@ -87,10 +91,10 @@ Please refer to
 [config-provider-snap]: #config-provider-snap
 
 Most EdgeX snaps have a [content interface](https://snapcraft.io/docs/content-interface) which allows another snap to seed it with configuration files.
-This is useful for replacing all the configuration files in a service snap via a config provider snap without manual user interaction.
+This is useful for replacing all the configuration files in a service snap via a config provider snap without manual user interaction. This should not to be confused with the [EdgeX Config Provider](../../microservices/configuration/ConfigurationAndRegistry).
 
-A config provider snap could be a standalone package with all the necessary configurations for multiple snaps. It will expose and one or more [interface](https://snapcraft.io/docs/interface-management) *slots* to allow connections from consumer *plugs*. The config provider snap can be released to the store just like any other snap. 
-Upon a connection between consumer and provider snaps, the packaged config files get mounted inside the consumer snap, to be used by services.
+A config provider snap could be a standalone package with all the necessary configurations for multiple snaps. It will expose one or more [interface](https://snapcraft.io/docs/interface-management) *slots* to allow connections from consumer *plugs*. The config provider snap can be released to the store just like any other snap. 
+Upon a connection between provider and consumer snaps, the packaged config files get mounted inside the consumer snap, to be used by services.
 
 Please refer to [edgex-config-provider](https://github.com/canonical/edgex-config-provider), for an example.
 
@@ -110,9 +114,9 @@ Please refer to [edgex-config-provider](https://github.com/canonical/edgex-confi
     
     This scheme is used for config overrides (described in this section) as well as autostart described in [managing services], among others.
     
-    To know more about snap configuration, refer [here](https://snapcraft.io/docs/configuration-in-snaps).
+    To know more about snap configuration in general, refer [here](https://snapcraft.io/docs/configuration-in-snaps).
 
-The EdgeX services allow overriding server configurations using environment variables. Moreover, the services read [EdgeX Common Environment Variables](../../microservices/configuration/CommonEnvironmentVariables/) that override configurations that are hardcoded in source code or set as command-line options.
+The EdgeX services allow overriding server configurations using environment variables. Moreover, the services read [EdgeX Common Environment Variables](../../microservices/configuration/CommonEnvironmentVariables/) that override configurations which are hardcoded in source code or set as command-line options.
 
 The EdgeX snaps provide an mechanism that reads stored key-value options and internally export environment variables to specific services and apps.
 
@@ -128,12 +132,12 @@ where:
 
 Mapping examples:
 
-| Snap config key              | Environment Variable     | Service configuration YAML                       |
-|------------------------------|--------------------------|-----------------------------------------------------|
-| service-port                 | SERVICE_PORT             | Service:<br>--Port:                             |
-| clients-core-data-host       | CLIENTS_CORE_DATA_HOST   | Clients:<br>--core-data:<br>----Host:   |
-| edgex-startup-duration       | [EDGEX_STARTUP_DURATION]       | -                                                   |
-| edgex-add-secretstore-tokens | [EDGEX_ADD_SECRETSTORE_TOKENS] | -                                                   |
+| Snap config key | Environment Variable | Service configuration YAML |
+|-----------------|----------------------|----------------------------|
+| service-port | SERVICE_PORT | <pre>Service:<br>  Port: </pre> |
+| clients-core-data-host | CLIENTS_CORE_DATA_HOST | <pre>Clients:<br>  core-data:<br>    Host: </pre>|
+| edgex-startup-duration | [EDGEX_STARTUP_DURATION] | - |
+| edgex-add-secretstore-tokens | [EDGEX_ADD_SECRETSTORE_TOKENS] | - |
 
 [EDGEX_STARTUP_DURATION]: ../../microservices/configuration/CommonEnvironmentVariables/#edgex_startup_duration
 [EDGEX_ADD_SECRETSTORE_TOKENS]: ../../security/Ch-Configuring-Add-On-Services/#configure-the-services-secret-store-to-use
@@ -157,19 +161,34 @@ Mapping examples:
 
     The [platform snap] snap does NOT allow the security to be re-enabled. The only way to re-enable it is to re-install the snap.
 
-Disabling security involves two steps:
+Disabling security involves a few steps:
 
 1. Stopping the security services and disabling them so that they don't run again.
 2. Configuring EdgeX services to NOT use the Secret Store by setting [EDGEX_SECURITY_SECRET_STORE](../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store) to false. The services include Core Data, Core Command, Core Metadata, EdgeX UI, device services, app services, and any other service that uses EdgeX's [go-mod-bootstrap](https://github.com/edgexfoundry/go-mod-bootstrap).
+3. Restarting non-security services
 
-The [platform snap] includes all the reference security components. The security components are enabled by default. The platform snap provides a convenience way to perform both of the above by setting `security=false`:
+The [platform snap] which includes all the reference security components
+provides a convenience option to help disabling security:
 ```bash
-snap set edgexfoundry security=false
+sudo snap set edgexfoundry security=false
+```
+The above command results in stopping everything (if active), disabling the security components (by setting their [autostart](#service-autostart) options to false), as well as setting `EDGEX_SECURITY_SECRET_STORE=false` internally so that the included core/support services stop using the Secret Store. 
+
+Now, to start the platform without security components, either start the non-security services selectively:
+```bash
+sudo snap start edgexfoundry.consul edgexfoundry.redis \
+    edgexfoundry.core-common-config-bootstrapper \
+    edgexfoundry.core-data edgexfoundry.core-metadata edgexfoundry.core-command \
+    edgexfoundry.support-scheduler edgexfoundry.support-notifications
 ```
 
-The above command results in stopping and disabling the security components as well as setting `config.edgex-security-secret-store=false` internally so that core services stop using the Secret Store. The services are automatically restarted to pick up the new configuration.
+or set the [autostart](#service-autostart) option globally:
+```bash
+sudo snap set edgexfoundry autostart=true
+```
 
-After disabling the security on the platform, the external services should be similarly configured by setting `config.edgex-security-secret-store=false` such that they don't attempt to initialize the security.
+
+After disabling the security on the platform, the external services should be similarly configured by setting `EDGEX_SECURITY_SECRET_STORE=false` so that they don't attempt to initialize the security.
 
 !!! Example
     To disable security for the [edgex-ui] snap:
@@ -265,7 +284,7 @@ snap start --enable <snap>.<app>
 Similarly, a service can be stopped and optionally disabled using `snap stop --disable`.
 
 !!! Note
-    The [service autostart](#service-autostart) overrides the status and startup setting of the services. In other words, if autostart is set explicitly to true/false, it will apply that setting every time the snap is re-configured, e.g. by executing `snap set|unset`.
+    The [service autostart](#service-autostart) overrides the status and startup setting of the services. In other words, if autostart is set to true/false, it will apply that setting every time the snap is re-configured, e.g. when executing `snap set|unset`.
 
 To restart services, e.g. to load the configurations:
 ```bash
@@ -327,7 +346,7 @@ sudo journalctl -n 100 -f | grep <snap>
 ## EdgeX Snaps
 The following snaps are maintained by the EdgeX working groups:
 
-- [Platform Snap](#platform-snap) - containing all core and security services along with few supporting and application services.
+- [Platform Snap](#platform-snap) - containing all core and security services along with two support services.
 - Tools
     - [EdgeX UI](#edgex-ui)
     - [EdgeX CLI](#edgex-cli)
@@ -353,31 +372,20 @@ To find all EdgeX snaps on the public Snap Store, [search by keyword](https://sn
 [platform snap]: #platform-snap
 | [Installation][edgexfoundry] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/edgex-go/tree/main/snap) |
 
-The main platform snap, simply called `edgexfoundry` contains
-all reference core and security services along with a few supporting and application services.
+The main platform snap, simply called `edgexfoundry` contains all reference
+[core](../../microservices/core/Ch-CoreServices/) and
+[security](../../security/Ch-Security/) services along with
+[support-scheduler](../../microservices/support/scheduler/Ch-Scheduler/) and
+[support-notifications](../../microservices/support/notifications/Ch-AlertsNotifications/).
 
-Upon installation, the following EdgeX services are automatically started:
-
-- consul (Registry)
-- core-command
-- core-data
-- core-metadata
-- nginx (API Gateway / Reverse Proxy)
-- redis (default Message Bus and database backend for core-data and core-metadata)
-- security-bootstrapper-redis (oneshot service to setup secure Redis)
-- security-consul-bootstrapper (oneshot service to setup secure Consul)
-- security-proxy-auth (performs authentication on behalf of the API gateway)
-- security-proxy-setup (oneshot service to setup API gateway)
-- security-secretstore-setup (oneshot service to setup Vault)
-- vault (Secret Store)
-- support-notifications
-- support-scheduler
-
-The services can be disabled and stopped; see [managing services].
+Upon installation, the services are **stopped** and **disabled**. They can be started altogether or selectively; see [managing services].
+For example, to start all the services, run:
+```bash
+sudo snap start edgexfoundry
+```
 
 For the configuration of services, refer to [configuration].
-
-Most services are exposed and accessible on localhost without access control. However, the access from outside is restricted to authorized users.
+Read below for other deployment-related instructions about this snap.
 
 #### Adding API Gateway users
 The API gateway will pass any request that authenticates using a
@@ -397,26 +405,30 @@ You may also refer to the [secrets-config proxy](../../security/secrets-config-p
 !!! example "Creating an example user"
     Use `secrets-config` to add an `example` user (note: always specify `--useRootToken` for the snap deployment of EdgeX):
     ```bash
-    sudo edgexfoundry.secrets-config proxy adduser --user example --useRootToken
+    sudo edgexfoundry.secrets-config proxy adduser --user example --useRootToken \
+        | jq --raw-output '.password' \
+        > password.txt
     ```
-    On success, the above command prints a JSON object containing `username` and `password` fields.
+    On success, the above command writes the system-generated password for `example` user to `password.txt`.
     If the "adduser" command is run multiple times,
     each run will overwrite the password from the previous run
     with a new random password.
 
-!!! example "Generating a JWT token for the example user"
+!!! example "Generating a JWT token (ID Token) for the example user"
     Some additional work is required to generate a JWT that is usable for API gateway authentication.
 
     ```bash
     username=example
-    password=<password-from-above>
+    password=$(cat password.txt)
     
-    vault_token=$(curl --silent --show-err "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq --raw-output '.auth.client_token')
+    vault_token=$(curl --silent --show-err "http://localhost:8200/v1/auth/userpass/login/${username}" --data "{\"password\":\"${password}\"}" \
+        | jq --raw-output '.auth.client_token')
     
-    id_token=$(curl --silent --show-err -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq --raw-output '.data.token')
-    
-    echo "${id_token}" > id-token.txt
+    curl --silent --show-err -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" \
+        | jq --raw-output '.data.token' \
+        > id-token.txt
     ```
+    The ID Token gets written to `id-token.txt`.
 
 Once you have the token, you can access the services via the API Gateway (the vault token can be discarded).
 To obtain a new JWT token once the current one is expired, repeat the above snippet of code.
@@ -424,9 +436,9 @@ To obtain a new JWT token once the current one is expired, repeat the above snip
 !!! example "Calling an API on behalf of example user"
 
     ```bash
-    curl --insecure https://localhost:8443/core-data/api/v2/ping -H "Authorization: Bearer $(cat id-token.txt)"
+    curl --insecure https://localhost:8443/core-data/api/v3/ping -H "Authorization: Bearer $(cat id-token.txt)"
     ```
-    Output: `{"apiVersion":"v2","timestamp":"Mon May  2 12:14:17 CEST 2022","serviceName":"core-data"}`
+    Output: `{"apiVersion":"v3","timestamp":"Mon May 15 16:45:55 CEST 2023","serviceName":"core-data"}`
 
 #### Accessing Consul
 Consul API and UI can be accessed using the consul token (Secret ID). For the snap, token is the value of `SecretID` typically placed in a JSON file at `/var/snap/edgexfoundry/current/secrets/consul-acl-token/mgmt_token.json`.
@@ -434,19 +446,21 @@ Consul API and UI can be accessed using the consul token (Secret ID). For the sn
 !!! example
     To get the token:
     ```bash
-    sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/mgmt_token.json | jq -r '.SecretID' | tee consul-token.txt
+    sudo cat /var/snap/edgexfoundry/current/secrets/consul-acl-token/mgmt_token.json \
+        | jq -r '.SecretID' \
+        > consul-token.txt
     ```
-    The output is printed out and written to `consul-token.txt`. Example output: `ee3964d0-505f-6b62-4c88-0d29a8226daa`
+    The output gets written to `consul-token.txt`.
 
     Try it out locally:
     ```bash
-    curl --insecure --silent http://localhost:8500/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)"
+    curl --silent --show-err http://localhost:8500/v1/kv/edgex/v3/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)"
     ```
     
     Through the API Gateway:  
     We need to pass both the Consul token and Secret Store token obtained in [Adding API Gateway users](#adding-api-gateway-users) examples.
     ```bash
-    curl --insecure --silent https://localhost:8443/consul/v1/kv/edgex/core/2.0/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)" -H "Authorization: Bearer $(cat id-token.txt)"
+    curl --insecure --silent --show-err https://localhost:8443/consul/v1/kv/edgex/v3/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)" -H "Authorization: Bearer $(cat id-token.txt)"
     ```
 
 #### Changing TLS certificates
@@ -477,6 +491,21 @@ Refer to the [secrets-config proxy](../../security/secrets-config-proxy/) docume
       * `server.key` user-provided private key (replacing the default)
       * `ca.crt` Certificate Authority certificate (that signed `server.crt`, directly or indirectly)
     
+    ??? example "Create a self-signed certificate"
+        For example, to generate a CA and issue a certificate valid for 30 days:
+        ```
+        # Generate the Certificate Authority (CA) Private Key
+        openssl ecparam -name prime256v1 -genkey -noout -out ca.key
+        # Generate the Certificate Authority Certificate
+        openssl req -new -x509 -sha256 -key ca.key -out ca.crt -subj "/CN=getting-started-ca"
+        # Generate the Server Certificate Private Key
+        openssl ecparam -name prime256v1 -genkey -noout -out server.key
+        # Generate the Server Certificate Signing Request
+        openssl req -new -sha256 -key server.key -out server.csr -subj "/CN=localhost"
+        # Generate the Server Certificate
+        openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 30 -sha256
+        ```
+    
     Perform the following steps:
     
     1. Copy `server.crt` and `server.key` to the snap
@@ -493,29 +522,21 @@ Refer to the [secrets-config proxy](../../security/secrets-config-proxy/) docume
       --inCert /var/snap/edgexfoundry/common/server.crt \
       --inKey  /var/snap/edgexfoundry/common/server.key 
     ```
-
-    3. Remove the temporary files
-    ```bash
-    sudo rm /var/snap/edgexfoundry/common/server.crt \
-            /var/snap/edgexfoundry/common/server.key
-    ```
     
-    4. Reload Nginx:
+    3. Reload Nginx:
     ```bash
     sudo snap restart --reload edgexfoundry.nginx
     ```
-
-    
     
     Try it out:
     ```bash
-    curl --cacert ca.crt https://localhost:8443/core-data/api/v2/ping
+    curl --verbose --cacert ca.crt https://localhost:8443/core-data/api/v3/ping
     ```
     The output should include a message indicating that the request is unauthorized.  
     This means that TLS is setup correctly, but the request misses the required authentication. 
     See [Adding API Gateway users](#adding-api-gateway-users).
 
-    Set the `-v` command for diagnosing TLS issues.
+    In the information about the TLS, look for the Server certificate's issuer and make sure it matches your CA. For example, `issuer: CN=getting-started-ca`.
 
     The `--cacert` can be omitted if the CA is available in root certificates (e.g. CA-signed or pre-installed CA certificate).
 
