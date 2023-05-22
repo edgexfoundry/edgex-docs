@@ -185,9 +185,9 @@ Below are only the additional settings and sections that are specific to Support
 
 
 ### V3 Configuration Migration Guide
+No configuration updated
 
-Coming Soon
-
+See [Common Configuration Reference](../../../configuration/V3MigrationCommonConfig/) for complete details on common configuration changes.
 ### Gmail Configuration Example
 
 Before using Gmail to send alerts and notifications, configure the

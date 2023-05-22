@@ -389,9 +389,10 @@ Below are only the additional settings and sections that are specific to Core Me
     |ClientId|"core-metadata|Id used when connecting to MQTT or NATS base MessageBus |
 
 ### V3 Configuration Migration Guide
+- Removed `RequireMessageBus`
+- UoMFile value changed to point to YAML file instead of TOML file
 
-Coming soon
-
+See [Common Configuration Reference](../../../configuration/V3MigrationCommonConfig/) for complete details on common configuration changes.
 ## Device System Events
 
 Device System Events are events triggered by the add, update or delete of devices. A System Event DTO is published to the EdgeX MessageBus each time a new Device is added, an existing Device is updated or when an existing Device is deleted.
