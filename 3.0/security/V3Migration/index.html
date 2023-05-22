@@ -10,7 +10,7 @@
 <link href="https://docs.edgexfoundry.org/3.0/security/V3Migration/" rel="canonical"/>
 <link href="../../assets/logo_edgex.png" rel="icon"/>
 <meta content="mkdocs-1.4.3, mkdocs-material-8.5.8" name="generator"/>
-<title>V3 Migration Guide - EdgeX Foundry Documentation</title>
+<title>V3 Security Migration Guide - EdgeX Foundry Documentation</title>
 <link href="../../assets/stylesheets/main.20d9efc8.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.815d1a91.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -29,7 +29,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#v3-migration-guide">
+<a class="md-skip" href="#v3-security-migration-guide">
           Skip to content
         </a>
 </div>
@@ -53,7 +53,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              V3 Migration Guide
+              V3 Security Migration Guide
             
           </span>
 </div>
@@ -510,9 +510,51 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          V3 Security Migration Guide
+          <span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
-        V3 Migration Guide
+        V3 Security Migration Guide
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#whats-changed-in-edgex-30-security">
+    What's Changed in EdgeX 3.0 Security
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-gateway-breaking-authentication-changes">
+    API Gateway Breaking Authentication Changes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#microservice-level-breaking-authentication-changes">
+    Microservice-level Breaking Authentication Changes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#breaking-changes-to-api-gateway-tls-configuration">
+    Breaking Changes to API Gateway TLS Configuration
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#breaking-environment-variable-changes">
+    Breaking Environment Variable Changes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#references">
+    References
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -1461,6 +1503,42 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#whats-changed-in-edgex-30-security">
+    What's Changed in EdgeX 3.0 Security
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-gateway-breaking-authentication-changes">
+    API Gateway Breaking Authentication Changes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#microservice-level-breaking-authentication-changes">
+    Microservice-level Breaking Authentication Changes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#breaking-changes-to-api-gateway-tls-configuration">
+    Breaking Changes to API Gateway TLS Configuration
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#breaking-environment-variable-changes">
+    Breaking Environment Variable Changes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#references">
+    References
+  </a>
+</li>
+</ul>
 </nav>
 </div>
 </div>
@@ -1470,8 +1548,143 @@
 <a class="md-content__button md-icon" href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/security/V3Migration.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
 </a>
-<h1 id="v3-migration-guide">V3 Migration Guide</h1>
-<p>Coming Soon</p>
+<h1 id="v3-security-migration-guide">V3 Security Migration Guide</h1>
+<h2 id="whats-changed-in-edgex-30-security">What's Changed in EdgeX 3.0 Security</h2>
+<p>EdgeX 3.0 ("Minnesota") release implements a significant change to its security architecture.</p>
+<p>In EdgeX "Fuji" release, EdgeX introduced an opt-in secure mode that featured
+a secret store capability based on Hashicorp Vault and an API gateway based on Kong.
+The API gateway served to separate the outside Internet-facing network, which was "untrusted",
+from the internally-facing network, which was a "trusted".</p>
+<p>EdgeX 3.0 takes significant steps to put limits on that trust.
+Whereas in EdgeX 1.0 and 2.0, microservice security was enforced at the API gateway,
+in EdgeX 3.0 microservice security is now also enforced at the individual microservice level.
+EdgeX 2.0 already enabled authentication for third-party components such as the EdgeX database,
+the EdgeX service registry, the EdgeX configuration provider, the EdgeX secret store,
+the EdgeX API gateway and the EdgeX message bus, 
+but the EdgeX microservices themselves did not require authentication
+if the request originated from behind the API gateway.
+In EdgeX 3.0, even internal calls to EdgeX microservices now require an authentication token.</p>
+<p>Compared to EdgeX 2.0, the security footprint of EdgeX 3.0 is reduced
+through the removal of the third-party Postgres and Kong components
+and using a minimally-configured NGINX gateway instead.
+Measurements taken before and after show a ~300 MB savings in downloaded Docker images
+in the container version of EdgeX,
+and a ~150 MB reduction in memory usage.
+Achieving these impressive improvements to the EdgeX footprint unfortunately means
+that there are some breaking changes to API gateway authentication that will be detailed later.</p>
+<p>Although not a functional change,
+a significant addition to EdgeX 3.0 has been made in the form of a
+<a href="https://docs.edgexfoundry.org/3.0/threat-models/stride-model/EdgeX-STRIDE/">STRIDE Threat Model</a>
+contributed by IOTech.
+This threat model takes an outside-in view of EdgeX,
+treating the EdgeX services together as a unit.
+The STRIDE threat model should serve as a good starting point for EdgeX adopters own threat models
+in which EdgeX is a component in the overall architecture.
+It should be noted, however, that since EdgeX services are taken together as a unit,
+the impact of the recent microservice authentication changes,
+which primarily affect EdgeX internals, is not reflected in the threat model.</p>
+<h2 id="api-gateway-breaking-authentication-changes">API Gateway Breaking Authentication Changes</h2>
+<p>In EdgeX 2.0, the <code>secrets-config</code> utility was used to create a user account in the API gateway (Kong)
+and associate it to a user-specified public key.
+A user would then self-create a JWT, and use it for authentication against the API gateway.
+These tokens were opaque to EdgeX microservices because their contents were controlled by the user,
+and only the API gateway had the information needed to validate them.</p>
+<p>In EdgeX 3.0, the <code>secrets-config</code> utility is still used to create a user account,
+but instead of creating it in the API gateway,
+the user account is created in the EdgeX secret store,
+and the Vault identity secrets engine is used to generate and verify JWT's.
+All EdgeX services implicitly trust the EdgeX secret store
+and have a secret store token issued to them at startup
+that can be used to request a JWT from Vault.</p>
+<p>Externally-originated requests are performed similarly to how they were done before:
+provide the JWT in the <code>Authorization</code> header
+and direct the request at the API gateway with a path prefix denoting the desired service.
+The key difference is in obtaining the JWT.
+In EdgeX 2.0, the client simply generated the JWT using its private key.
+In EdgeX 3.0, obtaining a JWT is a two-step process.
+First, authenticate to the EdgeX secret store (Vault) to obtain a secret store token.
+Second, exchange the secret store token for a JWT.
+This process is described in detail in the
+<a href="https://docs.edgexfoundry.org/3.0/security/Ch-Authenticating/">authenticating chapter</a>
+of the EdgeX documentation.
+Due to these changes, the <code>secrets-config proxy jwt</code> helper command has been removed.
+This same chapter also explains that, similar to Kong,
+Vault has an extensible authentication mechanism,
+although only username/password (with a randomized strong password)
+is enabled out of the box.</p>
+<p>As was before, all requests (with the exception of a passthrough for Vault authentication)
+are checked at the API gateway prior to forwarding to the backend service for fulfillment.</p>
+<h2 id="microservice-level-breaking-authentication-changes">Microservice-level Breaking Authentication Changes</h2>
+<p>EdgeX microservices in EdgeX 3.0 will now require authentication on a per-route basis,
+even for requests that originate behind the API gateway.
+Peer-to-peer service requests (such as a device service calling core-metadata,
+or core-command forwarding a request to a device service) are authenticated automatically.
+This new behavior may create compatibility issues for custom components
+that worked fine in EdgeX 2.0 that may suddenly experience authentication failures in EdgeX 3.0.
+This new behavior may also create issues for 3rd party components,
+such as the eKuiper rules engine,
+because of its ability to issue ad-hoc HTTP requests in response to certain events.
+The <a href="https://docs.edgexfoundry.org/3.0/V3TopLevelMigration/#secure-mode">main V3 migration guide</a>
+contains specific guidance for handling eKuiper rules that call back in to EdgeX.</p>
+<p>To revert to legacy EdgeX 2.0 behavior--no authentication at the microservice level--
+set the environment variable <code>EDGEX_DISABLE_JWT_VALIDATION</code> to <code>true</code>.
+JWT validation must be disabled on a per-microservice basis.
+This will not stop EdgeX microservices from sending JWT's
+to peer EdgeX microservices--it will only disable validation on the receiving side,
+allowing unauthenticated requests.</p>
+<p>For sending JWTs, custom EdgeX services have two basic choices.
+The first is to use one of the pre-built service clients in <code>go-mod-core-contracts</code>.
+The other is to to use the <code>GetSelfJWT()</code> method of the <code>SecretProviderExt</code> interface.
+The
+<a href="https://docs.edgexfoundry.org/3.0/security/Ch-Authenticating/">authenticating chapter</a>
+of the EdgeX documentation
+explains in greater detail how to use these two methods.</p>
+<h2 id="breaking-changes-to-api-gateway-tls-configuration">Breaking Changes to API Gateway TLS Configuration</h2>
+<p>Some minor changes have been made to the <code>secrets-config proxy tls</code> command:</p>
+<ul>
+<li>The <code>--snis</code> argument is no longer supported:
+  the supplied TLS certificate and key will be used for all TLS connections.</li>
+<li>The <code>--incert</code> option is renamed to <code>--inCert</code>, and</li>
+<li>The <code>--inkey</code> option is renamed to <code>--inKey</code> for consistency of flag names.</li>
+</ul>
+<h2 id="breaking-environment-variable-changes">Breaking Environment Variable Changes</h2>
+<p>Several security-related environment variables have been renamed in EdgeX 3.0:</p>
+<table>
+<thead>
+<tr>
+<th>Old Name</th>
+<th>New Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADD_KNOWN_SECRETS</td>
+<td>EDGEX_ADD_KNOWN_SECRETS</td>
+</tr>
+<tr>
+<td>ADD_PROXY_ROUTE</td>
+<td>EDGEX_ADD_PROXY_ROUTE</td>
+</tr>
+<tr>
+<td>ADD_REGISTRY_ACL_ROLES</td>
+<td>EDGEX_ADD_REGISTRY_ACL_ROLES</td>
+</tr>
+<tr>
+<td>ADD_SECRETSTORE_TOKENS</td>
+<td>EDGEX_ADD_SECRETSTORE_TOKENS</td>
+</tr>
+<tr>
+<td>IKM_HOOK</td>
+<td>EDGEX_IKM_HOOK</td>
+</tr>
+</tbody>
+</table>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://docs.edgexfoundry.org/3.0/design/ucr/Microservice-Authentication/">Microservice Authentication Use-Case Requirements</a></li>
+<li><a href="https://docs.edgexfoundry.org/3.0/design/adr/security/0028-authentication/">Microservice Authentication Architectural Design Record for Token-Based Authentication</a></li>
+<li><a href="https://docs.edgexfoundry.org/3.0/threat-models/stride-model/EdgeX-STRIDE/">EdgeX STRIDE Threat Model</a></li>
+</ul>
 </article>
 </div>
 </div>
