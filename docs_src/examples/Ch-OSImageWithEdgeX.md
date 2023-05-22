@@ -1,4 +1,4 @@
-# Creating an EdgeX OS Image
+# Creating an EdgeX Ubuntu Core OS Image
 
 ## Introduction
 This guide walks you through creating an Ubuntu Core OS image that is preloaded with an EdgeX stack. We use [Ubuntu Core](https://ubuntu.com/core/docs) as the Linux distribution because it is optimized for IoT and is secure by design. We configure the image and bundle the current snapped versions of EdgeX components. After the deployment the snaps will continue to receive updates for the latest security and bug fixes (depending on the selected channel).
@@ -20,17 +20,17 @@ In this example, we will create an `amd64` image, but the instructions can be ad
 
     An Intel NUC11TNH with 8GB RAM and 250GB NAND flash storage has been used as the target `amd64` hardware. 
 
-We assume the following tools are installed on the desktop machine:
+We use the following tools on the desktop machine:
 
 - [snapcraft](https://snapcraft.io/snapcraft) to manage keys in the store and build snaps
 - [YQ](https://snapcraft.io/yq) to validate YAML files and convert them to JSON
-- [ubuntu-image](https://snapcraft.io/ubuntu-image) to build the Ubuntu Core image
+- [ubuntu-image](https://snapcraft.io/ubuntu-image) v2 to build the Ubuntu Core image
 
 Install them using the following commands:
 ```bash title="🖥 Desktop"
 sudo snap install snapcraft --classic
 sudo snap install yq
-sudo snap install ubuntu-image --classic
+sudo snap install ubuntu-image --classic --channel=2/stable
 ```
 
 Before we start, it is a good idea to read through the following documents:
@@ -47,14 +47,14 @@ The configuration of the partitions is defined in the [Gadget snap](https://snap
 
 The [`pc` gadget](https://snapcraft.io/pc) is available as a prebuilt snap in the store, however, we need to build our own to extend the size of disk partitions to have sufficient capacity for our EdgeX snaps.
 
-We will use the source code for Core20 AMD64 gadget from [here](https://github.com/snapcore/pc-amd64-gadget/tree/20) as basis.
+We will use the source code for Core22 AMD64 gadget from [here](https://github.com/snapcore/pc-amd64-gadget/tree/22) as basis.
 
 !!! tip
     For a Raspberry Pi, you need to use the [pi-gadget](https://github.com/snapcore/pi-gadget) instead.
 
 Clone the branch and enter the directory:
 ```bash title="🖥 Desktop"
-git clone https://github.com/snapcore/pc-amd64-gadget.git --branch=20
+git clone https://github.com/snapcore/pc-amd64-gadget.git --branch=22
 cd pc-amd64-gadget
 ```
 
@@ -62,9 +62,9 @@ In `gadget.yml`: under `volumes.pc.structure`, find the item with name `ubuntu-s
 
 Then, build the gadget snap:
 ```bash title="🖥 Desktop"
-$ snapcraft
+$ snapcraft -v
 ...
-Snapped pc_20-0.4_amd64.snap
+Created snap package pc_22-0.3_amd64.snap
 ```
 
 !!! note
@@ -111,16 +111,16 @@ Create `model.yaml` with the following content, replacing `authority-id`, `brand
 type: model
 series: '16'
 
-# authority-id and brand-id must be set to your developer-id
+# set authority-id and brand-id your developer-id
 authority-id: SZ4OfFv8DVM9om64iYrgojDLgbzI0eiL
 brand-id: SZ4OfFv8DVM9om64iYrgojDLgbzI0eiL
 
-model: ubuntu-core-20-amd64
+model: ubuntu-core-22-amd64
 architecture: amd64
 
 # timestamp should be within your signature's validity period
 timestamp: '2022-06-21T10:45:00+00:00'
-base: core20
+base: core22
 
 grade: dangerous
 
@@ -135,18 +135,13 @@ snaps:
 
 - name: pc-kernel
   type: kernel
-  default-channel: 20/stable
+  default-channel: 22/stable
   id: pYVQrBcKmBa0mZ4CCN7ExT6jH8rY1hza
 
 - name: snapd
   type: snapd
-  default-channel: latest/stable
+  default-channel: latest/candidate # temporary for latest pc-gadget compatibility
   id: PMrrV4ml8uWuEUDBT8dSGnKUYbevVhc4
-
-- name: core20
-  type: base
-  default-channel: latest/stable
-  id: DLqre5XGLbDqg9jPtiAhRRjDuPVa5X1q
 
 - name: core22
   type: base
@@ -155,12 +150,12 @@ snaps:
 
 - name: edgexfoundry
   type: app
-  default-channel: latest/stable
+  default-channel: latest/edge
   id: AZGf0KNnh8aqdkbGATNuRuxnt1GNRKkV
 
 - name: edgex-device-virtual
   type: app
-  default-channel: latest/stable
+  default-channel: latest/edge
   id: AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0
 ```
 
@@ -198,15 +193,14 @@ Note that even the kernel and OS base (core20) are snap packages!
 > To extend the image size, use the `--image-size` flag in the following command. For example, to add 500MB extra (the original image is around 3.5GB), set `--image-size=4G`.
 
 ```bash title="🖥 Desktop"
-$ ubuntu-image snap model.signed.yaml --validation=enforce --snap pc-amd64-gadget/pc_20-0.4_amd64.snap 
+$ ubuntu-image snap model.signed.yaml --validation=enforce --snap pc-amd64-gadget/pc_22-0.3_amd64.snap 
 Fetching snapd
 Fetching pc-kernel
-Fetching core20
 Fetching core22
 Fetching edgexfoundry
 Fetching edgex-device-virtual
 WARNING: "pc" installed from local snaps disconnected from a store cannot be refreshed subsequently!
-Copying "pc-amd64-gadget/pc_20-0.4_amd64.snap" (pc)
+Copying "pc-amd64-gadget/pc_22-0.3_amd64.snap" (pc)
 
 # check the image file
 $ file pc.img
