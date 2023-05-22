@@ -32,6 +32,9 @@ Follow this guide to deploy and run the service.
             Need to wait for sometime for the services to be fully up before executing the next set of commands.
             Securely store Consul ACL token and the JWT token generated which are needed to map credentials and execute apis.
             It is not recommended to store these secrets in cleartext in your machine. 
+
+        !!! note
+            The JWT token expires after 119 minutes, and you will need to generate a new one.
         
         ```bash
         make get-consul-acl-token
@@ -195,7 +198,7 @@ Follow this guide to deploy and run the service.
 
 Additionally, ensure that the service config has been deployed and that Consul is reachable.
 !!! note
-    If running in secure mode this command needs the [JWT token](#token-generation) generated previously.
+    If running in secure mode this command needs the [ACL token](#token-generation) generated previously.
 
 ```bash
 curl -H "X-Consul-Token:<token>" -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera?keys=true"
