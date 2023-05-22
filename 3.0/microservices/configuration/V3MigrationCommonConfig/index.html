@@ -1471,7 +1471,16 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
 </a>
 <h1 id="v3-migration-of-common-configuration">V3 Migration of Common Configuration</h1>
-<p>TBD</p>
+<p>Changed database configuration from <code>Databases map[string]bootstrapConfig.Database</code> to <code>Database bootstrapConfig.Database</code></p>
+<div class="admonition exmaple">
+<p class="admonition-title">Example V3 Database configuration</p>
+<div class="highlight"><pre><span></span><code>Database:
+  Host: "localhost"
+  Port: 6379
+  Timeout: "5s"
+  Type: "redisdb"
+</code></pre></div>
+</div>
 </article>
 </div>
 </div>

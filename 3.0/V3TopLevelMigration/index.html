@@ -259,6 +259,11 @@
 <nav aria-label="Core Data" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#api-change">
+    API Change
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#reading">
     Reading
   </a>
@@ -275,6 +280,29 @@
 <a class="md-nav__link" href="#core-metadata">
     Core Metadata
   </a>
+<nav aria-label="Core Metadata" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-change_1">
+    API Change
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#core-command">
+    Core Command
+  </a>
+<nav aria-label="Core Command" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-change_2">
+    API Change
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#support-notifications">
@@ -285,6 +313,15 @@
 <a class="md-nav__link" href="#support-scheduler">
     Support Scheduler
   </a>
+<nav aria-label="Support Scheduler" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-change_3">
+    API Change
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#application-services">
@@ -1725,6 +1762,11 @@
 <nav aria-label="Core Data" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#api-change">
+    API Change
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#reading">
     Reading
   </a>
@@ -1741,6 +1783,29 @@
 <a class="md-nav__link" href="#core-metadata">
     Core Metadata
   </a>
+<nav aria-label="Core Metadata" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-change_1">
+    API Change
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#core-command">
+    Core Command
+  </a>
+<nav aria-label="Core Command" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-change_2">
+    API Change
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#support-notifications">
@@ -1751,6 +1816,15 @@
 <a class="md-nav__link" href="#support-scheduler">
     Support Scheduler
   </a>
+<nav aria-label="Support Scheduler" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-change_3">
+    API Change
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#application-services">
@@ -1933,8 +2007,8 @@
 <p>If you have custom <a href="../microservices/configuration/CommonEnvironmentVariables/#environment-overrides">environment overrides</a> for configuration impacted by the V3 changes you will also need to migrate your overrides to use the new name or value depending on what has changed. Refer to the links above and/or below for details for migration of common and/or the service specific configuration to determine if your overrides require migrating.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <p>When using the Configuration Provider, the environment overrides for common configuration are applied to the <strong>core-common-config-bootstrapper</strong> service. They no longer work when applied to the individual services as the common configuration setting no longer exist in the private configuration.</p>
+</div>
 <h2 id="custom-compose-file">Custom Compose File</h2>
 <p>The compose files for V3 have many changes from their V2 counter parts. If you have customized a V2 compose file to add additional services and/or add or modify configuration overrides,  it is highly recommended that you start with the appropriate V3 compose file and re-add your customizations. It is very likely that the sections for your additional services will need to be migrated to have the proper environment overrides. Best approach is to use one of the V3 service sections that closest matches your service  as a template.</p>
 <p>The latest V3 compose files can be found here: <a href="https://github.com/edgexfoundry/edgex-compose/tree/main">Compose Files</a></p>
@@ -1962,15 +2036,68 @@
 <p>The following sections describe what you need to be aware for the different services that create data in the database.</p>
 <h3 id="core-data">Core Data</h3>
 <p>The Event/Reading data stored by Core Data is considered transient and of little value once it has become old. The V3 versions of these data collections have minimal changes from their V2 counter parts. </p>
+<h4 id="api-change">API Change</h4>
+<ul>
+<li>Add Event
+    To identify which device service generating the new event, POST endpoint is now changed from <code>/event/{profileName}/{deviceName}/{sourceName}</code> to <code>/event/{serviceName}/{profileName}/{deviceName}/{sourceName}</code></li>
+</ul>
+<p>See <a href="../../../api/core/Ch-APICoreData.md">Core Data API Reference</a> for complete details.</p>
 <h4 id="reading">Reading</h4>
 <p>There are no changes to the V3 Reading from that in V2</p>
 <h4 id="event">Event</h4>
 <p>The field that has changed in V3 is the <code>apiVersion</code> which is now set to <code>v3</code>.</p>
 <h3 id="core-metadata">Core Metadata</h3>
 <p>Most of the data stored by Core Metadata will be recreated when the V3 versions of the Device Services start-up. The statically declared devices will automatically be created and device discovery will find and add existing devices. Any device profiles, devices, provision watchers created manually via the V2 REST APIs will have to be recreated using the V3 REST API. Any manually-applied <code>AdministrativeState</code> settings will also need to be re-applied.</p>
+<h4 id="api-change_1">API Change</h4>
+<ul>
+<li>
+<p>Add/ Update/ Get device</p>
+<ul>
+<li>Remove <code>LastConnected</code>, <code>LastReported</code> and <code>UpdateLastConnected</code> from device model</li>
+<li>Updated ProtocolProperties to have typed value</li>
+</ul>
+</li>
+<li>
+<p>Add/ Update/ Get deviceprofile</p>
+<ul>
+<li>Added <code>optional</code> field in ResourceProperties</li>
+<li>Updated the data type of <code>mask</code>, <code>shift</code>, <code>scale</code>, <code>base</code>, <code>maximum</code> and <code>minimum</code> from <code>string</code> to <code>number</code> in ResourceProperties</li>
+</ul>
+</li>
+<li>
+<p>Get UOM </p>
+<ul>
+<li>Changed the response format from TOML to YAML</li>
+</ul>
+</li>
+<li>
+<p>Add/ Get/ Update ProvisionWatcher</p>
+<ul>
+<li>Allowed empty string profile name when adding or updating the ProvisionWatcher</li>
+<li>The ProvisionWatcher DTO is restructured by moving the Device related fields into a new object field, <code>DiscoveredDevice</code>; such as <code>profileName</code>, Device <code>adminState</code>, and <code>autoEvents</code>.</li>
+<li>Added a new properties field in the <code>DiscoveredDevice</code> object to allow any additional or customized data.</li>
+<li>ProvisionWatcher contains its own <code>adminState</code> now. The Device <code>adminState</code> is moved into the <code>DiscoveredDevice</code> object.</li>
+</ul>
+</li>
+</ul>
+<p>See <a href="../../../api/core/Ch-APICoreMetadata.md">Core Metadata API Reference</a> for complete details.</p>
+<h3 id="core-command">Core Command</h3>
+<h4 id="api-change_2">API Change</h4>
+<ul>
+<li>Get Command<ul>
+<li>Updated <code>ds-pushevent</code> and <code>ds-returnevent</code> to use bool value, <code>true</code> or <code>false</code>, instead of <code>yes</code> or <code>no</code></li>
+</ul>
+</li>
+</ul>
+<p>See <a href="../../../api/core/Ch-APICoreCommand.md">Core Command API Reference</a> for complete details.</p>
 <h3 id="support-notifications">Support Notifications</h3>
 <p>Any <code>Subscriptions</code> created via the V2 REST API will have to be recreated using the V3 REST API. The <code>Notification</code> and <code>Transmission</code>collections will be empty until new notifications are sent using EdgeX V3 </p>
 <h3 id="support-scheduler">Support Scheduler</h3>
+<h4 id="api-change_3">API Change</h4>
+<ul>
+<li>Added <code>authmethod</code> to support-scheduler actions DTO, which indicates how to authenticate the outbound URL. Use <code>NONE</code> when running in non-secure mode and <code>JWT</code> when running in secure mode.</li>
+</ul>
+<p>See <a href="../../../api/support/Ch-APISupportScheduler.md">Support Scheduler API Reference</a> for complete details.</p>
 <p>The statically declared <code>Interval</code> and <code>IntervalAction</code> will be created automatically. Any <code>Interval</code> and/or <code>IntervalAction</code> created via the V2 REST API will have to be recreated using the V3 REST API. If you have created a custom configuration with additional statically declared <code>Interval</code>s and <code>IntervalActions</code> see the <a href="#configuration-file">Configuration File</a> section under <a href="#customized-configuration">Customized Configuration</a> below.</p>
 <h3 id="application-services">Application Services</h3>
 <p>Application services use the database only when the <a href="../microservices/application/AdvancedTopics/#store-and-forward">Store and Forward</a> capability is enabled. If you do not use this capability you can skip this section. This data collection only has data when that data could not be exported. It is recommended not to upgrade to V3 while the Store and Forward data collection is not empty or you are certain the data is no longer needed. You can determine if the Store and Forward data collection is empty by setting the Application Service's log level to <code>DEBUG</code>  and look for the following message which is logged every <code>RetryInterval</code>:</p>
