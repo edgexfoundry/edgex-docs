@@ -1844,7 +1844,7 @@
 A new field <strong>Properties</strong> is added into Device in EdgeX 3.0, so that device-level properties can be defined and then consumed by the implementation of device services to retrieve extra device-level information.  For example, assume a device service may require extra device-level information, such as <code>DeviceInstance</code>, <code>Firmware</code>, <code>InstanceID</code>, and <code>ObjectName</code> in the runtime, and these extra device-level information can be defined in the properties.<br/><br/>
 A new field <strong>Properties</strong> is added into ProvisionWatcher in EdgeX 3.0, so that the implementation of device services can retrieve extra information when automatically provisioning a device.  For example, assume a device service would like to generate the device name in certain format during auto discovery, a property, e.g. <code>DeviceNameTemplate</code> with the template format of device name can be defined in the ProvisionWatcher, so that the implementation of device service can generate the device name based on such property.<br/></p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:10"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><input id="__tabbed_2_4" name="__tabbed_2" type="radio"><input id="__tabbed_2_5" name="__tabbed_2" type="radio"><input id="__tabbed_2_6" name="__tabbed_2" type="radio"><input id="__tabbed_2_7" name="__tabbed_2" type="radio"><input id="__tabbed_2_8" name="__tabbed_2" type="radio"><input id="__tabbed_2_9" name="__tabbed_2" type="radio"><input id="__tabbed_2_10" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">BaseAddress</label><label for="__tabbed_2_2">RESTAddress</label><label for="__tabbed_2_3">MQTTPubAddress</label><label for="__tabbed_2_4">AutoEvent</label><label for="__tabbed_2_5">Device</label><label for="__tabbed_2_6">DeviceProfile</label><label for="__tabbed_2_7">DeviceResource</label><label for="__tabbed_2_8">DeviceService</label><label for="__tabbed_2_9">ResourceProperties</label><label for="__tabbed_2_10">ProvisionWatcher</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:11"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><input id="__tabbed_2_4" name="__tabbed_2" type="radio"><input id="__tabbed_2_5" name="__tabbed_2" type="radio"><input id="__tabbed_2_6" name="__tabbed_2" type="radio"><input id="__tabbed_2_7" name="__tabbed_2" type="radio"><input id="__tabbed_2_8" name="__tabbed_2" type="radio"><input id="__tabbed_2_9" name="__tabbed_2" type="radio"><input id="__tabbed_2_10" name="__tabbed_2" type="radio"><input id="__tabbed_2_11" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">BaseAddress</label><label for="__tabbed_2_2">RESTAddress</label><label for="__tabbed_2_3">MQTTPubAddress</label><label for="__tabbed_2_4">AutoEvent</label><label for="__tabbed_2_5">Device</label><label for="__tabbed_2_6">DeviceProfile</label><label for="__tabbed_2_7">DeviceResource</label><label for="__tabbed_2_8">DeviceService</label><label for="__tabbed_2_9">ResourceProperties</label><label for="__tabbed_2_10">ProvisionWatcher</label><label for="__tabbed_2_11">DiscoveredDevice</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -1969,11 +1969,11 @@ A new field <strong>Properties</strong> is added into ProvisionWatcher in EdgeX 
 </tr>
 <tr>
 <td>OnChange</td>
-<td>indicates whether the device service will generate an event only</td>
+<td>Indicates whether the device service will generate an event only</td>
 </tr>
 <tr>
 <td>SourceName</td>
-<td>the name of the resource in the device profile which describes the event to generate</td>
+<td>The name of the resource in the device profile which describes the event to generate</td>
 </tr>
 </tbody>
 </table>
@@ -1993,7 +1993,7 @@ A new field <strong>Properties</strong> is added into ProvisionWatcher in EdgeX 
 </tr>
 <tr>
 <td>Id</td>
-<td>uniquely identifies the device, a UUID for example</td>
+<td>Uniquely identifies the device, a UUID for example</td>
 </tr>
 <tr>
 <td>Description</td>
@@ -2057,11 +2057,11 @@ A new field <strong>Properties</strong> is added into ProvisionWatcher in EdgeX 
 <tbody>
 <tr>
 <td></td>
-<td>represents the attributes and operational capabilities of a device. It is a template for which there can be multiple matching devices within a given system.</td>
+<td>Represents the attributes and operational capabilities of a device. It is a template for which there can be multiple matching devices within a given system.</td>
 </tr>
 <tr>
 <td>Id</td>
-<td>uniquely identifies the device, a UUID for example</td>
+<td>Uniquely identifies the device, a UUID for example</td>
 </tr>
 <tr>
 <td>Description</td>
@@ -2085,11 +2085,11 @@ A new field <strong>Properties</strong> is added into ProvisionWatcher in EdgeX 
 </tr>
 <tr>
 <td>DeviceResources</td>
-<td>deviceResource collection</td>
+<td>DeviceResource collection</td>
 </tr>
 <tr>
 <td>DeviceCommands</td>
-<td>collect of deviceCommand</td>
+<td>Collect of deviceCommand</td>
 </tr>
 </tbody>
 </table>
@@ -2121,11 +2121,11 @@ A new field <strong>Properties</strong> is added into ProvisionWatcher in EdgeX 
 </tr>
 <tr>
 <td>Properties</td>
-<td>list of associated properties</td>
+<td>List of associated properties</td>
 </tr>
 <tr>
 <td>Attributes</td>
-<td>list of associated attributes</td>
+<td>List of associated attributes</td>
 </tr>
 </tbody>
 </table>
@@ -2141,11 +2141,11 @@ A new field <strong>Properties</strong> is added into ProvisionWatcher in EdgeX 
 <tbody>
 <tr>
 <td></td>
-<td>represents a service that is responsible for proxying connectivity between a set of devices and the EdgeX Foundry core services; the current state and reachability information for a registered device service</td>
+<td>Represents a service that is responsible for proxying connectivity between a set of devices and the EdgeX Foundry core services; the current state and reachability information for a registered device service</td>
 </tr>
 <tr>
 <td>Id</td>
-<td>uniquely identifies the device service, a UUID for example</td>
+<td>Uniquely identifies the device service, a UUID for example</td>
 </tr>
 <tr>
 <td>Name</td>
@@ -2157,7 +2157,7 @@ A new field <strong>Properties</strong> is added into ProvisionWatcher in EdgeX 
 </tr>
 <tr>
 <td>BaseAddress</td>
-<td>address (MQTT topic, HTTP address, serial bus, etc.) for reaching the service</td>
+<td>Address (MQTT topic, HTTP address, serial bus, etc.) for reaching the service</td>
 </tr>
 <tr>
 <td>AdminState</td>
@@ -2249,7 +2249,7 @@ A new field <strong>Properties</strong> is added into ProvisionWatcher in EdgeX 
 </tr>
 <tr>
 <td>Name</td>
-<td>unique name and identifier of the provision watcher</td>
+<td>Unique name and identifier of the provision watcher</td>
 </tr>
 <tr>
 <td>Labels</td>
@@ -2257,37 +2257,61 @@ A new field <strong>Properties</strong> is added into ProvisionWatcher in EdgeX 
 </tr>
 <tr>
 <td>Identifiers</td>
-<td>set of key value pairs that identify property (MAC, HTTP,...) and value to watch for (00-05-1B-A1-99-99, 10.0.0.1,...)</td>
+<td>Set of key value pairs that identify property (MAC, HTTP,...) and value to watch for (00-05-1B-A1-99-99, 10.0.0.1,...)</td>
 </tr>
 <tr>
 <td>BlockingIdentifiers</td>
-<td>set of key-values pairs that identify devices which will not be added despite matching on Identifiers</td>
+<td>Set of key-values pairs that identify devices which will not be added despite matching on Identifiers</td>
+</tr>
+<tr>
+<td>ServiceName</td>
+<td>The base name of the device service that new devices will be associated to</td>
+</tr>
+<tr>
+<td>AdminState</td>
+<td>Administrative state for provision watcher - either unlocked or locked</td>
+</tr>
+<tr>
+<td>DiscoveredDevice</td>
+<td>A DiscoveredDevice defines the data to be assigned on the new discovered device</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>A DiscoveredDevice defines the data to be assigned on the new discovered device.</td>
 </tr>
 <tr>
 <td>ProfileName</td>
 <td>Name of the device profile that should be applied to the devices available at the identifier addresses</td>
 </tr>
 <tr>
-<td>ServiceName</td>
-<td>Name of the device service that new devices will be associated to</td>
-</tr>
-<tr>
 <td>AdminState</td>
-<td>administrative state for new devices - either unlocked or locked</td>
+<td>Administrative state for new devices - either unlocked or locked</td>
 </tr>
 <tr>
 <td>AutoEvents</td>
-<td>Associated auto events to this watcher</td>
+<td>Associated auto events to this new devices</td>
 </tr>
 <tr>
 <td>Properties</td>
-<td>A map of extendable properties required by the implementation of device services to retrieve extra information when automatically provisioning a device.  For example, assume a device service would like to generate the device name in certain format during auto discovery, a property, e.g. <code>DeviceNameTemplate</code> with the template format of device name can be defined in the ProvisionWatcher, so that the implementation of device service can generate the device name based on such property</td>
+<td>A map of extendable properties required by the implementation of device services to retrieve extra information when automatically provisioning a device. For example, assume a device service would like to generate the device name in certain format during auto discovery, a property, e.g. <code>DeviceNameTemplate</code> with the template format of device name can be defined in the ProvisionWatcher, so that the implementation of device service can generate the device name based on such property</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-</input></input></input></input></input></input></input></input></input></input></div>
+</input></input></input></input></input></input></input></input></input></input></input></div>
 <h2 id="high-level-interaction-diagrams">High Level Interaction Diagrams</h2>
 <p>Sequence diagrams for some of the more critical or complex events regarding metadata.  These High Level Interaction Diagrams show:</p>
 <ol>
