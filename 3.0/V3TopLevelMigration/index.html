@@ -2041,7 +2041,7 @@
 <li>Add Event
     To identify which device service generating the new event, POST endpoint is now changed from <code>/event/{profileName}/{deviceName}/{sourceName}</code> to <code>/event/{serviceName}/{profileName}/{deviceName}/{sourceName}</code></li>
 </ul>
-<p>See <a href="../../../api/core/Ch-APICoreData.md">Core Data API Reference</a> for complete details.</p>
+<p>See <a href="../api/core/Ch-APICoreData">Core Data API Reference</a> for complete details.</p>
 <h4 id="reading">Reading</h4>
 <p>There are no changes to the V3 Reading from that in V2</p>
 <h4 id="event">Event</h4>
@@ -2080,7 +2080,7 @@
 </ul>
 </li>
 </ul>
-<p>See <a href="../../../api/core/Ch-APICoreMetadata.md">Core Metadata API Reference</a> for complete details.</p>
+<p>See <a href="../api/core/Ch-APICoreMetadata">Core Metadata API Reference</a> for complete details.</p>
 <h3 id="core-command">Core Command</h3>
 <h4 id="api-change_2">API Change</h4>
 <ul>
@@ -2089,7 +2089,7 @@
 </ul>
 </li>
 </ul>
-<p>See <a href="../../../api/core/Ch-APICoreCommand.md">Core Command API Reference</a> for complete details.</p>
+<p>See <a href="../api/core/Ch-APICoreCommand">Core Command API Reference</a> for complete details.</p>
 <h3 id="support-notifications">Support Notifications</h3>
 <p>Any <code>Subscriptions</code> created via the V2 REST API will have to be recreated using the V3 REST API. The <code>Notification</code> and <code>Transmission</code>collections will be empty until new notifications are sent using EdgeX V3 </p>
 <h3 id="support-scheduler">Support Scheduler</h3>
@@ -2097,7 +2097,7 @@
 <ul>
 <li>Added <code>authmethod</code> to support-scheduler actions DTO, which indicates how to authenticate the outbound URL. Use <code>NONE</code> when running in non-secure mode and <code>JWT</code> when running in secure mode.</li>
 </ul>
-<p>See <a href="../../../api/support/Ch-APISupportScheduler.md">Support Scheduler API Reference</a> for complete details.</p>
+<p>See <a href="../api/support/Ch-APISupportScheduler">Support Scheduler API Reference</a> for complete details.</p>
 <p>The statically declared <code>Interval</code> and <code>IntervalAction</code> will be created automatically. Any <code>Interval</code> and/or <code>IntervalAction</code> created via the V2 REST API will have to be recreated using the V3 REST API. If you have created a custom configuration with additional statically declared <code>Interval</code>s and <code>IntervalActions</code> see the <a href="#configuration-file">Configuration File</a> section under <a href="#customized-configuration">Customized Configuration</a> below.</p>
 <h3 id="application-services">Application Services</h3>
 <p>Application services use the database only when the <a href="../microservices/application/AdvancedTopics/#store-and-forward">Store and Forward</a> capability is enabled. If you do not use this capability you can skip this section. This data collection only has data when that data could not be exported. It is recommended not to upgrade to V3 while the Store and Forward data collection is not empty or you are certain the data is no longer needed. You can determine if the Store and Forward data collection is empty by setting the Application Service's log level to <code>DEBUG</code>  and look for the following message which is logged every <code>RetryInterval</code>:</p>
