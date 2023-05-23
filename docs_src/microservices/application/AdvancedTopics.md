@@ -141,8 +141,8 @@ The `ApplicationService` API provides the follow APIs to enable structured custo
 
 See the [Application Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/tree/{{version}}/app-service-template) for an example of using the new Structured Custom Configuration capability.
 
-- [See here for defining the structured custom configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{version}}/app-service-template/config/configuration.go#L35-L80)
-- [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{version}}/app-service-template/main.go#L74-L98)
+- [See here for defining the structured custom configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{version}}/app-service-template/config/configuration.go#L36-L81)
+- [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{version}}/app-service-template/main.go#L73-L97)
 
 ### Store and Forward
 

@@ -205,7 +205,7 @@ This API loads the service's Structured Custom Configuration from local file or 
     }
     ```
 
-See the [App Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{version}}/app-service-template/main.go#L74-L98) for a complete example of using Structured Custom Configuration 
+See the [App Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{version}}/app-service-template/main.go#L73-L97) for a complete example of using Structured Custom Configuration.
 
 ### ListenForCustomConfigChanges
 
@@ -263,7 +263,7 @@ This API starts a listener on the Configuration Provider for changes to the spec
     
     ```
 
-See the [App Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{version}}/app-service-template/main.go#L74-L98) for a complete example of using Structured Custom Configuration 
+See the [App Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{version}}/app-service-template/main.go#L73-L97) for a complete example of using Structured Custom Configuration.
 
 ## Function Pipeline APIs
 
@@ -434,7 +434,7 @@ This API returns the LoggingClient instance which the service uses to log messag
 `RegistryClient() registry.Client`
 
 This API returns the Registry Client. Note the registry must been enabled, otherwise this will return nil.
-See the [Registry Client interface](https://github.com/edgexfoundry/go-mod-registry/blob/{{version}}/registry/interface.go#L23-L40) for more details. Useful if service needs to add additional health checks or needs to get endpoint of another registered service. 
+See the [Registry Client interface](https://github.com/edgexfoundry/go-mod-registry/blob/{{version}}/registry/interface.go#L23-L44) for more details. Useful if service needs to add additional health checks or needs to get endpoint of another registered service.
 
 ### EventClient
 
@@ -446,7 +446,7 @@ This API returns the Event Client. Note if Core Data is not specified in the Cli
 
 `CommandClient() interfaces.CommandClient`
 
-This API returns the Command Client. Note if Core Command is not specified in the Clients configuration, this will return nil. See the [Command Client interface](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{version}}/clients/interfaces/command.go#L16-L31) for more details. Useful for issuing commands to devices.
+This API returns the Command Client. Note if Core Command is not specified in the Clients configuration, this will return nil. See the [Command Client interface](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{version}}/clients/interfaces/command.go#L17-L35) for more details. Useful for issuing commands to devices.
 
 ### NotificationClient
 
@@ -470,7 +470,7 @@ This API returns the Device Service Client. Note if Core Metadata is not specifi
 
 `DeviceProfileClient() interfaces.DeviceProfileClient`
 
-This API returns the Device Profile Client. Note if Core Metadata is not specified in the Clients configuration, this will return nil. See the [Device Profile Client interface](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{version}}/clients/interfaces/deviceprofile.go#L17-L41) for more details. Useful for querying information about a Device Profile such as Device Resource details.
+This API returns the Device Profile Client. Note if Core Metadata is not specified in the Clients configuration, this will return nil. See the [Device Profile Client interface](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{version}}/clients/interfaces/deviceprofile.go#L17-L55) for more details. Useful for querying information about a Device Profile such as Device Resource details.
 
 ### DeviceClient
 

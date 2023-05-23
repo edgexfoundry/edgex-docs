@@ -258,8 +258,8 @@ The `SDK` API provides the follow APIs to enable structured custom configuration
 See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/tree/{{version}}) for an example of using the new Structured Custom Configuration capability.
 
 - [See here for defining the structured custom configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/{{version}}/internal/driver/config.go#L21-L72)
-- [See here for custom section on the configuration.yaml file](https://github.com/edgexfoundry/device-mqtt-go/blob/{{version}}/cmd/res/configuration.yaml#L86-L108) (**TODO**: Update link once YAML file is available)
-- [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/{{version}}/internal/driver/driver.go#L54-L69)
+- [See here for custom section on the configuration.yaml file](https://github.com/edgexfoundry/device-mqtt-go/blob/{{version}}/cmd/res/configuration.yaml#L28-L50)
+- [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/{{version}}/internal/driver/driver.go#L53-L67)
 
 ## Device Service Metrics
 
@@ -331,7 +331,7 @@ The following are the steps to collect and report service metrics:
 
 ## Retrieving Secrets
 
-The Go Device SDK provides the `SecretProvider.GetSecret()` API to retrieve the Device Services secrets.  See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/blob/{{version}}/internal/driver/config.go#L114) for an example of using the `SecretProvider.GetSecret()` API. Note that this code implements a retry loop allowing time for the secret(s) to be push into the service's `SecretStore` via the /secret endpoint. See [Storing Secrets](../../microservices/device/Ch-DeviceServices/#storing-secrets) section for more details.  
+The Go Device SDK provides the `SecretProvider.GetSecret()` API to retrieve the Device Services secrets.  See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/blob/{{version}}/internal/driver/config.go#L118) for an example of using the `SecretProvider.GetSecret()` API. Note that this code implements a retry loop allowing time for the secret(s) to be push into the service's `SecretStore` via the /secret endpoint. See [Storing Secrets](../../microservices/device/Ch-DeviceServices/#storing-secrets) section for more details.
 
 ## Rebuild your Device Service
 
