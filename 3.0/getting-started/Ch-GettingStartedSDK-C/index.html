@@ -1731,11 +1731,11 @@ EdgeX. General characteristics about the type of device, the data these devices 
 </li>
 </ol>
 <h2 id="configuring-your-device-service">Configuring your Device Service</h2>
-<p>Now update the configuration for the new device service.    This documentation provides a new configuration.toml file.  This configuration file:
+<p>Now update the configuration for the new device service.    This documentation provides a new configuration.yaml file.  This configuration file:
 - changes the port the service operates on so as not to conflict with other device services</p>
 <p>Download  <strong><a href="https://github.com/edgexfoundry/device-sdk-go/blob/main/example/cmd/device-simple/res/configuration.yaml">configuration.yaml</a></strong> and save the file to the ./res folder.</p>
 <h3 id="custom-structured-configuration">Custom Structured Configuration</h3>
-<p>C Device Services support structured custom configuration as part of the <code>[Driver]</code> section in the configuration.toml file.</p>
+<p>C Device Services support structured custom configuration as part of the <code>[Driver]</code> section in the configuration.yaml file.</p>
 <p>View the <code>main</code> function of <code>template.c</code>. The <code>confparams</code> variable is initialized with default values for three test parameters. These values may be overridden by entries in the configuration file or by environment variables in the usual way. The resulting configuration is passed to the <code>init</code> function when the service starts.</p>
 <p>Configuration parameters <code>X</code>, <code>Y/Z</code> and <code>Writable/Q</code> correspond to configuration file entries as follows:
 <div class="highlight"><pre><span></span><code>[Writable]

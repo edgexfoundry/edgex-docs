@@ -1563,7 +1563,7 @@ pictures, count beings, and send that data to EdgeX. To simulate this
 activity in this section of the walkthrough, you will make core data API calls as if you
 were the camera's device and device service.  That is, you will report human and dog counts to core data in the form of event/reading objects.</p>
 <h2 id="send-an-eventreading">Send an Event/Reading</h2>
-<p>See <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/2.0.0">core data API</a> for more details.</p>
+<p>See <a href="../../api/core/Ch-APICoreData">core data API</a> for more details.</p>
 <p>Data is submitted to core data as an <code>Event</code> object. An event is a collection of
 sensor readings from a device (associated to a device by its name)
 at a particular point in time. A <code>Reading</code> object in an <code>Event</code> object is a particular
@@ -1670,7 +1670,7 @@ curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span
 </div>
 </div>
 </input></input></div>
-<p>There are <a href="https://app.swaggerhub.com/apis/EdgeXFoundry1/core-data/2.0.0">many additional APIs on core data</a> to retrieve <code>Event</code> and <code>Reading</code> data. As an example, here is one to find all events inside of a start and end time range.</p>
+<p>There are <a href="../../api/core/Ch-APICoreData">many additional APIs on core data</a> to retrieve <code>Event</code> and <code>Reading</code> data. As an example, here is one to find all events inside of a start and end time range.</p>
 <div class="highlight"><pre><span></span><code>curl -X GET localhost:59880/api/v2/event/start/1602168089665560000/end/1602168089665570000 | json_pp
 </code></pre></div>
 <p><a class="md-button" href="../Ch-WalkthroughCommands/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughExporting/">Next&gt;</a></p>

@@ -1542,7 +1542,7 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
 </a>
 <h1 id="dynamic-discovery">Dynamic Discovery</h1>
-<p>The device service supports <a href="https://docs.edgexfoundry.org/2.1/microservices/device/Ch-DeviceServices/#dynamic-provisioning">dynamic discovery</a>.
+<p>The device service supports <a href="../../../../Ch-DeviceServices/#dynamic-provisioning">dynamic discovery</a>.
 During dynamic discovery, the device service scans all connected USB devices and sends the discovered cameras to Core Metadata.
 The device name of the camera discovered by the device service is comprised of Card Name and Serial Number, and the characters colon, space and dot will be replaced with underscores as they are invalid characters for device names in EdgeX.
 Take the camera Logitech C270 as an example, it's Card Name is "C270 HD WEBCAM" and the Serial Number is "B1CF0E50" hence the device name - "C270_HD_WEBCAM-B1CF0E50".</p>
@@ -1594,7 +1594,7 @@ Take the camera Logitech C270 as an example, it's Card Name is "C270 HD WEBCAM" 
 </div>
 </div>
 </input></input></div>
-<p>To manually trigger a Dynamic Discovery, use this <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.2.0#/default/post_discovery">device service API</a>.  </p>
+<p>To manually trigger a Dynamic Discovery, use this <a href="https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/main.0#/default/post_discovery">device service API</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="w"> </span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://&lt;service-host&gt;:59983/api/v3/discovery
 </code></pre></div>
 <p>The interval value must be a <a href="https://pkg.go.dev/time#ParseDuration">Go duration</a>.</p>

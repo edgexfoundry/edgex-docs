@@ -1556,22 +1556,22 @@
 <h2 id="running-edgex">Running EdgeX</h2>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>Jakarta (v 2.1) is the latest version of EdgeX and used by example in this guide.</p>
+<p>Minnesota (main) is the latest version of EdgeX and used by example in this guide.</p>
 </div>
 <p>Once you have Docker and Docker Compose installed, you need to:</p>
 <ul>
-<li>download / save the latest <a href="https://github.com/edgexfoundry/edgex-compose/blob/jakarta/docker-compose-no-secty.yml"><code>docker-compose</code> file</a></li>
+<li>download / save the latest <a href="https://github.com/edgexfoundry/edgex-compose/blob/main/docker-compose-no-secty.yml"><code>docker-compose</code> file</a></li>
 <li>issue command to download and run the EdgeX Foundry Docker images from Docker Hub</li>
 </ul>
 <p>This can be accomplished with a single command as shown below (please note the tabs for x86 vs ARM architectures).</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">x86</label><label for="__tabbed_1_2">ARM</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/jakarta/docker-compose-no-secty.yml -o docker-compose.yml; docker-compose up -d
+<div class="highlight"><pre><span></span><code>curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/main/docker-compose-no-secty.yml -o docker-compose.yml; docker-compose up -d
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/Jakarta/docker-compose-no-secty-arm64.yml -o docker-compose.yml; docker-compose up -d
+<div class="highlight"><pre><span></span><code>curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/main/docker-compose-no-secty-arm64.yml -o docker-compose.yml; docker-compose up -d
 </code></pre></div>
 </div>
 </div>
@@ -1582,7 +1582,7 @@
 <img alt="image" src="EdgeX_GettingStartedUsrActiveContainers.png">
 <em>If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.</em></img></p>
 <h2 id="connected-devices">Connected Devices</h2>
-<p>EdgeX Foundry provides a <a href="https://github.com/edgexfoundry/device-virtual-go/tree/v2.0.0">Virtual device service</a> which is useful for testing and development.  It simulates a number of <a href="../../general/Definitions/#Device">devices</a>, each randomly generating data of various types and within configurable parameters.  For example, the Random-Integer-Device will generate random integers.</p>
+<p>EdgeX Foundry provides a <a href="https://github.com/edgexfoundry/device-virtual-go/tree/main">Virtual device service</a> which is useful for testing and development.  It simulates a number of <a href="../../general/Definitions/#Device">devices</a>, each randomly generating data of various types and within configurable parameters.  For example, the Random-Integer-Device will generate random integers.</p>
 <p>The Virtual Device (also known as Device Virtual) service is already a service pulled and running as part of the default EdgeX configuration.</p>
 <p>You can verify that Virtual Device readings are already being sent by querying the EdgeX core data service for the event records sent for Random-Integer-Device:
 <div class="highlight"><pre><span></span><code>curl http://localhost:59880/api/v2/event/device/name/Random-Integer-Device
@@ -1597,7 +1597,7 @@
 </div>
 <h2 id="controlling-the-device">Controlling the Device</h2>
 <p>Reading data from devices is only part of what EdgeX is capable of.  You can also use it to control your devices - this is termed <a href="../../general/Definitions/#Actuate">'actuating'</a> the device. When a device registers with the EdgeX services, it provides a <a href="../../microservices/device/profile/Ch-DeviceProfile/">Device Profile</a> that describes both the data readings available from that device, and also the commands that control it. </p>
-<p>When our Virtual Device service registered the device <code>Random-Integer-Device</code>, it used a <a href="https://github.com/edgexfoundry/device-virtual-go/blob/v2.0.0/cmd/res/profiles/device.virtual.int.yaml">profile</a> to also define commands that allow you to tell the service not to generate random integers, but to always return a value you set.</p>
+<p>When our Virtual Device service registered the device <code>Random-Integer-Device</code>, it used a <a href="https://github.com/edgexfoundry/device-virtual-go/blob/main/cmd/res/profiles/device.virtual.int.yaml">profile</a> to also define commands that allow you to tell the service not to generate random integers, but to always return a value you set.</p>
 <p>You won't call commands on devices directly, instead you use the EdgeX Foundry <a href="../../microservices/core/command/Ch-Command/">Command Service</a> to do that. The first step is to check what commands are available to call by asking the Command service about your device:
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v2/device/name/Random-Integer-Device
 </code></pre></div></p>

@@ -1495,7 +1495,7 @@
 </a>
 <h1 id="getting-started">Getting Started</h1>
 <h2 id="the-application-functions-sdk">The Application Functions SDK</h2>
-<p>The SDK is built around the idea of a "Functions Pipeline". A functions pipeline is a collection of various functions that process the data in the order that you've specified. The functions pipeline is executed by the specified <a href="../../microservices/application/Triggers/">trigger</a> in the <code>configuration.toml</code> . The first function in the pipeline is called with the event that triggered the pipeline (ex. <code>dtos.Event</code>). Each successive call in the pipeline is called with the return result of the previous function. Let's take a look at a simple example that creates a pipeline to filter particular device ids and subsequently transform the data to XML:
+<p>The SDK is built around the idea of a "Functions Pipeline". A functions pipeline is a collection of various functions that process the data in the order that you've specified. The functions pipeline is executed by the specified <a href="../../microservices/application/Triggers/">trigger</a> in the <code>configuration.yaml</code> . The first function in the pipeline is called with the event that triggered the pipeline (ex. <code>dtos.Event</code>). Each successive call in the pipeline is called with the return result of the previous function. Let's take a look at a simple example that creates a pipeline to filter particular device ids and subsequently transform the data to XML:
 <div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="p">(</span>
@@ -1584,7 +1584,7 @@ After placing the above function in your code, the next step is to modify the pi
 <span class="w">    </span><span class="o">...</span>
 <span class="p">}</span>
 </code></pre></div>
-Set the Trigger type to <code>http</code> in <a href="https://github.com/edgexfoundry/edgex-examples/blob/main/application-services/custom/simple-filter-xml/res/configuration.toml">res/configuration.toml</a></p>
+Set the Trigger type to <code>http</code> in configuration file found here: <a href="https://github.com/edgexfoundry/edgex-examples/blob/main/application-services/custom/simple-filter-xml/res">res/configuration.yaml</a></p>
 <div class="highlight"><pre><span></span><code><span class="k">[Trigger]</span>
 <span class="n">Type</span><span class="o">=</span><span class="s">"http"</span>
 </code></pre></div>

@@ -2272,11 +2272,11 @@ In the next chapter, we walk through creating a Snap package with our custom con
 Moreover, it is tedious to override many configurations one by one, compared to having a file which contains all the needed modifications.</p>
 <p>Since we want to create an OS image pre-loaded with the configured system, we need to make sure the configurations are there without any manual user interaction. We do that by creating a snap which provides the configuration files/directories to the Device Virtual snap:</p>
 <ul>
-<li>configuration.toml</li>
+<li>configuration.yaml</li>
 <li>devices/</li>
 <li>profiles/</li>
 </ul>
-<p>For this exercise, we will modify the default configurations and remove most default devices and resources. We will also replace the startup message set in the <code>configuration.toml</code> file.</p>
+<p>For this exercise, we will modify the default configurations and remove most default devices and resources. We will also replace the startup message set in the <code>configuration.yaml</code> file.</p>
 <p>This snap should be build and uploaded to the store. We use <code>edgex-config-provider-example</code> as the snap name. Refer to <a href="../../getting-started/Ch-GettingStartedSnapUsers/#config-provider-snap">docs</a> for more details and example source code.</p>
 <p>Build:
 <div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>snapcraft
@@ -2475,8 +2475,8 @@ If you haven't done so, follow the instructions <a href="https://snapcraft.io/do
 <p>Read <a href="https://ubuntu.com/core/docs/system-user">here</a> to know how the manual account setup looks like and how it can be automated.</p>
 <h2 id="references">References</h2>
 <ul>
-<li><a href="https://docs.edgexfoundry.org/2.2/getting-started/Ch-GettingStartedSnapUsers">Getting Started using Snaps</a></li>
-<li><a href="https://docs.edgexfoundry.org/2.2/microservices/core/data/Ch-CoreData/">EdgeX Core Data</a></li>
+<li><a href="../../getting-started/Ch-GettingStartedSnapUsers/">Getting Started using Snaps</a></li>
+<li><a href="../../microservices/core/data/Ch-CoreData/">EdgeX Core Data</a></li>
 <li><a href="https://ubuntu.com/core/docs/uc20/inside">Inside Ubuntu Core</a></li>
 <li><a href="https://snapcraft.io/docs/gadget-snap">Gadget snaps</a></li>
 <li><a href="https://ubuntu.com/core/docs/testing-with-qemu">Testing Ubuntu Core with QEMU</a></li>
