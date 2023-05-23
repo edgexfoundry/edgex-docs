@@ -349,7 +349,6 @@ The following snaps are maintained by the EdgeX working groups:
 - [Platform Snap](#platform-snap) - containing all core and security services along with two support services.
 - Tools
     - [EdgeX UI](#edgex-ui)
-    - [EdgeX CLI](#edgex-cli)
 - Supporting Services
     - [EdgeX eKuiper](#edgex-ekuiper)
 - Application Services
@@ -606,11 +605,6 @@ sudo snap start edgexfoundry.support-scheduler
 sudo snap start edgexfoundry.support-notifications
 sudo snap install edgex-ekuiper
 ```
-
-### EdgeX CLI
-| [Installation][edgex-cli] | [Source](https://github.com/edgexfoundry/edgex-cli/tree/main/snap) |
-
-For usage instructions, refer to [Command Line Interface (CLI)](../tools/Ch-CommandLineInterface/) guide.
 
 ### EdgeX eKuiper
 | [Installation][edgex-ekuiper] | [Managing Services] | [Debugging] | [Source](https://github.com/canonical/edgex-ekuiper-snap) |
