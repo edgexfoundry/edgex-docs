@@ -139,10 +139,10 @@ The `ApplicationService` API provides the follow APIs to enable structured custo
 - `ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error`
     - Starts a listener on the Configuration Provider for changes to the specified section of the custom configuration. When changes are received from the Configuration Provider the UpdateWritableFromRaw interface will be called on the custom configuration to apply the updates and then signal that the changes occurred via changedCallback.
 
-See the [Application Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/tree/v2.0.0/app-service-template) for an example of using the new Structured Custom Configuration capability.
+See the [Application Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/tree/{{version}}/app-service-template) for an example of using the new Structured Custom Configuration capability.
 
-- [See here for defining the structured custom configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/config/configuration.go#L35-L80)
-- [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/v2.0.0/app-service-template/main.go#L74-L98)
+- [See here for defining the structured custom configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{version}}/app-service-template/config/configuration.go#L35-L80)
+- [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{version}}/app-service-template/main.go#L74-L98)
 
 ### Store and Forward
 

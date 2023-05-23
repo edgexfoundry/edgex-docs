@@ -33,7 +33,7 @@ in your current configured database for EdgeX.
 The times and frequencies defined in the scheduler service's intervals are specified using the [international date/time standard - ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).  So, for example, the start of an interval would be represented in YYYYMMDD'T'HHmmss format.  20180101T000000 represents January 1, 2018 at midnight.  Frequencies are represented with ISO 8601 durations. 
 
 ## Data Model
-The latest developed data model will be updated in the [Swagger API document](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.3.0).
+The latest developed data model will be updated in the [Swagger API document](../../../../api/support/Ch-APISupportScheduler).
 
 ![image](EdgeX_SupportSchedulerModel.png)
 
@@ -77,7 +77,7 @@ This diagram is drawn by [diagram.net](https://app.diagrams.net/), and the sourc
     |HttpMethod|Indicates which Http verb should be used for the REST endpoint.(Only using when type is REST|
     |Path|The HTTP path at the targeted host for fulfillment of the action.(Only using when type is REST)|
 
-See [Interval](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.1.0#/Interval) and [IntervalAction](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-scheduler/2.1.0#/IntervalAction) for more information.
+See [Interval](../../../../api/support/Ch-APISupportScheduler) and [IntervalAction](../../../../api/support/Ch-APISupportScheduler) for more information, please see Interval and IntervalAction endpoints.
 !!! warning
     `AuthMethod: JWT` exposes a sensitive credential and should only be used for, and is required to be used for, authenticating to peer EdgeX microservices.
 

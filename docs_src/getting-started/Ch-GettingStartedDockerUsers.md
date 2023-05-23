@@ -40,7 +40,7 @@ Locate the branch containing the EdgeX Docker Compose file for the version of Ed
 !!! Note
     The `main` branch contains the Docker Compose files that use artifacts created from the latest code submitted by contributors (from the night builds).  Most end users should avoid using these Docker Compose files.  They are work-in-progress.  Users should use the Docker Compose files for the latest version of EdgeX. 
 
-In each edgex-compose branch, you will find several Docker Compose files (all with a .yml extension).  The name of the file will suggest the type of EdgeX instance the Compose file will help setup.  The table below provides a list of the Docker Compose filenames for the latest release (Ireland).   Find the Docker Compose file that matches:
+In each edgex-compose branch, you will find several Docker Compose files (all with a .yml extension).  The name of the file will suggest the type of EdgeX instance the Compose file will help setup.  The table below provides a list of the Docker Compose filenames for the latest release ({{release}}).   Find the Docker Compose file that matches:
 
 - your hardware (x86 or ARM)
 - your desire to have security services on or off
@@ -60,11 +60,11 @@ Once you have selected the release branch of edgex-compose you want to use, down
 
 === "x86"
     ```
-    wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/ireland/docker-compose-no-secty.yml -O docker-compose.yml
+    wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/{{version}}/docker-compose-no-secty.yml -O docker-compose.yml
     ```
 === "ARM"
     ```
-    wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/ireland/docker-compose-no-secty-arm64.yml -O docker-compose.yml
+    wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/{{version}}/docker-compose-no-secty-arm64.yml -O docker-compose.yml
     ```
 
 !!! Note
@@ -102,7 +102,7 @@ Do the following to use this tool to generate a custom Compose file:
    ```
    
 
-See the README document in the compose-builder directory for details on all the available options.  The Compose Builder is different per release, so make sure to consult the README in the appropriate release branch.  See [Ireland's Compose Builder README](https://github.com/edgexfoundry/edgex-compose/blob/ireland/compose-builder/README.md) for details on the lastest release Compose Builder options for `make gen`.
+See the README document in the compose-builder directory for details on all the available options.  The Compose Builder is different per release, so make sure to consult the README in the appropriate release branch.  See [Ireland's Compose Builder README](https://github.com/edgexfoundry/edgex-compose/blob/{{version}}/compose-builder/README.md) for details on the lastest release Compose Builder options for `make gen`.
 
 !!! Note
     The generated Docker Compose file may require addition customizations for your specific needs, such as environment override(s) to set appropriate Host IP address, etc.

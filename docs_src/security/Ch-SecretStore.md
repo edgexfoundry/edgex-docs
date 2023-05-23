@@ -45,7 +45,7 @@ This disables **all** EdgeX security features, not just the API gateway.
 
 Documentation on how the EdgeX security store is sequenced
 with respect to all of the other EdgeX services is covered in the
-[Secure Bootstrapping of EdgeX Architecture Decision Record(ADR)](https://docs.edgexfoundry.org/2.0/design/adr/security/0009-Secure-Bootstrapping/).
+[Secure Bootstrapping of EdgeX Architecture Decision Record(ADR)](../../design/adr/security/0009-Secure-Bootstrapping).
 
 ## Using the Secret Store
 
