@@ -1,15 +1,15 @@
 # V3 Migration of Common Configuration 
 As stated in the top level V3 Migration guide, common configuration has been separated out from each service's private configuration. See the [Service Configuration](../CommonConfiguration/) page for more details on the new **Common Configuration**.
 
-There have also been changes to some  sections of the common configuration in order to make them consistent and stream-lined for all EdgeX services 
+There have also been changes to some sections of the common configuration in order to make them consistent and stream-lined for all EdgeX services 
 
 ## MessageBus
 
-In EdgeX 3.0 the  EdgeX MessageBus configuration has been refactored and renamed to be `MessageBus`.  Prior to EdgeX 3.0, Core/Support Services and Device services had it as `MessageQueue` and Applications Services had it as `MessageBus` under the `Trigger` configuration. Now all services have it as top level `MessageBus`. In addition to the rename, the following fields have been add or removed:
+In EdgeX 3.0 the EdgeX MessageBus configuration has been refactored and renamed to be `MessageBus`. Prior to EdgeX 3.0, Core/Support Services and Device services had it as `MessageQueue` and Applications Services had it as `MessageBus` under the `Trigger` configuration. Now all services have it as top level `MessageBus`. In addition to the rename, the following fields have been add or removed:
 
 ### New Settings
 
-- **Disabled** - Defaults to `false`. Set to `true` by Application Services that don't need the EdgeX MessageBus for Trigger or Metrics. When set to  `false` this allows for Metrics to still be published to the EdgeX MessageBus when the Trigger is set to `http` or `external-mqtt`
+- **Disabled** - Defaults to `false`. Set to `true` by Application Services that don't need the EdgeX MessageBus for Trigger or Metrics. When set to `false` this allows for Metrics to still be published to the EdgeX MessageBus when the Trigger is set to `http` or `external-mqtt`
 - **BaseTopicPrefix** - Base topic prefix that is prepended to all the new topic constants. Defaults to `edgex` if not set.
 
 ### Removed Settings
@@ -17,7 +17,7 @@ In EdgeX 3.0 the  EdgeX MessageBus configuration has been refactored and renamed
 - **PublishTopicPrefix** - Topics are no longer configurable, except for `BaseTopicPrefix`
 - **SubscribeTopic** - Topics are no longer configurable, except for `BaseTopicPrefix`
 - **Topics** - Topics are no longer configurable, except for `BaseTopicPrefix`
-- **SubscribeEnabled** - No longer needed by Core Data. If  Core Data's `PersistData` is set to`true` the Core Data will always subscribe to events from the EdgeX MessageBus
+- **SubscribeEnabled** - No longer needed by Core Data. If Core Data's `PersistData` is set to`true` the Core Data will always subscribe to events from the EdgeX MessageBus
 
 ### Custom MessageBus configuration
 
@@ -105,7 +105,7 @@ If you have customized `InsecureSecrets` in the configuration file you will need
 
 #### Via Environment Variable Overrides.
 
-If you have used Environment Variable Overrides to customize  `InsecureSecrets` , the Environment Variable names will need to change to account for the new field names above.
+If you have used Environment Variable Overrides to customize `InsecureSecrets` , the Environment Variable names will need to change to account for the new field names above.
 
 !!! example - "Example V3 Environment Variable Overrides for InsecureSecrets"
     ```yaml
