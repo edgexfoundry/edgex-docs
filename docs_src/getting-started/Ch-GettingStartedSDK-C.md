@@ -146,14 +146,14 @@ Follow these steps to create a pre-defined device for the simple random number g
 
 ## Configuring your Device Service
 
-Now update the configuration for the new device service.    This documentation provides a new configuration.toml file.  This configuration file:
+Now update the configuration for the new device service.    This documentation provides a new configuration.yaml file.  This configuration file:
 - changes the port the service operates on so as not to conflict with other device services
 
 Download  **[configuration.yaml](https://github.com/edgexfoundry/device-sdk-go/blob/{{version}}/example/cmd/device-simple/res/configuration.yaml)** and save the file to the ./res folder.
 
 ### Custom Structured Configuration
 
-C Device Services support structured custom configuration as part of the `[Driver]` section in the configuration.toml file.
+C Device Services support structured custom configuration as part of the `[Driver]` section in the configuration.yaml file.
 
 View the `main` function of `template.c`. The `confparams` variable is initialized with default values for three test parameters. These values may be overridden by entries in the configuration file or by environment variables in the usual way. The resulting configuration is passed to the `init` function when the service starts.
 

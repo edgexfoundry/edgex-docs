@@ -71,7 +71,7 @@ and create a new notification to notify particular receivers of the escalation s
     If the properties are not provided, use the default values in the configuration properties.
 
 ## Data Model
-The latest developed data model will be updated in the [Swagger API document](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/support-notifications/2.0.0).
+The latest developed data model will be updated in the [Swagger API document](../../../../api/support/Ch-APISupportNotifications).
 
 ![image](EdgeX_SupportingServicesNotificationsModel.png)
 

@@ -1,5 +1,5 @@
 # Dynamic Discovery
-The device service supports [dynamic discovery](https://docs.edgexfoundry.org/2.1/microservices/device/Ch-DeviceServices/#dynamic-provisioning).
+The device service supports [dynamic discovery](../../../../Ch-DeviceServices/#dynamic-provisioning).
 During dynamic discovery, the device service scans all connected USB devices and sends the discovered cameras to Core Metadata.
 The device name of the camera discovered by the device service is comprised of Card Name and Serial Number, and the characters colon, space and dot will be replaced with underscores as they are invalid characters for device names in EdgeX.
 Take the camera Logitech C270 as an example, it's Card Name is "C270 HD WEBCAM" and the Serial Number is "B1CF0E50" hence the device name - "C270_HD_WEBCAM-B1CF0E50".
@@ -45,7 +45,7 @@ Dynamic discovery is enabled by default to make setup easier. It can be disabled
     export DEVICE_DISCOVERY_INTERVAL=1h
     ```
 
-To manually trigger a Dynamic Discovery, use this [device service API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/2.2.0#/default/post_discovery).  
+To manually trigger a Dynamic Discovery, use this [device service API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-sdk/{{version}}.0#/default/post_discovery).
 
 ```shell
  curl -X POST http://<service-host>:59983/api/v3/discovery

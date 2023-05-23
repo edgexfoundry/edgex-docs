@@ -135,7 +135,7 @@ Here is some information on how to specially configure parts of the service beyo
 
 ### Configure the Device Profiles
 
-The device profile contains general information about the camera and includes all of the device resources and commands that the device resources can use to manage the cameras. The default profile found at `cmd/res/devices/camera.yaml` contains all possible resources a camera could implement. Enable and disable supported resources in this file, or create an entirely new profile. It is important to set up the device profile to match the capabilities of the camera. Information on the resources supported by specific cameras can be found [here](../supplementary-info/ONVIF-protocol.md#tested-onvif-cameras). Learn more about device profiles in EdgeX [here.](https://docs.edgexfoundry.org/1.2/microservices/device/profile/Ch-DeviceProfile/)
+The device profile contains general information about the camera and includes all of the device resources and commands that the device resources can use to manage the cameras. The default profile found at `cmd/res/devices/camera.yaml` contains all possible resources a camera could implement. Enable and disable supported resources in this file, or create an entirely new profile. It is important to set up the device profile to match the capabilities of the camera. Information on the resources supported by specific cameras can be found [here](../supplementary-info/ONVIF-protocol.md#tested-onvif-cameras). Learn more about device profiles in EdgeX [here.](../../../../profile/Ch-DeviceProfile)
 
 !!! example - "Sample: Snippet from camera.yaml"
        ```yaml
@@ -161,7 +161,7 @@ The device profile contains general information about the camera and includes al
 
 ### Configure the Provision Watchers
 
-The provision watcher sets up parameters for EdgeX to automatically add devices to core-metadata. They can be configured to look for certain features, as well as block features. The default provision watcher is sufficient unless you plan on having multiple different cameras with different profiles and resources. Learn more about provision watchers [here](https://docs.edgexfoundry.org/2.2/microservices/core/metadata/Ch-Metadata/#provision-watcher).
+The provision watcher sets up parameters for EdgeX to automatically add devices to core-metadata. They can be configured to look for certain features, as well as block features. The default provision watcher is sufficient unless you plan on having multiple different cameras with different profiles and resources. Learn more about provision watchers [here](../../../../../core/metadata/Ch-Metadata/#provision-watcher).
  
 !!! example - "Sample: Snippet from generic.provision.watcher.yaml"
     ```yaml

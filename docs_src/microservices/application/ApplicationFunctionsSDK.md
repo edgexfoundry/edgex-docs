@@ -14,5 +14,5 @@ If you're already familiar - checkout the various sections about the SDK:
 | [Built-In Pipeline Functions](./BuiltIn.md) | Provides a list of the available pipeline functions/transforms in the SDK |
 | [Advanced Topics](./AdvancedTopics.md) | Learn about other ways to leverage the SDK beyond basic use cases |
 
-The App Functions SDK implements a small REST API which can be seen [Here](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/2.0.0). 
+The App Functions SDK implements a small REST API which can be seen [Here](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/app-functions-sdk/{{version}}). 
 

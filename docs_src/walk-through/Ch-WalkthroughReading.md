@@ -7,7 +7,7 @@ were the camera's device and device service.  That is, you will report human and
 
 ## Send an Event/Reading
 
-See [core data API](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-data/2.0.0) for more details.
+See [core data API](../../api/core/Ch-APICoreData) for more details.
 
 Data is submitted to core data as an `Event` object. An event is a collection of
 sensor readings from a device (associated to a device by its name)
@@ -131,7 +131,7 @@ Use either the Postman or Curl tab below to walkthrough getting the list of even
     curl -X GET localhost:59880/api/v2/reading/device/name/countcamera1 | json_pp
     ```
 
-There are [many additional APIs on core data](https://app.swaggerhub.com/apis/EdgeXFoundry1/core-data/2.0.0) to retrieve `Event` and `Reading` data. As an example, here is one to find all events inside of a start and end time range.
+There are [many additional APIs on core data](../../api/core/Ch-APICoreData) to retrieve `Event` and `Reading` data. As an example, here is one to find all events inside of a start and end time range.
 
 ``` shel
 curl -X GET localhost:59880/api/v2/event/start/1602168089665560000/end/1602168089665570000 | json_pp

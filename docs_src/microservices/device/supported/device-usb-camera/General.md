@@ -34,7 +34,7 @@ The figure below illustrates the software flow through the architecture componen
 - [ONVIF Website](https://www.onvif.org)  
 - [EdgeX Foundry Project Wiki](https://wiki.edgexfoundry.org/)  
 - [EdgeX Source Code](https://github.com/edgexfoundry)  
-- [Edgex Developer Guide](https://docs.edgexfoundry.org/2.1/)
+- [Edgex Developer Guide](../../../../../getting-started/)
 - [Docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
 - [Docker Compose](https://docs.docker.com/compose/install/#install-compose)
 

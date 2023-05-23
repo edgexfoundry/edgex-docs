@@ -37,12 +37,12 @@ The migration of any Device Service's configuration starts with migrating config
     ```
     +- res
     |  +- devices
-    |    +- device1.toml
-    |    +- device2.toml
+    |    +- device1.yaml
+    |    +- device2.yaml
     |  +- profiles
     |    +- profile1.yml
     |    +- profile2.yml
-    |  +- configuration.toml
+    |  +- configuration.yaml
     |  +- ...
     +- main.go
     +- device-service-binary

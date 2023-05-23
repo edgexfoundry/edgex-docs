@@ -39,17 +39,6 @@ as the persistence mechanism for sensor data as well as metadata about the devic
 connected. See [Redis Documentation](https://redis.io/) for download and installation
 instructions.
 
-#### MongoDB
-As an alternative, EdgeX Foundry allows use of MongoDB (version 4.2 as of
-Geneva) as the alternative persistence mechanism in place of Redis for sensor data as well as
-metadata about the connected devices/sensors. See [Mongo's Documentation](https://www.mongodb.com/download-center?jmp=nav#community) for download
-and installation instructions.
-
-!!! Warning
-    Use of MongoDB is deprecated with the Geneva release.  EdgeX will remove MongoDB support in a future
-    release.  Developers should start to migrate to Redis in all development efforts targeting
-    future EdgeX releases.
-
 #### Docker (Optional)
 If you intend to create Docker images for your updated or newly created EdgeX services, you need to install Docker. See https://docs.docker.com/install/ to learn how to install Docker. If you are new to Docker, the same web site provides you educational information.
 
