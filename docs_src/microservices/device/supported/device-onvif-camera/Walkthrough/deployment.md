@@ -296,7 +296,7 @@ Follow these instructions to update devices.
                             "value":"<auth-mode>"
                         }
                     ]
-                }' -H Authorization:Bearer "<enter your JWT token here>" -X POST "http://localhost:59984/api/v3/secret"
+                }' --header 'Authorization:Bearer <enter your JWT token here>' -X POST 'http://localhost:59984/api/v3/secret'
         ```
 
         e. Enter your mac-address(es) and then execute the command to add the mac address(es) to the mapping.
@@ -322,7 +322,7 @@ Follow these instructions to update devices.
 
         g. To query the mappings, enter the credentials name in this command and execute it.
         ```bash
-        curl -H "X-Consul-Token:<consul-token> -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>?raw=true"
+        curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>?raw=true"
         ```
         Example response:
         ```bash
