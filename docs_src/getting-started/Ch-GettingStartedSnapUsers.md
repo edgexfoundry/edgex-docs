@@ -673,7 +673,7 @@ The default configuration files are installed at:
 
 **Aliases**
 
-The aliases need to be provided for the service to work.  See [Setting the Aliases](https://github.com/edgexfoundry/app-rfid-llrp-inventory/blob/main/README.md#setting-the-aliases).
+The aliases need to be provided for the service to work.  See [Setting the Aliases](https://github.com/edgexfoundry/app-rfid-llrp-inventory/blob/{{version}}/README.md#setting-the-aliases).
 
 For the snap, this can either be by:
 

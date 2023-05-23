@@ -3,7 +3,7 @@
 The [go-mod-core-contracts](https://github.com/edgexfoundry/go-mod-core-contracts/) leverage the  [go-playground/validator](https://github.com/go-playground/validator/) for DTO validation as it provides common validation function and customization mechanism.
 
 ## Tag usage
-EdgeX verifies the struct fields by using go-playground/validator validation tags or custom validation tags, for [example](https://github.com/edgexfoundry/go-mod-core-contracts/blob/main/dtos/device.go):
+EdgeX verifies the struct fields by using go-playground/validator validation tags or custom validation tags, for [example](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{version}}/dtos/device.go):
 ```
 type Device struct {
 	DBTimestamp    `json:",inline"`
@@ -21,7 +21,7 @@ The device name field contains the following validation:
 - **edgex-dto-none-empty-string** validation tag trims white space and ensures the value is not an empty string
 - **edgex-dto-rfc3986-unreserved-chars** validation tag checks the value that does not contain reserved characters
 
-You can find more validations in the [go-playground/validator](https://pkg.go.dev/github.com/go-playground/validator/v10) and EdgeX custom validations in the [go-mod-core-contracts](https://github.com/edgexfoundry/go-mod-core-contracts/blob/main/common/validator.go).
+You can find more validations in the [go-playground/validator](https://pkg.go.dev/github.com/go-playground/validator/v10) and EdgeX custom validations in the [go-mod-core-contracts](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{version}}/common/validator.go).
 
 ## Character restriction
 The EdgeX uses the custom validation **edgex-dto-rfc3986-unreserved-chars** to prevent the user inputting the reserved characters.

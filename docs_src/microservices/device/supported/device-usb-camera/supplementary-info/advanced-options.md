@@ -30,8 +30,8 @@ To configure the username and password for rtsp authentication when building you
     ```
 
 ### Authentication Server Configuration
-- You can configure the authentication server to run from a different port by editing the externalAuthenticationURL value in the [Dockerfile](https://github.com/edgexfoundry/device-usb-camera/blob/main/Dockerfile).  
-- To disable authentication entirely, comment out the externalAuthenticationURL line in the [Dockerfile](https://github.com/edgexfoundry/device-usb-camera/blob/main/Dockerfile).  
+- You can configure the authentication server to run from a different port by editing the externalAuthenticationURL value in the [Dockerfile](https://github.com/edgexfoundry/device-usb-camera/blob/{{version}}/Dockerfile).
+- To disable authentication entirely, comment out the externalAuthenticationURL line in the [Dockerfile](https://github.com/edgexfoundry/device-usb-camera/blob/{{version}}/Dockerfile).
 
 !!! example - "externalAuthenticationURL line from the Dockerfile"
     ```Dockerfile
