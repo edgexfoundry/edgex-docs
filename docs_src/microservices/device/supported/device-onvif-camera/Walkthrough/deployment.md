@@ -45,7 +45,7 @@ Follow this guide to deploy and run the service.
         12345678-abcd-1234-abcd-123456789abc
         ```
 
-        Generate the JWT Token. Use the token generated anywhere you see `<jwt-token>` in the documentations
+        Generate the JWT Token. Use the token generated anywhere you see `<jwt-token>` in the documentation.
         ```bash
         make get-token
         ```
@@ -119,7 +119,7 @@ Follow this guide to deploy and run the service.
             If running in secure mode all the api executions need the JWT token generated previously. E.g.
             ```bash
             curl --location --request GET 'http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera' \
-            --header 'Authorization: Bearer <JWT-token>' \
+            --header 'Authorization: Bearer <jwt-token>' \
             --data-raw ''
             ```
 
@@ -209,7 +209,7 @@ Follow this guide to deploy and run the service.
 
 Additionally, ensure that the service config has been deployed and that Consul is reachable.
 !!! note
-    If running in secure mode this command needs the [ACL token](#token-generation) generated previously.
+    If running in secure mode this command needs the [Consul ACL token](#token-generation) generated previously.
 
 ```bash
 curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera?keys=true"
@@ -293,7 +293,7 @@ Follow these instructions to update devices.
                             "value":"<auth-mode>"
                         }
                     ]
-                }' --header 'Authorization:Bearer <JWT-token>' -X POST "http://localhost:59984/api/v3/secret"
+                }' --header 'Authorization:Bearer <jwt-token>' -X POST "http://localhost:59984/api/v3/secret"
         ```
 
     === "Non-secure mode"

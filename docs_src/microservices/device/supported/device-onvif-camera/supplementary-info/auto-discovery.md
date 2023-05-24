@@ -74,9 +74,9 @@ Example Output: `192.168.1.0/24`
 === "Curl Command"
     Enter the subnet into this command, and execute it to set the `DiscoverySubnets`
     !!! note
-        If you are operating in secure mode, you must use the [acl-token](../Walkthrough/deployment.md#deploy-edgex-and-onvif-device-camera-microservice) generated previously. If not, you can omit the `-H "X-Consul-Token:<token>"` portion of the command.
+        If you are operating in secure mode, you must use the [Consul ACL Token](../Walkthrough/deployment.md#deploy-edgex-and-onvif-device-camera-microservice) generated previously. If not, you can omit the `-H "X-Consul-Token:<consul-token>"` portion of the command.
     ```bash
-    curl --data '<subnet>' -H "X-Consul-Token:<token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/DiscoverySubnets"
+    curl --data '<subnet>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/DiscoverySubnets"
     ```
 
 
