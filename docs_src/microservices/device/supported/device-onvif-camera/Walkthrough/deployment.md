@@ -296,7 +296,7 @@ Follow these instructions to update devices.
                             "value":"<auth-mode>"
                         }
                     ]
-                }' --header 'Authorization:Bearer <enter your JWT token here>' -X POST 'http://localhost:59984/api/v3/secret'
+                }' --header 'Authorization:Bearer <JWT-token>' -X POST "http://localhost:59984/api/v3/secret"
         ```
 
         d. Enter your mac-address(es) and then execute the command to add the mac address(es) to the mapping.
