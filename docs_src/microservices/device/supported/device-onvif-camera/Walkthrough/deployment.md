@@ -336,7 +336,7 @@ Follow these instructions to update devices.
         
         b. Check the status of the credentials map.
         ```bash
-        curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap" | jq .
+        curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap?keys=true" | jq .
         ```
         Example response:
         ```bash
@@ -368,7 +368,7 @@ Follow these instructions to update devices.
         
         b. Check the status of the credentials map.
         ```bash
-        curl -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap" | jq .
+        curl -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap?keys=true" | jq .
         ```
         Example response:
         ```bash
@@ -379,7 +379,7 @@ Follow these instructions to update devices.
         ]
         ```
 
-        c. To query the mappings, enter the credentials name in this command and execute it.
+        c. Check The mac addresses mapped to a specific credenential name. Insert the credential name in the command to see the mac addresses associated with it.
         ```bash
         curl -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>?raw=true"
         ```
