@@ -108,7 +108,7 @@ Follow this guide to deploy and run the service.
             If running in secure mode all the api executions need the JWT token generated previously. E.g.
             ```bash
             curl --location --request GET 'http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera' \
-            --header 'Authorization: Bearer eyJhbGciOiJFUzM4NCIsImtpZCI6ImIzNTY3ZmJjLTlhZTctMjkyNy0xY2IxLWE2NzAzZGQwMWM1ZCJ9.eyJhdWQiOiJlZGdleCIsImV4cCI6MTY4MjcyNDExMCwiaWF0IjoxNjgyNzIwNTEwLCJpc3MiOiIvdjEvaWRlbnRpdHkvb2lkYyIsIm5hbWUiOiJlZGdleHVzZXIiLCJuYW1lc3BhY2UiOiJyb290Iiwic3ViIjoiMTA2NzczMDItMmY0Yi00MjE4LTFhZmUtNzZlOTYwMGJiMmQ5In0.NP0deI0HyQMvdsFwk85N5RwNpgh5lUa507z9Ft2CDT9OEeR8iYOLYmwRLZim3j_BoVSdWxiJf3tmnWo64-mffHoktbFSRooQveakAeoFYuvCXu7tO1-b-QGzzzyWfSjc' \
+            --header 'Authorization: Bearer <JWT-token>' \
             --data-raw ''
             ```
 
