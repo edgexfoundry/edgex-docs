@@ -11,7 +11,7 @@ This guide is divided into three chapters to create:
 
 Each chapter results in a working Ubuntu Core OS image that can be flashed on a disk and booted with the expected EdgeX stack.
 
-In this example, we will create an `amd64` image, but the instructions can be adapted to other architectures and even for a Raspberry Pi. We will use the Device Virtual service to simulate devices and produce synthetic events.
+In this example, we will create an `amd64` image for Intel and AMD processors. The instructions can be adapted to other architectures and even for a Raspberry Pi. We will use the Device Virtual service to simulate devices and produce synthetic events.
 
 !!! note
     This guide has been tested on an `amd64` **Ubuntu 22.04** as the desktop OS. It may work on other Linux distributions and Ubuntu versions.
@@ -75,13 +75,8 @@ developer-id: <developer-id>
 ```
 or from the [Snapcraft Dashboard](https://dashboard.snapcraft.io/dev/account/).
 
-!!! info
+??? info "YAML Model Assertion"
     Unlike the official documentation which uses JSON, we use YAML serialization for the model. This is for consistency with all the other serialization formats in this tutorial. Moreover, it allows us to comment out some parts for testing or add comments to describe the details inline.
-
-
-The [`pc` gadget](https://snapcraft.io/pc) is available as a prebuilt snap in the store, however, we need to build our own to extend the size of disk partitions to have sufficient capacity for our EdgeX snaps.
-
-We will use the source code for Core22 AMD64 gadget from [here](https://github.com/snapcore/pc-amd64-gadget/tree/22) as basis.
 
 Create `model.yaml` with the following content, replacing `authority-id`, `brand-id`, and `timestamp`:
 ```yaml
@@ -137,7 +132,7 @@ snaps:
 !!! note
     We use the gadget and kernel snaps for 64bit personal computers using Intel or AMD processors. For a Raspberry Pi, you need to change the model, architecture, as well as the gadget and kernel snaps.
 
-!!! tip "Snap ID"
+!!! tip "Finding Snap IDs"
     Query the unique store ID of a snap, for example the `edgexfoundry` snap:
     ```
     $ snap info edgexfoundry | grep snap-id
@@ -166,12 +161,12 @@ We use ubuntu-image and set the path to signed model assertion YAML file.
 
 This will download all the snaps specified in the model assertion and build an image file called `pc.img`.
 
-> **Note**  
-> If you plan to use an emulator to install and run Ubuntu Core from the resulting image, it is a good idea to allocate additional writable storage. This necessary if you want to install additional snaps interactively or upgrade existing ones on the emulator.
->
-> The default size of the `ubuntu-data` partition is `1G` as defined in the gadget snap. When installing on actual hardware, this partition extends automatically to take the whole remaining space on the disk volume. However, when using QEMU, the partition will have the exact same size because the image size is calculated based on the defined partition structure. The 1GB `ubuntu-data` partition will be 90% full after first boot. You can configure the image to be larger so that the installer expands the partition automatically as with a large disk volume. 
->
-> To extend the image size, use the `--image-size` flag in the following command. For example, to add 500MB extra (the original image is around 3.5GB), set `--image-size=4G`.
+??? note "Expanding data partition for emulation"
+    If you plan to use an emulator to install and run Ubuntu Core from the resulting image, it is a good idea to allocate additional writable storage. This is necessary only if you want to install additional snaps interactively or upgrade existing ones on the emulator.
+
+    The default size of the `ubuntu-data` partition is `1G` as defined in the gadget snap. When installing on actual hardware, this partition extends automatically to take the whole remaining space on the disk volume. However, when using QEMU, the partition will have the exact same size because the image size is calculated based on the defined partition structure. The 1GB `ubuntu-data` partition will be mostly full after first boot. You can configure the image to be larger so that the installer expands the partition automatically as with a large disk volume. 
+
+    To extend the image size, use the `--image-size` flag in the following command. For example, to add 500MB extra (the original image is around 3.5GB), set `--image-size=4G`.
 
 ```bash title="🖥 Desktop"
 $ ubuntu-image snap model.signed.yaml --validation=enforce
@@ -298,7 +293,7 @@ In this chapter, we demonstrated how to build an image that is pre-loaded with s
 
 In the next chapter, we walk you through creating an image that comes pre-loaded with this configuration, so it boots into a working EdgeX environment.
 
-## B. Override basic configurations
+## B. Override configurations
     
 In this chapter, we will improve our OS image so that:
 
@@ -314,14 +309,13 @@ We will use the source code for Core22 AMD64 gadget from [here](https://github.c
 !!! tip
     For a Raspberry Pi, you need to use the [pi-gadget](https://github.com/snapcore/pi-gadget) instead.
 
-Clone the branch and enter the directory:
+Clone the repo branch:
 ```bash title="🖥 Desktop"
 git clone https://github.com/snapcore/pc-amd64-gadget.git --branch=22
-cd pc-amd64-gadget
 ```
 
-Add the following root level object to `gadget.yml`:
-```yml
+Add the following root level object to `pc-amd64-gadget/gadget.yml`:
+```yaml
 defaults:
   # edgexfoundry
   AZGf0KNnh8aqdkbGATNuRuxnt1GNRKkV: # snap id
@@ -350,19 +344,23 @@ For service startup and other configuration overrides, refer to [Managing servic
 
 Build:
 ```bash title="🖥 Desktop"
+$ cd pc-amd64-gadget
 $ snapcraft -v
 ...
 Created snap package pc_22-0.3_amd64.snap
+
+$ cd ..
 ```
 
 !!! note
-    You need to rebuild the snap every time you change the gadget.yaml file.
+    You need to rebuild the snap every time you change the `gadget.yaml` file.
 
 ### Build the image
 Use ubuntu-image tool again to build a new image. Use the same instructions as [before](#build-the-ubuntu-core-image) but with an additional flag to set the path to gadget snap that we locally built above.
 
 ```bash title="🖥 Desktop"
-$ ubuntu-image snap model.signed.yaml --validation=enforce --snap pc-amd64-gadget/pc_22-0.3_amd64.snap
+$ ubuntu-image snap model.signed.yaml --validation=enforce \
+  --snap pc-amd64-gadget/pc_22-0.3_amd64.snap # sideload the gadget
 Fetching snapd
 Fetching pc-kernel
 Fetching core22
@@ -372,7 +370,10 @@ WARNING: "pc" installed from local snaps disconnected from a store cannot be ref
 Copying "pc-amd64-gadget/pc_22-0.3_amd64.snap" (pc)
 ```
 
-The warning is because we side-loaded the gadget for demonstration purposes. In production settings, a custom gadget would need to be uploaded to the [IoT App Store](https://ubuntu.com/internet-of-things/appstore) to also receive updates.
+The warning is because we sideloaded the gadget instead of pulling it from a store.
+
+!!! tip    
+    In production settings, a custom gadget would need to be uploaded to the [IoT App Store](https://ubuntu.com/internet-of-things/appstore) to also receive OTA updates.
 
 !!! note
     You need to repeat the build every time you change and sign the **model** or rebuild the **gadget**.
@@ -388,44 +389,45 @@ Refer to the following to:
 
 This time, as set in the gadget defaults, services are started by default and security is disabled.
 
-!!! info
-    SSH to the machine and verify some of the seeded configurations:
-    ``` title="🚀 Ubuntu Core"
-    $ snap services
-    Service                                       Startup   Current   Notes
-    edgex-device-virtual.device-virtual           enabled   active    -
-    edgexfoundry.consul                           enabled   active    -
-    edgexfoundry.core-command                     enabled   active    -
-    edgexfoundry.core-common-config-bootstrapper  enabled   inactive  -
-    edgexfoundry.core-data                        enabled   active    -
-    edgexfoundry.core-metadata                    enabled   active    -
-    edgexfoundry.nginx                            disabled  inactive  -
-    edgexfoundry.redis                            enabled   active    -
-    edgexfoundry.security-bootstrapper-consul     disabled  inactive  -
-    edgexfoundry.security-bootstrapper-nginx      disabled  inactive  -
-    edgexfoundry.security-bootstrapper-redis      disabled  inactive  -
-    edgexfoundry.security-proxy-auth              disabled  inactive  -
-    edgexfoundry.security-secretstore-setup       disabled  inactive  -
-    edgexfoundry.support-notifications            enabled   active    -
-    edgexfoundry.support-scheduler                enabled   active    -
-    edgexfoundry.vault                            disabled  inactive  -
-    
-    $ snap get edgex-device-virtual -d
-    {
-      "autostart": true,
-      "config": {
-        "edgex-security-secret-store": false,
-        "service-startupmsg": "Startup message from gadget!"
-      }
-    }
-    ```
 
-    Verify that Device Virtual has the startup message set from the gadget:
-    ``` title="🚀 Ubuntu Core"
-    $ snap logs -n=all edgex-device-virtual | grep "Startup message"
-    2023-05-24T16:52:05Z edgex-device-virtual.device-virtual[2807]: level=INFO ts=2023-05-24T16:52:05.791386915Z app=device-virtual source=variables.go:457 msg="Variables override of 'Service/StartupMsg' by environment variable: SERVICE_STARTUPMSG=Startup message from gadget!"
-    2023-05-24T16:52:22Z edgex-device-virtual.device-virtual[3010]: level=INFO ts=2023-05-24T16:52:22.342760716Z app=device-virtual source=message.go:55 msg="Startup message from gadget!"
-    ```
+SSH to the Ubuntu Core machine as before and verify some of the seeded configurations:
+
+``` title="🚀 Ubuntu Core"
+$ snap services
+Service                                       Startup   Current   Notes
+edgex-device-virtual.device-virtual           enabled   active    -
+edgexfoundry.consul                           enabled   active    -
+edgexfoundry.core-command                     enabled   active    -
+edgexfoundry.core-common-config-bootstrapper  enabled   inactive  -
+edgexfoundry.core-data                        enabled   active    -
+edgexfoundry.core-metadata                    enabled   active    -
+edgexfoundry.nginx                            disabled  inactive  -
+edgexfoundry.redis                            enabled   active    -
+edgexfoundry.security-bootstrapper-consul     disabled  inactive  -
+edgexfoundry.security-bootstrapper-nginx      disabled  inactive  -
+edgexfoundry.security-bootstrapper-redis      disabled  inactive  -
+edgexfoundry.security-proxy-auth              disabled  inactive  -
+edgexfoundry.security-secretstore-setup       disabled  inactive  -
+edgexfoundry.support-notifications            enabled   active    -
+edgexfoundry.support-scheduler                enabled   active    -
+edgexfoundry.vault                            disabled  inactive  -
+
+$ snap get edgex-device-virtual -d
+{
+  "autostart": true,
+  "config": {
+    "edgex-security-secret-store": false,
+    "service-startupmsg": "Startup message from gadget!"
+  }
+}
+```
+
+Verify that Device Virtual has the startup message set from the gadget:
+``` title="🚀 Ubuntu Core"
+$ snap logs -n=all edgex-device-virtual | grep "Startup message"
+2023-05-24T16:52:05Z edgex-device-virtual.device-virtual[2807]: level=INFO ts=2023-05-24T16:52:05.791386915Z app=device-virtual source=variables.go:457 msg="Variables override of 'Service/StartupMsg' by environment variable: SERVICE_STARTUPMSG=Startup message from gadget!"
+2023-05-24T16:52:22Z edgex-device-virtual.device-virtual[3010]: level=INFO ts=2023-05-24T16:52:22.342760716Z app=device-virtual source=message.go:55 msg="Startup message from gadget!"
+```
 
 Since security is disabled and Core Data has been configured to listen on all interfaces (instead of just the loopback), we can now query data (insecurely) from outside:
 ```bash title="🖥 Desktop"
@@ -457,6 +459,7 @@ $ curl --no-progress-meter http://localhost:59880/api/v3/reading/all?limit=2 | j
 }
 
 ```
+We can do that only for servers that have their ports forwarded to the emulator's host as configured in [Run in an emulator](#run-in-an-emulator).
 
 ---
 
@@ -474,111 +477,121 @@ For the above cases, we need to supply whole configuration files to applications
 In the next chapter, we walk through creating a Snap package with custom configuration files.
 The package will become part of the OS image and supply necessary configurations to all other EdgeX applications.
 
-## C. Override configuration files
+## C. Replace configuration files
 
-This chapter builds on top of what we did previously and shows how to override entire configuration files with a packaged copy, prepared for an specific use case.
+This chapter builds on top of what we did previously and shows how to override entire configuration files supplied via a snap package, called the [config provider snap](../../getting-started/Ch-GettingStartedSnapUsers/#config-provider-snap).
 
 ### Create a config provider for Device Virtual
 The EdgeX Device Virtual service cannot be fully configured using environment variables / snap options. Because of that, we need to package the modified config files and replace the defaults.
 Moreover, it is tedious to override many configurations one by one, compared to having a file which contains all the needed modifications.
 
-Since we want to create an OS image pre-loaded with the configured system, we need to make sure the configurations are there without any manual user interaction. We do that by creating a snap which provides the configuration files/directories to the Device Virtual snap:
+Since we want to create an OS image pre-loaded with the configured system, we need to make sure the configurations are there without any manual user interaction. We do that by creating a snap which provides the configuration files to the Device Virtual snap.
 
-- configuration.toml
-- devices/
-- profiles/
+For this exercise, we will replace the default Device Virtual configurations with a new set of files, containing just one virtual device and profile.
 
-For this exercise, we will modify the default configurations and remove most default devices and resources. We will also replace the startup message set in the `configuration.toml` file.
+We use the [config provider snap example](https://github.com/canonical/edgex-config-provider) as basis which already includes the mentioned configuration files:
 
-This snap should be build and uploaded to the store. We use `edgex-config-provider-example` as the snap name. Refer to [docs](../../getting-started/Ch-GettingStartedSnapUsers/#config-provider-snap) for more details and example source code.
+```bash title="🖥 Desktop"
+$ git clone https://github.com/canonical/edgex-config-provider.git
+
+$ tree edgex-config-provider/examples/device-virtual/res/
+edgex-config-provider/examples/device-virtual/res/
+├── configuration.yaml
+├── devices
+│   └── devices.yaml
+├── profiles
+│   └── device.virtual.float.yaml
+└── README.md
+```
+
+This example includes only Device Virtual configurations.
+However, it is structure to allow supplying configuration files for several EdgeX app and device services. 
+
+We'll continue with this example snap which is named `edgex-config-provider-example`.
+
+!!! tip
+    In production settings, you would create your own snap under a unique name and [release it](https://snapcraft.io/docs/releasing-your-app) to the public snap store or a private [IoT App Store](https://ubuntu.com/internet-of-things/appstore) along with your gadget. 
+    This will allow OTA updates as well as secure control of the provided configuration.
 
 Build:
 ```bash title="🖥 Desktop"
-$ snapcraft
+$ cd edgex-config-provider
+$ snapcraft -v
 ...
-Snapped edgex-config-provider-example_2.3_amd64.snap
+Created snap package edgex-config-provider-example_<...>.snap
+
+$ cd ..
 ```
 
-This will build for your host architecture, so if your machine is `amd64`, it will result in a snap that has the same architecture. You can perform [remote builds](https://snapcraft.io/docs/remote-build) to build for other architectures.
+This will build for our host architecture which is `amd64`.
+You can perform [remote builds](https://snapcraft.io/docs/remote-build) to build for other architectures.
 
-Let's upload the `amd64` snap and release it to the `latest/edge` channel:
+Let's upload the snap and release it to the `latest/edge` channel:
 ```bash title="🖥 Desktop"
-snapcraft upload --release=latest/edge ./edgex-config-provider-example_2.3_amd64.snap
+snapcraft upload --release=latest/edge edgex-config-provider/edgex-config-provider-example_<...>.snap
 ```
+Uploading to the store is necessary because we need to define a connection contract on the OS between the config provider and Device Virtual snaps.
 
-Now, we can query the snap ID from the store:
+Query the snap ID from the store:
 ```bash title="🖥 Desktop"
 $ snap info edgex-config-provider-example | grep snap-id
 snap-id: WWPGZGi1bImphPwrRfw46aP7YMyZYl6w
 ```
-We need it in the next step.
-
 
 ### Add the config provider to the image
+Perform the following:
 
-We have to make three adaptations:
+1) Add the config provider snap to `model.yaml`:
 
-1) Remove the Device Virtual config overrides from the gadget and re-build it
-
-Commented out (or remove):
-```yaml title="gadget.yaml"
-    # # Enable app options
-    # app-options: true # not necessary because this service has it by default
-    # # Override the startup message (because we can)
-    # # The same syntax can be used to override most of the server configurations
-    # apps.device-virtual.config.service-startupmsg: "Startup message from gadget!"
-```
-
-!!! warning
-    It is important to do this because overrides are ineffective when configurations are replaced from a config provider.
-    This is because the config provider in our example is providing a read-only file system that doesn't allow the write access necessary to inject an environment file when setting the `app` options.
-
-2) Connect the config provider 
-
-```yaml title="gadget.yaml"
-connections:
-   -  # Connect edgex-device-virtual's plug (consumer)
-      plug: AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0:device-virtual-config
-      # to edgex-config-provider-example's slot (provider) to override the default configuration files.
-      slot: WWPGZGi1bImphPwrRfw46aP7YMyZYl6w:device-virtual-config
-```
-This internally bind-mounts provider's "res" directory on top of the consumer's "res" directory.
-
-
-3) Rebuild the gadget
-```bash title="🖥 Desktop"
-$ snapcraft
-...
-Snapped pc_20-0.4_amd64.snap
-```
-
-4) Add the config provider snap to the model assertion, **after** all other edgex snaps:
-
-```yaml title="model.yaml"
-# This snap contains our configuration files
+```yaml
 - name: edgex-config-provider-example
   type: app
   default-channel: latest/edge
   id: WWPGZGi1bImphPwrRfw46aP7YMyZYl6w
 ```
 
-5) Sign the model as before
+2) Sign the model as before:
 ```bash title="🖥 Desktop"
 yq eval model.yaml -o=json | snap sign -k edgex-demo > model.signed.yaml
 ```
+
+3) Add the following root level object to `pc-amd64-gadget/gadget.yaml`:
+```yaml
+connections:
+   -  # Connect edgex-device-virtual's plug (consumer)
+      plug: AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0:device-virtual-config
+      # to edgex-config-provider-example's slot (provider) to override the default configuration files.
+      slot: WWPGZGi1bImphPwrRfw46aP7YMyZYl6w:device-virtual-config
+```
+This tells the system to connect the `device-virtual-config` plug of the Device Virtual snap to the slot of the same name on the config provider snap.
+
+4) Rebuild the gadget:
+```bash title="🖥 Desktop"
+$ cd pc-amd64-gadget
+$ snapcraft -v
+...
+Created snap package pc_22-0.3_amd64.snap
+
+$ cd ..
+```
+
 ### Build the image
 Use ubuntu-image tool again to build a new image. Use the same instructions as [before](#build-the-ubuntu-core-image) to build:
 
 ```bash title="🖥 Desktop"
-ubuntu-image snap model.signed.yaml --validation=enforce --snap pc-amd64-gadget/pc_20-0.4_amd64.snap
+$ ubuntu-image snap model.signed.yaml --validation=enforce \
+  --snap pc-amd64-gadget/pc_22-0.3_amd64.snap
+Fetching snapd
+Fetching pc-kernel
+Fetching core22
+Fetching edgexfoundry
+Fetching edgex-device-virtual
+Fetching edgex-config-provider-example
+WARNING: "pc" installed from local snaps disconnected from a store cannot be refreshed subsequently!
+Copying "pc-amd64-gadget/pc_22-0.3_amd64.snap" (pc)
 ```
 
-Note the addition of our config provider in output:
-```
-...
-Fetching edgex-config-provider-example
-...
-```
+Note the addition of our config provider snap in the output.
 
 !!! done
     The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications and custom configuration files.
@@ -589,71 +602,81 @@ Refer to the following to:
 - [Run in an emulator](#run-in-an-emulator) - used in this guide
 - [Flash the image on disk](#flash-the-image-on-disk)
 
-!!! info
-    SSH to the machine and verify the installations:
+SSH to the Ubuntu Core machine and verify the installations:
     
-    List of snaps:
-    ``` title="🚀 Ubuntu Core"
-    $ snap list
-    Name                           Version          Rev    Tracking       Publisher   Notes
-    core20                         20220805         1611   latest/stable  canonical✓  base
-    core22                         20220607         188    latest/stable  canonical✓  base
-    edgex-config-provider-example  2.3              2      latest/edge    farshidtz   -
-    edgex-device-virtual           2.3.0            335    latest/edge    canonical✓  -
-    edgexfoundry                   2.3.0            4101   latest/edge    canonical✓  -
-    pc                             20-0.4           x1     -              -           gadget
-    pc-kernel                      5.4.0-124.140.1  1077   20/stable      canonical✓  kernel
-    snapd                          2.56.2           16292  latest/stable  canonical✓  snapd
-    ```
-    Note that we now also have `edgex-config-provider-example` in the list.
-
-    Verify that Device Virtual only has one profile, as configured in the config provider:
-    ``` title="🚀 Ubuntu Core"
-    $ snap install edgex-cli
-    edgex-cli 2.2.0 from Canonical✓ installed
-    $ edgex-cli device list
-    Name                 Description                ServiceName     ProfileName          Labels                    AutoEvents
-    Random-Float-Device  Example of Device Virtual  device-virtual  Random-Float-Device  [device-virtual-example]  [{30s false Float64}]
-    ```
-
-    Verify that Device Virtual has the startup message set from the provider:
-    ``` title="🚀 Ubuntu Core"
-    $ snap logs -n=all edgex-device-virtual | grep "Startup message"
-    2022-08-19T14:42:24Z edgex-device-virtual.device-virtual[5402]: level=INFO ts=2022-08-19T14:42:24.438798115Z app=device-virtual source=message.go:55 msg="Startup message from config provider"
-    ```
-
-Query the metadata of Device Virtual from your host machine. 
-We have to use the same JWT created in chapter B.
-```bash title="🖥 Desktop"
-curl --insecure --silent --show-err https://localhost:8443/core-data/api/v2/reading/all?limit=2 -H "Authorization: Bearer $(cat admin-jwt.txt)" | jq
+List of snaps:
+``` title="🚀 Ubuntu Core"
+$ snap list
+Name                           Version          Rev    Tracking       Publisher   Notes
+core20                         20220805         1611   latest/stable  canonical✓  base
+core22                         20220607         188    latest/stable  canonical✓  base
+edgex-config-provider-example  2.3              2      latest/edge    farshidtz   -
+edgex-device-virtual           2.3.0            335    latest/edge    canonical✓  -
+edgexfoundry                   2.3.0            4101   latest/edge    canonical✓  -
+pc                             20-0.4           x1     -              -           gadget
+pc-kernel                      5.4.0-124.140.1  1077   20/stable      canonical✓  kernel
+snapd                          2.56.2           16292  latest/stable  canonical✓  snapd
 ```
-```json title="Response"
+Note that we now also have `edgex-config-provider-example` in the list.
+
+Verify that Device Virtual has the startup message overridden via the gadget defaults:
+``` title="🚀 Ubuntu Core"
+$ snap logs -n=all edgex-device-virtual | grep "Startup message"
+2023-05-25T10:24:50Z edgex-device-virtual.device-virtual[2924]: level=INFO ts=2023-05-25T10:24:50.447466922Z app=device-virtual source=variables.go:457 msg="Variables override of 'Service/StartupMsg' by environment variable: SERVICE_STARTUPMSG=Startup message from gadget!"
+2023-05-25T10:25:03Z edgex-device-virtual.device-virtual[3136]: level=INFO ts=2023-05-25T10:25:03.761993667Z app=device-virtual source=message.go:55 msg="Startup message from gadget!"
+```
+
+From the host machine, query the device metadata to ensure that Device Virtual has registered only a single virtual device: 
+```bash title="🖥 Desktop"
+$ curl --no-progress-meter  http://localhost:59881/api/v3/device/all | jq
 {
-  "apiVersion": "v2",
+  "apiVersion": "v3",
   "statusCode": 200,
-  "totalCount": 133,
-  "readings": [
+  "totalCount": 1,
+  "devices": [
     {
-      "id": "f6a53b5c-045f-4913-ae45-4e32642f6102",
-      "origin": 1660923144514370300,
-      "deviceName": "Random-Float-Device",
-      "resourceName": "Float64",
+      "created": 1685010303761,
+      "modified": 1685010303761,
+      "id": "c6ccd340-6315-4313-9c4c-d98773287c7f",
+      "name": "Random-Float-Device",
+      "description": "Example of Device Virtual",
+      "adminState": "UNLOCKED",
+      "operatingState": "UP",
+      "labels": [
+        "device-virtual-example"
+      ],
+      "serviceName": "device-virtual",
       "profileName": "Random-Float-Device",
-      "valueType": "Float64",
-      "value": "1.436784e+308"
-    },
-    {
-      "id": "95b5aa9c-e80d-488c-ab5d-1b625a9d0f76",
-      "origin": 1660923114513963300,
-      "deviceName": "Random-Float-Device",
-      "resourceName": "Float64",
-      "profileName": "Random-Float-Device",
-      "valueType": "Float64",
-      "value": "7.737701e+307"
+      "autoEvents": [
+        {
+          "interval": "30s",
+          "onChange": false,
+          "sourceName": "Float32"
+        },
+        {
+          "interval": "30s",
+          "onChange": false,
+          "sourceName": "Float64"
+        }
+      ],
+      "protocols": {
+        "other": {
+          "Address": "device-virtual-float-01",
+          "Protocol": 300
+        }
+      }
     }
   ]
 }
 ```
+
+---
+
+Congratulations! You have a system that is pre-configured to have:
+
+- A set of EdgeX components
+- Configuration overrides for the EdgeX components
+- Custom configuration files for the EdgeX Device Virtual service
 
 ## Run in an emulator
 Running the image in an emulator makes it easier to quickly try the image and find out possible issues.
@@ -678,14 +701,15 @@ sudo qemu-system-x86_64 \
  -machine accel=kvm \
  -serial mon:stdio \
  -net nic,model=virtio \
- -net user,hostfwd=tcp::8022-:22,hostfwd=tcp::8443-:8443,hostfwd=tcp::59880-:59880
+ -net user,hostfwd=tcp::8022-:22,hostfwd=tcp::8443-:8443,hostfwd=tcp::59880-:59880,hostfwd=tcp::59881-:59881
 ```
 
 The above command forwards:
 
 - SSH port `22` of the emulator to `8022` on the host
-- API Gateway's port `8433` for external and secure access to EdgeX endpoints
-- Core Data's port `59880` for demonstration purposes in chapter A.
+- API Gateway's port `8433` for external access in chapter A
+- Core Data's port `59880`
+- Core Metadata's port `59881`
 
 !!! failure "Could not set up host forwarding rule 'tcp::8443-:8443'"
     This means that the port 8443 is not available on the host. Try stopping the service that uses this port or change the host port (left hand side) to another port number, e.g. `tcp::18443-:8443`.
