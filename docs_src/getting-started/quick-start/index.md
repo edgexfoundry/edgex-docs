@@ -14,22 +14,22 @@ Install the following:
 ## Running EdgeX
 
 !!! Info
-    Jakarta (v 2.1) is the latest version of EdgeX and used by example in this guide.
+    {{release}} ({{version}}) is the latest version of EdgeX and used by example in this guide.
 
 Once you have Docker and Docker Compose installed, you need to:
 
-* download / save the latest [`docker-compose` file](https://github.com/edgexfoundry/edgex-compose/blob/jakarta/docker-compose-no-secty.yml)
+* download / save the latest [`docker-compose` file](https://github.com/edgexfoundry/edgex-compose/blob/{{version}}/docker-compose-no-secty.yml)
 * issue command to download and run the EdgeX Foundry Docker images from Docker Hub
 
 This can be accomplished with a single command as shown below (please note the tabs for x86 vs ARM architectures).
 
 === "x86"
     ```
-    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/jakarta/docker-compose-no-secty.yml -o docker-compose.yml; docker-compose up -d
+    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/{{version}}/docker-compose-no-secty.yml -o docker-compose.yml; docker-compose up -d
     ```
 === "ARM"
     ```
-    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/Jakarta/docker-compose-no-secty-arm64.yml -o docker-compose.yml; docker-compose up -d
+    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/{{version}}/docker-compose-no-secty-arm64.yml -o docker-compose.yml; docker-compose up -d
     ```
 
 Verify that the EdgeX containers have started:
@@ -40,7 +40,7 @@ docker-compose ps
 *If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.*
 
 ## Connected Devices
-EdgeX Foundry provides a [Virtual device service](https://github.com/edgexfoundry/device-virtual-go/tree/v2.0.0) which is useful for testing and development.  It simulates a number of [devices](../../general/Definitions.md#Device), each randomly generating data of various types and within configurable parameters.  For example, the Random-Integer-Device will generate random integers.
+EdgeX Foundry provides a [Virtual device service](https://github.com/edgexfoundry/device-virtual-go/tree/{{version}}) which is useful for testing and development.  It simulates a number of [devices](../../general/Definitions.md#Device), each randomly generating data of various types and within configurable parameters.  For example, the Random-Integer-Device will generate random integers.
 
 The Virtual Device (also known as Device Virtual) service is already a service pulled and running as part of the default EdgeX configuration.
 
@@ -61,7 +61,7 @@ curl http://localhost:59880/api/v2/event/device/name/Random-Integer-Device
 
 Reading data from devices is only part of what EdgeX is capable of.  You can also use it to control your devices - this is termed ['actuating'](../../general/Definitions.md#Actuate) the device. When a device registers with the EdgeX services, it provides a [Device Profile](../../microservices/device/profile/Ch-DeviceProfile.md) that describes both the data readings available from that device, and also the commands that control it. 
 
-When our Virtual Device service registered the device `Random-Integer-Device`, it used a [profile](https://github.com/edgexfoundry/device-virtual-go/blob/v2.0.0/cmd/res/profiles/device.virtual.int.yaml) to also define commands that allow you to tell the service not to generate random integers, but to always return a value you set.
+When our Virtual Device service registered the device `Random-Integer-Device`, it used a [profile](https://github.com/edgexfoundry/device-virtual-go/blob/{{version}}/cmd/res/profiles/device.virtual.int.yaml) to also define commands that allow you to tell the service not to generate random integers, but to always return a value you set.
 
 You won't call commands on devices directly, instead you use the EdgeX Foundry [Command Service](../../microservices/core/command/Ch-Command.md) to do that. The first step is to check what commands are available to call by asking the Command service about your device:
 ``` bash

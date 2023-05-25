@@ -21,7 +21,7 @@ Device discovery is triggered by the device SDK. Once the device service starts,
 !!! Note
         Alternatively, for `netscan` you can set the `DiscoverySubnets` automatically _after_ the service has been deployed by running the [bin/configure-subnets.sh](./utility-scripts.md#configure-subnetssh) script
 
-For `Netscan`, there is a one line command to determine the `DiscoverySubnets` of your current machine:
+1. For `Netscan`, there is a one line command to determine the `DiscoverySubnets` of your current machine:
 ```shell
     ip -4 -o route list scope link | sed -En "s/ dev ($(find /sys/class/net -mindepth 1 -maxdepth 2 -not -lname '*devices/virtual*' -execdir grep -q 'up' "{}/operstate" \; -printf '%f\n' | paste -sd\| -)).+//p" | grep -v "169.254.0.0/16" | sort -u | paste -sd, -
 ```
@@ -51,7 +51,6 @@ Example Output: `192.168.1.0/24`
     DiscoverySubnets: "192.168.1.0/24" # Fill in with your actual subnet(s)
     ```
 
-
 === "Docker / Env Vars"
 
     Define the following environment variables in `docker-compose.yaml`:
@@ -70,7 +69,15 @@ Example Output: `192.168.1.0/24`
         # List of IPv4 subnets to perform netscan discovery on, in CIDR format (X.X.X.X/Y)
         # separated by commas ex: "192.168.1.0/24,10.0.0.0/24"
         APPCUSTOM_DISCOVERYSUBNETS: "192.168.1.0/24" # Fill in with your actual subnet(s)
-    ``` 
+    ```
+
+=== "Curl Command"
+    Enter the subnet into this command, and execute it to set the `DiscoverySubnets`
+    !!! note
+        If you are operating in secure mode, you must use the [Consul ACL Token](../Walkthrough/deployment.md#deploy-edgex-and-onvif-device-camera-microservice) generated previously. If not, you can omit the `-H "X-Consul-Token:<consul-token>"` portion of the command.
+    ```bash
+    curl --data '<subnet>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/DiscoverySubnets"
+    ```
 
 
 ### Step 2. Set CredentialsMap
@@ -140,8 +147,7 @@ This option combines both [netscan](#netscan) and [multicast](#multicast).
     For docker, set the env var `APPCUSTOM_DISCOVERYSUBNETS`
 
 This is the list of IPv4 subnets to perform netscan discovery on, in CIDR format (X.X.X.X/Y)
-separated by commas ex: "192.168.1.0/24,10.0.0.0/24". This value can be configured automatically via
-the [bin/configure-subnets.sh](utility-scripts.md#configure-subnetssh) script.
+separated by commas ex: "192.168.1.0/24,10.0.0.0/24". See how to configure this value [here](#step-1-discovery-configuration).
 
 Also, the following one-line command can determine the subnets of your machine:
 ```shell

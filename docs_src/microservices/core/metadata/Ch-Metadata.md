@@ -40,7 +40,7 @@ Device profiles define general characteristics about devices, the data they prov
     - Model
     - Labels
     
-    Here is an example general information section for a sample KMC 9001 BACnet thermostat device profile provided with the BACnet device service (you can find the [profile](https://github.com/edgexfoundry/device-bacnet-c/blob/main/sample-profiles/BAC-9001.json) in Github) .  Only the name is required in this section of the device profile.  The name of the device profile must be unique in any EdgeX deployment.  The manufacturer, model and labels are all optional bits of information that allow better queries of the device profiles in the system.
+    Here is an example general information section for a sample KMC 9001 BACnet thermostat device profile provided with the BACnet device service (you can find the [profile](https://github.com/edgexfoundry/device-bacnet-c/blob/{{version}}/sample-profiles/BAC-9001.json) in Github) .  Only the name is required in this section of the device profile.  The name of the device profile must be unique in any EdgeX deployment.  The manufacturer, model and labels are all optional bits of information that allow better queries of the device profiles in the system.
     
     ``` YAML
     name: "BAC-9001"
@@ -219,16 +219,16 @@ Not all device services support dynamic discovery.  If it does support dynamic d
     |Property|Description|
     |---|---|
     ||Structure extending BaseAddress, used to make a request of EdgeX Foundry targets via REST.|
-    |Path|URI path beyond the host and port|
-	|HTTPMethod|Method for connecting (i.e. POST)|
+    |Path|URI path beyond the host and port| 
+    |HTTPMethod|Method for connecting (i.e. POST)|
 === "MQTTPubAddress"
     |Property|Description|
     |---|---|
     ||Structure extending BaseAddress, used to make a request of EdgeX Foundry targets via MQTT.|
-    |Publisher|Publisher name|
-	|User|User id for authentication|
-	|Password|Password of the user for authentication|
-	|Topic|Topic for message bus|
+    |Publisher|Publisher name| 
+    |User|User id for authentication| 
+    |Password|Password of the user for authentication|
+    |Topic|Topic for message bus|
     |QoS|Quality of service level for message publishing; value 0, 1, or 2|
     |KeepAlive|Maximum time interval in seconds with no comms before closing|
     |Retained|Flag to have the broker store the last rec'd message for future subscribers |
@@ -238,38 +238,38 @@ Not all device services support dynamic discovery.  If it does support dynamic d
     |Property|Description|
     |---|---|
     ||AutoEvent supports auto-generated events sourced from a device service| 
-    |Interval|How often the specific resource needs to be polled.|
-	|OnChange|indicates whether the device service will generate an event only|
-	|SourceName|the name of the resource in the device profile which describes the event to generate|
+    |Interval|How often the specific resource needs to be polled.| 
+    |OnChange|Indicates whether the device service will generate an event only|
+    |SourceName|The name of the resource in the device profile which describes the event to generate|
 === "Device"
     |Property|Description|
     |---|---|
     ||The object that contains information about the state, position, reachability, and methods of interfacing with a Device; represents a registered device participating within the EdgeX Foundry ecosystem|
-    |Id|uniquely identifies the device, a UUID for example|
+    |Id|Uniquely identifies the device, a UUID for example|
     |Description||
     |Name|Name for identifying a device|
-    |AdminState|Admin state (locked/unlocked)|
-	|OperatingState||Operating state (enabled/disabled)|
-	|Protocols|A map of supported protocols for the given device|
-	|Labels|Other labels applied to the device to help with searching|
-	|Location|Device service specific location (interface{} is an empty interface so it can be anything)|
-	|ServiceName|Associated Device Service - One per device|
-	|ProfileName||Associated Device Profile - Describes the device|
-	|AutoEvents|A list of auto-generated events coming from the device|
+    |AdminState|Admin state (locked/unlocked)| 
+    |OperatingState||Operating state (enabled/disabled)|
+    |Protocols|A map of supported protocols for the given device|
+    |Labels|Other labels applied to the device to help with searching|
+    |Location|Device service specific location (interface{} is an empty interface so it can be anything)|
+    |ServiceName|Associated Device Service - One per device|
+    |ProfileName||Associated Device Profile - Describes the device|
+    |AutoEvents|A list of auto-generated events coming from the device|
     |Tags|A map of device-level tags used to [tag the events](../../general/index.md#event-tagging) originated from the device|
     |Properties|A map of extendable device-level properties required by the implementation of device services to retrieve extra device-level information.  For example, assume a device service may require extra device-level information, such as `DeviceInstance`, `Firmware`, `InstanceID`, and `ObjectName` in the runtime, and these extra device-level information can be defined in the properties|
 === "DeviceProfile"
     |Property|Description|
     |---|---|
-    ||represents the attributes and operational capabilities of a device. It is a template for which there can be multiple matching devices within a given system.|
-    |Id|uniquely identifies the device, a UUID for example|
+    ||Represents the attributes and operational capabilities of a device. It is a template for which there can be multiple matching devices within a given system.|
+    |Id|Uniquely identifies the device, a UUID for example|
     |Description||
     |Name|Name for identifying a device|
     |Manufacturer| Manufacturer of the device|
-	|Model|Model of the device|
-	|Labels|Labels used to search for groups of profiles|
-	|DeviceResources|deviceResource collection|
-	|DeviceCommands|collect of deviceCommand|
+    |Model|Model of the device|
+    |Labels|Labels used to search for groups of profiles|
+    |DeviceResources|DeviceResource collection|
+    |DeviceCommands|Collect of deviceCommand|
 === "DeviceResource"
     |Property|Description|
     |---|---|
@@ -277,47 +277,53 @@ Not all device services support dynamic discovery.  If it does support dynamic d
     |Description||
     |Name||
     |Tag||
-    |Properties|list of associated properties|
-    |Attributes|list of associated attributes|
+    |Properties|List of associated properties|
+    |Attributes|List of associated attributes|
 === "DeviceService"
     |Property|Description|
     |---|---|
-    ||represents a service that is responsible for proxying connectivity between a set of devices and the EdgeX Foundry core services; the current state and reachability information for a registered device service|
-    |Id|uniquely identifies the device service, a UUID for example|
-	|Name||time in milliseconds that the device last provided any feedback or responded to any request|
-    |Labels||tags or other labels applied to the device service for search or other identification needs|
-	|BaseAddress|address (MQTT topic, HTTP address, serial bus, etc.) for reaching the service|
-	|AdminState||Device Service Admin State|
+    ||Represents a service that is responsible for proxying connectivity between a set of devices and the EdgeX Foundry core services; the current state and reachability information for a registered device service|
+    |Id|Uniquely identifies the device service, a UUID for example|
+    |Name||Time in milliseconds that the device last provided any feedback or responded to any request|
+    |Labels||Tags or other labels applied to the device service for search or other identification needs|
+    |BaseAddress|Address (MQTT topic, HTTP address, serial bus, etc.) for reaching the service|
+    |AdminState||Device Service Admin State|
 === "ResourceProperties"
     |Property|Description|
     |---|---|
     ||The transformation and constraint properties for a device resource.|
-	|ValueType|Type of the value|
-	|ReadWrite|Read/Write Permissions set for this property|
-	|Minimum|Minimum value that can be get/set from this property|
-	|Maximum|Maximum value that can be get/set from this property|
-	|DefaultValue|Default value set to this property if no argument is passed|
-	|Mask|Mask to be applied prior to get/set of property|
-	|Shift|Shift to be applied after masking, prior to get/set of property|
-	|Scale|Multiplicative factor to be applied after shifting, prior to get/set of property|
-	|Offset|Additive factor to be applied after multiplying, prior to get/set of property|
-	|Base|Base for property to be applied to, leave 0 for no power operation (i.e. base ^ property: 2 ^ 10)|
-	|Assertion|Required value of the property, set for checking error state.  Failing an assertion condition will mark the device with an error state|
-	|MediaType||
+    |ValueType|Type of the value|
+    |ReadWrite|Read/Write Permissions set for this property|
+    |Minimum|Minimum value that can be get/set from this property|
+    |Maximum|Maximum value that can be get/set from this property|
+    |DefaultValue|Default value set to this property if no argument is passed|
+    |Mask|Mask to be applied prior to get/set of property|
+    |Shift|Shift to be applied after masking, prior to get/set of property|
+    |Scale|Multiplicative factor to be applied after shifting, prior to get/set of property|
+    |Offset|Additive factor to be applied after multiplying, prior to get/set of property|
+    |Base|Base for property to be applied to, leave 0 for no power operation (i.e. base ^ property: 2 ^ 10)|
+    |Assertion|Required value of the property, set for checking error state.  Failing an assertion condition will mark the device with an error state|
+    |MediaType||
 === "ProvisionWatcher"
     |Property|Description|
     |---|---|
     ||The metadata used by a Service for automatically provisioning matching Devices.|
-	|Id||
-	|Name|unique name and identifier of the provision watcher|
-    |Labels||tags or other labels applied to the provision watcher for search or other identification needs|
-	|Identifiers|set of key value pairs that identify property (MAC, HTTP,...) and value to watch for (00-05-1B-A1-99-99, 10.0.0.1,...)|
-	|BlockingIdentifiers|set of key-values pairs that identify devices which will not be added despite matching on Identifiers|
-	|ProfileName|Name of the device profile that should be applied to the devices available at the identifier addresses|
-	|ServiceName|Name of the device service that new devices will be associated to|
-	|AdminState|administrative state for new devices - either unlocked or locked|
-    |AutoEvents|Associated auto events to this watcher|
-    |Properties|A map of extendable properties required by the implementation of device services to retrieve extra information when automatically provisioning a device.  For example, assume a device service would like to generate the device name in certain format during auto discovery, a property, e.g. `DeviceNameTemplate` with the template format of device name can be defined in the ProvisionWatcher, so that the implementation of device service can generate the device name based on such property|
+    |Id||
+    |Name|Unique name and identifier of the provision watcher|
+    |Labels||Tags or other labels applied to the provision watcher for search or other identification needs|
+    |Identifiers|Set of key value pairs that identify property (MAC, HTTP,...) and value to watch for (00-05-1B-A1-99-99, 10.0.0.1,...)|
+    |BlockingIdentifiers|Set of key-values pairs that identify devices which will not be added despite matching on Identifiers|
+    |ServiceName|The base name of the device service that new devices will be associated to|
+    |AdminState|Administrative state for provision watcher - either unlocked or locked|
+    |DiscoveredDevice|A DiscoveredDevice defines the data to be assigned on the new discovered device|
+=== "DiscoveredDevice"
+    |Property|Description|
+    |---|---|
+    ||A DiscoveredDevice defines the data to be assigned on the new discovered device.|
+    |ProfileName|Name of the device profile that should be applied to the devices available at the identifier addresses|
+    |AdminState|Administrative state for new devices - either unlocked or locked|
+    |AutoEvents|Associated auto events to this new devices|
+    |Properties|A map of extendable properties required by the implementation of device services to retrieve extra information when automatically provisioning a device. For example, assume a device service would like to generate the device name in certain format during auto discovery, a property, e.g. `DeviceNameTemplate` with the template format of device name can be defined in the ProvisionWatcher, so that the implementation of device service can generate the device name based on such property|
 
 ## High Level Interaction Diagrams
 
@@ -389,9 +395,10 @@ Below are only the additional settings and sections that are specific to Core Me
     |ClientId|"core-metadata|Id used when connecting to MQTT or NATS base MessageBus |
 
 ### V3 Configuration Migration Guide
+- Removed `RequireMessageBus`
+- UoMFile value changed to point to YAML file instead of TOML file
 
-Coming soon
-
+See [Common Configuration Reference](../../../configuration/V3MigrationCommonConfig/) for complete details on common configuration changes.
 ## Device System Events
 
 Device System Events are events triggered by the add, update or delete of devices. A System Event DTO is published to the EdgeX MessageBus each time a new Device is added, an existing Device is updated or when an existing Device is deleted.

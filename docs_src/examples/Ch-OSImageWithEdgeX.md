@@ -752,8 +752,8 @@ If you haven't done so, follow the instructions [here](https://snapcraft.io/docs
 Read [here](https://ubuntu.com/core/docs/system-user) to know how the manual account setup looks like and how it can be automated.
 
 ## References
-- [Getting Started using Snaps](https://docs.edgexfoundry.org/2.2/getting-started/Ch-GettingStartedSnapUsers)
-- [EdgeX Core Data](https://docs.edgexfoundry.org/2.2/microservices/core/data/Ch-CoreData/)
+- [Getting Started using Snaps](../../getting-started/Ch-GettingStartedSnapUsers/)
+- [EdgeX Core Data](../../microservices/core/data/Ch-CoreData/)
 - [Inside Ubuntu Core](https://ubuntu.com/core/docs/uc20/inside)
 - [Gadget snaps](https://snapcraft.io/docs/gadget-snap)
 - [Testing Ubuntu Core with QEMU](https://ubuntu.com/core/docs/testing-with-qemu)

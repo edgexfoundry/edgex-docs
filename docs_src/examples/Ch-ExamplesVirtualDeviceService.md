@@ -24,14 +24,14 @@ For information on the virtual device service see [virtual device](../microservi
 
 ### Running the Virtual Device Service Container
 
-The virtual device service depends on the EdgeX core services. By default, the virtual device service is part of the EdgeX community provided Docker Compose files.  If you use one of the [community provide Compose files](https://github.com/edgexfoundry/edgex-compose/tree/ireland), you can pull and run EdgeX inclusive of the virtual device service without having to make any changes.
+The virtual device service depends on the EdgeX core services. By default, the virtual device service is part of the EdgeX community provided Docker Compose files.  If you use one of the [community provide Compose files](https://github.com/edgexfoundry/edgex-compose/tree/{{version}}), you can pull and run EdgeX inclusive of the virtual device service without having to make any changes.
 
 ### Running the Virtual Device Service Natively (in development mode)
 
 If you're going to download the source code and run the virtual device service in development mode, make sure that the EdgeX core service containers are up before starting the virtual device service.  See how to work with EdgeX in a [hybrid environment](../getting-started/Ch-GettingStartedHybrid.md) in order to run the virtual device service outside of containers.  This same file will instruct you on how to get and [run the virtual device service code](../getting-started/Ch-GettingStartedHybrid.md#get-the-service-code).
 
 ### GET command example
-The virtual device service is configured to send simulated data to core data every few seconds (from 10-30 seconds depending on device - see the [device configuration file](https://github.com/edgexfoundry/device-virtual-go/blob/v2.0.0/cmd/res/devices/devices.toml) for AutoEvent details).  You can exercise the `GET` request on the command service to see the generated value produced by any of the virtual device's simulated devices.  Use the curl command below to exercise the virtual device service API (via core command service).
+The virtual device service is configured to send simulated data to core data every few seconds (from 10-30 seconds depending on device - see the [device configuration file](https://github.com/edgexfoundry/device-virtual-go/blob/{{version}}/cmd/res/devices/devices.yaml) for AutoEvent details).  You can exercise the `GET` request on the command service to see the generated value produced by any of the virtual device's simulated devices.  Use the curl command below to exercise the virtual device service API (via core command service).
 
 ``` bash
 curl -X GET localhost:59882/api/v2/device/name/Random-Integer-Device/Int8

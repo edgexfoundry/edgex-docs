@@ -349,7 +349,6 @@ The following snaps are maintained by the EdgeX working groups:
 - [Platform Snap](#platform-snap) - containing all core and security services along with two support services.
 - Tools
     - [EdgeX UI](#edgex-ui)
-    - [EdgeX CLI](#edgex-cli)
 - Supporting Services
     - [EdgeX eKuiper](#edgex-ekuiper)
 - Application Services
@@ -454,13 +453,13 @@ Consul API and UI can be accessed using the consul token (Secret ID). For the sn
 
     Try it out locally:
     ```bash
-    curl --silent --show-err http://localhost:8500/v1/kv/edgex/v3/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)"
+    curl --silent --show-err http://localhost:8500/v1/kv/edgex/{{api_version}}/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)"
     ```
     
     Through the API Gateway:  
     We need to pass both the Consul token and Secret Store token obtained in [Adding API Gateway users](#adding-api-gateway-users) examples.
     ```bash
-    curl --insecure --silent --show-err https://localhost:8443/consul/v1/kv/edgex/v3/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)" -H "Authorization: Bearer $(cat id-token.txt)"
+    curl --insecure --silent --show-err https://localhost:8443/consul/v1/kv/edgex/{{api_version}}/core-data/Service/Port -H "X-Consul-Token:$(cat consul-token.txt)" -H "Authorization: Bearer $(cat id-token.txt)"
     ```
 
 #### Changing TLS certificates
@@ -530,7 +529,7 @@ Refer to the [secrets-config proxy](../../security/secrets-config-proxy/) docume
     
     Try it out:
     ```bash
-    curl --verbose --cacert ca.crt https://localhost:8443/core-data/api/v3/ping
+    curl --verbose --cacert ca.crt https://localhost:8443/core-data/api/{{api_version}}/ping
     ```
     The output should include a message indicating that the request is unauthorized.  
     This means that TLS is setup correctly, but the request misses the required authentication. 
@@ -607,11 +606,6 @@ sudo snap start edgexfoundry.support-notifications
 sudo snap install edgex-ekuiper
 ```
 
-### EdgeX CLI
-| [Installation][edgex-cli] | [Source](https://github.com/edgexfoundry/edgex-cli/tree/main/snap) |
-
-For usage instructions, refer to [Command Line Interface (CLI)](../tools/Ch-CommandLineInterface/) guide.
-
 ### EdgeX eKuiper
 | [Installation][edgex-ekuiper] | [Managing Services] | [Debugging] | [Source](https://github.com/canonical/edgex-ekuiper-snap) |
 
@@ -679,7 +673,7 @@ The default configuration files are installed at:
 
 **Aliases**
 
-The aliases need to be provided for the service to work.  See [Setting the Aliases](https://github.com/edgexfoundry/app-rfid-llrp-inventory/blob/main/README.md#setting-the-aliases).
+The aliases need to be provided for the service to work.  See [Setting the Aliases](https://github.com/edgexfoundry/app-rfid-llrp-inventory/blob/{{version}}/README.md#setting-the-aliases).
 
 For the snap, this can either be by:
 

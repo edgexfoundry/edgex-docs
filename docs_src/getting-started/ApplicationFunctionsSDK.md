@@ -2,7 +2,7 @@
 
 ## The Application Functions SDK
 
-The SDK is built around the idea of a "Functions Pipeline". A functions pipeline is a collection of various functions that process the data in the order that you've specified. The functions pipeline is executed by the specified [trigger](../microservices/application/Triggers.md) in the `configuration.toml` . The first function in the pipeline is called with the event that triggered the pipeline (ex. `dtos.Event`). Each successive call in the pipeline is called with the return result of the previous function. Let's take a look at a simple example that creates a pipeline to filter particular device ids and subsequently transform the data to XML:
+The SDK is built around the idea of a "Functions Pipeline". A functions pipeline is a collection of various functions that process the data in the order that you've specified. The functions pipeline is executed by the specified [trigger](../microservices/application/Triggers.md) in the `configuration.yaml` . The first function in the pipeline is called with the event that triggered the pipeline (ex. `dtos.Event`). Each successive call in the pipeline is called with the return result of the previous function. Let's take a look at a simple example that creates a pipeline to filter particular device ids and subsequently transform the data to XML:
 ```go
 package main
 
@@ -97,7 +97,7 @@ if err := service.SetDefaultFunctionsPipeline(
     ...
 }
 ```
-Set the Trigger type to `http` in [res/configuration.toml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/simple-filter-xml/res/configuration.toml)
+Set the Trigger type to `http` in configuration file found here: [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/simple-filter-xml/res)
 
 ```toml
 [Trigger]
