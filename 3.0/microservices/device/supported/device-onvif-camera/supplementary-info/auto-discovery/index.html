@@ -1717,11 +1717,13 @@ compliant cameras using WS-Discovery: multicast and netscan.</p>
 <p class="admonition-title">Note<p>Alternatively, for <code>netscan</code> you can set the <code>DiscoverySubnets</code> automatically <em>after</em> the service has been deployed by running the <a href="../utility-scripts/#configure-subnetssh">bin/configure-subnets.sh</a> script</p>
 </p>
 </div>
-<p>For <code>Netscan</code>, there is a one line command to determine the <code>DiscoverySubnets</code> of your current machine:
+<ol>
+<li>For <code>Netscan</code>, there is a one line command to determine the <code>DiscoverySubnets</code> of your current machine:
 <div class="highlight"><pre><span></span><code><span class="w">    </span>ip<span class="w"> </span>-4<span class="w"> </span>-o<span class="w"> </span>route<span class="w"> </span>list<span class="w"> </span>scope<span class="w"> </span>link<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>-En<span class="w"> </span><span class="s2">"s/ dev (</span><span class="k">$(</span>find<span class="w"> </span>/sys/class/net<span class="w"> </span>-mindepth<span class="w"> </span><span class="m">1</span><span class="w"> </span>-maxdepth<span class="w"> </span><span class="m">2</span><span class="w"> </span>-not<span class="w"> </span>-lname<span class="w"> </span><span class="s1">'*devices/virtual*'</span><span class="w"> </span>-execdir<span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s1">'up'</span><span class="w"> </span><span class="s2">"{}/operstate"</span><span class="w"> </span><span class="se">\;</span><span class="w"> </span>-printf<span class="w"> </span><span class="s1">'%f\n'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>paste<span class="w"> </span>-sd<span class="se">\|</span><span class="w"> </span>-<span class="k">)</span><span class="s2">).+//p"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s2">"169.254.0.0/16"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span><span class="p">|</span><span class="w"> </span>paste<span class="w"> </span>-sd,<span class="w"> </span>-
 </code></pre></div>
-Example Output: <code>192.168.1.0/24</code></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">configuration.yaml</label><label for="__tabbed_1_2">Docker / Env Vars</label></div>
+Example Output: <code>192.168.1.0/24</code></li>
+</ol>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"/><input id="__tabbed_1_2" name="__tabbed_1" type="radio"/><input id="__tabbed_1_3" name="__tabbed_1" type="radio"/><div class="tabbed-labels"><label for="__tabbed_1_1">configuration.yaml</label><label for="__tabbed_1_2">Docker / Env Vars</label><label for="__tabbed_1_3">Curl Command</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Define the following configurations in <code>cmd/res/configuration.yaml</code> for auto-discovery mechanism:</p>
@@ -1761,6 +1763,15 @@ Example Output: <code>192.168.1.0/24</code></p>
 <span class="w">    </span><span class="c1"># separated by commas ex: "192.168.1.0/24,10.0.0.0/24"</span>
 <span class="w">    </span><span class="nt">APPCUSTOM_DISCOVERYSUBNETS</span><span class="p">:</span><span class="w"> </span><span class="s">"192.168.1.0/24"</span><span class="w"> </span><span class="c1"># Fill in with your actual subnet(s)</span>
 </code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>Enter the subnet into this command, and execute it to set the <code>DiscoverySubnets</code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are operating in secure mode, you must use the <a href="../../Walkthrough/deployment/#deploy-edgex-and-onvif-device-camera-microservice">Consul ACL Token</a> generated previously. If not, you can omit the <code>-H "X-Consul-Token:&lt;consul-token&gt;"</code> portion of the command.</p>
+</div>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--data<span class="w"> </span><span class="s1">'&lt;subnet&gt;'</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">"X-Consul-Token:&lt;consul-token&gt;"</span><span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">"http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/DiscoverySubnets"</span>
+</code></pre></div>
 </div>
 </div>
 </div>
@@ -1825,8 +1836,7 @@ such as docker networks (except in the case of running an Onvif simulator inside
 <p>For docker, set the env var <code>APPCUSTOM_DISCOVERYSUBNETS</code></p>
 </div>
 <p>This is the list of IPv4 subnets to perform netscan discovery on, in CIDR format (X.X.X.X/Y)
-separated by commas ex: "192.168.1.0/24,10.0.0.0/24". This value can be configured automatically via
-the <a href="../utility-scripts/#configure-subnetssh">bin/configure-subnets.sh</a> script.</p>
+separated by commas ex: "192.168.1.0/24,10.0.0.0/24". See how to configure this value <a href="#step-1-discovery-configuration">here</a>.</p>
 <p>Also, the following one-line command can determine the subnets of your machine:
 <div class="highlight"><pre><span></span><code>ip<span class="w"> </span>-4<span class="w"> </span>-o<span class="w"> </span>route<span class="w"> </span>list<span class="w"> </span>scope<span class="w"> </span>link<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>-En<span class="w"> </span><span class="s2">"s/ dev (</span><span class="k">$(</span>find<span class="w"> </span>/sys/class/net<span class="w"> </span>-mindepth<span class="w"> </span><span class="m">1</span><span class="w"> </span>-maxdepth<span class="w"> </span><span class="m">2</span><span class="w"> </span>-not<span class="w"> </span>-lname<span class="w"> </span><span class="s1">'*devices/virtual*'</span><span class="w"> </span>-execdir<span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s1">'up'</span><span class="w"> </span><span class="s2">"{}/operstate"</span><span class="w"> </span><span class="se">\;</span><span class="w"> </span>-printf<span class="w"> </span><span class="s1">'%f\n'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>paste<span class="w"> </span>-sd<span class="se">\|</span><span class="w"> </span>-<span class="k">)</span><span class="s2">).+//p"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s2">"169.254.0.0/16"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span><span class="p">|</span><span class="w"> </span>paste<span class="w"> </span>-sd,<span class="w"> </span>-
 </code></pre></div>

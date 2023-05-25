@@ -777,6 +777,11 @@
     Secure mode
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#token-generation">
+    Token Generation
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -1556,6 +1561,11 @@
     Secure mode
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#token-generation">
+    Token Generation
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -1641,15 +1651,28 @@
 </div>
 <div class="highlight"><pre><span></span><code>make<span class="w"> </span>run<span class="w"> </span>ds-onvif-camera
 </code></pre></div>
+<h3 id="token-generation">Token Generation</h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Need to wait for sometime for the services to be fully up before executing the next set of commands.
 Securely store Consul ACL token and the JWT token generated which are needed to map credentials and execute apis.
-It is not recommended to store these secrets in cleartext in your machine.</p>
+It is not recommended to store these secrets in cleartext in your machine. </p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The JWT token expires after 119 minutes, and you will need to generate a new one.</p>
+</div>
+<p>Generate the Consul ACL Token. Use the token generated anywhere you see <code>&lt;consul-token&gt;</code> in the documentation.
 <div class="highlight"><pre><span></span><code>make<span class="w"> </span>get-consul-acl-token
-make<span class="w"> </span>get-token
 </code></pre></div>
+Example output:
+<div class="highlight"><pre><span></span><code><span class="m">12345678</span>-abcd-1234-abcd-123456789abc
+</code></pre></div></p>
+<p>Generate the JWT Token. Use the token generated anywhere you see <code>&lt;jwt-token&gt;</code> in the documentation.
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>get-token
+</code></pre></div>
+Example output:
+<code>eyJhbGciOiJFUzM4NCIsImtpZCI6IjUyNzM1NWU4LTQ0OWYtNDhhZC05ZGIwLTM4NTJjOTYxMjA4ZiJ9.eyJhdWQiOiJlZGdleCIsImV4cCI6MTY4NDk2MDI0MSwiaWF0IjoxNjg0OTU2NjQxLCJpc3MiOiIvdjEvaWRlbnRpdHkvb2lkYyIsIm5hbWUiOiJlZGdleHVzZXIiLCJuYW1lc3BhY2UiOiJyb290Iiwic3ViIjoiMGRjNThlNDMtNzBlNS1kMzRjLWIxM2QtZTkxNDM2ODQ5NWU0In0.oa8Fac9aXPptVmHVZ2vjymG4pIvF9R9PIzHrT3dAU11fepRi_rm7tSeq_VvBUOFDT_JHwxDngK1VqBVLRoYWtGSA2ewFtFjEJRj-l83Vz33KySy0rHteJIgVFVi1V7q5</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Secrets such as passwords, certificates, tokens and more in Edgex are stored in a secret store which is implemented using Vault a product of Hashicorp.
@@ -1713,36 +1736,35 @@ and <a href="../../../../../../security/Ch-Security/">Edgex Security</a>.</p>
 </li>
 <li>
 <p>Check whether the device service is added to EdgeX:</p>
-<p><div class="admonition note">
+<div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If running in secure mode all the api executions need the JWT token generated previously. E.g.
-        <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--location<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera'</span><span class="w"> </span><span class="se">\</span>
---header<span class="w"> </span><span class="s1">'Authorization: Bearer eyJhbGciOiJFUzM4NCIsImtpZCI6ImIzNTY3ZmJjLTlhZTctMjkyNy0xY2IxLWE2NzAzZGQwMWM1ZCJ9.eyJhdWQiOiJlZGdleCIsImV4cCI6MTY4MjcyNDExMCwiaWF0IjoxNjgyNzIwNTEwLCJpc3MiOiIvdjEvaWRlbnRpdHkvb2lkYyIsIm5hbWUiOiJlZGdleHVzZXIiLCJuYW1lc3BhY2UiOiJyb290Iiwic3ViIjoiMTA2NzczMDItMmY0Yi00MjE4LTFhZmUtNzZlOTYwMGJiMmQ5In0.NP0deI0HyQMvdsFwk85N5RwNpgh5lUa507z9Ft2CDT9OEeR8iYOLYmwRLZim3j_BoVSdWxiJf3tmnWo64-mffHoktbFSRooQveakAeoFYuvCXu7tO1-b-QGzzzyWfSjc'</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--location<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera'</span><span class="w"> </span><span class="se">\</span>
+--header<span class="w"> </span><span class="s1">'Authorization: Bearer &lt;jwt-token&gt;'</span><span class="w"> </span><span class="se">\</span>
 --data-raw<span class="w"> </span><span class="s1">''</span>
-</code></pre></div>
-</p>
-</div></p>
+</code></pre></div></p>
+</div>
 <p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 </code></pre></div>
- Good response:
- <div class="highlight"><pre><span></span><code><span class="w">   </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"service"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">         </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="mi">1657227634593</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="mi">1657291447649</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e1883aa7-f440-447f-ad4d-effa2aeb0ade"</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"device-onvif-camera"</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">"baseAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://edgex-device-onvif-camera:59984"</span><span class="p">,</span>
-<span class="w">         </span><span class="nt">"adminState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNLOCKED"</span>
-<span class="w">      </span><span class="p">}</span><span class="w">         </span>
-<span class="w">   </span><span class="p">}</span>
+Good response:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"service"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="mi">1657227634593</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"modified"</span><span class="p">:</span><span class="w"> </span><span class="mi">1657291447649</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e1883aa7-f440-447f-ad4d-effa2aeb0ade"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"device-onvif-camera"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"baseAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://edgex-device-onvif-camera:59984"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"adminState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNLOCKED"</span>
+<span class="w">    </span><span class="p">}</span><span class="w">         </span>
+<span class="p">}</span>
 </code></pre></div>
- Bad response:
- <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">   </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
-<span class="w">   </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fail to query device service by name device-onvif-camer"</span><span class="p">,</span>
-<span class="w">   </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span>
+Bad response:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fail to query device service by name device-onvif-camer"</span><span class="p">,</span>
+<span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span>
 <span class="p">}</span>
 </code></pre></div></p>
 </li>
@@ -1750,25 +1772,25 @@ and <a href="../../../../../../security/Ch-Security/">Edgex Security</a>.</p>
 <p>Check whether the device profile is added:</p>
 <p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59881/api/v3/deviceprofile/name/onvif-camera<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'"profileName: " + '</span>.profile.name<span class="s1">' + "\nstatusCode: " + (.statusCode|tostring)'</span>
 </code></pre></div>
- Good response:
- <div class="highlight"><pre><span></span><code>profileName:<span class="w"> </span>onvif-camera
+Good response:
+<div class="highlight"><pre><span></span><code>profileName:<span class="w"> </span>onvif-camera
 statusCode:<span class="w"> </span><span class="m">200</span>
 </code></pre></div>
- Bad response:
- <div class="highlight"><pre><span></span><code>profileName:<span class="w"> </span>
+Bad response:
+<div class="highlight"><pre><span></span><code>profileName:<span class="w"> </span>
 statusCode:<span class="w"> </span><span class="m">404</span>
 </code></pre></div></p>
 </li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>jq -r<code>is used to reduce the size of the displayed response. The entire device profile with all resources can be seen by removing</code>-r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)', and replacing it with '.'`</p>
+<p><code>jq -r</code> is used to reduce the size of the displayed response. The entire device profile with all resources can be seen by removing <code>-r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)', and replacing it with '.'</code></p>
 </div>
 </div>
 <div class="tabbed-block">
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Secure mode login to Edgex UI requires the JWT token generated in the above step</p>
+<p>Secure mode login to Edgex UI requires the <a href="#token-generation">JWT token</a> generated in the above step</p>
 </div>
 <p><details>
 <summary><strong>Entering the JWT token</strong></summary>
@@ -1801,6 +1823,13 @@ statusCode:<span class="w"> </span><span class="m">404</span>
 </div>
 </div>
 </input></input></div>
+<p>Additionally, ensure that the service config has been deployed and that Consul is reachable.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If running in secure mode this command needs the <a href="#token-generation">Consul ACL token</a> generated previously.</p>
+</div>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">"X-Consul-Token:&lt;consul-token&gt;"</span><span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">"http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera?keys=true"</span>
+</code></pre></div>
 <h2 id="manage-devices">Manage Devices</h2>
 <p>Follow these instructions to update devices.</p>
 <h3 id="curl-commands">Curl Commands</h3>
@@ -1814,7 +1843,7 @@ statusCode:<span class="w"> </span><span class="m">404</span>
 <p>Edit the information to appropriately match the camera. The fields <code>Address</code>, <code>MACAddress</code> and <code>Port</code> should match that of the camera:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If running in secure mode all the api executions need the JWT token generated previously.</p>
+<p>If running in secure mode the commands might need the JWT or consul token generated previously.</p>
 </div>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w">  </span><span class="se">\</span>
 http://localhost:59881/api/v3/device<span class="w"> </span><span class="se">\</span>
@@ -1848,70 +1877,131 @@ http://localhost:59881/api/v3/device<span class="w"> </span><span class="se">\</
 </code></pre></div></p>
 </li>
 <li>
-<p>Map credentials using the <code>map-credentials.sh</code> script.  </p>
+<p>Update credentials in Secret Store.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">Secure mode</label><label for="__tabbed_3_2">Non-secure mode</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If running in secure mode Consul ACL and the JWT token generated previously are needed for mapping credentials.</p>
+<p>If running in secure mode all the api executions need the <a href="#token-generation">JWT token</a> generated previously.</p>
 </div>
-<p>a. Run <code>bin/map-credentials.sh</code>
-  b. Select <code>(Create New)</code>
-<img alt="" src="../../images/creds-pick.png"/><br/>
-  c. Enter the Secret Name to associate with these credentials<br/>
-<img alt="" src="../../images/creds-name.png"/> <br/>
-  d. Enter the username<br/>
-<img alt="" src="../../images/creds-username.png"/><br/>
-  e.  Enter the password<br/>
-<img alt="" src="../../images/creds-password.png"/><br/>
-  f. Choose the Authentication Mode<br/>
-<img alt="" src="../../images/creds-method.png"/><br/>
-  g. Assign one or more MAC Addresses to the credential group<br/>
-<img alt="" src="../../images/creds-mac.png"/><br/>
-  h. Learn more about updating credentials <a href="../../supplementary-info/utility-scripts/">here</a> </p>
-<p>Successful:</p>
-<div class="highlight"><pre><span></span><code>Dependencies<span class="w"> </span>Check:<span class="w"> </span>Success
-<span class="w">      </span>Consul<span class="w"> </span>Check:<span class="w"> </span>...
-<span class="w">                  </span>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera?keys<span class="o">=</span><span class="nb">true</span>
-Response<span class="w"> </span><span class="o">[</span><span class="m">200</span><span class="o">]</span><span class="w">      </span>Success
-curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap?keys<span class="o">=</span><span class="nb">true</span>
-Response<span class="w"> </span><span class="o">[</span><span class="m">200</span><span class="o">]</span><span class="w"> </span>
-Secret<span class="w"> </span>Name:<span class="w"> </span>a
-curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/a?raw<span class="o">=</span><span class="nb">true</span>
-Response<span class="w"> </span><span class="o">[</span><span class="m">404</span><span class="o">]</span><span class="w"> </span>
-Failed!<span class="w"> </span>curl<span class="w"> </span>returned<span class="w"> </span>a<span class="w"> </span>status<span class="w"> </span>code<span class="w"> </span>of<span class="w"> </span><span class="s1">'404'</span>
-Setting<span class="w"> </span>InsecureSecret:<span class="w"> </span>a/SecretName
-curl<span class="w"> </span>--data<span class="w"> </span><span class="s2">"&lt;redacted&gt;"</span><span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/a/SecretName
-Response<span class="w"> </span><span class="o">[</span><span class="m">200</span><span class="o">]</span><span class="w"> </span><span class="nb">true</span>
-
-
-Setting<span class="w"> </span>InsecureSecret:<span class="w"> </span>a/SecretData/username
-curl<span class="w"> </span>--data<span class="w"> </span><span class="s2">"&lt;redacted&gt;"</span><span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/a/SecretData/username
-Response<span class="w"> </span><span class="o">[</span><span class="m">200</span><span class="o">]</span><span class="w"> </span><span class="nb">true</span>
-
-
-Setting<span class="w"> </span>InsecureSecret:<span class="w"> </span>a/SecretData/password
-curl<span class="w"> </span>--data<span class="w"> </span><span class="s2">"&lt;redacted&gt;"</span><span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/a/SecretData/password
-Response<span class="w"> </span><span class="o">[</span><span class="m">200</span><span class="o">]</span><span class="w"> </span><span class="nb">true</span>
-
-
-Setting<span class="w"> </span>InsecureSecret:<span class="w"> </span>a/SecretData/mode
-curl<span class="w"> </span>--data<span class="w"> </span><span class="s2">"usern&lt;redacted&gt;metoken"</span><span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/a/SecretData/mode
-Response<span class="w"> </span><span class="o">[</span><span class="m">200</span><span class="o">]</span><span class="w"> </span><span class="nb">true</span>
-
-
-Setting<span class="w"> </span>Credentials<span class="w"> </span>Map:<span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span>
-curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/a
-Response<span class="w"> </span><span class="o">[</span><span class="m">200</span><span class="o">]</span><span class="w"> </span><span class="nb">true</span>
-
-
-
-Secret<span class="w"> </span>Name:<span class="w"> </span>a
-curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/a?raw<span class="o">=</span><span class="nb">true</span>
-Response<span class="w"> </span><span class="o">[</span><span class="m">200</span><span class="o">]</span><span class="w"> </span>
-Setting<span class="w"> </span>Credentials<span class="w"> </span>Map:<span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'11:22:33:44:55:66'</span>
-curl<span class="w"> </span>--data<span class="w"> </span><span class="s2">"11:22:33:44:55:66"</span><span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/a
-Response<span class="w"> </span><span class="o">[</span><span class="m">200</span><span class="o">]</span><span class="w"> </span><span class="nb">true</span>
+<p>Enter your chosen username, password, and authentication mode and credentials name and then execute the command to create the secrets.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The options for authentication mode are: <code>usernametoken</code>, <code>digest</code>, or <code>both</code></p>
+</div>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--data<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">            "apiVersion":"v3",</span>
+<span class="s1">            "secretName": "&lt;creds-name&gt;",</span>
+<span class="s1">            "secretData":[</span>
+<span class="s1">                {</span>
+<span class="s1">                    "key":"username",</span>
+<span class="s1">                    "value":"&lt;username&gt;"</span>
+<span class="s1">                },</span>
+<span class="s1">                {</span>
+<span class="s1">                    "key":"password",</span>
+<span class="s1">                    "value":"&lt;password&gt;"</span>
+<span class="s1">                },</span>
+<span class="s1">                {</span>
+<span class="s1">                    "key":"mode",</span>
+<span class="s1">                    "value":"&lt;auth-mode&gt;"</span>
+<span class="s1">                }</span>
+<span class="s1">            ]</span>
+<span class="s1">        }'</span><span class="w"> </span>--header<span class="w"> </span><span class="s1">'Authorization:Bearer &lt;jwt-token&gt;'</span><span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">"http://localhost:59984/api/v3/secret"</span>
 </code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Enter your chosen username, password, and authentication mode and credentials name and then execute the command to create the secrets.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The options for authentication mode are: <code>usernametoken</code>, <code>digest</code>, or <code>both</code></p>
+</div>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--data<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">            "apiVersion":"v3",</span>
+<span class="s1">            "secretName": "&lt;creds-name&gt;",</span>
+<span class="s1">            "secretData":[</span>
+<span class="s1">                {</span>
+<span class="s1">                    "key":"username",</span>
+<span class="s1">                    "value":"&lt;username&gt;"</span>
+<span class="s1">                },</span>
+<span class="s1">                {</span>
+<span class="s1">                    "key":"password",</span>
+<span class="s1">                    "value":"&lt;password&gt;"</span>
+<span class="s1">                },</span>
+<span class="s1">                {</span>
+<span class="s1">                    "key":"mode",</span>
+<span class="s1">                    "value":"&lt;auth-mode&gt;"</span>
+<span class="s1">                }</span>
+<span class="s1">            ]</span>
+<span class="s1">        }'</span><span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">"http://localhost:59984/api/v3/secret"</span>
+</code></pre></div>
+</div>
+</div>
+</input></input></div>
 </li>
+<li>
+<p>Map credentials to devices.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio"><input id="__tabbed_4_2" name="__tabbed_4" type="radio"><div class="tabbed-labels"><label for="__tabbed_4_1">Secure Mode</label><label for="__tabbed_4_2">Non-secure mode</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>a. Enter your mac-address(es) and then execute the command to add the mac address(es) to the mapping.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to map multiple mac addresses, enter a comma separated list in the command</p>
+</div>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--data<span class="w"> </span><span class="s1">'&lt;mac-address&gt;'</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">"X-Consul-Token:&lt;consul-token&gt;"</span><span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">"http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/&lt;creds-name&gt;"</span>
+</code></pre></div>
+<p>b. Check the status of the credentials map.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">"X-Consul-Token:&lt;consul-token&gt;"</span><span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">"http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap?keys=true"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+Example response:
+<div class="highlight"><pre><span></span><code><span class="o">[</span>
+<span class="s2">"edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/NoAuth"</span>,
+<span class="s2">"edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/credentials001"</span>,
+<span class="s2">"edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/credentials002"</span>
+<span class="o">]</span>
+</code></pre></div></p>
+<p>c. Check the mac addresses mapped to a specific credenential name. Insert the credential name in the command to see the mac addresses associated with it.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">"X-Consul-Token:&lt;consul-token&gt;"</span><span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">"http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/&lt;creds-name&gt;?raw=true"</span>
+</code></pre></div>
+Example response:
+<div class="highlight"><pre><span></span><code><span class="m">11</span>:22:33:44:55:66
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>a. Enter your mac-address(es) and then execute the command to add the mac address(es) to the mapping.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to map multiple mac addresses, enter a comma separated list in the command</p>
+</div>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--data<span class="w"> </span><span class="s1">'&lt;mac-address&gt;'</span><span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">"http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/&lt;creds-name&gt;"</span>
+</code></pre></div>
+<p>b. Check the status of the credentials map.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">"http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap?keys=true"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+Example response:
+<div class="highlight"><pre><span></span><code><span class="o">[</span>
+<span class="s2">"edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/NoAuth"</span>,
+<span class="s2">"edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/credentials001"</span>,
+<span class="s2">"edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/credentials002"</span>
+<span class="o">]</span>
+</code></pre></div></p>
+<p>c. Check the mac addresses mapped to a specific credenential name. Insert the credential name in the command to see the mac addresses associated with it.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">"http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/&lt;creds-name&gt;?raw=true"</span>
+</code></pre></div>
+Example response:
+<div class="highlight"><pre><span></span><code><span class="m">11</span>:22:33:44:55:66
+</code></pre></div></p>
+</div>
+</div>
+</input></input></div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a href="../../supplementary-info/utility-scripts/#create-new-credentials-and-assign-mac-addresses">helper scripts</a> may also be used, but they have been deprecated.</p>
+</div>
+<ol>
 <li>
 <p>Verify device(s) have been successfully added to core-metadata.</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59881/api/v3/device/all<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'"deviceName: " + '</span>.devices<span class="o">[]</span>.name<span class="s1">''</span>
