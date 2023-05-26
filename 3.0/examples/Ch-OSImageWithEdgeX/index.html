@@ -10,7 +10,7 @@
 <link href="https://docs.edgexfoundry.org/3.0/examples/Ch-OSImageWithEdgeX/" rel="canonical"/>
 <link href="../../assets/logo_edgex.png" rel="icon"/>
 <meta content="mkdocs-1.4.3, mkdocs-material-8.5.8" name="generator"/>
-<title>Creating an EdgeX OS Image - EdgeX Foundry Documentation</title>
+<title>Creating an EdgeX Ubuntu Core Image - EdgeX Foundry Documentation</title>
 <link href="../../assets/stylesheets/main.20d9efc8.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.815d1a91.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -29,7 +29,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#creating-an-edgex-os-image">
+<a class="md-skip" href="#creating-an-edgex-ubuntu-core-image">
           Skip to content
         </a>
 </div>
@@ -53,7 +53,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Creating an EdgeX OS Image
+              Creating an EdgeX Ubuntu Core Image
             
           </span>
 </div>
@@ -1191,11 +1191,11 @@
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
-          Creating an EdgeX OS Image
+          Creating an EdgeX Ubuntu Core Image
           <span class="md-nav__icon md-icon"></span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./">
-        Creating an EdgeX OS Image
+        Creating an EdgeX Ubuntu Core Image
       </a>
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">
@@ -1214,11 +1214,6 @@
   </a>
 <nav aria-label="A. Create an image with EdgeX components" class="md-nav">
 <ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#configure-the-ubuntu-core-partitions">
-    Configure the Ubuntu Core partitions
-  </a>
-</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#create-an-ubuntu-core-model-assertion">
     Create an Ubuntu Core model assertion
@@ -1243,19 +1238,14 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#b-override-basic-configurations">
-    B. Override basic configurations
+<a class="md-nav__link" href="#b-override-configurations">
+    B. Override configurations
   </a>
-<nav aria-label="B. Override basic configurations" class="md-nav">
+<nav aria-label="B. Override configurations" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#create-key-pair-and-jwt-token">
-    Create key pair and JWT token
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#setup-defaults-using-a-gadget-snap">
-    Setup defaults using a Gadget snap
+<a class="md-nav__link" href="#seed-configurations-to-snaps">
+    Seed configurations to snaps
   </a>
 </li>
 <li class="md-nav__item">
@@ -1272,10 +1262,10 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#c-override-configuration-files">
-    C. Override configuration files
+<a class="md-nav__link" href="#c-replace-configuration-files">
+    C. Replace configuration files
   </a>
-<nav aria-label="C. Override configuration files" class="md-nav">
+<nav aria-label="C. Replace configuration files" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#create-a-config-provider-for-device-virtual">
@@ -1602,11 +1592,6 @@
 <nav aria-label="A. Create an image with EdgeX components" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#configure-the-ubuntu-core-partitions">
-    Configure the Ubuntu Core partitions
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#create-an-ubuntu-core-model-assertion">
     Create an Ubuntu Core model assertion
   </a>
@@ -1630,19 +1615,14 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#b-override-basic-configurations">
-    B. Override basic configurations
+<a class="md-nav__link" href="#b-override-configurations">
+    B. Override configurations
   </a>
-<nav aria-label="B. Override basic configurations" class="md-nav">
+<nav aria-label="B. Override configurations" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#create-key-pair-and-jwt-token">
-    Create key pair and JWT token
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#setup-defaults-using-a-gadget-snap">
-    Setup defaults using a Gadget snap
+<a class="md-nav__link" href="#seed-configurations-to-snaps">
+    Seed configurations to snaps
   </a>
 </li>
 <li class="md-nav__item">
@@ -1659,10 +1639,10 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#c-override-configuration-files">
-    C. Override configuration files
+<a class="md-nav__link" href="#c-replace-configuration-files">
+    C. Replace configuration files
   </a>
-<nav aria-label="C. Override configuration files" class="md-nav">
+<nav aria-label="C. Replace configuration files" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#create-a-config-provider-for-device-virtual">
@@ -1717,7 +1697,7 @@
 <a class="md-content__button md-icon" href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/examples/Ch-OSImageWithEdgeX.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
 </a>
-<h1 id="creating-an-edgex-os-image">Creating an EdgeX OS Image</h1>
+<h1 id="creating-an-edgex-ubuntu-core-image">Creating an EdgeX Ubuntu Core Image</h1>
 <h2 id="introduction">Introduction</h2>
 <p>This guide walks you through creating an Ubuntu Core OS image that is preloaded with an EdgeX stack. We use <a href="https://ubuntu.com/core/docs">Ubuntu Core</a> as the Linux distribution because it is optimized for IoT and is secure by design. We configure the image and bundle the current snapped versions of EdgeX components. After the deployment the snaps will continue to receive updates for the latest security and bug fixes (depending on the selected channel).</p>
 <p>This guide is divided into three chapters to create:</p>
@@ -1727,23 +1707,23 @@
 <li>Ubuntu Core + EdgeX, with custom service and device configuration files</li>
 </ul>
 <p>Each chapter results in a working Ubuntu Core OS image that can be flashed on a disk and booted with the expected EdgeX stack.</p>
-<p>In this example, we will create an <code>amd64</code> image, but the instructions can be adapted to other architectures and even for a Raspberry Pi. We will use the Device Virtual service to simulate devices and produce synthetic events.</p>
+<p>In this example, we will create an <code>amd64</code> image for Intel and AMD processors. The instructions can be adapted to other architectures and even for a Raspberry Pi. We will use the Device Virtual service to simulate devices and produce synthetic events.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This guide has been tested on an <code>amd64</code> <strong>Ubuntu 22.04</strong> as the desktop OS. It may work on other Linux distributions and Ubuntu versions.</p>
 <p>Some commands are executed on the desktop computer, but some others on the target Ubuntu Core system. For clarity, we use <strong>🖥 Desktop</strong> and <strong>🚀 Ubuntu Core</strong> titles for code blocks to distinguish where those commands are being executed.</p>
 <p>An Intel NUC11TNH with 8GB RAM and 250GB NAND flash storage has been used as the target <code>amd64</code> hardware. </p>
 </div>
-<p>We assume the following tools are installed on the desktop machine:</p>
+<p>We use the following tools on the desktop machine:</p>
 <ul>
 <li><a href="https://snapcraft.io/snapcraft">snapcraft</a> to manage keys in the store and build snaps</li>
 <li><a href="https://snapcraft.io/yq">YQ</a> to validate YAML files and convert them to JSON</li>
-<li><a href="https://snapcraft.io/ubuntu-image">ubuntu-image</a> to build the Ubuntu Core image</li>
+<li><a href="https://snapcraft.io/ubuntu-image">ubuntu-image</a> v2 to build the Ubuntu Core image</li>
 </ul>
 <p>Install them using the following commands:
 <div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>snapcraft<span class="w"> </span>--classic
 sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>yq
-sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>ubuntu-image<span class="w"> </span>--classic
+sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> </span>ubuntu-image<span class="w"> </span>--classic<span class="w"> </span>--channel<span class="o">=</span><span class="m">2</span>/stable
 </code></pre></div></p>
 <p>Before we start, it is a good idea to read through the following documents:</p>
 <ul>
@@ -1752,28 +1732,6 @@ sudo<span class="w"> </span>snap<span class="w"> </span>install<span class="w"> 
 </ul>
 <h2 id="a-create-an-image-with-edgex-components">A. Create an image with EdgeX components</h2>
 <p>In this chapter, we will create an OS image that includes the expected EdgeX components.</p>
-<h3 id="configure-the-ubuntu-core-partitions">Configure the Ubuntu Core partitions</h3>
-<p>The configuration of the partitions is defined in the <a href="https://snapcraft.io/docs/gadget-snap">Gadget snap</a>.</p>
-<p>The <a href="https://snapcraft.io/pc"><code>pc</code> gadget</a> is available as a prebuilt snap in the store, however, we need to build our own to extend the size of disk partitions to have sufficient capacity for our EdgeX snaps.</p>
-<p>We will use the source code for Core20 AMD64 gadget from <a href="https://github.com/snapcore/pc-amd64-gadget/tree/20">here</a> as basis.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>For a Raspberry Pi, you need to use the <a href="https://github.com/snapcore/pi-gadget">pi-gadget</a> instead.</p>
-</div>
-<p>Clone the branch and enter the directory:
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/snapcore/pc-amd64-gadget.git<span class="w"> </span>--branch<span class="o">=</span><span class="m">20</span>
-<span class="nb">cd</span><span class="w"> </span>pc-amd64-gadget
-</code></pre></div></p>
-<p>In <code>gadget.yml</code>: under <code>volumes.pc.structure</code>, find the item with name <code>ubuntu-seed</code> and increase its size to <code>1500M</code>. This is to make sure our seeded snaps fit in the partition.</p>
-<p>Then, build the gadget snap:
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>snapcraft
-...
-Snapped<span class="w"> </span>pc_20-0.4_amd64.snap
-</code></pre></div></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You need to rebuild the snap every time you change the <code>gadget.yaml</code> file.</p>
-</div>
 <h3 id="create-an-ubuntu-core-model-assertion">Create an Ubuntu Core model assertion</h3>
 <p>The <a href="https://ubuntu.com/core/docs/reference/assertions/model">model assertion</a> is a digitally signed document that describes the content of the OS image.</p>
 <p>Refer to <a href="https://ubuntu.com/core/docs/custom-images#heading--signing">this article</a> for details on how to sign the model assertion. Here are the needed steps:</p>
@@ -1793,69 +1751,73 @@ We now have a registered key named <code>edgex-demo</code> which we'll use later
 <p>Find your developer ID using the Snapcraft CLI:
 <div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>snapcraft<span class="w"> </span>whoami
 ...
-developer-id:<span class="w"> </span>SZ4OfFv8DVM9om64iYrgojDLgbzI0eiL
+developer-id:<span class="w"> </span>&lt;developer-id&gt;
 </code></pre></div>
 or from the <a href="https://dashboard.snapcraft.io/dev/account/">Snapcraft Dashboard</a>.</p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
+<details class="info">
+<summary>YAML Model Assertion</summary>
 <p>Unlike the official documentation which uses JSON, we use YAML serialization for the model. This is for consistency with all the other serialization formats in this tutorial. Moreover, it allows us to comment out some parts for testing or add comments to describe the details inline.</p>
-</div>
+</details>
 <p>Create <code>model.yaml</code> with the following content, replacing <code>authority-id</code>, <code>brand-id</code>, and <code>timestamp</code>:
 <div class="highlight"><pre><span></span><code><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">model</span>
 <span class="nt">series</span><span class="p">:</span><span class="w"> </span><span class="s">'16'</span>
 
-<span class="c1"># authority-id and brand-id must be set to your developer-id</span>
-<span class="nt">authority-id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SZ4OfFv8DVM9om64iYrgojDLgbzI0eiL</span>
-<span class="nt">brand-id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SZ4OfFv8DVM9om64iYrgojDLgbzI0eiL</span>
+<span class="c1"># set authority-id and brand-id to your developer-id</span>
+<span class="nt">authority-id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;developer-id&gt;</span>
+<span class="nt">brand-id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;developer-id&gt;</span>
 
-<span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-core-20-amd64</span>
+<span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-core-22-amd64</span>
 <span class="nt">architecture</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">amd64</span>
 
 <span class="c1"># timestamp should be within your signature's validity period</span>
 <span class="nt">timestamp</span><span class="p">:</span><span class="w"> </span><span class="s">'2022-06-21T10:45:00+00:00'</span>
-<span class="nt">base</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">core20</span>
+<span class="nt">base</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">core22</span>
 
 <span class="nt">grade</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dangerous</span>
 
 <span class="nt">snaps</span><span class="p">:</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="c1"># This is our custom, dev gadget snap</span>
-<span class="w">  </span><span class="c1"># It has no channel and id, because it isn't in the store.</span>
-<span class="w">  </span><span class="c1"># We're going to build it locally and pass it to the image builder. </span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pc</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gadget</span>
-<span class="w">  </span><span class="c1"># default-channel: 20/stable</span>
-<span class="w">  </span><span class="c1"># id: UqFziVZDHLSyO3TqSWgNBoAdHbLI4dAH</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pc</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gadget</span>
+<span class="w">    </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22/stable</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UqFziVZDHLSyO3TqSWgNBoAdHbLI4dAH</span>
 
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pc-kernel</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kernel</span>
-<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20/stable</span>
-<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pYVQrBcKmBa0mZ4CCN7ExT6jH8rY1hza</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pc-kernel</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kernel</span>
+<span class="w">    </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22/stable</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pYVQrBcKmBa0mZ4CCN7ExT6jH8rY1hza</span>
 
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">snapd</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">snapd</span>
-<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/stable</span>
-<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PMrrV4ml8uWuEUDBT8dSGnKUYbevVhc4</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">snapd</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">snapd</span>
+<span class="w">    </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/candidate</span><span class="w"> </span><span class="c1"># temporary for latest pc-gadget compatibility; see https://github.com/canonical/edgex-ubuntu-core-testing/issues/1</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PMrrV4ml8uWuEUDBT8dSGnKUYbevVhc4</span>
 
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">core20</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base</span>
-<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/stable</span>
-<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DLqre5XGLbDqg9jPtiAhRRjDuPVa5X1q</span>
+<span class="w">  </span><span class="c1"># Snap base for EdgeX snaps</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">core22</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base</span>
+<span class="w">    </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/stable</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">amcUKQILKXHHTlmSa7NMdnXSx02dNeeT</span>
 
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">core22</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base</span>
-<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/stable</span>
-<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">amcUKQILKXHHTlmSa7NMdnXSx02dNeeT</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgexfoundry</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
+<span class="w">    </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/edge</span><span class="w"> </span><span class="c1"># replace with latest/stable after EdgeX v3 release</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AZGf0KNnh8aqdkbGATNuRuxnt1GNRKkV</span>
 
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgexfoundry</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
-<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/stable</span>
-<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AZGf0KNnh8aqdkbGATNuRuxnt1GNRKkV</span>
-
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-device-virtual</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
-<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/stable</span>
-<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-device-virtual</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
+<span class="w">    </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/edge</span><span class="w"> </span><span class="c1"># replace with latest/stable after EdgeX v3 release</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0</span>
 </code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We use the gadget and kernel snaps for 64bit personal computers using Intel or AMD processors. For a Raspberry Pi, you need to change the model, architecture, as well as the gadget and kernel snaps.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Finding Snap IDs</p>
+<p>Query the unique store ID of a snap, for example the <code>edgexfoundry</code> snap:
+<div class="highlight"><pre><span></span><code>$ snap info edgexfoundry | grep snap-id
+snap-id: AZGf0KNnh8aqdkbGATNuRuxnt1GNRKkV
+</code></pre></div></p>
+</div>
 <p>4) Sign the model assertion</p>
 <p>We sign the model using the <code>edgex-demo</code> key created and registered earlier. </p>
 <p>The <code>snap sign</code> command takes JSON as input and produces YAML as output! We use the YQ app to convert our model assertion to JSON before passing it in for signing.</p>
@@ -1870,38 +1832,26 @@ cat<span class="w"> </span>model.signed.yaml
 <p>You need to repeat the signing every time you change the input model, because the signature is calculated based on the model.</p>
 </div>
 <h3 id="build-the-ubuntu-core-image">Build the Ubuntu Core image</h3>
-<p>We use ubuntu-image and set the following:</p>
-<ul>
-<li>Path to signed model assertion YAML file</li>
-<li>Path to gadget snap that we built in the previous steps</li>
-</ul>
-<p>This will download all the needed snaps and build a file called <code>pc.img</code>.
-Note that even the kernel and OS base (core20) are snap packages!</p>
-<blockquote>
-<p><strong>Note</strong><br/>
-If you plan to use an emulator to install and run Ubuntu Core from the resulting image, it is a good idea to allocate additional writable storage. This necessary if you want to install additional snaps interactively or upgrade existing ones on the emulator.</p>
-<p>The default size of the <code>ubuntu-data</code> partition is <code>1G</code> as defined in the gadget snap. When installing on actual hardware, this partition extends automatically to take the whole remaining space on the disk volume. However, when using QEMU, the partition will have the exact same size because the image size is calculated based on the defined partition structure. The 1GB <code>ubuntu-data</code> partition will be 90% full after first boot. You can configure the image to be larger so that the installer expands the partition automatically as with a large disk volume. </p>
+<p>We use ubuntu-image and set the path to signed model assertion YAML file.</p>
+<p>This will download all the snaps specified in the model assertion and build an image file called <code>pc.img</code>.</p>
+<details class="note">
+<summary>Expanding data partition for emulation</summary>
+<p>If you plan to use an emulator to install and run Ubuntu Core from the resulting image, it is a good idea to allocate additional writable storage. This is necessary only if you want to install additional snaps interactively or upgrade existing ones on the emulator.</p>
+<p>The default size of the <code>ubuntu-data</code> partition is <code>1G</code> as defined in the gadget snap. When installing on actual hardware, this partition extends automatically to take the whole remaining space on the disk volume. However, when using QEMU, the partition will have the exact same size because the image size is calculated based on the defined partition structure. The 1GB <code>ubuntu-data</code> partition will be mostly full after first boot. You can configure the image to be larger so that the installer expands the partition automatically as with a large disk volume. </p>
 <p>To extend the image size, use the <code>--image-size</code> flag in the following command. For example, to add 500MB extra (the original image is around 3.5GB), set <code>--image-size=4G</code>.</p>
-</blockquote>
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>ubuntu-image<span class="w"> </span>snap<span class="w"> </span>model.signed.yaml<span class="w"> </span>--validation<span class="o">=</span>enforce<span class="w"> </span>--snap<span class="w"> </span>pc-amd64-gadget/pc_20-0.4_amd64.snap<span class="w"> </span>
+</details>
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>ubuntu-image<span class="w"> </span>snap<span class="w"> </span>model.signed.yaml<span class="w"> </span>--validation<span class="o">=</span>enforce
 Fetching<span class="w"> </span>snapd
 Fetching<span class="w"> </span>pc-kernel
-Fetching<span class="w"> </span>core20
 Fetching<span class="w"> </span>core22
+Fetching<span class="w"> </span>pc
 Fetching<span class="w"> </span>edgexfoundry
 Fetching<span class="w"> </span>edgex-device-virtual
-WARNING:<span class="w"> </span><span class="s2">"pc"</span><span class="w"> </span>installed<span class="w"> </span>from<span class="w"> </span><span class="nb">local</span><span class="w"> </span>snaps<span class="w"> </span>disconnected<span class="w"> </span>from<span class="w"> </span>a<span class="w"> </span>store<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>refreshed<span class="w"> </span>subsequently!
-Copying<span class="w"> </span><span class="s2">"pc-amd64-gadget/pc_20-0.4_amd64.snap"</span><span class="w"> </span><span class="o">(</span>pc<span class="o">)</span>
 
-<span class="c1"># check the image file</span>
+<span class="c1"># check the created image file</span>
 $<span class="w"> </span>file<span class="w"> </span>pc.img
 pc.img:<span class="w"> </span>DOS/MBR<span class="w"> </span>boot<span class="w"> </span>sector,<span class="w"> </span>extended<span class="w"> </span>partition<span class="w"> </span>table<span class="w"> </span><span class="o">(</span>last<span class="o">)</span>
 </code></pre></div>
-<p>The warning is because we side-loaded the gadget for demonstration purposes. In production settings, a custom gadget would need to be uploaded to the <a href="https://ubuntu.com/internet-of-things/appstore">IoT App Store</a> to also receive updates.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You need to repeat the build every time you change and sign the <strong>model</strong> or rebuild the <strong>gadget</strong>.</p>
-</div>
 <div class="admonition done">
 <p class="admonition-title">Done</p>
 <p>The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications!</p>
@@ -1921,270 +1871,153 @@ However, during development it is best to boot in an emulator to quickly detect 
 <div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>ssh<span class="w"> </span>&lt;user&gt;@localhost<span class="w"> </span>-p<span class="w"> </span><span class="m">8022</span>
 </code></pre></div>
 If you used the default approach (using <code>console-conf</code>) and entered your Ubuntu account email address at the end of the installation, then <code>&lt;user&gt;</code> is your Ubuntu account ID. If you don't know your ID, look it up using a browser from <a href="https://login.ubuntu.com/">here</a> or programmatically from <code>https://login.ubuntu.com/api/v2/keys/&lt;email&gt;</code>.</p>
-<p>List the installed snaps:
+<p>List the installed snaps and their services:
 <div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap list
-Name                  Version          Rev    Tracking       Publisher   Notes
-core20                20220719         1587   latest/stable  canonical✓  base
-core22                20220607         188    latest/stable  canonical✓  base
-edgex-device-virtual  2.3.0            335    latest/edge    canonical✓  -
-edgexfoundry          2.3.0            4101   latest/edge    canonical✓  -
-pc                    20-0.4           x1     -              -           gadget
-pc-kernel             5.4.0-122.138.1  1057   20/stable      canonical✓  kernel
-snapd                 2.56.2           16292  latest/stable  canonical✓  snapd
+Name                  Version         Rev    Tracking          Publisher   Notes
+core22                20230503        634    latest/stable     canonical✓  base
+edgex-device-virtual  3.0.0-dev.50    669    latest/edge       canonical✓  -
+edgexfoundry          3.0.0-dev.163   4452   latest/edge       canonical✓  -
+pc                    22-0.3          127    22/stable         canonical✓  gadget
+pc-kernel             5.15.0-71.78.1  1281   22/stable         canonical✓  kernel
+snapd                 2.59.4          19361  latest/candidate  canonical✓  snapd
+
+$ snap services
+Service                                       Startup   Current   Notes
+edgex-device-virtual.device-virtual           disabled  inactive  -
+edgexfoundry.consul                           disabled  inactive  -
+edgexfoundry.core-command                     disabled  inactive  -
+edgexfoundry.core-common-config-bootstrapper  disabled  inactive  -
+edgexfoundry.core-data                        disabled  inactive  -
+edgexfoundry.core-metadata                    disabled  inactive  -
+edgexfoundry.nginx                            disabled  inactive  -
+edgexfoundry.redis                            disabled  inactive  -
+edgexfoundry.security-bootstrapper-consul     disabled  inactive  -
+edgexfoundry.security-bootstrapper-nginx      disabled  inactive  -
+edgexfoundry.security-bootstrapper-redis      disabled  inactive  -
+edgexfoundry.security-proxy-auth              disabled  inactive  -
+edgexfoundry.security-secretstore-setup       disabled  inactive  -
+edgexfoundry.support-notifications            disabled  inactive  -
+edgexfoundry.support-scheduler                disabled  inactive  -
+edgexfoundry.vault                            disabled  inactive  -
 </code></pre></div></p>
-<p>Let's install the <a href="https://snapcraft.io/edgex-cli">EdgeX CLI</a> to query information from EdgeX core components  to easily query various APIs:
-<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap install edgex-cli
-edgex-cli 2.2.0 from Canonical✓ installed
-$ edgex-cli --help
-EdgeX-CLI
-
-Usage:
-  edgex-cli [command]
-
-Available Commands:
-  command          Read, write and list commands [Core Command]
-  completion       Generate the autocompletion script for the specified shell
-  config           Return the current configuration of all EdgeX core/support microservices
-  device           Add, remove, get, list and modify devices [Core Metadata]
-  deviceprofile    Add, remove, get and list device profiles [Core Metadata]
-  deviceservice    Add, remove, get, list and modify device services [Core Metadata]
-  event            Add, remove and list events
-  help             Help about any command
-  interval         Add, get and list intervals [Support Scheduler]
-  intervalaction   Get, list, update and remove interval actions [Support Scheduler]
-  metrics          Output the CPU/memory usage stats for all EdgeX core/support microservices
-  notification     Add, remove and list notifications [Support Notifications]
-  ping             Ping (health check) all EdgeX core/support microservices
-  provisionwatcher Add, remove, get, list and modify provison watchers [Core Metadata]
-  reading          Count and list readings
-  subscription     Add, remove and list subscriptions [Support Notificationss]
-  transmission     Remove and list transmissions [Support Notifications]
-  version          Output the current version of EdgeX CLI and EdgeX microservices
-
-Flags:
-  -h, --help   help for edgex-cli
-
-Use "edgex-cli [command] --help" for more information about a command.
-
-$ edgex-cli ping
-core-metadata: Thu Aug 11 10:27:47 UTC 2022
-core-data: Thu Aug 11 10:27:47 UTC 2022
-core-command: Thu Aug 11 10:27:47 UTC 2022
-</code></pre></div></p>
-<p>We can verify that the core services are alive.</p>
-<p>Let's now query the devices:
-<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ edgex-cli device list
-No devices available
-</code></pre></div></p>
-<p>There are no devices, because the installed EdgeX Device Virtual is disabled and not started by default.</p>
-<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap start edgex-device-virtual 
+<p>Everything is inactive by default. Let start the platform:
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap start --enable edgexfoundry
 Started.
-$ snap logs -f edgex-device-virtual 
-2022-08-11T10:34:19Z edgex-device-virtual.device-virtual[5483]: level=INFO ts=2022-08-11T10:34:19.238771398Z app=device-virtual source=devices.go:87 msg="Device Random-UnsignedInteger-Device not found in Metadata, adding it ..."
-...
-2022-08-11T10:34:19Z edgex-device-virtual.device-virtual[5483]: level=INFO ts=2022-08-11T10:34:19.247960347Z app=device-virtual source=message.go:58 msg="Service started in: 417.152451ms"
-</code></pre></div>
-<p>This shows that the virtual devices have been added to Core Metadata and the service has started. Rerun the same CLI command:</p>
-<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ edgex-cli device list
-Name                           Description                ServiceName     ProfileName                    Labels                    AutoEvents
-Random-Float-Device            Example of Device Virtual  device-virtual  Random-Float-Device            [device-virtual-example]  [{30s false Float32} {30s false Float64}]
-Random-Integer-Device          Example of Device Virtual  device-virtual  Random-Integer-Device          [device-virtual-example]  [{15s false Int8} {15s false Int16} {15s false Int32} {15s false Int64}]
-Random-Binary-Device           Example of Device Virtual  device-virtual  Random-Binary-Device           [device-virtual-example]  []
-Random-Boolean-Device          Example of Device Virtual  device-virtual  Random-Boolean-Device          [device-virtual-example]  [{10s false Bool}]
-Random-UnsignedInteger-Device  Example of Device Virtual  device-virtual  Random-UnsignedInteger-Device  [device-virtual-example]  [{20s false Uint8} {20s false Uint16} {20s false Uint32} {20s false Uint64}]
-</code></pre></div>
-<p>From the service logs, we can't see if the service is actually producing data. We can increase the logging verbosity by modifying the service log level:</p>
-<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap set edgex-device-virtual config.writable-loglevel=DEBUG
-$ snap restart edgex-device-virtual 
-Restarted.
-$ snap logs -f edgex-device-virtual 
-...
-2022-08-11T10:35:39Z edgex-device-virtual.device-virtual[5731]: level=INFO ts=2022-08-11T10:35:39.445141593Z app=device-virtual source=message.go:58 msg="Service started in: 74.554045ms"
-2022-08-11T10:35:49Z edgex-device-virtual.device-virtual[5731]: level=DEBUG ts=2022-08-11T10:35:49.445151427Z app=device-virtual source=executor.go:52 msg="AutoEvent - reading Bool"
-2022-08-11T10:35:49Z edgex-device-virtual.device-virtual[5731]: level=DEBUG ts=2022-08-11T10:35:49.445224126Z app=device-virtual source=command.go:127 msg="Application - readDeviceResource: reading deviceResource: Bool; X-Correlation-ID: "
-2022-08-11T10:35:49Z edgex-device-virtual.device-virtual[5731]: level=DEBUG ts=2022-08-11T10:35:49.445329507Z app=device-virtual source=transform.go:121 msg="device: Random-Boolean-Device DeviceResource: Bool reading: {Id:3d7322bb-6d67-436d-a7f5-37fe90acf885 Origin:1660214149445259654 DeviceName:Random-Boolean-Device ResourceName:Bool ProfileName:Random-Boolean-Device ValueType:Bool Units: BinaryReading:{BinaryValue:[] MediaType:} SimpleReading:{Value:false} ObjectReading:{ObjectValue:&lt;nil&gt;}}"
-2022-08-11T10:35:49Z edgex-device-virtual.device-virtual[5731]: level=DEBUG ts=2022-08-11T10:35:49.45082594Z app=device-virtual source=utils.go:80 msg="Event(profileName: Random-Boolean-Device, deviceName: Random-Boolean-Device, sourceName: Bool, id: 8dbf1a85-9876-4165-bc07-88e043bb7904) published to MessageBus"
-</code></pre></div>
-<p>The data is being published to the message bus and Core Data will be storing it. We can query to find out:</p>
-<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ edgex-cli reading list --limit=2
-Origin               Device                         ProfileName                    Value                 ValueType
-11 Aug 22 10:50 UTC  Random-UnsignedInteger-Device  Random-UnsignedInteger-Device  14610331353796717782  Uint64
-11 Aug 22 10:50 UTC  Random-UnsignedInteger-Device  Random-UnsignedInteger-Device  62286                 Uint16
-</code></pre></div>
-<p>We now have a running EdgeX platform with dummy devices, producing synthetic readings. We can access this data on the localhost, but not from another host. This is because the local service ports only listen on the loopback interface. Access from outside is only allowed via the API Gateway and after authentication. </p>
-<p>It is possible to configure the services to listen to other or all interfaces and access them from outside. Note that this will expose the endpoint without any access control!</p>
-<p>To make Core Data's server listen to all interfaces (at your own risk):
-<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap set edgexfoundry app-options=true
-$ snap set edgexfoundry apps.core-data.config.service-serverbindaddr="0.0.0.0"
-$ snap restart edgexfoundry.core-data
-Restarted
 </code></pre></div></p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Drop the <code>apps.core-data.</code> prefix to make this a global configuration setting for all EdgeX services inside that snap!</p>
-</div>
+<p>We need to also start Device Virtual, but before doing so, increase the logging verbosity using snap options to add logging for the produced data:
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap set edgex-device-virtual config.writable-loglevel=DEBUG
+$ snap start --enable edgex-device-virtual
+Started.
+</code></pre></div></p>
+<p>Inspect the logs:
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap logs edgexfoundry
+...
+2023-05-24T15:43:54Z edgexfoundry.consul[2785]: 2023-05-24T15:43:54.667Z [INFO]  agent: Synced check: check=support-notifications
+2023-05-24T15:43:54Z edgexfoundry.consul[2785]: 2023-05-24T15:43:54.801Z [INFO]  agent: Synced check: check=core-data
+2023-05-24T15:43:55Z edgexfoundry.consul[2785]: 2023-05-24T15:43:55.220Z [INFO]  agent: Synced check: check=core-command
+2023-05-24T15:43:55Z edgexfoundry.consul[2785]: 2023-05-24T15:43:55.368Z [INFO]  agent: Synced check: check=core-metadata
+2023-05-24T15:43:56Z edgexfoundry.consul[2785]: 2023-05-24T15:43:56.208Z [INFO]  agent: Synced check: check=support-scheduler
+2023-05-24T15:44:03Z edgexfoundry.consul[2785]: 2023-05-24T15:44:03.596Z [INFO]  agent: Synced check: check=device-virtual
+
+
+$ snap logs -f edgex-device-virtual
+...
+2023-05-24T15:44:14Z edgex-device-virtual.device-virtual[3369]: level=DEBUG ts=2023-05-24T15:44:14.269393977Z app=device-virtual source=utils.go:80 msg="Event(profileName: Random-UnsignedInteger-Device, deviceName: Random-UnsignedInteger-Device, sourceName: Uint64, id: 77701381-5bbc-404d-a9b5-f30d58182ac6) published to MessageBus on topic: edgex/events/device/device-virtual/Random-UnsignedInteger-Device/Random-UnsignedInteger-Device/Uint64"
+2023-05-24T15:44:19Z edgex-device-virtual.device-virtual[3369]: level=DEBUG ts=2023-05-24T15:44:19.066059149Z app=device-virtual source=reporter.go:195 msg="Publish 0 metrics to the 'edgex/telemetry/device-virtual' base topic"
+2023-05-24T15:44:19Z edgex-device-virtual.device-virtual[3369]: level=DEBUG ts=2023-05-24T15:44:19.06612871Z app=device-virtual source=manager.go:123 msg="Reported metrics..."
+^C
+</code></pre></div></p>
+<p>All services appear healthy.
+The Device Virtual logs show that the service is producing the expected synthetic data.</p>
 <p>Let's exit the SSH session:
 <div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ exit
 logout
 Connection to localhost closed.
 </code></pre></div></p>
-<p>... and query data from outside
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>curl<span class="w"> </span>--silent<span class="w"> </span>--show-err<span class="w"> </span>http://localhost:59880/api/v2/reading/all?limit<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+<p>... and query data from outside via the API Gateway:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>https://localhost:8443/core-data/api/v3/reading/all?limit<span class="o">=</span><span class="m">2</span>
 </code></pre></div></p>
-<div class="highlight"><span class="filename">Response</span><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">7040</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"readings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5907adb3-18f6-4cf9-9826-216285b7f519"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"origin"</span><span class="p">:</span><span class="w"> </span><span class="mi">1660225195484643300</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Random-Integer-Device"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Int32"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Random-Integer-Device"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"valueType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Int32"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"445276022"</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"86c87583-a220-44d9-b29a-e412efa97cc3"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"origin"</span><span class="p">:</span><span class="w"> </span><span class="mi">1660225195423943200</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Random-Integer-Device"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Int64"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Random-Integer-Device"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"valueType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Int64"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-6696458089943342374"</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">]</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>However, as expected, we can't access securely via the API Gateway:
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>https://localhost:8443/core-data/api/v2/reading/all?limit<span class="o">=</span><span class="m">2</span>
-</code></pre></div></p>
-<div class="highlight"><span class="filename">Response</span><pre><span></span><code><span class="p">{</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Unauthorized"</span><span class="p">}</span>
-</code></pre></div>
-<p>You can follow the instructions from the <a href="../../getting-started/Ch-GettingStartedSnapUsers/#adding-api-gateway-users">getting started</a> to create a key pair, add a user to API Gateway, and generate a JWT token to access the API securely.</p>
+<p>Since the security is enabled, the access is not authorized.
+You can follow the instructions from the <a href="../../getting-started/Ch-GettingStartedSnapUsers/#adding-api-gateway-users">getting started</a> to add a user to API Gateway, and generate a JWT token to access the API securely.</p>
+<hr/>
+<mark class="critic block">
 <p>In this chapter, we demonstrated how to build an image that is pre-loaded with some EdgeX snaps. We then connected into a (virtual) machine instantiated with the image, verified the setup and performed additional steps to interactively start and configure the services.</p>
-<p>In the next chapter, we walk you through creating an image that comes pre-loaded with this configuration, so it boots into a working EdgeX environment that even includes your EdgeX public key and user.</p>
-<h2 id="b-override-basic-configurations">B. Override basic configurations</h2>
+<p>In the next chapter, we walk you through creating an image that comes pre-loaded with this configuration, so it boots into a working EdgeX environment.</p>
+</mark>
+<h2 id="b-override-configurations">B. Override configurations</h2>
 <p>In this chapter, we will improve our OS image so that:</p>
 <ul>
-<li>We don't need to manually start EdgeX Device Virtual</li>
-<li>We have our EdgeX public key inside the image and can securely access the service endpoints via API Gateway</li>
+<li>EdgeX services start automatically</li>
+<li>EdgeX security is disabled for demonstration purposes</li>
 </ul>
-<h3 id="create-key-pair-and-jwt-token">Create key pair and JWT token</h3>
-<p>Create a private/public key pair:
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$ openssl ecparam -genkey -name prime256v1 -noout -out private.pem
-$ openssl ec -in private.pem -pubout -out public.pem
-read EC key
-writing EC key
-</code></pre></div></p>
-<p>Print the public key:
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$ cat public.pem 
------BEGIN PUBLIC KEY-----
-MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE5slZTyp5Zfxoos7TljHgPSbGm3As
-NZGr6EEet300xbC4VUVGcQBSEsSZmGMTxaCMlzvKt1dwUNxBFDAemWXSyg==
------END PUBLIC KEY-----
-</code></pre></div>
-In the next section, we will add this as the public key of the admin user.</p>
-<p>Create a script called <code>create-jwt.sh</code> with the following content:
-<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash -e</span>
-
-<span class="c1"># this is hardcoded because we'll be adding an admin user with this ID to the image</span>
-<span class="nv">USER_ID</span><span class="o">=</span><span class="m">1</span>
-
-<span class="nv">header</span><span class="o">=</span><span class="s1">'{</span>
-<span class="s1">    "alg": "ES256",</span>
-<span class="s1">    "typ": "JWT"</span>
-<span class="s1">}'</span>
-
-<span class="nv">TTL</span><span class="o">=</span><span class="k">$((</span><span class="nv">EPOCHSECONDS</span><span class="o">+</span><span class="m">86400</span><span class="k">))</span><span class="w"> </span><span class="c1"># valid for 1 day</span>
-
-<span class="nv">payload</span><span class="o">=</span><span class="s1">'{</span>
-<span class="s1">    "iss":"'</span><span class="nv">$USER_ID</span><span class="s1">'",</span>
-<span class="s1">    "iat":'</span><span class="nv">$EPOCHSECONDS</span><span class="s1">',</span>
-<span class="s1">    "nbf":'</span><span class="nv">$EPOCHSECONDS</span><span class="s1">',</span>
-<span class="s1">    "exp":'</span><span class="nv">$TTL</span><span class="s1">'</span>
-<span class="s1">}'</span>
-
-<span class="nb">echo</span><span class="w"> </span><span class="s2">"Payload: </span><span class="nv">$payload</span><span class="s2">"</span>
-
-<span class="nv">JWT_HEADER</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="nv">$header</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>base64<span class="w"> </span>-e<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>s/<span class="se">\+</span>/-/<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>-E<span class="w"> </span>s/<span class="o">=</span>+$//<span class="sb">`</span>
-<span class="nv">JWT_PAYLOAD</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="nv">$payload</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>base64<span class="w"> </span>-e<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>s/<span class="se">\+</span>/-/<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>-E<span class="w"> </span>s/<span class="o">=</span>+$//<span class="sb">`</span>
-<span class="nv">JWT_SIGNATURE</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$JWT_HEADER</span><span class="s2">.</span><span class="nv">$JWT_PAYLOAD</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>dgst<span class="w"> </span>-sha256<span class="w"> </span>-binary<span class="w"> </span>-sign<span class="w"> </span>private.pem<span class="w">  </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>asn1parse<span class="w"> </span>-inform<span class="w"> </span>DER<span class="w">  </span>-offset<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s2">"[0-9A-F]\+</span>$<span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'\n'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xxd<span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-w0<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'='</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">'+/'</span><span class="w"> </span><span class="s1">'-_'</span><span class="sb">`</span>
-
-<span class="nv">TOKEN</span><span class="o">=</span><span class="nv">$JWT_HEADER</span>.<span class="nv">$JWT_PAYLOAD</span>.<span class="nv">$JWT_SIGNATURE</span>
-
-<span class="nb">echo</span><span class="w"> </span><span class="nv">$TOKEN</span><span class="w"> </span>&gt;<span class="w"> </span>admin-jwt.txt
-<span class="nb">echo</span><span class="w"> </span><span class="s2">"Token written to admin-jwt.txt:"</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$TOKEN</span><span class="s2">"</span>
-</code></pre></div></p>
-<p>The script will read the <code>private.pem</code> file from the same directory.</p>
-<p>Make the script executable and run it to get a JWT (JSON Web Token):
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$ chmod +x create-jwt.sh
-$ ./create-jwt.sh 
-Payload: {
-    "iss":"1",
-    "iat":1660314677,
-    "nbf":1660314677,
-    "exp":1660401077
-}
-Token written to admin-jwt.txt:
-eyAiYWxnIjogIkVTMjU2IiwgInR5cCI6ICJKV1QiIH0.eyAiaXNzIjoiMSIsICJpYXQiOjE2NjAzMTQ2NzcsICJuYmYiOjE2NjAzMTQ2NzcsICJleHAiOjE2NjA0MDEwNzcgfQ.giBrf2UQjMRATBXZnJ-6B3dJQbeoVjfjlVhsjCtbjJBYBjJ8_qZW_s2YPZs3fWSpMWUVTX05Jsj1Xg4wnlQrGA
-</code></pre></div>
-The token is printed and also written to <code>admin-jwt.txt</code>. We'll use this token in the next steps to access API Gateway securely. Note that the token is valid for a pre-defined period (see <code>TTL</code> in the script).</p>
-<h3 id="setup-defaults-using-a-gadget-snap">Setup defaults using a Gadget snap</h3>
-<p>Setting up default options for snaps is possible with the gadget snap. 
-We will go back to the same <code>gadget.yml</code> file for the gadget that we used to resize the volumes, but this time also add a new top level <code>defaults</code> key:</p>
-<p>Add the following to <code>gadget.yml</code>.
-Replace the public key with the content of your public key in <code>public.pem</code>:
-<div class="highlight"><pre><span></span><code># Add default config options
-# The keys are unique snap IDs
-defaults:
-  AZGf0KNnh8aqdkbGATNuRuxnt1GNRKkV: # edgexfoundry
-    # Enable app options
-    app-options: true
-    # Set the admin user's public key
-    apps.secrets-config.proxy.admin.public-key: |
-      -----BEGIN PUBLIC KEY-----
-      MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE5slZTyp5Zfxoos7TljHgPSbGm3As
-      NZGr6EEet300xbC4VUVGcQBSEsSZmGMTxaCMlzvKt1dwUNxBFDAemWXSyg==
-      -----END PUBLIC KEY-----
-
-  AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0: # edgex-device-virtual
-    # automatically start the service
-    autostart: true
-    # Enable app options
-    app-options: true # not necessary because this service has it by default
-    # Override the startup message (because we can)
-    # The same syntax can be used to override most of the server configurations
-    apps.device-virtual.config.service-startupmsg: "Startup message from gadget!"
-</code></pre></div></p>
+<h3 id="seed-configurations-to-snaps">Seed configurations to snaps</h3>
+<p>Overriding the snap configurations upon installation is possible with <a href="https://snapcraft.io/docs/the-gadget-snap">gadget snaps</a>.</p>
+<p>The <a href="https://snapcraft.io/pc"><code>pc</code> gadget</a> is available as a prebuilt snap in the store, however, in this chapter, we need to build our own to include custom configurations, passed in as default values to snaps.
+We will use the source code for Core22 AMD64 gadget from <a href="https://github.com/snapcore/pc-amd64-gadget/tree/22">here</a> as basis.</p>
 <div class="admonition tip">
-<p class="admonition-title">Snap ID</p>
-<p>Query the unique store ID of a snap, for example the <code>edgexfoundry</code> snap:
-<div class="highlight"><pre><span></span><code>$ snap info edgexfoundry | grep snap-id
-snap-id: AZGf0KNnh8aqdkbGATNuRuxnt1GNRKkV
-</code></pre></div></p>
+<p class="admonition-title">Tip</p>
+<p>For a Raspberry Pi, you need to use the <a href="https://github.com/snapcore/pi-gadget">pi-gadget</a> instead.</p>
 </div>
-<p>The public key is taken from <code>public.pem</code> generated in the previous section.</p>
-<p>Refer to the following for details:</p>
-<ul>
-<li><a href="../../getting-started/Ch-GettingStartedSnapUsers/#managing-services">Managing services</a></li>
-<li><a href="../../getting-started/Ch-GettingStartedSnapUsers/#adding-api-gateway-users">Adding API Gateway Users</a></li>
-</ul>
+<p>Clone the repo branch:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/snapcore/pc-amd64-gadget.git<span class="w"> </span>--branch<span class="o">=</span><span class="m">22</span>
+</code></pre></div></p>
+<p>Add the following root level object to <code>pc-amd64-gadget/gadget.yml</code>:
+<div class="highlight"><pre><span></span><code><span class="nt">defaults</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># edgexfoundry</span>
+<span class="w">  </span><span class="nt">AZGf0KNnh8aqdkbGATNuRuxnt1GNRKkV</span><span class="p">:</span><span class="w"> </span><span class="c1"># snap id</span>
+<span class="w">    </span><span class="c1"># automatically start all the services</span>
+<span class="w">    </span><span class="nt">autostart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="c1"># disable security</span>
+<span class="w">    </span><span class="nt">security</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="c1"># override a single service's startup message</span>
+<span class="w">    </span><span class="nt">apps.core-data.config.service-startupmsg</span><span class="p">:</span><span class="w"> </span><span class="s">"Core</span><span class="nv"> </span><span class="s">Data</span><span class="nv"> </span><span class="s">Startup</span><span class="nv"> </span><span class="s">message</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">gadget!"</span>
+<span class="w">    </span><span class="c1"># set bind address of services to all interfaces via the common config</span>
+<span class="w">    </span><span class="nt">apps.core-common-config-bootstrapper.config.all-services-service-serverbindaddr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0.0.0</span>
+
+<span class="w">  </span><span class="c1"># edgex-device-virtual</span>
+<span class="w">  </span><span class="nt">AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0</span><span class="p">:</span><span class="w"> </span><span class="c1"># snap id</span>
+<span class="w">    </span><span class="c1"># automatically start the service</span>
+<span class="w">    </span><span class="nt">autostart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># configure the service so it does not use the secret store</span>
+<span class="w">      </span><span class="nt">edgex-security-secret-store</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="c1"># override the startup message</span>
+<span class="w">      </span><span class="nt">service-startupmsg</span><span class="p">:</span><span class="w"> </span><span class="s">"Startup</span><span class="nv"> </span><span class="s">message</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">gadget!"</span>
+</code></pre></div></p>
+<p>For service startup and other configuration overrides, refer to <a href="../../getting-started/Ch-GettingStartedSnapUsers/#managing-services">Managing services</a> and <a href="../../getting-started/Ch-GettingStartedSnapUsers/#config-overrides">Config Overrides</a>.</p>
 <p>Build:
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>snapcraft
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>pc-amd64-gadget
+$<span class="w"> </span>snapcraft<span class="w"> </span>-v
 ...
-Snapped<span class="w"> </span>pc_20-0.4_amd64.snap
+Created<span class="w"> </span>snap<span class="w"> </span>package<span class="w"> </span>pc_22-0.3_amd64.snap
+
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
 </code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You need to rebuild the snap every time you change the gadget.yaml file.</p>
+<p>You need to rebuild the snap every time you change the <code>gadget.yaml</code> file.</p>
 </div>
 <h3 id="build-the-image">Build the image</h3>
-<p>Use ubuntu-image tool again to build a new image. Use the same instructions as <a href="#build-the-ubuntu-core-image">before</a> to build:</p>
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>ubuntu-image<span class="w"> </span>snap<span class="w"> </span>model.signed.yaml<span class="w"> </span>--validation<span class="o">=</span>enforce<span class="w"> </span>--snap<span class="w"> </span>pc-amd64-gadget/pc_20-0.4_amd64.snap
+<p>Use ubuntu-image tool again to build a new image. Use the same instructions as <a href="#build-the-ubuntu-core-image">before</a> but with an additional flag to set the path to gadget snap that we locally built above.</p>
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>ubuntu-image<span class="w"> </span>snap<span class="w"> </span>model.signed.yaml<span class="w"> </span>--validation<span class="o">=</span>enforce<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--snap<span class="w"> </span>pc-amd64-gadget/pc_22-0.3_amd64.snap<span class="w"> </span><span class="c1"># sideload the gadget</span>
+Fetching<span class="w"> </span>snapd
+Fetching<span class="w"> </span>pc-kernel
+Fetching<span class="w"> </span>core22
+Fetching<span class="w"> </span>edgexfoundry
+Fetching<span class="w"> </span>edgex-device-virtual
+WARNING:<span class="w"> </span><span class="s2">"pc"</span><span class="w"> </span>installed<span class="w"> </span>from<span class="w"> </span><span class="nb">local</span><span class="w"> </span>snaps<span class="w"> </span>disconnected<span class="w"> </span>from<span class="w"> </span>a<span class="w"> </span>store<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>refreshed<span class="w"> </span>subsequently!
+Copying<span class="w"> </span><span class="s2">"pc-amd64-gadget/pc_22-0.3_amd64.snap"</span><span class="w"> </span><span class="o">(</span>pc<span class="o">)</span>
 </code></pre></div>
+<p>The warning is because we sideloaded the gadget instead of pulling it from a store.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In production settings, a custom gadget would need to be uploaded to the <a href="https://ubuntu.com/internet-of-things/appstore">IoT App Store</a> to also receive OTA updates.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to repeat the build every time you change and sign the <strong>model</strong> or rebuild the <strong>gadget</strong>.</p>
+</div>
 <div class="admonition done">
 <p class="admonition-title">Done</p>
 <p>The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications and basic configurations.</p>
@@ -2195,150 +2028,179 @@ Snapped<span class="w"> </span>pc_20-0.4_amd64.snap
 <li><a href="#run-in-an-emulator">Run in an emulator</a> - used in this guide</li>
 <li><a href="#flash-the-image-on-disk">Flash the image on disk</a></li>
 </ul>
-<p>This time, as set in the gadget defaults, Device Virtual is started by default and we have a user to securely interact with the API Gateway.</p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>SSH to the machine and verify that Device Virtual is enabled (to start on boot) and active (running):
-<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap services edgex-device-virtual
-Service                              Startup  Current  Notes
-edgex-device-virtual.device-virtual  enabled  active   -
-</code></pre></div></p>
-<p>Verify that the public key is there as a snap option:
-<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap get edgexfoundry apps.secrets-config -d
+<p>This time, as set in the gadget defaults, services are started by default and security is disabled.</p>
+<p>SSH to the Ubuntu Core machine as before and verify some of the seeded configurations:</p>
+<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap services
+Service                                       Startup   Current   Notes
+edgex-device-virtual.device-virtual           enabled   active    -
+edgexfoundry.consul                           enabled   active    -
+edgexfoundry.core-command                     enabled   active    -
+edgexfoundry.core-common-config-bootstrapper  enabled   inactive  -
+edgexfoundry.core-data                        enabled   active    -
+edgexfoundry.core-metadata                    enabled   active    -
+edgexfoundry.nginx                            disabled  inactive  -
+edgexfoundry.redis                            enabled   active    -
+edgexfoundry.security-bootstrapper-consul     disabled  inactive  -
+edgexfoundry.security-bootstrapper-nginx      disabled  inactive  -
+edgexfoundry.security-bootstrapper-redis      disabled  inactive  -
+edgexfoundry.security-proxy-auth              disabled  inactive  -
+edgexfoundry.security-secretstore-setup       disabled  inactive  -
+edgexfoundry.support-notifications            enabled   active    -
+edgexfoundry.support-scheduler                enabled   active    -
+edgexfoundry.vault                            disabled  inactive  -
+
+$ snap get edgex-device-virtual -d
 {
-  "apps.secrets-config": {
-    "proxy": {
-      "admin": {
-        "public-key": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE5slZTyp5Zfxoos7TljHgPSbGm3As\nNZGr6EEet300xbC4VUVGcQBSEsSZmGMTxaCMlzvKt1dwUNxBFDAemWXSyg==\n-----END PUBLIC KEY-----\n"
-      }
-    }
+  "autostart": true,
+  "config": {
+    "edgex-security-secret-store": false,
+    "service-startupmsg": "Startup message from gadget!"
   }
 }
-</code></pre></div></p>
+</code></pre></div>
 <p>Verify that Device Virtual has the startup message set from the gadget:
 <div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap logs -n=all edgex-device-virtual | grep "Startup message"
-2022-08-19T13:51:28Z edgex-device-virtual.device-virtual[4660]: level=INFO ts=2022-08-19T13:51:28.868688382Z app=device-virtual source=variables.go:352 msg="Variables override of 'Service.StartupMsg' by environment variable: SERVICE_STARTUPMSG=Startup message from gadget!"
+2023-05-24T16:52:05Z edgex-device-virtual.device-virtual[2807]: level=INFO ts=2023-05-24T16:52:05.791386915Z app=device-virtual source=variables.go:457 msg="Variables override of 'Service/StartupMsg' by environment variable: SERVICE_STARTUPMSG=Startup message from gadget!"
+2023-05-24T16:52:22Z edgex-device-virtual.device-virtual[3010]: level=INFO ts=2023-05-24T16:52:22.342760716Z app=device-virtual source=message.go:55 msg="Startup message from gadget!"
 </code></pre></div></p>
-</div>
-<p>To query data securely from another host, we need to query the API Gateway. Let's query API Gateway from outside of the machine. The hostname is still <code>localhost</code> because this guide runs the image in an emulator on the same machine.
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>--silent<span class="w"> </span>--show-err<span class="w"> </span>https://localhost:8443/core-data/api/v2/reading/all?limit<span class="o">=</span><span class="m">2</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="k">$(</span>cat<span class="w"> </span>admin-jwt.txt<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
-</code></pre></div></p>
-<div class="highlight"><span class="filename">Response</span><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">939</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"readings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eb1faad8-d93d-4793-b2e7-19d0cf13c183"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"origin"</span><span class="p">:</span><span class="w"> </span><span class="mi">1660314781398850300</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bool"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"valueType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bool"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2c1ea95a-b5b0-4051-a5b6-24d98f40a5c3"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"origin"</span><span class="p">:</span><span class="w"> </span><span class="mi">1660314776365793500</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Random-Integer-Device"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Int64"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Random-Integer-Device"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"valueType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Int64"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-8755202057804760537"</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">]</span>
-<span class="p">}</span>
+<p>Since security is disabled and Core Data has been configured to listen on all interfaces (instead of just the loopback), we can now query data (insecurely) from outside:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>--no-progress-meter<span class="w"> </span>http://localhost:59880/api/v3/reading/all?limit<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+<span class="o">{</span>
+<span class="w">  </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v3"</span>,
+<span class="w">  </span><span class="s2">"statusCode"</span>:<span class="w"> </span><span class="m">200</span>,
+<span class="w">  </span><span class="s2">"totalCount"</span>:<span class="w"> </span><span class="m">86</span>,
+<span class="w">  </span><span class="s2">"readings"</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">    </span><span class="o">{</span>
+<span class="w">      </span><span class="s2">"id"</span>:<span class="w"> </span><span class="s2">"66c0e3ae-70a5-41b1-931f-bf680b2814ed"</span>,
+<span class="w">      </span><span class="s2">"origin"</span>:<span class="w"> </span><span class="m">1684948755626088200</span>,
+<span class="w">      </span><span class="s2">"deviceName"</span>:<span class="w"> </span><span class="s2">"Random-Boolean-Device"</span>,
+<span class="w">      </span><span class="s2">"resourceName"</span>:<span class="w"> </span><span class="s2">"Bool"</span>,
+<span class="w">      </span><span class="s2">"profileName"</span>:<span class="w"> </span><span class="s2">"Random-Boolean-Device"</span>,
+<span class="w">      </span><span class="s2">"valueType"</span>:<span class="w"> </span><span class="s2">"Bool"</span>,
+<span class="w">      </span><span class="s2">"value"</span>:<span class="w"> </span><span class="s2">"true"</span>
+<span class="w">    </span><span class="o">}</span>,
+<span class="w">    </span><span class="o">{</span>
+<span class="w">      </span><span class="s2">"id"</span>:<span class="w"> </span><span class="s2">"94ec2182-7a0b-4515-8bcd-5445b8d59d2d"</span>,
+<span class="w">      </span><span class="s2">"origin"</span>:<span class="w"> </span><span class="m">1684948755624763400</span>,
+<span class="w">      </span><span class="s2">"deviceName"</span>:<span class="w"> </span><span class="s2">"Random-UnsignedInteger-Device"</span>,
+<span class="w">      </span><span class="s2">"resourceName"</span>:<span class="w"> </span><span class="s2">"Uint32"</span>,
+<span class="w">      </span><span class="s2">"profileName"</span>:<span class="w"> </span><span class="s2">"Random-UnsignedInteger-Device"</span>,
+<span class="w">      </span><span class="s2">"valueType"</span>:<span class="w"> </span><span class="s2">"Uint32"</span>,
+<span class="w">      </span><span class="s2">"value"</span>:<span class="w"> </span><span class="s2">"2463192424"</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="w">  </span><span class="o">]</span>
+<span class="o">}</span>
 </code></pre></div>
-<p>The response is similar to if query was sent directly to Core Data (http://localhost:59880/api/v2/reading/all?limit=2), except that it was done over TLS and with authentication. We didn't need to bind the Core Data's server to other interfaces or expose its port to outside.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>EdgeX's API Gateway internally generated a self-signed TLS certificate. The system doesn't trust that certificate and that's why we set the <code>--insecure</code> flag for cURL.</p>
-<p>Refer <a href="../../getting-started/Ch-GettingStartedSnapUsers/#changing-tls-certificates">here</a> to learn how you can replace the certificate with one that your system trusts.</p>
-</div>
-<p>In this chapter, we created an OS image which comes with EdgeX components that are automatically started and configured to securely receive external requests. 
+We can do that only for servers that have their ports forwarded to the emulator's host as configured in <a href="#run-in-an-emulator">Run in an emulator</a>.</p>
+<p>Query all registered devices from Core Metadata:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>--no-progress-meter<span class="w">  </span>http://localhost:59881/api/v3/device/all<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.devices[].name'</span>
+<span class="s2">"Random-Boolean-Device"</span>
+<span class="s2">"Random-Float-Device"</span>
+<span class="s2">"Random-UnsignedInteger-Device"</span>
+<span class="s2">"Random-Binary-Device"</span>
+<span class="s2">"Random-Integer-Device"</span>
+</code></pre></div>
+The response shows 5 virtual devices, registered by Device Virtual.</p>
+<hr/>
+<mark class="critic block">
+<p>In this chapter, we created an OS image which comes with EdgeX components that have overridden server configurations.
 We can extend the server configurations by setting other defaults in the gadget.
-This is sufficient in most scenarios and allows creating an image that is configured and ready for production.</p>
-<p>The server configuration is made possible via a combination of snap options and environment variable overrides implemented for EdgeX services. There are two situations in which we need to override entire configuration files instead of fields one by one:</p>
+This mechanism is made possible via a combination of snap options and environment variable overrides implemented for EdgeX services.</p>
+<p>Overriding configuration fields is sufficient in most scenarios.
+However, there are situations in which we need to override entire configuration files instead of just some fields:</p>
 <ol>
-<li>When we have to easily override many configuration fields: it is very cumbersome to override many configuration fields one by one.</li>
+<li>When we want to override entire server configuration files, rather than a few fields.</li>
 <li>When we need to add or change device, profile, and provision watcher configurations.</li>
 </ol>
-<p>For the above cases, we need to supply whole configuration files to applications.
-In the next chapter, we walk through creating a Snap package with our custom configuration files. The package will become part of the OS image and supply necessary configurations to all other EdgeX applications.</p>
-<h2 id="c-override-configuration-files">C. Override configuration files</h2>
-<p>This chapter builds on top of what we did previously and shows how to override entire configuration files with a packaged copy, prepared for an specific use case.</p>
+<p>There are different ways to tackle the above situations such as pre-populating the EdgeX Config Provider and Core Metadata with the needed data, or deploying a local agent which takes care of the provisioning on runtime. 
+In the next chapter, we will address the above requirements by deploying a snap which supplies custom configuration files to applications.</p>
+</mark>
+<h2 id="c-replace-configuration-files">C. Replace configuration files</h2>
+<p>This chapter builds on top of what we did previously and shows how to override entire configuration files supplied via a snap package, called the <a href="../../getting-started/Ch-GettingStartedSnapUsers/#config-provider-snap">config provider snap</a>.</p>
 <h3 id="create-a-config-provider-for-device-virtual">Create a config provider for Device Virtual</h3>
 <p>The EdgeX Device Virtual service cannot be fully configured using environment variables / snap options. Because of that, we need to package the modified config files and replace the defaults.
 Moreover, it is tedious to override many configurations one by one, compared to having a file which contains all the needed modifications.</p>
-<p>Since we want to create an OS image pre-loaded with the configured system, we need to make sure the configurations are there without any manual user interaction. We do that by creating a snap which provides the configuration files/directories to the Device Virtual snap:</p>
-<ul>
-<li>configuration.yaml</li>
-<li>devices/</li>
-<li>profiles/</li>
-</ul>
-<p>For this exercise, we will modify the default configurations and remove most default devices and resources. We will also replace the startup message set in the <code>configuration.yaml</code> file.</p>
-<p>This snap should be build and uploaded to the store. We use <code>edgex-config-provider-example</code> as the snap name. Refer to <a href="../../getting-started/Ch-GettingStartedSnapUsers/#config-provider-snap">docs</a> for more details and example source code.</p>
+<p>Since we want to create an OS image pre-loaded with the configured system, we need to make sure the configurations are there without any manual user interaction. We do that by creating a snap which provides the configuration files to the Device Virtual snap.</p>
+<p>For this exercise, we will replace the default Device Virtual configurations with a new set of files, containing just one virtual device and profile.</p>
+<p>We use the <a href="https://github.com/canonical/edgex-config-provider">config provider snap example</a> as basis which already includes the mentioned configuration files:</p>
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/canonical/edgex-config-provider.git
+
+$<span class="w"> </span>tree<span class="w"> </span>edgex-config-provider/examples/device-virtual/res/
+edgex-config-provider/examples/device-virtual/res/
+├──<span class="w"> </span>configuration.yaml
+├──<span class="w"> </span>devices
+│<span class="w">   </span>└──<span class="w"> </span>devices.yaml
+├──<span class="w"> </span>profiles
+│<span class="w">   </span>└──<span class="w"> </span>device.virtual.float.yaml
+└──<span class="w"> </span>README.md
+</code></pre></div>
+<p>This example includes only Device Virtual configurations.
+However, it is structured to allow the supply of configuration files to multiple EdgeX app and device services. </p>
+<p>We'll continue with this example snap which is named <code>edgex-config-provider-example</code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In production settings, you would create your own snap under a unique name and <a href="https://snapcraft.io/docs/releasing-your-app">release it</a> to the public snap store or a private <a href="https://ubuntu.com/internet-of-things/appstore">IoT App Store</a> along with your gadget. 
+This will allow OTA updates as well as secure control of the provided configuration.</p>
+</div>
 <p>Build:
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>snapcraft
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>edgex-config-provider
+$<span class="w"> </span>snapcraft<span class="w"> </span>-v
 ...
-Snapped<span class="w"> </span>edgex-config-provider-example_2.3_amd64.snap
+Created<span class="w"> </span>snap<span class="w"> </span>package<span class="w"> </span>edgex-config-provider-example_&lt;...&gt;.snap
+
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
 </code></pre></div></p>
-<p>This will build for your host architecture, so if your machine is <code>amd64</code>, it will result in a snap that has the same architecture. You can perform <a href="https://snapcraft.io/docs/remote-build">remote builds</a> to build for other architectures.</p>
-<p>Let's upload the <code>amd64</code> snap and release it to the <code>latest/edge</code> channel:
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>snapcraft<span class="w"> </span>upload<span class="w"> </span>--release<span class="o">=</span>latest/edge<span class="w"> </span>./edgex-config-provider-example_2.3_amd64.snap
-</code></pre></div></p>
-<p>Now, we can query the snap ID from the store:
+<p>This will build for our host architecture which is <code>amd64</code>.
+You can perform <a href="https://snapcraft.io/docs/remote-build">remote builds</a> to build for other architectures.</p>
+<p>Let's upload the snap and release it to the <code>latest/edge</code> channel:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>snapcraft<span class="w"> </span>upload<span class="w"> </span>--release<span class="o">=</span>latest/edge<span class="w"> </span>edgex-config-provider/edgex-config-provider-example_&lt;...&gt;.snap
+</code></pre></div>
+Uploading to the store is necessary because we need to define a connection contract on the OS between the config provider and Device Virtual snaps.</p>
+<p>Query the snap ID from the store:
 <div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>snap<span class="w"> </span>info<span class="w"> </span>edgex-config-provider-example<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>snap-id
 snap-id:<span class="w"> </span>WWPGZGi1bImphPwrRfw46aP7YMyZYl6w
-</code></pre></div>
-We need it in the next step.</p>
-<h3 id="add-the-config-provider-to-the-image">Add the config provider to the image</h3>
-<p>We have to make three adaptations:</p>
-<p>1) Remove the Device Virtual config overrides from the gadget and re-build it</p>
-<p>Commented out (or remove):
-<div class="highlight"><span class="filename">gadget.yaml</span><pre><span></span><code><span class="w">    </span><span class="c1"># # Enable app options</span>
-<span class="w">    </span><span class="c1"># app-options: true # not necessary because this service has it by default</span>
-<span class="w">    </span><span class="c1"># # Override the startup message (because we can)</span>
-<span class="w">    </span><span class="c1"># # The same syntax can be used to override most of the server configurations</span>
-<span class="w">    </span><span class="c1"># apps.device-virtual.config.service-startupmsg: "Startup message from gadget!"</span>
 </code></pre></div></p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>It is important to do this because overrides are ineffective when configurations are replaced from a config provider.
-This is because the config provider in our example is providing a read-only file system that doesn't allow the write access necessary to inject an environment file when setting the <code>app</code> options.</p>
-</div>
-<p>2) Connect the config provider </p>
-<p><div class="highlight"><span class="filename">gadget.yaml</span><pre><span></span><code><span class="nt">connections</span><span class="p">:</span>
+<h3 id="add-the-config-provider-to-the-image">Add the config provider to the image</h3>
+<p>Perform the following:</p>
+<p>1) Add the config provider snap to <code>model.yaml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-config-provider-example</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
+<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/edge</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WWPGZGi1bImphPwrRfw46aP7YMyZYl6w</span>
+</code></pre></div>
+<p>2) Sign the model as before:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>yq<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>model.yaml<span class="w"> </span>-o<span class="o">=</span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>snap<span class="w"> </span>sign<span class="w"> </span>-k<span class="w"> </span>edgex-demo<span class="w"> </span>&gt;<span class="w"> </span>model.signed.yaml
+</code></pre></div></p>
+<p>3) Add the following root level object to <code>pc-amd64-gadget/gadget.yaml</code>:
+<div class="highlight"><pre><span></span><code><span class="nt">connections</span><span class="p">:</span>
 <span class="w">   </span><span class="p p-Indicator">-</span><span class="w">  </span><span class="c1"># Connect edgex-device-virtual's plug (consumer)</span>
 <span class="w">      </span><span class="nt">plug</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AmKuVTOfsN0uEKsyJG34M8CaMfnIqxc0:device-virtual-config</span>
 <span class="w">      </span><span class="c1"># to edgex-config-provider-example's slot (provider) to override the default configuration files.</span>
 <span class="w">      </span><span class="nt">slot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WWPGZGi1bImphPwrRfw46aP7YMyZYl6w:device-virtual-config</span>
 </code></pre></div>
-This internally bind-mounts provider's "res" directory on top of the consumer's "res" directory.</p>
-<p>3) Rebuild the gadget
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>snapcraft
+This tells the system to connect the <code>device-virtual-config</code> plug of the Device Virtual snap to the slot of the same name on the config provider snap.</p>
+<p>4) Rebuild the gadget:
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>pc-amd64-gadget
+$<span class="w"> </span>snapcraft<span class="w"> </span>-v
 ...
-Snapped<span class="w"> </span>pc_20-0.4_amd64.snap
-</code></pre></div></p>
-<p>4) Add the config provider snap to the model assertion, <strong>after</strong> all other edgex snaps:</p>
-<div class="highlight"><span class="filename">model.yaml</span><pre><span></span><code><span class="c1"># This snap contains our configuration files</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-config-provider-example</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
-<span class="w">  </span><span class="nt">default-channel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest/edge</span>
-<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">WWPGZGi1bImphPwrRfw46aP7YMyZYl6w</span>
-</code></pre></div>
-<p>5) Sign the model as before
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>yq<span class="w"> </span><span class="nb">eval</span><span class="w"> </span>model.yaml<span class="w"> </span>-o<span class="o">=</span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>snap<span class="w"> </span>sign<span class="w"> </span>-k<span class="w"> </span>edgex-demo<span class="w"> </span>&gt;<span class="w"> </span>model.signed.yaml
+Created<span class="w"> </span>snap<span class="w"> </span>package<span class="w"> </span>pc_22-0.3_amd64.snap
+
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
 </code></pre></div></p>
 <h3 id="build-the-image_1">Build the image</h3>
 <p>Use ubuntu-image tool again to build a new image. Use the same instructions as <a href="#build-the-ubuntu-core-image">before</a> to build:</p>
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>ubuntu-image<span class="w"> </span>snap<span class="w"> </span>model.signed.yaml<span class="w"> </span>--validation<span class="o">=</span>enforce<span class="w"> </span>--snap<span class="w"> </span>pc-amd64-gadget/pc_20-0.4_amd64.snap
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>ubuntu-image<span class="w"> </span>snap<span class="w"> </span>model.signed.yaml<span class="w"> </span>--validation<span class="o">=</span>enforce<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--snap<span class="w"> </span>pc-amd64-gadget/pc_22-0.3_amd64.snap
+Fetching<span class="w"> </span>snapd
+Fetching<span class="w"> </span>pc-kernel
+Fetching<span class="w"> </span>core22
+Fetching<span class="w"> </span>edgexfoundry
+Fetching<span class="w"> </span>edgex-device-virtual
+Fetching<span class="w"> </span>edgex-config-provider-example
+WARNING:<span class="w"> </span><span class="s2">"pc"</span><span class="w"> </span>installed<span class="w"> </span>from<span class="w"> </span><span class="nb">local</span><span class="w"> </span>snaps<span class="w"> </span>disconnected<span class="w"> </span>from<span class="w"> </span>a<span class="w"> </span>store<span class="w"> </span>cannot<span class="w"> </span>be<span class="w"> </span>refreshed<span class="w"> </span>subsequently!
+Copying<span class="w"> </span><span class="s2">"pc-amd64-gadget/pc_22-0.3_amd64.snap"</span><span class="w"> </span><span class="o">(</span>pc<span class="o">)</span>
 </code></pre></div>
-<p>Note the addition of our config provider in output:
-<div class="highlight"><pre><span></span><code>...
-Fetching edgex-config-provider-example
-...
-</code></pre></div></p>
+<p>Note the addition of our config provider snap in the output.</p>
 <div class="admonition done">
 <p class="admonition-title">Done</p>
 <p>The image file is now ready to be flashed on a medium to create a bootable drive with the needed applications and custom configuration files.</p>
@@ -2349,64 +2211,37 @@ Fetching edgex-config-provider-example
 <li><a href="#run-in-an-emulator">Run in an emulator</a> - used in this guide</li>
 <li><a href="#flash-the-image-on-disk">Flash the image on disk</a></li>
 </ul>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>SSH to the machine and verify the installations:</p>
+<p>SSH to the Ubuntu Core machine and verify the installations:</p>
 <p>List of snaps:
 <div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap list
-Name                           Version          Rev    Tracking       Publisher   Notes
-core20                         20220805         1611   latest/stable  canonical✓  base
-core22                         20220607         188    latest/stable  canonical✓  base
-edgex-config-provider-example  2.3              2      latest/edge    farshidtz   -
-edgex-device-virtual           2.3.0            335    latest/edge    canonical✓  -
-edgexfoundry                   2.3.0            4101   latest/edge    canonical✓  -
-pc                             20-0.4           x1     -              -           gadget
-pc-kernel                      5.4.0-124.140.1  1077   20/stable      canonical✓  kernel
-snapd                          2.56.2           16292  latest/stable  canonical✓  snapd
+Name                           Version                   Rev    Tracking          Publisher   Notes
+core22                         20230503                  634    latest/stable     canonical✓  base
+edgex-config-provider-example  v3.0.0-beta+git6.1778bd4  29     latest/edge       farshidtz   -
+edgex-device-virtual           3.0.0-dev.51              673    latest/edge       canonical✓  -
+edgexfoundry                   3.0.0-dev.164             4455   latest/edge       canonical✓  -
+pc                             22-0.3                    x1     -                 -           gadget
+pc-kernel                      5.15.0-71.78.1            1281   22/stable         canonical✓  kernel
+snapd                          2.59.4                    19361  latest/candidate  canonical✓  snapd
 </code></pre></div>
 Note that we now also have <code>edgex-config-provider-example</code> in the list.</p>
-<p>Verify that Device Virtual only has one profile, as configured in the config provider:
-<div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap install edgex-cli
-edgex-cli 2.2.0 from Canonical✓ installed
-$ edgex-cli device list
-Name                 Description                ServiceName     ProfileName          Labels                    AutoEvents
-Random-Float-Device  Example of Device Virtual  device-virtual  Random-Float-Device  [device-virtual-example]  [{30s false Float64}]
-</code></pre></div></p>
-<p>Verify that Device Virtual has the startup message set from the provider:
+<p>Verify that Device Virtual has the startup message overridden via the gadget defaults:
 <div class="highlight"><span class="filename">🚀 Ubuntu Core</span><pre><span></span><code>$ snap logs -n=all edgex-device-virtual | grep "Startup message"
-2022-08-19T14:42:24Z edgex-device-virtual.device-virtual[5402]: level=INFO ts=2022-08-19T14:42:24.438798115Z app=device-virtual source=message.go:55 msg="Startup message from config provider"
+2023-05-25T10:24:50Z edgex-device-virtual.device-virtual[2924]: level=INFO ts=2023-05-25T10:24:50.447466922Z app=device-virtual source=variables.go:457 msg="Variables override of 'Service/StartupMsg' by environment variable: SERVICE_STARTUPMSG=Startup message from gadget!"
+2023-05-25T10:25:03Z edgex-device-virtual.device-virtual[3136]: level=INFO ts=2023-05-25T10:25:03.761993667Z app=device-virtual source=message.go:55 msg="Startup message from gadget!"
 </code></pre></div></p>
-</div>
-<p>Query the metadata of Device Virtual from your host machine. 
-We have to use the same JWT created in chapter B.
-<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>--silent<span class="w"> </span>--show-err<span class="w"> </span>https://localhost:8443/core-data/api/v2/reading/all?limit<span class="o">=</span><span class="m">2</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="k">$(</span>cat<span class="w"> </span>admin-jwt.txt<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
-</code></pre></div>
-<div class="highlight"><span class="filename">Response</span><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">133</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"readings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f6a53b5c-045f-4913-ae45-4e32642f6102"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"origin"</span><span class="p">:</span><span class="w"> </span><span class="mi">1660923144514370300</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Random-Float-Device"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Float64"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Random-Float-Device"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"valueType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Float64"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.436784e+308"</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"95b5aa9c-e80d-488c-ab5d-1b625a9d0f76"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"origin"</span><span class="p">:</span><span class="w"> </span><span class="mi">1660923114513963300</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Random-Float-Device"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Float64"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Random-Float-Device"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"valueType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Float64"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7.737701e+307"</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">]</span>
-<span class="p">}</span>
+<p>From the host machine, query the device metadata to ensure that Device Virtual has registered only a single virtual device: 
+<div class="highlight"><span class="filename">🖥 Desktop</span><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>--no-progress-meter<span class="w">  </span>http://localhost:59881/api/v3/device/all<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">'.devices[].name'</span>
+<span class="s2">"Random-Float-Device"</span>
 </code></pre></div></p>
+<hr/>
+<mark class="critic block">
+<p>Congratulations! You deployed a system that is pre-configured to have:</p>
+<ul>
+<li>A set of EdgeX components</li>
+<li>Configuration overrides for the EdgeX components</li>
+<li>Custom configuration files for the EdgeX Device Virtual service</li>
+</ul>
+</mark>
 <h2 id="run-in-an-emulator">Run in an emulator</h2>
 <p>Running the image in an emulator makes it easier to quickly try the image and find out possible issues.</p>
 <p>We use a <code>amd64</code> QEMU emulator. Refer to <a href="https://ubuntu.com/core/docs/testing-with-qemu">Testing Ubuntu Core with QEMU</a> to setup the dependencies and learn about the various emulation options. Here, we provide the command to run without TPM emulation.</p>
@@ -2427,13 +2262,14 @@ Alternatively, you can make a copy before using it in QEMU.</p>
 <span class="w"> </span>-machine<span class="w"> </span><span class="nv">accel</span><span class="o">=</span>kvm<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>-serial<span class="w"> </span>mon:stdio<span class="w"> </span><span class="se">\</span>
 <span class="w"> </span>-net<span class="w"> </span>nic,model<span class="o">=</span>virtio<span class="w"> </span><span class="se">\</span>
-<span class="w"> </span>-net<span class="w"> </span>user,hostfwd<span class="o">=</span>tcp::8022-:22,hostfwd<span class="o">=</span>tcp::8443-:8443,hostfwd<span class="o">=</span>tcp::59880-:59880
+<span class="w"> </span>-net<span class="w"> </span>user,hostfwd<span class="o">=</span>tcp::8022-:22,hostfwd<span class="o">=</span>tcp::8443-:8443,hostfwd<span class="o">=</span>tcp::59880-:59880,hostfwd<span class="o">=</span>tcp::59881-:59881
 </code></pre></div></p>
 <p>The above command forwards:</p>
 <ul>
 <li>SSH port <code>22</code> of the emulator to <code>8022</code> on the host</li>
-<li>API Gateway's port <code>8433</code> for external and secure access to EdgeX endpoints</li>
-<li>Core Data's port <code>59880</code> for demonstration purposes in chapter A.</li>
+<li>API Gateway's port <code>8433</code> for external access in chapter A</li>
+<li>Core Data's port <code>59880</code></li>
+<li>Core Metadata's port <code>59881</code></li>
 </ul>
 <div class="admonition failure">
 <p class="admonition-title">Could not set up host forwarding rule 'tcp::8443-:8443'</p>
