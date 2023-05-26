@@ -83,7 +83,7 @@ Create `model.yaml` with the following content, replacing `authority-id`, `brand
 type: model
 series: '16'
 
-# set authority-id and brand-id your developer-id
+# set authority-id and brand-id to your developer-id
 authority-id: <developer-id>
 brand-id: <developer-id>
 
@@ -99,7 +99,7 @@ grade: dangerous
 snaps:
   - name: pc
     type: gadget
-    default-channel: 22/stable,
+    default-channel: 22/stable
     id: UqFziVZDHLSyO3TqSWgNBoAdHbLI4dAH
   
   - name: pc-kernel
@@ -518,7 +518,7 @@ edgex-config-provider/examples/device-virtual/res/
 ```
 
 This example includes only Device Virtual configurations.
-However, it is structure to allow supplying configuration files for several EdgeX app and device services. 
+However, it is structured to allow the supply of configuration files to multiple EdgeX app and device services. 
 
 We'll continue with this example snap which is named `edgex-config-provider-example`.
 
@@ -620,15 +620,14 @@ SSH to the Ubuntu Core machine and verify the installations:
 List of snaps:
 ``` title="🚀 Ubuntu Core"
 $ snap list
-Name                           Version          Rev    Tracking       Publisher   Notes
-core20                         20220805         1611   latest/stable  canonical✓  base
-core22                         20220607         188    latest/stable  canonical✓  base
-edgex-config-provider-example  2.3              2      latest/edge    farshidtz   -
-edgex-device-virtual           2.3.0            335    latest/edge    canonical✓  -
-edgexfoundry                   2.3.0            4101   latest/edge    canonical✓  -
-pc                             20-0.4           x1     -              -           gadget
-pc-kernel                      5.4.0-124.140.1  1077   20/stable      canonical✓  kernel
-snapd                          2.56.2           16292  latest/stable  canonical✓  snapd
+Name                           Version                   Rev    Tracking          Publisher   Notes
+core22                         20230503                  634    latest/stable     canonical✓  base
+edgex-config-provider-example  v3.0.0-beta+git6.1778bd4  29     latest/edge       farshidtz   -
+edgex-device-virtual           3.0.0-dev.51              673    latest/edge       canonical✓  -
+edgexfoundry                   3.0.0-dev.164             4455   latest/edge       canonical✓  -
+pc                             22-0.3                    x1     -                 -           gadget
+pc-kernel                      5.15.0-71.78.1            1281   22/stable         canonical✓  kernel
+snapd                          2.59.4                    19361  latest/candidate  canonical✓  snapd
 ```
 Note that we now also have `edgex-config-provider-example` in the list.
 
