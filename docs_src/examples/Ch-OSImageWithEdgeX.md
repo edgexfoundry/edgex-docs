@@ -288,11 +288,13 @@ Since the security is enabled, the access is not authorized.
 You can follow the instructions from the [getting started](../../getting-started/Ch-GettingStartedSnapUsers/#adding-api-gateway-users) to add a user to API Gateway, and generate a JWT token to access the API securely.
 
 ---
+{==
 
 In this chapter, we demonstrated how to build an image that is pre-loaded with some EdgeX snaps. We then connected into a (virtual) machine instantiated with the image, verified the setup and performed additional steps to interactively start and configure the services.
 
 In the next chapter, we walk you through creating an image that comes pre-loaded with this configuration, so it boots into a working EdgeX environment.
 
+==}
 ## B. Override configurations
     
 In this chapter, we will improve our OS image so that:
@@ -300,10 +302,10 @@ In this chapter, we will improve our OS image so that:
 - EdgeX services start automatically
 - EdgeX security is disabled for demonstration purposes
 
-### Seeding default configurations
-Setting up default options for snaps is possible with a gadget snap. 
+### Seed configurations to snaps
+Overriding the snap configurations upon installation is possible with [gadget snaps](https://snapcraft.io/docs/the-gadget-snap).
 
-The [`pc` gadget](https://snapcraft.io/pc) is available as a prebuilt snap in the store, however, in this chapter, we need to build our own to seed default values. 
+The [`pc` gadget](https://snapcraft.io/pc) is available as a prebuilt snap in the store, however, in this chapter, we need to build our own to include custom configurations, passed in as default values to snaps.
 We will use the source code for Core22 AMD64 gadget from [here](https://github.com/snapcore/pc-amd64-gadget/tree/22) as basis.
 
 !!! tip
@@ -461,7 +463,18 @@ $ curl --no-progress-meter http://localhost:59880/api/v3/reading/all?limit=2 | j
 ```
 We can do that only for servers that have their ports forwarded to the emulator's host as configured in [Run in an emulator](#run-in-an-emulator).
 
+Query all registered devices from Core Metadata:
+```bash title="🖥 Desktop"
+$ curl --no-progress-meter  http://localhost:59881/api/v3/device/all | jq '.devices[].name'
+"Random-Boolean-Device"
+"Random-Float-Device"
+"Random-UnsignedInteger-Device"
+"Random-Binary-Device"
+"Random-Integer-Device"
+```
+The response shows 5 virtual devices, registered by Device Virtual.
 ---
+{==
 
 In this chapter, we created an OS image which comes with EdgeX components that have overridden server configurations.
 We can extend the server configurations by setting other defaults in the gadget.
@@ -473,10 +486,10 @@ However, there are situations in which we need to override entire configuration 
 1. When we want to override entire server configuration files, rather than a few fields.
 2. When we need to add or change device, profile, and provision watcher configurations.
 
-For the above cases, we need to supply whole configuration files to applications.
-In the next chapter, we walk through creating a Snap package with custom configuration files.
-The package will become part of the OS image and supply necessary configurations to all other EdgeX applications.
+There are different ways to tackle the above situations such as pre-populating the EdgeX Config Provider and Core Metadata with the needed data, or deploying a local agent which takes care of the provisioning on runtime. 
+In the next chapter, we will address the above requirements by deploying a snap which supplies custom configuration files to applications.
 
+==}
 ## C. Replace configuration files
 
 This chapter builds on top of what we did previously and shows how to override entire configuration files supplied via a snap package, called the [config provider snap](../../getting-started/Ch-GettingStartedSnapUsers/#config-provider-snap).
@@ -628,56 +641,20 @@ $ snap logs -n=all edgex-device-virtual | grep "Startup message"
 
 From the host machine, query the device metadata to ensure that Device Virtual has registered only a single virtual device: 
 ```bash title="🖥 Desktop"
-$ curl --no-progress-meter  http://localhost:59881/api/v3/device/all | jq
-{
-  "apiVersion": "v3",
-  "statusCode": 200,
-  "totalCount": 1,
-  "devices": [
-    {
-      "created": 1685010303761,
-      "modified": 1685010303761,
-      "id": "c6ccd340-6315-4313-9c4c-d98773287c7f",
-      "name": "Random-Float-Device",
-      "description": "Example of Device Virtual",
-      "adminState": "UNLOCKED",
-      "operatingState": "UP",
-      "labels": [
-        "device-virtual-example"
-      ],
-      "serviceName": "device-virtual",
-      "profileName": "Random-Float-Device",
-      "autoEvents": [
-        {
-          "interval": "30s",
-          "onChange": false,
-          "sourceName": "Float32"
-        },
-        {
-          "interval": "30s",
-          "onChange": false,
-          "sourceName": "Float64"
-        }
-      ],
-      "protocols": {
-        "other": {
-          "Address": "device-virtual-float-01",
-          "Protocol": 300
-        }
-      }
-    }
-  ]
-}
+$ curl --no-progress-meter  http://localhost:59881/api/v3/device/all | jq '.devices[].name'
+"Random-Float-Device"
 ```
 
 ---
+{==
 
-Congratulations! You have a system that is pre-configured to have:
+Congratulations! You deployed a system that is pre-configured to have:
 
 - A set of EdgeX components
 - Configuration overrides for the EdgeX components
 - Custom configuration files for the EdgeX Device Virtual service
 
+==}
 ## Run in an emulator
 Running the image in an emulator makes it easier to quickly try the image and find out possible issues.
 
