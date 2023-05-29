@@ -8,19 +8,67 @@ See [Top Level V3 Migration Guide](../../../V3TopLevelMigration) for details app
 
 ### Device Files
 
-TBD
+1. Change device definition file in the Device Service to YAML format.
+2. Remove `LastConnected` and `LastReported` configs.
+3. ProtocolProperties now supports typed values.
+
+    !!! example "ProtocolProperty with typed values"
+    
+        ```yaml
+        protocols:
+          other:
+            Address: simple01
+            Port: 300
+        ```
 
 ### Device Profile Files
 
-TBD
+1. Add `optional` field in ResourceProperties to allow any additional or customized data.
+2. Change the data type of `mask`, `shift`, `scale`, `base`, `offset`, `maximum` and `minimum` from string to number in ResourceProperties.
+
 
 ### Provision Watcher files
 
-TBD
+1. The ProvisionWatcher DTO is restructured by moving the Device related fields into a new object field, `DiscoveredDevice`; such as `profileName`, Device `adminState`, and `autoEvents`.
+2. Allow to define additional or customized data by utilizing the `properties` field in the `DiscoveredDevice` object.
+3. ProvisionWatcher contains its own `adminState` now. The Device `adminState` is moved into the `DiscoveredDevice` object.
+4. ProvisionWatcher can now be added during device service startup by loading the definition files from the `ProvisionWatchersDir` configuration.
 
-### Other
+    !!! example "Example Configuration"
+    
+        ```yaml
+        Device:
+            ProvisionWatchersDir: ./res/provisionwatchers
+        ```
 
-TBD
+5. ProvisionWatcher definition file is in YAML format.
+
+    !!! example "Pre-defined ProvisionWatcher"
+
+        ```yaml
+        name: Simple-Provision-Watcher
+        serviceName: device-simple
+        labels:
+          - simple
+        identifiers:
+          Address: simple[0-9]+
+          Port: 3[0-9]{2}
+        blockingIdentifiers:
+          Port:
+            - 397
+            - 398
+            - 399
+        adminState: UNLOCKED
+        discoveredDevice:
+          profileName: Simple-Device
+          adminState: UNLOCKED
+          autoEvents:
+            - interval: 15s
+              sourceName: SwitchButton
+          properties:
+            testPropertyA: weather
+            testPropertyB: meter
+        ```
 
 ## Custom Device Services
 
@@ -28,9 +76,78 @@ This section is specific to changes made that impact existing **custom device se
 
 See [Top Level V3 Migration Guide](../../../V3TopLevelMigration) for details applicable to all EdgeX services and [All Device Services](#all-device-services) section above for details applicable to all EdgeX device services.  
 
-### Go Device Services
+### Dependencies
+You first need to update the `go.mod` file to specify `go 1.20` and the V3 versions of the Device SDK and any EdgeX go-mods directly used by your service. Note the extra `/v3` for the modules.
 
-TBD
+!!! example "Example go.mod for V3"
+
+    ```go
+    module <your service>
+    
+    go 1.20
+    
+    require (
+    	github.com/edgexfoundry/device-sdk-go/v3 v3.0.0
+    	github.com/edgexfoundry/go-mod-core-contracts/v3 v3.0.0
+        ...
+    )
+    ```
+
+Once that is complete then the import statements for these dependencies must be updated to include the `/v3` in the path.
+
+!!! example "Example import statements for V3"
+
+    ```go
+    import (
+    	...
+        
+    	"github.com/edgexfoundry/device-sdk-go/v3/pkg/models"
+    	"github.com/edgexfoundry/go-mod-core-contracts/v3/common"
+    )
+    ```
+
+### Go Device Services
+1. The type of ProtocolProperties is now `map[string]any` instead of `map[string]string` to support typed values.
+2. Configuration file changes:
+    - The configuration file is now in YAML format, and the default file name is configuration.yaml.
+    - Add `ProvisionWatchersDir` configuration to support adding provision watchers during device service startup.
+    - Remove `UpdateLastConnected` from configuration.
+    - Remove `UseMessageBus` from configuration. MessageBus is always enabled in 3.0 for sending events and receiving system events for callbacks.
+    - Remove Common config settings from configuration. See [V3 Migration of Common Configuration](../configuration/V3MigrationCommonConfig) for details.
+    - Internal topics no longer configurable. See [V3 Migration of Common Configuration](../configuration/V3MigrationCommonConfig#messagebus) for details.
+3. ProtocolDriver interface changes:
+    - Add `Start` method. The `Start` method is called after the device service is completely initialized, allowing the service to run startup tasks.
+    - Add `Discover` method. The `Discover` method triggers protocol specific device discovery, asynchronously writes the results to the channel which is passed to the implementation via `ProtocolDriver.Initialize()`. The results may be added to the device service based on a set of acceptance criteria (i.e. Provision Watchers).
+    - Add `ValidateDevice` method. The `ValidateDevice` method triggers device's protocol properties validation, returns error if validation failed and the incoming device will not be added into EdgeX.
+    - Update the `Initialize` method signature to pass DeviceServiceSDK interface as parameter.
+4. Remove global variable `ds *DeviceService` in service package. Instead, the [DeviceServiceSDK interface](sdk/SDK-Go-API.md) introduced in Levski release is passed to ProtocolDriver as the only parameter in Initialize method so that developer can still access, mock and test with it.
+5. SDK API changes:
+    - Add [`Run`](sdk/SDK-Go-API.md#run) method.
+    - Add [`PatchDevice`](sdk/SDK-Go-API.md#patchdevice) method.
+    - Add [`DeviceExistsForName`](sdk/SDK-Go-API.md#deviceexistsforname) method.
+    - Add [`AsyncValuesChannel`](sdk/SDK-Go-API.md#asyncvalueschannel) method.
+    - Add [`DiscoveredDeviceChannel`](sdk/SDK-Go-API.md#discovereddevicechannel) method.
+    - Refactor [`UpdateDeviceOperatingState`](sdk/SDK-Go-API.md#updatedeviceoperatingstate) method to accept a `OperatingState` value.
+    - Rename `AsyncReadings` to [`AsyncReadingsEnabled`](sdk/SDK-Go-API.md#asyncreadingsenabled).
+    - Rename `DeviceDiscovery` to [`DeviceDiscoveryEnabled`](sdk/SDK-Go-API.md#devicediscoveryenabled).
+    - Rename `GetLoggingClient` to [`LoggingClient`](sdk/SDK-Go-API.md#loggingclient).
+    - Rename `GetSecretProvider` to [`SecretProvider`](sdk/SDK-Go-API.md#secretprovider).
+    - Rename `GetMetricsManager` to [`MetricsManager`](sdk/SDK-Go-API.md#metricsmanager).
+    - Remove `Stop` method as it should only be called by SDK.
+    - Remove `SetDeviceOperatingState` method.
+    - Remove the `Service` function that returns the device service SDK instance.
+    - Remove the `RunningService` function that returns the Device Service instance.
+6. Add additional level in event publish topic for device service name. The topic is now `<PublishTopicPrefix>/<device-service-name>/<device-profile-name>/<device-name>/<source-name>`
+7. The following REST callback endpoints are removed and replaced by the [System Events](../core/metadata/Ch-Metadata.md#device-system-events) mechanism:
+    - `/validate/device`
+    - `/callback/service`
+    - `/callback/watcher`
+    - `/callback/watcher/name/{name}`
+    - `/callback/profile`
+    - `/callback/device`
+    - `/callback/device/name/{name}`
+8. Remove old metrics collection and REST `/metrics` endpoint.
+9. Remove ZeroMQ MessageBus capability.
 
 ### C Device Services
 
