@@ -703,25 +703,6 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#access-functions">
-    Access Functions
-  </a>
-<nav aria-label="Access Functions" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#service">
-    Service()
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#runningservice">
-    RunningService()
-  </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#apis">
     APIs
   </a>
@@ -938,23 +919,28 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#getloggingclient">
-    GetLoggingClient
+<a class="md-nav__link" href="#loggingclient">
+    LoggingClient
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#getsecretprovider">
-    GetSecretProvider
+<a class="md-nav__link" href="#secretprovider">
+    SecretProvider
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#getmetricsmanager">
-    GetMetricsManager
+<a class="md-nav__link" href="#metricsmanager">
+    MetricsManager
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#stop">
-    Stop
+<a class="md-nav__link" href="#asyncvalueschannel">
+    AsyncValuesChannel
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#discovereddevicechannel">
+    DiscoveredDeviceChannel
   </a>
 </li>
 </ul>
@@ -1749,25 +1735,6 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#access-functions">
-    Access Functions
-  </a>
-<nav aria-label="Access Functions" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#service">
-    Service()
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#runningservice">
-    RunningService()
-  </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#apis">
     APIs
   </a>
@@ -1984,23 +1951,28 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#getloggingclient">
-    GetLoggingClient
+<a class="md-nav__link" href="#loggingclient">
+    LoggingClient
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#getsecretprovider">
-    GetSecretProvider
+<a class="md-nav__link" href="#secretprovider">
+    SecretProvider
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#getmetricsmanager">
-    GetMetricsManager
+<a class="md-nav__link" href="#metricsmanager">
+    MetricsManager
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#stop">
-    Stop
+<a class="md-nav__link" href="#asyncvalueschannel">
+    AsyncValuesChannel
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#discovereddevicechannel">
+    DiscoveredDeviceChannel
   </a>
 </li>
 </ul>
@@ -2074,19 +2046,6 @@
 <span class="w">    </span><span class="nx">MetricsManager</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">MetricsManager</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="access-functions">Access Functions</h2>
-<h3 id="service">Service()</h3>
-<p><code>interfaces.Service() DeviceServiceSDK</code></p>
-<p>Returns reference to the <code>DeviceServiceSDK</code> instance as a mockable interface. Mock of interfaces is available at <code>mocks.DeviceServiceSDK</code></p>
-<div class="admonition example -">
-<p class="admonition-title">Example - Service()</p>
-<div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">Service</span><span class="p">()</span>
-<span class="nx">lc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">GetLoggingClient</span><span class="p">()</span>
-</code></pre></div>
-</div>
-<h3 id="runningservice">RunningService()</h3>
-<p><code>service.RunningService() *DeviceService</code></p>
-<p>Returns concrete instance of <code>DeviceService</code> which is not a mockable interface</p>
 <h2 id="apis">APIs</h2>
 <h3 id="auto-event">Auto Event</h3>
 <h4 id="adddeviceautoevent">AddDeviceAutoEvent</h4>
@@ -2103,7 +2062,7 @@
 <p><code>UpdateDevice(device models.Device) error</code></p>
 <p>This API updates the Device in Core Metadata and device service's cache. An error is returned if the Device can not be updated.</p>
 <h4 id="updatedeviceoperatingstate">UpdateDeviceOperatingState</h4>
-<p><code>UpdateDeviceOperatingState(deviceName string, state string) error</code></p>
+<p><code>UpdateDeviceOperatingState(deviceName string, state models.OperatingState) error</code></p>
 <p>This API updates the Device's operating state for the given name in Core Metadata and device service's cache. An error is return if the operating state can not be updated.</p>
 <h4 id="removedevicebyname">RemoveDeviceByName</h4>
 <p><code>RemoveDeviceByName(name string) error</code></p>
@@ -2202,18 +2161,21 @@ must be sent, as it is applied as an overwrite operation.</p>
 <h4 id="addroute">AddRoute</h4>
 <p><code>AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error</code></p>
 <p>This API allows leveraging the existing internal web server to add routes specific to the Device Service. Returns error is route could not be added.</p>
-<h4 id="getloggingclient">GetLoggingClient</h4>
-<p><code>GetLoggingClient() logger.LoggingClient</code></p>
+<h4 id="loggingclient">LoggingClient</h4>
+<p><code>LoggingClient() logger.LoggingClient</code></p>
 <p>This API returns the <code>LoggingClient</code> used to log messages.</p>
-<h4 id="getsecretprovider">GetSecretProvider</h4>
-<p><code>GetSecretProvider() interfaces.SecretProvider</code></p>
+<h4 id="secretprovider">SecretProvider</h4>
+<p><code>SecretProvider() interfaces.SecretProvider</code></p>
 <p>This API returns the SecretProvider used to get/save the service secrets. See <a href="../../../../security/Ch-SecretProviderApi/">Secret Provider API</a> section for more details.</p>
-<h4 id="getmetricsmanager">GetMetricsManager</h4>
-<p><code>GetMetricsManager () interfaces.MetricsManager</code></p>
+<h4 id="metricsmanager">MetricsManager</h4>
+<p><code>MetricsManager () interfaces.MetricsManager</code></p>
 <p>This API returns the MetricsManager used to register custom service metrics. See <a href="../../../general/#service-metrics">Service Metrics</a> for more details</p>
-<h4 id="stop">Stop</h4>
-<p><code>Stop(force bool)</code></p>
-<p>This API shuts down the device service gracefully.</p>
+<h4 id="asyncvalueschannel">AsyncValuesChannel</h4>
+<p><code>AsyncValuesChannel() chan *sdkModels.AsyncValues</code></p>
+<p>This API returns a channel to allow developer send asynchronous reading back to SDK.</p>
+<h4 id="discovereddevicechannel">DiscoveredDeviceChannel</h4>
+<p><code>DiscoveredDeviceChannel() chan []sdkModels.DiscoveredDevice</code></p>
+<p>This API returns a channel to allow developer send discovered devices back to SDK.</p>
 <h3 id="internal">Internal</h3>
 <h4 id="run">Run</h4>
 <p><code>Run() error</code></p>
