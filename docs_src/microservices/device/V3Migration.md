@@ -271,13 +271,81 @@ TBD
 
 This section is specific to changes made only to **Device USB Camera**
 
-See [Top Level V3 Migration Guide](../../../V3TopLevelMigration) for details applicable to all EdgeX services and [All Device Services](#all-device-services) section above for details applicable to all EdgeX device services. . 
-
-TBD
+See [Top Level V3 Migration Guide](../../../V3TopLevelMigration) for details applicable to all EdgeX services and [All Device Services](#all-device-services) section above for details applicable to all EdgeX device services.
 
 #### Configuration
 
-TBD
+1. Change the configuration file to YAML format. Any field in your existing `configuration.toml` that does not have a corresponding entry in the `configuration.yaml` example below may be removed.
+
+!!! example - "Snippet from new configuration.yaml"
+    ```yaml
+    MaxEventSize: 0 # value 0 unlimit the maximum event size that can be sent to message bus or core-data.
+
+    Writable:
+      LogLevel: "INFO"
+      InsecureSecrets:
+        rtspauth:
+          SecretName: rtspauth
+          SecretData:
+            username: ""
+            password: ""
+
+    Service:
+      Host: "localhost"
+      Port: 59983 # Device services are assigned to the 599xx range
+      StartupMsg: "device-usb-camera started"
+
+    # uncomment when running from command-line in hybrid mode with -cp -o flags
+    # Clients:
+    #   core-metadata:
+    #     Host: "localhost"
+    # Registry:
+    #   Host: "localhost"
+
+    MessageBus:
+      # Host: localhost # uncomment when running from command-line in hybrid mode
+      Optional:
+        # Default MQTT and NATS Specific options that need to be here to enable environment variable overrides of them
+        ClientId: "device-usb-camera"
+
+    Device:
+      # These have common values (currently), but must be here for service local env overrides to apply when customized
+      ProfilesDir: "./res/profiles"
+      DevicesDir: "./res/devices"
+      # The location of Provision Watcher json files to import when using auto-discovery
+      ProvisionWatchersDir: "./res/provisionwatchers"
+      Discovery:
+        Enabled: true
+        Interval: "1h"
+
+    Driver:
+      RtspServerHostName: "localhost"
+      RtspTcpPort: "8554"
+      RtspAuthenticationServer: "localhost:8000"
+    ```
+
+#### RTSP Authentication
+All USB camera rtsp streams need authentication by default. To properly credential the stream, follow the below instrutctions.
+
+1. Set the credentials in the `configuration.yaml` 
+    !!! example - "Snippet from configuration.yaml"
+        ```yaml
+        Writable:
+            LogLevel: "INFO"
+            InsecureSecrets:
+              rtspauth:
+                SecretName: rtspauth
+                SecretData:
+                  username: "<user>"
+                  password: "<pass>"
+        ```
+    
+2. You can configure the authentication server to run from a different port by editing the externalAuthenticationURL value in the Dockerfile. To disable authentication entirely, comment out the externalAuthenticationURL line in the Dockerfile.
+
+    !!! example - "externalAuthenticationURL line from the Dockerfile"
+        ```Dockerfile
+        RUN sed -i 's,externalAuthenticationURL:,externalAuthenticationURL: http://localhost:8000/rtspauth,g' rtsp-simple-server.yml
+        ```
 
 #### Device Profile
 
