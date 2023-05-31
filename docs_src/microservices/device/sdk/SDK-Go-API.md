@@ -43,28 +43,6 @@ type DeviceServiceSDK interface {
 }
 ```
 
-
-
-## Access Functions
-
-### Service()
-
-`interfaces.Service() DeviceServiceSDK`
-
-Returns reference to the `DeviceServiceSDK` instance as a mockable interface. Mock of interfaces is available at `mocks.DeviceServiceSDK`
-
-!!! example - "Example - Service()"
-    ```go
-    service := interfaces.Service()
-    lc := service.GetLoggingClient()
-    ```
-
-### RunningService()
-
-`service.RunningService() *DeviceService`
-
-Returns concrete instance of `DeviceService` which is not a mockable interface
-
 ## APIs
 
 ### Auto Event
@@ -97,7 +75,7 @@ This API updates the Device in Core Metadata and device service's cache. An erro
 
 #### UpdateDeviceOperatingState
 
-`UpdateDeviceOperatingState(deviceName string, state string) error`
+`UpdateDeviceOperatingState(deviceName string, state models.OperatingState) error`
 
 This API updates the Device's operating state for the given name in Core Metadata and device service's cache. An error is return if the operating state can not be updated.
 
@@ -119,7 +97,7 @@ This API returns all managed Devices from the device service's cache
 
 This API returns the Device by its name if it exists in the device service's cache, or returns an error.
 
-#### PatchDevice  
+#### PatchDevice
 
 `PatchDevice(updateDevice dtos.UpdateDevice) error`  
 
@@ -140,7 +118,7 @@ to be provided in the UpdateDevice.
     })
     ```
 
-#### DeviceExistsForName  
+#### DeviceExistsForName
 
 `DeviceExistsForName(name string) bool`  
 
@@ -277,30 +255,36 @@ This API returns a bool value to indicate whether the device discovery is enable
 
 This API allows leveraging the existing internal web server to add routes specific to the Device Service. Returns error is route could not be added.
 
-#### GetLoggingClient
+#### LoggingClient
 
-`GetLoggingClient() logger.LoggingClient`
+`LoggingClient() logger.LoggingClient`
 
 This API returns the `LoggingClient` used to log messages.
 
 
-#### GetSecretProvider 
+#### SecretProvider
 
-`GetSecretProvider() interfaces.SecretProvider`
+`SecretProvider() interfaces.SecretProvider`
 
 This API returns the SecretProvider used to get/save the service secrets. See [Secret Provider API](../../../../security/Ch-SecretProviderApi/) section for more details.
 
-#### GetMetricsManager 
+#### MetricsManager
 
-`GetMetricsManager () interfaces.MetricsManager`
+`MetricsManager () interfaces.MetricsManager`
 
 This API returns the MetricsManager used to register custom service metrics. See [Service Metrics](../../../general/#service-metrics) for more details
 
-#### Stop 
+#### AsyncValuesChannel
 
-`Stop(force bool)`
+`AsyncValuesChannel() chan *sdkModels.AsyncValues`
 
-This API shuts down the device service gracefully.
+This API returns a channel to allow developer send asynchronous reading back to SDK.
+
+#### DiscoveredDeviceChannel
+
+`DiscoveredDeviceChannel() chan []sdkModels.DiscoveredDevice`
+
+This API returns a channel to allow developer send discovered devices back to SDK.
 
 ### Internal
 

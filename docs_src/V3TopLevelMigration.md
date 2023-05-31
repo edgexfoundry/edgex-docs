@@ -135,7 +135,7 @@ Most of the data stored by Core Metadata will be recreated when the V3 versions 
 
 - Add/ Update/ Get deviceprofile
     - Added `optional` field in ResourceProperties
-    - Updated the data type of `mask`, `shift`, `scale`, `base`, `maximum` and `minimum` from `string` to `number` in ResourceProperties
+    - Updated the data type of `mask`, `shift`, `scale`, `base`, `offset`, `maximum` and `minimum` from `string` to `number` in ResourceProperties
 
 - Get UOM 
     - Changed the response format from TOML to YAML
