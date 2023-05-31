@@ -17,7 +17,7 @@ In any software system, new needs of the software are encountered on a regular b
 
 ### UCR template
 UCRs should be submitted as pull requests against the [UCR area of edgex-docs](https://github.com/edgexfoundry/edgex-docs/tree/main/docs_src/design/ucr).
-Use the [UCR template](ucr/template.md) provided with this documentation to help create the UCR document.
+Use the [current UCR template] to help create the UCR document.
 
 ### UCR Review and Approval Process
 The community can submit UCR. The use cases describe the use case, target users, data, hardware, privacy and security considerations. Each use case should also include a list of functional requirements, the list of existing tools (that satisfy those requirements) and gaps. Use cases and requirements may freely overlap. Submissions get peer reviewed by domain experts and TSC. The TSC approves UCR and allows design work to be conducted based on the requirements. They can be updated to address shortcomings and technological advancements. Once a stable implementation is available addressing all the requirements, the record gets classified as "supported".
@@ -44,7 +44,7 @@ ADRs must be proceeded by one or more approved UCRs in order to be approved by t
 
 ### ADR template
 ADRs should be submitted as pull requests against the [ADR area of edgex-docs](https://github.com/edgexfoundry/edgex-docs/tree/main/docs_src/design/adr).
-Use the [ADR template](adr/template.md) provided with this documentation to help create the ADR document.
+Use the latest [current ADR template] to help create the ADR document.
 
 
 ### ADR Review and Approval Process
@@ -78,3 +78,7 @@ The release columns may be "frozen" at the end of a release, but should never be
 The TSC chair, vice-chair and product manager will have overall responsibility for the Design Decision project board. These people will also be responsible for capturing any decisions from TSC meetings or the Monthly Architect’s Meeting as cards/issues on the board.
 
 Work Group chairs are responsible for adding new design decision cards/issues that come for their work group or related meetings.
+
+
+[current UCR template]: https://raw.githubusercontent.com/edgexfoundry/edgex-docs/main/docs_src/design/ucr/template.md
+[current ADR template]: https://raw.githubusercontent.com/edgexfoundry/edgex-docs/main/docs_src/design/adr/template.md
