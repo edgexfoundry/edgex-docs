@@ -36,7 +36,7 @@ A brief video demonstration of building and using the device service:
 [Get Started>](./Walkthrough/setup.md){: .md-button}
 
 ## Examples
-To see an example utilizing the ONVIF device service, see the [camera management](https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/camera-management) example in the EdgeX Examples repo.
+To see an example utilizing the ONVIF device service, see the [camera management](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/application-services/custom/camera-management) example in the EdgeX Examples repo.
 
 ## Security
 This software has numerous security features. For production environments, it is recommended to use secure mode when running the EdgeX software stack. This documentation will contain warnings about any known security vulnerabilities or risks.

@@ -61,4 +61,4 @@ To learn more about the API, see [here](../swagger.md)
 
 # License
 
-[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/main/LICENSE)
+[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/{{version}}/LICENSE)
