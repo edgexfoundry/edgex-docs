@@ -4,6 +4,3 @@ All the default services (Core Data, App Service Rules, Device Virtual, eKuiper,
 
 Additional add-on services that require `Secure MessageBus` access (App and/or Device services) need to follow the steps outline in the [Configuring Add-On Services for Security](Ch-Configuring-Add-On-Services.md) section.
 
-!!! Note
-     `Secure MQTT MessageBus` capability does not exist . This will be a future enhancement.
-
