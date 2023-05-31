@@ -66,7 +66,7 @@ See [Common Configuration](#common-configuration) section above for the common c
 
 | Option     | Default Value      | Description                                                  |
 | ---------- | ------------------ | ------------------------------------------------------------ |
-| AuthMode   | `usernamepassword` | Mode of authentication to use. Values are `none`, `usernamepassword`<br />, `clientcert`, or `cacert` |
+| AuthMode   | `usernamepassword` | Mode of authentication to use. Values are `none`, `usernamepassword`<br />, `clientcert`, or `cacert`. In secure mode Redis Pub/Sub uses `usernamepassword` |
 | SecretName | `redisb`           | Secret name used to look up credentials in the service's SecretStore |
 
 ##### Additional Configuration
@@ -85,7 +85,7 @@ See [Common Configuration](#common-configuration) section above for the common c
 
 | Option     | Default Value | Description                                                  |
 | ---------- | ------------- | ------------------------------------------------------------ |
-| AuthMode   | `none`        | Mode of authentication to use. Values are `none`, `usernamepassword`, `clientcert`, or `cacert`. The MQTT Broker is currently not secured in secure mode. |
+| AuthMode   | `none`        | Mode of authentication to use. Values are `none`, `usernamepassword`, `clientcert`, or `cacert`. In secure mode the MQTT Broker uses `usernamepassword` |
 | SecretName | blank         | Secret name used to look up credentials in the service's SecretStore |
 
 ##### Additional Configuration
@@ -171,7 +171,7 @@ The NATS implementations convert the NATS multi-level topic scheme to match that
     - **edgex/events/device/#**
     
         All events coming from any device service for any device profile, device or source
-
+    
     - **edgex/events/+/device-onvif-camera/#**
     
         Events coming from only device service "device-onvif-camera" for any device profile, device and source
