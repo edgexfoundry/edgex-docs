@@ -40,7 +40,8 @@ Locate the branch containing the EdgeX Docker Compose file for the version of Ed
 !!! Note
     The `main` branch contains the Docker Compose files that use artifacts created from the latest code submitted by contributors (from the night builds).  Most end users should avoid using these Docker Compose files.  They are work-in-progress.  Users should use the Docker Compose files for the latest version of EdgeX. 
 
-In each edgex-compose branch, you will find several Docker Compose files (all with a .yml extension).  The name of the file will suggest the type of EdgeX instance the Compose file will help setup.  The table below provides a list of the Docker Compose filenames for the latest release ({{release}}).   Find the Docker Compose file that matches:
+In each edgex-compose branch, you will find several Docker Compose files (all with a .yml extension).  The name of the file will suggest the type of EdgeX instance the Compose file will help setup.  The table below provides a list of the Docker Compose filenames for the `{{version}}` version.
+Find the Docker Compose file that matches:
 
 - your hardware (x86 or ARM)
 - your desire to have security services on or off
