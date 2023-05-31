@@ -12,13 +12,11 @@ The tabs below provide a listing (may be partial based on latest updates) for re
     |---|---|
     |Helm (Kubernetes)|[Github - examples, deployment](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/deployment/helm)|
     |Raspberry Pi 4|[Github - examples, raspberry-pi-4](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/deployment/raspberry-pi-4)|
-    |Cloud deployments|[Github - examples, cloud deployment templates](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/deployment/templates)|
 
 === "Device Services"
     |Example|Location|
     |---|---|
-    |Random Number Device Service (simulation)|[Github - examples, device-random](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/device-services/device-random)|
-    |Grove Device Service in C|[Github - examples, device-grove-c](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/device-services/grove-c) |
+    | TBD |
 
 === "Security"
     |Example|Location|
