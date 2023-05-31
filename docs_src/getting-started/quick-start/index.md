@@ -14,7 +14,7 @@ Install the following:
 ## Running EdgeX
 
 !!! Info
-    {{release}} ({{version}}) is the latest version of EdgeX and used by example in this guide.
+    The version of EdgeX used in the following examples is `{{version}}`.
 
 Once you have Docker and Docker Compose installed, you need to:
 
