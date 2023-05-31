@@ -11,8 +11,8 @@ This Onvif Camera Device Service is developed to control/communicate ONVIF-compl
 - [Tested Onvif Cameras](#tested-onvif-cameras)
 
 ## OpenAPI Spec
-The latest version 2.2.0 of the device service API specifications can be found
-[here](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/device-onvif-camera/2.2.0).
+The latest version {{version}} of the device service API specifications can be found
+[here](../swagger.md).
 
 
 

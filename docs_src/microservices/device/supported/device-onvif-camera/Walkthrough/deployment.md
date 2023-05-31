@@ -438,4 +438,4 @@ To stop all EdgeX services (containers), execute the `make down` command. This w
 
 # License
 
-[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/main/LICENSE)
+[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/{{version}}/LICENSE)

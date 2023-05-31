@@ -127,4 +127,4 @@ The table below lists command line tools this guide uses to help with EdgeX conf
 
 ## License
 
-[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/main/LICENSE)
+[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/{{version}}/LICENSE)

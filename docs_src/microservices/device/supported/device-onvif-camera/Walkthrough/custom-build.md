@@ -99,7 +99,7 @@ For optional configurations, see [here.](#additional-configuration)
             ```bash
             make docker-nats
             ```
-            See [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder#gen) `nat-bus` option to generate compose file for NATS and local dev images.
+            See [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/{{version}}/compose-builder#gen) `nat-bus` option to generate compose file for NATS and local dev images.
       </details>
 
 2. Verify the ONVIF Device Service Docker image was successfully created:
@@ -161,7 +161,7 @@ The device profile contains general information about the camera and includes al
 
 ### Configure the Provision Watchers
 
-The provision watcher sets up parameters for EdgeX to automatically add devices to core-metadata. They can be configured to look for certain features, as well as block features. The default provision watcher is sufficient unless you plan on having multiple different cameras with different profiles and resources. Learn more about provision watchers [here](../../../../../core/metadata/Ch-Metadata/#provision-watcher).
+The provision watcher sets up parameters for EdgeX to automatically add devices to core-metadata. They can be configured to look for certain features, as well as block features. The default provision watcher is sufficient unless you plan on having multiple different cameras with different profiles and resources. Learn more about provision watchers [here](../../../../core/metadata/Ch-Metadata.md#provision-watcher).
  
 !!! example - "Sample: Snippet from generic.provision.watcher.yaml"
     ```yaml
@@ -181,4 +181,4 @@ The provision watcher sets up parameters for EdgeX to automatically add devices 
 
 ## License
 
-[Apache-1.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/main/LICENSE)
+[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/{{version}}/LICENSE)
