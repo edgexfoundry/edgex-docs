@@ -278,6 +278,7 @@ See [Top Level V3 Migration Guide](../../../V3TopLevelMigration) for details app
 All USB camera rtsp streams need authentication by default. To properly configure credentials for the stream, follow the below instructions.
 
 1. Set the credentials in the `configuration.yaml` 
+
     !!! example - "Snippet from configuration.yaml"
         ```yaml
         Writable:
