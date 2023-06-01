@@ -255,17 +255,59 @@ If the command method is a `get`, the published payload is empty and the device 
 
 This section is specific to changes made only to **Device ONVIF Camera**.
 
-See [Top Level V3 Migration Guide](../../../V3TopLevelMigration) for details applicable to all EdgeX services and [All Device Services](#all-device-services) section above for details applicable to all EdgeX device services.  
-
-TBD
+See [Top Level V3 Migration Guide](../../../V3TopLevelMigration) for details applicable to all EdgeX services and [All Device Services](#all-device-services) section above for details applicable to all EdgeX device services.
 
 #### Configuration
 
-TBD
+- Helper scripts have been deprecated in favor of using the REST APIs. 
+See [here for camera credential management](../supported/device-onvif-camera/Walkthrough/deployment#manage-devices), and see [here for configuring `DiscoverySubnets`](../supported/device-onvif-camera/supplementary-info/auto-discovery#discoverysubnets).
 
 #### Device Profile
 
-TBD
+Some commands have been renamed for clarity. See the latest [Swagger API Documentation](../supported/device-onvif-camera/swagger) for full details.
+
+| EdgeX v2 Command Name         | EdgeX v3 Command Name         |
+|-------------------------------|-------------------------------|
+| Profiles                      | MediaProfiles                 |
+| Scopes                        | DiscoveryScopes               |
+| AddScopes                     | AddDiscoveryScopes            |
+| RemoveScopes                  | RemoveDiscoveryScopes         |
+| GetNodes                      | PTZNodes                      |
+| GetNode                       | PTZNode                       |
+| GetConfigurations             | PTZConfigurations             |
+| Configuration                 | PTZConfiguration              |
+| GetConfigurationOptions       | PTZConfigurationOptions       |
+| AbsoluteMove                  | PTZAbsoluteMove               |
+| RelativeMove                  | PTZRelativeMove               |
+| ContinuousMove                | PTZContinuousMove             |
+| Stop                          | PTZStop                       |
+| GetStatus                     | PTZStatus                     |
+| SetPreset                     | PTZPreset                     |
+| GetPresets                    | PTZPresets                    |
+| GotoPreset                    | PTZGotoPreset                 |
+| RemovePreset                  | PTZRemovePreset               |
+| GotoHomePosition              | PTZGotoHomePosition           |
+| SetHomePosition               | PTZHomePosition               |
+| SendAuxiliaryCommand          | PTZSendAuxiliaryCommand       |
+| GetAnalyticsConfigurations    | Media2AnalyticsConfigurations |
+| AddConfiguration              | Media2AddConfiguration        |
+| RemoveConfiguration           | Media2RemoveConfiguration     |
+| GetSupportedRules             | AnalyticsSupportedRules       |
+| Rules                         | AnalyticsRules                |
+| CreateRules                   | AnalyticsCreateRules          |
+| DeleteRules                   | AnalyticsDeleteRules          |
+| GetRuleOptions                | AnalyticsRuleOptions          |
+| SetSystemFactoryDefault       | SystemFactoryDefault          |
+| GetVideoEncoderConfigurations | VideoEncoderConfigurations    |
+| GetEventProperties            | EventProperties               |
+| OnvifCameraEvent              | CameraEvent                   |
+| GetSupportedAnalyticsModules  | SupportedAnalyticsModules     |
+| GetAnalyticsModuleOptions     | AnalyticsModuleOptions        |
+
+
+- Get `Snapshot` command requires a media profile token to be sent in the jsonObject parameter, similar to `StreamUri` command.
+- `Capabilities` command's `Category` field format is now an array of strings instead of a single string. This now matches the spec.
+- Device Command `VideoStream` has been removed. It was never tested, and the same functionality can be done through the use of `MediaProfiles` and `StreamUri` calls.
 
 ### Device USB Camera
 
