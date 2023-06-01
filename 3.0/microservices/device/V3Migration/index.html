@@ -2007,12 +2007,169 @@
 </div>
 <h3 id="device-onvif-camera">Device ONVIF Camera</h3>
 <p>This section is specific to changes made only to <strong>Device ONVIF Camera</strong>.</p>
-<p>See <a href="../../../V3TopLevelMigration">Top Level V3 Migration Guide</a> for details applicable to all EdgeX services and <a href="#all-device-services">All Device Services</a> section above for details applicable to all EdgeX device services.  </p>
-<p>TBD</p>
+<p>See <a href="../../../V3TopLevelMigration">Top Level V3 Migration Guide</a> for details applicable to all EdgeX services and <a href="#all-device-services">All Device Services</a> section above for details applicable to all EdgeX device services.</p>
 <h4 id="configuration">Configuration</h4>
-<p>TBD</p>
+<ul>
+<li>Helper scripts have been deprecated in favor of using the REST APIs. 
+See <a href="../supported/device-onvif-camera/Walkthrough/deployment#manage-devices">here for camera credential management</a>, and see <a href="../supported/device-onvif-camera/supplementary-info/auto-discovery#discoverysubnets">here for configuring <code>DiscoverySubnets</code></a>.</li>
+</ul>
 <h4 id="device-profile">Device Profile</h4>
-<p>TBD</p>
+<p>Some commands have been renamed for clarity. See the latest <a href="../supported/device-onvif-camera/swagger">Swagger API Documentation</a> for full details.</p>
+<table>
+<thead>
+<tr>
+<th>EdgeX v2 Command Name</th>
+<th>EdgeX v3 Command Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Profiles</td>
+<td>MediaProfiles</td>
+</tr>
+<tr>
+<td>Scopes</td>
+<td>DiscoveryScopes</td>
+</tr>
+<tr>
+<td>AddScopes</td>
+<td>AddDiscoveryScopes</td>
+</tr>
+<tr>
+<td>RemoveScopes</td>
+<td>RemoveDiscoveryScopes</td>
+</tr>
+<tr>
+<td>GetNodes</td>
+<td>PTZNodes</td>
+</tr>
+<tr>
+<td>GetNode</td>
+<td>PTZNode</td>
+</tr>
+<tr>
+<td>GetConfigurations</td>
+<td>PTZConfigurations</td>
+</tr>
+<tr>
+<td>Configuration</td>
+<td>PTZConfiguration</td>
+</tr>
+<tr>
+<td>GetConfigurationOptions</td>
+<td>PTZConfigurationOptions</td>
+</tr>
+<tr>
+<td>AbsoluteMove</td>
+<td>PTZAbsoluteMove</td>
+</tr>
+<tr>
+<td>RelativeMove</td>
+<td>PTZRelativeMove</td>
+</tr>
+<tr>
+<td>ContinuousMove</td>
+<td>PTZContinuousMove</td>
+</tr>
+<tr>
+<td>Stop</td>
+<td>PTZStop</td>
+</tr>
+<tr>
+<td>GetStatus</td>
+<td>PTZStatus</td>
+</tr>
+<tr>
+<td>SetPreset</td>
+<td>PTZPreset</td>
+</tr>
+<tr>
+<td>GetPresets</td>
+<td>PTZPresets</td>
+</tr>
+<tr>
+<td>GotoPreset</td>
+<td>PTZGotoPreset</td>
+</tr>
+<tr>
+<td>RemovePreset</td>
+<td>PTZRemovePreset</td>
+</tr>
+<tr>
+<td>GotoHomePosition</td>
+<td>PTZGotoHomePosition</td>
+</tr>
+<tr>
+<td>SetHomePosition</td>
+<td>PTZHomePosition</td>
+</tr>
+<tr>
+<td>SendAuxiliaryCommand</td>
+<td>PTZSendAuxiliaryCommand</td>
+</tr>
+<tr>
+<td>GetAnalyticsConfigurations</td>
+<td>Media2AnalyticsConfigurations</td>
+</tr>
+<tr>
+<td>AddConfiguration</td>
+<td>Media2AddConfiguration</td>
+</tr>
+<tr>
+<td>RemoveConfiguration</td>
+<td>Media2RemoveConfiguration</td>
+</tr>
+<tr>
+<td>GetSupportedRules</td>
+<td>AnalyticsSupportedRules</td>
+</tr>
+<tr>
+<td>Rules</td>
+<td>AnalyticsRules</td>
+</tr>
+<tr>
+<td>CreateRules</td>
+<td>AnalyticsCreateRules</td>
+</tr>
+<tr>
+<td>DeleteRules</td>
+<td>AnalyticsDeleteRules</td>
+</tr>
+<tr>
+<td>GetRuleOptions</td>
+<td>AnalyticsRuleOptions</td>
+</tr>
+<tr>
+<td>SetSystemFactoryDefault</td>
+<td>SystemFactoryDefault</td>
+</tr>
+<tr>
+<td>GetVideoEncoderConfigurations</td>
+<td>VideoEncoderConfigurations</td>
+</tr>
+<tr>
+<td>GetEventProperties</td>
+<td>EventProperties</td>
+</tr>
+<tr>
+<td>OnvifCameraEvent</td>
+<td>CameraEvent</td>
+</tr>
+<tr>
+<td>GetSupportedAnalyticsModules</td>
+<td>SupportedAnalyticsModules</td>
+</tr>
+<tr>
+<td>GetAnalyticsModuleOptions</td>
+<td>AnalyticsModuleOptions</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Get <code>Snapshot</code> command requires a media profile token to be sent in the jsonObject parameter, similar to <code>StreamUri</code> command.</li>
+<li><code>Capabilities</code> command's <code>Category</code> field format is now an array of strings instead of a single string. This now matches the spec.</li>
+<li>Device Command <code>VideoStream</code> has been removed. It was never tested, and the same functionality can be done through the use of <code>MediaProfiles</code> and <code>StreamUri</code> calls.</li>
+</ul>
 <h3 id="device-usb-camera">Device USB Camera</h3>
 <p>This section is specific to changes made only to <strong>Device USB Camera</strong></p>
 <p>See <a href="../../../V3TopLevelMigration">Top Level V3 Migration Guide</a> for details applicable to all EdgeX services and <a href="#all-device-services">All Device Services</a> section above for details applicable to all EdgeX device services. . </p>
