@@ -277,7 +277,7 @@ See [Top Level V3 Migration Guide](../../../V3TopLevelMigration) for details app
 
 All USB camera rtsp streams need authentication by default. To properly configure credentials for the stream, follow the below instructions.
 
-1. Set the credentials in the `configuration.yaml` 
+1. Set the credentials in the [`configuration.yaml`](https://github.com/edgexfoundry/device-usb-camera/blob/main/cmd/res/configuration.yaml) 
 
     !!! example - "Snippet from configuration.yaml"
         ```yaml
@@ -294,7 +294,10 @@ All USB camera rtsp streams need authentication by default. To properly configur
     To use curl commands to set these values, see [here](./supported/device-usb-camera/walkthrough/deployment.md#add-credentials-for-the-rtsp-stream)
 
     
-1. You can configure the authentication server to run from a different port by editing the externalAuthenticationURL value in the Dockerfile. To disable authentication entirely, comment out the externalAuthenticationURL line in the Dockerfile.
+1. You can configure the authentication server to run from a different port by editing the externalAuthenticationURL value in the [Dockerfile](https://github.com/edgexfoundry/device-usb-camera/blob/main/Dockerfile). To disable authentication entirely, comment out the externalAuthenticationURL line in the Dockerfile. 
+    
+    !!! note
+        You must build a custom image to have these changes take effect. See [here](./supported/device-usb-camera/walkthrough/custom-build.md) for more information.
 
     !!! example - "externalAuthenticationURL line from the Dockerfile"
         ```Dockerfile
