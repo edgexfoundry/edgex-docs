@@ -134,7 +134,7 @@ Below are only the additional settings and sections that are specific to Core Co
     | QOS | 0 | Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once) |
     | Retain | true | Retain setting for MQTT Connection                           |
     | SkipCertVerify | false | Indicates if the certificate verification should be skipped  |
-    | SecretPath | `mqtt` | Name of the path in secret provider to retrieve your secrets. Must be non-blank. |
+    | SecretName | `mqtt` | Name of the path in secret provider to retrieve your secrets. Must be non-blank. |
     | AuthMode | `none` | Indicates what to use when connecting to the broker. Must be one of "none", "cacert" , "usernamepassword", "clientcert". <br />If a CA Cert exists in the SecretPath then it will be used for all modes except "none". |
 === "ExternalMqtt.Topics"
     |Property|Default Value|Description|
