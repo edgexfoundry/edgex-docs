@@ -273,6 +273,7 @@ This section is specific to changes made only to **Device USB Camera**
 
 See [Top Level V3 Migration Guide](../../../V3TopLevelMigration) for details applicable to all EdgeX services and [All Device Services](#all-device-services) section above for details applicable to all EdgeX device services.
 
-#### Configuration
+#### RTSP Authentication
 
-All USB camera rtsp streams need authentication by default. To properly configure credentials for the stream see these [instructions](./supported/device-usb-camera/supplementary-info/advanced-options.md#rtsp-authentication). To see how to use this feature, see [here](./supported/device-usb-camera/walkthrough/deployment.md#add-credentials-for-the-rtsp-stream)
+All USB camera rtsp streams need authentication by default. To properly configure credentials for the stream refer [here](./supported/device-usb-camera/supplementary-info/advanced-options.md#rtsp-authentication). This will require the building of custom images.  
+To see how to use this feature once the service is deployed, see [here](./supported/device-usb-camera/walkthrough/deployment.md#add-credentials-for-the-rtsp-stream).
