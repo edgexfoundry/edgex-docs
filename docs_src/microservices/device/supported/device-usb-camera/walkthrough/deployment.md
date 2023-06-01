@@ -109,10 +109,10 @@ Follow this guide to deploy and run the service.
     !!! Note 
         The `jq -r` option is used to reduce the size of the displayed response. The entire device with all information can be seen by removing `-r '"deviceName: " + '.devices[].name'', and replacing it with '.'`
 
-1. Add credentials for the rtsp stream.
+## Add credentials for the rtsp stream.
 
-    !!! note
-        If you want to disable rtsp authentication entirely, you must [build a custom image](../walkthrough/custom-build.md).
+!!! note
+    If you want to disable rtsp authentication entirely, you must [build a custom image](../walkthrough/custom-build.md).
 
 === "Non-secure Mode" 
     1. Enter your chosen username and password into this command, and then execute it to set the insecure secrets.
