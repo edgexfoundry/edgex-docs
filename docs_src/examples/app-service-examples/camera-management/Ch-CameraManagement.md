@@ -4,7 +4,16 @@ Use the Camera Management Example application service to auto discover and conne
 This app uses [EdgeX compose][edgex-compose], [Edgex Onvif Camera device service][device-onvif-camera], 
 [Edgex USB Camera device service][device-usb-camera], [Edgex MQTT device service][device-mqtt] and [Edge Video Analytics Microservice][evam].
 
-A brief video demonstration of building and using the example app service can be found [here](https://www.youtube.com/watch?v=vZqd3j2Zn2Y).
+A brief video demonstration of building and using the device service:
+<iframe
+    width="100%"
+    height="480"
+    src="https://www.youtube.com/embed/vZqd3j2Zn2Y"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen
+>
+</iframe>
 
 ## Install Dependencies
 
@@ -17,15 +26,17 @@ Install Docker from the official repository as documented on the [Docker](https:
 ### Configure Docker
 To enable running Docker commands without the preface of sudo, add the user to the Docker group.
 
-> **Warning**  
-> The docker group grants root-level privileges to the user. For details on how this impacts security in your system, 
-> see [Docker Daemon Attack Surface](https://docs.docker.com/engine/security/#docker-daemon-attack-surface).
+!!! warning
+    The docker group grants root-level privileges to the user. For details on how this impacts security in your system, 
+    see [Docker Daemon Attack Surface](https://docs.docker.com/engine/security/#docker-daemon-attack-surface).
 
 1. Create Docker group:
-   ```bash
-   sudo groupadd docker
-   ```
-   > **Note**: If the group already exists, `groupadd` outputs a message: **groupadd: group `docker` already exists**. This is OK.
+    ```bash
+    sudo groupadd docker
+    ```
+
+    !!! note
+        If the group already exists, `groupadd` outputs a message: **groupadd: group `docker` already exists**. This is OK.
 
 2. Add User to group:
    ```bash
@@ -72,65 +83,72 @@ sudo apt install build-essential
 ### 1. Start the EdgeX Core Services and Device Services.
 
 1. Clone `edgex-compose` from github.com.
-   ```shell 
-   git clone https://github.com/edgexfoundry/edgex-compose.git
-   ```  
+    ```shell 
+    git clone https://github.com/edgexfoundry/edgex-compose.git
+    ```  
 
-2. Navigate to the `edgex-compose` directory:
+1. Navigate to the `edgex-compose` directory:
+    ```bash
+    cd edgex-compose
+    ```
 
-   ```bash
-   cd edgex-compose
-   ```
+1. Checkout the latest compatible release branch
 
-3. Checkout the latest compatible release branch
-   > **Note**: The `minnesota` branch is the latest stable branch at the time of this writing.
-   ```shell
-   git checkout minnesota
-   ```
+    !!! note
+        The `minnesota` branch is the latest stable branch at the time of this writing.
 
-4. Navigate to the `compose-builder` subdirectory:
+    ```shell
+    git checkout minnesota
+    ```
 
-   ```bash
-   cd compose-builder/
-   ```
+1. Navigate to the `compose-builder` subdirectory:
+    ```bash
+    cd compose-builder/
+    ```
 
-5. (Optional) Update the `add-device-usb-camera.yml` file:
-   > **Note**: This step is only required if you plan on using USB cameras.
+1. (Optional) Update the `add-device-usb-camera.yml` file:
+    !!! note
+        This step is only required if you plan on using USB cameras.
 
-   a. Add the rtsp server hostname environment variable to the `device-usb-camera` service, 
-      where `your-local-ip-address` is the ip address of the machine running the `device-usb-camera` service.
-   ```yml
-   services:
-      device-usb-camera:
-             environment:
-               DRIVER_RTSPSERVERHOSTNAME: "your-local-ip-address"
-   ```
+    a. Add the rtsp server hostname environment variable to the `device-usb-camera` service, where `your-local-ip-address` is the ip address of the machine running the `device-usb-camera` service.
 
-   b. Under the `ports` section, find the entry for port 8554 and change the host_ip from `127.0.0.1` to either `0.0.0.0` or the ip address you put in the previous step.
+    !!! example - "Snippet from `add-device-usb-camera.yml`"
+        ```yml
+        services:
+        device-usb-camera:
+            environment:
+            DRIVER_RTSPSERVERHOSTNAME: "your-local-ip-address"
+        ```
 
-6. Run the following `make` command to generate the edgex core services along with MQTT, Onvif and Usb device services.
+    b. Under the `ports` section, find the entry for port 8554 and change the host_ip from `127.0.0.1` to either `0.0.0.0` or the ip address you put in the previous step.
 
-  > **Note**: The `ds-onvif-camera` parameter can be omitted if no Onvif cameras are present, or the `ds-usb-camera` parameter can be omitted if no usb cameras are present.
-```shell
-   make gen no-secty ds-mqtt mqtt-broker ds-onvif-camera ds-usb-camera 
-```   
+1. Run the following `make` command to generate the edgex core services along with MQTT, Onvif and Usb device services.
 
-7. Configure [device-mqtt] service to send [Edge Video Analytics Microservice][evam] inference results into Edgex via MQTT
+    !!! note
+        The `ds-onvif-camera` parameter can be omitted if no Onvif cameras are present, or the `ds-usb-camera` parameter can be omitted if no usb cameras are present.
+    
+    ```shell
+    make gen no-secty ds-mqtt mqtt-broker ds-onvif-camera ds-usb-camera 
+    ```   
 
-      a. Copy the entire [evam-mqtt-edgex](edge-video-analytics/evam-mqtt-edgex) folder into `edgex-compose/compose-builder` directory.
+1. Configure [device-mqtt] service to send [Edge Video Analytics Microservice][evam] inference results into Edgex via MQTT
 
-      b. Copy and paste [docker-compose.override.yml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/edge-video-analytics/evam-mqtt-edgex/docker-compose.override.yml) from the above copied folder into edgex-compose/compose-builder directory.
-         Insert full path of `edgex-compose/compose-builder` directory under volumes in this `docker-compose.override.yml`.
-   > **Note**: Please note that both the services in this file need the full path to be inserted for their volumes.
+    a. Copy the entire [evam-mqtt-edgex](edge-video-analytics/evam-mqtt-edgex) folder into `edgex-compose/compose-builder` directory.
+
+    b. Copy and paste [docker-compose.override.yml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/edge-video-analytics/evam-mqtt-edgex/docker-compose.override.yml) from the above copied folder into edgex-compose/compose-builder directory. Insert full path of `edgex-compose/compose-builder` directory under volumes in this `docker-compose.override.yml`.
+
+    !!! note
+        Please note that both the services in this file need the full path to be inserted for their volumes.
    
-8. Run the following command to start all the Edgex services.
-```shell
-   docker compose -f docker-compose.yml -f docker-compose.override.yml up -d
-```  
+1. Run the following command to start all the Edgex services.
+    ```shell
+    docker compose -f docker-compose.yml -f docker-compose.override.yml up -d
+    ```  
 
 ### 2. Start [Edge Video Analytics Microservice][evam] running for inference.
 
-> **Note**: The port for EVAM result streams has been changed from 8554 to 8555 to avoid conflicts with the device-usb-camera service.
+!!! note
+    The port for EVAM result streams has been changed from 8554 to 8555 to avoid conflicts with the device-usb-camera service.
 
 ```shell
 # Go back to the root of this example app
@@ -146,85 +164,99 @@ make run-edge-video-analytics
 # Leave this running
 ```
 
-> **Note**: If you press `Ctrl-C` it will stop the EVAM services. If you then run `make stop-edge-video-analytics`,
-> it will also remove the containers and free up the port mappings.
+!!! note
+    If you press `Ctrl-C` it will stop the EVAM services. If you then run `make stop-edge-video-analytics`, it will also remove the containers and free up the port mappings.
 
 ### 3. Build and run the example application service
 
 #### 3.1 (Optional) Configure Onvif Camera Credentials.
-   > **Note**: This step is only required if you have Onvif cameras. Currently, this example app is limited to supporting
-   > only 1 username/password combination for all Onvif cameras.
+    !!! note
+        This step is only required if you have Onvif cameras. Currently, this example app is limited to supporting only 1 username/password combination for all Onvif cameras.
 
-   > **Note**: Please follow the instructions for the [Edgex Onvif Camera device service][device-onvif-manage] in order to connect your Onvif cameras to EdgeX.
+!!! note
+    Please follow the instructions for the [Edgex Onvif Camera device service][device-onvif-manage] in order to connect your Onvif cameras to EdgeX.
 
-   Option 1: Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/res/configuration.yaml) file
+=== "configuration.yaml"
 
-   ```yaml
-  InsecureSecrets:
-     onvifCredentials:
+    Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/res/configuration.yaml) file
+ 
+    ```yaml
+    InsecureSecrets:
+      onvifCredentials:
         SecretName: onvifAuth
         SecretData:
-           username: "<username>"
-           password: "<password>"
-   ```
+          username: "<username>"
+          password: "<password>"
+    ```
 
-   Option 2: Export environment variable overrides
-   ```shell
-   export WRITABLE_INSECURESECRETS_ONVIFAUTH_SECRETDATA_USERNAME="<username>"
-   export WRITABLE_INSECURESECRETS_ONVIFAUTH_SECRETDATA_PASSWORD="<password>"
-   ```  
+=== "env vars"
+
+    Export environment variable overrides
+    ```shell
+    export WRITABLE_INSECURESECRETS_ONVIFAUTH_SECRETDATA_USERNAME="<username>"
+    export WRITABLE_INSECURESECRETS_ONVIFAUTH_SECRETDATA_PASSWORD="<password>"
+    ```  
 
 #### 3.2 (Optional) Configure USB Camera RTSP Credentials.
-> **Note**: This step is only required if you have USB cameras.
+!!! note
+    This step is only required if you have USB cameras.
 
-> **Note**: Please follow the instructions for the [Edgex USB Camera device service][device-usb-manage] in order to connect your USB cameras to EdgeX.
+!!! note
+    Please follow the instructions for the [Edgex USB Camera device service][device-usb-manage] in order to connect your USB cameras to EdgeX.
 
-Option 1: Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/res/configuration.yaml) file
+=== "configuration.yaml"
 
-   ```yaml
-  InsecureSecrets:
-     usbCredentials:
+Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/res/configuration.yaml) file
+
+    ```yaml
+    InsecureSecrets:
+      usbCredentials:
         SecretName: rtspAuth
         SecretData:
-           username: "<username>"
-           password: "<password>"
-   ```
+          username: "<username>"
+          password: "<password>"
+    ```
 
-Option 2: Export environment variable overrides
-   ```shell
-   export WRITABLE_INSECURESECRETS_RTSPAUTH_SECRETDATA_USERNAME="<username>"
-   export WRITABLE_INSECURESECRETS_RTSPAUTH_SECRETDATA_PASSWORD="<password>"
-   ```  
+=== "env vars"
+    Export environment variable overrides
+    ```shell
+    export WRITABLE_INSECURESECRETS_RTSPAUTH_SECRETDATA_USERNAME="<username>"
+    export WRITABLE_INSECURESECRETS_RTSPAUTH_SECRETDATA_PASSWORD="<password>"
+    ```  
 
 #### 3.3 Configure Default Pipeline
 Initially, all new cameras added to the system will start the default analytics pipeline as defined in the configuration file below. The desired pipeline can be changed afterward or the feature can be disabled by setting the `DefaultPipelineName` and `DefaultPipelineVersion` to empty strings.   
 
 Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/res/configuration.yaml) file with the name and version of the default pipeline to use when a new device is added to the system.
 
-Note: These values can be left empty to disable the feature.
-   ```yaml
-   AppCustom:
-     DefaultPipelineName: object_detection # Name of the default pipeline used when a new device is added to the system; can be left blank to disable feature
-     DefaultPipelineVersion: person # Version of the default pipeline used when a new device is added to the system; can be left blank to disable feature
-   ```
+!!! note 
+    These values can be left empty to disable the feature.
+
+```yaml
+AppCustom:
+  DefaultPipelineName: object_detection # Name of the default pipeline used when a new device is added to the system; can be left blank to disable feature
+  DefaultPipelineVersion: person # Version of the default pipeline used when a new device is added to the system; can be left blank to disable feature
+```
 
 #### 3.4 Build and run
-```shell
-# First make sure you are at the root of this example app
-cd edgex-examples/application-services/custom/camera-management
-```
+1. Make sure you are at the root of this example app
+    ```shell
+    cd edgex-examples/application-services/custom/camera-management
+    ```
 
-```shell
-# Build the app. 
-make build-app
+1 . Build the app
+    ```bash
+    make build-app
+    ```
 
-# Run the app.
-make run-app
-```
+1. Run the app
+    ```bash
+    make run-app
+    ```
 
 ## Using the App
 
-1. Visit https://localhost:59750 to access the app.
+1. Visit http://localhost:59750 to access the app.
 
 ![homepage](./images/homepage-demo-app-1.png)  
 <p align="left">
@@ -316,8 +348,8 @@ A custom app service can be used to analyze this inference data and take action 
 
 ## Additional Development
 
-> **Warning**: The following steps are only useful for developers who wish to make modifications to the code
-> and the Web-UI.
+!!! warning
+    The following steps are only useful for developers who wish to make modifications to the code and the Web-UI.
 
 #### Development and Testing of UI
 ##### 1. Build the production web-ui
