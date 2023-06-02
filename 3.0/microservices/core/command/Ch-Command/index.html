@@ -721,6 +721,11 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuring-for-secure-mqtt-connection">
+    Configuring for secure MQTT connection
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -1703,6 +1708,11 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuring-for-secure-mqtt-connection">
+    Configuring for secure MQTT connection
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -2431,6 +2441,51 @@ Below is the default topic naming used by Core Command:</p>
 - Response topic is not specified in configuration file<br/>
 - Failed to JSON-decoding the request <code>MessageEnvelope</code> <br/>
 - Failed to parse either <code>&lt;device-name&gt;</code>, <code>&lt;command-name&gt;</code> or <code>&lt;method&gt;</code></p>
+</div>
+<h3 id="configuring-for-secure-mqtt-connection">Configuring for secure MQTT connection</h3>
+<p>In real word, users usually need to provide credentials or certificates to connect to external MQTT broker.
+To seed such secrets to Secret Store for Command service, you can follow the instructions from the <a href="../../security/SeedServiceSecrets.md">Seeding Service Secrets</a> document.</p>
+<p>The following example shows how to set up Command service to connect to external MQTT broker with <code>usernamepassword</code> authentication.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - Setting SecretsFile and ExternalMQTT via environment override</p>
+<div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">EXTERNALMQTT_ENABLED</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">    </span><span class="nt">EXTERNALLMQTT_URL</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;url&gt;"</span><span class="w"> </span><span class="c1"># e.g. tcps://broker.hivemq.com:8883</span>
+<span class="w">    </span><span class="nt">EXTERNALMQTT_AUTHMODE</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usernamepassword</span>
+<span class="w">    </span><span class="nt">SECRETSTORE_SECRETSFILE</span><span class="p">:</span><span class="w"> </span><span class="s">"/tmp/core-command/secrets.json"</span>
+<span class="nn">...</span>
+<span class="nt">volumes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp/core-command/secrets.json:/tmp/core-command/secrets.json</span>
+</code></pre></div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example - secrets.json</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"secrets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"secretName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mqtt"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"imported"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"secretData"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"username"</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"edgexuser"</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"p@55w0rd"</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since EdgeX 3.0, the <code>SecretPath</code> configuration property of <code>ExternalMQTT</code> section is renamed to <code>SecretName</code>.
+However, in <a href="https://github.com/edgexfoundry/go-mod-bootstrap/blob/3568057c2bc587f06c498046610b571516c920c3/config/types.go#L302-L303">source code</a> it is still referred as <code>SecretPath</code> and will break down the Command service if ExternalMQTT is enabled.
+This is a known issue and will be fixed in EdgeX 3.1.
+Before EdgeX 3.1, to get rid of this issue you need to manually add <code>SecretPath</code> to configuration via <a href="../../../../api/core/Ch-APICoreConfigurationAndRegistry/#consul-ui">Consul UI</a> and restart Command service to take effect.</p>
 </div>
 <h2 id="regex-get-command">Regex Get Command</h2>
 <div class="admonition edgey">
