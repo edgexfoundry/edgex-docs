@@ -29,7 +29,7 @@ During service start-up, after `SecretStore` initialization, the service's secre
     {
         "secrets": [
             {
-                "path": "credentials001",
+                "secretName": "credentials001",
                 "imported": false,
                 "secretData": [
                     {
@@ -43,7 +43,7 @@ During service start-up, after `SecretStore` initialization, the service's secre
                 ]
             },
             {
-                "path": "credentials002",
+                "secretName": "credentials002",
                 "imported": false,
                 "secretData": [
                     {
@@ -65,12 +65,12 @@ During service start-up, after `SecretStore` initialization, the service's secre
     {
         "secrets": [
             {
-                "path": "credentials001",
+                "secretName": "credentials001",
                 "imported": true,
                 "secretData": []
             },
             {
-                "path": "credentials002",
+                "secretName": "credentials002",
                 "imported": true,
                 "secretData": []
             }
