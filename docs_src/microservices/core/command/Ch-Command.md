@@ -450,6 +450,53 @@ The payload is the base64-encoding json struct:
     - Failed to JSON-decoding the request `MessageEnvelope`   
     - Failed to parse either `<device-name>`, `<command-name>` or `<method>`
 
+### Configuring for secure MQTT connection
+
+In real word, users usually need to provide credentials or certificates to connect to external MQTT broker.
+To seed such secrets to Secret Store for Command service, you can follow the instructions from the [Seeding Service Secrets](../../security/SeedServiceSecrets.md) document.
+
+The following example shows how to set up Command service to connect to external MQTT broker with `usernamepassword` authentication.
+
+!!! example "Example - Setting SecretsFile and ExternalMQTT via environment override"
+    ```yaml
+    environment:
+        EXTERNALMQTT_ENABLED: "true"
+        EXTERNALLMQTT_URL: "<url>" # e.g. tcps://broker.hivemq.com:8883
+        EXTERNALMQTT_AUTHMODE: usernamepassword
+        SECRETSTORE_SECRETSFILE: "/tmp/core-command/secrets.json"
+    ...
+    volumes:
+        - /tmp/core-command/secrets.json:/tmp/core-command/secrets.json
+    ```
+
+!!! example "Example - secrets.json"
+    ```json
+    {
+        "secrets": [
+            {
+                "secretName": "mqtt",
+                "imported": false,
+                "secretData": [
+                    {
+                        "key": "username",
+                        "value": "edgexuser"
+                    },
+                    {
+                        "key": "password",
+                        "value": "p@55w0rd"
+                    }
+                ]
+            }
+        ]
+    }
+    ```
+
+!!! Note
+    Since EdgeX 3.0, the `SecretPath` configuration property of `ExternalMQTT` section is renamed to `SecretName`.
+    However, in [source code](https://github.com/edgexfoundry/go-mod-bootstrap/blob/3568057c2bc587f06c498046610b571516c920c3/config/types.go#L302-L303) it is still referred as `SecretPath` and will break down the Command service if ExternalMQTT is enabled.
+    This is a known issue and will be fixed in EdgeX 3.1.
+    Before EdgeX 3.1, to get rid of this issue you need to manually add `SecretPath` to configuration via [Consul UI](../../../api/core/Ch-APICoreConfigurationAndRegistry.md#consul-ui) and restart Command service to take effect.
+
 ## Regex Get Command
 
 !!! edgey "Edgex 3.0"
