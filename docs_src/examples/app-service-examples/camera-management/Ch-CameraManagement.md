@@ -27,8 +27,7 @@ Install Docker from the official repository as documented on the [Docker](https:
 To enable running Docker commands without the preface of sudo, add the user to the Docker group.
 
 !!! warning
-    The docker group grants root-level privileges to the user. For details on how this impacts security in your system, 
-    see [Docker Daemon Attack Surface](https://docs.docker.com/engine/security/#docker-daemon-attack-surface).
+    The docker group grants root-level privileges to the user. For details on how this impacts security in your system, see [Docker Daemon Attack Surface](https://docs.docker.com/engine/security/#docker-daemon-attack-surface).
 
 1. Create Docker group:
     ```bash
@@ -170,8 +169,9 @@ make run-edge-video-analytics
 ### 3. Build and run the example application service
 
 #### 3.1 (Optional) Configure Onvif Camera Credentials.
-    !!! note
-        This step is only required if you have Onvif cameras. Currently, this example app is limited to supporting only 1 username/password combination for all Onvif cameras.
+    
+!!! note
+    This step is only required if you have Onvif cameras. Currently, this example app is limited to supporting only 1 username/password combination for all Onvif cameras.
 
 !!! note
     Please follow the instructions for the [Edgex Onvif Camera device service][device-onvif-manage] in order to connect your Onvif cameras to EdgeX.
@@ -183,7 +183,7 @@ make run-edge-video-analytics
     ```yaml
     InsecureSecrets:
       onvifCredentials:
-        SecretName: onvifAuth
+        SecretName: onvifauth
         SecretData:
           username: "<username>"
           password: "<password>"
@@ -206,11 +206,11 @@ make run-edge-video-analytics
 
 === "configuration.yaml"
 
-Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/res/configuration.yaml) file
+    Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/res/configuration.yaml) file
 
     ```yaml
     InsecureSecrets:
-      usbCredentials:
+      rtspauth:
         SecretName: rtspAuth
         SecretData:
           username: "<username>"
@@ -218,6 +218,7 @@ Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-exampl
     ```
 
 === "env vars"
+
     Export environment variable overrides
     ```shell
     export WRITABLE_INSECURESECRETS_RTSPAUTH_SECRETDATA_USERNAME="<username>"
@@ -244,15 +245,18 @@ AppCustom:
     cd edgex-examples/application-services/custom/camera-management
     ```
 
-1 . Build the app
+1. Build the docker image
     ```bash
     make build-app
     ```
 
-1. Run the app
+1. Start the docker compose services in the background for both EVAM and Camera Management App
     ```bash
     make run-app
     ```
+
+!!! note
+    If you would like to view the logs for these services, you can use `docker compose logs -f`. To stop the services, use `docker compose down`.
 
 ## Using the App
 
