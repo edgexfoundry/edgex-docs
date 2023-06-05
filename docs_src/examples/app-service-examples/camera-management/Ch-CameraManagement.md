@@ -106,6 +106,7 @@ sudo apt install build-essential
     ```
 
 1. (Optional) Update the `add-device-usb-camera.yml` file:
+
     !!! note
         This step is only required if you plan on using USB cameras.
 
@@ -114,35 +115,56 @@ sudo apt install build-essential
     !!! example - "Snippet from `add-device-usb-camera.yml`"
         ```yml
         services:
-        device-usb-camera:
+          device-usb-camera:
             environment:
-            DRIVER_RTSPSERVERHOSTNAME: "your-local-ip-address"
+              DRIVER_RTSPSERVERHOSTNAME: "your-local-ip-address"
         ```
 
     b. Under the `ports` section, find the entry for port 8554 and change the host_ip from `127.0.0.1` to either `0.0.0.0` or the ip address you put in the previous step.
 
-1. Run the following `make` command to generate the edgex core services along with MQTT, Onvif and Usb device services.
-
-    !!! note
-        The `ds-onvif-camera` parameter can be omitted if no Onvif cameras are present, or the `ds-usb-camera` parameter can be omitted if no usb cameras are present.
-    
-    ```shell
-    make gen no-secty ds-mqtt mqtt-broker ds-onvif-camera ds-usb-camera 
-    ```   
-
 1. Configure [device-mqtt] service to send [Edge Video Analytics Microservice][evam] inference results into Edgex via MQTT
 
-    a. Copy the entire [evam-mqtt-edgex](edge-video-analytics/evam-mqtt-edgex) folder into `edgex-compose/compose-builder` directory.
+    a. Copy the entire [evam-mqtt-edgex](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/application-services/custom/camera-management/edge-video-analytics/evam-mqtt-edgex) folder into `edgex-compose/compose-builder` directory.
 
-    b. Copy and paste [docker-compose.override.yml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/edge-video-analytics/evam-mqtt-edgex/docker-compose.override.yml) from the above copied folder into edgex-compose/compose-builder directory. Insert full path of `edgex-compose/compose-builder` directory under volumes in this `docker-compose.override.yml`.
+    b. Copy this information into the [add-device-mqtt.yml](https://github.com/edgexfoundry/edgex-compose/blob/{{version}}/compose-builder/add-device-mqtt.yml) file in the `edgex-compose/compose-builder` directory.
+
+    !!! example - "Snippet from add-device-mqtt.yml"
+        ```yaml
+        services:
+        device-mqtt:
+          ...
+          environment:
+            DEVICE_DEVICESDIR: /evam-mqtt-edgex/devices
+            DEVICE_PROFILESDIR: /evam-mqtt-edgex/profiles
+            MQTTBROKERINFO_INCOMINGTOPIC: "incoming/data/#"
+            MQTTBROKERINFO_USETOPICLEVELS: "true"
+          volumes:
+            # example: - /home/github.com/edgexfoundry/edgex-compose/compose-builder/evam-mqtt-edgex:/evam-mqtt-edgex
+            - <add-full-path-of-your-edgex-compose-builder-here-example-above>/evam-mqtt-edgex:/evam-mqtt-edgex
+        ```
+    c. Copy this information into the [add-mqtt-broker.yml](https://github.com/edgexfoundry/edgex-compose/blob/{{version}}/compose-builder/add-mqtt-broker.yml) file in the `edgex-compose/compose-builder` directory.
+
+    !!! example - "Snippet from add-device-mqtt.yml"
+        ```yaml
+        mqtt-broker:
+          volumes:
+            # example: - /home/github.com/edgexfoundry/edgex-compose/compose-builder/evam-mqtt-edgex:/evam-mqtt-edgex
+            - <add-full-path-of-your-edgex-compose-builder-here>/evam-mqtt-edgex/mosquitto.conf:/mosquitto-no-auth.conf:ro
+          ports:
+            - "59001:9001"
+        ```
 
     !!! note
         Please note that both the services in this file need the full path to be inserted for their volumes.
    
 1. Run the following command to start all the Edgex services.
+
+    !!! note
+        The `ds-onvif-camera` parameter can be omitted if no Onvif cameras are present, or the `ds-usb-camera` parameter can be omitted if no usb cameras are present.
+    
     ```shell
-    docker compose -f docker-compose.yml -f docker-compose.override.yml up -d
-    ```  
+    make run no-secty ds-mqtt mqtt-broker ds-onvif-camera ds-usb-camera 
+    ```   
 
 ### 2. Start [Edge Video Analytics Microservice][evam] running for inference.
 
