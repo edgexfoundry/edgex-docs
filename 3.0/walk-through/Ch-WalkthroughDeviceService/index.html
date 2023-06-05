@@ -1572,7 +1572,7 @@ data from the devices. See <a href="../../microservices/device/Ch-DeviceServices
 <div class="tabbed-block">
 <p>Make a POST request to <code>http://localhost:59881/api/v3/deviceservice</code> with the following body:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"apiVersion"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"service"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"camera-control-device-service"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Manage human and dog counting cameras"</span><span class="p">,</span>
@@ -1589,7 +1589,7 @@ data from the devices. See <a href="../../microservices/device/Ch-DeviceServices
 </div>
 <div class="tabbed-block">
 <p>Make a curl POST request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">'POST'</span><span class="w"> </span><span class="s1">'http://localhost:59881/api/v3/deviceservice'</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">'[{"apiVersion": "v3","service": {"name": "camera-control-device-service","description": "Manage human and dog counting cameras", "adminState": "UNLOCKED", "labels": ["camera","counter"], "baseAddress": "camera-device-service:59990"}}]'</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s1">'POST'</span><span class="w"> </span><span class="s1">'http://localhost:59881/api/v3/deviceservice'</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">'[{"apiVersion" : "v3","service": {"name": "camera-control-device-service","description": "Manage human and dog counting cameras", "adminState": "UNLOCKED", "labels": ["camera","counter"], "baseAddress": "camera-device-service:59990"}}]'</span>
 </code></pre></div>
 <p>If your API call is successful, you will get a generated ID for your new <code>DeviceService</code>.</p>
 </div>

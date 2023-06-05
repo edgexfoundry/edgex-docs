@@ -1753,7 +1753,7 @@ and <a href="../../../../../../security/Ch-Security/">Edgex Security</a>.</p>
 </code></pre></div>
 Good response:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"apiVersion"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"service"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="mi">1657227634593</span><span class="p">,</span>
@@ -1767,7 +1767,7 @@ Good response:
 </code></pre></div>
 Bad response:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="nt">"apiVersion"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fail to query device service by name device-onvif-camer"</span><span class="p">,</span>
 <span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span>
 <span class="p">}</span>
@@ -1854,7 +1854,7 @@ statusCode:<span class="w"> </span><span class="m">404</span>
 http://localhost:59881/api/v3/device<span class="w"> </span><span class="se">\</span>
 -d<span class="w"> </span><span class="s1">'[</span>
 <span class="s1">         {</span>
-<span class="s1">            "apiVersion": "v3",</span>
+<span class="s1">            "apiVersion" : "v3",</span>
 <span class="s1">            "device": {</span>
 <span class="s1">               "name":"Camera001",</span>
 <span class="s1">               "serviceName": "device-onvif-camera",</span>
@@ -1878,7 +1878,7 @@ http://localhost:59881/api/v3/device<span class="w"> </span><span class="se">\</
 <span class="s1">]'</span>
 </code></pre></div>
 <p>Example Output: 
-<div class="highlight"><pre><span></span><code><span class="o">[{</span><span class="s2">"apiVersion"</span>:<span class="s2">"v3"</span>,<span class="s2">"statusCode"</span>:201,<span class="s2">"id"</span>:<span class="s2">"fb5fb7f2-768b-4298-a916-d4779523c6b5"</span><span class="o">}]</span>
+<div class="highlight"><pre><span></span><code><span class="o">[{</span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,<span class="s2">"statusCode"</span>:201,<span class="s2">"id"</span>:<span class="s2">"fb5fb7f2-768b-4298-a916-d4779523c6b5"</span><span class="o">}]</span>
 </code></pre></div></p>
 </li>
 <li>
@@ -1896,7 +1896,7 @@ http://localhost:59881/api/v3/device<span class="w"> </span><span class="se">\</
 <p>The options for authentication mode are: <code>usernametoken</code>, <code>digest</code>, or <code>both</code></p>
 </div>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--data<span class="w"> </span><span class="s1">'{</span>
-<span class="s1">            "apiVersion":"v3",</span>
+<span class="s1">            "apiVersion" : "v3",</span>
 <span class="s1">            "secretName": "&lt;creds-name&gt;",</span>
 <span class="s1">            "secretData":[</span>
 <span class="s1">                {</span>
@@ -1922,7 +1922,7 @@ http://localhost:59881/api/v3/device<span class="w"> </span><span class="se">\</
 <p>The options for authentication mode are: <code>usernametoken</code>, <code>digest</code>, or <code>both</code></p>
 </div>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--data<span class="w"> </span><span class="s1">'{</span>
-<span class="s1">            "apiVersion":"v3",</span>
+<span class="s1">            "apiVersion" : "v3",</span>
 <span class="s1">            "secretName": "&lt;creds-name&gt;",</span>
 <span class="s1">            "secretData":[</span>
 <span class="s1">                {</span>
