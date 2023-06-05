@@ -142,7 +142,7 @@ Below are only the additional settings and sections that are specific to Support
     |Port|59880|run the request against the default core data port|
     |Protocol|http|Make a RESTful request to core data|
     |Method|DELETE|Make a RESTful delete operation request to core data|
-    |Path|/api/v3/event/age/604800000000000|request core data's remove old events API with parameter of 7 days |
+    |Path|/api/{{api_version}}/event/age/604800000000000|request core data's remove old events API with parameter of 7 days |
     |Interval|midnight|run the operation every midnight as specified by the configuration defined interval|
 
 

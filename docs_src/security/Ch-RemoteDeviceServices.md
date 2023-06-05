@@ -384,9 +384,9 @@ The easiest way to test the setup is to make a call
 from the local machine to the remote `device-virtual` service:
 
 ```shell
-$ curl -s http://127.0.0.1:59900/api/v3/config | jq
+$ curl -s http://127.0.0.1:59900/api/{{api_version}}/config | jq
 {
-  "apiVersion": "v3",
+  "apiVersion" : "{{api_version}}",
   "config": {
     "Writable": {
       "LogLevel": "INFO",

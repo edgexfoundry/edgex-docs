@@ -12,7 +12,7 @@ For more info on how WS-Discovery works, see [here](./ws-discovery.md).
 Device discovery is triggered by the device SDK. Once the device service starts, it will discover the Onvif camera(s) at the specified interval.
 
 !!! Note
-    You can also manually trigger discovery using this command: `curl -X POST http://<service-host>:59984/api/v3/discovery`
+    You can also manually trigger discovery using this command: `curl -X POST http://<service-host>:59984/api/{{api_version}}/discovery`
 
 ### Step 1. Discovery Configuration
 
@@ -76,7 +76,7 @@ Example Output: `192.168.1.0/24`
     !!! note
         If you are operating in secure mode, you must use the [Consul ACL Token](../Walkthrough/deployment.md#deploy-edgex-and-onvif-device-camera-microservice) generated previously. If not, you can omit the `-H "X-Consul-Token:<consul-token>"` portion of the command.
     ```bash
-    curl --data '<subnet>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/DiscoverySubnets"
+    curl --data '<subnet>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/DiscoverySubnets"
     ```
 
 

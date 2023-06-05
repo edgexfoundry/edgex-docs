@@ -55,7 +55,7 @@ if req.DeviceResourceName == "camera_snapshot" {
 
 Querying core-metadata for the Device's Commands and DeviceName provides
 the following as the URL to request a reading from the snapshot command:
-<http://localhost:59990/api/v3/device/name/camera-device/OnvifSnapshot>
+<http://localhost:59990/api/{{api_version}}/device/name/camera-device/OnvifSnapshot>
 
 Unlike with non-binary Events, making a request to this URL will return
 an event in CBOR representation. CBOR is a representation of binary data

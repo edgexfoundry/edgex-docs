@@ -435,9 +435,9 @@ To obtain a new JWT token once the current one is expired, repeat the above snip
 !!! example "Calling an API on behalf of example user"
 
     ```bash
-    curl --insecure https://localhost:8443/core-data/api/v3/ping -H "Authorization: Bearer $(cat id-token.txt)"
+    curl --insecure https://localhost:8443/core-data/api/{{api_version}}/ping -H "Authorization: Bearer $(cat id-token.txt)"
     ```
-    Output: `{"apiVersion":"v3","timestamp":"Mon May 15 16:45:55 CEST 2023","serviceName":"core-data"}`
+    Output: `{"apiVersion" : "{{api_version}}","timestamp":"Mon May 15 16:45:55 CEST 2023","serviceName":"core-data"}`
 
 #### Accessing Consul
 Consul API and UI can be accessed using the consul token (Secret ID). For the snap, token is the value of `SecretID` typically placed in a JSON file at `/var/snap/edgexfoundry/current/secrets/consul-acl-token/mgmt_token.json`.

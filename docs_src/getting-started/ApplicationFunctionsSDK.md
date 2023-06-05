@@ -104,14 +104,14 @@ Set the Trigger type to `http` in configuration file found here: [res/configurat
 Type="http"
 ```
 
-Using PostMan or curl send the following JSON to `localhost:<port>/api/v3/trigger`
+Using PostMan or curl send the following JSON to `localhost:<port>/api/{{api_version}}/trigger`
 
 ```json
 {
     "requestId": "82eb2e26-0f24-48ba-ae4c-de9dac3fb9bc",
-    "apiVersion": "v3",
+    "apiVersion" : "{{api_version}}",
     "event": {
-        "apiVersion": "v3",
+        "apiVersion" : "{{api_version}}",
         "deviceName": "Random-Float-Device",
         "profileName": "Random-Float-Device",
         "sourceName" : "Float32",
@@ -119,7 +119,7 @@ Using PostMan or curl send the following JSON to `localhost:<port>/api/v3/trigge
         "id": "94eb2e26-0f24-5555-2222-de9dac3fb228",
         "readings": [
             {
-                "apiVersion": "v3",
+                "apiVersion" : "{{api_version}}",
                 "resourceName": "Float32",
                 "profileName": "Random-Float-Device",
                 "deviceName": "Random-Float-Device",

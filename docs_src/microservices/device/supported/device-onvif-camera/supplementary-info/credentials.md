@@ -63,25 +63,25 @@ or by configuring the `AppCustom.CredentialsMap` which maps one or more MAC Addr
     Set SecretName to `<device-name>`
     ```shell
     curl -X PUT --data "<secret-name>" \
-        "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretName"
+        "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretName"
     ```
 
     Set username to `<username>`
     ```shell
     curl -X PUT --data "<username>" \
-        "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretData/username"
+        "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretData/username"
     ```
 
     Set password to `<password>`
     ```shell
     curl -X PUT --data "<password>" \
-        "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretData/password"
+        "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretData/password"
     ```
 
     Set auth mode to `<auth-mode>`
     ```shell
     curl -X PUT --data "<auth-mode>" \
-        "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretData/mode"
+        "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/Writable/InsecureSecrets/<secret-name>/SecretData/mode"
     ```
 
 ### Secure Mode
@@ -100,11 +100,11 @@ or by configuring the `AppCustom.CredentialsMap` which maps one or more MAC Addr
     </div>
 
     ```shell
-    curl --location --request POST 'http://localhost:59984/api/v3/secret' \
+    curl --location --request POST 'http://localhost:59984/api/{{api_version}}/secret' \
         --header 'Content-Type: application/json' \
         --data-raw '
     {
-        "apiVersion":"v3",
+        "apiVersion" : "{{api_version}}",
         "name": "<secret-name>",
         "secretData":[
             {

@@ -281,7 +281,7 @@ Connection to localhost closed.
 
 ... and query data from outside via the API Gateway:
 ```bash title="🖥 Desktop"
-curl --insecure https://localhost:8443/core-data/api/v3/reading/all?limit=2
+curl --insecure https://localhost:8443/core-data/api/{{api_version}}/reading/all?limit=2
 ```
 
 Since the security is enabled, the access is not authorized.
@@ -433,9 +433,9 @@ $ snap logs -n=all edgex-device-virtual | grep "Startup message"
 
 Since security is disabled and Core Data has been configured to listen on all interfaces (instead of just the loopback), we can now query data (insecurely) from outside:
 ```bash title="🖥 Desktop"
-$ curl --no-progress-meter http://localhost:59880/api/v3/reading/all?limit=2 | jq
+$ curl --no-progress-meter http://localhost:59880/api/{{api_version}}/reading/all?limit=2 | jq
 {
-  "apiVersion": "v3",
+  "apiVersion" : "{{api_version}}",
   "statusCode": 200,
   "totalCount": 86,
   "readings": [
@@ -465,7 +465,7 @@ We can do that only for servers that have their ports forwarded to the emulator'
 
 Query all registered devices from Core Metadata:
 ```bash title="🖥 Desktop"
-$ curl --no-progress-meter  http://localhost:59881/api/v3/device/all | jq '.devices[].name'
+$ curl --no-progress-meter  http://localhost:59881/api/{{api_version}}/device/all | jq '.devices[].name'
 "Random-Boolean-Device"
 "Random-Float-Device"
 "Random-UnsignedInteger-Device"
@@ -640,7 +640,7 @@ $ snap logs -n=all edgex-device-virtual | grep "Startup message"
 
 From the host machine, query the device metadata to ensure that Device Virtual has registered only a single virtual device: 
 ```bash title="🖥 Desktop"
-$ curl --no-progress-meter  http://localhost:59881/api/v3/device/all | jq '.devices[].name'
+$ curl --no-progress-meter  http://localhost:59881/api/{{api_version}}/device/all | jq '.devices[].name'
 "Random-Float-Device"
 ```
 

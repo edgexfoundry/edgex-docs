@@ -20,7 +20,7 @@ Query parameter:
         "InputImageSize": "640x480",
         "OutputVideoQuality": "5"
         }
-    }' http://localhost:59882/api/v3/device/name/<device name>/StartStreaming
+    }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/StartStreaming
     ```
 
 Supported Input options:  
@@ -46,7 +46,7 @@ Query parameter:
 - `device name`: The name of the camera
 !!! example - "Example StreamURI Command"
     ```bash
-    curl -s http://localhost:59882/api/v3/device/name/<device name>/StreamURI | jq -r '"StreamURI: " + '.event.readings[].value''
+    curl -s http://localhost:59882/api/{{api_version}}/device/name/<device name>/StreamURI | jq -r '"StreamURI: " + '.event.readings[].value''
     ```
 
 The response to the above call should look similar to the following:
@@ -83,7 +83,7 @@ Query parameter:
     ```shell
     curl -X PUT -d '{
         "StopStreaming": "true"
-    }' http://localhost:59882/api/v3/device/name/<device name>/StopStreaming
+    }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/StopStreaming
     ```
 
 ## Optional: Shutting Down
@@ -118,7 +118,7 @@ Query parameter:
 - `device name`: The name of the camera
 
 ```bash
-curl http://localhost:59882/api/v3/device/name/<device name>/StreamingStatus | jq -r '"StreamingStatus: " + (.event.readings[].objectValue.IsStreaming|tostring)'
+curl http://localhost:59882/api/{{api_version}}/device/name/<device name>/StreamingStatus | jq -r '"StreamingStatus: " + (.event.readings[].objectValue.IsStreaming|tostring)'
 ```
 
 If the StreamingStatus is false, the camera is not configured to stream video. Please try the Start Video Streaming section again [here](#start-video-streaming).

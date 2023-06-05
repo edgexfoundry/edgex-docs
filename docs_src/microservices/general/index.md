@@ -56,7 +56,7 @@ This can be accomplished with a custom application service that sets the functio
 !!! example "Example - DTO from Core Data in JSON format for the `EventsPersisted` metric as publish to the EdgeX MessageBus"
     ```json
     {
-        "apiVersion": "v3",
+        "apiVersion" : "{{api_version}}",
         "name": "EventsPersisted",
         "fields": [
             {
