@@ -2192,7 +2192,7 @@ The message topic names act like the HTTP paths and methods in REST requests. Th
 <h4 id="message-envelope">Message Envelope</h4>
 <p>Below is an example of the <code>MessageEnvelope</code> for command query request:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"ApiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"RequestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"CorrelationID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"ContentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json"</span><span class="p">,</span>
@@ -2235,7 +2235,7 @@ Below is the default topic naming used by Core Command:</p>
 <li>
 <p>Send query request message to external MQTT broker on topic <code>edgex/commandquery/request/Random-Boolean-Device</code>:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"ApiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"ContentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"CorrelationID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"RequestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span>
@@ -2269,7 +2269,7 @@ Below is the default topic naming used by Core Command:</p>
 <span class="w">      </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"WriteBoolValue"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"set"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v2/device/name/Random-Boolean-Device/WriteBoolValue"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/WriteBoolValue"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"parameters"</span><span class="p">:[</span>
 <span class="w">          </span><span class="p">{</span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">,</span><span class="w"> </span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">},</span>
@@ -2279,7 +2279,7 @@ Below is the default topic naming used by Core Command:</p>
 <span class="w">      </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"WriteBoolArrayValue"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"set"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v2/device/name/Random-Boolean-Device/WriteBoolArrayValue"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/WriteBoolArrayValue"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"parameters"</span><span class="p">:[</span>
 <span class="w">          </span><span class="p">{</span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">,</span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">},</span>
@@ -2290,7 +2290,7 @@ Below is the default topic naming used by Core Command:</p>
 <span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"get"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"set"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v2/device/name/Random-Boolean-Device/Bool"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/Bool"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"parameters"</span><span class="p">:[</span>
 <span class="w">          </span><span class="p">{</span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">,</span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">}</span>
@@ -2300,7 +2300,7 @@ Below is the default topic naming used by Core Command:</p>
 <span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"get"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"set"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v2/device/name/Random-Boolean-Device/BoolArray"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/BoolArray"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"parameters"</span><span class="p">:[</span>
 <span class="w">          </span><span class="p">{</span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">,</span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">}</span>
@@ -2316,7 +2316,7 @@ Below is the default topic naming used by Core Command:</p>
 <li>
 <p>Send query request message to external MQTT broker on topic <code>edgex/commandquery/request/all</code>:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"ApiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"ContentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"CorrelationID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"RequestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
@@ -2356,7 +2356,7 @@ Below is the default topic naming used by Core Command:</p>
 <ol>
 <li>Send command request message to external MQTT broker on topic <code>edgex/command/request/Random-Boolean-Device/Bool/get</code>:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"ApiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"ContentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"CorrelationID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"RequestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
@@ -2410,7 +2410,7 @@ Below is the default topic naming used by Core Command:</p>
 <ol>
 <li>Send command request message to external MQTT broker on topic <code>edgex/command/request/Random-Boolean-Device/WriteBoolValue/set</code>:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"ApiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"ContentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"CorrelationID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"RequestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
@@ -2444,7 +2444,7 @@ Below is the default topic naming used by Core Command:</p>
 </div>
 <h3 id="configuring-for-secure-mqtt-connection">Configuring for secure MQTT connection</h3>
 <p>In real word, users usually need to provide credentials or certificates to connect to external MQTT broker.
-To seed such secrets to Secret Store for Command service, you can follow the instructions from the <a href="../../security/SeedServiceSecrets.md">Seeding Service Secrets</a> document.</p>
+To seed such secrets to Secret Store for Command service, you can follow the instructions from the <a href="../../security/SeedingServiceSecrets">Seeding Service Secrets</a> document.</p>
 <p>The following example shows how to set up Command service to connect to external MQTT broker with <code>usernamepassword</code> authentication.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Setting SecretsFile and ExternalMQTT via environment override</p>
@@ -2526,13 +2526,13 @@ Regex syntax will match against all DeviceResources in the DeviceProfile.  </p>
 regex command name <code>.rotation</code> will return event including <code>Xrotation</code>, <code>Yrotation</code> and <code>Zrotation</code> readings.</p>
 <p>Note that the <a href="https://github.com/google/re2/wiki/Syntax">RE2 syntax</a> accepted by Go's <code>regexp</code> package contains character like <code>.</code>, <code>*</code>, <code>+</code> ...etc.
 These characters need to be URL-encoded before executing:
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>http://localhost:59882/api/v2/device/name/Simple-Device01/%2Erotation
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>http://localhost:59882/api/v3/device/name/Simple-Device01/%2Erotation
 
 <span class="o">{</span>
-<span class="w">  </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">  </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">  </span><span class="s2">"statusCode"</span>:<span class="w"> </span><span class="m">200</span>,
 <span class="w">  </span><span class="s2">"event"</span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">    </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v2"</span>,
+<span class="w">    </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v3"</span>,
 <span class="w">    </span><span class="s2">"id"</span>:<span class="w"> </span><span class="s2">"821f9a5d-e521-4ea7-83f9-f6bce6881dce"</span>,
 <span class="w">    </span><span class="s2">"deviceName"</span>:<span class="w"> </span><span class="s2">"Simple-Device01"</span>,
 <span class="w">    </span><span class="s2">"profileName"</span>:<span class="w"> </span><span class="s2">"Simple-Device"</span>,

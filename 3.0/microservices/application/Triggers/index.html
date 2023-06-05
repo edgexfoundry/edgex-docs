@@ -1846,7 +1846,7 @@ the external MQTT Broker on the topic specified by the <code>PublishTopic</code>
 <span class="w">    </span><span class="nt">RetryInterval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 </code></pre></div></p>
 <h2 id="http-trigger">HTTP Trigger</h2>
-<p>Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful <code>POST</code> call to <code>http://[host]:[port]/api/v2/trigger/</code>. </p>
+<p>Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful <code>POST</code> call to <code>http://[host]:[port]/api/v3/trigger/</code>. </p>
 <h3 id="type-configuration_2">Type Configuration</h3>
 <div class="admonition example -">
 <p class="admonition-title">Example Trigger Configuration</p>
@@ -1854,7 +1854,7 @@ the external MQTT Broker on the topic specified by the <code>PublishTopic</code>
 <span class="w">  </span><span class="nt">Type</span><span class="p">:</span><span class="w"> </span><span class="s">"http"</span><span class="w"> </span>
 </code></pre></div>
 </div>
-<p>The <code>Type=</code> is set to <code>http</code>. This will enable listening to the <code>api/v2/trigger/</code> endpoint. No other configuration is required. The Context function <code>ctx.SetResponseData([]byte outputData)</code> stores the data to send back as the response to the requestor that originally triggered the HTTP Request. </p>
+<p>The <code>Type=</code> is set to <code>http</code>. This will enable listening to the <code>api/v3/trigger/</code> endpoint. No other configuration is required. The Context function <code>ctx.SetResponseData([]byte outputData)</code> stores the data to send back as the response to the requestor that originally triggered the HTTP Request. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The HTTP trigger uses the <code>content-type</code> from the HTTP Header to determine if the data is JSON or CBOR encoded and the optional <code>X-Correlation-ID</code> to set the correlation ID for the request.</p>

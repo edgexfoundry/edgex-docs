@@ -1684,14 +1684,14 @@ profiles. These are relatively straightforward attributes of a profile.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Postman</label><label for="__tabbed_1_2">Curl</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Make a POST request to <code>http://localhost:59881/api/v2/deviceprofile/uploadfile</code>.  The request should not include any additional headers (leave the defaults).  In the Body, make sure "form-data" is selected and set the Key to <code>file</code> and then select the device profile file where you saved it (as shown below).</p>
+<p>Make a POST request to <code>http://localhost:59881/api/v3/deviceprofile/uploadfile</code>.  The request should not include any additional headers (leave the defaults).  In the Body, make sure "form-data" is selected and set the Key to <code>file</code> and then select the device profile file where you saved it (as shown below).</p>
 <p><img alt="image" src="../EdgeX_WalkthroughPostmanFile.png"/></p>
 <p>If your API call is successful, you will get a generated id for your new <code>DeviceProfile</code> in the response area.</p>
 <p><img alt="image" src="../EdgeX_WalkthroughPostmanPOST_Response.png"/></p>
 </div>
 <div class="tabbed-block">
 <p>Make a curl POST request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-F<span class="w"> </span><span class="s1">'file=@/path/to/your/profile/here/EdgeX_CameraMonitorProfile.yml'</span><span class="w"> </span>http://localhost:59881/api/v2/deviceprofile/uploadfile
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-F<span class="w"> </span><span class="s1">'file=@/path/to/your/profile/here/EdgeX_CameraMonitorProfile.yml'</span><span class="w"> </span>http://localhost:59881/api/v3/deviceprofile/uploadfile
 </code></pre></div>
 <p>If your API call is successful, you will get a generated id for your new <code>DeviceProfile</code> in the response area.</p>
 <p><img alt="image" src="../EdgeX_WalkthroughCurlPOST_Response.png"/></p>
@@ -1703,7 +1703,7 @@ profiles. These are relatively straightforward attributes of a profile.</p>
 </div>
 </input></input></div>
 <h4 id="test-the-get-api">Test the GET API</h4>
-<p>If you make a GET call to the <code>http://localhost:59881/api/v2/deviceprofile/all</code> URL (with Postman or curl) you will get a listing (in JSON) of all the device profiles (and all of its associated <code>deviceResource</code> and <code>deviceCommand</code>) currently defined in your instance of EdgeX, including the one you just added.</p>
+<p>If you make a GET call to the <code>http://localhost:59881/api/v3/deviceprofile/all</code> URL (with Postman or curl) you will get a listing (in JSON) of all the device profiles (and all of its associated <code>deviceResource</code> and <code>deviceCommand</code>) currently defined in your instance of EdgeX, including the one you just added.</p>
 <p><a class="md-button" href="../Ch-WalkthroughUseCase/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughDeviceService/">Next&gt;</a></p>
 </article>
 </div>

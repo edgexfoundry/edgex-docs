@@ -2118,10 +2118,10 @@ steps:</p>
 <ol>
 <li>
 <p>Upload the device profile above to metadata with a POST to
-    <a href="http://localhost:59881/api/v2/deviceprofile/uploadfile">http://localhost:59881/api/v2/deviceprofile/uploadfile</a> and add the
+    <a href="http://localhost:59881/api/v3/deviceprofile/uploadfile">http://localhost:59881/api/v3/deviceprofile/uploadfile</a> and add the
     file as key "file" to the body in form-data format, and the created
     ID will be returned. The following example command uses curl to send the request:</p>
-<div class="highlight"><pre><span></span><code>$ curl http://localhost:59881/api/v2/deviceprofile/uploadfile \
+<div class="highlight"><pre><span></span><code>$ curl http://localhost:59881/api/v3/deviceprofile/uploadfile \
   -F "file=@temperature.profile.yml"
 </code></pre></div>
 </li>
@@ -2131,12 +2131,12 @@ steps:</p>
 </li>
 <li>
 <p>Add the device with a POST to
-    <a href="http://localhost:59881/api/v2/device">http://localhost:59881/api/v2/device</a>, the body will look something
+    <a href="http://localhost:59881/api/v3/device">http://localhost:59881/api/v3/device</a>, the body will look something
     like:
-    <div class="highlight"><pre><span></span><code>$ curl http://localhost:59881/api/v2/device -H "Content-Type:application/json" -X POST \
+    <div class="highlight"><pre><span></span><code>$ curl http://localhost:59881/api/v3/device -H "Content-Type:application/json" -X POST \
   -d '[
         {
-            "apiVersion": "v2",
+            "apiVersion": "v3",
             "device": {
                "name" :"Modbus-TCP-Temperature-Sensor",
                "description":"This device is a product for monitoring the temperature via the ethernet",
@@ -2177,7 +2177,7 @@ from the previous steps.</p>
 <p>Now we're ready to run some commands.</p>
 <h3 id="find-executable-commands">Find Executable Commands</h3>
 <p>Use the following query to find executable commands:
-<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59882/api/v2/device/all | json_pp</span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59882/api/v3/device/all | json_pp</span>
 
 <span class="p">{</span>
 <span class="w">   </span><span class="nt">"apiVersion"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
@@ -2201,14 +2201,14 @@ from the previous steps.</p>
 <span class="w">                     </span><span class="nt">"resourceName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"ThermostatH"</span>
 <span class="w">                  </span><span class="p">}</span>
 <span class="w">               </span><span class="p">],</span>
-<span class="w">               </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold"</span>
+<span class="w">               </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v3/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold"</span>
 <span class="w">            </span><span class="p">},</span>
 <span class="w">            </span><span class="p">{</span>
 <span class="w">               </span><span class="nt">"get"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"url"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"AlarmMode"</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"set"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">               </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmMode"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v3/device/name/Modbus-TCP-Temperature-Sensor/AlarmMode"</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"parameters"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                  </span><span class="p">{</span>
 <span class="w">                     </span><span class="nt">"resourceName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"AlarmMode"</span><span class="p">,</span>
@@ -2220,7 +2220,7 @@ from the previous steps.</p>
 <span class="w">               </span><span class="nt">"get"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"url"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Temperature"</span><span class="p">,</span>
-<span class="w">               </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v2/device/name/Modbus-TCP-Temperature-Sensor/Temperature"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v3/device/name/Modbus-TCP-Temperature-Sensor/Temperature"</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"parameters"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                  </span><span class="p">{</span>
 <span class="w">                     </span><span class="nt">"valueType"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Float32"</span><span class="p">,</span>
@@ -2236,13 +2236,13 @@ from the previous steps.</p>
 </code></pre></div></p>
 <h3 id="execute-set-command">Execute SET command</h3>
 <p>Execute SET command according to <code>url</code> and <code>parameterNames</code>, replacing [host] with the server IP when running the SET command.</p>
-<div class="highlight"><pre><span></span><code>$ curl http://localhost:59882/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold \
+<div class="highlight"><pre><span></span><code>$ curl http://localhost:59882/api/v3/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold \
     -H "Content-Type:application/json" -X PUT  \
     -d '{"ThermostatL":"15","ThermostatH":"100"}'
 </code></pre></div>
 <h3 id="execute-get-command">Execute GET command</h3>
 <p>Replace <em>\&lt;host&gt;</em> with the server IP when running the GET command.</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59882/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold | json_pp</span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59882/api/v3/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold | json_pp</span>
 
 <span class="p">{</span>
 <span class="w">   </span><span class="nt">"statusCode"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
@@ -2291,7 +2291,7 @@ from the previous steps.</p>
 </code></pre></div>
 After service startup, query core-data's API. The results show
 that the service auto-executes the command every 30 seconds.</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59880/api/v2/event/device/name/Modbus-TCP-Temperature-Sensor | json_pp</span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59880/api/v3/event/device/name/Modbus-TCP-Temperature-Sensor | json_pp</span>
 
 <span class="p">{</span>
 <span class="w">   </span><span class="nt">"events"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -2471,17 +2471,17 @@ sudo<span class="w"> </span>chown<span class="w"> </span>:2001<span class="w"> <
 </code></pre></div></li>
 <li>
 <p>Upload the device profile
-    <div class="highlight"><pre><span></span><code>$ curl http://localhost:59881/api/v2/deviceprofile/uploadfile \
+    <div class="highlight"><pre><span></span><code>$ curl http://localhost:59881/api/v3/deviceprofile/uploadfile \
   -F "file=@modbus.rtu.demo.profile.yml"
 </code></pre></div></p>
 </li>
 <li>
 <p>Create the device entity to the EdgeX.
     You can find the Modbus RTU setting on the device or the user manual.
-    <div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59881/api/v2/device -H "Content-Type:application/json" -X POST \</span>
+    <div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59881/api/v3/device -H "Content-Type:application/json" -X POST \</span>
 <span class="w">  </span><span class="mi">-</span><span class="err">d</span><span class="w"> </span><span class="err">'</span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">"device"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">               </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="s2">"Modbus-RTU-IO-Module"</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">"The device can be used to monitor the status of the digital input and digital output channels."</span><span class="p">,</span>

@@ -2069,7 +2069,7 @@ and role of a device service.</p>
 <p>Each Device Service also has detailed configuration to enable connection to it's exclusive <code>SecretStore</code></p>
 <h4 id="storing-secrets">Storing Secrets</h4>
 <h5 id="secure-mode">Secure Mode</h5>
-<p>When running an Device Service in secure mode, secrets can be stored in the SecretStore by making an HTTP <code>POST</code> call to the <code>/api/v2/secret</code> API route on the Device Service. The secret data POSTed is stored to the service's secure<code>SecretStore</code> . Once a secret is stored, only the service that added the secret will be able to retrieve it.  See the <a href="../../../api/devices/Ch-APIDeviceSDK/#swagger">Secret API Reference</a> for more details and example.</p>
+<p>When running an Device Service in secure mode, secrets can be stored in the SecretStore by making an HTTP <code>POST</code> call to the <code>/api/v3/secret</code> API route on the Device Service. The secret data POSTed is stored to the service's secure<code>SecretStore</code> . Once a secret is stored, only the service that added the secret will be able to retrieve it.  See the <a href="../../../api/devices/Ch-APIDeviceSDK/#swagger">Secret API Reference</a> for more details and example.</p>
 <h5 id="insecure-mode">Insecure Mode</h5>
 <p>When running in insecure mode, the secrets are stored and retrieved from the <em>Writable.InsecureSecrets</em> section of the service's configuration.yaml file. Insecure secrets and their paths can be configured as below.</p>
 <div class="admonition example">

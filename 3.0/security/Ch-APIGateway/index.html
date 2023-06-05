@@ -1731,9 +1731,9 @@ For Docker, the hostname should match the hostname specified in the <code>docker
 <div class="highlight"><pre><span></span><code>EDGEX_ADD_PROXY_ROUTE: "app-myservice.http://edgex-app-myservice:56789"
 </code></pre></div>
 <p>When a request to the API gateway is received,
-such as <code>GET https://localhost:8443/app-myservice/api/v2/ping</code>,
+such as <code>GET https://localhost:8443/app-myservice/api/v3/ping</code>,
 the API gateway will reissue the request as
-<code>GET http://edgex-app-myservice:56789/api/v2/ping</code>.
+<code>GET http://edgex-app-myservice:56789/api/v3/ping</code>.
 Note that the route prefix is stripped
 from the re-issued request.</p>
 <h2 id="using-api-gateway">Using API Gateway</h2>
@@ -1742,7 +1742,7 @@ from the re-issued request.</p>
 REST API provided by the EdgeX microservices by sending an HTTP request
 to the service endpoint. E.g., a client can consume the ping endpoint of
 the Core Data microservice with curl command like this:</p>
-<div class="codehilite"><pre><span></span><code>curl http://&lt;core-data-microservice-ip&gt;:59880/api/v2/ping
+<div class="codehilite"><pre><span></span><code>curl http://&lt;core-data-microservice-ip&gt;:59880/api/v3/ping
 </code></pre></div>
 <p>Where <code>&lt;core-data-microservice-ip&gt;</code> is the Docker IP address of
 the container running the core-data microservice (if using Docker),
@@ -1752,7 +1752,7 @@ EdgeX microservices are only accessible to local host processes.</p>
 <p>The API gateway serves as single external endpoint for all the REST APIs.
 The curl command to ping the endpoint of the same
 Core Data service, as shown above, needs to change to:</p>
-<div class="codehilite"><pre><span></span><code>curl https://&lt;api-gateway-host&gt;:8443/core-data/api/v2/ping
+<div class="codehilite"><pre><span></span><code>curl https://&lt;api-gateway-host&gt;:8443/core-data/api/v3/ping
 </code></pre></div>
 <p>Comparing these two curl commands you may notice several differences.</p>
 <ul>
@@ -1869,11 +1869,11 @@ a client can use the access token to use the protected EdgeX REST API
 resources behind the API gateway. Again, without the API Gateway in
 place, here is the sample request to hit the ping endpoint of the EdgeX
 Core Data microservice using curl:</p>
-<div class="codehilite"><pre><span></span><code>curl http://&lt;core-data-microservice-ip&gt;:59880/api/v2/ping
+<div class="codehilite"><pre><span></span><code>curl http://&lt;core-data-microservice-ip&gt;:59880/api/v3/ping
 </code></pre></div>
 <p>With the security service and JWT authentication is enabled, the command
 changes to:</p>
-<div class="codehilite"><pre><span></span><code>curl -k -H 'Authorization: Bearer &lt;JWT&gt;' https://myhostname:8443/core-data/api/v2/ping
+<div class="codehilite"><pre><span></span><code>curl -k -H 'Authorization: Bearer &lt;JWT&gt;' https://myhostname:8443/core-data/api/v3/ping
 </code></pre></div>
 <p>In summary the difference between the two commands are listed below:</p>
 <ul>

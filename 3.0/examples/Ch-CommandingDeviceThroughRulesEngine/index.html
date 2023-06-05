@@ -1640,11 +1640,11 @@
 </code></pre></div>
 <h2 id="get-and-test-the-command-url">Get and Test the Command URL</h2>
 <p>Since both use case scenario rules will send commands to the <code>Random-Boolean-Device</code> virtual device, use the curl request below to get a list of available commands for this device.</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://127.0.0.1:59882/api/v2/device/name/Random-Boolean-Device<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://127.0.0.1:59882/api/v3/device/name/Random-Boolean-Device<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
 </code></pre></div>
 <p>It should print results like those below.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"deviceCoreCommand"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
@@ -1653,7 +1653,7 @@
 <span class="w">      </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WriteBoolValue"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"set"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v2/device/name/Random-Boolean-Device/WriteBoolValue"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/WriteBoolValue"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">          </span><span class="p">{</span>
@@ -1669,7 +1669,7 @@
 <span class="w">      </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WriteBoolArrayValue"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"set"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v2/device/name/Random-Boolean-Device/WriteBoolArrayValue"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/WriteBoolArrayValue"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">          </span><span class="p">{</span>
@@ -1686,7 +1686,7 @@
 <span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bool"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"get"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"set"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v2/device/name/Random-Boolean-Device/Bool"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/Bool"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">          </span><span class="p">{</span>
@@ -1699,7 +1699,7 @@
 <span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BoolArray"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"get"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"set"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v2/device/name/Random-Boolean-Device/BoolArray"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/BoolArray"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">          </span><span class="p">{</span>
@@ -1719,7 +1719,7 @@
 </ul>
 <p>You can test calling this command with its parameters using curl as shown below.</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>http://edgex-core-command:59882/api/v2/device/name/Random-Boolean-Device/WriteBoolValue<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http://edgex-core-command:59882/api/v3/device/name/Random-Boolean-Device/WriteBoolValue<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-d<span class="w"> </span><span class="s1">'{"Bool":"true", "EnableRandomization_Bool": "true"}'</span>
 </code></pre></div>
@@ -1736,7 +1736,7 @@
 <span class="s1">  "actions": [</span>
 <span class="s1">    {</span>
 <span class="s1">      "rest": {</span>
-<span class="s1">        "url": "http://edgex-core-command:59882/api/v2/device/name/Random-Boolean-Device/WriteBoolValue",</span>
+<span class="s1">        "url": "http://edgex-core-command:59882/api/v3/device/name/Random-Boolean-Device/WriteBoolValue",</span>
 <span class="s1">        "method": "put",</span>
 <span class="s1">        "dataTemplate": "{\"Bool\":\"true\", \"EnableRandomization_Bool\": \"true\"}",</span>
 <span class="s1">        "sendSingle": true</span>
@@ -1759,7 +1759,7 @@
 <span class="s1">  "actions": [</span>
 <span class="s1">    {</span>
 <span class="s1">      "rest": {</span>
-<span class="s1">        "url": "http://edgex-core-command:59882/api/v2/device/name/Random-Boolean-Device/WriteBoolValue",</span>
+<span class="s1">        "url": "http://edgex-core-command:59882/api/v3/device/name/Random-Boolean-Device/WriteBoolValue",</span>
 <span class="s1">        "method": "put",</span>
 <span class="s1">        "dataTemplate": "{\"Bool\":\"false\", \"EnableRandomization_Bool\": \"false\"}",</span>
 <span class="s1">        "sendSingle": true</span>

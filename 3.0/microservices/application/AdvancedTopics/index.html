@@ -1813,11 +1813,11 @@
 <h3 id="custom-rest-endpoints">Custom REST Endpoints</h3>
 <p>It is not uncommon to require your own custom REST endpoints when building an Application Service. Rather than spin up your own webserver inside of your app (alongside the already existing running webserver), we've exposed a method that allows you add your own routes to the existing webserver. A few routes are reserved and cannot be used:</p>
 <ul>
-<li>/api/v2/version</li>
-<li>/api/v2/ping</li>
-<li>/api/v2/config</li>
-<li>/api/v2/trigger</li>
-<li>/api/v2/secret</li>
+<li>/api/v3/version</li>
+<li>/api/v3/ping</li>
+<li>/api/v3/config</li>
+<li>/api/v3/trigger</li>
+<li>/api/v3/secret</li>
 </ul>
 <p>To add your own route, use the <code>AddRoute()</code> API provided on the <code>ApplicationService</code> interface. </p>
 <div class="admonition example">
@@ -2057,7 +2057,7 @@ A factory function to create these clients can then be registered with your serv
 </div>
 <h4 id="storing-secrets">Storing Secrets</h4>
 <h5 id="secure-mode">Secure Mode</h5>
-<p>When running an application service in secure mode, secrets can be stored in the service's secure SecretStore by making an HTTP <code>POST</code> call to the <code>/api/v2/secret</code> API route in the application service. The secret data POSTed is stored and retrieved from the service's secure SecretStore . Once a secret is stored, only the service that added the secret will be able to retrieve it.  For secret retrieval see <a href="#getting-secrets">Getting Secrets</a> section below.</p>
+<p>When running an application service in secure mode, secrets can be stored in the service's secure SecretStore by making an HTTP <code>POST</code> call to the <code>/api/v3/secret</code> API route in the application service. The secret data POSTed is stored and retrieved from the service's secure SecretStore . Once a secret is stored, only the service that added the secret will be able to retrieve it.  For secret retrieval see <a href="#getting-secrets">Getting Secrets</a> section below.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - JSON message body</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>

@@ -1984,7 +1984,7 @@ $ docker run --rm --name=mqtt-scripts \
 <p>Now we're ready to run some commands.</p>
 <h3 id="find-executable-commands">Find Executable Commands</h3>
 <p>Use the following query to find executable commands:</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59882/api/v2/device/all | json_pp</span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59882/api/v3/device/all | json_pp</span>
 
 <span class="p">{</span>
 <span class="w">   </span><span class="nt">"deviceCoreCommands"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -1994,7 +1994,7 @@ $ docker run --rm --name=mqtt-scripts \
 <span class="w">            </span><span class="p">{</span>
 <span class="w">               </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"values"</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"get"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">               </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v2/device/name/my-custom-device/values"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v3/device/name/my-custom-device/values"</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"url"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"parameters"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                  </span><span class="p">{</span>
@@ -2021,14 +2021,14 @@ $ docker run --rm --name=mqtt-scripts \
 <span class="w">               </span><span class="p">],</span>
 <span class="w">               </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"message"</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"get"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">               </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v2/device/name/my-custom-device/message"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"path"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v3/device/name/my-custom-device/message"</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"set"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
 <span class="w">            </span><span class="p">},</span>
 <span class="w">            </span><span class="p">{</span>
 <span class="w">                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"json"</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"get"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"set"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v2/device/name/MQTT-test-device/json"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v3/device/name/MQTT-test-device/json"</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"url"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                    </span><span class="p">{</span>
@@ -2048,13 +2048,13 @@ $ docker run --rm --name=mqtt-scripts \
 <h3 id="execute-set-command">Execute SET Command</h3>
 <p>Execute a SET command according to the url and parameterNames, replacing
 [host] with the server IP when running the SET command.</p>
-<div class="highlight"><pre><span></span><code>$ curl http://localhost:59882/api/v2/device/name/my-custom-device/message \
+<div class="highlight"><pre><span></span><code>$ curl http://localhost:59882/api/v3/device/name/my-custom-device/message \
     -H "Content-Type:application/json" -X PUT  \
     -d '{"message":"Hello!"}'
 </code></pre></div>
 <h3 id="execute-get-command">Execute GET Command</h3>
 <p>Execute a GET command as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59882/api/v2/device/name/my-custom-device/message | json_pp</span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59882/api/v3/device/name/my-custom-device/message | json_pp</span>
 
 <span class="p">{</span>
 <span class="w">   </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v2"</span><span class="p">,</span>
@@ -2090,7 +2090,7 @@ $ docker run --rm --name=mqtt-scripts \
 <p>After the service starts, query core-data's reading API. The results
 show that the service auto-executes the command every 30 secs, as shown
 below:</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59880/api/v2/reading/resourceName/message | json_pp</span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59880/api/v3/reading/resourceName/message | json_pp</span>
 
 <span class="p">{</span>
 <span class="w">   </span><span class="nt">"statusCode"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
@@ -2129,7 +2129,7 @@ below:</p>
 </ul>
 <p>The following results show that the mock device sent the reading every
 15 secs:</p>
-<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59880/api/v2/reading/resourceName/randnum | json_pp</span>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59880/api/v3/reading/resourceName/randnum | json_pp</span>
 
 <span class="p">{</span>
 <span class="w">  </span><span class="nt">"readings"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>

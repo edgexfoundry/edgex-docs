@@ -1587,11 +1587,11 @@ would transmit this information to core data via REST call.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Postman</label><label for="__tabbed_1_2">Curl</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Make a POST request to `http://localhost:59880/api/v2/event/camera-monitor-profile/countcamera1/HumanCount with the body below.</p>
+<p>Make a POST request to `http://localhost:59880/api/v3/event/camera-monitor-profile/countcamera1/HumanCount with the body below.</p>
 <div class="highlight"><pre><span></span><code><span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"countcamera1"</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"camera-monitor-profile"</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"sourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HumanCount"</span><span class="p">,</span>
@@ -1629,7 +1629,7 @@ would transmit this information to core data via REST call.</p>
 </div>
 <div class="tabbed-block">
 <p>Make a curl POST request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{"apiVersion": "v2","event": {"apiVersion": "v2","deviceName": "countcamera1","profileName": "camera-monitor-profile","sourceName": "HumanCount","id":"d5471d59-2810-419a-8744-18eb8fa03464","origin": 1602168089665565200,"readings": [{"id": "7003cacc-0e00-4676-977c-4e58b9612abc","origin": 1602168089665565200,"deviceName": "countcamera1","resourceName": "HumanCount","profileName": "camera-monitor-profile","valueType": "Int16","value": "5"},{"id": "7003cacc-0e00-4676-977c-4e58b9612abf","origin":1602168089665565200,"deviceName": "countcamera1","resourceName": "CanineCount","profileName": "camera-monitor-profile","valueType": "Int16","value": "3"}]}}'</span><span class="w"> </span>localhost:59880/api/v2/event/camera-monitor-profile/countcamera1/HumanCount
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{"apiVersion": "v3","event": {"apiVersion": "v3","deviceName": "countcamera1","profileName": "camera-monitor-profile","sourceName": "HumanCount","id":"d5471d59-2810-419a-8744-18eb8fa03464","origin": 1602168089665565200,"readings": [{"id": "7003cacc-0e00-4676-977c-4e58b9612abc","origin": 1602168089665565200,"deviceName": "countcamera1","resourceName": "HumanCount","profileName": "camera-monitor-profile","valueType": "Int16","value": "5"},{"id": "7003cacc-0e00-4676-977c-4e58b9612abf","origin":1602168089665565200,"deviceName": "countcamera1","resourceName": "CanineCount","profileName": "camera-monitor-profile","valueType": "Int16","value": "3"}]}}'</span><span class="w"> </span>localhost:59880/api/v3/event/camera-monitor-profile/countcamera1/HumanCount
 </code></pre></div>
 <p><img alt="image" src="../EdgeX_WalkthroughSendEvent_Curl.png"/></p>
 <div class="admonition note info">
@@ -1664,19 +1664,19 @@ stored in core data. Make a similar call to see event records have now been sent
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Postman</label><label for="__tabbed_2_2">Curl</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Make a GET request to retrieve the <code>Event</code>s associated to the <code>countcamera1</code> device: <code>http://localhost:59880/api/v2/event/device/name/countcamera1</code>.</p>
-<p>Make a GET request to retrieve the <code>Reading</code>s associated to the <code>countcamera1</code> device: <code>http://localhost:59880/api/v2/reading/device/name/countcamera1</code>.</p>
+<p>Make a GET request to retrieve the <code>Event</code>s associated to the <code>countcamera1</code> device: <code>http://localhost:59880/api/v3/event/device/name/countcamera1</code>.</p>
+<p>Make a GET request to retrieve the <code>Reading</code>s associated to the <code>countcamera1</code> device: <code>http://localhost:59880/api/v3/reading/device/name/countcamera1</code>.</p>
 </div>
 <div class="tabbed-block">
 <p>Make a curl GET requests to retrieve 10 of the last <code>Event</code>s associated to the <code>countcamera1</code> device and to retrieve 10 of the human count readings associated to <code>countcamera1</code></p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:59880/api/v2/event/device/name/countcamera1<span class="w"> </span><span class="p">|</span><span class="w"> </span>json_pp
-curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:59880/api/v2/reading/device/name/countcamera1<span class="w"> </span><span class="p">|</span><span class="w"> </span>json_pp
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:59880/api/v3/event/device/name/countcamera1<span class="w"> </span><span class="p">|</span><span class="w"> </span>json_pp
+curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:59880/api/v3/reading/device/name/countcamera1<span class="w"> </span><span class="p">|</span><span class="w"> </span>json_pp
 </code></pre></div>
 </div>
 </div>
 </input></input></div>
 <p>There are <a href="../../api/core/Ch-APICoreData">many additional APIs on core data</a> to retrieve <code>Event</code> and <code>Reading</code> data. As an example, here is one to find all events inside of a start and end time range.</p>
-<div class="highlight"><pre><span></span><code>curl -X GET localhost:59880/api/v2/event/start/1602168089665560000/end/1602168089665570000 | json_pp
+<div class="highlight"><pre><span></span><code>curl -X GET localhost:59880/api/v3/event/start/1602168089665560000/end/1602168089665570000 | json_pp
 </code></pre></div>
 <p><a class="md-button" href="../Ch-WalkthroughCommands/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughExporting/">Next&gt;</a></p>
 </article>

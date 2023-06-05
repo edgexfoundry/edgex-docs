@@ -1593,7 +1593,7 @@ way that enables simplified communications with the devices for</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Postman</label><label for="__tabbed_1_2">Curl</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Make a GET request to <code>http://localhost:59882/api/v2/device/name/countcamera1</code>.</p>
+<p>Make a GET request to <code>http://localhost:59882/api/v3/device/name/countcamera1</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Please note the change in port for the command request above.  We are no longer calling on core metadata in this part of the walkthrough.  The command micro service is at port 59882 by default.</p>
@@ -1602,7 +1602,7 @@ way that enables simplified communications with the devices for</p>
 </div>
 <div class="tabbed-block">
 <p>Make a curl GET request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:59882/api/v2/device/name/countcamera1<span class="w"> </span><span class="p">|</span><span class="w"> </span>json_pp
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:59882/api/v3/device/name/countcamera1<span class="w"> </span><span class="p">|</span><span class="w"> </span>json_pp
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1624,11 +1624,11 @@ core data.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Postman</label><label for="__tabbed_2_2">Curl</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Make a GET request to <code>http://localhost:59880/api/v2/event/count/device/name/countcamera1</code>.</p>
+<p>Make a GET request to <code>http://localhost:59880/api/v3/event/count/device/name/countcamera1</code>.</p>
 </div>
 <div class="tabbed-block">
 <p>Make a curl GET request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:59880/api/v2/event/count/device/name/countcamera1
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>localhost:59880/api/v3/event/count/device/name/countcamera1
 </code></pre></div>
 </div>
 </div>
@@ -1661,7 +1661,7 @@ highlighted - yours will vary based on IDs.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">Postman</label><label for="__tabbed_3_2">Curl</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Make a PUT request to <code>http://localhost:59882/api/v2/device/name/countcamera1/ScanDepth</code> with the following body.</p>
+<p>Make a PUT request to <code>http://localhost:59882/api/v3/device/name/countcamera1/ScanDepth</code> with the following body.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"depth"</span><span class="p">:</span><span class="s2">"9"</span><span class="p">}</span>
 </code></pre></div>
 <div class="admonition warning">
@@ -1671,7 +1671,7 @@ highlighted - yours will vary based on IDs.</p>
 </div>
 <div class="tabbed-block">
 <p>Make a curl PUT request as shown below.</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{"depth":"9"}'</span><span class="w"> </span>localhost:59882/api/v2/device/name/countcamera1/ScanDepth
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{"depth":"9"}'</span><span class="w"> </span>localhost:59882/api/v3/device/name/countcamera1/ScanDepth
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1688,7 +1688,7 @@ non-existent device service (at the address provided for the device service - de
 <p><div class="highlight"><pre><span></span><code>docker<span class="w"> </span>logs<span class="w"> </span>edgex-core-command
 </code></pre></div>
 The last lines of the log entries should highlight the attempt to contact the non-existent device.</p>
-<div class="highlight"><pre><span></span><code>level=ERROR ts=2021-09-16T20:50:09.965368572Z app=core-command source=http.go:47 X-Correlation-ID=49cc97f5-1e84-4a46-9eb5-543ae8bd5284 msg="failed to send a http request -&gt; Put \"camera-device-service:59990/api/v2/device/name/countcamera1/ScanDepth?\": unsupported protocol scheme \"camera-device-service\""
+<div class="highlight"><pre><span></span><code>level=ERROR ts=2021-09-16T20:50:09.965368572Z app=core-command source=http.go:47 X-Correlation-ID=49cc97f5-1e84-4a46-9eb5-543ae8bd5284 msg="failed to send a http request -&gt; Put \"camera-device-service:59990/api/v3/device/name/countcamera1/ScanDepth?\": unsupported protocol scheme \"camera-device-service\""
 ...
 </code></pre></div>
 <p><a class="md-button" href="../Ch-WalkthroughProvision/">&lt;Back</a> <a class="md-button" href="../Ch-WalkthroughReading/">Next&gt;</a></p>
