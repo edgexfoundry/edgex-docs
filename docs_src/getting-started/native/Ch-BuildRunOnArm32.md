@@ -307,8 +307,8 @@ Press the `Pause` button to stop this display of data.  Notice that you can see 
 Each EdgeX micro service has a REST API associated with it.  You can use curl or a browser to test that the service is up using its `ping` API.  Below are curl commands to "ping" both core data and core metadata.
 
 ``` Shell
-  curl http://localhost:59880/api/v2/ping
-  curl http://localhost:59881/api/v2/ping
+  curl http://localhost:59880/api/{{api_version}}/ping
+  curl http://localhost:59881/api/{{api_version}}/ping
 ```
 
 Each service should respond with JSON data to indicate it is able to respond to requests.  Below is an example response from the core metadata "Ping" request.
@@ -322,7 +322,7 @@ See [the service port reference page](../general/../../general/ServicePorts.md) 
 As an added test, use curl to get the count of the number of events persisted by core data with the command below (you can also use a browser with the URL to get the same).
 
 ``` Shell
-curl http://localhost:59880/api/v2/event/count
+curl http://localhost:59880/api/{{api_version}}/event/count
 ```
 
 The response will indicate a "count" of events stored (in this case 6270).

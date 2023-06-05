@@ -76,7 +76,7 @@ Device profiles define general characteristics about devices, the data they prov
     
     The device service allows access to the device resources via REST endpoint.  Values specified in the device resources section of the device profile can be accessed through the following URL patterns:
     
-    -  http://<device-service>:<port>/api/v2/device/name/<DeviceName>/<DeviceResourceName>
+    -  http://<device-service>:<port>/api/{{api_version}}/device/name/<DeviceName>/<DeviceResourceName>
 
 === "Attributes"
 
@@ -155,7 +155,7 @@ Device profiles define general characteristics about devices, the data they prov
     
     The device commands can also be accessed through a device service’s REST API in a similar manner as described for device resources.
     
-    - http://<device-service>:<port>/api/v2/device/name/<DeviceName>/<DeviceCommandName>
+    - http://<device-service>:<port>/api/{{api_version}}/device/name/<DeviceName>/<DeviceCommandName>
     
     If a device command and device resource have the same name, it will be the device command which is available.
 

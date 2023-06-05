@@ -183,7 +183,7 @@ go directly to the service's localhost-mapped port,
 and pass the JWT as an HTTP `Authorization` header:
 
 ```shell
-curl -H"Authorization: Bearer ${id_token}" "http://localhost:59xxx/api/v2/version"
+curl -H"Authorization: Bearer ${id_token}" "http://localhost:59xxx/api/{{api_version}}/version"
 ```
 
 ##### Remote Calls to Services via API Gateway
@@ -206,7 +206,7 @@ and `SERVICENAME` is the name of the EdgeX service
 that is being proxied by the API gateway, such as `core-data`:
 
 ```shell
-curl --cacert ca.crt -H"Authorization: Bearer ${id_token}" "https://`hostname --fqdn`:8443/SERVICENAME/api/v2/version"
+curl --cacert ca.crt -H"Authorization: Bearer ${id_token}" "https://`hostname --fqdn`:8443/SERVICENAME/api/{{api_version}}/version"
 ```
 
 This is identical to what was done in EdgeX versions prior to 3.0.
