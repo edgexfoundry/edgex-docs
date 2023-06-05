@@ -111,7 +111,7 @@ Because setting a light or buzzer requires both of the control state and timer O
 You will need to upload this profile into core metadata.  Download the [Patlite device profile](patlite-snmp.yml) to a convenient directory.  Then, using the following `curl` command, request the profile be uploaded into core metadata.
 
 ``` Shell
-curl -X 'POST' 'http://localhost:59881/api/v2/deviceprofile/uploadfile' --form 'file=@"/home/yourfilelocationhere/patlite-snmp.yml"'
+curl -X 'POST' 'http://localhost:59881/api/v3/deviceprofile/uploadfile' --form 'file=@"/home/yourfilelocationhere/patlite-snmp.yml"'
 ```
 
 !!! Alert
@@ -127,7 +127,7 @@ The curl command to POST the new Patlite device (named `patlite1`) into metadata
 
 
 ``` Shell
-curl -X 'POST' 'http://localhost:59881/api/v2/device' -d '[{"apiVersion": "v2", "device": {"name": "patlite1","description": "patlite #1","adminState": "UNLOCKED","operatingState": "UP","labels": ["patlite"],"serviceName": "device-snmp","profileName": "patlite-snmp-profile","protocols": {"TCP": {"Address": "10.0.0.14","Port": "161"}}, "AutoEvents":[{"Interval":"10s","OnChange":true,"SourceName":"RedLightCurrentState"}, {"Interval":"10s","OnChange":true,"SourceName":"GreenLightCurrentState"}, {"Interval":"10s","OnChange":true,"SourceName":"AmberLightCurrentState"}, {"Interval":"10s","OnChange":true,"SourceName":"BuzzerCurrentState"}]}}]'
+curl -X 'POST' 'http://localhost:59881/api/v3/device' -d '[{"apiVersion": "v3", "device": {"name": "patlite1","description": "patlite #1","adminState": "UNLOCKED","operatingState": "UP","labels": ["patlite"],"serviceName": "device-snmp","profileName": "patlite-snmp-profile","protocols": {"TCP": {"Address": "10.0.0.14","Port": "161"}}, "AutoEvents":[{"Interval":"10s","OnChange":true,"SourceName":"RedLightCurrentState"}, {"Interval":"10s","OnChange":true,"SourceName":"GreenLightCurrentState"}, {"Interval":"10s","OnChange":true,"SourceName":"AmberLightCurrentState"}, {"Interval":"10s","OnChange":true,"SourceName":"BuzzerCurrentState"}]}}]'
 ```
 
 !!! Info
@@ -143,7 +143,7 @@ If the device service is up and running and the profile and device have been add
 To get the current state of a light (in the example below the `Green` light), make a curl request like the following of the command service.
 
 ``` Shell
-curl 'http://localhost:59882/api/v2/device/name/patlite1/GreenLightCurrentState' | json_pp
+curl 'http://localhost:59882/api/v3/device/name/patlite1/GreenLightCurrentState' | json_pp
 ```
 
 !!! Alert
@@ -193,7 +193,7 @@ The results should look something like that below.
 To turn a signal tower light or the buzzer on, you can issue a PUT device command via the core command service.  The example below turns on the `Green` light.
 
 ``` Shell
-curl --location --request PUT 'http://localhost:59882/api/v2/device/name/patlite1/GreenLight' --header 'cont: application/json' --data-raw '{"GreenLightControlState":"2","GreenLightTimer":"0"}'
+curl --location --request PUT 'http://localhost:59882/api/v3/device/name/patlite1/GreenLight' --header 'cont: application/json' --data-raw '{"GreenLightControlState":"2","GreenLightTimer":"0"}'
 ```
 
 ![image](EdgeX_Patlite_Green_On.jpg)

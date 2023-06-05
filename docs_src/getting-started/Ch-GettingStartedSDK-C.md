@@ -229,13 +229,13 @@ sends to EdgeX.
     service directly:
 
     ``` bash
-    curl 0:59992/api/v2/device/name/RandNum-Device01/RandomNumber
+    curl 0:59992/api/v3/device/name/RandNum-Device01/RandomNumber
     ```
 
 6.  Using a browser, enter the following URL to see the event/reading
     data that the service is generating and sending to EdgeX:
 
-    <http://localhost:59880/api/v2/event/device/name/RandNum-Device01?limit=100>
+    <http://localhost:59880/api/v3/event/device/name/RandNum-Device01?limit=100>
 
     This request asks core data to provide the last 100 events/readings associated to the RandNum-Device-01.
 

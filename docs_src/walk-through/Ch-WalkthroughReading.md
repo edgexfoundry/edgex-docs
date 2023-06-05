@@ -31,13 +31,13 @@ Use either the Postman or Curl tab below to walkthrough sending an `Event` with 
 
 === "Postman"
 
-    Make a POST request to `http://localhost:59880/api/v2/event/camera-monitor-profile/countcamera1/HumanCount with the body below.
+    Make a POST request to `http://localhost:59880/api/v3/event/camera-monitor-profile/countcamera1/HumanCount with the body below.
 
     ``` json
             {
-                "apiVersion": "v2",
+                "apiVersion": "v3",
                 "event": {
-                    "apiVersion": "v2",
+                    "apiVersion": "v3",
                     "deviceName": "countcamera1",
                     "profileName": "camera-monitor-profile",
                     "sourceName": "HumanCount",
@@ -79,7 +79,7 @@ Use either the Postman or Curl tab below to walkthrough sending an `Event` with 
     Make a curl POST request as shown below.
 
     ``` shell
-    curl -X POST -d '{"apiVersion": "v2","event": {"apiVersion": "v2","deviceName": "countcamera1","profileName": "camera-monitor-profile","sourceName": "HumanCount","id":"d5471d59-2810-419a-8744-18eb8fa03464","origin": 1602168089665565200,"readings": [{"id": "7003cacc-0e00-4676-977c-4e58b9612abc","origin": 1602168089665565200,"deviceName": "countcamera1","resourceName": "HumanCount","profileName": "camera-monitor-profile","valueType": "Int16","value": "5"},{"id": "7003cacc-0e00-4676-977c-4e58b9612abf","origin":1602168089665565200,"deviceName": "countcamera1","resourceName": "CanineCount","profileName": "camera-monitor-profile","valueType": "Int16","value": "3"}]}}' localhost:59880/api/v2/event/camera-monitor-profile/countcamera1/HumanCount
+    curl -X POST -d '{"apiVersion": "v3","event": {"apiVersion": "v3","deviceName": "countcamera1","profileName": "camera-monitor-profile","sourceName": "HumanCount","id":"d5471d59-2810-419a-8744-18eb8fa03464","origin": 1602168089665565200,"readings": [{"id": "7003cacc-0e00-4676-977c-4e58b9612abc","origin": 1602168089665565200,"deviceName": "countcamera1","resourceName": "HumanCount","profileName": "camera-monitor-profile","valueType": "Int16","value": "5"},{"id": "7003cacc-0e00-4676-977c-4e58b9612abf","origin":1602168089665565200,"deviceName": "countcamera1","resourceName": "CanineCount","profileName": "camera-monitor-profile","valueType": "Int16","value": "3"}]}}' localhost:59880/api/v3/event/camera-monitor-profile/countcamera1/HumanCount
     ```
 
     ![image](EdgeX_WalkthroughSendEvent_Curl.png)
@@ -118,23 +118,23 @@ Use either the Postman or Curl tab below to walkthrough getting the list of even
 
 === "Postman"
 
-    Make a GET request to retrieve the `Event`s associated to the `countcamera1` device: `http://localhost:59880/api/v2/event/device/name/countcamera1`.
+    Make a GET request to retrieve the `Event`s associated to the `countcamera1` device: `http://localhost:59880/api/v3/event/device/name/countcamera1`.
 
-    Make a GET request to retrieve the `Reading`s associated to the `countcamera1` device: `http://localhost:59880/api/v2/reading/device/name/countcamera1`.
+    Make a GET request to retrieve the `Reading`s associated to the `countcamera1` device: `http://localhost:59880/api/v3/reading/device/name/countcamera1`.
 
 === "Curl"
 
     Make a curl GET requests to retrieve 10 of the last `Event`s associated to the `countcamera1` device and to retrieve 10 of the human count readings associated to `countcamera1`
 
     ``` shell
-    curl -X GET localhost:59880/api/v2/event/device/name/countcamera1 | json_pp
-    curl -X GET localhost:59880/api/v2/reading/device/name/countcamera1 | json_pp
+    curl -X GET localhost:59880/api/v3/event/device/name/countcamera1 | json_pp
+    curl -X GET localhost:59880/api/v3/reading/device/name/countcamera1 | json_pp
     ```
 
 There are [many additional APIs on core data](../../api/core/Ch-APICoreData) to retrieve `Event` and `Reading` data. As an example, here is one to find all events inside of a start and end time range.
 
 ``` shel
-curl -X GET localhost:59880/api/v2/event/start/1602168089665560000/end/1602168089665570000 | json_pp
+curl -X GET localhost:59880/api/v3/event/start/1602168089665560000/end/1602168089665570000 | json_pp
 ```
 
 [<Back](Ch-WalkthroughCommands.md){: .md-button } [Next>](Ch-WalkthroughExporting.md){: .md-button }

@@ -30,12 +30,12 @@ Use either the Postman or Curl tab below to walkthrough creating the `Device`.
 
 === "Postman"
 
-    Make a POST request to `http://localhost:59881/api/v2/device` with the following body:
+    Make a POST request to `http://localhost:59881/api/v3/device` with the following body:
 
     ``` json
         [
             {
-                "apiVersion": "v2",
+                "apiVersion": "v3",
                 "device": {
                     "name": "countcamera1",
                     "description": "human and dog counting camera #1",
@@ -69,7 +69,7 @@ Use either the Postman or Curl tab below to walkthrough creating the `Device`.
     Make a curl POST request as shown below.
 
     ``` shell
-    curl -X 'POST' 'http://localhost:59881/api/v2/device' -d '[{"apiVersion": "v2", "device": {"name": "countcamera1","description": "human and dog counting camera #1","adminState": "UNLOCKED","operatingState": "UP","labels": ["camera","counter"],"location": "{lat:45.45,long:47.80}","serviceName": "camera-control-device-service","profileName": "camera-monitor-profile","protocols": {"camera-protocol": {"camera-address": "localhost","port": "1234","unitID": "1"}}}}]'
+    curl -X 'POST' 'http://localhost:59881/api/v3/device' -d '[{"apiVersion": "v3", "device": {"name": "countcamera1","description": "human and dog counting camera #1","adminState": "UNLOCKED","operatingState": "UP","labels": ["camera","counter"],"location": "{lat:45.45,long:47.80}","serviceName": "camera-control-device-service","profileName": "camera-monitor-profile","protocols": {"camera-protocol": {"camera-address": "localhost","port": "1234","unitID": "1"}}}}]'
     ```
 
     If your API call is successful, you will get a generated ID (a UUID) for your new `Device`.
@@ -79,13 +79,13 @@ Use either the Postman or Curl tab below to walkthrough creating the `Device`.
 
 #### Test the GET API
 
-Ensure the monitor camera is among the devices known to core metadata.  If you make a GET call to the `http://localhost:59881/api/v2/device/all` URL (with Postman or curl) you will get a listing (in JSON) of all the devices currently defined in your instance of EdgeX that should include the one you just added.
+Ensure the monitor camera is among the devices known to core metadata.  If you make a GET call to the `http://localhost:59881/api/v3/device/all` URL (with Postman or curl) you will get a listing (in JSON) of all the devices currently defined in your instance of EdgeX that should include the one you just added.
 
 There are many [additional APIs on core metadata](../../api/core/Ch-APICoreMetadata) to retrieve a `DeviceProfile`, `Device`, `DeviceService`, etc. As an example, here is one to find
 all devices associated to a given `DeviceProfile`.
 
 ``` shell
-curl -X GET http://localhost:59881/api/v2/device/profile/name/camera-monitor-profile | json_pp
+curl -X GET http://localhost:59881/api/v3/device/profile/name/camera-monitor-profile | json_pp
 ```
 
 [<Back](Ch-WalkthroughDeviceService.md){: .md-button } [Next>](Ch-WalkthroughCommands.md){: .md-button }

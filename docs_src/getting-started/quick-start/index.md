@@ -71,7 +71,7 @@ curl http://localhost:59882/api/v2/device/name/Random-Integer-Device
 This will return a lot of JSON, because there are a number of commands you can call on this device, but the commands we're going to use in this guide are `Int16` (the comand to get the current integer 16 value) and `WriteInt16Value` (the command to disable the generation of the random integer 16 number and specify the integer value to return).  Look for the `Int16` and `WriteInt16Value` commands like those shown in the JSON as below:
 ``` json
 {
-    "apiVersion": "v2",
+    "apiVersion": "v3",
     "statusCode": 200,
     "deviceCoreCommand": {
         "deviceName": "Random-Integer-Device",
@@ -122,10 +122,10 @@ curl http://localhost:59882/api/v2/device/name/Random-Integer-Device/Int16
 This command will return a JSON result that looks like this:
 ``` json
 {
-    "apiVersion": "v2",
+    "apiVersion": "v3",
     "statusCode": 200,
     "event": {
-        "apiVersion": "v2",
+        "apiVersion": "v3",
         "id": "6d829637-730c-4b70-9208-dc179070003f",
         "deviceName": "Random-Integer-Device",
         "profileName": "Random-Integer-Device",

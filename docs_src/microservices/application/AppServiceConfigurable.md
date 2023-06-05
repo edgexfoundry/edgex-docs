@@ -270,7 +270,7 @@ The default `TargetType` for data flowing into the functions pipeline is an Edge
               MimeType: "application/text"
     ```
 
-If along with this pipeline configuration, you also configured the `Trigger` to be `http` trigger,  you could then send any data to the app-service-configurable' s `/api/v2/trigger` endpoint and have it compressed, encrypted and sent to your configured URL above.
+If along with this pipeline configuration, you also configured the `Trigger` to be `http` trigger,  you could then send any data to the app-service-configurable' s `/api/v3/trigger` endpoint and have it compressed, encrypted and sent to your configured URL above.
 
 !!! example "Example - HTTP Trigger configuration"
     ```yaml

@@ -34,19 +34,19 @@ If you're going to download the source code and run the virtual device service i
 The virtual device service is configured to send simulated data to core data every few seconds (from 10-30 seconds depending on device - see the [device configuration file](https://github.com/edgexfoundry/device-virtual-go/blob/{{version}}/cmd/res/devices/devices.yaml) for AutoEvent details).  You can exercise the `GET` request on the command service to see the generated value produced by any of the virtual device's simulated devices.  Use the curl command below to exercise the virtual device service API (via core command service).
 
 ``` bash
-curl -X GET localhost:59882/api/v2/device/name/Random-Integer-Device/Int8
+curl -X GET localhost:59882/api/v3/device/name/Random-Integer-Device/Int8
 ```
 
 !!! Warning
-  The example above assumes your core command service is available on `localhost` at the default service port of 59882.  Also, you must replace your device name and command name in the example above with your virtual device service's identifiers.  If you are not sure of the identifiers to use, query the command service for the full list of commands and devices at `http://localhost:59882/api/v2/device/all`.
+  The example above assumes your core command service is available on `localhost` at the default service port of 59882.  Also, you must replace your device name and command name in the example above with your virtual device service's identifiers.  If you are not sure of the identifiers to use, query the command service for the full list of commands and devices at `http://localhost:59882/api/v3/device/all`.
 
 The virtual device should respond (via the core command service) with event/reading JSON similar to that below.
 ``` json
 {
-  "apiVersion": "v2",
+  "apiVersion": "v3",
   "statusCode": 200,
   "event": {
-    "apiVersion": "v2",
+    "apiVersion": "v3",
     "id": "3beb5b83-d923-4c8a-b949-c1708b6611c1",
     "deviceName": "Random-Integer-Device",
     "profileName": "Random-Integer-Device",
@@ -75,7 +75,7 @@ The virtual devices managed by the virtual device can also be actuated.  The vir
 Below is example actuation of one of the virtual devices.  In this example, it sets the fixed `GET` return value to 123 and turns off random generation.
 
 ``` bash
-curl -X PUT -d '{"Int8": "123", "EnableRandomization_Int8": "false"}' localhost:59882/api/v2/device/name/Random-Integer-Device/Int8
+curl -X PUT -d '{"Int8": "123", "EnableRandomization_Int8": "false"}' localhost:59882/api/v3/device/name/Random-Integer-Device/Int8
 ```
 
 !!! Note
@@ -84,7 +84,7 @@ curl -X PUT -d '{"Int8": "123", "EnableRandomization_Int8": "false"}' localhost:
 Return the virtual device to randomly generating numbers with another `PUT` call.
 
 ``` bash
-curl -X PUT -d '{"EnableRandomization_Int8": "true"}' localhost:59882/api/v2/device/name/Random-Integer-Device/Int8
+curl -X PUT -d '{"EnableRandomization_Int8": "true"}' localhost:59882/api/v3/device/name/Random-Integer-Device/Int8
 ```
 
 ## Reference
