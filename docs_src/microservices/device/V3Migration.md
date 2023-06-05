@@ -113,8 +113,8 @@ Once that is complete then the import statements for these dependencies must be 
     - Add `ProvisionWatchersDir` configuration to support adding provision watchers during device service startup.
     - Remove `UpdateLastConnected` from configuration.
     - Remove `UseMessageBus` from configuration. MessageBus is always enabled in 3.0 for sending events and receiving system events for callbacks.
-    - Remove Common config settings from configuration. See [V3 Migration of Common Configuration](../configuration/V3MigrationCommonConfig) for details.
-    - Internal topics no longer configurable. See [V3 Migration of Common Configuration](../configuration/V3MigrationCommonConfig#messagebus) for details.
+    - Remove Common config settings from configuration. See [V3 Migration of Common Configuration](../../configuration/V3MigrationCommonConfig) for details.
+    - Internal topics no longer configurable. See [V3 Migration of Common Configuration](../../configuration/V3MigrationCommonConfig#messagebus) for details.
 3. ProtocolDriver interface changes:
     - Add `Start` method. The `Start` method is called after the device service is completely initialized, allowing the service to run startup tasks.
     - Add `Discover` method. The `Discover` method triggers protocol specific device discovery, asynchronously writes the results to the channel which is passed to the implementation via `ProtocolDriver.Initialize()`. The results may be added to the device service based on a set of acceptance criteria (i.e. Provision Watchers).
@@ -151,7 +151,43 @@ Once that is complete then the import statements for these dependencies must be 
 
 ### C Device Services
 
-TBD
+1. There is a new dependency on IOTech's C Utilities which should be satisfied
+by installing the relevant package. Previous versions built the utilities into
+the SDK library. Installation instructions for the utility package may be found
+in the [C SDK repository](https://github.com/edgexfoundry/device-sdk-c/blob/v3.0.1/README.IOT.md).
+
+2. Configuration file changes:
+    - The configuration file is now in YAML format, and the default file name is configuration.yaml.
+    - Remove `UseMessageBus` from configuration. MessageBus is always enabled in 3.0 for sending events and receiving system events for callbacks.
+    - Internal topics no longer configurable. See [V3 Migration of Common Configuration](../../configuration/V3MigrationCommonConfig#messagebus) for details.
+
+3. The `type` field in both `devsdk_resource_t` and `devsdk_device_resources`
+is now an `iot_typecode_t` rather than a pointer to one. Additionally the
+`type` field in `edgex_resourceoperation` is an `iot_typecode_t`.
+
+4. The `edgex_propertytype` enum and the functions for obtaining one from
+`iot_data_t` have been removed. Instead, first consult the `type` field of
+an `iot_typecode_t`. This is an instance of the `iot_data_type_t` enumeration,
+the enumerands of which are similar to the EdgeX types, except that there are
+some additional values (not used in the C SDK) such as Vectors and Pointers,
+and there is a singular Array type. The type of array elements is held in the
+`element_type` field of the `iot_typecode_t`.
+
+5. Binary data is now supported directly in the utilities, so instead of
+allocating an array of uint8, the `iot_data_alloc_binary` function is available.
+
+6. Add additional level in event publish topic for device service name. The topic is now `<PublishTopicPrefix>/<device-service-name>/<device-profile-name>/<device-name>/<source-name>`
+
+7. The following REST callback endpoints are removed and replaced by the [System Events](../core/metadata/Ch-Metadata.md#device-system-events) mechanism:
+    - `/validate/device`
+    - `/callback/service`
+    - `/callback/watcher`
+    - `/callback/watcher/name/{name}`
+    - `/callback/profile`
+    - `/callback/device`
+    - `/callback/device/name/{name}`
+
+8. Remove old metrics collection and REST `/metrics` endpoint.
 
 ## Supported Device Services
 
