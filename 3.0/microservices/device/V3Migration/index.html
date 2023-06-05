@@ -1858,8 +1858,8 @@
 <li>Add <code>ProvisionWatchersDir</code> configuration to support adding provision watchers during device service startup.</li>
 <li>Remove <code>UpdateLastConnected</code> from configuration.</li>
 <li>Remove <code>UseMessageBus</code> from configuration. MessageBus is always enabled in 3.0 for sending events and receiving system events for callbacks.</li>
-<li>Remove Common config settings from configuration. See <a href="../configuration/V3MigrationCommonConfig">V3 Migration of Common Configuration</a> for details.</li>
-<li>Internal topics no longer configurable. See <a href="../configuration/V3MigrationCommonConfig#messagebus">V3 Migration of Common Configuration</a> for details.</li>
+<li>Remove Common config settings from configuration. See <a href="../../configuration/V3MigrationCommonConfig">V3 Migration of Common Configuration</a> for details.</li>
+<li>Internal topics no longer configurable. See <a href="../../configuration/V3MigrationCommonConfig#messagebus">V3 Migration of Common Configuration</a> for details.</li>
 </ul>
 </li>
 <li>ProtocolDriver interface changes:<ul>
@@ -1903,7 +1903,58 @@
 <li>Remove ZeroMQ MessageBus capability.</li>
 </ol>
 <h3 id="c-device-services">C Device Services</h3>
-<p>TBD</p>
+<ol>
+<li>
+<p>There is a new dependency on IOTech's C Utilities which should be satisfied
+by installing the relevant package. Previous versions built the utilities into
+the SDK library. Installation instructions for the utility package may be found
+in the <a href="https://github.com/edgexfoundry/device-sdk-c/blob/v3.0.1/README.IOT.md">C SDK repository</a>.</p>
+</li>
+<li>
+<p>Configuration file changes:</p>
+<ul>
+<li>The configuration file is now in YAML format, and the default file name is configuration.yaml.</li>
+<li>Remove <code>UseMessageBus</code> from configuration. MessageBus is always enabled in 3.0 for sending events and receiving system events for callbacks.</li>
+<li>Internal topics no longer configurable. See <a href="../../configuration/V3MigrationCommonConfig#messagebus">V3 Migration of Common Configuration</a> for details.</li>
+</ul>
+</li>
+<li>
+<p>The <code>type</code> field in both <code>devsdk_resource_t</code> and <code>devsdk_device_resources</code>
+is now an <code>iot_typecode_t</code> rather than a pointer to one. Additionally the
+<code>type</code> field in <code>edgex_resourceoperation</code> is an <code>iot_typecode_t</code>.</p>
+</li>
+<li>
+<p>The <code>edgex_propertytype</code> enum and the functions for obtaining one from
+<code>iot_data_t</code> have been removed. Instead, first consult the <code>type</code> field of
+an <code>iot_typecode_t</code>. This is an instance of the <code>iot_data_type_t</code> enumeration,
+the enumerands of which are similar to the EdgeX types, except that there are
+some additional values (not used in the C SDK) such as Vectors and Pointers,
+and there is a singular Array type. The type of array elements is held in the
+<code>element_type</code> field of the <code>iot_typecode_t</code>.</p>
+</li>
+<li>
+<p>Binary data is now supported directly in the utilities, so instead of
+allocating an array of uint8, the <code>iot_data_alloc_binary</code> function is available.</p>
+</li>
+<li>
+<p>Add additional level in event publish topic for device service name. The topic is now <code>&lt;PublishTopicPrefix&gt;/&lt;device-service-name&gt;/&lt;device-profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt;</code></p>
+</li>
+<li>
+<p>The following REST callback endpoints are removed and replaced by the <a href="../../core/metadata/Ch-Metadata/#device-system-events">System Events</a> mechanism:</p>
+<ul>
+<li><code>/validate/device</code></li>
+<li><code>/callback/service</code></li>
+<li><code>/callback/watcher</code></li>
+<li><code>/callback/watcher/name/{name}</code></li>
+<li><code>/callback/profile</code></li>
+<li><code>/callback/device</code></li>
+<li><code>/callback/device/name/{name}</code></li>
+</ul>
+</li>
+<li>
+<p>Remove old metrics collection and REST <code>/metrics</code> endpoint.</p>
+</li>
+</ol>
 <h2 id="supported-device-services">Supported Device Services</h2>
 <h3 id="device-mqtt">Device MQTT</h3>
 <p>This section is specific to changes made only to <strong>Device MQTT</strong>. </p>
