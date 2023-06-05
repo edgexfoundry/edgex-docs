@@ -1590,21 +1590,21 @@
 <p>EdgeX Foundry provides a <a href="https://github.com/edgexfoundry/device-virtual-go/tree/main">Virtual device service</a> which is useful for testing and development.  It simulates a number of <a href="../../general/Definitions/#Device">devices</a>, each randomly generating data of various types and within configurable parameters.  For example, the Random-Integer-Device will generate random integers.</p>
 <p>The Virtual Device (also known as Device Virtual) service is already a service pulled and running as part of the default EdgeX configuration.</p>
 <p>You can verify that Virtual Device readings are already being sent by querying the EdgeX core data service for the event records sent for Random-Integer-Device:
-<div class="highlight"><pre><span></span><code>curl http://localhost:59880/api/v2/event/device/name/Random-Integer-Device
+<div class="highlight"><pre><span></span><code>curl http://localhost:59880/api/v3/event/device/name/Random-Integer-Device
 </code></pre></div>
 <img alt="image" src="EdgeX_GettingStartedRandomIntegerData.png">
 <em>Verify the virtual device service is operating correctly by requesting the last event records received by core data for the Random-Integer-Device.</em></img></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>By default, the maximum number of events returned will be 20 (the default limit).  You can pass a <code>limit</code> parameter to get more or less event records.
-<div class="highlight"><pre><span></span><code>curl http://localhost:59880/api/v2/event/device/name/Random-Integer-Device?limit=50
+<div class="highlight"><pre><span></span><code>curl http://localhost:59880/api/v3/event/device/name/Random-Integer-Device?limit=50
 </code></pre></div></p>
 </div>
 <h2 id="controlling-the-device">Controlling the Device</h2>
 <p>Reading data from devices is only part of what EdgeX is capable of.  You can also use it to control your devices - this is termed <a href="../../general/Definitions/#Actuate">'actuating'</a> the device. When a device registers with the EdgeX services, it provides a <a href="../../microservices/device/profile/Ch-DeviceProfile/">Device Profile</a> that describes both the data readings available from that device, and also the commands that control it. </p>
 <p>When our Virtual Device service registered the device <code>Random-Integer-Device</code>, it used a <a href="https://github.com/edgexfoundry/device-virtual-go/blob/main/cmd/res/profiles/device.virtual.int.yaml">profile</a> to also define commands that allow you to tell the service not to generate random integers, but to always return a value you set.</p>
 <p>You won't call commands on devices directly, instead you use the EdgeX Foundry <a href="../../microservices/core/command/Ch-Command/">Command Service</a> to do that. The first step is to check what commands are available to call by asking the Command service about your device:
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v2/device/name/Random-Integer-Device
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v3/device/name/Random-Integer-Device
 </code></pre></div></p>
 <p>This will return a lot of JSON, because there are a number of commands you can call on this device, but the commands we're going to use in this guide are <code>Int16</code> (the comand to get the current integer 16 value) and <code>WriteInt16Value</code> (the command to disable the generation of the random integer 16 number and specify the integer value to return).  Look for the <code>Int16</code> and <code>WriteInt16Value</code> commands like those shown in the JSON as below:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -1617,7 +1617,7 @@
 <span class="w">            </span><span class="p">{</span>
 <span class="w">                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WriteInt16Value"</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"set"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v2/device/name/Random-Integer-Device/WriteInt16Value"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v3/device/name/Random-Integer-Device/WriteInt16Value"</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                    </span><span class="p">{</span>
@@ -1634,7 +1634,7 @@
 <span class="w">                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Int16"</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"get"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"set"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v2/device/name/Random-Integer-Device/Int16"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/v3/device/name/Random-Integer-Device/Int16"</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                    </span><span class="p">{</span>
@@ -1650,7 +1650,7 @@
 <span class="p">}</span>
 </code></pre></div>
 You'll notice that the commands have <code>get</code> or <code>set</code> (or both) options. A <strong>get</strong> call will return a random number (integer 16), and is what is being called automatically to send data into the rest of EdgeX (specifically core data). You can also call <strong>get</strong> manually using the URL provided (with no additinal parameters needed):
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v2/device/name/Random-Integer-Device/Int16
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v3/device/name/Random-Integer-Device/Int16
 </code></pre></div></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -1686,7 +1686,7 @@ You'll notice that the commands have <code>get</code> or <code>set</code> (or bo
 <p><img alt="image" src="EdgeX_GettingStartedCommandGet.png"/>
 <em>A call to GET of the Int16 device's Random-Integer-Device operation through the command service results in the next random value produced by the device in JSON format.</em></p>
 <p>The default range for this reading is -32,768 to 32,767.  In the example above, a value of <code>-8146</code> was returned as the reading value.  With the service set up to randomly return values, the value returned will be different each time the <code>Int16</code> command is sent.  However, we can use the <code>WriteInt16Value</code> command to disable random values from being returned and instead specify a value to return.  Use the curl command below to call the <strong>set</strong> command to disable random values and return the value <code>42</code> each time. </p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{"Int16":"42", "EnableRandomization_Int16":"false"}'</span><span class="w"> </span>http://localhost:59882/api/v2/device/name/Random-Integer-Device/WriteInt16Value
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{"Int16":"42", "EnableRandomization_Int16":"false"}'</span><span class="w"> </span>http://localhost:59882/api/v3/device/name/Random-Integer-Device/WriteInt16Value
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>

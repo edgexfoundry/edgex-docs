@@ -1959,15 +1959,15 @@ nohup<span class="w"> </span>./support-scheduler<span class="w"> </span>-cp<span
 <p>Press the <code>Pause</code> button to stop this display of data.  Notice that you can see the EdgeX Events (and associated Readings) or just the Readings with the two tabs on this <code>DataCenter</code> display.</p>
 <h3 id="check-edgex-service-api">Check EdgeX service API</h3>
 <p>Each EdgeX micro service has a REST API associated with it.  You can use curl or a browser to test that the service is up using its <code>ping</code> API.  Below are curl commands to "ping" both core data and core metadata.</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span>curl<span class="w"> </span>http://localhost:59880/api/v2/ping
-<span class="w">  </span>curl<span class="w"> </span>http://localhost:59881/api/v2/ping
+<div class="highlight"><pre><span></span><code><span class="w">  </span>curl<span class="w"> </span>http://localhost:59880/api/v3/ping
+<span class="w">  </span>curl<span class="w"> </span>http://localhost:59881/api/v3/ping
 </code></pre></div>
 <p>Each service should respond with JSON data to indicate it is able to respond to requests.  Below is an example response from the core metadata "Ping" request.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v2"</span><span class="p">,</span><span class="nt">"timestamp"</span><span class="p">:</span><span class="s2">"Thu May 12 23:25:04 UTC 2022"</span><span class="p">,</span><span class="nt">"serviceName"</span><span class="p">:</span><span class="s2">"core-metadata"</span><span class="p">}</span>
 </code></pre></div>
 <p>See <a href="../../../general/ServicePorts/">the service port reference page</a> for a list of service ports to check the <code>ping</code> API of other services.</p>
 <p>As an added test, use curl to get the count of the number of events persisted by core data with the command below (you can also use a browser with the URL to get the same).</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59880/api/v2/event/count
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59880/api/v3/event/count
 </code></pre></div>
 <p>The response will indicate a "count" of events stored (in this case 6270).</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v2"</span><span class="p">,</span><span class="nt">"statusCode"</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">"Count"</span><span class="p">:</span><span class="mi">6270</span><span class="p">}</span>

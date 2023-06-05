@@ -1788,7 +1788,7 @@ When the token eventually expires, obtain another token using the above process.
 <p>To call an EdgeX service directly from host context using a command-line interface,
 go directly to the service's localhost-mapped port,
 and pass the JWT as an HTTP <code>Authorization</code> header:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-H<span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:59xxx/api/v2/version"</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-H<span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:59xxx/api/v3/version"</span>
 </code></pre></div>
 <h5 id="remote-calls-to-services-via-api-gateway">Remote Calls to Services via API Gateway</h5>
 <p>Calling an EdgeX service from a remote machine using the EdgeX API gateway
@@ -1803,7 +1803,7 @@ looks similar to the above, with a few minor changes:</p>
 that is used to verify the TLS certificate presented by the API gateway,
 and <code>SERVICENAME</code> is the name of the EdgeX service
 that is being proxied by the API gateway, such as <code>core-data</code>:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--cacert<span class="w"> </span>ca.crt<span class="w"> </span>-H<span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"https://`hostname --fqdn`:8443/SERVICENAME/api/v2/version"</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--cacert<span class="w"> </span>ca.crt<span class="w"> </span>-H<span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"https://`hostname --fqdn`:8443/SERVICENAME/api/v3/version"</span>
 </code></pre></div>
 <p>This is identical to what was done in EdgeX versions prior to 3.0.
 The only thing that has changed is the method use to obtain the JWT.</p>
