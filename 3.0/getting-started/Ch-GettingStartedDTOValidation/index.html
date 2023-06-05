@@ -1511,7 +1511,7 @@
 <h1 id="dto-validation">DTO Validation</h1>
 <p>The <a href="https://github.com/edgexfoundry/go-mod-core-contracts/">go-mod-core-contracts</a> leverage the  <a href="https://github.com/go-playground/validator/">go-playground/validator</a> for DTO validation as it provides common validation function and customization mechanism.</p>
 <h2 id="tag-usage">Tag usage</h2>
-<p>EdgeX verifies the struct fields by using go-playground/validator validation tags or custom validation tags, for <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/main/dtos/device.go">example</a>:
+<p>EdgeX verifies the struct fields by using go-playground/validator validation tags or custom validation tags, for <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/v3.0/dtos/device.go">example</a>:
 <div class="highlight"><pre><span></span><code>type Device struct {
     DBTimestamp    `json:",inline"`
     Id             string                        `json:"id,omitempty" validate:"omitempty,uuid"`
@@ -1528,7 +1528,7 @@ The device name field contains the following validation:</p>
 <li><strong>edgex-dto-none-empty-string</strong> validation tag trims white space and ensures the value is not an empty string</li>
 <li><strong>edgex-dto-rfc3986-unreserved-chars</strong> validation tag checks the value that does not contain reserved characters</li>
 </ul>
-<p>You can find more validations in the <a href="https://pkg.go.dev/github.com/go-playground/validator/v10">go-playground/validator</a> and EdgeX custom validations in the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/main/common/validator.go">go-mod-core-contracts</a>.</p>
+<p>You can find more validations in the <a href="https://pkg.go.dev/github.com/go-playground/validator/v10">go-playground/validator</a> and EdgeX custom validations in the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/v3.0/common/validator.go">go-mod-core-contracts</a>.</p>
 <h2 id="character-restriction">Character restriction</h2>
 <p>The EdgeX uses the custom validation <strong>edgex-dto-rfc3986-unreserved-chars</strong> to prevent the user inputting the reserved characters.</p>
 <p>This validation allows for only the following characters:</p>
