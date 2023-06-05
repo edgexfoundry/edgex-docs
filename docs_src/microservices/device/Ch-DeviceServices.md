@@ -208,7 +208,7 @@ Each Device Service also has detailed configuration to enable connection to it's
 
 ##### Secure Mode
 
-When running an Device Service in secure mode, secrets can be stored in the SecretStore by making an HTTP `POST` call to the `/api/v3/secret` API route on the Device Service. The secret data POSTed is stored to the service's secure`SecretStore` . Once a secret is stored, only the service that added the secret will be able to retrieve it.  See the [Secret API Reference](../../api/devices/Ch-APIDeviceSDK.md#swagger) for more details and example.
+When running an Device Service in secure mode, secrets can be stored in the SecretStore by making an HTTP `POST` call to the `/api/{{api_version}}/secret` API route on the Device Service. The secret data POSTed is stored to the service's secure`SecretStore` . Once a secret is stored, only the service that added the secret will be able to retrieve it.  See the [Secret API Reference](../../api/devices/Ch-APIDeviceSDK.md#swagger) for more details and example.
 
 ##### Insecure Mode
 

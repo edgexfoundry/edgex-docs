@@ -38,14 +38,14 @@ curl -X POST \
 Since both use case scenario rules will send commands to the `Random-Boolean-Device` virtual device, use the curl request below to get a list of available commands for this device.
 
 ``` bash
-curl http://127.0.0.1:59882/api/v3/device/name/Random-Boolean-Device | jq
+curl http://127.0.0.1:59882/api/{{api_version}}/device/name/Random-Boolean-Device | jq
 ```
 
 It should print results like those below.
 
 ``` json
 {
-  "apiVersion": "v3",
+  "apiVersion" : "{{api_version}}",
   "statusCode": 200,
   "deviceCoreCommand": {
     "deviceName": "Random-Boolean-Device",
@@ -54,7 +54,7 @@ It should print results like those below.
       {
         "name": "WriteBoolValue",
         "set": true,
-        "path": "/api/v3/device/name/Random-Boolean-Device/WriteBoolValue",
+        "path": "/api/{{api_version}}/device/name/Random-Boolean-Device/WriteBoolValue",
         "url": "http://edgex-core-command:59882",
         "parameters": [
           {
@@ -70,7 +70,7 @@ It should print results like those below.
       {
         "name": "WriteBoolArrayValue",
         "set": true,
-        "path": "/api/v3/device/name/Random-Boolean-Device/WriteBoolArrayValue",
+        "path": "/api/{{api_version}}/device/name/Random-Boolean-Device/WriteBoolArrayValue",
         "url": "http://edgex-core-command:59882",
         "parameters": [
           {
@@ -87,7 +87,7 @@ It should print results like those below.
         "name": "Bool",
         "get": true,
         "set": true,
-        "path": "/api/v3/device/name/Random-Boolean-Device/Bool",
+        "path": "/api/{{api_version}}/device/name/Random-Boolean-Device/Bool",
         "url": "http://edgex-core-command:59882",
         "parameters": [
           {
@@ -100,7 +100,7 @@ It should print results like those below.
         "name": "BoolArray",
         "get": true,
         "set": true,
-        "path": "/api/v3/device/name/Random-Boolean-Device/BoolArray",
+        "path": "/api/{{api_version}}/device/name/Random-Boolean-Device/BoolArray",
         "url": "http://edgex-core-command:59882",
         "parameters": [
           {
@@ -123,7 +123,7 @@ You can test calling this command with its parameters using curl as shown below.
 
 ``` bash
 curl -X PUT \
-  http://edgex-core-command:59882/api/v3/device/name/Random-Boolean-Device/WriteBoolValue \
+  http://edgex-core-command:59882/api/{{api_version}}/device/name/Random-Boolean-Device/WriteBoolValue \
   -H 'Content-Type: application/json' \
   -d '{"Bool":"true", "EnableRandomization_Bool": "true"}'
 ```
@@ -146,7 +146,7 @@ curl -X POST \
   "actions": [
     {
       "rest": {
-        "url": "http://edgex-core-command:59882/api/v3/device/name/Random-Boolean-Device/WriteBoolValue",
+        "url": "http://edgex-core-command:59882/api/{{api_version}}/device/name/Random-Boolean-Device/WriteBoolValue",
         "method": "put",
         "dataTemplate": "{\"Bool\":\"true\", \"EnableRandomization_Bool\": \"true\"}",
         "sendSingle": true
@@ -173,7 +173,7 @@ curl -X POST \
   "actions": [
     {
       "rest": {
-        "url": "http://edgex-core-command:59882/api/v3/device/name/Random-Boolean-Device/WriteBoolValue",
+        "url": "http://edgex-core-command:59882/api/{{api_version}}/device/name/Random-Boolean-Device/WriteBoolValue",
         "method": "put",
         "dataTemplate": "{\"Bool\":\"false\", \"EnableRandomization_Bool\": \"false\"}",
         "sendSingle": true

@@ -10,11 +10,11 @@ This SDK provides the capability to define the functions pipeline via configurat
 
 It is not uncommon to require your own custom REST endpoints when building an Application Service. Rather than spin up your own webserver inside of your app (alongside the already existing running webserver), we've exposed a method that allows you add your own routes to the existing webserver. A few routes are reserved and cannot be used:
 
-- /api/v3/version
-- /api/v3/ping
-- /api/v3/config
-- /api/v3/trigger
-- /api/v3/secret
+- /api/{{api_version}}/version
+- /api/{{api_version}}/ping
+- /api/{{api_version}}/config
+- /api/{{api_version}}/trigger
+- /api/{{api_version}}/secret
 
 To add your own route, use the `AddRoute()` API provided on the `ApplicationService` interface. 
 
@@ -281,7 +281,7 @@ All instances of App Services running in secure mode require a SecretStore to be
 
 ##### Secure Mode
 
-When running an application service in secure mode, secrets can be stored in the service's secure SecretStore by making an HTTP `POST` call to the `/api/v3/secret` API route in the application service. The secret data POSTed is stored and retrieved from the service's secure SecretStore . Once a secret is stored, only the service that added the secret will be able to retrieve it.  For secret retrieval see [Getting Secrets](#getting-secrets) section below.
+When running an application service in secure mode, secrets can be stored in the service's secure SecretStore by making an HTTP `POST` call to the `/api/{{api_version}}/secret` API route in the application service. The secret data POSTed is stored and retrieved from the service's secure SecretStore . Once a secret is stored, only the service that added the secret will be able to retrieve it.  For secret retrieval see [Getting Secrets](#getting-secrets) section below.
 
 !!! example "Example - JSON message body"
     ```json

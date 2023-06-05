@@ -32,7 +32,7 @@ FriendlyName device resource is used to set `FriendlyName` of a camera.
 1. Use this command to set FriendlyName field.
 
 ```shell
-curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/<device name>/FriendlyName' \
+curl --request PUT 'http://0.0.0.0:59882/api/{{api_version}}/device/name/<device name>/FriendlyName' \
     --header 'Content-Type: application/json' \
     --data-raw '{
             "FriendlyName":"Home camera"
@@ -41,7 +41,7 @@ curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/<device name>/Friend
 2. The response from the curl command.
 ```
 {
-    "apiVersion": "v3",
+    "apiVersion" : "{{api_version}}",
     "statusCode": 200
 }
 ```
@@ -56,15 +56,15 @@ Use the FriendlyName device resource to retrieve `FriendlyName` of a camera.
 1. Use this command to return FriendlyName field.
 
 ```shell
-curl http://localhost:59882/api/v3/device/name/<device name>/FriendlyName | jq .
+curl http://localhost:59882/api/{{api_version}}/device/name/<device name>/FriendlyName | jq .
 ```
 2. Response from the curl command. FriendlyName value can be found under `value` field in the json response.
 ```shell
 {
-  "apiVersion": "v3",
+  "apiVersion" : "{{api_version}}",
   "statusCode": 200,
   "event": {
-    "apiVersion": "v3",
+    "apiVersion" : "{{api_version}}",
     "id": "5b924351-31c7-469e-a9ba-dea063fdbf3a",
     "deviceName": "TP-Link-C200-3fa1fe68-b915-4053-a3e1-cc32e5000688",
     "profileName": "onvif-camera",
@@ -107,7 +107,7 @@ Device resource MACAddress is used to set `MACAddress` of a camera.
 
 1. Use this command to set MACAddress field.
 ```shell
-curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/<device name>/MACAddress' \
+curl --request PUT 'http://0.0.0.0:59882/api/{{api_version}}/device/name/<device name>/MACAddress' \
     --header 'Content-Type: application/json' \
     --data-raw '{
             "MACAddress":"11:22:33:44:55:66"
@@ -116,7 +116,7 @@ curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/<device name>/MACAdd
 2. The response from the curl command.
 ```
 {
-    "apiVersion": "v3",
+    "apiVersion" : "{{api_version}}",
     "statusCode": 200
 }
 ```
@@ -131,15 +131,15 @@ Use the MACAddress device resource to retrieve `MACAddress` of a camera.
 1. Use this command to return MACAddress field.
 
 ```shell
-curl http://localhost:59882/api/v3/device/name/<device name>/MACAddress | jq .
+curl http://localhost:59882/api/{{api_version}}/device/name/<device name>/MACAddress | jq .
 ```
 2. Response from the curl command. MACAddress value can be found under `value` field in the json response.
 ```shell
 {
-  "apiVersion": "v3",
+  "apiVersion" : "{{api_version}}",
   "statusCode": 200,
   "event": {
-    "apiVersion": "v3",
+    "apiVersion" : "{{api_version}}",
     "id": "c13245b0-397f-47c0-84b2-4de3d2fb891d",
     "deviceName": "TP-Link-C200-3fa1fe68-b915-4053-a3e1-1027f5ea8888",
     "profileName": "onvif-camera",

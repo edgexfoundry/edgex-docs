@@ -168,7 +168,7 @@ While the EdgeX services are running you can make EdgeX API calls to `localhost`
 Each EdgeX micro service has a built-in respond to a "ping" HTTP request. In networking environments, use a [ping request](https://techterms.com/definition/ping) to check the reach-ability of a network resource.  EdgeX uses the same concept to check the availability or reach-ability of a micro service. After the EdgeX micro services are running, you can "ping" any one of the micro services to check that it is running. Open a browser or HTTP REST client tool and use the service's ping address (outlined below) to check that is available.
 
 ```
-http://localhost:[port]/api/v3/ping
+http://localhost:[port]/api/{{api_version}}/ping
 ```
 
 See [EdgeX Default Service Ports](../../general/ServicePorts) for a list of the EdgeX default service ports.
@@ -219,4 +219,4 @@ With all the micro services built, you can now run EdgeX services. You may first
 
 ![image](EdgeX_GoLandMakeRun.png)
 
-You can now call on the service APIs to make sure they are running correctly. Namely, call on `http://localhost:\[service port\]/api/v3/ping` to see each service respond to the simplest of requests.
+You can now call on the service APIs to make sure they are running correctly. Namely, call on `http://localhost:\[service port\]/api/{{api_version}}/ping` to see each service respond to the simplest of requests.

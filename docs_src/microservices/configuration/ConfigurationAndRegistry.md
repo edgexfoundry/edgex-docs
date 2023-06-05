@@ -84,7 +84,7 @@ As an example, the nodes shown when one views the configuration provider might b
 
 !!! example - "Example configuration structure"
     ```
-    **edgex/v3** (root namespace)
+    **edgex/{{api_version}}** (root namespace)
         - app-* (app services)
         - core-* (core services which includes common config)
         - devices-* (device services)
@@ -93,7 +93,7 @@ As an example, the nodes shown when one views the configuration provider might b
     ```
 ### Versioning
 
-The version is now part of the root namespace , i.e. `edgex/v3`
+The version is now part of the root namespace , i.e. `edgex/{{api_version}}`
 
 An advantage of grouping all minor/patch versions under a major version involves end-user configuration changes that need to be persisted during an upgrade. 
 A service on startup will not overwrite existing configuration when it runs unless explicitly told to do so via the `--overwrite / -o` command line flag. 

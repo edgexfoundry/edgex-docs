@@ -168,7 +168,7 @@ When you are done reviewing the content of the log, select **Control-c** to stop
 Each EdgeX micro service has a built-in response to a "ping" HTTP request. In networking environments, use a [ping request](https://techterms.com/definition/ping) to check the reach-ability of a network resource.  EdgeX uses the same concept to check the availability or reach-ability of a micro service. After the EdgeX micro service containers are running, you can "ping" any one of the micro services to check that it is running. Open a browser or HTTP REST client tool and use the service's ping address (outlined below) to check that is available.
 
 ```
-http://localhost:[service port]/api/v3/ping
+http://localhost:[service port]/api/{{api_version}}/ping
 ```
 
 See [EdgeX Default Service Ports](../../general/ServicePorts) for a list of the EdgeX default service ports.

@@ -95,8 +95,8 @@ Before receiving the event data from the camera, we must define a device resourc
     ```
 
 Device service will generate the following path for pushing event from Camera to device service:
-- {BaseNotificationURL}/api/v3/resource/{DeviceName}/{ResourceName}
-- {BaseNotificationURL}/api/v3/resource/Camera1/CameraEvent
+- {BaseNotificationURL}/api/{{api_version}}/resource/{DeviceName}/{ResourceName}
+- {BaseNotificationURL}/api/{{api_version}}/resource/Camera1/CameraEvent
 
 !!! Note 
     The user can also override the config from the docker-compose environment variable:
@@ -126,13 +126,13 @@ Then the device service can be accessed by the external camera from the other su
 Finding out what notifications a camera supports and what information they contain:
 
 ```shell
-curl --request GET 'http://localhost:59882/api/v3/device/name/Camera003/EventProperties'
+curl --request GET 'http://localhost:59882/api/{{api_version}}/device/name/Camera003/EventProperties'
 ```
 
 ## Create a Pull Point
 User can create pull point with the following command:
 ```shell
-curl --request PUT 'http://localhost:59882/api/v3/device/name/Camera003/PullPointSubscription' \
+curl --request PUT 'http://localhost:59882/api/{{api_version}}/device/name/Camera003/PullPointSubscription' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "PullPointSubscription": {
@@ -151,7 +151,7 @@ curl --request PUT 'http://localhost:59882/api/v3/device/name/Camera003/PullPoin
 ## Create a BaseNotification
 User can create subscription, the InitialTerminationTime is required and should greater than ten seconds:
 ```shell
-curl --request PUT 'http://localhost:59882/api/v3/device/name/Camera003/BaseNotificationSubscription' \
+curl --request PUT 'http://localhost:59882/api/{{api_version}}/device/name/Camera003/BaseNotificationSubscription' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "BaseNotificationSubscription": {
@@ -168,7 +168,7 @@ curl --request PUT 'http://localhost:59882/api/v3/device/name/Camera003/BaseNoti
 ## Unsubscribe all subscriptions
 The user can unsubscribe all subscriptions(PullPoint and BaseNotification) from the camera with the following command:
 ```shell
-curl --request PUT 'http://localhsot:59882/api/v3/device/name/Camera003/UnsubscribeCameraEvent' \
+curl --request PUT 'http://localhsot:59882/api/{{api_version}}/device/name/Camera003/UnsubscribeCameraEvent' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "UnsubscribeCameraEvent": {

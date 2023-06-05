@@ -118,18 +118,18 @@ Follow this guide to deploy and run the service.
         !!! note
             If running in secure mode all the api executions need the JWT token generated previously. E.g.
             ```bash
-            curl --location --request GET 'http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera' \
+            curl --location --request GET 'http://localhost:59881/api/{{api_version}}/deviceservice/name/device-onvif-camera' \
             --header 'Authorization: Bearer <jwt-token>' \
             --data-raw ''
             ```
 
         ```bash
-        curl -s http://localhost:59881/api/v3/deviceservice/name/device-onvif-camera | jq .
+        curl -s http://localhost:59881/api/{{api_version}}/deviceservice/name/device-onvif-camera | jq .
         ```
         Good response:
         ```json
         {
-            "apiVersion": "v3",
+            "apiVersion" : "{{api_version}}",
             "statusCode": 200,
             "service": {
                 "created": 1657227634593,
@@ -144,7 +144,7 @@ Follow this guide to deploy and run the service.
         Bad response:
         ```json
         {
-        "apiVersion": "v3",
+        "apiVersion" : "{{api_version}}",
         "message": "fail to query device service by name device-onvif-camer",
         "statusCode": 404
         }
@@ -154,7 +154,7 @@ Follow this guide to deploy and run the service.
     3. Check whether the device profile is added:
 
         ```bash
-        curl -s http://localhost:59881/api/v3/deviceprofile/name/onvif-camera | jq -r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)'
+        curl -s http://localhost:59881/api/{{api_version}}/deviceprofile/name/onvif-camera | jq -r '"profileName: " + '.profile.name' + "\nstatusCode: " + (.statusCode|tostring)'
 
         ```
         Good response:
@@ -212,7 +212,7 @@ Additionally, ensure that the service config has been deployed and that Consul i
     If running in secure mode this command needs the [Consul ACL token](#token-generation) generated previously.
 
 ```bash
-curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera?keys=true"
+curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera?keys=true"
 ```     
 ## Manage Devices
 Follow these instructions to update devices.
@@ -232,10 +232,10 @@ Follow these instructions to update devices.
 
     ```bash
     curl -X POST -H 'Content-Type: application/json'  \
-    http://localhost:59881/api/v3/device \
+    http://localhost:59881/api/{{api_version}}/device \
     -d '[
              {
-                "apiVersion": "v3",
+                "apiVersion" : "{{api_version}}",
                 "device": {
                    "name":"Camera001",
                    "serviceName": "device-onvif-camera",
@@ -261,7 +261,7 @@ Follow these instructions to update devices.
     
     Example Output: 
     ```bash
-    [{"apiVersion":"v3","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
+    [{"apiVersion" : "{{api_version}}","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
     ```
     
 2. Update credentials in Secret Store.
@@ -277,7 +277,7 @@ Follow these instructions to update devices.
 
         ```bash
         curl --data '{
-                    "apiVersion":"v3",
+                    "apiVersion" : "{{api_version}}",
                     "secretName": "<creds-name>",
                     "secretData":[
                         {
@@ -293,7 +293,7 @@ Follow these instructions to update devices.
                             "value":"<auth-mode>"
                         }
                     ]
-                }' --header 'Authorization:Bearer <jwt-token>' -X POST "http://localhost:59984/api/v3/secret"
+                }' --header 'Authorization:Bearer <jwt-token>' -X POST "http://localhost:59984/api/{{api_version}}/secret"
         ```
 
     === "Non-secure mode"
@@ -303,7 +303,7 @@ Follow these instructions to update devices.
 
         ```bash
         curl --data '{
-                    "apiVersion":"v3",
+                    "apiVersion" : "{{api_version}}",
                     "secretName": "<creds-name>",
                     "secretData":[
                         {
@@ -319,7 +319,7 @@ Follow these instructions to update devices.
                             "value":"<auth-mode>"
                         }
                     ]
-                }' -X POST "http://localhost:59984/api/v3/secret"
+                }' -X POST "http://localhost:59984/api/{{api_version}}/secret"
         ```
 
 3. Map credentials to devices.
@@ -331,25 +331,25 @@ Follow these instructions to update devices.
             If you want to map multiple mac addresses, enter a comma separated list in the command
 
         ```bash
-        curl --data '<mac-address>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
+        curl --data '<mac-address>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
         ```
         
         b. Check the status of the credentials map.
         ```bash
-        curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap?keys=true" | jq .
+        curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap?keys=true" | jq .
         ```
         Example response:
         ```bash
         [
-        "edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/NoAuth",
-        "edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/credentials001",
-        "edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/credentials002"
+        "edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/NoAuth",
+        "edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/credentials001",
+        "edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/credentials002"
         ]
         ```
 
         c. Check the mac addresses mapped to a specific credenential name. Insert the credential name in the command to see the mac addresses associated with it.
         ```bash
-        curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>?raw=true"
+        curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>?raw=true"
         ```
         Example response:
         ```bash
@@ -363,25 +363,25 @@ Follow these instructions to update devices.
             If you want to map multiple mac addresses, enter a comma separated list in the command
 
         ```bash
-        curl --data '<mac-address>' -X PUT "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
+        curl --data '<mac-address>' -X PUT "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
         ```
         
         b. Check the status of the credentials map.
         ```bash
-        curl -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap?keys=true" | jq .
+        curl -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap?keys=true" | jq .
         ```
         Example response:
         ```bash
         [
-        "edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/NoAuth",
-        "edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/credentials001",
-        "edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/credentials002"
+        "edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/NoAuth",
+        "edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/credentials001",
+        "edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/credentials002"
         ]
         ```
 
         c. Check the mac addresses mapped to a specific credenential name. Insert the credential name in the command to see the mac addresses associated with it.
         ```bash
-        curl -X GET "http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>?raw=true"
+        curl -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>?raw=true"
         ```
         Example response:
         ```bash
@@ -394,7 +394,7 @@ Follow these instructions to update devices.
 3. Verify device(s) have been successfully added to core-metadata.
 
       ```bash
-      curl -s http://localhost:59881/api/v3/device/all | jq -r '"deviceName: " + '.devices[].name''
+      curl -s http://localhost:59881/api/{{api_version}}/device/all | jq -r '"deviceName: " + '.devices[].name''
       ```
 
       Example Output: 
@@ -414,7 +414,7 @@ Follow these instructions to update devices.
 
    ```bash
    curl -X 'DELETE' \
-   'http://localhost:59881/api/v3/device/name/<device name>' \
+   'http://localhost:59881/api/{{api_version}}/device/name/<device name>' \
    -H 'accept: application/json' 
    ```
 

@@ -10,13 +10,13 @@ The spec can refer to https://www.onvif.org/ver10/device/wsdl/devicemgmt.wsdl
 ## GetUsers
 This operation lists the registered users and corresponding credentials on a device.
 ```shell
-curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera001/Users'
+curl --request GET 'http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera001/Users'
 ```
 
 ## CreateUsers
 This operation creates new camera users and corresponding credentials on a device for authentication purposes.
 ```shell
-curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/Camera001/CreateUsers' \
+curl --request PUT 'http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera001/CreateUsers' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "CreateUsers": {
@@ -39,7 +39,7 @@ curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/Camera001/CreateUser
 ## SetUser
 This operation updates the settings for one or several users on a device for authentication purposes.
 ```shell
-curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/Camera001/Users' \
+curl --request PUT 'http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera001/Users' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "Users": {
@@ -60,7 +60,7 @@ curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/Camera001/Users' \
 ## DeleteUsers
 This operation deletes users on a device.
 ```shell
-curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/Camera001/DeleteUsers' \
+curl --request PUT 'http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera001/DeleteUsers' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "DeleteUsers": {

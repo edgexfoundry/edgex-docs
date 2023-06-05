@@ -68,13 +68,13 @@ Follow this guide to deploy and run the service.
 1. Check that the device service is added to EdgeX:
 
     ```bash
-    curl -s http://localhost:59881/api/v3/deviceservice/name/device-usb-camera | jq .
+    curl -s http://localhost:59881/api/{{api_version}}/deviceservice/name/device-usb-camera | jq .
     ```
 
     Successful:
     ```json
     {
-        "apiVersion": "v3",
+        "apiVersion" : "{{api_version}}",
         "statusCode": 200,
         "service": {
             "created": 1658769423192,
@@ -89,7 +89,7 @@ Follow this guide to deploy and run the service.
     Unsuccessful:
     ```json
     {
-        "apiVersion": "v3",
+        "apiVersion" : "{{api_version}}",
         "message": "fail to query device service by name device-usb-camera",
         "statusCode": 404
     }
@@ -98,7 +98,7 @@ Follow this guide to deploy and run the service.
 1. Verify device(s) have been successfully added to core-metadata.
 
     ```bash
-    curl -s http://localhost:59881/api/v3/device/all | jq -r '"deviceName: " + '.devices[].name''
+    curl -s http://localhost:59881/api/{{api_version}}/device/all | jq -r '"deviceName: " + '.devices[].name''
     ```
 
     Example Output: 
@@ -119,7 +119,7 @@ Follow this guide to deploy and run the service.
     !!! example - "Example credential command"
             ```bash
             curl --data '{
-                "apiVersion":"v3",
+                "apiVersion" : "{{api_version}}",
                 "secretName": "rtspauth",
                 "secretData":[
                     {
@@ -131,7 +131,7 @@ Follow this guide to deploy and run the service.
                         "value":"<pick-a-secure-password>"
                     }
                 ]
-            }' -X POST http://localhost:59983/api/v3/secret
+            }' -X POST http://localhost:59983/api/{{api_version}}/secret
             ```
 === "Secure Mode"  
     1. Navigate to the `edgex-compose/compose-builder` directory.
@@ -143,7 +143,7 @@ Follow this guide to deploy and run the service.
     !!! example - "Example credential command"
         ```bash
         curl --data '{
-            "apiVersion":"v3",
+            "apiVersion" : "{{api_version}}",
             "secretName": "rtspauth",
             "secretData":[
                 {
@@ -155,7 +155,7 @@ Follow this guide to deploy and run the service.
                     "value":"<pick-a-secure-password>"
                 }
             ]
-        }' -H Authorization:Bearer "<enter your JWT token here (make get-token)>" -X POST http://localhost:59983/api/v3/secret
+        }' -H Authorization:Bearer "<enter your JWT token here (make get-token)>" -X POST http://localhost:59983/api/{{api_version}}/secret
         ```
 
 
@@ -190,10 +190,10 @@ Devices can either be added to the service by defining them in a static configur
     !!! example - "Example Command"
         ```bash
         curl -X POST -H 'Content-Type: application/json'  \
-        http://localhost:59881/api/v3/device \
+        http://localhost:59881/api/{{api_version}}/device \
         -d '[
             {
-            "apiVersion": "v3",
+            "apiVersion" : "{{api_version}}",
             "device": {
                 "name": "Camera001",
                 "serviceName": "device-usb-camera",
@@ -215,7 +215,7 @@ Devices can either be added to the service by defining them in a static configur
 
     Example Output: 
     ```bash
-    [{"apiVersion":"v3","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
+    [{"apiVersion" : "{{api_version}}","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
     ```
 
 

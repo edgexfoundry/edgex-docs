@@ -114,7 +114,7 @@ Click on the link below to download and save the device profile (YAML) to your s
 
 === "Postman"
 
-    Make a POST request to `http://localhost:59881/api/v3/deviceprofile/uploadfile`.  The request should not include any additional headers (leave the defaults).  In the Body, make sure "form-data" is selected and set the Key to `file` and then select the device profile file where you saved it (as shown below).
+    Make a POST request to `http://localhost:59881/api/{{api_version}}/deviceprofile/uploadfile`.  The request should not include any additional headers (leave the defaults).  In the Body, make sure "form-data" is selected and set the Key to `file` and then select the device profile file where you saved it (as shown below).
 
     ![image](EdgeX_WalkthroughPostmanFile.png)
 
@@ -127,7 +127,7 @@ Click on the link below to download and save the device profile (YAML) to your s
     Make a curl POST request as shown below.
 
     ``` shell
-    curl -X POST -F 'file=@/path/to/your/profile/here/EdgeX_CameraMonitorProfile.yml' http://localhost:59881/api/v3/deviceprofile/uploadfile
+    curl -X POST -F 'file=@/path/to/your/profile/here/EdgeX_CameraMonitorProfile.yml' http://localhost:59881/api/{{api_version}}/deviceprofile/uploadfile
     ```
 
     If your API call is successful, you will get a generated id for your new `DeviceProfile` in the response area.
@@ -138,6 +138,6 @@ Click on the link below to download and save the device profile (YAML) to your s
         Note that the file location in the curl command above needs to be replaced with your actual file location path.  Also, if you do not save the device profile file to `EdgeX_CameraMonitorProfile.yml`, then you will need to replace the file name as well.
 
 #### Test the GET API
-If you make a GET call to the `http://localhost:59881/api/v3/deviceprofile/all` URL (with Postman or curl) you will get a listing (in JSON) of all the device profiles (and all of its associated `deviceResource` and `deviceCommand`) currently defined in your instance of EdgeX, including the one you just added.
+If you make a GET call to the `http://localhost:59881/api/{{api_version}}/deviceprofile/all` URL (with Postman or curl) you will get a listing (in JSON) of all the device profiles (and all of its associated `deviceResource` and `deviceCommand`) currently defined in your instance of EdgeX, including the one you just added.
 
 [<Back](Ch-WalkthroughUseCase.md){: .md-button } [Next>](Ch-WalkthroughDeviceService.md){: .md-button }

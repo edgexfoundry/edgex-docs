@@ -48,7 +48,7 @@ Dynamic discovery is enabled by default to make setup easier. It can be disabled
 To manually trigger a Dynamic Discovery, use this [device service API](../../../../../api/devices/Ch-APIDeviceSDK.md).  
 
 ```shell
- curl -X POST http://<service-host>:59983/api/v3/discovery
+ curl -X POST http://<service-host>:59983/api/{{api_version}}/discovery
 ```
 
 The interval value must be a [Go duration](https://pkg.go.dev/time#ParseDuration).
@@ -74,7 +74,7 @@ The provision watcher sets up parameters for EdgeX to automatically add devices 
     -d '[
     {
         "provisionwatcher":{
-            "apiVersion":"v3",
+            "apiVersion" : "{{api_version}}",
             "name":"USB-Camera-Provision-Watcher",
             "adminState":"UNLOCKED",
             "identifiers":{
@@ -83,7 +83,7 @@ The provision watcher sets up parameters for EdgeX to automatically add devices 
             "serviceName": "device-usb-camera",
             "profileName": "USB-Camera-General"
         },
-        "apiVersion":"v3"
+        "apiVersion" : "{{api_version}}"
     }
-    ]' http://localhost:59881/api/v3/provisionwatcher
+    ]' http://localhost:59881/api/{{api_version}}/provisionwatcher
     ```

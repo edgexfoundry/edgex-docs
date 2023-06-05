@@ -10,7 +10,7 @@ This document will describe how to execute some of the most important types of c
 
 1. <a name="step1"></a>Get the profile token by executing the `GetProfiles` command:
         ```bash
-        curl -s http://0.0.0.0:59882/api/v3/device/name/Camera001/MediaProfiles | jq -r '"profileToken: " + '.event.readings[].objectValue.Profiles[].Token''
+        curl -s http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera001/MediaProfiles | jq -r '"profileToken: " + '.event.readings[].objectValue.Profiles[].Token''
         ```
         Example Output: 
         ```bash
@@ -21,7 +21,7 @@ This document will describe how to execute some of the most important types of c
 2. To get the RTSP URI from the ONVIF device, execute the `GetStreamURI` command, using a profileToken found in step 1:  
         In this example, `profile_1` is the profileToken:  
         ```bash
-        curl -s "http://0.0.0.0:59882/api/v3/device/name/Camera001/StreamUri?jsonObject=$(base64 -w 0 <<< '{
+        curl -s "http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera001/StreamUri?jsonObject=$(base64 -w 0 <<< '{
             "StreamSetup" : {
                 "Stream" : "RTP-Unicast",
                 "Transport" : {

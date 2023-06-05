@@ -26,9 +26,9 @@ For more information, please refer to the Annex D. Radiometry https://www.onvif.
 ### Query the Analytics Module
 
 ```shell
-curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsModules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0=' | jq .
+curl --request GET 'http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera003/AnalyticsModules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0=' | jq .
 {
-   "apiVersion" : "v3",
+   "apiVersion" : "{{api_version}}",
    "event" : {
       ...
       "profileName" : "onvif-camera",
@@ -71,12 +71,12 @@ curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsM
 ### Query the Supported Analytics Module and Options
 
 ```shell
-curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/SupportedAnalyticsModules' | jq .
+curl --request GET 'http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera003/SupportedAnalyticsModules' | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   692  100   692    0     0   2134      0 --:--:-- --:--:-- --:--:--  2217
 {
-   "apiVersion" : "v3",
+   "apiVersion" : "{{api_version}}",
    "event" : {
       ...
       "readings" : [
@@ -114,9 +114,9 @@ curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/SupportedA
 }
 ```
 ```shell
-curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsModuleOptions?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0=' | jq .
+curl --request GET 'http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera003/AnalyticsModuleOptions?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0=' | jq .
 {
-   "apiVersion" : "v3",
+   "apiVersion" : "{{api_version}}",
    "event" : {
       "deviceName" : "Camera003",
       "profileName" : "onvif-camera",
@@ -172,7 +172,7 @@ curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsM
 ### Modify the Analytics Module Options
 
 ```shell
-curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsModules' \
+curl --request PUT 'http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera003/AnalyticsModules' \
 --header 'Content-Type: application/json' \
 --data-raw '{
      "AnalyticsModules": {
@@ -205,11 +205,11 @@ curl --request PUT 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsM
 ### Query the Rules
 
 ```shell
-curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsRules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0=' | jq .
+curl --request GET 'http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera003/AnalyticsRules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0=' | jq .
 {
-   "apiVersion" : "v3",
+   "apiVersion" : "{{api_version}}",
    "event" : {
-      "apiVersion" : "v3",
+      "apiVersion" : "{{api_version}}",
       "deviceName" : "Camera003",
       "profileName" : "onvif-camera",
       ...
@@ -251,14 +251,14 @@ curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsR
 
 ### Query the Supported Rule and Options
 ```shell
-curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsSupportedRules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0=' | jq .
+curl --request GET 'http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera003/AnalyticsSupportedRules?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0=' | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  9799    0  9799    0     0   9605      0 --:--:--  0:00:01 --:--:--  9740
 {
-   "apiVersion" : "v3",
+   "apiVersion" : "{{api_version}}",
    "event" : {
-      "apiVersion" : "v3",
+      "apiVersion" : "{{api_version}}",
       "deviceName" : "Camera003",
       "id" : "07f7b42e-835b-4ecc-97b1-fe4d5f52575b",
       "origin" : 1639482296788863000,
@@ -341,14 +341,14 @@ curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsS
 ```
 
 ```shell
-curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/RuleOptions?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0=' | jq .
+curl --request GET 'http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera003/RuleOptions?jsonObject=eyJDb25maWd1cmF0aW9uVG9rZW4iOiIxIn0=' | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  1168  100  1168    0     0    755      0  0:00:01  0:00:01 --:--:--   759
 {
-   "apiVersion" : "v3",
+   "apiVersion" : "{{api_version}}",
    "event" : {
-      "apiVersion" : "v3",
+      "apiVersion" : "{{api_version}}",
       "deviceName" : "Camera003",
       "id" : "3ac81a5c-48f2-46d7-a3f9-d4919f97ae8d",
       "origin" : 1639482979553667000,
@@ -405,7 +405,7 @@ curl --request GET 'http://0.0.0.0:59882/api/v3/device/name/Camera003/RuleOption
 ### Add the Rule
 
 ```shell
-curl --location --request PUT 'http://0.0.0.0:59882/api/v3/device/name/Camera003/AnalyticsCreateRules' \
+curl --location --request PUT 'http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera003/AnalyticsCreateRules' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "AnalyticsCreateRules": {
