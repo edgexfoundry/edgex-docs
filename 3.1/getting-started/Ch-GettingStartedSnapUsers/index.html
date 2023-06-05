@@ -1,0 +1,2776 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Documentation for use of EdgeX Foundry" name="description"/>
+<meta content="Michael Johanson" name="author"/>
+<link href="https://docs.edgexfoundry.org/3.1/getting-started/Ch-GettingStartedSnapUsers/" rel="canonical"/>
+<link href="../../assets/logo_edgex.png" rel="icon"/>
+<meta content="mkdocs-1.4.3, mkdocs-material-8.5.8" name="generator"/>
+<title>Getting Started using Snaps - EdgeX Foundry Documentation</title>
+<link href="../../assets/stylesheets/main.20d9efc8.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.815d1a91.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../assets/stylesheets/version-select.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/branding.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/edgey.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/newexample.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-38531ZZHBN"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-38531ZZHBN",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-38531ZZHBN",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+</head>
+<body data-md-color-accent="none" data-md-color-primary="none" data-md-color-scheme="" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#getting-started-using-snaps">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="EdgeX Foundry Documentation" class="md-header__button md-logo" data-md-component="logo" href="../.." title="EdgeX Foundry Documentation">
+<img alt="logo" src="../../assets/logo_edgex_white.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            EdgeX Foundry Documentation
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Getting Started using Snaps
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/edgexfoundry/edgex-go" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-tabs__inner md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+        Introduction
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../">
+        Getting Started
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../security/Ch-Security/">
+        Security
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../microservices/general/">
+        Microservices
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../examples/">
+        Examples and Tutorials
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../api/Ch-APIIntroduction/">
+        API Reference
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../design/Process/">
+        Use Cases &amp; Designs
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../general/Definitions/">
+        Reference
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="EdgeX Foundry Documentation" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="EdgeX Foundry Documentation">
+<img alt="logo" src="../../assets/logo_edgex_white.png"/>
+</a>
+    EdgeX Foundry Documentation
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/edgexfoundry/edgex-go" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" id="__nav_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Introduction" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../V3TopLevelMigration/">
+        V3 Migration Guide
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Getting Started" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../quick-start/">
+        Quick Start
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" id="__nav_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_3">
+          Users
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Users" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_3">
+<span class="md-nav__icon md-icon"></span>
+          Users
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-GettingStartedUsers/">
+        Getting Started as a User
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-GettingStartedDockerUsers/">
+        Getting Started using Docker
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Getting Started using Snaps
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Getting Started using Snaps
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#introduction">
+    Introduction
+  </a>
+<nav aria-label="Introduction" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#installation">
+    Installation
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration">
+    Configuration
+  </a>
+<nav aria-label="Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#config-files">
+    Config files
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#config-registry">
+    Config registry
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#config-provider-snap">
+    Config provider snap
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#config-overrides">
+    Config overrides
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples">
+    Examples
+  </a>
+<nav aria-label="Examples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#disabling-security">
+    Disabling security
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-mqtt-message-bus">
+    Using MQTT message bus
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#disabling-registry-and-config-provider">
+    Disabling registry and config provider
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#managing-services">
+    Managing services
+  </a>
+<nav aria-label="Managing services" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#service-autostart">
+    Service autostart
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debugging">
+    Debugging
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex-snaps">
+    EdgeX Snaps
+  </a>
+<nav aria-label="EdgeX Snaps" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#platform-snap">
+    Platform Snap
+  </a>
+<nav aria-label="Platform Snap" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#adding-api-gateway-users">
+    Adding API Gateway users
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#accessing-consul">
+    Accessing Consul
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#changing-tls-certificates">
+    Changing TLS certificates
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#secret-store-token">
+    Secret Store token
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex-ui">
+    EdgeX UI
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex-ekuiper">
+    EdgeX eKuiper
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app-service-configurable">
+    App Service Configurable
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app-rfid-llrp-inventory">
+    App RFID LLRP Inventory
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-gpio">
+    Device GPIO
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-modbus">
+    Device Modbus
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-mqtt">
+    Device MQTT
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-rest">
+    Device REST
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-rfid-llrp">
+    Device RFID LLRP
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-snmp">
+    Device SNMP
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-usb-camera">
+    Device USB Camera
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-virtual">
+    Device Virtual
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-onvif-camera">
+    Device ONVIF Camera
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" id="__nav_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_4">
+          Developers
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Developers" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_4">
+<span class="md-nav__icon md-icon"></span>
+          Developers
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-GettingStartedDevelopers/">
+        Getting Started as a Developer
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-GettingStartedGoDevelopers/">
+        Getting Started - Go Developers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-GettingStartedCDevelopers/">
+        Getting Started - C Developers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-GettingStartedHybrid/">
+        Working in a Hybrid Environment
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4_5" id="__nav_2_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_4_5">
+          Native Build and Run Guides
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Native Build and Run Guides" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_4_5">
+<span class="md-nav__icon md-icon"></span>
+          Native Build and Run Guides
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../native/Ch-BuildRunNative/">
+        Native Build and Run
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../native/Ch-BuildRunOnLinuxDistro/">
+        Build and Run on Linux on x86/x64
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../native/Ch-BuildRunOnArm32/">
+        Build and Run on Linux on ARM 32
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../native/Ch-BuildRunOnWindows/">
+        Build and Run on Windows on x86/x64
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ApplicationFunctionsSDK/">
+        Application Functions SDK
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4_7" id="__nav_2_4_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_4_7">
+          Device Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Device Services" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_2_4_7">
+<span class="md-nav__icon md-icon"></span>
+          Device Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-GettingStartedSDK/">
+        Device Service SDK
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-GettingStartedSDK-C/">
+        C SDK
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-GettingStartedSDK-Go/">
+        Golang SDK
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-GettingStartedUsersNexus/">
+        Getting Docker Images from EdgeX Nexus Repository
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-GettingStartedDTOValidation/">
+        DTO Validation
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" id="__nav_2_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_5">
+          Tools
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Tools" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_5">
+<span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../tools/Ch-GUI/">
+        Graphical User Interface (GUI)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          Security
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Security" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/Ch-Security/">
+        Security
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/Ch-SecretStore/">
+        Secret Store
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/Ch-Authenticating/">
+        Authenticating to EdgeX Microservices
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/Ch-SecretProviderApi/">
+        Secret Provider API
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/Ch-APIGateway/">
+        API Gateway
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/Ch-Secure-MessageBus/">
+        Secure MessageBus
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/Ch-Configuring-Add-On-Services/">
+        Configuring Add-on Service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/Ch-Secure-Consul/">
+        Secure Consul
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/Ch-SecurityIssues/">
+        Reporting Security Issues
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/secrets-config/">
+        Secrets config
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/secrets-config-proxy/">
+        Secrets config proxy
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/SeedingServiceSecrets/">
+        Seeding Service Secrets
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/Ch-CORS-Settings/">
+        CORS settings
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/Ch-DelayedStartServices/">
+        Delayed-Start Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/Ch-RemoteDeviceServices/">
+        Remote Device Services in Secure Mode
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_16" id="__nav_3_16" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_16">
+          Threat Models
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Threat Models" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_16">
+<span class="md-nav__icon md-icon"></span>
+          Threat Models
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../threat-models/secret-store/">
+        EdgeX Foundry Secret Management Threat Model
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../threat-models/stride-model/EdgeX-STRIDE/">
+        EdgeX Foundry STRIDE Threat Model
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../threat-models/stride-model/EdgeXFoundryThreatReportV2.2/">
+        Threat Modeling Report
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../security/V3Migration/">
+        V3 Security Migration Guide
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4">
+          Microservices
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Microservices" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Microservices
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/general/">
+        Cross Cutting Concerns
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" id="__nav_4_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_2">
+          Configuration &amp; Registry
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Configuration &amp; Registry" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_2">
+<span class="md-nav__icon md-icon"></span>
+          Configuration &amp; Registry
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/configuration/CommonConfiguration/">
+        Service Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/configuration/CommonCommandLineOptions/">
+        Command Line Options
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/configuration/CommonEnvironmentVariables/">
+        Environment Variables
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/configuration/ConfigurationAndRegistry/">
+        Configuration and Registry Providers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/configuration/V3MigrationCommonConfig/">
+        V3 Migration of Common Configuration
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/general/messagebus/">
+        EdgeX MessageBus
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_4" id="__nav_4_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_4">
+          Core Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Core Services" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_4">
+<span class="md-nav__icon md-icon"></span>
+          Core Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/core/Ch-CoreServices/">
+        Core Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/core/data/Ch-CoreData/">
+        Core Data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/core/metadata/Ch-Metadata/">
+        Core Metadata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/core/command/Ch-Command/">
+        Core Command
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/core/database/Ch-Redis/">
+        Redis Database
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" id="__nav_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_5">
+          Supporting Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Supporting Services" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_5">
+<span class="md-nav__icon md-icon"></span>
+          Supporting Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/support/Ch-SupportingServices/">
+        Supporting Services Microservices
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/support/notifications/Ch-AlertsNotifications/">
+        Support Notifications
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/support/scheduler/Ch-Scheduler/">
+        Support Scheduler
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/support/eKuiper/Ch-eKuiper/">
+        eKuiper Rules Engine
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6" id="__nav_4_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6">
+          Devices Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Devices Services" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_6">
+<span class="md-nav__icon md-icon"></span>
+          Devices Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/Ch-DeviceServices/">
+        Device Services Microservices
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/profile/Ch-DeviceProfile/">
+        Device Profile
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/sdk/Ch-DeviceSDK/">
+        Device Services SDK
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_4" id="__nav_4_6_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6_4">
+          Device SDK API
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Device SDK API" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_6_4">
+<span class="md-nav__icon md-icon"></span>
+          Device SDK API
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/sdk/SDK-Go-API/">
+        Go Device SDK API
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5" id="__nav_4_6_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6_5">
+          Supported Device Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Supported Device Services" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_6_5">
+<span class="md-nav__icon md-icon"></span>
+          Supported Device Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/Ch-DeviceServiceList/">
+        Supported Device Services List
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5_2" id="__nav_4_6_5_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6_5_2">
+          Device Onvif Camera
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Device Onvif Camera" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_4_6_5_2">
+<span class="md-nav__icon md-icon"></span>
+          Device Onvif Camera
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/General/">
+        General
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5_2_2" id="__nav_4_6_5_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6_5_2_2">
+          Walkthrough
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Walkthrough" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_4_6_5_2_2">
+<span class="md-nav__icon md-icon"></span>
+          Walkthrough
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/Walkthrough/setup/">
+        Setup
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/Walkthrough/deployment/">
+        Deployment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/Walkthrough/general-usage/">
+        General Usage
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/Walkthrough/custom-build/">
+        Custom Build
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/swagger/">
+        Swagger API Documentation
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5_2_4" id="__nav_4_6_5_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6_5_2_4">
+          Supplementary Information
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Supplementary Information" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_4_6_5_2_4">
+<span class="md-nav__icon md-icon"></span>
+          Supplementary Information
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5_2_4_1" id="__nav_4_6_5_2_4_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6_5_2_4_1">
+          ONVIF Protocol
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="ONVIF Protocol" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_4_6_5_2_4_1">
+<span class="md-nav__icon md-icon"></span>
+          ONVIF Protocol
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/ONVIF-protocol/">
+        Onvif Camera Device Service Specifications
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/onvif-user-authentication/">
+        Onvif User Authentication
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5_2_4_2" id="__nav_4_6_5_2_4_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6_5_2_4_2">
+          Features
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Features" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_4_6_5_2_4_2">
+<span class="md-nav__icon md-icon"></span>
+          Features
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/custom-metadata-feature/">
+        Custom Metadata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/friendlyname-mac/">
+        Friendly Name and MAC Address
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/device-status/">
+        Device Status
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/auto-discovery/">
+        Auto Discovery
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/credentials/">
+        Credentials
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/reboot-needed/">
+        RebootNeeded
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5_2_4_3" id="__nav_4_6_5_2_4_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6_5_2_4_3">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="API Reference" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_4_6_5_2_4_3">
+<span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/api-analytic-support/">
+        Analytic Support
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/api-event-handling/">
+        Event Handling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/api-usage-user-handling/">
+        User Handling
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5_2_4_4" id="__nav_4_6_5_2_4_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6_5_2_4_4">
+          Utility
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Utility" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_4_6_5_2_4_4">
+<span class="md-nav__icon md-icon"></span>
+          Utility
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/test-with-postman/">
+        Test with Postman
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/utility-scripts/">
+        Utility Scripts
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5_2_4_5" id="__nav_4_6_5_2_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6_5_2_4_5">
+          Miscellaneous
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Miscellaneous" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_4_6_5_2_4_5">
+<span class="md-nav__icon md-icon"></span>
+          Miscellaneous
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/control-plane-events/">
+        Control Plane Events
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/getting-started-with-docker-security/">
+        Getting Started With Docker (Security Mode)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/ws-discovery/">
+        How does WS-Discovery work?
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-onvif-camera/supplementary-info/onvif-footnotes/">
+        ONVIF Footnotes
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5_3" id="__nav_4_6_5_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6_5_3">
+          Device USB Camera
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Device USB Camera" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_4_6_5_3">
+<span class="md-nav__icon md-icon"></span>
+          Device USB Camera
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-usb-camera/General/">
+        General
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5_3_2" id="__nav_4_6_5_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6_5_3_2">
+          Walkthrough
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Walkthrough" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_4_6_5_3_2">
+<span class="md-nav__icon md-icon"></span>
+          Walkthrough
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-usb-camera/walkthrough/setup/">
+        Setup
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-usb-camera/walkthrough/deployment/">
+        Deployment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-usb-camera/walkthrough/general-usage/">
+        General Usage
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-usb-camera/walkthrough/custom-build/">
+        Custom Build
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5_3_3" id="__nav_4_6_5_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6_5_3_3">
+          Supplementary Information
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Supplementary Information" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_4_6_5_3_3">
+<span class="md-nav__icon md-icon"></span>
+          Supplementary Information
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-usb-camera/supplementary-info/discovery/">
+        Dynamic Discovery
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-usb-camera/supplementary-info/advanced-options/">
+        Advanced Options
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_6_5_4" id="__nav_4_6_5_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_6_5_4">
+          Device Virtual
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Device Virtual" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_4_6_5_4">
+<span class="md-nav__icon md-icon"></span>
+          Device Virtual
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/supported/device-virtual/Ch-VirtualDevice/">
+        Device Virtual
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/device/V3Migration/">
+        V3 Migration Guide
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7" id="__nav_4_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_7">
+          Application Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Application Services" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_7">
+<span class="md-nav__icon md-icon"></span>
+          Application Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/ApplicationServices/">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/Triggers/">
+        Triggers
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7_4" id="__nav_4_7_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_7_4">
+          Application Functions SDK
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Application Functions SDK" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_7_4">
+<span class="md-nav__icon md-icon"></span>
+          Application Functions SDK
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/ApplicationFunctionsSDK/">
+        App Functions SDK Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/ApplicationServiceAPI/">
+        Application Service API
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/AppFunctionContextAPI/">
+        App Function Context API
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/ErrorHandling/">
+        Pipeline Function Error Handling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/BuiltIn/">
+        Built-In Pipeline Functions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/AdvancedTopics/">
+        Advanced Topics
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/AppServiceConfigurable/">
+        App Service Configurable
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/GeneralAppServiceConfig/">
+        Application Service Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/V3Migration/">
+        V3 Migration Guide
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5">
+          Examples and Tutorials
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Examples and Tutorials" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+          Examples and Tutorials
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/">
+        EdgeX Examples
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/Ch-ExamplesVirtualDeviceService/">
+        Using the Virtual Device Service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/Ch-ExamplesSendingAndConsumingBinary/">
+        Sending and Consuming Binary Data From EdgeX Device Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/AppServiceExamples/">
+        App Service Examples
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/Ch-CommandingDeviceThroughRulesEngine/">
+        Command Devices with eKuiper Rules Engine
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/Ch-ExamplesModbusdatatypeconversion/">
+        Modbus - Data Type Conversion
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/Ch-OSImageWithEdgeX/">
+        Creating an EdgeX Ubuntu Core Image
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_8" id="__nav_5_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_8">
+          Adding a Device
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Adding a Device" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_8">
+<span class="md-nav__icon md-icon"></span>
+          Adding a Device
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/Ch-ExamplesAddingModbusDevice/">
+        Modbus
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/Ch-ExamplesAddingSNMPDevice/">
+        SNMP
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../examples/Ch-ExamplesAddingMQTTDevice/">
+        MQTT
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_9" id="__nav_5_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5_9">
+          Walkthrough
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Walkthrough" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_5_9">
+<span class="md-nav__icon md-icon"></span>
+          Walkthrough
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../walk-through/Ch-Walkthrough/">
+        EdgeX Demonstration API Walk Through
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughSetup/">
+        Setup up your environment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughUseCase/">
+        Example Use Case
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughDeviceProfile/">
+        Defining your device
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughDeviceService/">
+        Register your device service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughProvision/">
+        Provision a device
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughCommands/">
+        Calling commands
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughReading/">
+        Sending events and reading data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughExporting/">
+        Exporting your device data
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="API Reference" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/Ch-APIIntroduction/">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/core/Ch-APICoreCommand/">
+        Core Command
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/core/Ch-APICoreData/">
+        Core Data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/core/Ch-APICoreMetadata/">
+        Core Metadata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/core/Ch-APICoreConfigurationAndRegistry/">
+        Configuration and Registry
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/support/Ch-APISupportNotifications/">
+        Support Notifications
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/support/Ch-APISupportScheduler/">
+        Support Scheduler
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/devices/Ch-APIDeviceSDK/">
+        Device Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/applications/Ch-APIAppFunctionsSDK/">
+        Application Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../api/applications/Ch-APIRulesEngine/">
+        Rules Engine
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" id="__nav_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7">
+          Use Cases &amp; Designs
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Use Cases &amp; Designs" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_7">
+<span class="md-nav__icon md-icon"></span>
+          Use Cases &amp; Designs
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../design/Process/">
+        Use Cases and Design Process
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../design/TOC/">
+        Use Cases and Design Records
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" id="__nav_7_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_7_3">
+          Legacy
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Legacy" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_7_3">
+<span class="md-nav__icon md-icon"></span>
+          Legacy
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../design/legacy-design/">
+        Legacy Design Documents
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../design/legacy-requirements/">
+        Legacy Requirements
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" id="__nav_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_8">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Reference" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_8">
+<span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../general/Definitions/">
+        Definitions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../general/PlatformRequirements/">
+        Platform Requirements
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../general/ServicePorts/">
+        Default Service Ports
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../general/ContainerNames/">
+        EdgeX Container Names
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../general/ServiceConfiguration/">
+        Service Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../general/EdgeX_CN/">
+        Is EdgeX Foundry Cloud Native?
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#introduction">
+    Introduction
+  </a>
+<nav aria-label="Introduction" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#installation">
+    Installation
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration">
+    Configuration
+  </a>
+<nav aria-label="Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#config-files">
+    Config files
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#config-registry">
+    Config registry
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#config-provider-snap">
+    Config provider snap
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#config-overrides">
+    Config overrides
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples">
+    Examples
+  </a>
+<nav aria-label="Examples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#disabling-security">
+    Disabling security
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-mqtt-message-bus">
+    Using MQTT message bus
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#disabling-registry-and-config-provider">
+    Disabling registry and config provider
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#managing-services">
+    Managing services
+  </a>
+<nav aria-label="Managing services" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#service-autostart">
+    Service autostart
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debugging">
+    Debugging
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex-snaps">
+    EdgeX Snaps
+  </a>
+<nav aria-label="EdgeX Snaps" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#platform-snap">
+    Platform Snap
+  </a>
+<nav aria-label="Platform Snap" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#adding-api-gateway-users">
+    Adding API Gateway users
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#accessing-consul">
+    Accessing Consul
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#changing-tls-certificates">
+    Changing TLS certificates
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#secret-store-token">
+    Secret Store token
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex-ui">
+    EdgeX UI
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex-ekuiper">
+    EdgeX eKuiper
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app-service-configurable">
+    App Service Configurable
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app-rfid-llrp-inventory">
+    App RFID LLRP Inventory
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-gpio">
+    Device GPIO
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-modbus">
+    Device Modbus
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-mqtt">
+    Device MQTT
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-rest">
+    Device REST
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-rfid-llrp">
+    Device RFID LLRP
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-snmp">
+    Device SNMP
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-usb-camera">
+    Device USB Camera
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-virtual">
+    Device Virtual
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-onvif-camera">
+    Device ONVIF Camera
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/edgexfoundry/edgex-go/edit/master/docs/getting-started/Ch-GettingStartedSnapUsers.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
+</a>
+<h1 id="getting-started-using-snaps">Getting Started using Snaps</h1>
+<h2 id="introduction">Introduction</h2>
+<p><a href="https://snapcraft.io/docs">Snaps</a> are application packages that are easy to install and update while being 
+secure, cross‐platform and self-contained.
+Snaps can be installed on any Linux distribution with <a href="https://snapcraft.io/docs/installing-snapd">snap support</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Quick Start</p>
+<p>Spinning up EdgeX with snaps is extremely easy.
+For demonstration purposes, let's install the platform, along with the virtual device service and EdgeX UI.</p>
+<p>1) Install the <a href="#platform-snap">platform snap</a>, <a href="#device-virtual">Device Virtual</a> and <a href="#edgex-ui">EdgeX UI</a>:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span>install<span class="w"> </span>edgexfoundry<span class="w"> </span>edgex-device-virtual<span class="w"> </span>edgex-ui
+</code></pre></div>
+This installs the latest stable version of the snaps. The <a href="#installation">installation</a> section provides more explanations.</p>
+<p>2) Disable security in each of the installed snaps:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span><span class="nv">security</span><span class="o">=</span><span class="nb">false</span>
+snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-device-virtual<span class="w"> </span>config.edgex-security-secret-store<span class="o">=</span><span class="nb">false</span>
+snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-ui<span class="w"> </span>config.edgex-security-secret-store<span class="o">=</span><span class="nb">false</span>
+</code></pre></div></p>
+<p>Beware that this leaves the services at risk! We do it here only to simplify the quick start.
+Refer to <a href="#disabling-security">disabling security</a> for details.</p>
+<p>3) Start the services:
+<div class="highlight"><pre><span></span><code><span class="c1"># start Core and Support services in the platform snap</span>
+sudo<span class="w"> </span>snap<span class="w"> </span>start<span class="w"> </span>edgexfoundry.consul<span class="w"> </span>edgexfoundry.redis<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>edgexfoundry.core-common-config-bootstrapper<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>edgexfoundry.core-data<span class="w"> </span>edgexfoundry.core-metadata<span class="w"> </span>edgexfoundry.core-command<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>edgexfoundry.support-scheduler<span class="w"> </span>edgexfoundry.support-notifications
+
+<span class="c1"># start Device Virtual</span>
+snap<span class="w"> </span>start<span class="w"> </span>edgex-device-virtual
+
+<span class="c1"># start EdgeX UI</span>
+snap<span class="w"> </span>start<span class="w"> </span>edgex-ui
+</code></pre></div></p>
+<p>You should now be able to access the UI using a browser at <a href="http://localhost:4000">http://localhost:4000</a></p>
+<p><img alt="EdgeX UI" src="../EdgeX-GettingStartedSnapUsersUI.png"/></p>
+<p><em>To run the services with security, skip step 2 and refer to <a href="#platform-snap">platform snap</a> for starting all platform services and adding an API Gateway user to generate a JWT. The JWT is needed to access the secured EdgeX UI.</em></p>
+</div>
+<p>The following sub-sections provide generic instructions for <a href="#installation">installation</a>, <a href="#configuration">configuration</a>, and <a href="#managing-services">managing services</a> using snaps. </p>
+<p>For the list of EdgeX snaps and specific instructions, please refer to the <strong><a href="#edgex-snaps">EdgeX Snaps</a></strong> section.</p>
+<h3 id="installation">Installation</h3>
+<p>When using the snap CLI, the installation is possible by simply executing:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span>install<span class="w"> </span>&lt;snap&gt;
+</code></pre></div></p>
+<p>This is similar to setting <code>--channel=latest/stable</code> or shorthand <code>--stable</code> and will install the latest stable release of a snap. In this case, <code>latest/stable</code> is the <a href="https://snapcraft.io/docs/channels">channel</a>, composed of <code>latest</code> track and <code>stable</code> risk level.</p>
+<p>To install a specific version with long term support (e.g. 2.1), or to install a beta or development release, refer to the store page for the snap, choose install, and then pick the desired channel.
+The store page also provides instructions for installation on different Linux distributions as well as the list of supported CPU architectures.</p>
+<h3 id="configuration">Configuration</h3>
+<p>EdgeX snaps are packaged with default service configuration files. In certain cases, few configuration fields are overridden within the snap for snap-specific deployment requirements.</p>
+<p>There are a few ways to configure snapped services. In simple cases, it should be sufficient to modify the default config files before starting the services for the first time and use config overrides to change supported settings afterwards. Please refer below to learn about the different configuration methods.</p>
+<h4 id="config-files">Config files</h4>
+<p>The default configuration files are typically placed at <code>/var/snap/&lt;snap&gt;/current/config</code>. Upon a successful startup of an EdgeX service, the server configuration file (typically named <code>configuration.yaml</code>) is uploaded to the <a href="../../microservices/configuration/ConfigurationAndRegistry/#registry-provider">Registry</a> by default. After that, the local server configuration file will no longer be read and any modifications will not be applied. At this point, the configurations can be only changed via the Registry or by setting environment variables. Refer to <a href="#config-registry">config registry</a> or <a href="#config-overrides">config overrides</a> for details.</p>
+<p>For device services, the Device and Device Profile files are submitted to <a href="../../microservices/core/metadata/Ch-Metadata">Core Metadata</a> upon initial startup. Refer to the documentation of <a href="../../microservices/device/Ch-DeviceServices/">Device Services</a> for details.</p>
+<h4 id="config-registry">Config registry</h4>
+<p>The configurations that are uploaded to the Registry (i.e. Consul by default) can be modified using Consul's UI or <a href="https://developer.hashicorp.com/consul/api-docs/kv">kv REST API</a>. The Registry is a Core services, part of the <a href="#platform-snap">Platform Snap</a>.</p>
+<p>Changes to configurations in Registry are loaded by the service at startup. If the service has already started, a restart is required to load new configurations. Configurations that are in the writable section get loaded not only at startup, but also during the runtime. In other words, changes to the writable configurations are loaded automatically without a restart.</p>
+<p>Please refer to 
+<a href="../../microservices/configuration/CommonConfiguration/">Common Configuration</a> and 
+<a href="../../microservices/configuration/ConfigurationAndRegistry/">Configuration and Registry Providers</a> for more information.</p>
+<h4 id="config-provider-snap">Config provider snap</h4>
+<p>Most EdgeX snaps have a <a href="https://snapcraft.io/docs/content-interface">content interface</a> which allows another snap to seed it with configuration files.
+This is useful for replacing all the configuration files in a service snap via a config provider snap without manual user interaction. This should not to be confused with the <a href="../../microservices/configuration/ConfigurationAndRegistry">EdgeX Config Provider</a>.</p>
+<p>A config provider snap could be a standalone package with all the necessary configurations for multiple snaps. It will expose one or more <a href="https://snapcraft.io/docs/interface-management">interface</a> <em>slots</em> to allow connections from consumer <em>plugs</em>. The config provider snap can be released to the store just like any other snap. 
+Upon a connection between provider and consumer snaps, the packaged config files get mounted inside the consumer snap, to be used by services.</p>
+<p>Please refer to <a href="https://github.com/canonical/edgex-config-provider">edgex-config-provider</a>, for an example.</p>
+<h4 id="config-overrides">Config overrides</h4>
+<details class="tip">
+<summary>EdgeX snap options scheme</summary>
+<p>Since EdgeX v2.2, the snaps use the following scheme for the snap configuration options:
+<div class="highlight"><pre><span></span><code>apps.&lt;app&gt;.&lt;type&gt;.&lt;key&gt;
+</code></pre></div>
+where:</p>
+<ul>
+<li><code>&lt;app&gt;</code> is the name of the app (service, executable)</li>
+<li><code>&lt;type&gt;</code> is the type of option with respect to the app</li>
+<li><code>&lt;key&gt;</code> is key for the option. It could contain a path to set a value inside an object, e.g. <code>x.y=z</code> sets <code>{"x": {"y": "z"}}</code>.</li>
+</ul>
+<p>We call these <em>app options</em> because of the <code>apps.&lt;app&gt;</code> prefix which is used to apply configurations to specific services. This prefix can be dropped to apply the configuration globally to all apps within a snap!</p>
+<p>This scheme is used for config overrides (described in this section) as well as autostart described in <a href="#managing-services">managing services</a>, among others.</p>
+<p>To know more about snap configuration in general, refer <a href="https://snapcraft.io/docs/configuration-in-snaps">here</a>.</p>
+</details>
+<p>The EdgeX services allow overriding server configurations using environment variables. Moreover, the services read <a href="../../microservices/configuration/CommonEnvironmentVariables/">EdgeX Common Environment Variables</a> that override configurations which are hardcoded in source code or set as command-line options.</p>
+<p>The EdgeX snaps provide an mechanism that reads stored key-value options and internally export environment variables to specific services and apps.</p>
+<p>The snap options for setting environment variable uses the the following format:</p>
+<ul>
+<li><code>apps.&lt;app&gt;.config.&lt;env-var&gt;</code>: setting an app-specific value (e.g. <code>apps.core-data.config.service-port=1000</code>).</li>
+<li><code>config.&lt;env-var&gt;</code>: setting a global value (e.g. <code>config.service-host=localhost</code> or <code>config.writable-loglevel=DEBUG</code>)</li>
+</ul>
+<p>where:</p>
+<ul>
+<li><code>&lt;app&gt;</code> is the name of the app (service, executable)</li>
+<li><code>&lt;env-var&gt;</code> is a lowercase, dash-separated mapping from the uppercase, underscore-separate environment variable name (e.g. <code>X_Y</code>-&gt;<code>x-y</code>). The reason for such mapping is that uppercase and underscore characters are not supported as config keys for snaps.</li>
+</ul>
+<p>Mapping examples:</p>
+<table>
+<thead>
+<tr>
+<th>Snap config key</th>
+<th>Environment Variable</th>
+<th>Service configuration YAML</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>service-port</td>
+<td>SERVICE_PORT</td>
+<td><pre>Service:<br/>  Port: </pre></td>
+</tr>
+<tr>
+<td>clients-core-data-host</td>
+<td>CLIENTS_CORE_DATA_HOST</td>
+<td><pre>Clients:<br/>  core-data:<br/>    Host: </pre></td>
+</tr>
+<tr>
+<td>edgex-startup-duration</td>
+<td><a href="../../microservices/configuration/CommonEnvironmentVariables/#edgex_startup_duration">EDGEX_STARTUP_DURATION</a></td>
+<td>-</td>
+</tr>
+<tr>
+<td>edgex-add-secretstore-tokens</td>
+<td><a href="../../security/Ch-Configuring-Add-On-Services/#configure-the-services-secret-store-to-use">EDGEX_ADD_SECRETSTORE_TOKENS</a></td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>To change the service port of the <code>core-data</code> service on <code>edgexfoundry</code> snap to 8080:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.core-data.config.service-port<span class="o">=</span><span class="m">8080</span>
+</code></pre></div></p>
+</div>
+<p>​    This would internally export <code>SERVICE_PORT=8080</code> to <code>core-data</code> service.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The services load the set configuration on startup. If a service has already started, a restart will be necessary to load the configurations.</p>
+</div>
+<h4 id="examples">Examples</h4>
+<h5 id="disabling-security">Disabling security</h5>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Disabling security is NOT recommended, unless for demonstration purposes, or when there are other means to secure the services.</p>
+<p>The <a href="#platform-snap">platform snap</a> snap does NOT allow the security to be re-enabled. The only way to re-enable it is to re-install the snap.</p>
+</div>
+<p>Disabling security involves a few steps:</p>
+<ol>
+<li>Stopping the security services and disabling them so that they don't run again.</li>
+<li>Configuring EdgeX services to NOT use the Secret Store by setting <a href="../../microservices/configuration/CommonEnvironmentVariables/#edgex_security_secret_store">EDGEX_SECURITY_SECRET_STORE</a> to false. The services include Core Data, Core Command, Core Metadata, EdgeX UI, device services, app services, and any other service that uses EdgeX's <a href="https://github.com/edgexfoundry/go-mod-bootstrap">go-mod-bootstrap</a>.</li>
+<li>Restarting non-security services</li>
+</ol>
+<p>The <a href="#platform-snap">platform snap</a> which includes all the reference security components
+provides a convenience option to help disabling security:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span><span class="nv">security</span><span class="o">=</span><span class="nb">false</span>
+</code></pre></div>
+The above command results in stopping everything (if active), disabling the security components (by setting their <a href="#service-autostart">autostart</a> options to false), as well as setting <code>EDGEX_SECURITY_SECRET_STORE=false</code> internally so that the included core/support services stop using the Secret Store. </p>
+<p>Now, to start the platform without security components, either start the non-security services selectively:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>start<span class="w"> </span>edgexfoundry.consul<span class="w"> </span>edgexfoundry.redis<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>edgexfoundry.core-common-config-bootstrapper<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>edgexfoundry.core-data<span class="w"> </span>edgexfoundry.core-metadata<span class="w"> </span>edgexfoundry.core-command<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>edgexfoundry.support-scheduler<span class="w"> </span>edgexfoundry.support-notifications
+</code></pre></div></p>
+<p>or set the <a href="#service-autostart">autostart</a> option globally:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span><span class="nv">autostart</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div></p>
+<p>After disabling the security on the platform, the external services should be similarly configured by setting <code>EDGEX_SECURITY_SECRET_STORE=false</code> so that they don't attempt to initialize the security.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>To disable security for the <a href="https://snapcraft.io/edgex-ui">edgex-ui</a> snap:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-ui<span class="w"> </span>config.edgex-security-secret-store<span class="o">=</span><span class="nb">false</span>
+snap<span class="w"> </span>restart<span class="w"> </span>edgex-ui
+</code></pre></div></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All snapped services except for the API Gateway are restricted by default to listening on localhost (127.0.0.1).
+On the <a href="#platform-snap">platform snap</a>, the API Gateway proxies external requests to internal services.
+Since disabling security on the platform snap disables the API Gateway, the service endpoints will no longer be accessible from other systems.
+They will be still accessible on the local machine and reachable by other local services.</p>
+<p>If you need to make an insecure service accessible remotely, set the bind address of the service to the IP address of that networking interface on the local machine. If you trust all your interfaces and want the services to accept connections from all, set it to <code>0.0.0.0</code>.</p>
+<details class="example">
+<summary>Example</summary>
+<p>By default, <code>core-data</code> listens on <code>127.0.0.1:59880</code>:
+<div class="highlight"><pre><span></span><code>$ sudo lsof -nPi :59880
+COMMAND     PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+core-data 30944 root   12u  IPv4 198726      0t0  TCP 127.0.0.1:59880 (LISTEN)
+</code></pre></div></p>
+<p>To set the bind address of <code>core-data</code> in the platform snap to <code>0.0.0.0</code>:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.core-data.config.service-serverbindaddr<span class="o">=</span><span class="s2">"0.0.0.0"</span>
+</code></pre></div></p>
+<p>Now, core data is listening an all interfaces (<code>*:59880</code>):
+<div class="highlight"><pre><span></span><code>$ sudo lsof -nPi :59880
+COMMAND     PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+core-data 30548 root   12u  IPv6 185059      0t0  TCP *:59880 (LISTEN)
+</code></pre></div></p>
+<p>To set it for all services inside the platform snap:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>config.service-serverbindaddr<span class="o">=</span><span class="s2">"0.0.0.0"</span>
+</code></pre></div></p>
+</details>
+</div>
+<h5 id="using-mqtt-message-bus">Using MQTT message bus</h5>
+<p>The default message bus for EdgeX services is Redis Pub/Sub. If you prefer to use MQTT instead of Redis, change the <a href="../../microservices/general/messagebus/#configuration-changes">message bus configurations</a> using snap options.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>To switch to an insecure MQTT message bus for all core services (inside the platform snap) and the Device Virtual using snap options, set the following:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>config.messagequeue-protocol<span class="o">=</span><span class="s2">"mqtt"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                      </span>config.messagequeue-port<span class="o">=</span><span class="m">1883</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                      </span>config.messagequeue-type<span class="o">=</span><span class="s2">"mqtt"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                      </span>config.messagequeue-authmode<span class="o">=</span><span class="s2">"none"</span>
+
+snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-device-virtual<span class="w"> </span>config.messagequeue-protocol<span class="o">=</span><span class="s2">"mqtt"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                              </span>config.messagequeue-port<span class="o">=</span><span class="m">1883</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                              </span>config.messagequeue-type<span class="o">=</span><span class="s2">"mqtt"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">                              </span>config.messagequeue-authmode<span class="o">=</span><span class="s2">"none"</span>
+</code></pre></div></p>
+</div>
+<h5 id="disabling-registry-and-config-provider">Disabling registry and config provider</h5>
+<p>Consul is the default Registry and Config Provider in EdgeX. To disable both, it would be sufficient to disable 
+Consul and configure the services not to use Registry and Config Provider.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>To disable Consul and configure all services (inside the platform snap) not to use Registry and Config provider 
+using snap options, set the following:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.consul.autostart<span class="o">=</span><span class="nb">false</span>
+snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>config.edgex-use-registry<span class="o">=</span><span class="nb">false</span><span class="w"> </span>
+snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>config.edgex-configuration-provider<span class="o">=</span>none
+</code></pre></div></p>
+</div>
+<h3 id="managing-services">Managing services</h3>
+<p>The services of a snap can be started/stopped/restarted using the snap CLI.
+When starting/stopping, you can additionally set them to enable/disable which configures whether or not the service should also start on boot.</p>
+<p>To list the services and check their status:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span>services<span class="w"> </span>&lt;snap&gt;
+</code></pre></div></p>
+<p>To start and optionally enable services:
+<div class="highlight"><pre><span></span><code><span class="c1"># all services</span>
+snap<span class="w"> </span>start<span class="w"> </span>--enable<span class="w"> </span>&lt;snap&gt;
+
+<span class="c1"># one service</span>
+snap<span class="w"> </span>start<span class="w"> </span>--enable<span class="w"> </span>&lt;snap&gt;.&lt;app&gt;
+</code></pre></div></p>
+<p>Similarly, a service can be stopped and optionally disabled using <code>snap stop --disable</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a href="#service-autostart">service autostart</a> overrides the status and startup setting of the services. In other words, if autostart is set to true/false, it will apply that setting every time the snap is re-configured, e.g. when executing <code>snap set|unset</code>.</p>
+</div>
+<p>To restart services, e.g. to load the configurations:
+<div class="highlight"><pre><span></span><code><span class="c1"># all services</span>
+snap<span class="w"> </span>restart<span class="w"> </span>&lt;snap&gt;
+
+<span class="c1"># one service</span>
+snap<span class="w"> </span>restart<span class="w"> </span>&lt;snap&gt;.&lt;app&gt;
+</code></pre></div></p>
+<h4 id="service-autostart">Service autostart</h4>
+<p>The EdgeX snaps provide a mechanism to change the default startup of services (e.g. enabled instead of disabled).</p>
+<p>The EdgeX snaps allows the change using snap options following the below scheme: </p>
+<ul>
+<li><code>apps.&lt;app&gt;.autostart=true|false</code>: changing the default startup of one app</li>
+<li><code>autostart=true|false</code>: changing the default startup of all apps</li>
+</ul>
+<p>where <code>&lt;app&gt;</code> is the name of the app which can run as a service.</p>
+<details class="example">
+<summary>Example</summary>
+<p>Disable the autostart of support-scheduler on the <a href="#platform-snap">platform snap</a>:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.support-scheduler.autostart<span class="o">=</span><span class="nb">false</span>
+</code></pre></div></p>
+<p>Enable the autostart of all <a href="#device-usb-camera">Device USB Camera</a> services:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-device-virtual<span class="w"> </span><span class="nv">autostart</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div></p>
+</details>
+<p>The autostart options are also useful for changing the startup behavior when seeding the snap from a <a href="https://snapcraft.io/docs/gadget-snap">Gadget</a> on <a href="https://ubuntu.com/core">Ubuntu Core</a>.</p>
+<h3 id="debugging">Debugging</h3>
+<p>The service logs can be queried using the <code>snap log</code> command.</p>
+<p>For example, to query 100 lines and follow:
+<div class="highlight"><pre><span></span><code><span class="c1"># all services</span>
+snap<span class="w"> </span>logs<span class="w"> </span>-n<span class="o">=</span><span class="m">100</span><span class="w"> </span>-f<span class="w"> </span>&lt;snap&gt;
+
+<span class="c1"># one service</span>
+snap<span class="w"> </span>logs<span class="w"> </span>-n<span class="o">=</span><span class="m">100</span><span class="w"> </span>-f<span class="w"> </span>&lt;snap&gt;.&lt;app&gt;
+</code></pre></div>
+Check <code>snap logs --help</code> for details.</p>
+<p>To query not only the service logs, but also the snap logs (incl. hook apps such as install and configure), use <code>journalctl</code>:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>journalctl<span class="w"> </span>-n<span class="w"> </span><span class="m">100</span><span class="w"> </span>-f<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>&lt;snap&gt;
+</code></pre></div></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The verbosity of service logs is INFO by default. This can be changed by overriding the log level using the <code>WRITABLE_LOGLEVEL</code> environment variable using snap config overrides <code>apps.&lt;app&gt;.config.writable-loglevel</code> or globally as <code>config.writable-loglevel</code>.</p>
+</div>
+<h2 id="edgex-snaps">EdgeX Snaps</h2>
+<p>The following snaps are maintained by the EdgeX working groups:</p>
+<ul>
+<li><a href="#platform-snap">Platform Snap</a> - containing all core and security services along with two support services.</li>
+<li>Tools<ul>
+<li><a href="#edgex-ui">EdgeX UI</a></li>
+</ul>
+</li>
+<li>Supporting Services<ul>
+<li><a href="#edgex-ekuiper">EdgeX eKuiper</a></li>
+</ul>
+</li>
+<li>Application Services<ul>
+<li><a href="#app-service-configurable">App Service Configurable</a></li>
+<li><a href="#app-rfid-llrp-inventory">App RFID LLRP Inventory</a></li>
+</ul>
+</li>
+<li>Device Services<ul>
+<li><a href="#device-gpio">Device GPIO</a></li>
+<li><a href="#device-modbus">Device Modbus</a></li>
+<li><a href="#device-mqtt">Device MQTT</a></li>
+<li><a href="#device-rest">Device REST</a></li>
+<li><a href="#device-rfid-llrp">Device RFID LLRP</a></li>
+<li><a href="#device-snmp">Device SNMP</a></li>
+<li><a href="#device-usb-camera">Device USB Camera</a></li>
+<li><a href="#device-virtual">Device Virtual</a></li>
+<li><a href="#device-onvif-camera">Device ONVIF Camera</a></li>
+</ul>
+</li>
+</ul>
+<p>To find all EdgeX snaps on the public Snap Store, <a href="https://snapcraft.io/search?q=edgex">search by keyword</a>.</p>
+<h3 id="platform-snap">Platform Snap</h3>
+<p>| <a href="https://snapcraft.io/edgexfoundry">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/edgex-go/tree/main/snap">Source</a> |</p>
+<p>The main platform snap, simply called <code>edgexfoundry</code> contains all reference
+<a href="../../microservices/core/Ch-CoreServices/">core</a> and
+<a href="../../security/Ch-Security/">security</a> services along with
+<a href="../../microservices/support/scheduler/Ch-Scheduler/">support-scheduler</a> and
+<a href="../../microservices/support/notifications/Ch-AlertsNotifications/">support-notifications</a>.</p>
+<p>Upon installation, the services are <strong>stopped</strong> and <strong>disabled</strong>. They can be started altogether or selectively; see <a href="#managing-services">managing services</a>.
+For example, to start all the services, run:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>start<span class="w"> </span>edgexfoundry
+</code></pre></div></p>
+<p>For the configuration of services, refer to <a href="#configuration">configuration</a>.
+Read below for other deployment-related instructions about this snap.</p>
+<h4 id="adding-api-gateway-users">Adding API Gateway users</h4>
+<p>The API gateway will pass any request that authenticates using a
+<a href="https://developer.hashicorp.com/vault/api-docs/secret/identity/tokens#introspect-a-signed-id-token">signed identity token from the EdgeX secret store</a>.</p>
+<p>The baseline implementation in EdgeX 3.0 uses Vault identity and the 'userpass' authentication engine to create users,
+though EdgeX adopters are free to add their own Vault identities using authentication methods of their choice.
+To add a new user locally, use the snapped <code>secrets-config</code> utility.</p>
+<p>To get the usage help:
+<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>adduser<span class="w"> </span>-h
+</code></pre></div>
+You may also refer to the <a href="../../security/secrets-config-proxy/">secrets-config proxy</a> documentation.</p>
+<div class="admonition example">
+<p class="admonition-title">Creating an example user</p>
+<p>Use <code>secrets-config</code> to add an <code>example</code> user (note: always specify <code>--useRootToken</code> for the snap deployment of EdgeX):
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>adduser<span class="w"> </span>--user<span class="w"> </span>example<span class="w"> </span>--useRootToken<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>--raw-output<span class="w"> </span><span class="s1">'.password'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>&gt;<span class="w"> </span>password.txt
+</code></pre></div>
+On success, the above command writes the system-generated password for <code>example</code> user to <code>password.txt</code>.
+If the "adduser" command is run multiple times,
+each run will overwrite the password from the previous run
+with a new random password.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Generating a JWT token (ID Token) for the example user</p>
+<p>Some additional work is required to generate a JWT that is usable for API gateway authentication.</p>
+<p><div class="highlight"><pre><span></span><code><span class="nv">username</span><span class="o">=</span>example
+<span class="nv">password</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>password.txt<span class="k">)</span>
+
+<span class="nv">vault_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>--silent<span class="w"> </span>--show-err<span class="w"> </span><span class="s2">"http://localhost:8200/v1/auth/userpass/login/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>--data<span class="w"> </span><span class="s2">"{\"password\":\"</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">\"}"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>--raw-output<span class="w"> </span><span class="s1">'.auth.client_token'</span><span class="k">)</span>
+
+curl<span class="w"> </span>--silent<span class="w"> </span>--show-err<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">vault_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:8200/v1/identity/oidc/token/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>--raw-output<span class="w"> </span><span class="s1">'.data.token'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>&gt;<span class="w"> </span>id-token.txt
+</code></pre></div>
+The ID Token gets written to <code>id-token.txt</code>.</p>
+</div>
+<p>Once you have the token, you can access the services via the API Gateway (the vault token can be discarded).
+To obtain a new JWT token once the current one is expired, repeat the above snippet of code.</p>
+<div class="admonition example">
+<p class="admonition-title">Calling an API on behalf of example user</p>
+<p><div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>https://localhost:8443/core-data/api/v3/ping<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="k">$(</span>cat<span class="w"> </span>id-token.txt<span class="k">)</span><span class="s2">"</span>
+</code></pre></div>
+Output: <code>{"apiVersion" : "v3","timestamp":"Mon May 15 16:45:55 CEST 2023","serviceName":"core-data"}</code></p>
+</div>
+<h4 id="accessing-consul">Accessing Consul</h4>
+<p>Consul API and UI can be accessed using the consul token (Secret ID). For the snap, token is the value of <code>SecretID</code> typically placed in a JSON file at <code>/var/snap/edgexfoundry/current/secrets/consul-acl-token/mgmt_token.json</code>.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>To get the token:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>cat<span class="w"> </span>/var/snap/edgexfoundry/current/secrets/consul-acl-token/mgmt_token.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.SecretID'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>&gt;<span class="w"> </span>consul-token.txt
+</code></pre></div>
+The output gets written to <code>consul-token.txt</code>.</p>
+<p>Try it out locally:
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--silent<span class="w"> </span>--show-err<span class="w"> </span>http://localhost:8500/v1/kv/edgex/v3/core-data/Service/Port<span class="w"> </span>-H<span class="w"> </span><span class="s2">"X-Consul-Token:</span><span class="k">$(</span>cat<span class="w"> </span>consul-token.txt<span class="k">)</span><span class="s2">"</span>
+</code></pre></div></p>
+<p>Through the API Gateway:<br>
+We need to pass both the Consul token and Secret Store token obtained in <a href="#adding-api-gateway-users">Adding API Gateway users</a> examples.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--insecure<span class="w"> </span>--silent<span class="w"> </span>--show-err<span class="w"> </span>https://localhost:8443/consul/v1/kv/edgex/v3/core-data/Service/Port<span class="w"> </span>-H<span class="w"> </span><span class="s2">"X-Consul-Token:</span><span class="k">$(</span>cat<span class="w"> </span>consul-token.txt<span class="k">)</span><span class="s2">"</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="k">$(</span>cat<span class="w"> </span>id-token.txt<span class="k">)</span><span class="s2">"</span>
+</code></pre></div></br></p>
+</div>
+<h4 id="changing-tls-certificates">Changing TLS certificates</h4>
+<p>The API Gateway setup generates a self-signed certificate with a short expiration by default.</p>
+<p>The JWT authentication token that is consumed by the proxy is sensitive and it is important that
+measures are taken to ensure that clients do not disclose the JWT to unauthorized parties.
+For this reason, the default certificate and key should be replaced
+with a certificate and key that is trusted by connecting clients.</p>
+<p>The certificate and key can be replaced locally. They are located at:</p>
+<ul>
+<li><code>/var/snap/edgexfoundry/current/nginx/nginx.crt</code></li>
+<li><code>/var/snap/edgexfoundry/current/nginx/nginx.key</code></li>
+</ul>
+<p>Changes to the files should be followed by reloading Nginx: <code>sudo snap restart --reload edgexfoundry.nginx</code></p>
+<p>Alternatively, the certificate and key can be replaced using the snapped <code>secrets-config</code> application. To get the usage help:
+<div class="highlight"><pre><span></span><code>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>tls<span class="w"> </span>-h
+</code></pre></div>
+Refer to the <a href="../../security/secrets-config-proxy/">secrets-config proxy</a> documentation.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Given the following files created outside the scope of this document:</p>
+<ul>
+<li><code>server.crt</code> user-provided certificate (replacing the default)</li>
+<li><code>server.key</code> user-provided private key (replacing the default)</li>
+<li><code>ca.crt</code> Certificate Authority certificate (that signed <code>server.crt</code>, directly or indirectly)</li>
+</ul>
+<details class="example">
+<summary>Create a self-signed certificate</summary>
+<p>For example, to generate a CA and issue a certificate valid for 30 days:
+<div class="highlight"><pre><span></span><code># Generate the Certificate Authority (CA) Private Key
+openssl ecparam -name prime256v1 -genkey -noout -out ca.key
+# Generate the Certificate Authority Certificate
+openssl req -new -x509 -sha256 -key ca.key -out ca.crt -subj "/CN=getting-started-ca"
+# Generate the Server Certificate Private Key
+openssl ecparam -name prime256v1 -genkey -noout -out server.key
+# Generate the Server Certificate Signing Request
+openssl req -new -sha256 -key server.key -out server.csr -subj "/CN=localhost"
+# Generate the Server Certificate
+openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 30 -sha256
+</code></pre></div></p>
+</details>
+<p>Perform the following steps:</p>
+<ol>
+<li>
+<p>Copy <code>server.crt</code> and <code>server.key</code> to the snap
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>cp<span class="w"> </span>server.crt<span class="w"> </span>server.key<span class="w"> </span>/var/snap/edgexfoundry/common/
+</code></pre></div>
+We do this to allow temporary access to the files by the confined application.<br>
+Instead of temporarily adding the files to the snap, the files can be read directly from the root user's home (<code>/root</code>) or a removable media, after granting the <a href="https://snapcraft.io/docs/home-interface">home</a> or <a href="https://snapcraft.io/docs/removable-media-interface">removable-media</a> permissions.</br></p>
+</li>
+<li>
+<p>Add new certificate files:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>edgexfoundry.secrets-config<span class="w"> </span>proxy<span class="w"> </span>tls<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--targetFolder<span class="w"> </span>/var/snap/edgexfoundry/current/nginx<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--inCert<span class="w"> </span>/var/snap/edgexfoundry/common/server.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--inKey<span class="w">  </span>/var/snap/edgexfoundry/common/server.key<span class="w"> </span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Reload Nginx:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>restart<span class="w"> </span>--reload<span class="w"> </span>edgexfoundry.nginx
+</code></pre></div></p>
+</li>
+</ol>
+<p>Try it out:
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--verbose<span class="w"> </span>--cacert<span class="w"> </span>ca.crt<span class="w"> </span>https://localhost:8443/core-data/api/v3/ping
+</code></pre></div>
+The output should include a message indicating that the request is unauthorized.<br>
+This means that TLS is setup correctly, but the request misses the required authentication. 
+See <a href="#adding-api-gateway-users">Adding API Gateway users</a>.</br></p>
+<p>In the information about the TLS, look for the Server certificate's issuer and make sure it matches your CA. For example, <code>issuer: CN=getting-started-ca</code>.</p>
+<p>The <code>--cacert</code> can be omitted if the CA is available in root certificates (e.g. CA-signed or pre-installed CA certificate).</p>
+</div>
+<!-- DO NOT CHANGE THE TITLE. READMEs reference the anchor -->
+<h4 id="secret-store-token">Secret Store token</h4>
+<p>The services inside standalone snaps (e.g. device, app snaps) automatically receive a <a href="../../security/Ch-SecretStore/">Secret Store</a> token when:</p>
+<ul>
+<li>The standalone snap is downloaded and installed from the store</li>
+<li>The platform snap is downloaded and installed from the store</li>
+<li>Both snaps are installed on the same machine</li>
+<li>The service is registered as an <a href="../../security/Ch-Configuring-Add-On-Services/">add-on service</a></li>
+</ul>
+<p>The <code>edgex-secretstore-token</code> <a href="https://snapcraft.io/docs/content-interface">content interface</a> provides the mechanism to automatically supply tokens to connected snaps.</p>
+<p>Execute the following command to check the status of connections:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span>connections<span class="w"> </span>edgexfoundry
+</code></pre></div></p>
+<p>To manually connect the edgexfoundry's plug to a standalone snap's slot:
+<div class="highlight"><pre><span></span><code>snap<span class="w"> </span>connect<span class="w"> </span>edgexfoundry:edgex-secretstore-token<span class="w"> </span>&lt;snap&gt;:edgex-secretstore-token
+</code></pre></div></p>
+<p>Note that the token has a limited expiry time of 1h by default. The connection and service startup should happen within the validity period.</p>
+<p>To better understand the snap connections, read the <a href="https://snapcraft.io/docs/interface-management">interface management</a></p>
+<div class="admonition tip">
+<p class="admonition-title">Extend the default Secret Store token TTL</p>
+<p>The <a href="../../microservices/configuration/CommonEnvironmentVariables/#tokenfileprovider_defaulttokenttl-security-secretstore-setup-service">TOKENFILEPROVIDER_DEFAULTTOKENTTL</a> environment variable can be set to override the default time to live (TTL) of the Secret Store tokens.
+This is useful when the microservice consumers of the tokens are expected to start after a delay that is longer than the default TTL.</p>
+<p>This can be achieved in the snap by setting the equivalent <code>tokenfileprovider-defaulttokenttl</code> config option:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>app-options<span class="o">=</span><span class="nb">true</span>
+sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.security-secretstore-setup.config.tokenfileprovider-defaulttokenttl<span class="o">=</span>72h
+
+<span class="c1"># Re-start the oneshot setup service to re-generate tokens:</span>
+sudo<span class="w"> </span>snap<span class="w"> </span>start<span class="w"> </span>edgexfoundry.security-secretstore-setup
+</code></pre></div></p>
+</div>
+<h3 id="edgex-ui">EdgeX UI</h3>
+<p>| <a href="https://snapcraft.io/edgex-ui">Installation</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/edgex-ui-go/tree/main/snap">Source</a> |</p>
+<p>For usage instructions, please refer to the <a href="../tools/Ch-GUI/">Graphical User Interface (GUI)</a> guide.</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>Once started, the UI will be reachable locally and by default at:
+<a href="http://localhost:4000">http://localhost:4000</a></p>
+<p>A valid JWT token is required to access the UI; follow <a href="#adding-api-gateway-users">Adding API Gateway users</a> steps to generate a token.
+In development environments, the UI access control can be disabled as described in <a href="#disabling-security">disabling security</a>.</p>
+<p>To enable all the functionalities of the UI, the following services should be running:</p>
+<ul>
+<li>Support Scheduler</li>
+<li>Support Notifications</li>
+<li><a href="#edgex-ekuiper">EdgeX eKuiper</a></li>
+<li>System Management Agent (deprecated)</li>
+</ul>
+<p>For example, to start/install the support services:
+<div class="highlight"><pre><span></span><code>sudo snap start edgexfoundry.support-scheduler
+sudo snap start edgexfoundry.support-notifications
+sudo snap install edgex-ekuiper
+</code></pre></div></p>
+<h3 id="edgex-ekuiper">EdgeX eKuiper</h3>
+<p>| <a href="https://snapcraft.io/edgex-ekuiper">Installation</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/canonical/edgex-ekuiper-snap">Source</a> |</p>
+<p>For the documentation of the standalone EdgeX eKuiper snap, visit the <a href="https://github.com/canonical/edgex-ekuiper-snap">README</a>.</p>
+<!-- sorted alphabetically -->
+<h3 id="app-service-configurable">App Service Configurable</h3>
+<p>| <a href="https://snapcraft.io/edgex-app-service-configurable">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/app-service-configurable/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-app-service-configurable/current/config/
+└── res
+    ├── external-mqtt-trigger
+    │   └── configuration.yaml
+    ├── functional-tests
+    │   └── configuration.yaml
+    ├── http-export
+    │   └── configuration.yaml
+    ├── metrics-influxdb
+    │   └── configuration.yaml
+    ├── mqtt-export
+    │   └── configuration.yaml
+    ├── push-to-core
+    │   └── configuration.yaml
+    └── rules-engine
+        └── configuration.yaml
+</code></pre></div></p>
+<details class="example">
+<summary>Filtering devices using snap options</summary>
+<p>App service configurable provides various event filtering options.
+For example, to <a href="../../microservices/application/AppServiceConfigurable/#filterbydevicename">filter by device names</a> <code>Random-Integer-Device</code> and <code>Random-Binary-Device</code> using snap options:
+<div class="highlight"><pre><span></span><code>snap set edgex-app-service-configurable config.writable-pipeline-executionorder="FilterByDeviceName, SetResponseData"
+snap set edgex-app-service-configurable config.writable-pipeline-functions-filterbydevicename-parameters-devicenames="Random-Integer-Device, Random-Binary-Device"
+snap set edgex-app-service-configurable config.writable-pipeline-functions-filterbydevicename-parameters-filterout=true
+</code></pre></div></p>
+</details>
+<p>Please refer to <a href="../../microservices/application/AppServiceConfigurable/">App Service Configurable</a> guide for detailed usage instructions.</p>
+<p><strong>Profile</strong></p>
+<p>Before you can start the service, you must select one of available profiles, 
+using snap options.</p>
+<p>For example, to set <code>mqtt-export</code> profile using the snap CLI:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-app-service-configurable<span class="w"> </span><span class="nv">profile</span><span class="o">=</span>mqtt-export
+</code></pre></div></p>
+<h3 id="app-rfid-llrp-inventory">App RFID LLRP Inventory</h3>
+<p>| <a href="https://snapcraft.io/edgex-app-rfid-llrp-inventory">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/app-rfid-llrp-inventory/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-app-rfid-llrp-inventory/current/config/
+└── app-rfid-llrp-inventory
+    └── res
+        └── configuration.yaml
+</code></pre></div></p>
+<p><strong>Aliases</strong></p>
+<p>The aliases need to be provided for the service to work.  See <a href="https://github.com/edgexfoundry/app-rfid-llrp-inventory/blob/main/README.md#setting-the-aliases">Setting the Aliases</a>.</p>
+<p>For the snap, this can either be by:</p>
+<ul>
+<li>using a <a href="#config-provider-snap">config-provider-snap</a> to provide a <code>configuration.yaml</code> file with the correct aliases, before startup</li>
+<li>setting the values manually in Consul during or after deployment</li>
+</ul>
+<h3 id="device-gpio">Device GPIO</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-gpio">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-gpio/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-gpio/current/config
+└── device-gpio
+    └── res
+        ├── configuration.yaml
+        ├── devices
+        │   └── device.custom.gpio.yaml
+        └── profiles
+            └── device.custom.gpio.yaml
+</code></pre></div></p>
+<p><strong>GPIO Access</strong></p>
+<p>This snap is strictly confined which means that the access to interfaces are subject to various security measures.</p>
+<p>On a Linux distribution without snap confinement for GPIO (e.g. Raspberry Pi OS 11), the snap may be able to access the GPIO directly, without any snap interface and manual connections.</p>
+<p>On Linux distributions with snap confinement for GPIO such as Ubuntu Core, the GPIO access is possible via the <a href="https://snapcraft.io/docs/gpio-interface">gpio interface</a>, provided by a gadget snap. 
+The official <a href="https://ubuntu.com/download/raspberry-pi-core">Raspberry Pi Ubuntu Core</a> image includes that gadget.
+It is NOT possible to use this snap on Linux distributions that have the GPIO confinement but not the interface (e.g. Ubuntu Server 20.04), unless for development purposes.</p>
+<p>In development environments, it is possible to install the snap in dev mode (using <code>--devmode</code> flag which disables security confinement and automatic upgrades) to allow direct GPIO access.</p>
+<p>The <code>gpio</code> interface provides slots for each GPIO channel. The slots can be listed using:
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>snap<span class="w"> </span>interface<span class="w"> </span>gpio
+name:<span class="w">    </span>gpio
+summary:<span class="w"> </span>allows<span class="w"> </span>access<span class="w"> </span>to<span class="w"> </span>specific<span class="w"> </span>GPIO<span class="w"> </span>pin
+plugs:
+<span class="w">  </span>-<span class="w"> </span>edgex-device-gpio
+slots:
+<span class="w">  </span>-<span class="w"> </span>pi:bcm-gpio-0
+<span class="w">  </span>-<span class="w"> </span>pi:bcm-gpio-1
+<span class="w">  </span>-<span class="w"> </span>pi:bcm-gpio-10
+<span class="w">  </span>...
+</code></pre></div></p>
+<p>The slots are not connected automatically. For example, to connect GPIO-17:
+<div class="highlight"><pre><span></span><code>$ sudo snap connect edgex-device-gpio:gpio pi:bcm-gpio-17
+</code></pre></div></p>
+<p>Check the list of connections:
+<div class="highlight"><pre><span></span><code>$ sudo snap connections
+Interface        Plug                            Slot              Notes
+gpio             edgex-device-gpio:gpio          pi:bcm-gpio-17    manual
+…
+</code></pre></div></p>
+<h3 id="device-modbus">Device Modbus</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-modbus">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-modbus-go/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-modbus/current/config/
+└── device-modbus
+    └── res
+        ├── configuration.yaml
+        ├── devices
+        │   └── modbus.test.devices.yaml
+        └── profiles
+            └── modbus.test.device.profile.yml
+</code></pre></div></p>
+<h3 id="device-mqtt">Device MQTT</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-mqtt">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-mqtt-go/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-mqtt/current/config/
+└── device-mqtt
+    └── res
+        ├── configuration.yaml
+        ├── devices
+        │   └── mqtt.test.device.yaml
+        └── profiles
+            └── mqtt.test.device.profile.yaml
+</code></pre></div></p>
+<h3 id="device-rest">Device REST</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-rest">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-rest-go/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-rest/current/config/
+└── device-rest
+    └── res
+        ├── configuration.yaml
+        ├── devices
+        │   └── sample-devices.yaml
+        └── profiles
+            ├── sample-image-device.yaml
+            ├── sample-json-device.yaml
+            └── sample-numeric-device.yaml
+</code></pre></div></p>
+<h3 id="device-rfid-llrp">Device RFID LLRP</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-rfid-llrp">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-rfid-llrp-go/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-rfid-llrp/current/config/
+└── device-rfid-llrp
+    └── res
+        ├── configuration.yaml
+        ├── devices
+        ├── profiles
+        │   ├── llrp.device.profile.yaml
+        │   └── llrp.impinj.profile.yaml
+        └── provision_watchers
+            ├── impinj.provision.watcher.yaml
+            └── llrp.provision.watcher.yaml
+</code></pre></div></p>
+<p><strong>Subnet setup</strong></p>
+<p>The <code>DiscoverySubnets</code> setting needs to be provided before a device discovery can occur. This can be done in a number of ways:</p>
+<ul>
+<li>
+<p>Using <code>snap set</code> to set your local subnet information. Example:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgex-device-rfid-llrp<span class="w"> </span>apps.device-rfid-llrp.config.app-custom.discovery-subnets<span class="o">=</span><span class="s2">"192.168.10.0/24"</span>
+
+curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:59989/api/v3/discovery
+</code></pre></div>
+</li>
+<li>
+<p>Using a <a href="#config-provider-snap">config-provider-snap</a> to set device configuration</p>
+</li>
+<li>
+<p>Using the <code>auto-configure</code> command. </p>
+<p>This command finds all local network interfaces which are online and non-virtual and sets the value of <code>DiscoverySubnets</code> 
+in Consul. When running with security enabled, it requires a Consul token, so it needs to be run as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># get Consul ACL token</span>
+<span class="nv">CONSUL_TOKEN</span><span class="o">=</span><span class="k">$(</span>sudo<span class="w"> </span>cat<span class="w"> </span>/var/snap/edgexfoundry/current/secrets/consul-acl-token/bootstrap_token.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s2">".SecretID"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'"'</span><span class="k">)</span><span class="w"> </span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$CONSUL_TOKEN</span><span class="w"> </span>
+
+<span class="c1"># start the device service and connect the interfaces required for network interface discovery</span>
+sudo<span class="w"> </span>snap<span class="w"> </span>start<span class="w"> </span>edgex-device-rfid-llrp.device-rfid-llrp<span class="w"> </span>
+sudo<span class="w"> </span>snap<span class="w"> </span>connect<span class="w"> </span>edgex-device-rfid-llrp:network-control<span class="w"> </span>
+sudo<span class="w"> </span>snap<span class="w"> </span>connect<span class="w"> </span>edgex-device-rfid-llrp:network-observe<span class="w"> </span>
+
+<span class="c1"># run the nework interface discovery, providing the Consul token</span>
+edgex-device-rfid-llrp.auto-configure<span class="w"> </span><span class="nv">$CONSUL_TOKEN</span>
+</code></pre></div>
+</li>
+</ul>
+<h3 id="device-snmp">Device SNMP</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-snmp">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-snmp-go/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-snmp/current/config/
+└── device-snmp
+    └── res
+        ├── configuration.yaml
+        ├── devices
+        │   └── device.snmp.trendnet.TPE082WS.yaml
+        └── profiles
+            ├── device.snmp.patlite.yaml
+            ├── device.snmp.switch.dell.N1108P-ON.yaml
+            └── device.snmp.trendnet.TPE082WS.yaml
+</code></pre></div></p>
+<h3 id="device-usb-camera">Device USB Camera</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-usb-camera">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-usb-camera/tree/main/snap">Source</a> |</p>
+<p>This snap includes two services:</p>
+<ul>
+<li>Device USB Camera service</li>
+<li><a href="https://github.com/aler9/rtsp-simple-server">Simple RTSP Server</a> - used as the default RTSP server by Device USB Camera service</li>
+</ul>
+<p>The services are <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The snap uses the <a href="https://snapcraft.io/docs/camera-interface">camera interface</a> to access local USB camera devices. The <a href="https://snapcraft.io/docs/interface-management">interface management</a> document describes how Snap interfaces are used to control the access to resources.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-usb-camera/current/config
+├── device-usb-camera
+│   └── res
+│       ├── configuration.yaml
+│       ├── devices
+│       │   ├── general.usb.camera.yaml.example
+│       │   └── hp.w200.yaml.example
+│       ├── profiles
+│       │   ├── general.usb.camera.yaml
+│       │   ├── hp.w200.yaml.example
+│       │   └── jinpei.general.yaml.example
+│       └── provision_watchers
+│           └── generic.provision.watcher.yaml
+└── rtsp-simple-server
+    └── config.yml
+</code></pre></div></p>
+<h3 id="device-virtual">Device Virtual</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-virtual">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-virtual-go/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-virtual/current/config
+└── device-virtual
+    └── res
+        ├── configuration.yaml
+        ├── devices
+        │   └── devices.yaml
+        └── profiles
+            ├── device.virtual.binary.yaml
+            ├── device.virtual.bool.yaml
+            ├── device.virtual.float.yaml
+            ├── device.virtual.int.yaml
+            └── device.virtual.uint.yaml
+</code></pre></div></p>
+<h3 id="device-onvif-camera">Device ONVIF Camera</h3>
+<p>| <a href="https://snapcraft.io/edgex-device-onvif-camera">Installation</a> | <a href="#configuration">Configuration</a> | <a href="#managing-services">Managing Services</a> | <a href="#debugging">Debugging</a> | <a href="https://github.com/edgexfoundry/device-onvif-camera/tree/main/snap">Source</a> |</p>
+<p>The service is <strong>not started</strong> by default. Please refer to <a href="#configuration">configuration</a> and <a href="#managing-services">managing services</a>.</p>
+<p>The default configuration files are installed at:
+<div class="highlight"><pre><span></span><code>/var/snap/edgex-device-onvif-camera/current/config
+└── device-onvif-camera
+    └── res
+        ├── configuration.yaml
+        ├── devices
+        │   ├── camera.yaml.example
+        │   └── control-plane-device.yaml
+        ├── profiles
+        │   ├── camera.yaml
+        │   └── control-plane.profile.yaml
+        └── provision_watchers
+            └── generic.provision.watcher.yaml
+</code></pre></div></p>
+<!-- Store Links -->
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: Getting Started using Docker" class="md-footer__link md-footer__link--prev" href="../Ch-GettingStartedDockerUsers/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Previous
+              </span>
+              Getting Started using Docker
+            </div>
+</div>
+</a>
+<a aria-label="Next: Getting Started as a Developer" class="md-footer__link md-footer__link--next" href="../Ch-GettingStartedDevelopers/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Next
+              </span>
+              Getting Started as a Developer
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2022 EdgeX Foundry
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/edgexfoundry" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 480 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"></path></svg>
+</a>
+<a class="md-social__link" href="https://twitter.com/edgexfoundry" rel="noopener" target="_blank" title="twitter.com">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
+</a>
+<a class="md-social__link" href="https://www.linkedin.com/company/edgexfoundry" rel="noopener" target="_blank" title="www.linkedin.com">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+<script src="../../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+<script src="../../assets/javascripts/version-select.js"></script>
+<script>document$.subscribe(() => {
+            window.update_swagger_ui_iframe_height = function (id) {
+                var iFrameID = document.getElementById(id);
+                if (iFrameID) {
+                    full_height = (iFrameID.contentWindow.document.body.scrollHeight + 80) + "px";
+                    iFrameID.height = full_height;
+                    iFrameID.style.height = full_height;
+                }
+            }
+        
+            let iframe_id_list = []
+            var iframes = document.getElementsByClassName("swagger-ui-iframe");
+            for (var i = 0; i < iframes.length; i++) { 
+                iframe_id_list.push(iframes[i].getAttribute("id"))
+            }
+        
+            let ticking = true;
+            
+            document.addEventListener('scroll', function(e) {
+                if (!ticking) {
+                    window.requestAnimationFrame(()=> {
+                        let half_vh = window.innerHeight/2;
+                        for(var i = 0; i < iframe_id_list.length; i++) {
+                            let element = document.getElementById(iframe_id_list[i])
+                            if(element==null){
+                                return
+                            }
+                            let diff = element.getBoundingClientRect().top
+                            if(element.contentWindow.update_top_val){
+                                element.contentWindow.update_top_val(half_vh - diff)
+                            }
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        
+            const dark_scheme_name = "slate"
+            
+            window.scheme = document.body.getAttribute("data-md-color-scheme")
+            const options = {
+                attributeFilter: ['data-md-color-scheme'],
+            };
+            function color_scheme_callback(mutations) {
+                for (let mutation of mutations) {
+                    if (mutation.attributeName === "data-md-color-scheme") {
+                        scheme = document.body.getAttribute("data-md-color-scheme")
+                        var iframe_list = document.getElementsByClassName("swagger-ui-iframe")
+                        for(var i = 0; i < iframe_list.length; i++) {
+                            var ele = iframe_list.item(i);
+                            if (ele) {
+                                if (scheme === dark_scheme_name) {
+                                    ele.contentWindow.enable_dark_mode();
+                                } else {
+                                    ele.contentWindow.disable_dark_mode();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            observer = new MutationObserver(color_scheme_callback);
+            observer.observe(document.body, options);
+            })</script></body>
+</html>

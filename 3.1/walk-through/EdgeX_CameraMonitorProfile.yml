@@ -1,0 +1,50 @@
+name: "camera-monitor-profile"
+manufacturer: "IOTech"
+model: "Cam12345"
+labels: 
+- "camera"
+description: "Human and canine camera monitor profile"
+
+deviceResources:
+-
+  name: "HumanCount"
+  isHidden: false  #is hidden is false by default so this is just making it explicit for purpose of the walkthrough demonstration
+  description: "Number of people on camera"
+  properties:
+    valueType:  "Int16"
+    readWrite: "R"  #designates that this property can only be read and not set
+    defaultValue: "0"
+-
+  name: "CanineCount"
+  isHidden: false
+  description: "Number of dogs on camera"
+  properties:
+    valueType:  "Int16"
+    readWrite: "R"  #designates that this property can only be read and not set
+    defaultValue: "0"
+-
+  name: "ScanDepth"
+  isHidden: false
+  description: "Get/set the scan depth"
+  properties:
+    valueType:  "Int16"
+    readWrite: "RW"  #designates that this property can be read or set
+    defaultValue: "0"
+
+-
+  name: "SnapshotDuration"
+  isHidden: false
+  description: "Get the snaphot duration"
+  properties:
+    valueType:  "Int16"
+    readWrite: "RW"  #designates that this property can be read or set
+    defaultValue: "0"
+
+deviceCommands:
+-
+  name: "Counts"
+  readWrite: "R"
+  isHidden: false
+  resourceOperations:
+  - { deviceResource: "HumanCount" }
+  - { deviceResource: "CanineCount" }
