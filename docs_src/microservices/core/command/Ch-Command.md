@@ -180,7 +180,7 @@ The message topic names act like the HTTP paths and methods in REST requests. Th
 Below is an example of the `MessageEnvelope` for command query request:
 ```json
 {
-  "ApiVersion": "v2",
+  "apiVersion": "v3",
   "RequestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
   "CorrelationID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
   "ContentType": "application/json",
@@ -232,7 +232,7 @@ Example of querying device core commands by device name via messaging:
 1. Send query request message to external MQTT broker on topic `edgex/commandquery/request/Random-Boolean-Device`:
 ```json
 {
-  "ApiVersion": "v2",
+  "apiVersion": "v3",
   "ContentType": "application/json",
   "CorrelationID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
   "RequestId": "e6e8a2f4-eb14-4649-9e2b-175247911369"
@@ -266,7 +266,7 @@ Base64-decoding the Payload:
       {
         "name":"WriteBoolValue",
         "set":true,
-        "path":"/api/v2/device/name/Random-Boolean-Device/WriteBoolValue",
+        "path":"/api/v3/device/name/Random-Boolean-Device/WriteBoolValue",
         "url":"http://edgex-core-command:59882",
         "parameters":[
           {"resourceName":"Bool", "valueType":"Bool"},
@@ -276,7 +276,7 @@ Base64-decoding the Payload:
       {
         "name":"WriteBoolArrayValue",
         "set":true,
-        "path":"/api/v2/device/name/Random-Boolean-Device/WriteBoolArrayValue",
+        "path":"/api/v3/device/name/Random-Boolean-Device/WriteBoolArrayValue",
         "url":"http://edgex-core-command:59882",
         "parameters":[
           {"resourceName":"BoolArray","valueType":"BoolArray"},
@@ -287,7 +287,7 @@ Base64-decoding the Payload:
         "name":"Bool",
         "get":true,
         "set":true,
-        "path":"/api/v2/device/name/Random-Boolean-Device/Bool",
+        "path":"/api/v3/device/name/Random-Boolean-Device/Bool",
         "url":"http://edgex-core-command:59882",
         "parameters":[
           {"resourceName":"Bool","valueType":"Bool"}
@@ -297,7 +297,7 @@ Base64-decoding the Payload:
         "name":"BoolArray",
         "get":true,
         "set":true,
-        "path":"/api/v2/device/name/Random-Boolean-Device/BoolArray",
+        "path":"/api/v3/device/name/Random-Boolean-Device/BoolArray",
         "url":"http://edgex-core-command:59882",
         "parameters":[
           {"resourceName":"BoolArray","valueType":"BoolArray"}
@@ -315,7 +315,7 @@ Example of querying all device core commands via messaging:
 1. Send query request message to external MQTT broker on topic `edgex/commandquery/request/all`:
 ```json
 {
-  "ApiVersion": "v2",
+  "apiVersion": "v3",
   "ContentType": "application/json",
   "CorrelationID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
   "RequestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
@@ -358,7 +358,7 @@ Example of making get command request via messaging:
 1. Send command request message to external MQTT broker on topic `edgex/command/request/Random-Boolean-Device/Bool/get`:
 ```json
 {
-  "ApiVersion": "v2",
+  "apiVersion": "v3",
   "ContentType": "application/json",
   "CorrelationID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
   "RequestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
@@ -417,7 +417,7 @@ Example of making put command request via messaging:
 1. Send command request message to external MQTT broker on topic `edgex/command/request/Random-Boolean-Device/WriteBoolValue/set`:
 ```json
 {
-  "ApiVersion": "v2",
+  "apiVersion": "v3",
   "ContentType": "application/json",
   "CorrelationID": "14a42ea6-c394-41c3-8bcd-a29b9f5e6835",
   "RequestId": "e6e8a2f4-eb14-4649-9e2b-175247911369",
@@ -453,7 +453,7 @@ The payload is the base64-encoding json struct:
 ### Configuring for secure MQTT connection
 
 In real word, users usually need to provide credentials or certificates to connect to external MQTT broker.
-To seed such secrets to Secret Store for Command service, you can follow the instructions from the [Seeding Service Secrets](../../security/SeedServiceSecrets.md) document.
+To seed such secrets to Secret Store for Command service, you can follow the instructions from the [Seeding Service Secrets](../../security/SeedingServiceSecrets) document.
 
 The following example shows how to set up Command service to connect to external MQTT broker with `usernamepassword` authentication.
 
@@ -540,13 +540,13 @@ regex command name `.rotation` will return event including `Xrotation`, `Yrotati
 Note that the [RE2 syntax](https://github.com/google/re2/wiki/Syntax) accepted by Go's `regexp` package contains character like `.`, `*`, `+` ...etc.
 These characters need to be URL-encoded before executing:
 ```shell
-$ curl http://localhost:59882/api/v2/device/name/Simple-Device01/%2Erotation
+$ curl http://localhost:59882/api/v3/device/name/Simple-Device01/%2Erotation
 
 {
-  "apiVersion": "v2",
+  "apiVersion": "v3",
   "statusCode": 200,
   "event": {
-    "apiVersion": "v2",
+    "apiVersion": "v3",
     "id": "821f9a5d-e521-4ea7-83f9-f6bce6881dce",
     "deviceName": "Simple-Device01",
     "profileName": "Simple-Device",

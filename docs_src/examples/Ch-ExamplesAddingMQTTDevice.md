@@ -308,7 +308,7 @@ Now we're ready to run some commands.
 Use the following query to find executable commands:
 
 ```json
-$ curl http://localhost:59882/api/v2/device/all | json_pp
+$ curl http://localhost:59882/api/v3/device/all | json_pp
 
 {
    "deviceCoreCommands" : [
@@ -318,7 +318,7 @@ $ curl http://localhost:59882/api/v2/device/all | json_pp
             {
                "name" : "values",
                "get" : true,
-               "path" : "/api/v2/device/name/my-custom-device/values",
+               "path" : "/api/v3/device/name/my-custom-device/values",
                "url" : "http://edgex-core-command:59882",
                "parameters" : [
                   {
@@ -345,14 +345,14 @@ $ curl http://localhost:59882/api/v2/device/all | json_pp
                ],
                "name" : "message",
                "get" : true,
-               "path" : "/api/v2/device/name/my-custom-device/message",
+               "path" : "/api/v3/device/name/my-custom-device/message",
                "set" : true
             },
             {
                 "name": "json",
                 "get": true,
                 "set": true,
-                "path": "/api/v2/device/name/MQTT-test-device/json",
+                "path": "/api/v3/device/name/MQTT-test-device/json",
                 "url" : "http://edgex-core-command:59882",
                 "parameters": [
                     {
@@ -376,7 +376,7 @@ Execute a SET command according to the url and parameterNames, replacing
 \[host\] with the server IP when running the SET command.
 
 ```
-$ curl http://localhost:59882/api/v2/device/name/my-custom-device/message \
+$ curl http://localhost:59882/api/v3/device/name/my-custom-device/message \
     -H "Content-Type:application/json" -X PUT  \
     -d '{"message":"Hello!"}'
 ```
@@ -386,7 +386,7 @@ $ curl http://localhost:59882/api/v2/device/name/my-custom-device/message \
 Execute a GET command as follows:
 
 ```json
-$ curl http://localhost:59882/api/v2/device/name/my-custom-device/message | json_pp
+$ curl http://localhost:59882/api/v3/device/name/my-custom-device/message | json_pp
 
 {
    "apiVersion":"v2",
@@ -429,7 +429,7 @@ show that the service auto-executes the command every 30 secs, as shown
 below:
 
 ```json
-$ curl http://localhost:59880/api/v2/reading/resourceName/message | json_pp
+$ curl http://localhost:59880/api/v3/reading/resourceName/message | json_pp
 
 {
    "statusCode" : 200,
@@ -474,7 +474,7 @@ The following results show that the mock device sent the reading every
 15 secs:
 
 ```json
-$ curl http://localhost:59880/api/v2/reading/resourceName/randnum | json_pp
+$ curl http://localhost:59880/api/v3/reading/resourceName/randnum | json_pp
 
 {
   "readings" : [

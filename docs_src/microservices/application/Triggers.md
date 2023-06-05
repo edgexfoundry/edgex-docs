@@ -152,7 +152,7 @@ Trigger:
 
 ## HTTP Trigger
 
-Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful `POST` call to `http://[host]:[port]/api/v2/trigger/`. 
+Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful `POST` call to `http://[host]:[port]/api/v3/trigger/`. 
 
 ### Type Configuration
 
@@ -162,7 +162,7 @@ Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful
       Type: "http" 
     ```
 
-The `Type=` is set to `http`. This will enable listening to the `api/v2/trigger/` endpoint. No other configuration is required. The Context function `ctx.SetResponseData([]byte outputData)` stores the data to send back as the response to the requestor that originally triggered the HTTP Request. 
+The `Type=` is set to `http`. This will enable listening to the `api/v3/trigger/` endpoint. No other configuration is required. The Context function `ctx.SetResponseData([]byte outputData)` stores the data to send back as the response to the requestor that originally triggered the HTTP Request. 
 
 !!! note
     The HTTP trigger uses the `content-type` from the HTTP Header to determine if the data is JSON or CBOR encoded and the optional `X-Correlation-ID` to set the correlation ID for the request.

@@ -158,9 +158,9 @@ EDGEX_ADD_PROXY_ROUTE: "app-myservice.http://edgex-app-myservice:56789"
 ```
 
 When a request to the API gateway is received,
-such as `GET https://localhost:8443/app-myservice/api/v2/ping`,
+such as `GET https://localhost:8443/app-myservice/api/v3/ping`,
 the API gateway will reissue the request as
-`GET http://edgex-app-myservice:56789/api/v2/ping`.
+`GET http://edgex-app-myservice:56789/api/v3/ping`.
 Note that the route prefix is stripped
 from the re-issued request.
 
@@ -173,7 +173,7 @@ REST API provided by the EdgeX microservices by sending an HTTP request
 to the service endpoint. E.g., a client can consume the ping endpoint of
 the Core Data microservice with curl command like this:
 
-    curl http://<core-data-microservice-ip>:59880/api/v2/ping
+    curl http://<core-data-microservice-ip>:59880/api/v3/ping
 
 Where `<core-data-microservice-ip>` is the Docker IP address of
 the container running the core-data microservice (if using Docker),
@@ -185,7 +185,7 @@ The API gateway serves as single external endpoint for all the REST APIs.
 The curl command to ping the endpoint of the same
 Core Data service, as shown above, needs to change to:
 
-    curl https://<api-gateway-host>:8443/core-data/api/v2/ping
+    curl https://<api-gateway-host>:8443/core-data/api/v3/ping
 
 Comparing these two curl commands you may notice several differences.
 
@@ -284,12 +284,12 @@ resources behind the API gateway. Again, without the API Gateway in
 place, here is the sample request to hit the ping endpoint of the EdgeX
 Core Data microservice using curl:
 
-    curl http://<core-data-microservice-ip>:59880/api/v2/ping
+    curl http://<core-data-microservice-ip>:59880/api/v3/ping
 
 With the security service and JWT authentication is enabled, the command
 changes to:
 
-    curl -k -H 'Authorization: Bearer <JWT>' https://myhostname:8443/core-data/api/v2/ping
+    curl -k -H 'Authorization: Bearer <JWT>' https://myhostname:8443/core-data/api/v3/ping
 
 
 In summary the difference between the two commands are listed below:

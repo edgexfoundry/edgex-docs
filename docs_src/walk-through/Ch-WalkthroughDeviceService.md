@@ -33,11 +33,11 @@ Use either the Postman or Curl tab below to walkthrough creating the `DeviceServ
 
 === "Postman"
 
-    Make a POST request to `http://localhost:59881/api/v2/deviceservice` with the following body:
+    Make a POST request to `http://localhost:59881/api/v3/deviceservice` with the following body:
 
     ``` json
     {
-        "apiVersion": "v2",
+        "apiVersion": "v3",
         "service": {
         "name": "camera-control-device-service",
         "description": "Manage human and dog counting cameras",
@@ -59,14 +59,14 @@ Use either the Postman or Curl tab below to walkthrough creating the `DeviceServ
 
     ``` shell
 
-    curl -X 'POST' 'http://localhost:59881/api/v2/deviceservice' -d '[{"apiVersion": "v2","service": {"name": "camera-control-device-service","description": "Manage human and dog counting cameras", "adminState": "UNLOCKED", "labels": ["camera","counter"], "baseAddress": "camera-device-service:59990"}}]'
+    curl -X 'POST' 'http://localhost:59881/api/v3/deviceservice' -d '[{"apiVersion": "v3","service": {"name": "camera-control-device-service","description": "Manage human and dog counting cameras", "adminState": "UNLOCKED", "labels": ["camera","counter"], "baseAddress": "camera-device-service:59990"}}]'
 
     ```
 
     If your API call is successful, you will get a generated ID for your new `DeviceService`.
 
 #### Test the GET API
-If you make a GET call to the `http://localhost:59881/api/v2/deviceservice/all` URL (with Postman or curl) you will get a listing (in JSON) of all the device services currently defined
+If you make a GET call to the `http://localhost:59881/api/v3/deviceservice/all` URL (with Postman or curl) you will get a listing (in JSON) of all the device services currently defined
 in your instance of EdgeX, including the one you just added.
 
 [<Back](Ch-WalkthroughDeviceProfile.md){: .md-button } [Next>](Ch-WalkthroughProvision.md){: .md-button }

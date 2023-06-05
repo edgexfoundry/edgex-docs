@@ -33,4 +33,4 @@ This validation allows for only the following characters:
 - special character: - _ ~ : ; =
 
 !!! edgey "EdgeX 3.0"
-    In EdgeX 3.0, the character restriction was reduced for the command name and resource name because some protocols may use `/` or `.` in the name. By using URL escaping for the API, device command name and resource name allow various characters. For example, the user can define the command name `line-a/test:value` and use it with URL escaping as `/api/v2/device/name/Modbus-TCP-Device/line-a%2Ftest%3Avalue`.
+    In EdgeX 3.0, the character restriction was reduced for the command name and resource name because some protocols may use `/` or `.` in the name. By using URL escaping for the API, device command name and resource name allow various characters. For example, the user can define the command name `line-a/test:value` and use it with URL escaping as `/api/v3/device/name/Modbus-TCP-Device/line-a%2Ftest%3Avalue`.

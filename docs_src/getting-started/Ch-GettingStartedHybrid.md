@@ -86,7 +86,7 @@ Give the virtual device a few seconds or so to initialize itself and start sendi
 to check that events are being deposited. You can do this by calling on the Core Data API that checks the count of events in Core Data.
 
 ```
-http://localhost:59880/api/v2/event/count
+http://localhost:59880/api/v3/event/count
 ```
 
 ![image](EdgeX_GettingStartedHybridResults.png)

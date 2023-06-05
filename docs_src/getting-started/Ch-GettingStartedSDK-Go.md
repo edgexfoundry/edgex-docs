@@ -210,7 +210,7 @@ Follow these steps to create a pre-defined device for the simple random number g
 
 ### Validating your Device
 
-Go Device Services provide `/api/v2/validate/device` API to validate device's ProtocolProperties.  
+Go Device Services provide `/api/v3/validate/device` API to validate device's ProtocolProperties.  
 This feature allows Device Services whose protocol has strict rule to validate their devices before adding them into EdgeX.
 
 Go SDK provides `DeviceValidator` interface:
@@ -374,7 +374,7 @@ sends to EdgeX:
 3.  Using a browser, enter the following URL to see the event/reading
     data that the service is generating and sending to EdgeX:
 
-    <http://localhost:59880/api/v2/event/device/name/RandNum-Device01>
+    <http://localhost:59880/api/v3/event/device/name/RandNum-Device01>
 
     This request asks core data to provide the events associated to the RandNum-Device-01.
 

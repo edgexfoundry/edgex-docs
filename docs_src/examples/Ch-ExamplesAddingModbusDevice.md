@@ -299,12 +299,12 @@ To add a device after starting the services, complete the following
 steps:
 
 1. Upload the device profile above to metadata with a POST to
-    <http://localhost:59881/api/v2/deviceprofile/uploadfile> and add the
+    <http://localhost:59881/api/v3/deviceprofile/uploadfile> and add the
     file as key "file" to the body in form-data format, and the created
     ID will be returned. The following example command uses curl to send the request:
 
     ```
-    $ curl http://localhost:59881/api/v2/deviceprofile/uploadfile \
+    $ curl http://localhost:59881/api/v3/deviceprofile/uploadfile \
       -F "file=@temperature.profile.yml"
     ```
 
@@ -312,13 +312,13 @@ steps:
     below to match if necessary or if using other device services.
 
 4.  Add the device with a POST to
-    <http://localhost:59881/api/v2/device>, the body will look something
+    <http://localhost:59881/api/v3/device>, the body will look something
     like:
     ```
-    $ curl http://localhost:59881/api/v2/device -H "Content-Type:application/json" -X POST \
+    $ curl http://localhost:59881/api/v3/device -H "Content-Type:application/json" -X POST \
       -d '[
             {
-                "apiVersion": "v2",
+                "apiVersion": "v3",
                 "device": {
                    "name" :"Modbus-TCP-Temperature-Sensor",
                    "description":"This device is a product for monitoring the temperature via the ethernet",
@@ -363,7 +363,7 @@ Now we're ready to run some commands.
 
 Use the following query to find executable commands:
 ```json
-$ curl http://localhost:59882/api/v2/device/all | json_pp
+$ curl http://localhost:59882/api/v3/device/all | json_pp
 
 {
    "apiVersion" : "v2",
@@ -387,14 +387,14 @@ $ curl http://localhost:59882/api/v2/device/all | json_pp
                      "resourceName" : "ThermostatH"
                   }
                ],
-               "path" : "/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold"
+               "path" : "/api/v3/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold"
             },
             {
                "get" : true,
                "url" : "http://edgex-core-command:59882",
                "name" : "AlarmMode",
                "set" : true,
-               "path" : "/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmMode",
+               "path" : "/api/v3/device/name/Modbus-TCP-Temperature-Sensor/AlarmMode",
                "parameters" : [
                   {
                      "resourceName" : "AlarmMode",
@@ -406,7 +406,7 @@ $ curl http://localhost:59882/api/v2/device/all | json_pp
                "get" : true,
                "url" : "http://edgex-core-command:59882",
                "name" : "Temperature",
-               "path" : "/api/v2/device/name/Modbus-TCP-Temperature-Sensor/Temperature",
+               "path" : "/api/v3/device/name/Modbus-TCP-Temperature-Sensor/Temperature",
                "parameters" : [
                   {
                      "valueType" : "Float32",
@@ -427,7 +427,7 @@ $ curl http://localhost:59882/api/v2/device/all | json_pp
 Execute SET command according to `url` and `parameterNames`, replacing [host] with the server IP when running the SET command.
 
 ```
-$ curl http://localhost:59882/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold \
+$ curl http://localhost:59882/api/v3/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold \
     -H "Content-Type:application/json" -X PUT  \
     -d '{"ThermostatL":"15","ThermostatH":"100"}'
 ```
@@ -437,7 +437,7 @@ $ curl http://localhost:59882/api/v2/device/name/Modbus-TCP-Temperature-Sensor/A
 Replace *\<host\>* with the server IP when running the GET command.
 
 ```json
-$ curl http://localhost:59882/api/v2/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold | json_pp
+$ curl http://localhost:59882/api/v3/device/name/Modbus-TCP-Temperature-Sensor/AlarmThreshold | json_pp
 
 {
    "statusCode" : 200,
@@ -491,7 +491,7 @@ After service startup, query core-data's API. The results show
 that the service auto-executes the command every 30 seconds.
 
 ```json
-$ curl http://localhost:59880/api/v2/event/device/name/Modbus-TCP-Temperature-Sensor | json_pp
+$ curl http://localhost:59880/api/v3/event/device/name/Modbus-TCP-Temperature-Sensor | json_pp
 
 {
    "events" : [
@@ -673,17 +673,17 @@ $ docker-compose up -d
     ```
 2. Upload the device profile
     ```
-    $ curl http://localhost:59881/api/v2/deviceprofile/uploadfile \
+    $ curl http://localhost:59881/api/v3/deviceprofile/uploadfile \
       -F "file=@modbus.rtu.demo.profile.yml"
     ```
 
 3. Create the device entity to the EdgeX.
     You can find the Modbus RTU setting on the device or the user manual.
     ```json
-    $ curl http://localhost:59881/api/v2/device -H "Content-Type:application/json" -X POST \
+    $ curl http://localhost:59881/api/v3/device -H "Content-Type:application/json" -X POST \
       -d '[
             {
-                "apiVersion": "v2",
+                "apiVersion": "v3",
                 "device": {
                    "name" :"Modbus-RTU-IO-Module",
                    "description":"The device can be used to monitor the status of the digital input and digital output channels.",

@@ -23,7 +23,7 @@ Use either the Postman or Curl tab below to walkthrough getting the list of comm
 
 === "Postman"
 
-    Make a GET request to `http://localhost:59882/api/v2/device/name/countcamera1`.
+    Make a GET request to `http://localhost:59882/api/v3/device/name/countcamera1`.
 
     !!! Note
         Please note the change in port for the command request above.  We are no longer calling on core metadata in this part of the walkthrough.  The command micro service is at port 59882 by default.
@@ -35,7 +35,7 @@ Use either the Postman or Curl tab below to walkthrough getting the list of comm
     Make a curl GET request as shown below.
 
     ``` shell
-    curl -X GET localhost:59882/api/v2/device/name/countcamera1 | json_pp
+    curl -X GET localhost:59882/api/v3/device/name/countcamera1 | json_pp
     ```
 
     !!! Note
@@ -59,14 +59,14 @@ Use either the Postman or Curl tab below to walkthrough getting the list of even
 
 === "Postman"
 
-    Make a GET request to `http://localhost:59880/api/v2/event/count/device/name/countcamera1`.
+    Make a GET request to `http://localhost:59880/api/v3/event/count/device/name/countcamera1`.
 
 === "Curl"
 
     Make a curl GET request as shown below.
 
     ``` shell
-    curl -X GET localhost:59880/api/v2/event/count/device/name/countcamera1
+    curl -X GET localhost:59880/api/v3/event/count/device/name/countcamera1
     ```
 
 The response returned should indicate no events for the camera in core data.
@@ -106,7 +106,7 @@ Use either the Postman or Curl tab below to walkthrough actuating the device.
 
 === "Postman"
 
-    Make a PUT request to `http://localhost:59882/api/v2/device/name/countcamera1/ScanDepth` with the following body.
+    Make a PUT request to `http://localhost:59882/api/v3/device/name/countcamera1/ScanDepth` with the following body.
 
     ``` json
     {"depth":"9"}
@@ -120,7 +120,7 @@ Use either the Postman or Curl tab below to walkthrough actuating the device.
     Make a curl PUT request as shown below.
 
     ``` shell
-    curl -X PUT -d '{"depth":"9"}' localhost:59882/api/v2/device/name/countcamera1/ScanDepth
+    curl -X PUT -d '{"depth":"9"}' localhost:59882/api/v3/device/name/countcamera1/ScanDepth
     ```
 
     !!! Warning
@@ -139,7 +139,7 @@ docker logs edgex-core-command
 The last lines of the log entries should highlight the attempt to contact the non-existent device.
 
 ```
-level=ERROR ts=2021-09-16T20:50:09.965368572Z app=core-command source=http.go:47 X-Correlation-ID=49cc97f5-1e84-4a46-9eb5-543ae8bd5284 msg="failed to send a http request -> Put \"camera-device-service:59990/api/v2/device/name/countcamera1/ScanDepth?\": unsupported protocol scheme \"camera-device-service\""
+level=ERROR ts=2021-09-16T20:50:09.965368572Z app=core-command source=http.go:47 X-Correlation-ID=49cc97f5-1e84-4a46-9eb5-543ae8bd5284 msg="failed to send a http request -> Put \"camera-device-service:59990/api/v3/device/name/countcamera1/ScanDepth?\": unsupported protocol scheme \"camera-device-service\""
 ...
 ```
 
