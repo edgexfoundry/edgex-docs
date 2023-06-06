@@ -37,7 +37,7 @@ The following tables (organized by type of service) capture the default service 
     |device-llrp    |59989|
     |device-grove   |59992|
     |device-snmp	|59993|
-    |device-gpio    |59994|
+    |device-gpio    |59910|
 === "Security"
     |Services Name|	Port Definition|
     |---|---|
