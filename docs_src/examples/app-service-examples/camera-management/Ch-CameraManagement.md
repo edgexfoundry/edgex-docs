@@ -397,8 +397,8 @@ Open your browser to [http://localhost:4200](http://localhost:4200)
 
 [edgex-compose]: https://github.com/edgexfoundry/edgex-compose
 [device-onvif-camera]: https://github.com/edgexfoundry/device-onvif-camera
-[device-onvif-manage]: https://docs.edgexfoundry.org/latest/microservices/device/supported/device-onvif-camera/Walkthrough/deployment/#manage-devices
+[device-onvif-manage]: https://docs.edgexfoundry.org/{{version}}/microservices/device/supported/device-onvif-camera/Walkthrough/deployment/#manage-devices
 [device-usb-camera]: https://github.com/edgexfoundry/device-usb-camera
-[device-usb-manage]: https://docs.edgexfoundry.org/latest/microservices/device/supported/device-usb-camera/Walkthrough/deployment/#manage-devices
+[device-usb-manage]: https://docs.edgexfoundry.org/{{version}}/microservices/device/supported/device-usb-camera/Walkthrough/deployment/#manage-devices
 [evam]: https://www.intel.com/content/www/us/en/developer/articles/technical/video-analytics-service.html
 [device-mqtt]: https://github.com/edgexfoundry/device-mqtt-go
