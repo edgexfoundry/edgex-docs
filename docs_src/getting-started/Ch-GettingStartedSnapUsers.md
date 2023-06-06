@@ -755,7 +755,7 @@ The default configuration files are installed at:
 
 
 ### Device MQTT
-| [Installation][edgex-device-mqtt] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-mqtt-go/tree/{{api_version}}/snap) |
+| [Installation][edgex-device-mqtt] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-mqtt-go/tree/{{version}}/snap) |
 
 The service is **not started** by default. Please refer to [configuration] and [managing services].
 
@@ -772,7 +772,7 @@ The default configuration files are installed at:
 ```
 
 ### Device REST
-| [Installation][edgex-device-rest] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-rest-go/tree/{{api_version}}/snap) |
+| [Installation][edgex-device-rest] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-rest-go/tree/{{version}}/snap) |
 
 The service is **not started** by default. Please refer to [configuration] and [managing services].
 
@@ -792,7 +792,7 @@ The default configuration files are installed at:
 ```
 
 ### Device RFID LLRP
-| [Installation][edgex-device-rfid-llrp] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-rfid-llrp-go/tree/{{api_version}}/snap) |
+| [Installation][edgex-device-rfid-llrp] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-rfid-llrp-go/tree/{{version}}/snap) |
 
 The service is **not started** by default. Please refer to [configuration] and [managing services].
 
@@ -846,7 +846,7 @@ The `DiscoverySubnets` setting needs to be provided before a device discovery ca
     ```
 
 ### Device SNMP
-| [Installation][edgex-device-snmp] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-snmp-go/tree/{{api_version}}/snap) |
+| [Installation][edgex-device-snmp] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-snmp-go/tree/{{version}}/snap) |
 
 The service is **not started** by default. Please refer to [configuration] and [managing services].
 
@@ -865,7 +865,7 @@ The default configuration files are installed at:
 ```
 
 ### Device USB Camera
-| [Installation][edgex-device-usb-camera] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-usb-camera/tree/{{api_version}}/snap) |
+| [Installation][edgex-device-usb-camera] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-usb-camera/tree/{{version}}/snap) |
 
 This snap includes two services:
 
@@ -896,7 +896,7 @@ The default configuration files are installed at:
 ```
 
 ### Device Virtual
-| [Installation][edgex-device-virtual] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-virtual-go/tree/{{api_version}}/snap) |
+| [Installation][edgex-device-virtual] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-virtual-go/tree/{{version}}/snap) |
 
 The service is **not started** by default. Please refer to [configuration] and [managing services].
 
@@ -917,7 +917,7 @@ The default configuration files are installed at:
 ```
 
 ### Device ONVIF Camera
-| [Installation][edgex-device-onvif-camera] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-onvif-camera/tree/{{api_version}}/snap) |
+| [Installation][edgex-device-onvif-camera] | [Configuration] | [Managing Services] | [Debugging] | [Source](https://github.com/edgexfoundry/device-onvif-camera/tree/{{version}}/snap) |
 
 The service is **not started** by default. Please refer to [configuration] and [managing services].
 
@@ -940,9 +940,9 @@ The default configuration files are installed at:
 <!-- Store Links -->
 [badge]: https://snapcraft.io/static/images/badges/en/snap-store-white.svg
 [edgexfoundry]: https://snapcraft.io/edgexfoundry
-[edgexfoundry-src]: https://github.com/edgexfoundry/edgex-go/tree/{{api_version}}/snap
+[edgexfoundry-src]: https://github.com/edgexfoundry/edgex-go/tree/{{version}}/snap
 [edgex-ui]: https://snapcraft.io/edgex-ui
-[edgex-ui-src]: https://github.com/edgexfoundry/edgex-ui-go/tree/{{api_version}}/snap
+[edgex-ui-src]: https://github.com/edgexfoundry/edgex-ui-go/tree/{{version}}/snap
 [edgex-cli]: https://snapcraft.io/edgex-cli
 [edgex-app-service-configurable]: https://snapcraft.io/edgex-app-service-configurable
 [edgex-app-rfid-llrp-inventory]: https://snapcraft.io/edgex-app-rfid-llrp-inventory
