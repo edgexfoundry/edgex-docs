@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-5.1.0">
     
     
       
@@ -2682,11 +2682,11 @@ cp<span class="w"> </span>-rf<span class="w"> </span>./device-sdk-go/example/*<s
 <ul>
 <li>
 <p>Replace:</p>
-<div class="codehilite"><pre><span></span><code>MICROSERVICES=example/cmd/device-simple/device-simple
+<div class="codehilite"><pre><span></span><code><span class="nx">MICROSERVICES</span><span class="p">=</span><span class="nx">example</span><span class="o">/</span><span class="nx">cmd</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">simple</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">simple</span>
 </code></pre></div>
 
 <p>with:</p>
-<div class="codehilite"><pre><span></span><code>MICROSERVICES=cmd/device-simple/device-simple
+<div class="codehilite"><pre><span></span><code><span class="nx">MICROSERVICES</span><span class="p">=</span><span class="nx">cmd</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">simple</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">simple</span>
 </code></pre></div>
 
 </li>
@@ -2696,21 +2696,21 @@ cp<span class="w"> </span>-rf<span class="w"> </span>./device-sdk-go/example/*<s
 </code></pre></div>
 
 <p>to refer to the new service with:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">GOFLAGS</span><span class="o">=</span>-ldflags<span class="w"> </span><span class="s2">&quot;-X github.com/edgexfoundry/device-simple.Version=</span><span class="k">$(</span>VERSION<span class="k">)</span><span class="s2">&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="nx">GOFLAGS</span><span class="p">=</span><span class="o">-</span><span class="nx">ldflags</span><span class="w"> </span><span class="s">&quot;-X github.com/edgexfoundry/device-simple.Version=$(VERSION)&quot;</span>
 </code></pre></div>
 
 </li>
 <li>
 <p>Change:</p>
-<div class="codehilite"><pre><span></span><code><span class="nf">example/cmd/device-simple/device-simple</span><span class="o">:</span>
-<span class="w">  </span>go<span class="w"> </span>mod<span class="w"> </span>tidy
-<span class="w">  </span><span class="k">$(</span>GOCGO<span class="k">)</span><span class="w"> </span>build<span class="w"> </span><span class="k">$(</span>GOFLAGS<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>./example/cmd/device-simple
+<div class="codehilite"><pre><span></span><code><span class="nx">example</span><span class="o">/</span><span class="nx">cmd</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">simple</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">simple</span><span class="p">:</span>
+<span class="w">  </span><span class="nx">go</span><span class="w"> </span><span class="nx">mod</span><span class="w"> </span><span class="nx">tidy</span>
+<span class="w">  </span><span class="err">$</span><span class="p">(</span><span class="nx">GOCGO</span><span class="p">)</span><span class="w"> </span><span class="nx">build</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="nx">GOFLAGS</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="nx">o</span><span class="w"> </span><span class="err">$@</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="nx">example</span><span class="o">/</span><span class="nx">cmd</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">simple</span>
 </code></pre></div>
 
 <p>to:</p>
-<div class="codehilite"><pre><span></span><code><span class="nf">cmd/device-simple/device-simple</span><span class="o">:</span>
-<span class="w">  </span>go<span class="w"> </span>mod<span class="w"> </span>tidy
-<span class="w">  </span><span class="k">$(</span>GOCGO<span class="k">)</span><span class="w"> </span>build<span class="w"> </span><span class="k">$(</span>GOFLAGS<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$@</span><span class="w"> </span>./cmd/device-simple
+<div class="codehilite"><pre><span></span><code><span class="nx">cmd</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">simple</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">simple</span><span class="p">:</span>
+<span class="w">  </span><span class="nx">go</span><span class="w"> </span><span class="nx">mod</span><span class="w"> </span><span class="nx">tidy</span>
+<span class="w">  </span><span class="err">$</span><span class="p">(</span><span class="nx">GOCGO</span><span class="p">)</span><span class="w"> </span><span class="nx">build</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="nx">GOFLAGS</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="nx">o</span><span class="w"> </span><span class="err">$@</span><span class="w"> </span><span class="p">.</span><span class="o">/</span><span class="nx">cmd</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">simple</span>
 </code></pre></div>
 
 </li>
@@ -2722,7 +2722,7 @@ cp<span class="w"> </span>-rf<span class="w"> </span>./device-sdk-go/example/*<s
 <li>
 <p>Enter the following command to create the initial module definition
     and write it to the go.mod file:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">GO111MODULE</span><span class="o">=</span><span class="k">on</span><span class="w"> </span><span class="k">go</span><span class="w"> </span><span class="k">mod</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">edgexfoundry</span><span class="o">/</span><span class="n">device</span><span class="o">-</span><span class="n">simple</span>
+<div class="codehilite"><pre><span></span><code><span class="nx">GO111MODULE</span><span class="p">=</span><span class="nx">on</span><span class="w"> </span><span class="nx">go</span><span class="w"> </span><span class="nx">mod</span><span class="w"> </span><span class="nx">init</span><span class="w"> </span><span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">edgexfoundry</span><span class="o">/</span><span class="nx">device</span><span class="o">-</span><span class="nx">simple</span>
 </code></pre></div>
 
 <p><img alt="image" src="../EdgeX_GettingStartedGoModInit.png" /></p>

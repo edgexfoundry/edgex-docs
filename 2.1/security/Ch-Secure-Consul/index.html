@@ -17,7 +17,7 @@
         <meta name="author" content="Michael Johanson">
       
       <link rel="shortcut icon" href="../../assets/logo_edgex.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-5.1.0">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-5.1.0">
     
     
       
@@ -2498,11 +2498,11 @@ from <code>edgex-compose</code>'s <code>compose-builder</code> utility for bette
 <p>In order to reduce another token generation system to maintain, we utilize the Vault's feature of
 <code>Consul Secrets Engine</code> APIs, governed by Vault itself, and integrated with Consul.
 Consul service itself provides ACL system and is enabled via Consul's configuration settings like:</p>
-<div class="highlight"><pre><span></span><code>acl = {
-    enabled = true
-    default_policy = &quot;deny&quot;
-    enable_token_persistence = true
-}
+<div class="highlight"><pre><span></span><code><span class="nb">acl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
+<span class="w">    </span><span class="na">default_policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;deny&quot;</span>
+<span class="w">    </span><span class="na">enable_token_persistence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>and this is set as part of EdgeX <code>security-bootstrapper</code> service's process. Note that the default ACL policy
 is set to "deny" so that anything is not listed in the ACL list will get access denied by nature.
