@@ -204,7 +204,7 @@ make run-edge-video-analytics
  
     ```yaml
     InsecureSecrets:
-      onvifCredentials:
+      onvifauth:
         SecretName: onvifauth
         SecretData:
           username: "<username>"
@@ -233,7 +233,7 @@ make run-edge-video-analytics
     ```yaml
     InsecureSecrets:
       rtspauth:
-        SecretName: rtspAuth
+        SecretName: rtspauth
         SecretData:
           username: "<username>"
           password: "<password>"
@@ -269,12 +269,12 @@ AppCustom:
 
 1. Build the docker image
     ```bash
-    make build-app
+    make docker
     ```
 
 1. Start the docker compose services in the background for both EVAM and Camera Management App
     ```bash
-    make run-app
+    docker compose up -d
     ```
 
 !!! note
