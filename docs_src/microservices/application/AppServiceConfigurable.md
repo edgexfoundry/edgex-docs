@@ -378,8 +378,8 @@ Please refer to the function's detailed documentation by clicking the function n
 **Parameters**
 
 - `Algorithm` - AES256
-- `SecretPath` - (required for AES256) Path in the `Secret Store` where the encryption key is located.
-- `SecretName` - (required for AES256) Name of the secret for the encryption key in the `Secret Store`.
+- `SecretName` - (required for AES256) Name of the secret in the `Secret Store` where the encryption key is located.
+- `SecretValueKey` - (required for AES256) Key of the secret data for the encryption key in the secret's data.
 
 !!! example
     ```yaml
@@ -387,8 +387,8 @@ Please refer to the function's detailed documentation by clicking the function n
         Encrypt:
           Parameters:
             Algorithm: "aes256"
-            SecretPath: "aes"
-            SecretName: "key"
+            SecretName: "aes"
+            SecretValueKey: "key"
     ```
 
 ### [FilterByDeviceName](../BuiltIn/#by-device-name)
@@ -462,8 +462,8 @@ Please refer to the function's detailed documentation by clicking the function n
 - `ContinueOnSendError` - For chained multi destination exports, if true continues after send error so next export function executes.
 - `ReturnInputData` - For chained multi destination exports if true, passes the input data to next export function.
 - `HeaderName` - (Optional) Name of the header key to add to the HTTP header
-- `SecretPath` - (Optional) Path of the secret in the `Secret Store` where the header value is stored.
-- `SecretName` - (Optional) Name of the secret for the header value in the `Secret Store`.
+- `SecretName` - (Optional) Name of the secret in the `Secret Store` where the header value is stored.
+- `SecretValueKey` - (Optional) Key for the header value in the secret data.
 
 !!! example
     ```yaml
@@ -482,8 +482,8 @@ Please refer to the function's detailed documentation by clicking the function n
             MimeType: "application/xml" 
             Url: "http://my.api.net/edgexdata"
             HeaderName: "MyApiKey" 
-            SecretPath: "http" 
-            SecretName: "apikey"
+            SecretName: "http"
+            SecretValueKey: "apikey"
     ```
     ```yaml
         # Http Export to multiple destinations
@@ -533,7 +533,7 @@ Please refer to the function's detailed documentation by clicking the function n
     - `usernamepassword` - Use username and password authentication. The Secret Store (Vault or [InsecureSecrets](../GeneralAppServiceConfig/#writable-insecuresecrets)) must contain the `username` and `password` secrets.
     - `clientcert` - Use Client Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../GeneralAppServiceConfig/#writable-insecuresecrets)) must contain the `clientkey` and `clientcert` secrets.
     - `cacert` - Use CA Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../GeneralAppServiceConfig/#writable-insecuresecrets)) must contain the `cacert` secret.
-- `SecretPath` - Path in the secret store where authentication secrets are stored.
+- `SecretName` - Name of the  secret in the SecretStore where authentication secrets are stored.
 
 !!! note
         `Authmode=cacert` is only needed when client authentication (e.g. `usernamepassword`) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.
@@ -560,7 +560,7 @@ Please refer to the function's detailed documentation by clicking the function n
             SkipVerify: "false"
             PersistOnError: "true"
             AuthMode: "usernamepassword"
-            SecretPath: "mqtt"
+            SecretName: "mqtt"
     ```
 
 ### [SetResponseData](../BuiltIn/#set-response-data)

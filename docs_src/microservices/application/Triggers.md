@@ -145,7 +145,7 @@ Trigger:
     ConnectTimeout: "30s"
     SkipCertVerify: true
     AuthMode: "clientcert"
-    SecretPath: "external-mqtt"
+    SecretName: "external-mqtt"
     RetryDuration: 600
     RetryInterval: 5
 ```
