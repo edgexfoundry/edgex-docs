@@ -178,11 +178,6 @@ cd edgex-examples/application-services/custom/camera-management
 # Run this once to download edge-video-analytics into the edge-video-analytics sub-folder, 
 # download models, and patch pipelines
 make install-edge-video-analytics
-
-# Run the EVAM services (in another terminal)
-make run-edge-video-analytics
-# ...
-# Leave this running
 ```
 
 !!! note
