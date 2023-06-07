@@ -4,16 +4,6 @@ Use the Camera Management Example application service to auto discover and conne
 This app uses [EdgeX compose][edgex-compose], [Edgex Onvif Camera device service][device-onvif-camera], 
 [Edgex USB Camera device service][device-usb-camera], [Edgex MQTT device service][device-mqtt] and [Edge Video Analytics Microservice][evam].
 
-A brief video demonstration of building and using the device service:
-<iframe
-    width="100%"
-    height="480"
-    src="https://www.youtube.com/embed/vZqd3j2Zn2Y"
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen
->
-</iframe>
 
 ## Install Dependencies
 
@@ -76,13 +66,6 @@ Install build tools:
 ```bash
 sudo apt install build-essential
 ```
-
-### Clone the EdgeX Examples repository
-
-1. Clone the EdgeX Examples repository:
-    ```bash
-    git clone https://github.com/edgexfoundry/edgex-examples.git
-    ```
 
 ## Steps for running this example:
 
@@ -147,7 +130,7 @@ sudo apt install build-essential
             MQTTBROKERINFO_USETOPICLEVELS: "true"
           volumes:
             # example: - /home/github.com/edgexfoundry/edgex-compose/compose-builder/evam-mqtt-edgex:/evam-mqtt-edgex
-            - <add-full-path-of-your-edgex-compose-builder-here-example-above>/evam-mqtt-edgex:/evam-mqtt-edgex
+            - <add-absolute-path-of-your-edgex-compose-builder-here-example-above>/evam-mqtt-edgex:/evam-mqtt-edgex
         ```
     c. Copy this information into the [add-mqtt-broker.yml](https://github.com/edgexfoundry/edgex-compose/blob/{{version}}/compose-builder/add-mqtt-broker.yml) file in the `edgex-compose/compose-builder` directory.
 
@@ -156,7 +139,7 @@ sudo apt install build-essential
         mqtt-broker:
           volumes:
             # example: - /home/github.com/edgexfoundry/edgex-compose/compose-builder/evam-mqtt-edgex:/evam-mqtt-edgex
-            - <add-full-path-of-your-edgex-compose-builder-here>/evam-mqtt-edgex/mosquitto.conf:/mosquitto-no-auth.conf:ro
+            - <add-absolute-path-of-your-edgex-compose-builder-here>/evam-mqtt-edgex/mosquitto.conf:/mosquitto-no-auth.conf:ro
           ports:
             - "59001:9001"
         ```
@@ -173,24 +156,28 @@ sudo apt install build-essential
     make run no-secty ds-mqtt mqtt-broker ds-onvif-camera ds-usb-camera 
     ```   
 
-### 2. Start [Edge Video Analytics Microservice][evam] running for inference.
+### 2. Download the EdgeX Examples repository
+
+1. Clone the EdgeX Examples repository:
+    ```bash
+    git clone https://github.com/edgexfoundry/edgex-examples.git
+    ```
+
+### 3. Start [Edge Video Analytics Microservice][evam] running for inference.
 
 1. Navigate to the `edgex-examples/application-services/custom/camera-management` directory:
     ```bash
     cd edgex-examples/application-services/custom/camera-management
     ```
 
-    !!! note
-        The port for EVAM result streams has been changed from 8554 to 8555 to avoid conflicts with the device-usb-camera service.
-
 1. Run this once to download edge-video-analytics into the edge-video-analytics sub-folder, download models, and patch pipelines
     ```bash
     make install-edge-video-analytics
     ```
 
-### 3. Build and run the example application service
+### 4. Build and run the example application service
 
-#### 3.1 (Optional) Configure Onvif Camera Credentials.
+#### 4.1 (Optional) Configure Onvif Camera Credentials.
     
 !!! note
     This step is only required if you have Onvif cameras. Currently, this example app is limited to supporting only 1 username/password combination for all Onvif cameras.
@@ -219,7 +206,7 @@ sudo apt install build-essential
     export WRITABLE_INSECURESECRETS_ONVIFAUTH_SECRETDATA_PASSWORD="<password>"
     ```  
 
-#### 3.2 (Optional) Configure USB Camera RTSP Credentials.
+#### 4.2 (Optional) Configure USB Camera RTSP Credentials.
 !!! note
     This step is only required if you have USB cameras.
 
@@ -247,7 +234,7 @@ sudo apt install build-essential
     export WRITABLE_INSECURESECRETS_RTSPAUTH_SECRETDATA_PASSWORD="<password>"
     ```  
 
-#### 3.3 Configure Default Pipeline
+#### 4.3 Configure Default Pipeline
 Initially, all new cameras added to the system will start the default analytics pipeline as defined in the configuration file below. The desired pipeline can be changed afterward or the feature can be disabled by setting the `DefaultPipelineName` and `DefaultPipelineVersion` to empty strings.   
 
 Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/res/configuration.yaml) file with the name and version of the default pipeline to use when a new device is added to the system.
@@ -261,7 +248,7 @@ AppCustom:
   DefaultPipelineVersion: person # Version of the default pipeline used when a new device is added to the system; can be left blank to disable feature
 ```
 
-#### 3.4 Build and run
+#### 4.4 Build and run
 1. Make sure you are at the root of this example app
     ```shell
     cd edgex-examples/application-services/custom/camera-management
@@ -279,6 +266,9 @@ AppCustom:
 
 !!! note
     If you would like to view the logs for these services, you can use `docker compose logs -f`. To stop the services, use `docker compose down`.
+
+!!! note
+    The port for EVAM result streams has been changed from 8554 to 8555 to avoid conflicts with the device-usb-camera service.
 
 ## Using the App
 
@@ -322,7 +312,7 @@ Once the pipeline is running, you can view the pipeline and its status.
 
 ![default pipelines state](./images/multiple-pipelines-default.png)  
 
-1. Expand a pipeline to see its status. This includes important information aush as elapsed time, latency, frames per second, and elapsed time.  
+1. Expand a pipeline to see its status. This includes important information such as elapsed time, latency, frames per second, and elapsed time.  
    ![select-camera](./images/running-pipelines.png)  
 
 1. In the terminal where you started the app, once the pipeline is started, this log message will pop up.
@@ -393,12 +383,22 @@ make serve-ui
 
 Open your browser to [http://localhost:4200](http://localhost:4200)
 
-
+## Video Example (outdated)
+A brief video demonstration of building and using the device service:
+<iframe
+    width="100%"
+    height="480"
+    src="https://www.youtube.com/embed/vZqd3j2Zn2Y"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen
+>
+</iframe>
 
 [edgex-compose]: https://github.com/edgexfoundry/edgex-compose
 [device-onvif-camera]: https://github.com/edgexfoundry/device-onvif-camera
 [device-onvif-manage]: ../../../microservices/device/supported/device-onvif-camera/Walkthrough/deployment.md#manage-devices
 [device-usb-camera]: https://github.com/edgexfoundry/device-usb-camera
-[device-usb-manage]: ../../..//microservices/device/supported/device-usb-camera/Walkthrough/deployment.md#manage-devices
+[device-usb-manage]: ../../../microservices/device/supported/device-usb-camera/walkthrough/deployment.md#manage-devices
 [evam]: https://www.intel.com/content/www/us/en/developer/articles/technical/video-analytics-service.html
 [device-mqtt]: https://github.com/edgexfoundry/device-mqtt-go
