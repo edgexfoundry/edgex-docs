@@ -77,6 +77,13 @@ Install build tools:
 sudo apt install build-essential
 ```
 
+### Clone the EdgeX Examples repository
+
+1. Clone the EdgeX Examples repository:
+    ```bash
+    git clone https://github.com/edgexfoundry/edgex-examples.git
+    ```
+
 ## Steps for running this example:
 
 ### 1. Start the EdgeX Core Services and Device Services.
@@ -168,20 +175,18 @@ sudo apt install build-essential
 
 ### 2. Start [Edge Video Analytics Microservice][evam] running for inference.
 
-!!! note
-    The port for EVAM result streams has been changed from 8554 to 8555 to avoid conflicts with the device-usb-camera service.
+1. Navigate to the `edgex-examples/application-services/custom/camera-management` directory:
+    ```bash
+    cd edgex-examples/application-services/custom/camera-management
+    ```
 
-```shell
-# Go back to the root of this example app
-cd edgex-examples/application-services/custom/camera-management
+    !!! note
+        The port for EVAM result streams has been changed from 8554 to 8555 to avoid conflicts with the device-usb-camera service.
 
-# Run this once to download edge-video-analytics into the edge-video-analytics sub-folder, 
-# download models, and patch pipelines
-make install-edge-video-analytics
-```
-
-!!! note
-    If you press `Ctrl-C` it will stop the EVAM services. If you then run `make stop-edge-video-analytics`, it will also remove the containers and free up the port mappings.
+1. Run this once to download edge-video-analytics into the edge-video-analytics sub-folder, download models, and patch pipelines
+    ```bash
+    make install-edge-video-analytics
+    ```
 
 ### 3. Build and run the example application service
 
