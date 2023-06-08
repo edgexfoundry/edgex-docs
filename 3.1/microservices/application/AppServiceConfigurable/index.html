@@ -2184,8 +2184,8 @@
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>Algorithm</code> - AES256</li>
-<li><code>SecretPath</code> - (required for AES256) Path in the <code>Secret Store</code> where the encryption key is located.</li>
-<li><code>SecretName</code> - (required for AES256) Name of the secret for the encryption key in the <code>Secret Store</code>.</li>
+<li><code>SecretName</code> - (required for AES256) Name of the secret in the <code>Secret Store</code> where the encryption key is located.</li>
+<li><code>SecretValueKey</code> - (required for AES256) Key of the secret data for the encryption key in the secret's data.</li>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -2193,8 +2193,8 @@
 <span class="w">    </span><span class="nt">Encrypt</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">Algorithm</span><span class="p">:</span><span class="w"> </span><span class="s">"aes256"</span>
-<span class="w">        </span><span class="nt">SecretPath</span><span class="p">:</span><span class="w"> </span><span class="s">"aes"</span>
-<span class="w">        </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"key"</span>
+<span class="w">        </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"aes"</span>
+<span class="w">        </span><span class="nt">SecretValueKey</span><span class="p">:</span><span class="w"> </span><span class="s">"key"</span>
 </code></pre></div>
 </div>
 <h3 id="filterbydevicename"><a href="../BuiltIn/#by-device-name">FilterByDeviceName</a></h3>
@@ -2263,8 +2263,8 @@
 <li><code>ContinueOnSendError</code> - For chained multi destination exports, if true continues after send error so next export function executes.</li>
 <li><code>ReturnInputData</code> - For chained multi destination exports if true, passes the input data to next export function.</li>
 <li><code>HeaderName</code> - (Optional) Name of the header key to add to the HTTP header</li>
-<li><code>SecretPath</code> - (Optional) Path of the secret in the <code>Secret Store</code> where the header value is stored.</li>
-<li><code>SecretName</code> - (Optional) Name of the secret for the header value in the <code>Secret Store</code>.</li>
+<li><code>SecretName</code> - (Optional) Name of the secret in the <code>Secret Store</code> where the header value is stored.</li>
+<li><code>SecretValueKey</code> - (Optional) Key for the header value in the secret data.</li>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -2282,8 +2282,8 @@
 <span class="w">        </span><span class="nt">MimeType</span><span class="p">:</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
 <span class="w">        </span><span class="nt">Url</span><span class="p">:</span><span class="w"> </span><span class="s">"http://my.api.net/edgexdata"</span>
 <span class="w">        </span><span class="nt">HeaderName</span><span class="p">:</span><span class="w"> </span><span class="s">"MyApiKey"</span><span class="w"> </span>
-<span class="w">        </span><span class="nt">SecretPath</span><span class="p">:</span><span class="w"> </span><span class="s">"http"</span><span class="w"> </span>
-<span class="w">        </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"apikey"</span>
+<span class="w">        </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"http"</span>
+<span class="w">        </span><span class="nt">SecretValueKey</span><span class="p">:</span><span class="w"> </span><span class="s">"apikey"</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># Http Export to multiple destinations</span>
 <span class="w">    </span><span class="nt">Writable</span><span class="p">:</span>
@@ -2334,7 +2334,7 @@
 <li><code>cacert</code> - Use CA Certificate authentication. The Secret Store (Vault or <a href="../GeneralAppServiceConfig/#writable-insecuresecrets">InsecureSecrets</a>) must contain the <code>cacert</code> secret.</li>
 </ul>
 </li>
-<li><code>SecretPath</code> - Path in the secret store where authentication secrets are stored.</li>
+<li><code>SecretName</code> - Name of the  secret in the SecretStore where authentication secrets are stored.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note<p><code>Authmode=cacert</code> is only needed when client authentication (e.g. <code>usernamepassword</code>) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.</p>
@@ -2361,7 +2361,7 @@
 <span class="w">        </span><span class="nt">SkipVerify</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
 <span class="w">        </span><span class="nt">PersistOnError</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">        </span><span class="nt">AuthMode</span><span class="p">:</span><span class="w"> </span><span class="s">"usernamepassword"</span>
-<span class="w">        </span><span class="nt">SecretPath</span><span class="p">:</span><span class="w"> </span><span class="s">"mqtt"</span>
+<span class="w">        </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"mqtt"</span>
 </code></pre></div></p>
 </div>
 <h3 id="setresponsedata"><a href="../BuiltIn/#set-response-data">SetResponseData</a></h3>
