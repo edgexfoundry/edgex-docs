@@ -133,7 +133,7 @@ There are two transforms included in the SDK that can be added to your pipeline 
 
 | Factory Method                                         | Description                                                                                                |
 |--------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
-| NewAESProtection(secretPath string, secretName string) | This function returns a `Encryption` instance initialized with the passed in `secretPath` and `secretName` |
+| NewAESProtection(secretName string, secretValueKey  string) | This function returns a `Encryption` instance initialized with the passed in `secretName` and `secretValueKey` |
 
 It requires a 64-byte key from secrets which is split in half, the first half used for encryption, the second for generating the signature.
 
@@ -145,7 +145,7 @@ It requires a 64-byte key from secrets which is split in half, the first half us
 
 !!! example    
     ```go
-        transforms.NewAESProtection(secretPath, secretName).Encrypt(ctx, data)
+        transforms.NewAESProtection(secretName, secretValueKey).Encrypt(ctx, data)
     ```
 
 !!! note
@@ -213,7 +213,7 @@ There are two export functions included in the SDK that can be added to your pip
 | Factory Method                                                                                                                           | Description                                                                                                                                                                                                                                                                                          |
 |------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | NewHTTPSender(url string, mimeType string, persistOnError bool)                                                                          | This factory function returns a `HTTPSender` instance initialized with the passed in url, mime type and persistOnError values.                                                                                                                                                                       |
-| NewHTTPSenderWithSecretHeader(url string, mimeType string, persistOnError bool, headerName string, secretPath string, secretName string) | This factory function returns a `HTTPSender` instance similar to the above function however will set up the `HTTPSender` to add a header  to the HTTP request using the `headerName ` for the field name and the `secretPath` and `secretName` to pull the header field value from the Secret Store. |
+| NewHTTPSenderWithSecretHeader(url string, mimeType string, persistOnError bool, headerName string, secretName string, secretValueKey  string) | This factory function returns a `HTTPSender` instance similar to the above function however will set up the `HTTPSender` to add a header  to the HTTP request using the `headerName ` for the field name and the `secretName` and `secretValueKey` to pull the header field value from the Secret Store. |
 | NewHTTPSenderWithOptions(options HTTPSenderOptions)                                                                                      | This factory function returns a `HTTPSender`using the passed in `options` to configure it.                                                                                                                                                                                                           |
 
 ```go
@@ -227,10 +227,10 @@ type HTTPSenderOptions struct {
 	PersistOnError bool
 	// HTTPHeaderName to use for passing configured secret
 	HTTPHeaderName string
-	// SecretPath to search for configured secret
-	SecretPath string
-	// SecretName for configured secret
-	SecretName string
+	// SecretName to search for configured secret
+    SecretName string
+	// SecretValueKey is the key for configured secret data
+    SecretValueKey  string
 	// URLFormatter specifies custom formatting behavior to be applied to configured URL.
 	// If nothing specified, default behavior is to attempt to replace placeholders in the
 	// form '{some-context-key}' with the values found in the context storage.
@@ -286,8 +286,8 @@ The `URLFormatter` option allows you to override the default formatter with your
     BrokerAddress string
     // ClientId to connect with the broker with.
     ClientId string
-    // The name of the path in secret provider to retrieve your secrets
-    SecretPath string
+    // The name of the secret in secret provider to retrieve your secrets
+    SecretName string
     // AutoReconnect indicated whether or not to retry connection if disconnected
     AutoReconnect bool
 	// KeepAlive is the interval duration between client sending keepalive ping to broker
@@ -304,13 +304,13 @@ The `URLFormatter` option allows you to override the default formatter with your
     SkipCertVerify bool
     // AuthMode indicates what to use when connecting to the broker. 
     // Options are "none", "cacert" , "usernamepassword", "clientcert".
-    // If a CA Cert exists in the SecretPath then it will be used for 
+    // If a CA Cert exists in the SecretName data then it will be used for 
     // all modes except "none". 
     AuthMode string
   }
 ```
 
-Secrets in the Secret Store may be located at any path however they must have some or all the follow keys at the specified `SecretPath`. 
+Secrets in the Secret Store may be located at any SecretName however they must have some or all the follow keys at the specified in the secret data: 
 
 - `username` - username to connect to the broker
 - `password` - password used to connect to the broker
