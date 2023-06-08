@@ -373,7 +373,7 @@ A custom app service can be used to analyze this inference data and take action 
 
 ## Video Example
 A brief video demonstration of building and using the device service:
-! warning
+!!! warning
     This video was created with a previous release. Some new features may not be depicted in this video, and there might be some extra steps to configure the service.
 
 <iframe
