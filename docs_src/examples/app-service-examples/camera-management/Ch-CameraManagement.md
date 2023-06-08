@@ -272,7 +272,7 @@ AppCustom:
 
 ## Using the App
 
-1. Visit http://localhost:59750 to access the app.
+Visit [http://localhost:59750](http://localhost:59750) to access the app.
 
 ![homepage](./images/homepage-demo-app-1.png)  
 <p align="left">
@@ -285,8 +285,8 @@ You can control the position of supported cameras using ptz commands.
 
 ![camera-position](./images/camera-position.png)  
 
-1. Use the arrows to control the direction of the camera movement.
-1. Use the magnifying glass icons to control the camera zoom.
+- Use the arrows to control the direction of the camera movement.
+- Use the magnifying glass icons to control the camera zoom.
 
 ### Start an Edge Video Analytics Pipeline
 
@@ -312,23 +312,27 @@ Once the pipeline is running, you can view the pipeline and its status.
 
 ![default pipelines state](./images/multiple-pipelines-default.png)  
 
-1. Expand a pipeline to see its status. This includes important information such as elapsed time, latency, frames per second, and elapsed time.  
+Expand a pipeline to see its status. This includes important information such as elapsed time, latency, frames per second, and elapsed time.  
    ![select-camera](./images/running-pipelines.png)  
 
-1. In the terminal where you started the app, once the pipeline is started, this log message will pop up.
+In the terminal where you started the app, once the pipeline is started, this log message will pop up.
     ```bash
     level=INFO ts=2022-07-11T22:26:11.581149638Z app=app-camera-management source=evam.go:115 msg="View inference results at 'rtsp://<SYSTEM_IP_ADDRESS>:8555/<device name>'"
     ```
 
-1. Use the URI from the log to view the camera footage with analytics overlayed.
+Use the URI from the log to view the camera footage with analytics overlayed.
     ```bash
     ffplay 'rtsp://<SYSTEM_IP_ADDRESS>:8555/<device name>'
     ```
 
    Example Output:  
+   
    ![example analytics](./images/example-analytics.png)  
+   <p align="left">
+   <i>Figure: 2 analytics stream with overlay
+   </p>
 
-1. Press the red square stop button to shut down the pipeline.
+Press the red square stop button to shut down the pipeline.
 
 
 ### API Log
@@ -337,7 +341,7 @@ The API log shows the status of the 5 most recent calls and commands that the ma
 
 ![API Logs](./images/api-log.png)  
 
-1. Expand a log item to see the response
+Expand a log item to see the response
 
    Good response:
    ![good api response](./images/good-response.png)  
@@ -348,7 +352,7 @@ The API log shows the status of the 5 most recent calls and commands that the ma
 
 ![inference events default](./images/inference-events-default.png)  
 
-1. To view the inference events in a json format, click the `Stream Events` button.
+To view the inference events in a json format, click the `Stream Events` button.
 
 ![inference events](./images/inference-events.png)  
 
@@ -361,6 +365,21 @@ tab and view data streaming under `Event Data Stream`by clicking on the `Start` 
 
 ### Next steps
 A custom app service can be used to analyze this inference data and take action based on the analysis.
+
+## Video Example
+A brief video demonstration of building and using the device service:
+! warning
+    This video was created with a previous release. Some new features may not be depicted in this video, and there might be some extra steps to configure the service.
+
+<iframe
+    width="100%"
+    height="480"
+    src="https://www.youtube.com/embed/vZqd3j2Zn2Y"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen
+>
+</iframe>
 
 ## Additional Development
 
@@ -383,17 +402,6 @@ make serve-ui
 
 Open your browser to [http://localhost:4200](http://localhost:4200)
 
-## Video Example (outdated)
-A brief video demonstration of building and using the device service:
-<iframe
-    width="100%"
-    height="480"
-    src="https://www.youtube.com/embed/vZqd3j2Zn2Y"
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen
->
-</iframe>
 
 [edgex-compose]: https://github.com/edgexfoundry/edgex-compose
 [device-onvif-camera]: https://github.com/edgexfoundry/device-onvif-camera
