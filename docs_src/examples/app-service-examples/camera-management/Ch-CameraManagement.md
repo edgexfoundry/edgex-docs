@@ -145,7 +145,7 @@ sudo apt install build-essential
         ```
 
     !!! note
-        Please note that both the services in this file need the full path to be inserted for their volumes.
+        Please note that both the services in this file need the absolute path to be inserted for their volumes.
    
 1. Run the following command to start all the Edgex services.
 
