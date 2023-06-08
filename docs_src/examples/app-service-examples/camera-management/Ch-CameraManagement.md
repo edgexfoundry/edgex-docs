@@ -329,10 +329,15 @@ Use the URI from the log to view the camera footage with analytics overlayed.
    
    ![example analytics](./images/example-analytics.png)  
    <p align="left">
-   <i>Figure: 2 analytics stream with overlay
+   <i>Figure 2: analytics stream with overlay
    </p>
 
-Press the red square stop button to shut down the pipeline.
+If you want to stop the strgeam, press the red square 
+
+![stop pipeline](./images/stop-pipeline.png)  
+   <p align="left">
+   <i>Figure 3: the red square to shut down the pipeline
+   </p>
 
 
 ### API Log
