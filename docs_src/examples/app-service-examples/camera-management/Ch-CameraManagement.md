@@ -112,36 +112,52 @@ sudo apt install build-essential
 
     b. Under the `ports` section, find the entry for port 8554 and change the host_ip from `127.0.0.1` to either `0.0.0.0` or the ip address you put in the previous step.
 
+1. Clone the EdgeX Examples repository:
+    ```bash
+    git clone https://github.com/edgexfoundry/edgex-examples.git
+    ```
+
+1. Open cloned `edgex-examples` repo and navigate to the `edgex-examples/application-services/custom/camera-management` directory
+    ```bash
+    cd edgex-examples/application-services/custom/camera-management
+    ```
+
 1. Configure [device-mqtt] service to send [Edge Video Analytics Microservice][evam] inference results into Edgex via MQTT
 
     a. Copy the entire [evam-mqtt-edgex](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/application-services/custom/camera-management/edge-video-analytics/evam-mqtt-edgex) folder into `edgex-compose/compose-builder` directory.
 
-    b. Copy this information into the [add-device-mqtt.yml](https://github.com/edgexfoundry/edgex-compose/blob/{{version}}/compose-builder/add-device-mqtt.yml) file in the `edgex-compose/compose-builder` directory.
+    b. Add this information into the [add-device-mqtt.yml](https://github.com/edgexfoundry/edgex-compose/blob/{{version}}/compose-builder/add-device-mqtt.yml) file in the `edgex-compose/compose-builder` directory.
 
     !!! example - "Snippet from add-device-mqtt.yml"
         ```yaml
         services:
-        device-mqtt:
-          ...
-          environment:
-            DEVICE_DEVICESDIR: /evam-mqtt-edgex/devices
-            DEVICE_PROFILESDIR: /evam-mqtt-edgex/profiles
-            MQTTBROKERINFO_INCOMINGTOPIC: "incoming/data/#"
-            MQTTBROKERINFO_USETOPICLEVELS: "true"
-          volumes:
-            # example: - /home/github.com/edgexfoundry/edgex-compose/compose-builder/evam-mqtt-edgex:/evam-mqtt-edgex
-            - <add-absolute-path-of-your-edgex-compose-builder-here-example-above>/evam-mqtt-edgex:/evam-mqtt-edgex
+          device-mqtt:
+            ...
+            environment:
+              DEVICE_DEVICESDIR: /evam-mqtt-edgex/devices
+              DEVICE_PROFILESDIR: /evam-mqtt-edgex/profiles
+              MQTTBROKERINFO_INCOMINGTOPIC: "incoming/data/#"
+              MQTTBROKERINFO_USETOPICLEVELS: "true"
+              ...
+            ...  
+            volumes:
+              # example: - /home/github.com/edgexfoundry/edgex-compose/compose-builder/evam-mqtt-edgex:/evam-mqtt-edgex
+              - <add-absolute-path-of-your-edgex-compose-builder-here-example-above>/evam-mqtt-edgex:/evam-mqtt-edgex
         ```
-    c. Copy this information into the [add-mqtt-broker.yml](https://github.com/edgexfoundry/edgex-compose/blob/{{version}}/compose-builder/add-mqtt-broker.yml) file in the `edgex-compose/compose-builder` directory.
+    c. Add this information into the [add-mqtt-broker.yml](https://github.com/edgexfoundry/edgex-compose/blob/{{version}}/compose-builder/add-mqtt-broker.yml) file in the `edgex-compose/compose-builder` directory.
 
-    !!! example - "Snippet from add-device-mqtt.yml"
+    !!! example - "Snippet from add-mqtt-broker.yml"
         ```yaml
-        mqtt-broker:
-          volumes:
-            # example: - /home/github.com/edgexfoundry/edgex-compose/compose-builder/evam-mqtt-edgex:/evam-mqtt-edgex
-            - <add-absolute-path-of-your-edgex-compose-builder-here>/evam-mqtt-edgex/mosquitto.conf:/mosquitto-no-auth.conf:ro
-          ports:
-            - "59001:9001"
+        services:
+          mqtt-broker:
+            ...
+            ports:
+              ...
+              - "59001:9001"
+            ...
+            volumes:
+              # example: - /home/github.com/edgexfoundry/edgex-compose/compose-builder/evam-mqtt-edgex:/evam-mqtt-edgex
+              - <add-absolute-path-of-your-edgex-compose-builder-here>/evam-mqtt-edgex/mosquitto.conf:/mosquitto-no-auth.conf:ro            
         ```
 
     !!! note
@@ -156,16 +172,9 @@ sudo apt install build-essential
     make run no-secty ds-mqtt mqtt-broker ds-onvif-camera ds-usb-camera 
     ```   
 
-### 2. Download the EdgeX Examples repository
+### 2. Start [Edge Video Analytics Microservice][evam] running for inference.
 
-1. Clone the EdgeX Examples repository:
-    ```bash
-    git clone https://github.com/edgexfoundry/edgex-examples.git
-    ```
-
-### 3. Start [Edge Video Analytics Microservice][evam] running for inference.
-
-1. Navigate to the `edgex-examples/application-services/custom/camera-management` directory:
+1. Open cloned `edgex-examples` repo and navigate to the `edgex-examples/application-services/custom/camera-management` directory:
     ```bash
     cd edgex-examples/application-services/custom/camera-management
     ```
@@ -175,9 +184,9 @@ sudo apt install build-essential
     make install-edge-video-analytics
     ```
 
-### 4. Build and run the example application service
+### 3. Build and run the example application service
 
-#### 4.1 (Optional) Configure Onvif Camera Credentials.
+#### 3.1 (Optional) Configure Onvif Camera Credentials.
     
 !!! note
     This step is only required if you have Onvif cameras. Currently, this example app is limited to supporting only 1 username/password combination for all Onvif cameras.
@@ -206,7 +215,7 @@ sudo apt install build-essential
     export WRITABLE_INSECURESECRETS_ONVIFAUTH_SECRETDATA_PASSWORD="<password>"
     ```  
 
-#### 4.2 (Optional) Configure USB Camera RTSP Credentials.
+#### 3.2 (Optional) Configure USB Camera RTSP Credentials.
 !!! note
     This step is only required if you have USB cameras.
 
@@ -234,7 +243,7 @@ sudo apt install build-essential
     export WRITABLE_INSECURESECRETS_RTSPAUTH_SECRETDATA_PASSWORD="<password>"
     ```  
 
-#### 4.3 Configure Default Pipeline
+#### 3.3 Configure Default Pipeline
 Initially, all new cameras added to the system will start the default analytics pipeline as defined in the configuration file below. The desired pipeline can be changed or the feature can be disabled by setting the `DefaultPipelineName` and `DefaultPipelineVersion` to empty strings.   
 
 Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/res/configuration.yaml) file with the name and version of the default pipeline to use when a new device is added to the system.
@@ -248,7 +257,7 @@ AppCustom:
   DefaultPipelineVersion: person # Version of the default pipeline used when a new device is added to the system; can be left blank to disable feature
 ```
 
-#### 4.4 Build and run
+#### 3.4 Build and run
 1. Make sure you are at the root of this example app
     ```shell
     cd edgex-examples/application-services/custom/camera-management
@@ -374,7 +383,7 @@ A custom app service can be used to analyze this inference data and take action 
 ## Video Example
 A brief video demonstration of building and using the device service:
 !!! warning
-    This video was created with a previous release. Some new features may not be depicted in this video, and there might be some extra steps to configure the service.
+    This video was created with a previous release. Some new features may not be depicted in this video, and there might be some extra steps needed to configure the service.
 
 <iframe
     width="100%"
