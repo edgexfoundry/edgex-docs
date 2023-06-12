@@ -2020,10 +2020,19 @@ sends to EdgeX:</p>
 <p>In a terminal window, change directories to the device-simple's
     cmd/device-simple folder and run the new device-simple service.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/edgexfoundry/device-simple/cmd/device-simple
-./device-simple
+./device-simple<span class="w"> </span>-cp<span class="w"> </span>-d
 </code></pre></div>
 <p>This starts the service and immediately displays log entries in the
 terminal.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.0</p>
+<p>In EdgeX 3.0, services must be provided with a flag indicating where the new common configuration can be found.
+In most case this will be <code>-cp/--configProvider</code> specifying to use the Configuration Provider for configuration.
+Alternatively the <code>-cc/--commonConfig</code> flag can be used to specify a file that contains the common configuration.
+In addition, when running in hybrid mode the <code>-d/--dev</code> flag tells the service that it is running in hybrid mode and to override
+the <code>Host</code> names for dependencies with <code>localhost</code>.
+See <a href="../../microservices/configuration/CommonCommandLineOptions/">Command Line Options</a> for more details.</p>
+</div>
 </li>
 <li>
 <p>Using a browser, enter the following URL to see the event/reading
