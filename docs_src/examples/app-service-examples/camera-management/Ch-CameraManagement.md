@@ -84,10 +84,10 @@ sudo apt install build-essential
 1. Checkout the latest compatible release branch
 
     !!! note
-        The `minnesota` branch is the latest stable branch at the time of this writing.
+        The `{{version}}` branch is the latest stable branch at the time of this writing.
 
     ```shell
-    git checkout minnesota
+    git checkout {{version}}
     ```
 
 1. Navigate to the `compose-builder` subdirectory:
