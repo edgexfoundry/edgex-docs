@@ -365,11 +365,19 @@ sends to EdgeX:
 
     ``` bash
     cd ~/edgexfoundry/device-simple/cmd/device-simple
-    ./device-simple
+    ./device-simple -cp -d
     ```
 
     This starts the service and immediately displays log entries in the
     terminal.
+
+    !!! edgey "EdgeX 3.0"
+        In EdgeX 3.0, services must be provided with a flag indicating where the new common configuration can be found. 
+        In most case this will be `-cp/--configProvider` specifying to use the Configuration Provider for configuration. 
+        Alternatively the `-cc/--commonConfig` flag can be used to specify a file that contains the common configuration. 
+        In addition, when running in hybrid mode the `-d/--dev` flag tells the service that it is running in hybrid mode and to override
+        the `Host` names for dependencies with `localhost`.
+        See [Command Line Options](../../microservices/configuration/CommonCommandLineOptions/) for more details.
 
 3.  Using a browser, enter the following URL to see the event/reading
     data that the service is generating and sending to EdgeX:
