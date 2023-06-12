@@ -112,9 +112,9 @@ sudo apt install build-essential
 
     b. Under the `ports` section, find the entry for port 8554 and change the host_ip from `127.0.0.1` to either `0.0.0.0` or the ip address you put in the previous step.
 
-1. Clone the EdgeX Examples repository:
+1. Clone the EdgeX Examples repository and checkout the most recent release:
     ```bash
-    git clone https://github.com/edgexfoundry/edgex-examples.git
+    git clone -b {{version}} https://github.com/edgexfoundry/edgex-examples.git
     ```
 
 1. Open cloned `edgex-examples` repo and navigate to the `edgex-examples/application-services/custom/camera-management` directory
