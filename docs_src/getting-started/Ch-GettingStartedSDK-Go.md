@@ -192,9 +192,9 @@ Follow these steps to create a device profile for the simple random number gener
 
     ![image](EdgeX_SampleDeviceProfile_DeviceResources.png)
 
-2.  A pre-created device profile for the random number device is provided in this documentation.  Download **[random-generator-device.yaml](random-generator-device.yaml)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res/profiles` folder.
+2.  A pre-created device profile for the random number device is provided in this documentation.  Download **[random-generator.yaml](random-generator.yaml)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res/profiles` folder.
 
-3.  Open the random-generator-device.yaml file in a text editor. In this device profile, the device described has a deviceResource:  `RandomNumber`.  Note how the association of a type to the deviceResource.  In this case, the device profile informs EdgeX that RandomNumber will be a INT32.  In real world IoT situations, this deviceResource list could be extensive.  Rather than a single deviceResource, you might find this section filled with many deviceResources and each deviceResource associated to a different type.
+3.  Open the random-generator.yaml file in a text editor. In this device profile, the device described has a deviceResource:  `RandomNumber`.  Note how the association of a type to the deviceResource.  In this case, the device profile informs EdgeX that RandomNumber will be a INT32.  In real world IoT situations, this deviceResource list could be extensive.  Rather than a single deviceResource, you might find this section filled with many deviceResources and each deviceResource associated to a different type.
 
 ## Creating your Device
 
@@ -204,9 +204,9 @@ Follow these steps to create a pre-defined device for the simple random number g
 
 1.  Explore the files in the cmd/device-simple/res/devices folder.   Note the example simple-device.yaml that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how `DeviceList` in the file represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).
     
-2.  A pre-created device for the random number device is provided in this documentation.  Download **[random-generator-device.yaml](random-generator-device.yaml)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res/devices` folder.
+2.  A pre-created device for the random number device is provided in this documentation.  Download **[random-generator-devices.yaml](random-generator-devices.yaml)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res/devices` folder.
     
-3.  Open the random-generator-device.yaml file in a text editor. In this example, the device described has a ProfileName:  `RandNum-Device`.  In this case, the device informs EdgeX that it will be using the device profile we created in [Creating your Device Profile](./Ch-GettingStartedSDK-Go.md#creating-your-device-profile)
+3.  Open the random-generator-devices.yaml file in a text editor. In this example, the device described has a ProfileName:  `RandNum-Device`.  In this case, the device informs EdgeX that it will be using the device profile we created in [Creating your Device Profile](./Ch-GettingStartedSDK-Go.md#creating-your-device-profile)
 
 ### Validating your Device
 
