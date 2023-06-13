@@ -1966,7 +1966,7 @@ You can access the <code>interfaces.ApplicationService</code> API for resources 
 <p>When an export function encounters an error sending data it can call <code>SetRetryData(payload []byte)</code> on the <code>AppFunctionContext</code>. This will store the data for later retry. If the Application Service is stopped and then restarted while stored data hasn't been successfully exported, the export retry will resume once the service is up and running again.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>It is important that export functions return an error and stop pipeline execution after the call to <code>SetRetryData</code>. See <a href="https://github.com/edgexfoundry/app-functions-sdk-go/blob/master/pkg/transforms/http.go">HTTPPost</a> function in SDK as an example</p>
+<p>It is important that export functions return an error and stop pipeline execution after the call to <code>SetRetryData</code>. See <a href="https://github.com/edgexfoundry/app-functions-sdk-go/blob/v3.0/pkg/transforms/http.go">HTTPPost</a> function in SDK as an example</p>
 </div>
 <p>When the <code>RetryInterval</code> expires, the function pipeline will be re-executed starting with the export function that saved the data. The saved data will be passed to the export function which can then attempt to resend the data. </p>
 <div class="admonition note">
