@@ -52,7 +52,7 @@ with respect to all of the other EdgeX services is covered in the
 ### Preferred Approach
 
 The preferred approach for interacting with the EdgeX secret store is to use the
-`SecretClient` interface in [go-mod-secrets](https://github.com/edgexfoundry/go-mod-secrets/blob/master/secrets/interfaces.go).
+`SecretClient` interface in [go-mod-secrets](https://github.com/edgexfoundry/go-mod-secrets/blob/{{version}}/secrets/interfaces.go).
 
 Each EdgeX microservice has access to a `StoreSecrets()` method that allows
 setting of per-microservice secrets, and a `GetSecrets()` method to read them back.
