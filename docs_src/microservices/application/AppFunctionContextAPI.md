@@ -73,43 +73,43 @@ Returns a `LoggingClient` to leverage logging libraries/service utilized through
 
 `EventClient() interfaces.EventClient`
 
-Returns an `EventClient` to leverage Core Data's `Event` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/event.go) for more details. This client is useful for querying events. Note if Core Data is not specified in the Clients configuration, this will return nil.
+Returns an `EventClient` to leverage Core Data's `Event` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{version}}/clients/interfaces/event.go) for more details. This client is useful for querying events. Note if Core Data is not specified in the Clients configuration, this will return nil.
 
 ### CommandClient
 
 `CommandClient() interfaces.CommandClient`
 
-Returns a `CommandClient`  to leverage Core Command's `Command` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/command.go) for more details. Useful for sending commands to devices. Note if Core Command is not specified in the Clients configuration, this will return nil.
+Returns a `CommandClient`  to leverage Core Command's `Command` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{version}}/clients/interfaces/command.go) for more details. Useful for sending commands to devices. Note if Core Command is not specified in the Clients configuration, this will return nil.
 
 ### NotificationClient
 
 `NotificationClient() interfaces.NotificationClient`
 
-Returns a `NotificationClient` to leverage Support Notifications' `Notifications` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/notification.go) for more details. Useful for sending notifications. Note if Support Notifications is not specified in the Clients configuration, this will return nil.
+Returns a `NotificationClient` to leverage Support Notifications' `Notifications` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{version}}/clients/interfaces/notification.go) for more details. Useful for sending notifications. Note if Support Notifications is not specified in the Clients configuration, this will return nil.
 
 ### SubscriptionClient
 
 `SubscriptionClient() interfaces.SubscriptionClient`
 
-Returns a `SubscriptionClient` to leverage Support Notifications' `Subscription` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/subscription.go) for more details. Useful for creating notification subscriptions. Note if Support Notifications is not specified in the Clients configuration, this will return nil.
+Returns a `SubscriptionClient` to leverage Support Notifications' `Subscription` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{version}}/clients/interfaces/subscription.go) for more details. Useful for creating notification subscriptions. Note if Support Notifications is not specified in the Clients configuration, this will return nil.
 
 ### DeviceServiceClient
 
 `DeviceServiceClient() interfaces.DeviceServiceClient`
 
-Returns a `DeviceServiceClient` to leverage Core Metadata's `DeviceService` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/deviceservice.go) for more details. Useful for querying information about Device Services. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
+Returns a `DeviceServiceClient` to leverage Core Metadata's `DeviceService` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{version}}/clients/interfaces/deviceservice.go) for more details. Useful for querying information about Device Services. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
 
 ### DeviceProfileClient
 
 `DeviceProfileClient() interfaces.DeviceProfileClient`
 
-Returns a `DeviceProfileClient` to leverage Core Metadata's `DeviceProfile` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/deviceprofile.go) for more details. Useful for querying information about Device Profiles and is used by the `GetDeviceResource` helper function below. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
+Returns a `DeviceProfileClient` to leverage Core Metadata's `DeviceProfile` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{version}}/clients/interfaces/deviceprofile.go) for more details. Useful for querying information about Device Profiles and is used by the `GetDeviceResource` helper function below. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
 
 ### DeviceClient
 
 `DeviceClient() interfaces.DeviceClient`
 
-Returns a `DeviceClient` to leverage Core Metadata's `Device` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/master/clients/interfaces/device.go) for more details. Useful for querying information about Devices. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
+Returns a `DeviceClient` to leverage Core Metadata's `Device` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{version}}/clients/interfaces/device.go) for more details. Useful for querying information about Devices. Note if Core Metadata is not specified in the Clients configuration, this will return nil. 
 
 ### Note about Clients
 

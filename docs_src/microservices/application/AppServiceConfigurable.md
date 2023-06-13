@@ -161,7 +161,7 @@ One can optionally add Filter function via environment overrides
 - `WRITABLE_PIPELINE_EXECUTIONORDER: "FilterByDeviceName, HTTPExport"`
 - `WRITABLE_PIPELINE_FUNCTIONS_FILTERBYDEVICENAME_PARAMETERS_DEVICENAMES: "[comma separated list]"`
 
-There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/master/res/rules-engine/configuration.yaml) for more details
+There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/{{version}}/res/rules-engine/configuration.yaml) for more details
 
 ### http-export
 
@@ -171,7 +171,7 @@ Required:
 
 - `WRITABLE_PIPELINE_FUNCTIONS_HTTPEXPORT_PARAMETERS_URL: [Your URL]`
 
-    There are many more optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/master/res/http-export/configuration.yaml) for more details.
+    There are many more optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/{{version}}/res/http-export/configuration.yaml) for more details.
 
 ### metrics-influxdb
 
@@ -226,11 +226,11 @@ Required:
 - `WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_BROKERADDRESS: [Your Broker Address]`
 
 
-    There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/master/res/mqtt-export/configuration.yaml) for more details
+    There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/{{version}}/res/mqtt-export/configuration.yaml) for more details
 
 ### sample
 
-Sample profile with all available functions declared and a sample pipeline. Provided as a sample that can be copied and modified to create new custom profiles. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/master/res/sample/configuration.yaml) for more details
+Sample profile with all available functions declared and a sample pipeline. Provided as a sample that can be copied and modified to create new custom profiles. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/{{version}}/res/sample/configuration.yaml) for more details
 
 ### functional-tests
 

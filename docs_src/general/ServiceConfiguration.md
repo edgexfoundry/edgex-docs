@@ -4,7 +4,7 @@ Each EdgeX micro service requires configuration (i.e. - a repository of initiali
 
 See the [Configuration and Registry documentation](../microservices/configuration/ConfigurationAndRegistry.md) for more details about initialization of services and the use of the configuration service.  
 
-Please refer to the EdgeX Foundry [architectural decision record](https://github.com/edgexfoundry/edgex-docs/blob/master/docs_src/design/adr/0005-Service-Self-Config.md) for details (and design decisions) behind the configuration in EdgeX.
+Please refer to the EdgeX Foundry [architectural decision record](../design/adr/0005-Service-Self-Config.md) for details (and design decisions) behind the configuration in EdgeX.
 
 Please refer to the general [Common Configuration documentation](../microservices/configuration/CommonConfiguration.md) for configuration properties common to all services.  Find service specific configuration references in the tabs below.
 
