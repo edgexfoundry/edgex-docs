@@ -81,11 +81,7 @@ sudo apt install build-essential
     cd edgex-compose
     ```
 
-1. Checkout the latest compatible release branch
-
-    !!! note
-        The `{{version}}` branch is the latest stable branch at the time of this writing.
-
+1. Checkout the latest release ({{version}}):
     ```shell
     git checkout {{version}}
     ```
@@ -112,14 +108,24 @@ sudo apt install build-essential
 
     b. Under the `ports` section, find the entry for port 8554 and change the host_ip from `127.0.0.1` to either `0.0.0.0` or the ip address you put in the previous step.
 
-1. Clone the EdgeX Examples repository and checkout the most recent release:
+1. Clone the EdgeX Examples repository :
     ```bash
-    git clone -b {{version}} https://github.com/edgexfoundry/edgex-examples.git
+    git clone https://github.com/edgexfoundry/edgex-examples.git
     ```
 
-1. Open cloned `edgex-examples` repo and navigate to the `edgex-examples/application-services/custom/camera-management` directory
+1. Navigate to the `edgex-examples` directory:
     ```bash
-    cd edgex-examples/application-services/custom/camera-management
+    cd edgex-compose
+    ```
+
+1. Checkout the latest release ({{version}}):
+    ```shell
+    git checkout {{version}}
+    ```
+
+1. Navigate to the `application-services/custom/camera-management` directory
+    ```bash
+    cd application-services/custom/camera-management
     ```
 
 1. Configure [device-mqtt] service to send [Edge Video Analytics Microservice][evam] inference results into Edgex via MQTT
