@@ -66,7 +66,7 @@ edgex/events/device/<device-service>/<profile-name>/<device-name>/<source-name>
 
 This with App Services capability to have multiple subscriptions allows for multiple filters by subscriptions. The `SubscribeTopics` setting takes a comma separated list of subscribe topics.
 
- Here are a few examples of how to configure the `SubscribeTopics` setting under the `Trigger.EdgexMessageBus.SubscribeHost` section to filter by subscriptions using the `profile`, `device` and `source` names from the SNMP Device Service file [here](https://github.com/edgexfoundry/device-snmp-go/tree/master/cmd/res):
+ Here are a few examples of how to configure the `SubscribeTopics` setting under the `Trigger.EdgexMessageBus.SubscribeHost` section to filter by subscriptions using the `profile`, `device` and `source` names from the SNMP Device Service file [here](https://github.com/edgexfoundry/device-snmp-go/tree/{{version}}/cmd/res):
 
 - Filter for all Events (default in common Trigger configuration)
 
