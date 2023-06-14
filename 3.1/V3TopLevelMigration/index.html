@@ -2133,7 +2133,7 @@
 <h3 id="clearing-redis-database">Clearing Redis Database</h3>
 <h4 id="docker">Docker</h4>
 <p>When running EdgeX in Docker the simplest way to clear the database is to remove the <code>db-data</code> volume after stopping the V2 EdgeX services. </p>
-<div class="highlight"><pre><span></span><code><span class="go">docker-compose -f &lt;compose-file&gt; down</span>
+<div class="highlight"><pre><span></span><code><span class="go">docker compose -f &lt;compose-file&gt; down</span>
 <span class="go">docker volume rm $(docker volume ls -q | grep db-data)</span>
 </code></pre></div>
 <p>Now when the V3 EdgeX services are started the database will be cleared of the old v2 data.</p>
