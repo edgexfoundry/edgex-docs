@@ -185,7 +185,7 @@ Application services use the database only when the [Store and Forward](../micro
 When running EdgeX in Docker the simplest way to clear the database is to remove the `db-data` volume after stopping the V2 EdgeX services. 
 
 ```console
-docker-compose -f <compose-file> down
+docker compose -f <compose-file> down
 docker volume rm $(docker volume ls -q | grep db-data)
 ```
 

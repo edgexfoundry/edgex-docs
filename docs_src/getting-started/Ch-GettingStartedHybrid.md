@@ -13,8 +13,8 @@ EdgeX environment up and running via Docker containers. How would you set up thi
     Based on the instructions found in the [Getting Started using Docker](Ch-GettingStartedDockerUsers.md#get-run-edgex-foundry), locate and download the appropriate Docker Compose file for your development environment.  Next, issue the following commands to start the EdgeX containers and then stop the virtual device service (which is the service you are working on in this example). 
 
     ``` bash
-    docker-compose up -d 
-    docker-compose stop device-virtual
+    docker compose up -d 
+    docker compose stop device-virtual
     ```
     
     ![image](EdgeX_GettingStartedHybridRunContainers.png)
@@ -28,7 +28,7 @@ EdgeX environment up and running via Docker containers. How would you set up thi
     
 3.  Run the command below to confirm that all the containers have started and that the virtual device container is no longer running.
     ``` bash
-    docker-compose ps
+    docker compose ps
     ```
 
 ## Get, Build and Run the (non-Docker) Service

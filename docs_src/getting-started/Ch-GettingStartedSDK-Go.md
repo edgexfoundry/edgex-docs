@@ -357,7 +357,7 @@ sends to EdgeX:
     following call (we're using non-security EdgeX in this example):
 
     ``` bash
-    docker-compose -f docker-compose-no-secty.yml up -d
+    docker composef docker-compose-no-secty.yml up -d
     ```
 
 2.  In a terminal window, change directories to the device-simple's

@@ -21,7 +21,7 @@ Follow this guide to deploy and run the service.
             ```
         - Docker Compose start command
             ```
-            docker-compose -p edgex up -d
+            docker compose -p edgex up -d
             ```
 
         - Docker Compose clean command
