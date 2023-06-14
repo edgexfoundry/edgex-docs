@@ -49,8 +49,8 @@ environment variable to the IP address of the remote node.
 Run
 
 ```shell
-$ docker-compose build
-$ docker-compose up -d
+$ docker compose build
+$ docker compose up -d
 ```
 
 After the framework has been built and is running,
@@ -88,8 +88,8 @@ That is all to be done on the local node.
 Change directories to the `remote` folder and run
 
 ```shell
-$ docker-compose build
-$ docker-compose up -d
+$ docker compose build
+$ docker compose up -d
 ```
 
 After the framework has been built and is running for about a minute,

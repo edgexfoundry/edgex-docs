@@ -276,7 +276,7 @@ Open the `docker-compose.yml` file and then add volumes path and environment as 
 Since we generate the `docker-compose.yml` file at the previous step, we can deploy EdgeX as shown below:
 ```
 $ cd edgex-compose/compose-builder
-$ docker-compose up -d
+$ docker compose up -d
 Creating network "compose-builder_edgex-network" with driver "bridge"
 Creating volume "compose-builder_consul-acl-token" with default driver
 ...
@@ -614,7 +614,7 @@ Modify the docker-compose.yml file to mount the device path to the device-modbus
 
 ### Deploy the EdgeX
 ```
-$ docker-compose up -d
+$ docker compose up -d
 ```
 
 ### Add device to EdgeX

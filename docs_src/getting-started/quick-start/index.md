@@ -25,16 +25,16 @@ This can be accomplished with a single command as shown below (please note the t
 
 === "x86"
     ```
-    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/{{version}}/docker-compose-no-secty.yml -o docker-compose.yml; docker-compose up -d
+    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/{{version}}/docker-compose-no-secty.yml -o docker-compose.yml; docker compose up -d
     ```
 === "ARM"
     ```
-    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/{{version}}/docker-compose-no-secty-arm64.yml -o docker-compose.yml; docker-compose up -d
+    curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/{{version}}/docker-compose-no-secty-arm64.yml -o docker-compose.yml; docker compose up -d
     ```
 
 Verify that the EdgeX containers have started:
 ```
-docker-compose ps 
+docker compose ps 
 ```
 ![image](EdgeX_GettingStartedUsrActiveContainers.png)
 *If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.*
@@ -219,7 +219,7 @@ First add the following application service to your docker-compose.yml file righ
 Save the compose file and then execute another compose up command to have Docker Compose pull and start the configurable application service.
 
 ```
-docker-compose up -d
+docker compose up -d
 ```
 You can connect to this broker with any MQTT client to watch the sent data. HiveMQ provides a [web-based client](http://www.hivemq.com/demos/websocket-client/) that you can use.  Use a browser to go to the client's URL.  Once there, hit the Connect button to connect to the HiveMQ public broker.  
 

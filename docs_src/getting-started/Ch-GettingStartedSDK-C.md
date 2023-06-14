@@ -198,7 +198,7 @@ sends to EdgeX.
     following call:
 
     ``` bash
-    docker-compose up -d
+    docker compose up -d
     ```
 
 2.  Back in your custom device service directory, tell your device
