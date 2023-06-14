@@ -41,7 +41,7 @@ The operations to pull the images and run the Nexus Repository containers are th
 To get container images from the Nexus Repository, in a command terminal, change directories to the location of your downloaded Nexus Docker Compose yaml.  Rename the file to docker-compose.yml.  Then run the following command in the terminal to pull (fetch) and then start the EdgeX Nexus-image containers.
 
 ``` bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Using a Single Nexus Image

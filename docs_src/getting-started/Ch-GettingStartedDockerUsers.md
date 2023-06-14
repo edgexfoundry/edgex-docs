@@ -115,7 +115,7 @@ Now that you have the EdgeX Docker Compose file, you are ready to run EdgeX. Fol
 In a command terminal, change directories to the location of your docker-compose.yml.  Run the following command in the terminal to pull (fetch) and then start the EdgeX containers.
 
 ``` bash
-docker-compose up -d
+docker compose up -d
 ```
 !!! Warning
     If you are using Docker Compose Version 2, please replace `docker-compose` with `docker compose` before proceeding. This change should be applied to all the `docker-compose` in this tutorial. See:  <https://www.docker.com/blog/announcing-compose-v2-general-availability/> for more information.
