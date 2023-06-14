@@ -115,7 +115,7 @@ sudo apt install build-essential
 
 1. Navigate to the `edgex-examples` directory:
     ```bash
-    cd edgex-compose
+    cd edgex-examples
     ```
 
 1. Checkout the latest release ({{version}}):
