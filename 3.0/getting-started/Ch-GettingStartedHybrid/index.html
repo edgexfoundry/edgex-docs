@@ -1586,8 +1586,8 @@ EdgeX environment up and running via Docker containers. How would you set up thi
 <li>
 <p>Since we plan to work with the virtual device service in this example, you don't need or want to run the virtual device service. You will run all the other services via Docker Compose. </p>
 <p>Based on the instructions found in the <a href="../Ch-GettingStartedDockerUsers/#get-run-edgex-foundry">Getting Started using Docker</a>, locate and download the appropriate Docker Compose file for your development environment.  Next, issue the following commands to start the EdgeX containers and then stop the virtual device service (which is the service you are working on in this example). </p>
-<div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>
-docker-compose<span class="w"> </span>stop<span class="w"> </span>device-virtual
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>
+docker<span class="w"> </span>compose<span class="w"> </span>stop<span class="w"> </span>device-virtual
 </code></pre></div>
 <p><img alt="image" src="../EdgeX_GettingStartedHybridRunContainers.png">
 <em>Run the EdgeX containers and then stop the service container that you are going to work on - in this case the virtual device service container.</em></img></p>
@@ -1602,7 +1602,7 @@ docker-compose<span class="w"> </span>stop<span class="w"> </span>device-virtual
 </li>
 <li>
 <p>Run the command below to confirm that all the containers have started and that the virtual device container is no longer running.
-    <div class="highlight"><pre><span></span><code>docker-compose<span class="w"> </span>ps
+    <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>ps
 </code></pre></div></p>
 </li>
 </ol>

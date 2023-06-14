@@ -1585,24 +1585,24 @@
 </div>
 <p>Once you have Docker and Docker Compose installed, you need to:</p>
 <ul>
-<li>download / save the latest <a href="https://github.com/edgexfoundry/edgex-compose/blob/v3.0/docker-compose-no-secty.yml"><code>docker-compose</code> file</a></li>
+<li>download / save the latest <a href="https://github.com/edgexfoundry/edgex-compose/blob/v3.0/docker-compose-no-secty.yml"><code>docker compose</code> file</a></li>
 <li>issue command to download and run the EdgeX Foundry Docker images from Docker Hub</li>
 </ul>
 <p>This can be accomplished with a single command as shown below (please note the tabs for x86 vs ARM architectures).</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">x86</label><label for="__tabbed_1_2">ARM</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/v3.0/docker-compose-no-secty.yml -o docker-compose.yml; docker-compose up -d
+<div class="highlight"><pre><span></span><code>curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/v3.0/docker-compose-no-secty.yml -o docker-compose.yml; docker compose up -d
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/v3.0/docker-compose-no-secty-arm64.yml -o docker-compose.yml; docker-compose up -d
+<div class="highlight"><pre><span></span><code>curl https://raw.githubusercontent.com/edgexfoundry/edgex-compose/v3.0/docker-compose-no-secty-arm64.yml -o docker-compose.yml; docker compose up -d
 </code></pre></div>
 </div>
 </div>
 </input></input></div>
 <p>Verify that the EdgeX containers have started:
-<div class="highlight"><pre><span></span><code>docker-compose ps 
+<div class="highlight"><pre><span></span><code>docker compose ps 
 </code></pre></div>
 <img alt="image" src="EdgeX_GettingStartedUsrActiveContainers.png">
 <em>If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.</em></img></p>
@@ -1759,7 +1759,7 @@ You'll notice that the commands have <code>get</code> or <code>set</code> (or bo
 <p>For convenience, see documentation on the <a href="../Ch-GettingStartedDockerUsers/#generate-a-custom-docker-compose-file">EdgeX Compose Builder</a> to create custom Docker Compose files.</p>
 </div>
 <p>Save the compose file and then execute another compose up command to have Docker Compose pull and start the configurable application service.</p>
-<p><div class="highlight"><pre><span></span><code>docker-compose up -d
+<p><div class="highlight"><pre><span></span><code>docker compose up -d
 </code></pre></div>
 You can connect to this broker with any MQTT client to watch the sent data. HiveMQ provides a <a href="http://www.hivemq.com/demos/websocket-client/">web-based client</a> that you can use.  Use a browser to go to the client's URL.  Once there, hit the Connect button to connect to the HiveMQ public broker.  </p>
 <p><img alt="image" src="EdgeX_ConnectToHiveMQ.png"/>
