@@ -161,8 +161,8 @@ Create a docker-compose file `docker-compose.override.yml` [to extend the compos
 Deploy EdgeX using the following commands:
 ```
 $ cd edgex-compose/compose-builder
-$ docker-compose pull
-$ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+$ docker compose pull
+$ docker compose -f docker-compose.yml -f docker-compose.override.yml up -d
 ```
 
 ## Using a MQTT Device Simulator
