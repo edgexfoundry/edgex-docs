@@ -10,7 +10,14 @@ Follow this guide to deploy and run the service.
          ```bash
          cd edgex-compose/compose-builder/
          ```
-      2. Run Edgex with the ONVIF microservice in secure or non-secure mode.
+      
+      2. Checkout the latest release ({{version}}):
+
+        ```shell
+        git checkout {{version}}
+        ```
+
+      3. Run Edgex with the ONVIF microservice in secure or non-secure mode.
 
         ##### Non-secure mode
 
