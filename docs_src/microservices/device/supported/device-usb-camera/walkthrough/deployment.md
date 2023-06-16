@@ -9,25 +9,28 @@ Follow this guide to deploy and run the service.
         cd ~/edgex/edgex-compose/compose-builder
         ```
 
-    2. Run EdgeX with the microservice:  
+    2. Checkout the latest release ({{version}}):
 
-        - For non secure mode
-            ```
-            make gen ds-usb-camera no-secty
-            ```
-        - For secure mode 
-            ```
-            make gen ds-usb-camera
-            ```
-        - Docker Compose start command
-            ```
-            docker compose -p edgex up -d
-            ```
+        ```shell
+        git checkout {{version}}
+        ```
+    
+    3. Run EdgeX with the USB microservice in secure or non-secure mode:  
 
-        - Docker Compose clean command
-            ```bash
-            make clean
-            ```  
+        ##### Non-secure mode
+
+        ```shell
+        make run ds-usb-camera no-secty
+        ```
+
+        ##### Secure mode 
+
+        !!! note
+            Recommended for secure and production level deployments. 
+
+        ```shell
+        make run ds-usb-camera
+        ```
 
 === "Native"
     1. Build the executable  
@@ -161,8 +164,8 @@ Follow this guide to deploy and run the service.
 
 ## Manage Devices
 
-!!! Note 
-    This section only needs to be performed if discovery is disabled.
+!!! Warning 
+    This section only needs to be performed if discovery is disabled. Discovery is enabled by default.
 
 Devices can either be added to the service by defining them in a static configuration file, discovering devices dynamically, or with the REST API. For this example, the device will be added using the REST API.
 

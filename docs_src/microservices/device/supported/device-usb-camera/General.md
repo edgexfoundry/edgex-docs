@@ -30,7 +30,7 @@ The figure below illustrates the software flow through the architecture componen
 [Get Started>](./walkthrough/setup.md){: .md-button}
 
 ## Examples
-To see an example utilizing the USB device service, see the [camera management](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/application-services/custom/camera-management) example in the EdgeX Examples repo.
+To see an example utilizing the USB device service, refer [camera management](../../../../examples/app-service-examples/camera-management/Ch-CameraManagement.md)
 
 ## References
 - [ONVIF Website](https://www.onvif.org)  
