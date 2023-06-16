@@ -13,7 +13,7 @@ Follow this guide to deploy and run the service.
       
       2. Checkout the latest release ({{version}}):
 
-        ```shell
+        ```bash
         git checkout {{version}}
         ```
 
