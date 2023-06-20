@@ -36,7 +36,7 @@ A brief video demonstration of building and using the device service:
 [Get Started>](./Walkthrough/setup.md){: .md-button}
 
 ## Examples
-To see an example utilizing the ONVIF device service, refer [camera management](../../../../examples/app-service-examples/camera-management/Ch-CameraManagement.md)
+To see an example utilizing the ONVIF device service, refer to the [camera management example application](../../../../examples/app-service-examples/camera-management/Ch-CameraManagement.md)
 ## Security
 This software has numerous security features. For production environments, it is recommended to use secure mode when running the EdgeX software stack. This documentation will contain warnings about any known security vulnerabilities or risks.
 In addition to the security features, it is suggested to use best security practices. These include, but are not limited to:
