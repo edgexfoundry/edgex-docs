@@ -77,7 +77,7 @@ Follow this guide to deploy and run the service.
             ```    
         </details>
 
-    4. Deploy the service
+    7. Deploy the service
         ```
         cd cmd && EDGEX_SECURITY_SECRET_STORE=false ./device-usb-camera
         ```
