@@ -30,7 +30,7 @@ The figure below illustrates the software flow through the architecture componen
 [Get Started>](./walkthrough/setup.md){: .md-button}
 
 ## Examples
-To see an example utilizing the USB device service, refer [camera management](../../../../examples/app-service-examples/camera-management/Ch-CameraManagement.md)
+To see an example utilizing the USB device service, refer to the [camera management example application](../../../../examples/app-service-examples/camera-management/Ch-CameraManagement.md)
 
 ## References
 - [ONVIF Website](https://www.onvif.org)  
