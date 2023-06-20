@@ -33,10 +33,23 @@ Follow this guide to deploy and run the service.
         ```
 
 === "Native"
-    1. Build the executable  
-    ```shell
-    make build
-    ```
+   
+    1. Navigate to the Edgex compose directory.
+
+        ```shell
+        cd ~/edgex/edgex-compose/compose-builder
+        ```
+    
+    2. Checkout the latest release ({{version}}):
+
+        ```shell
+        git checkout {{version}}
+        ```
+
+    3. Build the executable  
+        ```shell
+        make build
+        ```
 
         <details>
             <summary>[Optional] Build with NATS Messaging</summary>
@@ -46,10 +59,10 @@ Follow this guide to deploy and run the service.
             ```    
         </details>
 
-    2. Deploy the service
-    ```
-    cd cmd && EDGEX_SECURITY_SECRET_STORE=false ./device-usb-camera
-    ```
+    4. Deploy the service
+        ```
+        cd cmd && EDGEX_SECURITY_SECRET_STORE=false ./device-usb-camera
+        ```
 
 ## Verify Service, Device Profiles, and Device
 
