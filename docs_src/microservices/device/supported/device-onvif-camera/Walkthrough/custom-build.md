@@ -17,6 +17,10 @@ Follow this guide to make custom configurations and build the device service ima
    cd device-onvif-camera
    ```
 
+3. Checkout the latest release ({{version}}):
+   ```bash
+   git checkout {{version}}
+   ```
 
 ## Configuration
 
