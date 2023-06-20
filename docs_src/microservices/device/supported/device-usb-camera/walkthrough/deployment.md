@@ -46,7 +46,25 @@ Follow this guide to deploy and run the service.
         git checkout {{version}}
         ```
 
-    3. Build the executable  
+    3. Run EdgeX:
+
+        ```shell
+        make run no-secty
+        ```
+
+    4. Navigate out of the `edgex-compose` directory to the `device-usb-camera` directory:
+    
+         ```shell
+         cd device-usb-camera
+         ```
+
+    5. Checkout the latest release ({{version}}):
+
+        ```shell
+        git checkout {{version}}
+        ```
+
+    6. Build the executable  
         ```shell
         make build
         ```
