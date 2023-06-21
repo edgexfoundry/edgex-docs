@@ -62,8 +62,8 @@ To learn more about the API, see [here](../swagger.md)
 ## Troubleshooting Guide
 
 ### Axis camera authentication failure
-If while using Axis cameras you face authentication failure it might help by disabling its `replay attack protection`. For doing so please refer 
-[Axis-replay-attack-protection](https://help.axis.com/en-us/axis-os-hardening-guide#onvif-replay-attack-protection). For more info on this refer
+If while using Axis cameras you face authentication failure it might help by disabling its `replay attack protection`. For doing so please refer to
+[Axis-replay-attack-protection](https://help.axis.com/en-us/axis-os-hardening-guide#onvif-replay-attack-protection). For more info on this refer to
 [Axis-onvif-stackoverflow](https://stackoverflow.com/questions/5180192/onvif-authentication-failure-with-axis-p3301-using-onvif-protocol).
 
 
