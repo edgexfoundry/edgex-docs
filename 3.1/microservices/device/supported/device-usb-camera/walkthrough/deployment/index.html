@@ -997,6 +997,16 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#non-secure-mode">
+    Non-secure mode
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#secure-mode">
+    Secure mode
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#verify-service-device-profiles-and-device">
     Verify Service, Device Profiles, and Device
   </a>
@@ -1514,6 +1524,16 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#non-secure-mode">
+    Non-secure mode
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#secure-mode">
+    Secure mode
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#verify-service-device-profiles-and-device">
     Verify Service, Device Profiles, and Device
   </a>
@@ -1550,30 +1570,52 @@
 </code></pre></div>
 </li>
 <li>
-<p>Run EdgeX with the microservice:  </p>
-<ul>
-<li>For non secure mode
-    <div class="highlight"><pre><span></span><code>make gen ds-usb-camera no-secty
-</code></pre></div></li>
-<li>For secure mode 
-    <div class="highlight"><pre><span></span><code>make gen ds-usb-camera
-</code></pre></div></li>
-<li>
-<p>Docker Compose start command
-    <div class="highlight"><pre><span></span><code>docker compose -p edgex up -d
-</code></pre></div></p>
+<p>Checkout the latest release (main):</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>main
+</code></pre></div>
 </li>
 <li>
-<p>Docker Compose clean command
-    <div class="highlight"><pre><span></span><code>make<span class="w"> </span>clean
-</code></pre></div></p>
-</li>
-</ul>
+<p>Run EdgeX with the USB microservice in secure or non-secure mode:  </p>
+<h5 id="non-secure-mode">Non-secure mode</h5>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>run<span class="w"> </span>ds-usb-camera<span class="w"> </span>no-secty
+</code></pre></div>
+<h5 id="secure-mode">Secure mode</h5>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Recommended for secure and production level deployments. </p>
+</div>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>run<span class="w"> </span>ds-usb-camera
+</code></pre></div>
 </li>
 </ol>
 </div>
 <div class="tabbed-block">
 <ol>
+<li>
+<p>Navigate to the Edgex compose directory.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/edgex/edgex-compose/compose-builder
+</code></pre></div>
+</li>
+<li>
+<p>Checkout the latest release (main):</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>main
+</code></pre></div>
+</li>
+<li>
+<p>Run EdgeX:</p>
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>run<span class="w"> </span>no-secty
+</code></pre></div>
+</li>
+<li>
+<p>Navigate out of the <code>edgex-compose</code> directory to the <code>device-usb-camera</code> directory:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>device-usb-camera
+</code></pre></div>
+</li>
+<li>
+<p>Checkout the latest release (main):</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>main
+</code></pre></div>
+</li>
 <li>
 <p>Build the executable<br/>
 <div class="highlight"><pre><span></span><code>make<span class="w"> </span>build
@@ -1587,7 +1629,7 @@
 </li>
 <li>
 <p>Deploy the service
-<div class="highlight"><pre><span></span><code>cd cmd &amp;&amp; EDGEX_SECURITY_SECRET_STORE=false ./device-usb-camera
+    <div class="highlight"><pre><span></span><code>cd cmd &amp;&amp; EDGEX_SECURITY_SECRET_STORE=false ./device-usb-camera
 </code></pre></div></p>
 </li>
 </ol>
@@ -1705,9 +1747,9 @@ Unsuccessful:
 </div>
 </input></input></div>
 <h2 id="manage-devices">Manage Devices</h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This section only needs to be performed if discovery is disabled.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This section only needs to be performed if discovery is disabled. Discovery is enabled by default.</p>
 </div>
 <p>Devices can either be added to the service by defining them in a static configuration file, discovering devices dynamically, or with the REST API. For this example, the device will be added using the REST API.</p>
 <ol>
