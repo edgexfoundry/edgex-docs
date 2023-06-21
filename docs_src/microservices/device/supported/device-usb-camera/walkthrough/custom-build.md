@@ -12,6 +12,11 @@
    git clone https://github.com/edgexfoundry/device-usb-camera.git
    ```
 
+3. Checkout the latest release ({{version}}):
+   ```bash
+   git checkout {{version}}
+   ```
+
 ## Define the device profile
 
 Each device resource should have a mandatory attribute named `command` to indicate what action the device service should take for it.

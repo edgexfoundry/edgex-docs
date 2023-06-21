@@ -10,7 +10,14 @@ Follow this guide to deploy and run the service.
          ```bash
          cd edgex-compose/compose-builder/
          ```
-      2. Run Edgex with the ONVIF microservice in secure or non-secure mode.
+      
+      2. Checkout the latest release ({{version}}):
+
+        ```bash
+        git checkout {{version}}
+        ```
+
+      3. Run Edgex with the ONVIF microservice in secure or non-secure mode.
 
         ##### Non-secure mode
 
@@ -70,20 +77,32 @@ Follow this guide to deploy and run the service.
          ```bash
          cd edgex-compose/compose-builder/
          ```
+     
+      2. Checkout the latest release ({{version}}):
 
-      2. Run EdgeX:
+         ```bash
+         git checkout {{version}}
+         ```
+
+      3. Run EdgeX:
 
          ```bash
          make run no-secty
          ```
 
-      3. Navigate out of the `edgex-compose` directory to the `device-onvif-camera` directory:
+      4. Navigate out of the `edgex-compose` directory to the `device-onvif-camera` directory:
 
          ```bash
          cd device-onvif-camera
          ```
 
-      4. Run the service
+      5. Checkout the latest release ({{version}}):
+
+         ```bash
+         git checkout {{version}}
+         ```
+
+      6. Run the service
          ```bash
          make run
          ```

@@ -9,31 +9,65 @@ Follow this guide to deploy and run the service.
         cd ~/edgex/edgex-compose/compose-builder
         ```
 
-    2. Run EdgeX with the microservice:  
+    2. Checkout the latest release ({{version}}):
 
-        - For non secure mode
-            ```
-            make gen ds-usb-camera no-secty
-            ```
-        - For secure mode 
-            ```
-            make gen ds-usb-camera
-            ```
-        - Docker Compose start command
-            ```
-            docker compose -p edgex up -d
-            ```
+        ```shell
+        git checkout {{version}}
+        ```
+    
+    3. Run EdgeX with the USB microservice in secure or non-secure mode:  
 
-        - Docker Compose clean command
-            ```bash
-            make clean
-            ```  
+        ##### Non-secure mode
+
+        ```shell
+        make run ds-usb-camera no-secty
+        ```
+
+        ##### Secure mode 
+
+        !!! note
+            Recommended for secure and production level deployments. 
+
+        ```shell
+        make run ds-usb-camera
+        ```
 
 === "Native"
-    1. Build the executable  
-    ```shell
-    make build
-    ```
+   
+    1. Navigate to the Edgex compose directory.
+
+        ```shell
+        cd ~/edgex/edgex-compose/compose-builder
+        ```
+    
+    2. Checkout the latest release ({{version}}):
+
+        ```shell
+        git checkout {{version}}
+        ```
+
+    3. Run EdgeX:
+
+        ```shell
+        make run no-secty
+        ```
+
+    4. Navigate out of the `edgex-compose` directory to the `device-usb-camera` directory:
+    
+         ```shell
+         cd device-usb-camera
+         ```
+
+    5. Checkout the latest release ({{version}}):
+
+        ```shell
+        git checkout {{version}}
+        ```
+
+    6. Build the executable  
+        ```shell
+        make build
+        ```
 
         <details>
             <summary>[Optional] Build with NATS Messaging</summary>
@@ -43,10 +77,10 @@ Follow this guide to deploy and run the service.
             ```    
         </details>
 
-    2. Deploy the service
-    ```
-    cd cmd && EDGEX_SECURITY_SECRET_STORE=false ./device-usb-camera
-    ```
+    7. Deploy the service
+        ```
+        cd cmd && EDGEX_SECURITY_SECRET_STORE=false ./device-usb-camera
+        ```
 
 ## Verify Service, Device Profiles, and Device
 
@@ -161,8 +195,8 @@ Follow this guide to deploy and run the service.
 
 ## Manage Devices
 
-!!! Note 
-    This section only needs to be performed if discovery is disabled.
+!!! Warning 
+    This section only needs to be performed if discovery is disabled. Discovery is enabled by default.
 
 Devices can either be added to the service by defining them in a static configuration file, discovering devices dynamically, or with the REST API. For this example, the device will be added using the REST API.
 
