@@ -59,6 +59,14 @@ This document will describe how to execute some of the most important types of c
 
 To learn more about the API, see [here](../swagger.md)
 
-# License
+## Troubleshooting Guide
+
+### Axis camera authentication failure
+If while using Axis cameras you face authentication failure it might help by disabling its `replay attack protection`. For doing so please refer to
+[Axis-replay-attack-protection](https://help.axis.com/en-us/axis-os-hardening-guide#onvif-replay-attack-protection). For more info on this refer to
+[Axis-onvif-stackoverflow](https://stackoverflow.com/questions/5180192/onvif-authentication-failure-with-axis-p3301-using-onvif-protocol).
+
+
+## License
 
 [Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/{{version}}/LICENSE)
