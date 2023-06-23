@@ -208,19 +208,45 @@ Devices can either be added to the service by defining them in a static configur
 
     The output should look similar to this:
     ```
-    NexiGo N930AF FHD Webcam: NexiG (usb-0000:00:14.0-1):
-        /dev/video6
-        /dev/video7
-        /dev/media2
+    UVC Camera (012d:0678) (usb-0000:00:14.0-5):
+	    /dev/video0
+	    /dev/video1
+	    /dev/media0
     ```
 
-    For this example, the `Path` is `/dev/video6`.
+    For this example, the `Path` is `/dev/video0`.
 
+
+1. Run the following command to determine the `CardName` of the usb camera (you have the insert the correct path determined from the previous step into this command):
+    ```bash
+    v4l2-ctl --all --device /dev/video0 | grep Name
+    ```
+   
+    Output should look like:
+
+    ```
+    Name             : UVC Camera (012d:0678)
+    ```
+ 
+  
+1. Run the following command to determine the `SerialNumber` of the usb camera (you have the insert the correct path determined from the previous step into this command):
+   ```bash
+   v4l2-ctl --all --device /dev/video0 | grep Serial
+   ```
+   
+    Output should look like:
+
+    ```
+    Serial           : 71C0AE6
+    ```
+   
 
 1. Edit the information to appropriately match the camera. The device's protocol properties contain:
-   * `name` is the name of the device. For this example, the name is `Camera001`
-   * `Path` is a file descriptor of camera created by the OS. Use the `Path` determined in the previous step.
-   * `AutoStreaming` indicates whether the device service should automatically start video streaming for cameras. Default value is false.
+     * `name` is the name of the device. For this example, the name is `Camera001`
+     * `Path` is a file descriptor of camera created by the OS. Use the `Path` determined in the previous step.
+     * `CardName` is the model name of the camera. Use the `CardName` determined in the previous step.
+     * `SerialNumber` is the serial number of the camera. Use the `SerialNumber` determined in the previous step.
+     * `AutoStreaming` indicates whether the device service should automatically start video streaming for cameras. Default value is false.
    
     !!! example - "Example Command"
         ```bash
@@ -238,8 +264,9 @@ Devices can either be added to the service by defining them in a static configur
                 "operatingState": "UP",
                 "protocols": {
                     "USB": {
-                    "CardName": "NexiGo N930AF FHD Webcam: NexiG",
-                    "Path": "/dev/video6",
+                    "CardName": "UVC Camera (012d:0678)",
+                    "SerialNumber": "71C0AE6","
+                    "Path": "/dev/video0",
                     "AutoStreaming": "false"
                     }
                 }
