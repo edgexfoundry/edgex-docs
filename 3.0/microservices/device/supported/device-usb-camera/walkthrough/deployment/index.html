@@ -1758,20 +1758,38 @@ Unsuccessful:
     <div class="highlight"><pre><span></span><code>v4l2-ctl<span class="w"> </span>--list-devices
 </code></pre></div></p>
 <p>The output should look similar to this:
-<div class="highlight"><pre><span></span><code>NexiGo N930AF FHD Webcam: NexiG (usb-0000:00:14.0-1):
-    /dev/video6
-    /dev/video7
-    /dev/media2
+<div class="highlight"><pre><span></span><code>UVC Camera (012d:0678) (usb-0000:00:14.0-5):
+    /dev/video0
+    /dev/video1
+    /dev/media0
 </code></pre></div></p>
-<p>For this example, the <code>Path</code> is <code>/dev/video6</code>.</p>
+<p>For this example, the <code>Path</code> is <code>/dev/video0</code>.</p>
+</li>
+<li>
+<p>Run the following command to determine the <code>CardName</code> of the usb camera (you have the insert the correct path determined from the previous step into this command):
+    <div class="highlight"><pre><span></span><code>v4l2-ctl<span class="w"> </span>--all<span class="w"> </span>--device<span class="w"> </span>/dev/video0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Name
+</code></pre></div></p>
+<p>Output should look like:</p>
+<div class="highlight"><pre><span></span><code>Name             : UVC Camera (012d:0678)
+</code></pre></div>
+</li>
+<li>
+<p>Run the following command to determine the <code>SerialNumber</code> of the usb camera (you have the insert the correct path determined from the previous step into this command):
+   <div class="highlight"><pre><span></span><code>v4l2-ctl<span class="w"> </span>--all<span class="w"> </span>--device<span class="w"> </span>/dev/video0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Serial
+</code></pre></div></p>
+<p>Output should look like:</p>
+<div class="highlight"><pre><span></span><code>Serial           : 71C0AE6
+</code></pre></div>
 </li>
 <li>
 <p>Edit the information to appropriately match the camera. The device's protocol properties contain:</p>
-</li>
+<ul>
 <li><code>name</code> is the name of the device. For this example, the name is <code>Camera001</code></li>
 <li><code>Path</code> is a file descriptor of camera created by the OS. Use the <code>Path</code> determined in the previous step.</li>
-<li>
-<p><code>AutoStreaming</code> indicates whether the device service should automatically start video streaming for cameras. Default value is false.</p>
+<li><code>CardName</code> is the model name of the camera. Use the <code>CardName</code> determined in the previous step.</li>
+<li><code>SerialNumber</code> is the serial number of the camera. Use the <code>SerialNumber</code> determined in the previous step.</li>
+<li><code>AutoStreaming</code> indicates whether the device service should automatically start video streaming for cameras. Default value is false.</li>
+</ul>
 <div class="admonition example -">
 <p class="admonition-title">Example Command</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w">  </span><span class="se">\</span>
@@ -1788,8 +1806,9 @@ http://localhost:59881/api/v3/device<span class="w"> </span><span class="se">\</
 <span class="s1">        "operatingState": "UP",</span>
 <span class="s1">        "protocols": {</span>
 <span class="s1">            "USB": {</span>
-<span class="s1">            "CardName": "NexiGo N930AF FHD Webcam: NexiG",</span>
-<span class="s1">            "Path": "/dev/video6",</span>
+<span class="s1">            "CardName": "UVC Camera (012d:0678)",</span>
+<span class="s1">            "SerialNumber": "71C0AE6","</span>
+<span class="s1">            "Path": "/dev/video0",</span>
 <span class="s1">            "AutoStreaming": "false"</span>
 <span class="s1">            }</span>
 <span class="s1">        }</span>
