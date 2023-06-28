@@ -1323,6 +1323,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#appcontext">
+    AppContext
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#requesttimeout">
     RequestTimeout
   </a>
@@ -1932,6 +1937,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#appcontext">
+    AppContext
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#requesttimeout">
     RequestTimeout
   </a>
@@ -2003,6 +2013,7 @@
 <span class="w">    </span><span class="nx">AddBackgroundPublisherWithTopic</span><span class="p">(</span><span class="nx">capacity</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">topic</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">BackgroundPublisher</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
 <span class="w">    </span><span class="nx">BuildContext</span><span class="p">(</span><span class="nx">correlationId</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">contentType</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="nx">AppFunctionContext</span>
 <span class="w">    </span><span class="nx">AddRoute</span><span class="p">(</span><span class="nx">route</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">),</span><span class="w"> </span><span class="nx">methods</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">AppContext</span><span class="p">()</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span>
 <span class="w">    </span><span class="nx">RequestTimeout</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
 <span class="w">    </span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">factory</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">TriggerConfig</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">Trigger</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">RegisterCustomStoreFactory</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">factory</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">cfg</span><span class="w"> </span><span class="nx">DatabaseInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">cred</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Credentials</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">StoreClient</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span>
@@ -2346,6 +2357,13 @@ See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/main/regis
 <h3 id="addroute">AddRoute</h3>
 <p><code>AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error</code></p>
 <p>This API adds a custom REST route to the application service's internal webserver.  A reference to the ApplicationService is add the the context that is passed to the handler, which can be retrieved using the <code>AppService</code> key. See <a href="../AdvancedTopics/#custom-rest-endpoints">Custom REST Endpoints</a> advanced topic for more details and example.</p>
+<div class="codehilite"><pre><span></span><code><span class="w">        </span><span class="c1">// </span>
+<span class="n">AddRoute</span><span class="p">(</span><span class="n">route</span><span class="w"> </span><span class="nb">string</span><span class="p">,</span><span class="w"> </span><span class="n">handler</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">http</span><span class="p">.</span><span class="n">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">http</span><span class="p">.</span><span class="n">Request</span><span class="p">),</span><span class="w"> </span><span class="k">methods</span><span class="w"> </span><span class="p">...</span><span class="nb">string</span><span class="p">)</span><span class="w"> </span><span class="nb">error</span>
+<span class="n">AppContext</span><span class="p">()</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="n">Context</span>
+</code></pre></div>
+<h3 id="appcontext">AppContext</h3>
+<p><code>AppContext() context.Context</code></p>
+<p>This API returns the application service context used to detect cancelled context when the service is terminating. Used by custom app service to appropriately exit any long running functions.</p>
 <h3 id="requesttimeout">RequestTimeout</h3>
 <p><code>RequestTimeout() time.Duration</code></p>
 <p>This API returns the parsed value for the <code>Service.RequestTimeout</code> configuration setting. The setting is parsed on start-up so that any error is caught then.</p>
