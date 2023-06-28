@@ -51,8 +51,8 @@ This diagram is drawn by [diagram.net](https://app.diagrams.net/), and the sourc
     |Created|A timestamp indicating when the interval was created in the database|
     |Modified|A timestamp indicating when the interval was last modified|
     |Name |the name of the given interval - unique for the EdgeX instance|
-    |Start|The start time of the given interval in ISO 8601 format|
-    |End|The end time of the given interval in ISO 8601 format|
+    |Start|The start time of the given interval in ISO 8601 format using local system timezone|
+    |End|The end time of the given interval in ISO 8601 format using local system timezone|
     |Interval |How often the specific resource needs to be polled. It represents as a duration string. The format of this field is to be an unsigned integer followed by a unit which may be "ns", "us" (or "µs"), "ms", "s", "m", "h" representing nanoseconds, microseconds, milliseconds, seconds, minutes or hours. Eg, "100ms", "24h"|
 === "IntervalActions"
     |Property|Description|
