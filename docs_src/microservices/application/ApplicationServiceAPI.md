@@ -40,7 +40,8 @@ type ApplicationService interface {
 	AddBackgroundPublisher(capacity int) (BackgroundPublisher, error)
 	AddBackgroundPublisherWithTopic(capacity int, topic string) (BackgroundPublisher, error)
 	BuildContext(correlationId string, contentType string) AppFunctionContext
-	AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
+    AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
+  	AppContext() context.Context
     RequestTimeout() time.Duration
 	RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error
     RegisterCustomStoreFactory(name string, factory func(cfg DatabaseInfo, cred config.Credentials) (StoreClient, error)) error
@@ -507,6 +508,16 @@ This API allows external callers that may need a context (eg background publishe
 `AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error`
 
 This API adds a custom REST route to the application service's internal webserver.  A reference to the ApplicationService is add the the context that is passed to the handler, which can be retrieved using the `AppService` key. See [Custom REST Endpoints](../AdvancedTopics/#custom-rest-endpoints) advanced topic for more details and example.
+
+        	// 
+    AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
+    AppContext() context.Context
+
+### AppContext
+
+`AppContext() context.Context`
+
+This API returns the application service context used to detect cancelled context when the service is terminating. Used by custom app service to appropriately exit any long running functions.
 
 ### RequestTimeout
 
