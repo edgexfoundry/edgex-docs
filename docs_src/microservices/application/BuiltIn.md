@@ -344,6 +344,9 @@ type Filter struct {
 }
 ```
 
+!!! Note
+    Either strings or regular expressions are accepted in the configuration.
+    
 ### By Profile Name
 
 `FilterByProfileName` - This pipeline function will filter the event data down to **Events** that either have (For) or don't have (Out) the specified profiles names.  
@@ -359,7 +362,7 @@ type Filter struct {
 
 !!! example
     ``` go
-    NewFilterFor([] {"Device1", "Device2"}).FilterByDeviceName
+    NewFilterFor([] {"(Device)[0-9]+"}).FilterByDeviceName
     ```
 
 ### By Source Name
