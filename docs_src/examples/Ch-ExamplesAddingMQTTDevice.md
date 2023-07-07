@@ -36,19 +36,17 @@ Create the device configuration file, named `my.custom.device.config.yaml`, as s
 ```yaml
 # Pre-define Devices
 deviceList:
-  name: "my-custom-device"
+- name: "my-custom-device"
   profileName: "my-custom-device-profile"
   description: "MQTT device is created for test purpose"
-  labels: 
-    - "MQTT"
-    - "test"
+  labels: [ "MQTT", "test" ]
   protocols:
     mqtt:
-       CommandTopic: "command/my-custom-device"
+      CommandTopic: "command/my-custom-device"
   autoEvents:
-   interval: "30s"
-   onChange: false
-   sourceName: "message"
+    - interval: "30s"
+      onChange: false
+      sourceName: "message"
 ```
 
 !!! note
