@@ -1764,19 +1764,17 @@ device-mqtt generates a relative instance on start-up.</p>
 <p>Create the device configuration file, named <code>my.custom.device.config.yaml</code>, as shown below:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Pre-define Devices</span>
 <span class="nt">deviceList</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"my-custom-device"</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"my-custom-device"</span>
 <span class="w">  </span><span class="nt">profileName</span><span class="p">:</span><span class="w"> </span><span class="s">"my-custom-device-profile"</span>
 <span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"MQTT</span><span class="nv"> </span><span class="s">device</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">created</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">purpose"</span>
-<span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"MQTT"</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"test"</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="s">"MQTT"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"test"</span><span class="w"> </span><span class="p p-Indicator">]</span>
 <span class="w">  </span><span class="nt">protocols</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">mqtt</span><span class="p">:</span>
-<span class="w">       </span><span class="nt">CommandTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"command/my-custom-device"</span>
+<span class="w">      </span><span class="nt">CommandTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"command/my-custom-device"</span>
 <span class="w">  </span><span class="nt">autoEvents</span><span class="p">:</span>
-<span class="w">   </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="s">"30s"</span>
-<span class="w">   </span><span class="nt">onChange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">   </span><span class="nt">sourceName</span><span class="p">:</span><span class="w"> </span><span class="s">"message"</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="s">"30s"</span>
+<span class="w">      </span><span class="nt">onChange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">sourceName</span><span class="p">:</span><span class="w"> </span><span class="s">"message"</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
