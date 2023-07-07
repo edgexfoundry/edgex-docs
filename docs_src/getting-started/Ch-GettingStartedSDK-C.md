@@ -13,14 +13,14 @@ The next step is to download and build the EdgeX device service SDK for C.
 
 1.  First, clone the device-sdk-c from Github:
     ``` bash
-    git clone -b v2.0.0 https://github.com/edgexfoundry/device-sdk-c.git
+    git clone -b v3.0.1 https://github.com/edgexfoundry/device-sdk-c.git
     cd ./device-sdk-c
     ```
 
     ![image](EdgeX_GettingStartedSDKCloneC.png)
 
     !!! Note
-        The clone command above has you pull v2.0.0 of the C SDK which is the version compatible with the Ireland release.
+        The clone command above has you pull v3.0.1 of the C SDK which is the version compatible with the Minnesota release.
 
 2.  Then, build the device-sdk-c:
     ``` bash
@@ -51,16 +51,16 @@ compiled in an earlier step.
 
 1.  Tell the compiler where to find the C SDK files:
     ``` bash
-    export CSDK_DIR=../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-2.0.0
+    export CSDK_DIR=../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-3.0.1
     ```
 
     !!! Note
-        The exact path to your compiled CSDK_DIR may differ depending on the tagged version number on the SDK.  The version of the SDK can be found in the VERSION file located in the ./device-sdk-c/VERSION file.  In the example above, the Ireland release of 2.0.0 is used.
+        The exact path to your compiled CSDK_DIR may differ depending on the tagged version number on the SDK.  The version of the SDK can be found in the VERSION file located in the ./device-sdk-c/VERSION file.  In the example above, the Minnesota release of 3.0.1 is used.
 
 2.  Now build your device service executable:
 
     ``` bash
-    gcc -I$CSDK_DIR/include -L$CSDK_DIR/lib -o device-example-c template.c -lcsdk
+    gcc -I$CSDK_DIR/include -I/opt/iotech/iot/1.5/include -L$CSDK_DIR/lib -L/opt/iotech/iot/1.5/lib -o device-example-c template.c -lcsdk -liot
     ```
 
     If everything is working properly, a `device-example-c` executable will be created in the directory.
@@ -119,7 +119,7 @@ Here the reading value is set to a random signed integer. Various `iot_data_allo
 ## Creating your Device Profile
 
 A device profile is a YAML file that describes a class of device to
-EdgeX. General characteristics about the type of device, the data these devices provide, and how to command the device are all in a device profile.   The device profile tells the device service what data gets collected from the the device and how to get it. 
+EdgeX. General characteristics about the type of device, the data these devices provide, and how to command the device are all in a device profile.   The device profile tells the device service what data gets collected from the device and how to get it. 
 
 Follow these steps to create a device profile for the simple random number generating device service.
 
@@ -137,11 +137,9 @@ Device Service accepts pre-defined devices to be added to EdgeX during device se
 
 Follow these steps to create a pre-defined device for the simple random number generating device service.
 
-1.  Explore the files in the cmd/device-simple/res/devices folder.   Note the example simple-device.json that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how the file contents represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).
+1. A pre-created device for the random number device is provided in this documentation.  Download **[random-generator-devices.json](random-generator-devices.json)** and save the file to the `./res/devices` folder.
 
-2.  A pre-created device for the random number device is provided in this documentation.  Download **[random-generator-devices.yaml](random-generator-devices.yaml)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res/devices` folder.
-
-3.  Open the random-generator-devices.yaml file in a text editor. In this example, the device described has a profileName:  `RandNum-Device`.  In this case, the device informs EdgeX that it will be using the device profile we created in [Creating your Device Profile](./Ch-GettingStartedSDK-C.md#creating-your-device-profile)
+2. Open the random-generator-devices.json file in a text editor. Note how the file contents represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).  In this example, the device described has a profileName:  `RandNum-Device`.  In this case, the device informs EdgeX that it will be using the device profile we created in [Creating your Device Profile](./Ch-GettingStartedSDK-C.md#creating-your-device-profile)
 
 
 ## Configuring your Device Service
@@ -149,7 +147,7 @@ Follow these steps to create a pre-defined device for the simple random number g
 Now update the configuration for the new device service.    This documentation provides a new configuration.yaml file.  This configuration file:
 - changes the port the service operates on so as not to conflict with other device services
 
-Download  **[configuration.yaml](https://github.com/edgexfoundry/device-sdk-go/blob/{{version}}/example/cmd/device-simple/res/configuration.yaml)** and save the file to the ./res folder.
+Download  **[configuration.yaml](configuration.yaml)** and save the file to the ./res folder.
 
 ### Custom Structured Configuration
 
@@ -184,7 +182,7 @@ taking readings every 10 seconds.
 Rebuild your Device Service to reflect the changes that you have made:
 
 ``` bash
-gcc -I$CSDK_DIR/include -L$CSDK_DIR/lib -o device-example-c template.c -lcsdk
+gcc -I$CSDK_DIR/include -I/opt/iotech/iot/1.5/include -L$CSDK_DIR/lib -L/opt/iotech/iot/1.5/lib -o device-example-c template.c -lcsdk -liot
 ```
 
 ## Run your Device Service
@@ -198,14 +196,14 @@ sends to EdgeX.
     following call:
 
     ``` bash
-    docker compose up -d
+    docker compose -f docker-compose-no-secty.yml up -d
     ```
 
 2.  Back in your custom device service directory, tell your device
-    service where to find the `libcsdk.so`:
+    service where to find the `libcsdk.so` and `libiot.so`:
 
     ``` bash
-    export LD_LIBRARY_PATH=$CSDK_DIR/lib
+    export LD_LIBRARY_PATH=$CSDK_DIR/lib:/opt/iotech/iot/1.5/lib
     ```
 
 3.  Run your device service:
@@ -229,13 +227,13 @@ sends to EdgeX.
     service directly:
 
     ``` bash
-    curl 0:59992/api/{{api_version}}/device/name/RandNum-Device01/RandomNumber
+    curl 0:59999/api/v3/device/name/RandNum-Device01/RandomNumber
     ```
 
 6.  Using a browser, enter the following URL to see the event/reading
     data that the service is generating and sending to EdgeX:
 
-    <http://localhost:59880/api/{{api_version}}/event/device/name/RandNum-Device01?limit=100>
+    <http://localhost:59880/api/v3/event/device/name/RandNum-Device01?limit=100>
 
     This request asks core data to provide the last 100 events/readings associated to the RandNum-Device-01.
 
