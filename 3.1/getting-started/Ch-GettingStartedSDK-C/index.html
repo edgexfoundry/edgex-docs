@@ -1636,13 +1636,13 @@ random number as a means to simulate getting data from an actual device. In this
 <ol>
 <li>
 <p>First, clone the device-sdk-c from Github:
-    <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>v2.0.0<span class="w"> </span>https://github.com/edgexfoundry/device-sdk-c.git
+    <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>v3.0.1<span class="w"> </span>https://github.com/edgexfoundry/device-sdk-c.git
 <span class="nb">cd</span><span class="w"> </span>./device-sdk-c
 </code></pre></div></p>
 <p><img alt="image" src="../EdgeX_GettingStartedSDKCloneC.png"/></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The clone command above has you pull v2.0.0 of the C SDK which is the version compatible with the Ireland release.</p>
+<p>The clone command above has you pull v3.0.1 of the C SDK which is the version compatible with the Minnesota release.</p>
 </div>
 </li>
 <li>
@@ -1669,16 +1669,16 @@ compiled in an earlier step.</p>
 <ol>
 <li>
 <p>Tell the compiler where to find the C SDK files:
-    <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CSDK_DIR</span><span class="o">=</span>../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-2.0.0
+    <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CSDK_DIR</span><span class="o">=</span>../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-3.0.1
 </code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The exact path to your compiled CSDK_DIR may differ depending on the tagged version number on the SDK.  The version of the SDK can be found in the VERSION file located in the ./device-sdk-c/VERSION file.  In the example above, the Ireland release of 2.0.0 is used.</p>
+<p>The exact path to your compiled CSDK_DIR may differ depending on the tagged version number on the SDK.  The version of the SDK can be found in the VERSION file located in the ./device-sdk-c/VERSION file.  In the example above, the Minnesota release of 3.0.1 is used.</p>
 </div>
 </li>
 <li>
 <p>Now build your device service executable:</p>
-<div class="highlight"><pre><span></span><code>gcc<span class="w"> </span>-I<span class="nv">$CSDK_DIR</span>/include<span class="w"> </span>-L<span class="nv">$CSDK_DIR</span>/lib<span class="w"> </span>-o<span class="w"> </span>device-example-c<span class="w"> </span>template.c<span class="w"> </span>-lcsdk
+<div class="highlight"><pre><span></span><code>gcc<span class="w"> </span>-I<span class="nv">$CSDK_DIR</span>/include<span class="w"> </span>-I/opt/iotech/iot/1.5/include<span class="w"> </span>-L<span class="nv">$CSDK_DIR</span>/lib<span class="w"> </span>-L/opt/iotech/iot/1.5/lib<span class="w"> </span>-o<span class="w"> </span>device-example-c<span class="w"> </span>template.c<span class="w"> </span>-lcsdk<span class="w"> </span>-liot
 </code></pre></div>
 <p>If everything is working properly, a <code>device-example-c</code> executable will be created in the directory.</p>
 <p><img alt="image" src="../EdgeX_GettingStartedSDKCompileC.png"/></p>
@@ -1727,7 +1727,7 @@ random numbers, you need to modify your <code>template.c</code> method
 <p>Here the reading value is set to a random signed integer. Various <code>iot_data_alloc_</code> functions are defined in the <code>iot/data.h</code> header allowing readings of different types to be generated.</p>
 <h2 id="creating-your-device-profile">Creating your Device Profile</h2>
 <p>A device profile is a YAML file that describes a class of device to
-EdgeX. General characteristics about the type of device, the data these devices provide, and how to command the device are all in a device profile.   The device profile tells the device service what data gets collected from the the device and how to get it. </p>
+EdgeX. General characteristics about the type of device, the data these devices provide, and how to command the device are all in a device profile.   The device profile tells the device service what data gets collected from the device and how to get it. </p>
 <p>Follow these steps to create a device profile for the simple random number generating device service.</p>
 <ol>
 <li>
@@ -1746,19 +1746,16 @@ EdgeX. General characteristics about the type of device, the data these devices 
 <p>Follow these steps to create a pre-defined device for the simple random number generating device service.</p>
 <ol>
 <li>
-<p>Explore the files in the cmd/device-simple/res/devices folder.   Note the example simple-device.json that is already in this folder.  Open the file with your favorite editor and explore its contents.  Note how the file contents represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).</p>
+<p>A pre-created device for the random number device is provided in this documentation.  Download <strong><a href="../random-generator-devices.json">random-generator-devices.json</a></strong> and save the file to the <code>./res/devices</code> folder.</p>
 </li>
 <li>
-<p>A pre-created device for the random number device is provided in this documentation.  Download <strong><a href="../random-generator-devices.yaml">random-generator-devices.yaml</a></strong> and save the file to the <code>~/edgexfoundry/device-simple/cmd/device-simple/res/devices</code> folder.</p>
-</li>
-<li>
-<p>Open the random-generator-devices.yaml file in a text editor. In this example, the device described has a profileName:  <code>RandNum-Device</code>.  In this case, the device informs EdgeX that it will be using the device profile we created in <a href="./#creating-your-device-profile">Creating your Device Profile</a></p>
+<p>Open the random-generator-devices.json file in a text editor. Note how the file contents represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).  In this example, the device described has a profileName:  <code>RandNum-Device</code>.  In this case, the device informs EdgeX that it will be using the device profile we created in <a href="./#creating-your-device-profile">Creating your Device Profile</a></p>
 </li>
 </ol>
 <h2 id="configuring-your-device-service">Configuring your Device Service</h2>
 <p>Now update the configuration for the new device service.    This documentation provides a new configuration.yaml file.  This configuration file:
 - changes the port the service operates on so as not to conflict with other device services</p>
-<p>Download  <strong><a href="https://github.com/edgexfoundry/device-sdk-go/blob/main/example/cmd/device-simple/res/configuration.yaml">configuration.yaml</a></strong> and save the file to the ./res folder.</p>
+<p>Download  <strong><a href="../configuration.yaml">configuration.yaml</a></strong> and save the file to the ./res folder.</p>
 <h3 id="custom-structured-configuration">Custom Structured Configuration</h3>
 <p>C Device Services support structured custom configuration as part of the <code>[Driver]</code> section in the configuration.yaml file.</p>
 <p>View the <code>main</code> function of <code>template.c</code>. The <code>confparams</code> variable is initialized with default values for three test parameters. These values may be overridden by entries in the configuration file or by environment variables in the usual way. The resulting configuration is passed to the <code>init</code> function when the service starts.</p>
@@ -1781,7 +1778,7 @@ number, as well as a configuration file that will let your device
 service register itself and its device profile with EdgeX, and begin
 taking readings every 10 seconds.</p>
 <p>Rebuild your Device Service to reflect the changes that you have made:</p>
-<div class="highlight"><pre><span></span><code>gcc<span class="w"> </span>-I<span class="nv">$CSDK_DIR</span>/include<span class="w"> </span>-L<span class="nv">$CSDK_DIR</span>/lib<span class="w"> </span>-o<span class="w"> </span>device-example-c<span class="w"> </span>template.c<span class="w"> </span>-lcsdk
+<div class="highlight"><pre><span></span><code>gcc<span class="w"> </span>-I<span class="nv">$CSDK_DIR</span>/include<span class="w"> </span>-I/opt/iotech/iot/1.5/include<span class="w"> </span>-L<span class="nv">$CSDK_DIR</span>/lib<span class="w"> </span>-L/opt/iotech/iot/1.5/lib<span class="w"> </span>-o<span class="w"> </span>device-example-c<span class="w"> </span>template.c<span class="w"> </span>-lcsdk<span class="w"> </span>-liot
 </code></pre></div>
 <h2 id="run-your-device-service">Run your Device Service</h2>
 <p>Allow your newly created Device Service, which was formed out of the
@@ -1792,13 +1789,13 @@ sends to EdgeX.</p>
 <p>Follow the <a href="../Ch-GettingStartedDockerUsers/">Getting Started using Docker</a> guide to start all of EdgeX. From
     the folder containing the docker-compose file, start EdgeX with the
     following call:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>up<span class="w"> </span>-d
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose-no-secty.yml<span class="w"> </span>up<span class="w"> </span>-d
 </code></pre></div>
 </li>
 <li>
 <p>Back in your custom device service directory, tell your device
-    service where to find the <code>libcsdk.so</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$CSDK_DIR</span>/lib
+    service where to find the <code>libcsdk.so</code> and <code>libiot.so</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$CSDK_DIR</span>/lib:/opt/iotech/iot/1.5/lib
 </code></pre></div>
 </li>
 <li>
@@ -1818,7 +1815,7 @@ sends to EdgeX.</p>
 <li>
 <p>You can manually generate an event using curl to query the device
     service directly:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span><span class="m">0</span>:59992/api/v3/device/name/RandNum-Device01/RandomNumber
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span><span class="m">0</span>:59999/api/v3/device/name/RandNum-Device01/RandomNumber
 </code></pre></div>
 </li>
 <li>

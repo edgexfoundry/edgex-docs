@@ -294,6 +294,29 @@
 <a class="md-nav__link" href="#what-you-need-for-c-development">
     What You Need For C Development
   </a>
+<nav aria-label="What You Need For C Development" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#installing-iot-utilities">
+    Installing IOT utilities
+  </a>
+<nav aria-label="Installing IOT utilities" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debian-and-ubuntu">
+    Debian and Ubuntu
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alpine">
+    Alpine
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#next-steps">
@@ -1522,6 +1545,29 @@
 <a class="md-nav__link" href="#what-you-need-for-c-development">
     What You Need For C Development
   </a>
+<nav aria-label="What You Need For C Development" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#installing-iot-utilities">
+    Installing IOT utilities
+  </a>
+<nav aria-label="Installing IOT utilities" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debian-and-ubuntu">
+    Debian and Ubuntu
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alpine">
+    Alpine
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#next-steps">
@@ -1584,6 +1630,34 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 </ul>
 </li>
 </ul>
+<h3 id="installing-iot-utilities">Installing IOT utilities</h3>
+<p>From EdgeX version 3.0, the C utilities used by the SDK must be installed as a pre-requisite package,
+rather than being downloaded and built with the SDK itself as in previous versions. Note that if re-using
+an old build tree, the <code>src/c/iot</code> and <code>include/iot</code> directories must be removed as these will be
+outdated.</p>
+<p>All commands shown are to be run as the root user.</p>
+<h4 id="debian-and-ubuntu">Debian and Ubuntu</h4>
+<p>Management of package signing keys is changed in newer versions. For Debian 11 and Ubuntu 22.04:</p>
+<div class="highlight"><pre><span></span><code>apt-get install lsb-release apt-transport-https curl gnupg
+curl -fsSL https://iotech.jfrog.io/artifactory/api/gpg/key/public | gpg --dearmor -o /usr/share/keyrings/iotech.gpg
+echo "deb [signed-by=/usr/share/keyrings/iotech.gpg] https://iotech.jfrog.io/iotech/debian-release $(lsb_release -cs) main" | tee -a /etc/apt/sources.list.d/iotech.list
+apt-get update
+apt-get install iotech-iot-1.5-dev
+</code></pre></div>
+<p>For earlier versions:</p>
+<div class="highlight"><pre><span></span><code>apt-get install lsb-release apt-transport-https curl gnupg
+curl -fsSL https://iotech.jfrog.io/artifactory/api/gpg/key/public | apt-key add -
+echo "deb https://iotech.jfrog.io/iotech/debian-release $(lsb_release -cs) main" | tee -a /etc/apt/sources.list.d/iotech.list
+apt-get update
+apt-get install iotech-iot-1.5-dev
+</code></pre></div>
+<h4 id="alpine">Alpine</h4>
+<div class="highlight"><pre><span></span><code>wget https://iotech.jfrog.io/artifactory/api/security/keypair/public/repositories/alpine-release -O /etc/apk/keys/alpine.dev.rsa.pub
+echo "https://iotech.jfrog.io/artifactory/alpine-release/v3.16/main" &gt;&gt; /etc/apk/repositories
+apk update
+apk add iotech-iot-1.5-dev
+</code></pre></div>
+<p>Note: If not using Alpine 3.16, replace v3.16 in the above commands with the correct version.</p>
 <h2 id="next-steps">Next Steps</h2>
 <p>To explore how to create and build EdgeX device services in C, head to the <a href="../Ch-GettingStartedSDK-C/">Device Services, C SDK guide</a>.</p>
 </article>
