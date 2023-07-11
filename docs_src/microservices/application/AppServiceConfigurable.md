@@ -395,7 +395,7 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `DeviceNames` - Comma separated list of device names for filtering
+- `DeviceNames` - Comma separated list of device names or regular expressions for filtering
 - `FilterOut`- Boolean indicating if the data matching the device names should be filtered out or filtered for.
 
 !!! example
@@ -404,12 +404,17 @@ Please refer to the function's detailed documentation by clicking the function n
           Parameters:
             DeviceNames: "Random-Float-Device,Random-Integer-Device"
             FilterOut: "false"
+    or
+        FilterByDeviceName:
+          Parameters:
+            DeviceNames: "[a-zA-Z-]+(Integer-)[a-zA-Z-]+"
+            FilterOut: "true"
     ```
 ### [FilterByProfileName](../BuiltIn/#by-profile-name)
 
 **Parameters**
 
-- `ProfileNames` - Comma separated list of profile names for filtering
+- `ProfileNames` - Comma separated list of profile names or regular expressions for filtering
 - `FilterOut`- Boolean indicating if the data matching the profile names should be filtered out or filtered for.
 
 !!! example
@@ -418,13 +423,18 @@ Please refer to the function's detailed documentation by clicking the function n
           Parameters:
             ProfileNames: "Random-Float-Device, Random-Integer-Device"
             FilterOut: "false"
+    or
+        FilterByProfileName:
+          Parameters:
+            ProfileNames: "(Random-)[a-zA-Z-]+"
+            FilterOut: "false"
     ```
 
 ### [FilterByResourceName](../BuiltIn/#by-resource-name)
 
 **Parameters**
 
-- `ResourceName` - Comma separated list of reading resource names for filtering
+- `ResourceName` - Comma separated list of reading resource names or regular expressions for filtering
 - `FilterOut`- Boolean indicating if the readings matching the resource names should be filtered out or filtered for.
 
 !!! example
@@ -433,6 +443,11 @@ Please refer to the function's detailed documentation by clicking the function n
           Parameters:
             ResourceNames: "Int8, Int64"
             FilterOut: "true"
+    or
+        FilterByResourceName:
+          Parameters:
+            DeviceNames: "(Int)[0-9]+"
+            FilterOut: "false"
     ```
 
 
@@ -440,7 +455,7 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `SourceNames` - Comma separated list of source names for filtering. Source name is either the device command name or the resource name that created the Event
+- `SourceNames` - Comma separated list of source names or regular expressions for filtering. Source name is either the device command name or the resource name that created the Event
 - `FilterOut`- Boolean indicating if the data matching the device names should be filtered out or filtered for.
 
 !!! example
