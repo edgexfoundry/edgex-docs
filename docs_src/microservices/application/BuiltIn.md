@@ -345,7 +345,7 @@ type Filter struct {
 ```
 
 !!! Note
-    Either strings or regular expressions are accepted in the configuration.
+    Either strings or regular expressions are accepted as filter values.
     
 ### By Profile Name
 
@@ -354,6 +354,8 @@ type Filter struct {
 !!! example
     ``` go
     NewFilterFor([] {"Profile1", "Profile2"}).FilterByProfileName
+    
+    NewFilterFor([] {"Profile[0-9]+"}).FilterByProfileName
     ```
 
 ### By Device Name
@@ -362,6 +364,8 @@ type Filter struct {
 
 !!! example
     ``` go
+    NewFilterFor([] {"(Device)1, Device2"}).FilterByDeviceName
+
     NewFilterFor([] {"(Device)[0-9]+"}).FilterByDeviceName
     ```
 
@@ -372,6 +376,8 @@ type Filter struct {
 !!! example
     ``` go
     NewFilterFor([] {"Source1", "Source2"}).FilterBySourceName
+
+    NewFilterFor([] {"Source[0-9]+"}).FilterBySourceName
     ```
 
 
@@ -382,6 +388,8 @@ type Filter struct {
 !!! example
     ``` go
     NewFilterFor([] {"Resource1", "Resource2"}).FilterByResourceName
+
+    NewFilterFor([] {"Resource[0-9]+"}).FilterByResourceName
     ```
 
 
