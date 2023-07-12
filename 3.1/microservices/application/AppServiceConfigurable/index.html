@@ -2220,7 +2220,7 @@
 <h3 id="filterbydevicename"><a href="../BuiltIn/#by-device-name">FilterByDeviceName</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>DeviceNames</code> - Comma separated list of device names for filtering</li>
+<li><code>DeviceNames</code> - Comma separated list of device names or regular expressions for filtering</li>
 <li><code>FilterOut</code>- Boolean indicating if the data matching the device names should be filtered out or filtered for.</li>
 </ul>
 <div class="admonition example">
@@ -2229,12 +2229,17 @@
 <span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">DeviceNames</span><span class="p">:</span><span class="w"> </span><span class="s">"Random-Float-Device,Random-Integer-Device"</span>
 <span class="w">        </span><span class="nt">FilterOut</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
+<span class="l l-Scalar l-Scalar-Plain">or</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">FilterByDeviceName</span><span class="p p-Indicator">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">DeviceNames</span><span class="p">:</span><span class="w"> </span><span class="s">"[a-zA-Z-]+(Integer-)[a-zA-Z-]+"</span>
+<span class="w">        </span><span class="nt">FilterOut</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 </code></pre></div>
 </div>
 <h3 id="filterbyprofilename"><a href="../BuiltIn/#by-profile-name">FilterByProfileName</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>ProfileNames</code> - Comma separated list of profile names for filtering</li>
+<li><code>ProfileNames</code> - Comma separated list of profile names or regular expressions for filtering</li>
 <li><code>FilterOut</code>- Boolean indicating if the data matching the profile names should be filtered out or filtered for.</li>
 </ul>
 <div class="admonition example">
@@ -2243,12 +2248,17 @@
 <span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">ProfileNames</span><span class="p">:</span><span class="w"> </span><span class="s">"Random-Float-Device,</span><span class="nv"> </span><span class="s">Random-Integer-Device"</span>
 <span class="w">        </span><span class="nt">FilterOut</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
+<span class="l l-Scalar l-Scalar-Plain">or</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">FilterByProfileName</span><span class="p p-Indicator">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">ProfileNames</span><span class="p">:</span><span class="w"> </span><span class="s">"(Random-)[a-zA-Z-]+"</span>
+<span class="w">        </span><span class="nt">FilterOut</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
 </code></pre></div>
 </div>
 <h3 id="filterbyresourcename"><a href="../BuiltIn/#by-resource-name">FilterByResourceName</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>ResourceName</code> - Comma separated list of reading resource names for filtering</li>
+<li><code>ResourceName</code> - Comma separated list of reading resource names or regular expressions for filtering</li>
 <li><code>FilterOut</code>- Boolean indicating if the readings matching the resource names should be filtered out or filtered for.</li>
 </ul>
 <div class="admonition example">
@@ -2257,12 +2267,17 @@
 <span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">ResourceNames</span><span class="p">:</span><span class="w"> </span><span class="s">"Int8,</span><span class="nv"> </span><span class="s">Int64"</span>
 <span class="w">        </span><span class="nt">FilterOut</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="l l-Scalar l-Scalar-Plain">or</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">FilterByResourceName</span><span class="p p-Indicator">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">DeviceNames</span><span class="p">:</span><span class="w"> </span><span class="s">"(Int)[0-9]+"</span>
+<span class="w">        </span><span class="nt">FilterOut</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
 </code></pre></div>
 </div>
 <h3 id="filterbysourcename"><a href="../BuiltIn/#by-source-name">FilterBySourceName</a></h3>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>SourceNames</code> - Comma separated list of source names for filtering. Source name is either the device command name or the resource name that created the Event</li>
+<li><code>SourceNames</code> - Comma separated list of source names or regular expressions for filtering. Source name is either the device command name or the resource name that created the Event</li>
 <li><code>FilterOut</code>- Boolean indicating if the data matching the device names should be filtered out or filtered for.</li>
 </ul>
 <div class="admonition example">

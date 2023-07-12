@@ -2367,20 +2367,24 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Either strings or regular expressions are accepted in the configuration.</p>
+<p>Either strings or regular expressions are accepted as filter values.</p>
 </div>
 <h3 id="by-profile-name">By Profile Name</h3>
 <p><code>FilterByProfileName</code> - This pipeline function will filter the event data down to <strong>Events</strong> that either have (For) or don't have (Out) the specified profiles names.  </p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">"Profile1"</span><span class="p">,</span><span class="w"> </span><span class="s">"Profile2"</span><span class="p">}).</span><span class="nx">FilterByProfileName</span>
+
+<span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">"Profile[0-9]+"</span><span class="p">}).</span><span class="nx">FilterByProfileName</span>
 </code></pre></div>
 </div>
 <h3 id="by-device-name">By Device Name</h3>
 <p><code>FilterByDeviceName</code> - This pipeline function will filter the event data down to <strong>Events</strong> that either have (For) or don't have (Out) the specified device names.  </p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">"(Device)[0-9]+"</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span>
+<div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">"(Device)1, Device2"</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span>
+
+<span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">"(Device)[0-9]+"</span><span class="p">}).</span><span class="nx">FilterByDeviceName</span>
 </code></pre></div>
 </div>
 <h3 id="by-source-name">By Source Name</h3>
@@ -2388,6 +2392,8 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">"Source1"</span><span class="p">,</span><span class="w"> </span><span class="s">"Source2"</span><span class="p">}).</span><span class="nx">FilterBySourceName</span>
+
+<span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">"Source[0-9]+"</span><span class="p">}).</span><span class="nx">FilterBySourceName</span>
 </code></pre></div>
 </div>
 <h3 id="by-resource-name">By Resource Name</h3>
@@ -2395,6 +2401,8 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code><span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">"Resource1"</span><span class="p">,</span><span class="w"> </span><span class="s">"Resource2"</span><span class="p">}).</span><span class="nx">FilterByResourceName</span>
+
+<span class="nx">NewFilterFor</span><span class="p">([]</span><span class="w"> </span><span class="p">{</span><span class="s">"Resource[0-9]+"</span><span class="p">}).</span><span class="nx">FilterByResourceName</span>
 </code></pre></div>
 </div>
 <h2 id="json-logic">JSON Logic</h2>
