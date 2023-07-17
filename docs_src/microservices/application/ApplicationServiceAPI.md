@@ -486,13 +486,13 @@ The following `ApplicationService` APIs allow Application Services to have backg
 
 `AddBackgroundPublisher(capacity int) (BackgroundPublisher, error)`
 
-This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus. Not valid for use with the HTTP or External MQTT triggers
+This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus. 
 
 ### AddBackgroundPublisherWithTopic
 
 `AddBackgroundPublisherWithTopic(capacity int, topic string) (BackgroundPublisher, error)`
 
-This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus on the specified topic. Not valid for use with the HTTP or External MQTT triggers. 
+This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus on the specified topic.  
 
 ### BuildContext
 
