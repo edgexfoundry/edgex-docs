@@ -118,7 +118,7 @@ The Event/Reading data stored by Core Data is considered transient and of little
 See [Core Data API Reference](../api/core/Ch-APICoreData) for complete details.
 #### Reading
 
- There are no changes to the V3 Reading from that in V2
+- Added `tags` field in reading.
 
 #### Event
 
@@ -145,6 +145,10 @@ Most of the data stored by Core Metadata will be recreated when the V3 versions 
     - The ProvisionWatcher DTO is restructured by moving the Device related fields into a new object field, `DiscoveredDevice`; such as `profileName`, Device `adminState`, and `autoEvents`.
     - Added a new properties field in the `DiscoveredDevice` object to allow any additional or customized data.
     - ProvisionWatcher contains its own `adminState` now. The Device `adminState` is moved into the `DiscoveredDevice` object.
+
+- Add/ Update Device
+    - Removed the boolean field `notify` which is never used
+    - Added the new field `tags` and `properties`
 
 See [Core Metadata API Reference](../api/core/Ch-APICoreMetadata) for complete details.
 

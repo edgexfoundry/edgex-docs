@@ -21,11 +21,16 @@ See [Top Level V3 Migration Guide](../../../V3TopLevelMigration) for details app
             Port: 300
         ```
 
+4. The boolean field `notify` has been removed as it is never used.
+5. An extendable field `properties` has been added to Device. See [Metadata Dictionary](../core/metadata/Ch-Metadata.md#data-dictionary) and point to **Device tab** for complete details.
+6. Added `tags` field to Device for event level tagging. See [Metadata Dictionary](../core/metadata/Ch-Metadata.md#data-dictionary) and point to **Device tab** for complete details.
+
 ### Device Profile Files
 
 1. Add `optional` field in ResourceProperties to allow any additional or customized data.
 2. Change the data type of `mask`, `shift`, `scale`, `base`, `offset`, `maximum` and `minimum` from string to number in ResourceProperties.
-
+3. Added `tags` field in DeviceResource for reading level tagging. See [Metadata Dictionary](../core/metadata/Ch-Metadata.md#data-dictionary) and point to **DeviceResource tab** for complete details.
+4. Added `tags` field in DeviceCommand for event level tagging. See [Metadata Dictionary](../core/metadata/Ch-Metadata.md#data-dictionary) and point to **DeviceCommand tab** for complete details.
 
 ### Provision Watcher files
 
@@ -69,6 +74,8 @@ See [Top Level V3 Migration Guide](../../../V3TopLevelMigration) for details app
             testPropertyA: weather
             testPropertyB: meter
         ```
+
+6. An extendable field `properties` has been added to ProvisionWatcher. See [Metadata Dictionary](../core/metadata/Ch-Metadata.md#data-dictionary) and point to **DiscoveredDevice tab** for complete details.
 
 ## Custom Device Services
 
