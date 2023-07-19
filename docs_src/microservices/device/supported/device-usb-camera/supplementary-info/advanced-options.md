@@ -38,6 +38,83 @@ To configure the username and password for rtsp authentication when building you
     RUN sed -i 's,externalAuthenticationURL:,externalAuthenticationURL: http://localhost:8000/rtspauth,g' rtsp-simple-server.yml
     ```
 
+## Set Device Parameters
+### Set framerate
+This option sets the framerate for the capture device.
+
+1. Execute the `DataFormat` api call to see the available framerates:
+```bash
+curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat
+```
+
+    !!! example - "Example response"
+        ```json
+        {
+            "apiVersion": "v3",
+            "statusCode": 200,
+            "event": {
+                "apiVersion": "v3",
+                "id": "bf48b7c6-5e94-4831-a7ba-cea4e9773ae1",
+                "deviceName": "C270_HD_WEBCAM-8184F580",
+                "profileName": "USB-Camera-General",
+                "sourceName": "DataFormat",
+                "origin": 1689621129335558590,
+                "readings": [
+                    {
+                        "id": "7f4918ca-31c9-4bcf-9490-a328eb62beab",
+                        "origin": 1689621129335558590,
+                        "deviceName": "C270_HD_WEBCAM-8184F580",
+                        "resourceName": "DataFormat",
+                        "profileName": "USB-Camera-General",
+                        "valueType": "Object",
+                        "value": "",
+                        "objectValue": {
+                            "BytesPerLine": 1280,
+                            "Colorspace": "sRGB",
+                            "Field": "none",
+                            "FpsIntervals": [
+                                {
+                                    "Denominator": 30,
+                                    "Numerator": 1
+                                },
+                                {
+                                    "Denominator": 24,
+                                    "Numerator": 1
+                                },
+                                {
+                                    "Denominator": 20,
+                                    "Numerator": 1
+                                },
+                                {
+                                    "Denominator": 15,
+                                    "Numerator": 1
+                                },
+                                {
+                                    "Denominator": 10,
+                                    "Numerator": 1
+                                },
+                                {
+                                    "Denominator": 15,
+                                    "Numerator": 2
+                                },
+                                {
+                                    "Denominator": 5,
+                                    "Numerator": 1
+                                }
+                            ],
+                            "Height": 480,
+                            "PixelFormat": "YUYV 4:2:2",
+                            "Quantization": "Limited range",
+                            "SizeImage": 614400,
+                            "Width": 640,
+                            "XferFunc": "Rec. 709",
+                            "YcbcrEnc": "ITU-R 601"
+                        }
+                    }
+                ]
+            }
+        }
+        ```
 
 ## Video options
 There are two types of options:
