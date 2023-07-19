@@ -7,77 +7,98 @@ This option sets the framerate for the capture device.
 
 1. Execute the `DataFormat` api call to see the available framerates:
 ```bash
-curl http://localhost:59882/api/v3/device/name/<device-name>/DataFormat
+curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat
 ```
 
-!!! example - "Example response"
-    ```json
-    {
-        "apiVersion": "v3",
-        "statusCode": 200,
-        "event": {
+    !!! example - "Example response"
+        ```json
+        {
             "apiVersion": "v3",
-            "id": "bf48b7c6-5e94-4831-a7ba-cea4e9773ae1",
-            "deviceName": "C270_HD_WEBCAM-8184F580",
-            "profileName": "USB-Camera-General",
-            "sourceName": "DataFormat",
-            "origin": 1689621129335558590,
-            "readings": [
-                {
-                    "id": "7f4918ca-31c9-4bcf-9490-a328eb62beab",
-                    "origin": 1689621129335558590,
-                    "deviceName": "C270_HD_WEBCAM-8184F580",
-                    "resourceName": "DataFormat",
-                    "profileName": "USB-Camera-General",
-                    "valueType": "Object",
-                    "value": "",
-                    "objectValue": {
-                        "BytesPerLine": 1280,
-                        "Colorspace": "sRGB",
-                        "Field": "none",
-                        "FpsIntervals": [
-                            {
-                                "Denominator": 30,
-                                "Numerator": 1
-                            },
-                            {
-                                "Denominator": 24,
-                                "Numerator": 1
-                            },
-                            {
-                                "Denominator": 20,
-                                "Numerator": 1
-                            },
-                            {
-                                "Denominator": 15,
-                                "Numerator": 1
-                            },
-                            {
-                                "Denominator": 10,
-                                "Numerator": 1
-                            },
-                            {
-                                "Denominator": 15,
-                                "Numerator": 2
-                            },
-                            {
-                                "Denominator": 5,
-                                "Numerator": 1
-                            }
-                        ],
-                        "Height": 480,
-                        "PixelFormat": "YUYV 4:2:2",
-                        "Quantization": "Limited range",
-                        "SizeImage": 614400,
-                        "Width": 640,
-                        "XferFunc": "Rec. 709",
-                        "YcbcrEnc": "ITU-R 601"
+            "statusCode": 200,
+            "event": {
+                "apiVersion": "v3",
+                "id": "bf48b7c6-5e94-4831-a7ba-cea4e9773ae1",
+                "deviceName": "C270_HD_WEBCAM-8184F580",
+                "profileName": "USB-Camera-General",
+                "sourceName": "DataFormat",
+                "origin": 1689621129335558590,
+                "readings": [
+                    {
+                        "id": "7f4918ca-31c9-4bcf-9490-a328eb62beab",
+                        "origin": 1689621129335558590,
+                        "deviceName": "C270_HD_WEBCAM-8184F580",
+                        "resourceName": "DataFormat",
+                        "profileName": "USB-Camera-General",
+                        "valueType": "Object",
+                        "value": "",
+                        "objectValue": {
+                            "BytesPerLine": 1280,
+                            "Colorspace": "sRGB",
+                            "Field": "none",
+                            "FpsIntervals": [
+                                {
+                                    "Denominator": 30,
+                                    "Numerator": 1
+                                },
+                                {
+                                    "Denominator": 24,
+                                    "Numerator": 1
+                                },
+                                {
+                                    "Denominator": 20,
+                                    "Numerator": 1
+                                },
+                                {
+                                    "Denominator": 15,
+                                    "Numerator": 1
+                                },
+                                {
+                                    "Denominator": 10,
+                                    "Numerator": 1
+                                },
+                                {
+                                    "Denominator": 15,
+                                    "Numerator": 2
+                                },
+                                {
+                                    "Denominator": 5,
+                                    "Numerator": 1
+                                }
+                            ],
+                            "Height": 480,
+                            "PixelFormat": "YUYV 4:2:2",
+                            "Quantization": "Limited range",
+                            "SizeImage": 614400,
+                            "Width": 640,
+                            "XferFunc": "Rec. 709",
+                            "YcbcrEnc": "ITU-R 601"
+                        }
                     }
-                }
-            ]
+                ]
+            }
         }
-    }
-    ```
+        ```
+
+1. Use the `FpsIntervals` field to determine the possible fps values for the current video data format.
+
+1. Use one of the supported fps values from the previous command to execute the `SetFramerate` command.
+
+    !!! Note
+        The denominator/numerator represents the actual framerate value. This is done to maintain consistency with the internal driver structure. For example, an framerate of 5 fps would have a denominator of 5 and a numerator of 1. An framerate value of 7.5 fps would have a denominator of 15 and a numerator of 2.
+
+    !!! example - "Example SetFramerate command"
+        ```bash
+        curl -X PUT -d '{
+                "SetFramerate": {
+                "Numerator": "1",
+                "Denominator": "10"
+                }
+            }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/SetFramerate
+        ``` 
+
+    !!! warning
+        3rd party applications such vlc or ffplay may overwrite your chosen framerate value, so make sure to keep that in mind when using other applications.
+
 ## Start Video Streaming
 Unless the device service is configured to stream video from the camera automatically, a `StartStreaming` command must be sent to the device service.
 
