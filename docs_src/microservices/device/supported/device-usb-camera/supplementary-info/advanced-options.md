@@ -39,12 +39,12 @@ To configure the username and password for rtsp authentication when building you
     ```
 
 ## Set Device Parameters
-### Set framerate
-This option sets the framerate for the capture device.
+### Set frame rate
+This option sets the frame rate for the capture device.
 
 1. Execute the `DataFormat` api call to see the available framerates:
 ```bash
-curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat
+curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat?PathIndex=<device path>
 ```
 
     !!! example - "Example response"
@@ -115,6 +115,27 @@ curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat
             }
         }
         ```
+
+
+1. Use the `FpsIntervals` field to determine the possible fps values for the current video data format.
+
+1. Use one of the supported fps values from the previous command to execute the `SetFrameRate` command.
+
+    !!! Note
+        The denominator/numerator represents the actual frame rate value. This is done to maintain consistency with the internal driver structure. For example, an framerate of 5 fps would have a denominator of 5 and a numerator of 1. An framerate value of 7.5 fps would have a denominator of 15 and a numerator of 2.
+
+    !!! example - "Example SetFrameRate command"
+        ```bash
+        curl -X PUT -d '{
+                "SetFrameRate": {
+                "FpsValueNumerator": "1",
+                "FpsValueDenominator": "10"
+                }
+            }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/SetFrameRate?PathIndex=0
+        ``` 
+
+    !!! warning
+        3rd party applications such vlc or ffplay may overwrite your chosen framerate value, so make sure to keep that in mind when using other applications.
 
 ## Video options
 There are two types of options:

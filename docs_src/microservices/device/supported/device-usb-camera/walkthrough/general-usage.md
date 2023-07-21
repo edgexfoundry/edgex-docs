@@ -1,26 +1,6 @@
 # General Usage 
 This document will describe how to execute some of the most important types of commands used with the device service.
 
-1. Use the `FpsIntervals` field to determine the possible fps values for the current video data format.
-
-1. Use one of the supported fps values from the previous command to execute the `SetFramerate` command.
-
-    !!! Note
-        The denominator/numerator represents the actual framerate value. This is done to maintain consistency with the internal driver structure. For example, an framerate of 5 fps would have a denominator of 5 and a numerator of 1. An framerate value of 7.5 fps would have a denominator of 15 and a numerator of 2.
-
-    !!! example - "Example SetFramerate command"
-        ```bash
-        curl -X PUT -d '{
-                "SetFramerate": {
-                "Numerator": "1",
-                "Denominator": "10"
-                }
-            }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/SetFramerate
-        ``` 
-
-    !!! warning
-        3rd party applications such vlc or ffplay may overwrite your chosen framerate value, so make sure to keep that in mind when using other applications.
-
 ## Start Video Streaming
 Unless the device service is configured to stream video from the camera automatically, a `StartStreaming` command must be sent to the device service.
 
