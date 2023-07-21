@@ -1,4 +1,4 @@
-# Device Services Microservices
+# Device Services
 
 ![image](EdgeX_DeviceServices.png)
 
