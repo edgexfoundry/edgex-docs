@@ -34,7 +34,7 @@ Follow this guide to deploy and run the service.
          make run ds-onvif-camera
          ```
 
-        ### Token Generation
+        ### Token Generation (secure mode only)
         !!! note
             Need to wait for sometime for the services to be fully up before executing the next set of commands.
             Securely store Consul ACL token and the JWT token generated which are needed to map credentials and execute apis.
@@ -233,8 +233,16 @@ Additionally, ensure that the service config has been deployed and that Consul i
 ```bash
 curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera?keys=true"
 ```     
+
+Example output:
+```bash
+["edgex/v3/device-onvif-camera/AppCustom/BaseNotificationURL", "edgex/v3/device-onvif-camera/AppCustom/CheckStatusInterval",
+  "edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/NoAuth", ... , "edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/username", "edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretName",
+  "edgex/v3/device-onvif-camera/Writable/LogLevel"]
+```
+
 ## Manage Devices
-Follow these instructions to update devices.
+Follow these instructions to add and update devices manually.
 
 
 ### Curl Commands
@@ -314,6 +322,10 @@ Follow these instructions to update devices.
                     ]
                 }' --header 'Authorization:Bearer <jwt-token>' -X POST "http://localhost:59984/api/{{api_version}}/secret"
         ```
+        Example Output: 
+        ```bash
+        {"apiVersion":"v3","statusCode":201}
+        ```
 
     === "Non-secure mode"
         Enter your chosen username, password, and authentication mode and credentials name and then execute the command to create the secrets.
@@ -340,6 +352,11 @@ Follow these instructions to update devices.
                     ]
                 }' -X POST "http://localhost:59984/api/{{api_version}}/secret"
         ```
+        
+        Example Output: 
+        ```bash
+        {"apiVersion":"v3","statusCode":201}
+        ```
 
 3. Map credentials to devices.
 
@@ -351,6 +368,10 @@ Follow these instructions to update devices.
 
         ```bash
         curl --data '<mac-address>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
+        ```
+        Example Output: 
+        ```bash
+        true
         ```
         
         b. Check the status of the credentials map.
@@ -385,6 +406,11 @@ Follow these instructions to update devices.
         curl --data '<mac-address>' -X PUT "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
         ```
         
+        Example Output: 
+        ```bash
+        true
+        ```
+        
         b. Check the status of the credentials map.
         ```bash
         curl -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap?keys=true" | jq .
@@ -407,8 +433,8 @@ Follow these instructions to update devices.
         11:22:33:44:55:66
         ```
 
-!!! note
-    The [helper scripts](../supplementary-info/utility-scripts.md#create-new-credentials-and-assign-mac-addresses) may also be used, but they have been deprecated.
+    !!! note
+        The [helper scripts](../supplementary-info/utility-scripts.md#create-new-credentials-and-assign-mac-addresses) may also be used, but they have been deprecated.
 
 3. Verify device(s) have been successfully added to core-metadata.
 
@@ -420,7 +446,7 @@ Follow these instructions to update devices.
       ```bash
       deviceName: Camera001
       deviceName: device-onvif-camera
-     ```
+      ```
      
     !!! note
         `jq -r` is used to reduce the size of the displayed response. The entire device with all information can be seen by removing `-r '"deviceName: " + '.devices[].name'', and replacing it with '.'`

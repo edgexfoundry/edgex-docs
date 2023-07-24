@@ -6,7 +6,7 @@ Follow this guide to deploy and run the service.
     1. Navigate to the Edgex compose directory.
 
         ```shell
-        cd ~/edgex/edgex-compose/compose-builder
+        cd edgex-compose/compose-builder
         ```
 
     2. Checkout the latest release ({{version}}):
@@ -32,12 +32,45 @@ Follow this guide to deploy and run the service.
         make run ds-usb-camera
         ```
 
+        ### Token Generation (secure mode only)
+        !!! note
+            Need to wait for sometime for the services to be fully up before executing the next set of commands.
+            Securely store Consul ACL token and the JWT token generated which are needed to map credentials and execute apis.
+            It is not recommended to store these secrets in cleartext in your machine.
+
+        !!! note
+            The JWT token expires after 119 minutes, and you will need to generate a new one.
+        
+        Generate the Consul ACL Token. Use the token generated anywhere you see `<consul-token>` in the documentation.
+        ```bash
+        make get-consul-acl-token
+        ```
+        Example output:
+        ```bash
+        12345678-abcd-1234-abcd-123456789abc
+        ```
+
+        Generate the JWT Token. Use the token generated anywhere you see `<jwt-token>` in the documentation.
+        ```bash
+        make get-token
+        ```
+        Example output:
+        `eyJhbGciOiJFUzM4NCIsImtpZCI6IjUyNzM1NWU4LTQ0OWYtNDhhZC05ZGIwLTM4NTJjOTYxMjA4ZiJ9.eyJhdWQiOiJlZGdleCIsImV4cCI6MTY4NDk2MDI0MSwiaWF0IjoxNjg0OTU2NjQxLCJpc3MiOiIvdjEvaWRlbnRpdHkvb2lkYyIsIm5hbWUiOiJlZGdleHVzZXIiLCJuYW1lc3BhY2UiOiJyb290Iiwic3ViIjoiMGRjNThlNDMtNzBlNS1kMzRjLWIxM2QtZTkxNDM2ODQ5NWU0In0.oa8Fac9aXPptVmHVZ2vjymG4pIvF9R9PIzHrT3dAU11fepRi_rm7tSeq_VvBUOFDT_JHwxDngK1VqBVLRoYWtGSA2ewFtFjEJRj-l83Vz33KySy0rHteJIgVFVi1V7q5`
+
+        !!! note
+            Secrets such as passwords, certificates, tokens and more in Edgex are stored in a secret store which is implemented using Vault a product of Hashicorp.
+            Vault supports security features allowing for the issuing of consul tokens. JWT token is required for the API Gateway which is a trust boundry for Edgex services.
+            It allows for external clients to be verified when issuing REST requests to the microservices. 
+            For more info refer [Secure Consul](../../../../../security/Ch-Secure-Consul.md), [API Gateway](../../../../../security/Ch-APIGateway.md) 
+            and [Edgex Security](../../../../../security/Ch-Security.md).
+            
+
 === "Native"
    
     1. Navigate to the Edgex compose directory.
 
         ```shell
-        cd ~/edgex/edgex-compose/compose-builder
+        cd edgex-compose/compose-builder
         ```
     
     2. Checkout the latest release ({{version}}):
@@ -99,7 +132,15 @@ Follow this guide to deploy and run the service.
     f0a1c646f324   edgexfoundry/device-usb-camera:0.0.0-dev                        "/docker-entrypoint.…"   26 hours ago   Up 20 hours   127.0.0.1:8554->8554/tcp, 127.0.0.1:59983->59983/tcp                         edgex-device-usb-camera                                                                   edgex-device-onvif-camera
     ```
 
-1. Check that the device service is added to EdgeX:
+1. Check whether the device service is added to EdgeX:
+
+    !!! note
+        If running in secure mode all the api executions need the JWT token generated previously. E.g.
+        ```bash
+        curl --location --request GET 'http://localhost:59881/api/{{api_version}}/deviceservice/name/device-usb-camera' \
+        --header 'Authorization: Bearer <jwt-token>' \
+        --data-raw ''
+        ```
 
     ```bash
     curl -s http://localhost:59881/api/{{api_version}}/deviceservice/name/device-usb-camera | jq .
@@ -142,6 +183,13 @@ Follow this guide to deploy and run the service.
     
     !!! Note 
         The `jq -r` option is used to reduce the size of the displayed response. The entire device with all information can be seen by removing `-r '"deviceName: " + '.devices[].name'', and replacing it with '.'`
+
+    !!! note
+        If running in secure mode this command needs the [Consul ACL token](#token-generation) generated previously.
+
+    ```bash
+    curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-usb-camera?keys=true"
+    ``` 
 
 ## Add credentials for the rtsp stream.
 

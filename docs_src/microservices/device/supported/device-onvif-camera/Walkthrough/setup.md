@@ -100,21 +100,10 @@ The table below lists command line tools this guide uses to help with EdgeX conf
 >Table 1: Command Line Tools
 
 ## Download EdgeX Compose
-1. Clone the EdgeX compose repository:
-   ```bash
-   git clone https://github.com/edgexfoundry/edgex-compose.git
-   ```
-
-2. Navigate to the `edgex-compose` directory:
-   ```bash
-   cd edgex-compose
-   ```
-
-3. Navigate back to your home directory:
-      ```bash
-      cd ~
-      ```
-
+Clone the EdgeX compose repository:
+```bash
+git clone https://github.com/edgexfoundry/edgex-compose.git
+```
 
 ## Next Steps
 

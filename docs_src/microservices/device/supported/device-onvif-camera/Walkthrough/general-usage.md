@@ -1,6 +1,6 @@
 # General Usage
 
-This document will describe how to execute some of the most important types of commands used with the device service.
+This document will describe how to execute some of the most important commands used with the device service.
 
 ## Execute GetStreamURI Command through EdgeX
 
