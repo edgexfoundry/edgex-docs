@@ -1839,7 +1839,7 @@
 <li>/api/v3/trigger</li>
 <li>/api/v3/secret</li>
 </ul>
-<p>To add your own route, use the <code>AddRoute()</code> API provided on the <code>ApplicationService</code> interface. </p>
+<p>To add your own route, use the <code>AddCustomRoute()</code> API provided on the <code>ApplicationService</code> interface. </p>
 <div class="admonition example">
 <p class="admonition-title">Example - Add Custom REST route</p>
 <div class="highlight"><pre><span></span><code><span class="nx">myhandler</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">writer</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">    </span>
@@ -1851,7 +1851,7 @@
 <span class="p">}</span><span class="w">    </span>
 
 <span class="nx">service</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pkg</span><span class="p">.</span><span class="nx">NewAppService</span><span class="p">(</span><span class="nx">serviceKey</span><span class="p">)</span><span class="w">    </span>
-<span class="nx">service</span><span class="p">.</span><span class="nx">AddRoute</span><span class="p">(</span><span class="s">"/myroute"</span><span class="p">,</span><span class="w"> </span><span class="nx">myHandler</span><span class="p">,</span><span class="w"> </span><span class="s">"GET"</span><span class="p">)</span><span class="w">    </span>
+<span class="nx">service</span><span class="p">.</span><span class="nx">AddCustomRoute</span><span class="p">(</span><span class="s">"/myroute"</span><span class="p">,</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">Authenticated</span><span class="p">,</span><span class="w"> </span><span class="nx">myHandler</span><span class="p">,</span><span class="w"> </span><span class="s">"GET"</span><span class="p">)</span><span class="w">    </span>
 </code></pre></div>
 </div>
 <p>Under the hood, this simply adds the provided route, handler, and method to the gorilla <code>mux.Router</code> used in the SDK. For more information on <code>gorilla mux</code> you can check out the github repo <a href="https://github.com/gorilla/mux">here</a>. 
