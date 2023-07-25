@@ -193,7 +193,7 @@ Follow this guide to deploy and run the service.
 === "via EdgeX UI"
 
     !!! note
-        Secure mode login to Edgex UI requires the [JWT token](#token-generation) generated in the above step
+        Secure mode login to Edgex UI requires the [JWT token](#token-generation-secure-mode-only) generated in the above step
 
 
       <details>
@@ -228,7 +228,7 @@ Follow this guide to deploy and run the service.
 
 Additionally, ensure that the service config has been deployed and that Consul is reachable.
 !!! note
-    If running in secure mode this command needs the [Consul ACL token](#token-generation) generated previously.
+    If running in secure mode this command needs the [Consul ACL token](#token-generation-secure-mode-only) generated previously.
 
 ```bash
 curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera?keys=true"
@@ -295,7 +295,7 @@ Follow these instructions to add and update devices manually.
 
     === "Secure mode"
         !!! note
-            If running in secure mode all the api executions need the [JWT token](#token-generation) generated previously.
+            If running in secure mode all the api executions need the [JWT token](#token-generation-secure-mode-only) generated previously.
 
 
         Enter your chosen username, password, and authentication mode and credentials name and then execute the command to create the secrets.

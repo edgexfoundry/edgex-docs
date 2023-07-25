@@ -185,7 +185,7 @@ Follow this guide to deploy and run the service.
         The `jq -r` option is used to reduce the size of the displayed response. The entire device with all information can be seen by removing `-r '"deviceName: " + '.devices[].name'', and replacing it with '.'`
 
     !!! note
-        If running in secure mode this command needs the [Consul ACL token](#token-generation) generated previously.
+        If running in secure mode this command needs the [Consul ACL token](#token-generation-secure-mode-only) generated previously.
 
     ```bash
     curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-usb-camera?keys=true"
