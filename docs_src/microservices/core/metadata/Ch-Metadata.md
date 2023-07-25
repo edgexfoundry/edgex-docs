@@ -276,9 +276,25 @@ Not all device services support dynamic discovery.  If it does support dynamic d
     ||The atomic description of a particular protocol level interface for a class of Devices; represents a value on a device that can be read or written|
     |Description||
     |Name||
-    |Tag||
+    |Tag|Tags for adding additional information on reading level|
     |Properties|List of associated properties|
     |Attributes|List of associated attributes|
+=== "DeviceCommand"
+    |Property|Description|
+    |---|---|
+    || Defines read/write capabilities native to the device|
+    |Description||
+    |Name||
+    |isHidden|Indicate the visibility of the DeviceCommand via a CoreCommand.|
+    |Tags|Tags for adding additional information on event level|
+    |readWrite|Read/Write Permissions set for this DeviceCommand. The value can be R, W, or RW. R enables GET command, and W enables SET command.|
+    |resourceOperations|List of associated resources and attributes. Should contain more than one, otherwise it is redundant to the single Resource.|
+=== "ResourceOperation"
+    |Property|Description|
+    |---|---|
+    |DeviceResource|Name of a DeviceResource in this profile to be include in a Device Command|
+    |DefaultValue|Default value set to DeviceResource and it should be compatible with the Type field of the named DeviceResource|
+    |Mappings|Map the GET resourceOperation value to another string value and only valid where the Type of the named DeviceResource is String|
 === "DeviceService"
     |Property|Description|
     |---|---|
