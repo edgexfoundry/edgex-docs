@@ -2063,7 +2063,9 @@
 </ul>
 <p>See <a href="../api/core/Ch-APICoreData">Core Data API Reference</a> for complete details.</p>
 <h4 id="reading">Reading</h4>
-<p>There are no changes to the V3 Reading from that in V2</p>
+<ul>
+<li>Added <code>tags</code> field in reading.</li>
+</ul>
 <h4 id="event">Event</h4>
 <p>The field that has changed in V3 is the <code>apiVersion</code> which is now set to <code>v3</code>.</p>
 <h3 id="core-metadata">Core Metadata</h3>
@@ -2097,6 +2099,13 @@
 <li>The ProvisionWatcher DTO is restructured by moving the Device related fields into a new object field, <code>DiscoveredDevice</code>; such as <code>profileName</code>, Device <code>adminState</code>, and <code>autoEvents</code>.</li>
 <li>Added a new properties field in the <code>DiscoveredDevice</code> object to allow any additional or customized data.</li>
 <li>ProvisionWatcher contains its own <code>adminState</code> now. The Device <code>adminState</code> is moved into the <code>DiscoveredDevice</code> object.</li>
+</ul>
+</li>
+<li>
+<p>Add/ Update Device</p>
+<ul>
+<li>Removed the boolean field <code>notify</code> which is never used</li>
+<li>Added the new field <code>tags</code> and <code>properties</code></li>
 </ul>
 </li>
 </ul>
