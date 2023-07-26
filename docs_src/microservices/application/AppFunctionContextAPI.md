@@ -30,7 +30,7 @@ type AppFunctionContext interface {
     ApplyValues(format string) (string, error)
     PipelineId() string
     Publish(data any) error
-	PublishWithTopic(topic string, data any) error
+    PublishWithTopic(topic string, data any) error
     Clone() AppFunctionContext
 }
 ```
@@ -240,10 +240,10 @@ ctx.MetricsManager().Register(myCounterMetricName, myCounter, myTags)
 
 `Publish(data any) error`
 
-This API pushes data to the Messagebus using configured topic and returns an error if the Messagebus is diabled in configuration
+This API pushes data to the EdgeX MessageBus using configured topic and returns an error if the EdgeX MessageBus is disabled in configuration
 
 ### PublishWithTopic
 
 `PublishWithTopic(topic string, data any) error`
 
-This API pushes data to the Messagebus using a given topic and returns an error if the Messagebus is diabled in configuration
+This API pushes data to the EdgeX MessageBus using a given topic and returns an error if the EdgeX MessageBus is diasbled in configuration

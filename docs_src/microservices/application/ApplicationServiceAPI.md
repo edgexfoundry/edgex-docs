@@ -47,7 +47,7 @@ type ApplicationService interface {
 	RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error
     RegisterCustomStoreFactory(name string, factory func(cfg DatabaseInfo, cred config.Credentials) (StoreClient, error)) error
     Publish(data any) error
-	PublishWithTopic(topic string, data any) error
+    PublishWithTopic(topic string, data any) error
 }
 ```
 
@@ -575,10 +575,10 @@ app.service.MetricsManager().Register(myCounterMetricName, myCounter, myTags)
 
 `Publish(data any) error`
 
-This API pushes data to the Messagebus using configured topic and returns an error if the Messagebus is diabled in configuration
+This API pushes data to the EdgeX MessageBus using configured topic and returns an error if the EdgeX MessageBus is disabled in configuration
 
 ### PublishWithTopic
 
 `PublishWithTopic(topic string, data any) error`
 
-This API pushes data to the Messagebus using a given topic and returns an error if the Messagebus is diabled in configuration
+This API pushes data to the EdgeX MessageBus using a given topic and returns an error if the EdgeX MessageBus is disabled in configuration
