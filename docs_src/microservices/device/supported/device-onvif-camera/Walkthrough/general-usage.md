@@ -12,7 +12,7 @@ This document will describe how to execute some of the most important commands u
         ```bash
         curl -s http://0.0.0.0:59882/api/{{api_version}}/device/name/Camera001/MediaProfiles | jq -r '"profileToken: " + '.event.readings[].objectValue.Profiles[].Token''
         ```
-        Example Output: 
+        Example output: 
         ```bash
         profileToken: profile_1
         profileToken: profile_2
@@ -31,7 +31,7 @@ This document will describe how to execute some of the most important commands u
             "ProfileToken": "profile_1"
         }')" | jq -r '"streamURI: " + '.event.readings[].objectValue.MediaUri.Uri''
         ```
-        Example Output:
+        Example output:
         ```bash
         streamURI: rtsp://192.168.86.34:554/stream1
         ``` 

@@ -125,7 +125,7 @@ Follow this guide to deploy and run the service.
 
     The status column will indicate if the container is running and how long it has been up.
 
-    Example Output:
+    Example output:
 
     ```docker
     CONTAINER ID   IMAGE                                         COMMAND                  CREATED       STATUS          PORTS                                                                                         NAMES
@@ -176,7 +176,7 @@ Follow this guide to deploy and run the service.
     curl -s http://localhost:59881/api/{{api_version}}/device/all | jq -r '"deviceName: " + '.devices[].name''
     ```
 
-    Example Output: 
+    Example output: 
     ```bash
     deviceName: NexiGo_N930AF_FHD_Webcam_NexiG-20201217010
     ```
@@ -295,7 +295,7 @@ Devices can either be added to the service by defining them in a static configur
         ]'
         ```
 
-    Example Output: 
+    Example output: 
     ```bash
     [{"apiVersion" : "{{api_version}}","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
     ```

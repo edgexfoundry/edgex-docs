@@ -5,7 +5,7 @@ This document will describe how to execute some of the most important types of c
 Unless the device service is configured to stream video from the camera automatically, a `StartStreaming` command must be sent to the device service.
 
 !!! note
-    Streaming credentials for the rtsp stream must be added prior to starting the stream. Please refer to the Deployment section for additional information.
+    Streaming credentials for the rtsp stream must be added prior to starting the stream. Please refer to [Deployment](./deployment.md) for additional information.
 
 There are two types of options:
 - The options that start with `Input` as a prefix are used for camera configuration, such as specifying the image size and pixel format.
@@ -38,7 +38,7 @@ Query parameter:
     --header 'Authorization: Bearer <jwt-token>'
     ```
 
-The response to the above call should look similar to the following:
+Example output:
 ```
 {"apiVersion":"v3","statusCode":200}
 ```
@@ -69,7 +69,7 @@ Query parameter:
     curl -s http://localhost:59882/api/{{api_version}}/device/name/<device name>/StreamURI | jq -r '"StreamURI: " + '.event.readings[].value''
     ```
 
-The response to the above call should look similar to the following:
+Example output:
 ```
 StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
 ```
@@ -106,7 +106,7 @@ Query parameter:
     }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/StopStreaming
     ```
 
-The response to the above call should look similar to the following:
+Example output:
 ```
 {"apiVersion":"v3","statusCode":200}
 ```

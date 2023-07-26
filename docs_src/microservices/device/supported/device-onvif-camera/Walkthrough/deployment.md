@@ -125,7 +125,7 @@ Follow this guide to deploy and run the service.
 
         The status column will indicate if the container is running, and how long it has been up.
 
-        Example Output:
+        Example output:
 
         ```docker
         CONTAINER ID   IMAGE                                                       COMMAND                  CREATED       STATUS          PORTS                                                                                         NAMES
@@ -286,7 +286,7 @@ Follow these instructions to add and update devices manually.
     ]'
     ```
     
-    Example Output: 
+    Example output: 
     ```bash
     [{"apiVersion" : "{{api_version}}","statusCode":201,"id":"fb5fb7f2-768b-4298-a916-d4779523c6b5"}]
     ```
@@ -322,7 +322,7 @@ Follow these instructions to add and update devices manually.
                     ]
                 }' --header 'Authorization:Bearer <jwt-token>' -X POST "http://localhost:59984/api/{{api_version}}/secret"
         ```
-        Example Output: 
+        Example output: 
         ```bash
         {"apiVersion":"v3","statusCode":201}
         ```
@@ -353,7 +353,7 @@ Follow these instructions to add and update devices manually.
                 }' -X POST "http://localhost:59984/api/{{api_version}}/secret"
         ```
         
-        Example Output: 
+        Example output: 
         ```bash
         {"apiVersion":"v3","statusCode":201}
         ```
@@ -369,7 +369,7 @@ Follow these instructions to add and update devices manually.
         ```bash
         curl --data '<mac-address>' -H "X-Consul-Token:<consul-token>" -X PUT "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
         ```
-        Example Output: 
+        Example output: 
         ```bash
         true
         ```
@@ -378,7 +378,7 @@ Follow these instructions to add and update devices manually.
         ```bash
         curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap?keys=true" | jq .
         ```
-        Example response:
+        Example output:
         ```bash
         [
         "edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/NoAuth",
@@ -391,7 +391,7 @@ Follow these instructions to add and update devices manually.
         ```bash
         curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>?raw=true"
         ```
-        Example response:
+        Example output:
         ```bash
         11:22:33:44:55:66
         ```
@@ -406,7 +406,7 @@ Follow these instructions to add and update devices manually.
         curl --data '<mac-address>' -X PUT "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
         ```
         
-        Example Output: 
+        Example output: 
         ```bash
         true
         ```
@@ -415,7 +415,7 @@ Follow these instructions to add and update devices manually.
         ```bash
         curl -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap?keys=true" | jq .
         ```
-        Example response:
+        Example output:
         ```bash
         [
         "edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/NoAuth",
@@ -442,7 +442,7 @@ Follow these instructions to add and update devices manually.
       curl -s http://localhost:59881/api/{{api_version}}/device/all | jq -r '"deviceName: " + '.devices[].name''
       ```
 
-      Example Output: 
+      Example output: 
       ```bash
       deviceName: Camera001
       deviceName: device-onvif-camera
