@@ -150,9 +150,9 @@ sudo apt install build-essential
               # example: - /home/github.com/edgexfoundry/edgex-compose/compose-builder/evam-mqtt-edgex:/evam-mqtt-edgex
               - <add-absolute-path-of-your-edgex-compose-builder-here-example-above>/evam-mqtt-edgex:/evam-mqtt-edgex
         ```
-    c. Add this information into the [add-mqtt-broker.yml](https://github.com/edgexfoundry/edgex-compose/blob/{{version}}/compose-builder/add-mqtt-broker.yml) file in the `edgex-compose/compose-builder` directory.
+    c. Add this information into the [add-mqtt-broker-mosquitto.yml](https://github.com/edgexfoundry/edgex-compose/blob/{{version}}/compose-builder/add-mqtt-broker-mosquitto.yml) file in the `edgex-compose/compose-builder` directory.
 
-    !!! example - "Snippet from add-mqtt-broker.yml"
+    !!! example - "Snippet from add-mqtt-broker-mosquitto.yml"
         ```yaml
         services:
           mqtt-broker:

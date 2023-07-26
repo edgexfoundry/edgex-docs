@@ -4,6 +4,9 @@ This document will describe how to execute some of the most important types of c
 ## Start Video Streaming
 Unless the device service is configured to stream video from the camera automatically, a `StartStreaming` command must be sent to the device service.
 
+!!! note
+    Streaming credentials for the rtsp stream must be added prior to starting the stream. Please refer to [Deployment](./deployment.md) for additional information.
+
 There are two types of options:
 - The options that start with `Input` as a prefix are used for camera configuration, such as specifying the image size and pixel format.
 - The options that start with `Output` as a prefix are used for video output configuration, such as specifying aspect ratio and quality.
@@ -22,6 +25,23 @@ Query parameter:
         }
     }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/StartStreaming
     ```
+
+!!! note
+    If running in secure mode all the api executions (for this api and subsequent apis) need the JWT token generated previously. E.g.
+    ```bash
+    curl -X PUT -d '{
+        "StartStreaming": {
+        "InputImageSize": "640x480",
+        "OutputVideoQuality": "5"
+        }
+    }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/StartStreaming \
+    --header 'Authorization: Bearer <jwt-token>'
+    ```
+
+Example output:
+```
+{"apiVersion":"v3","statusCode":200}
+```
 
 Supported Input options:  
 
@@ -49,7 +69,7 @@ Query parameter:
     curl -s http://localhost:59882/api/{{api_version}}/device/name/<device name>/StreamURI | jq -r '"StreamURI: " + '.event.readings[].value''
     ```
 
-The response to the above call should look similar to the following:
+Example output:
 ```
 StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
 ```
@@ -86,6 +106,10 @@ Query parameter:
     }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/StopStreaming
     ```
 
+Example output:
+```
+{"apiVersion":"v3","statusCode":200}
+```
 ## Optional: Shutting Down
 
 To stop all EdgeX services (containers), execute the `make down` command:

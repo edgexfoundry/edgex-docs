@@ -1,5 +1,5 @@
 # Setup
-Follow this guide to set up your system to run the ONVIF Device Service.
+Follow this guide to set up your system to run the USB Device Service.
 
 ## System Requirements
 
@@ -94,22 +94,11 @@ The table below lists command line tools this guide uses to help with EdgeX conf
 | **mplayer** | Video player | Use this to view the camera stream. |
 >Table 1: Command Line Tools
 
-## Download EdgeX Compose Repository  
-
-1. Create a directory for the EdgeX compose repository:
-    ```bash
-    mkdir ~/edgex
-    ```
-
-2. Change into newly created directory:
-    ```bash
-    cd ~/edgex
-    ```
-
-3. Clone the EdgeX compose repository
-    ```bash
-    git clone https://github.com/edgexfoundry/edgex-compose.git
-    ```
+## Download EdgeX Compose  
+Clone the EdgeX compose repository:
+```bash
+git clone https://github.com/edgexfoundry/edgex-compose.git
+```
 
 
 ## Next Steps
