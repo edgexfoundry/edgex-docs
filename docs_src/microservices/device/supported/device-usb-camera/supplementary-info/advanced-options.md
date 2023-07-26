@@ -41,10 +41,12 @@ To configure the username and password for rtsp authentication when building you
 ## Set Device Parameters
 ### Set frame rate
 This option sets the frame rate for the capture device.
+!!! Note
+    The `path list index` refers to the index of the desired path in the path list. Omit this to use the first entry in the path list.
 
 1. Execute the `DataFormat` api call to see the available framerates:
 ```bash
-curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat?PathIndex=<device path>
+curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat?PathIndex=<path list index>
 ```
 
     !!! example - "Example response"
@@ -72,34 +74,34 @@ curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat?PathInde
                             "BytesPerLine": 1280,
                             "Colorspace": "sRGB",
                             "Field": "none",
-                            "FpsIntervals": [
+                            "FrameRates": [
                                 {
-                                    "Denominator": 30,
-                                    "Numerator": 1
+                                    "Denominator": 1,
+                                    "Numerator": 30
                                 },
                                 {
-                                    "Denominator": 24,
-                                    "Numerator": 1
+                                    "Denominator": 1,
+                                    "Numerator": 24
                                 },
                                 {
-                                    "Denominator": 20,
-                                    "Numerator": 1
+                                    "Denominator": 1,
+                                    "Numerator": 20
                                 },
                                 {
-                                    "Denominator": 15,
-                                    "Numerator": 1
+                                    "Denominator": 1,
+                                    "Numerator": 15
                                 },
                                 {
-                                    "Denominator": 10,
-                                    "Numerator": 1
+                                    "Denominator": 1,
+                                    "Numerator": 10
                                 },
                                 {
-                                    "Denominator": 15,
-                                    "Numerator": 2
+                                    "Denominator": 2,
+                                    "Numerator": 15
                                 },
                                 {
-                                    "Denominator": 5,
-                                    "Numerator": 1
+                                    "Denominator": 1,
+                                    "Numerator": 5
                                 }
                             ],
                             "Height": 480,
@@ -117,21 +119,18 @@ curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat?PathInde
         ```
 
 
-1. Use the `FpsIntervals` field to determine the possible fps values for the current video data format.
+1. Use the `FrameRates` field to determine the possible fps values for the current video data format.
 
 1. Use one of the supported fps values from the previous command to execute the `SetFrameRate` command.
 
-    !!! Note
-        The denominator/numerator represents the actual frame rate value. This is done to maintain consistency with the internal driver structure. For example, an framerate of 5 fps would have a denominator of 5 and a numerator of 1. An framerate value of 7.5 fps would have a denominator of 15 and a numerator of 2.
-
-    !!! example - "Example SetFrameRate command"
+    !!! example - "Example Set FrameRate command"
         ```bash
         curl -X PUT -d '{
                 "SetFrameRate": {
-                "FpsValueNumerator": "1",
-                "FpsValueDenominator": "10"
+                "FpsValueNumerator": "10",
+                "FpsValueDenominator": "1"
                 }
-            }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/SetFrameRate?PathIndex=0
+            }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/FrameRate?PathIndex=<path list index>
         ``` 
 
     !!! warning
