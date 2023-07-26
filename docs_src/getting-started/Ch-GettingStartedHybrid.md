@@ -62,11 +62,11 @@ The executable created by the `make build` command is found in the cmd folder of
 ``` bash
 cd cmd
 export EDGEX_SECURITY_SECRET_STORE=false
-./device-virtual -cp -d
+./device-virtual -cp -d -o
 ```
 
 !!! note
-    The `-cp` flag tells the service to use the Configuration Provider. This is required so that the service can pull the common configuration. The `-d` flag tells the service to run in developer mode (aka hybrid mode) so that any `Host` names in configuration for dependent services are automatically changed from their Docker network names to `localhost` allowing the service to find the dependent services.
+    The `-cp` flag tells the service to use the Configuration Provider. This is required so that the service can pull the common configuration. The `-d` flag tells the service to run in developer mode (aka hybrid mode) so that any `Host` names in configuration for dependent services are automatically changed from their Docker network names to `localhost` allowing the service to find the dependent services. The `-o` flag tells the service to overwrite of configuration from local file into Config Provider (only need when service was previously run in Docker).
 
 !!! edgey - "EdgeX 3.0"
     Common configuration is new in EdgeX 3.0. EdgeX services now have a reduced local configuration file that only contains the services' private configuration. All other configuration settings are now in the common configuration. See the [Service Configuration](../../microservices/configuration/CommonConfiguration) section for more details.
