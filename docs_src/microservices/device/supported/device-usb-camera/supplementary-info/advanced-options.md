@@ -50,9 +50,9 @@ This option sets the frame rate for the capture device.
         ```
    
     !!! Note
-        The `path_index` refers to the index of the device video streaming path from the path list. For e.g. if a usb device has one
-        video streaming path such as /dev/video0 the `path_index` value will be 0. In case of Intel real sense cameras there are three video 
-        streaming paths, hence the user will have 3 options for `path_index` which are 0,1 and 2. The default value is 0 if no `path_index`
+        The `path_index` refers to the index of the device video streaming path from the path list. For example if a usb device has one
+        video streaming path such as /dev/video0 the `path_index` value will be 0. In case of Intel&#8482; RealSense&#174; cameras there are three video 
+        streaming paths, hence the user will have 3 options for `path_index` which are 0, 1 and 2. The default value is 0 if no `path_index`
         input is provided.
     
     !!! example - "Example DataFormat Response"
