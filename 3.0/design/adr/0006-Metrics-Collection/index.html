@@ -9,7 +9,7 @@
 <meta content="Michael Johanson" name="author"/>
 <link href="https://docs.edgexfoundry.org/3.0/design/adr/0006-Metrics-Collection/" rel="canonical"/>
 <link href="../../../assets/logo_edgex.png" rel="icon"/>
-<meta content="mkdocs-1.4.3, mkdocs-material-8.5.8" name="generator"/>
+<meta content="mkdocs-1.5.1, mkdocs-material-8.5.8" name="generator"/>
 <title>EdgeX Metrics Collection - EdgeX Foundry Documentation</title>
 <link href="../../../assets/stylesheets/main.20d9efc8.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.815d1a91.min.css" rel="stylesheet"/>
@@ -1635,7 +1635,7 @@ Approved by the TSC on 3/2/22</p>
 <li>service configuration has changed</li>
 </ul>
 <p>CPE should not be confused with core data Events.  Core data Events represent a collection (one or more) of sensor/device readings.  Core data Events represent sensing of some measured state of the physical world (temperature, vibration, etc.).  CPE represents the detection of some happening inside of the EdgeX software.</p>
-<p>This ADR outlines <strong> metrics (or telemetry) </strong> collection and handling.</p>
+<p>This ADR outlines ** metrics (or telemetry) ** collection and handling.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This ADR initially incorporated metrics collection and control plane event processing.  The EdgeX architects felt the scope of the design was too large to cover under one ADR.  Control plane event processing will be covered under a separate ADR in the future.</p>
@@ -1819,7 +1819,7 @@ Approved by the TSC on 3/2/22</p>
 <p>Each service will now need go-mod-messaging support (for GoLang services and the equivalent for C services).  Each service would determine when and what metrics to collect and push to the message bus, but will use a common library chosen for each EdgeX language supported (Go or C currently)</p>
 <p>Use of <a href="https://github.com/rcrowley/go-metrics">go-metrics</a> (a GoLang library to publish application metrics) would allow EdgeX to utilize (versus construct) a library utilized by over 7 thousand projects.  It provides the means to capture various types of metrics in a registry (a sophisticated map).  The metrics can then be published (<code>reported</code>) to a number of well known systems such as InfluxDB, Graphite, DataDog, and Syslog.  go-metrics is a Go library made from original Java package https://github.com/dropwizard/metrics.</p>
 <p>A similar package would need to be selected (or created) for C.  Per the Core WG meeting of 2/24/22 - it is important to provide an implementation that is the same in Go or C.  The adopter of EdgeX should not see a difference in whether the metrics/telemetry is collected by a C or Go service.  Configuration of metrics in a C or Go service should have the same structure.  The C based metrics collection mechanism in C services (specifically as provided for in our C device service SDK) may operate differently "under the covers" but its configuration and resulting metrics messages on the EdgeX message bus must be formatted/organized the same.</p>
-<p><strong> Considerations in the use of go-metrics </strong></p>
+<p>** Considerations in the use of go-metrics **</p>
 <ul>
 <li>This is a Golang only library.  Using this library would not provide with any package to use for the C services.  If there are expectations for parity between the services, this may be more difficult to achieve given the features of go-metrics.</li>
 <li>go-metrics will still require the EdgeX team to develop a bootstrapping apparatus to take the metrics configuration and register each of the metrics defined in the configuration in go-metrics.</li>
@@ -1827,7 +1827,7 @@ Approved by the TSC on 3/2/22</p>
 <li>While go-metrics offers the ability for data to be reported to other systems, it would required EdgeX to expose these capabilities (possibly through APIs) if a user wanted to export to these subsystems in addition to the message bus.</li>
 <li>Per the Kamakura Planning Meeting, it was noted that go-metrics is already a dependency in our Go code due to its use other 3rd party packages (see https://github.com/edgexfoundry/edgex-go/blob/4264632f3ddafb0cbc2089cffbea8c0719035c96/go.sum#L18).</li>
 </ul>
-<p><strong> Community questions about go-metrics </strong>
+<p>** Community questions about go-metrics **
 Per the Monthly Architect's meeting of 9/20/21):</p>
 <ul>
 <li>How it manages the telemetry data (persistence, in memory, database, etc.)?<ul>

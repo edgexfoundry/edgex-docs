@@ -9,7 +9,7 @@
 <meta content="Michael Johanson" name="author"/>
 <link href="https://docs.edgexfoundry.org/3.0/design/legacy-requirements/device-service/" rel="canonical"/>
 <link href="../../../assets/logo_edgex.png" rel="icon"/>
-<meta content="mkdocs-1.4.3, mkdocs-material-8.5.8" name="generator"/>
+<meta content="mkdocs-1.5.1, mkdocs-material-8.5.8" name="generator"/>
 <title>Device SDK Required Functionality - EdgeX Foundry Documentation</title>
 <link href="../../../assets/stylesheets/main.20d9efc8.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.815d1a91.min.css" rel="stylesheet"/>
@@ -1673,46 +1673,46 @@ mechanisms for obtaining configuration from a file or registry.</p>
 <table>
 <thead>
 <tr>
-<th align="left">Option</th>
-<th align="left">Type</th>
-<th align="left">Notes</th>
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">Host</td>
-<td align="left">String</td>
-<td align="left">This is the hostname to use when registering the service in core-metadata. As such it is used by other services to connect to the device service, and therefore must be resolvable by other services in the EdgeX deployment.</td>
+<td style="text-align: left;">Host</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">This is the hostname to use when registering the service in core-metadata. As such it is used by other services to connect to the device service, and therefore must be resolvable by other services in the EdgeX deployment.</td>
 </tr>
 <tr>
-<td align="left">Port</td>
-<td align="left">Int</td>
-<td align="left">Port on which to accept the device service's REST API. The assigned port for experimental / in-development device services is 49999.</td>
+<td style="text-align: left;">Port</td>
+<td style="text-align: left;">Int</td>
+<td style="text-align: left;">Port on which to accept the device service's REST API. The assigned port for experimental / in-development device services is 49999.</td>
 </tr>
 <tr>
-<td align="left">Timeout</td>
-<td align="left">Int</td>
-<td align="left">Time (in milliseconds) to wait between attempts to contact core-data and core-metadata when starting up.</td>
+<td style="text-align: left;">Timeout</td>
+<td style="text-align: left;">Int</td>
+<td style="text-align: left;">Time (in milliseconds) to wait between attempts to contact core-data and core-metadata when starting up.</td>
 </tr>
 <tr>
-<td align="left">ConnectRetries</td>
-<td align="left">Int</td>
-<td align="left">Number of times to attempt to contact core-data and core-metadata when starting up.</td>
+<td style="text-align: left;">ConnectRetries</td>
+<td style="text-align: left;">Int</td>
+<td style="text-align: left;">Number of times to attempt to contact core-data and core-metadata when starting up.</td>
 </tr>
 <tr>
-<td align="left">StartupMsg</td>
-<td align="left">String</td>
-<td align="left">Message to log on successful startup.</td>
+<td style="text-align: left;">StartupMsg</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Message to log on successful startup.</td>
 </tr>
 <tr>
-<td align="left">CheckInterval</td>
-<td align="left">String</td>
-<td align="left">The checking interval to request if registering with Consul. Consul will ping the service at this interval to monitor its liveliness.</td>
+<td style="text-align: left;">CheckInterval</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">The checking interval to request if registering with Consul. Consul will ping the service at this interval to monitor its liveliness.</td>
 </tr>
 <tr>
-<td align="left">ServerBindAddr</td>
-<td align="left">String</td>
-<td align="left">The interface on which the service's REST server should listen. By default the server is to listen on the interface to which the <code>Host</code> option resolves. A value of <code>0.0.0.0</code> means listen on all available interfaces.</td>
+<td style="text-align: left;">ServerBindAddr</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">The interface on which the service's REST server should listen. By default the server is to listen on the interface to which the <code>Host</code> option resolves. A value of <code>0.0.0.0</code> means listen on all available interfaces.</td>
 </tr>
 </tbody>
 </table>
@@ -1723,21 +1723,21 @@ Not required when using Registry.</p>
 <table>
 <thead>
 <tr>
-<th align="left">Option</th>
-<th align="left">Type</th>
-<th align="left">Notes</th>
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">Host</td>
-<td align="left">String</td>
-<td align="left">Hostname on which to contact the core-data service.</td>
+<td style="text-align: left;">Host</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Hostname on which to contact the core-data service.</td>
 </tr>
 <tr>
-<td align="left">Port</td>
-<td align="left">Int</td>
-<td align="left">Port on which to contact the core-data service.</td>
+<td style="text-align: left;">Port</td>
+<td style="text-align: left;">Int</td>
+<td style="text-align: left;">Port on which to contact the core-data service.</td>
 </tr>
 </tbody>
 </table>
@@ -1745,21 +1745,21 @@ Not required when using Registry.</p>
 <table>
 <thead>
 <tr>
-<th align="left">Option</th>
-<th align="left">Type</th>
-<th align="left">Notes</th>
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">Host</td>
-<td align="left">String</td>
-<td align="left">Hostname on which to contact the core-metadata service.</td>
+<td style="text-align: left;">Host</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Hostname on which to contact the core-metadata service.</td>
 </tr>
 <tr>
-<td align="left">Port</td>
-<td align="left">Int</td>
-<td align="left">Port on which to contact the core-metadata service.</td>
+<td style="text-align: left;">Port</td>
+<td style="text-align: left;">Int</td>
+<td style="text-align: left;">Port on which to contact the core-metadata service.</td>
 </tr>
 </tbody>
 </table>
@@ -1767,41 +1767,41 @@ Not required when using Registry.</p>
 <table>
 <thead>
 <tr>
-<th align="left">Option</th>
-<th align="left">Type</th>
-<th align="left">Notes</th>
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">DataTransform</td>
-<td align="left">Bool</td>
-<td align="left">For enabling/disabling transformations on data between the device and EdgeX. Defaults to true (enabled).</td>
+<td style="text-align: left;">DataTransform</td>
+<td style="text-align: left;">Bool</td>
+<td style="text-align: left;">For enabling/disabling transformations on data between the device and EdgeX. Defaults to true (enabled).</td>
 </tr>
 <tr>
-<td align="left">Discovery/Enabled</td>
-<td align="left">Bool</td>
-<td align="left">For enabling/disabling device discovery. Defaults to true (enabled).</td>
+<td style="text-align: left;">Discovery/Enabled</td>
+<td style="text-align: left;">Bool</td>
+<td style="text-align: left;">For enabling/disabling device discovery. Defaults to true (enabled).</td>
 </tr>
 <tr>
-<td align="left">Discovery/Interval</td>
-<td align="left">Int</td>
-<td align="left">Time between automatic discovery runs, in seconds. Defaults to zero (do not run discovery automatically).</td>
+<td style="text-align: left;">Discovery/Interval</td>
+<td style="text-align: left;">Int</td>
+<td style="text-align: left;">Time between automatic discovery runs, in seconds. Defaults to zero (do not run discovery automatically).</td>
 </tr>
 <tr>
-<td align="left">MaxCmdOps</td>
-<td align="left">Int</td>
-<td align="left">Defines the maximum number of resource operations that can be sent to the driver in a single command.</td>
+<td style="text-align: left;">MaxCmdOps</td>
+<td style="text-align: left;">Int</td>
+<td style="text-align: left;">Defines the maximum number of resource operations that can be sent to the driver in a single command.</td>
 </tr>
 <tr>
-<td align="left">MaxCmdResultLen</td>
-<td align="left">Int</td>
-<td align="left">Maximum string length for command results returned from the driver.</td>
+<td style="text-align: left;">MaxCmdResultLen</td>
+<td style="text-align: left;">Int</td>
+<td style="text-align: left;">Maximum string length for command results returned from the driver.</td>
 </tr>
 <tr>
-<td align="left">UpdateLastConnected</td>
-<td align="left">Bool</td>
-<td align="left">If true, update the LastConnected attribute of a device whenever it is successfully accessed (read or write). Defaults to false.</td>
+<td style="text-align: left;">UpdateLastConnected</td>
+<td style="text-align: left;">Bool</td>
+<td style="text-align: left;">If true, update the LastConnected attribute of a device whenever it is successfully accessed (read or write). Defaults to false.</td>
 </tr>
 </tbody>
 </table>
@@ -1809,16 +1809,16 @@ Not required when using Registry.</p>
 <table>
 <thead>
 <tr>
-<th align="left">Option</th>
-<th align="left">Type</th>
-<th align="left">Notes</th>
+<th style="text-align: left;">Option</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">LogLevel</td>
-<td align="left">String</td>
-<td align="left">Sets the logging level. Available settings in order of increasing severity are: <code>TRACE</code>, <code>DEBUG</code>, <code>INFO</code>, <code>WARNING</code>, <code>ERROR</code>.</td>
+<td style="text-align: left;">LogLevel</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Sets the logging level. Available settings in order of increasing severity are: <code>TRACE</code>, <code>DEBUG</code>, <code>INFO</code>, <code>WARNING</code>, <code>ERROR</code>.</td>
 </tr>
 </tbody>
 </table>
