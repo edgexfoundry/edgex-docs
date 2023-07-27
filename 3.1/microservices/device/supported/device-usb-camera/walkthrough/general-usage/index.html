@@ -1608,6 +1608,10 @@
 <p>This document will describe how to execute some of the most important types of commands used with the device service.</p>
 <h2 id="start-video-streaming">Start Video Streaming</h2>
 <p>Unless the device service is configured to stream video from the camera automatically, a <code>StartStreaming</code> command must be sent to the device service.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Streaming credentials for the rtsp stream must be added prior to starting the stream. Please refer to <a href="../deployment/">Deployment</a> for additional information.</p>
+</div>
 <p>There are two types of options:
 - The options that start with <code>Input</code> as a prefix are used for camera configuration, such as specifying the image size and pixel format.
 - The options that start with <code>Output</code> as a prefix are used for video output configuration, such as specifying aspect ratio and quality.</p>
@@ -1624,6 +1628,21 @@
 <span class="s1">}'</span><span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/StartStreaming
 </code></pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If running in secure mode all the api executions (for this api and subsequent apis) need the JWT token generated previously. E.g.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">    "StartStreaming": {</span>
+<span class="s1">    "InputImageSize": "640x480",</span>
+<span class="s1">    "OutputVideoQuality": "5"</span>
+<span class="s1">    }</span>
+<span class="s1">}'</span><span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/StartStreaming<span class="w"> </span><span class="se">\</span>
+--header<span class="w"> </span><span class="s1">'Authorization: Bearer &lt;jwt-token&gt;'</span>
+</code></pre></div></p>
+</div>
+<p>Example output:
+<div class="highlight"><pre><span></span><code>{"apiVersion":"v3","statusCode":200}
+</code></pre></div></p>
 <p>Supported Input options:  </p>
 <ul>
 <li><code>InputFps</code>: Ignore original timestamps and instead generate timestamps assuming constant frame rate fps. (default - same as source)  </li>
@@ -1648,7 +1667,7 @@
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/StreamURI<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'"StreamURI: " + '</span>.event.readings<span class="o">[]</span>.value<span class="s1">''</span>
 </code></pre></div>
 </div>
-<p>The response to the above call should look similar to the following:
+<p>Example output:
 <div class="highlight"><pre><span></span><code>StreamURI: rtsp://localhost:8554/stream/NexiGo_N930AF_FHD_Webcam__NexiG-20201217010
 </code></pre></div></p>
 <h3 id="play-the-rtsp-stream">Play the RTSP stream.</h3>
@@ -1673,6 +1692,9 @@
 <span class="s1">}'</span><span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/StopStreaming
 </code></pre></div>
 </div>
+<p>Example output:
+<div class="highlight"><pre><span></span><code>{"apiVersion":"v3","statusCode":200}
+</code></pre></div></p>
 <h2 id="optional-shutting-down">Optional: Shutting Down</h2>
 <p>To stop all EdgeX services (containers), execute the <code>make down</code> command:</p>
 <ol>

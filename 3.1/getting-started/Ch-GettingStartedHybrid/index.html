@@ -1623,11 +1623,11 @@ make<span class="w"> </span>build
 <p>The executable created by the <code>make build</code> command is found in the cmd folder of the service.  Change folders to the location of the executable.  Set any environment variables needed depending on your EdgeX setup.  In this example, we did not start the security elements so we need to set <code>EDGEX_SECURITY_SECRET_STORE</code> to <code>false</code> in order to turn off security.   Finally, run the service right from a terminal.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>cmd
 <span class="nb">export</span><span class="w"> </span><span class="nv">EDGEX_SECURITY_SECRET_STORE</span><span class="o">=</span><span class="nb">false</span>
-./device-virtual<span class="w"> </span>-cp<span class="w"> </span>-d
+./device-virtual<span class="w"> </span>-cp<span class="w"> </span>-d<span class="w"> </span>-o
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code>-cp</code> flag tells the service to use the Configuration Provider. This is required so that the service can pull the common configuration. The <code>-d</code> flag tells the service to run in developer mode (aka hybrid mode) so that any <code>Host</code> names in configuration for dependent services are automatically changed from their Docker network names to <code>localhost</code> allowing the service to find the dependent services.</p>
+<p>The <code>-cp</code> flag tells the service to use the Configuration Provider. This is required so that the service can pull the common configuration. The <code>-d</code> flag tells the service to run in developer mode (aka hybrid mode) so that any <code>Host</code> names in configuration for dependent services are automatically changed from their Docker network names to <code>localhost</code> allowing the service to find the dependent services. The <code>-o</code> flag tells the service to overwrite of configuration from local file into Config Provider (only need when service was previously run in Docker).</p>
 </div>
 <div class="admonition edgey -">
 <p class="admonition-title">EdgeX 3.0</p>

@@ -1557,7 +1557,7 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"></path></svg>
 </a>
 <h1 id="general-usage">General Usage</h1>
-<p>This document will describe how to execute some of the most important types of commands used with the device service.</p>
+<p>This document will describe how to execute some of the most important commands used with the device service.</p>
 <h2 id="execute-getstreamuri-command-through-edgex">Execute GetStreamURI Command through EdgeX</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1568,7 +1568,7 @@
 <p><a name="step1"></a>Get the profile token by executing the <code>GetProfiles</code> command:
         <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://0.0.0.0:59882/api/v3/device/name/Camera001/MediaProfiles<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'"profileToken: " + '</span>.event.readings<span class="o">[]</span>.objectValue.Profiles<span class="o">[]</span>.Token<span class="s1">''</span>
 </code></pre></div>
-        Example Output: 
+        Example output: 
         <div class="highlight"><pre><span></span><code>profileToken:<span class="w"> </span>profile_1
 profileToken:<span class="w"> </span>profile_2
 </code></pre></div></p>
@@ -1586,7 +1586,7 @@ profileToken:<span class="w"> </span>profile_2
 <span class="s1">    "ProfileToken": "profile_1"</span>
 <span class="s1">}'</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'"streamURI: " + '</span>.event.readings<span class="o">[]</span>.objectValue.MediaUri.Uri<span class="s1">''</span>
 </code></pre></div>
-        Example Output:
+        Example output:
         <div class="highlight"><pre><span></span><code>streamURI:<span class="w"> </span>rtsp://192.168.86.34:554/stream1
 </code></pre></div></p>
 </li>

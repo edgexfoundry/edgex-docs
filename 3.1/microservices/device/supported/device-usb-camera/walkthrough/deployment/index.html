@@ -1007,6 +1007,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#token-generation-secure-mode-only">
+    Token Generation (secure mode only)
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#verify-service-device-profiles-and-device">
     Verify Service, Device Profiles, and Device
   </a>
@@ -1534,6 +1539,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#token-generation-secure-mode-only">
+    Token Generation (secure mode only)
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#verify-service-device-profiles-and-device">
     Verify Service, Device Profiles, and Device
   </a>
@@ -1566,7 +1576,7 @@
 <ol>
 <li>
 <p>Navigate to the Edgex compose directory.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/edgex/edgex-compose/compose-builder
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>edgex-compose/compose-builder
 </code></pre></div>
 </li>
 <li>
@@ -1586,6 +1596,36 @@
 </div>
 <div class="highlight"><pre><span></span><code>make<span class="w"> </span>run<span class="w"> </span>ds-usb-camera
 </code></pre></div>
+<h3 id="token-generation-secure-mode-only">Token Generation (secure mode only)</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Need to wait for sometime for the services to be fully up before executing the next set of commands.
+Securely store Consul ACL token and the JWT token generated which are needed to map credentials and execute apis.
+It is not recommended to store these secrets in cleartext in your machine.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The JWT token expires after 119 minutes, and you will need to generate a new one.</p>
+</div>
+<p>Generate the Consul ACL Token. Use the token generated anywhere you see <code>&lt;consul-token&gt;</code> in the documentation.
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>get-consul-acl-token
+</code></pre></div>
+Example output:
+<div class="highlight"><pre><span></span><code><span class="m">12345678</span>-abcd-1234-abcd-123456789abc
+</code></pre></div></p>
+<p>Generate the JWT Token. Use the token generated anywhere you see <code>&lt;jwt-token&gt;</code> in the documentation.
+<div class="highlight"><pre><span></span><code>make<span class="w"> </span>get-token
+</code></pre></div>
+Example output:
+<code>eyJhbGciOiJFUzM4NCIsImtpZCI6IjUyNzM1NWU4LTQ0OWYtNDhhZC05ZGIwLTM4NTJjOTYxMjA4ZiJ9.eyJhdWQiOiJlZGdleCIsImV4cCI6MTY4NDk2MDI0MSwiaWF0IjoxNjg0OTU2NjQxLCJpc3MiOiIvdjEvaWRlbnRpdHkvb2lkYyIsIm5hbWUiOiJlZGdleHVzZXIiLCJuYW1lc3BhY2UiOiJyb290Iiwic3ViIjoiMGRjNThlNDMtNzBlNS1kMzRjLWIxM2QtZTkxNDM2ODQ5NWU0In0.oa8Fac9aXPptVmHVZ2vjymG4pIvF9R9PIzHrT3dAU11fepRi_rm7tSeq_VvBUOFDT_JHwxDngK1VqBVLRoYWtGSA2ewFtFjEJRj-l83Vz33KySy0rHteJIgVFVi1V7q5</code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Secrets such as passwords, certificates, tokens and more in Edgex are stored in a secret store which is implemented using Vault a product of Hashicorp.
+Vault supports security features allowing for the issuing of consul tokens. JWT token is required for the API Gateway which is a trust boundry for Edgex services.
+It allows for external clients to be verified when issuing REST requests to the microservices. 
+For more info refer <a href="../../../../../../security/Ch-Secure-Consul/">Secure Consul</a>, <a href="../../../../../../security/Ch-APIGateway/">API Gateway</a> 
+and <a href="../../../../../../security/Ch-Security/">Edgex Security</a>.</p>
+</div>
 </li>
 </ol>
 </div>
@@ -1593,7 +1633,7 @@
 <ol>
 <li>
 <p>Navigate to the Edgex compose directory.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/edgex/edgex-compose/compose-builder
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>edgex-compose/compose-builder
 </code></pre></div>
 </li>
 <li>
@@ -1643,13 +1683,21 @@
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>ps<span class="w"> </span>-f<span class="w"> </span><span class="nv">name</span><span class="o">=</span>device-usb-camera
 </code></pre></div>
 <p>The status column will indicate if the container is running and how long it has been up.</p>
-<p>Example Output:</p>
+<p>Example output:</p>
 <div class="highlight"><pre><span></span><code>CONTAINER<span class="w"> </span>ID<span class="w">   </span>IMAGE<span class="w">                                         </span>COMMAND<span class="w">                  </span>CREATED<span class="w">       </span>STATUS<span class="w">          </span>PORTS<span class="w">                                                                                         </span>NAMES
 f0a1c646f324<span class="w">   </span>edgexfoundry/device-usb-camera:0.0.0-dev<span class="w">                        </span><span class="s2">"/docker-entrypoint.…"</span><span class="w">   </span><span class="m">26</span><span class="w"> </span>hours<span class="w"> </span>ago<span class="w">   </span>Up<span class="w"> </span><span class="m">20</span><span class="w"> </span>hours<span class="w">   </span><span class="m">127</span>.0.0.1:8554-&gt;8554/tcp,<span class="w"> </span><span class="m">127</span>.0.0.1:59983-&gt;59983/tcp<span class="w">                         </span>edgex-device-usb-camera<span class="w">                                                                   </span>edgex-device-onvif-camera
 </code></pre></div>
 </li>
 <li>
-<p>Check that the device service is added to EdgeX:</p>
+<p>Check whether the device service is added to EdgeX:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If running in secure mode all the api executions need the JWT token generated previously. E.g.
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--location<span class="w"> </span>--request<span class="w"> </span>GET<span class="w"> </span><span class="s1">'http://localhost:59881/api/v3/deviceservice/name/device-usb-camera'</span><span class="w"> </span><span class="se">\</span>
+--header<span class="w"> </span><span class="s1">'Authorization: Bearer &lt;jwt-token&gt;'</span><span class="w"> </span><span class="se">\</span>
+--data-raw<span class="w"> </span><span class="s1">''</span>
+</code></pre></div></p>
+</div>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59881/api/v3/deviceservice/name/device-usb-camera<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 </code></pre></div>
 <p>Successful:
@@ -1678,13 +1726,19 @@ Unsuccessful:
 <p>Verify device(s) have been successfully added to core-metadata.</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:59881/api/v3/device/all<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'"deviceName: " + '</span>.devices<span class="o">[]</span>.name<span class="s1">''</span>
 </code></pre></div>
-<p>Example Output: 
+<p>Example output: 
 <div class="highlight"><pre><span></span><code>deviceName:<span class="w"> </span>NexiGo_N930AF_FHD_Webcam_NexiG-20201217010
 </code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code>jq -r</code> option is used to reduce the size of the displayed response. The entire device with all information can be seen by removing <code>-r '"deviceName: " + '.devices[].name'', and replacing it with '.'</code></p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If running in secure mode this command needs the <a href="#token-generation-secure-mode-only">Consul ACL token</a> generated previously.</p>
+</div>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">"X-Consul-Token:&lt;consul-token&gt;"</span><span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span><span class="s2">"http://localhost:8500/v1/kv/edgex/v3/device-usb-camera?keys=true"</span>
+</code></pre></div>
 </li>
 </ol>
 <h2 id="add-credentials-for-the-rtsp-stream">Add credentials for the rtsp stream.</h2>
@@ -1798,7 +1852,7 @@ http://localhost:59881/api/v3/device<span class="w"> </span><span class="se">\</
 <span class="s1">]'</span>
 </code></pre></div>
 </div>
-<p>Example Output: 
+<p>Example output: 
 <div class="highlight"><pre><span></span><code><span class="o">[{</span><span class="s2">"apiVersion"</span><span class="w"> </span>:<span class="w"> </span><span class="s2">"v3"</span>,<span class="s2">"statusCode"</span>:201,<span class="s2">"id"</span>:<span class="s2">"fb5fb7f2-768b-4298-a916-d4779523c6b5"</span><span class="o">}]</span>
 </code></pre></div></p>
 </li>
