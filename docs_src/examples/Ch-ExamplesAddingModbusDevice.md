@@ -103,7 +103,7 @@ deviceResources:
     properties:
       valueType: "Float32"
       readWrite: "RW"
-      scale: "0.1"
+      scale: 0.1
   -
     name: "ThermostatH"
     isHidden: true
@@ -113,7 +113,7 @@ deviceResources:
     properties:
       valueType: "Float32"
       readWrite: "RW"
-      scale: "0.1"
+      scale: 0.1
   -
     name: "AlarmMode"
     isHidden: true
@@ -132,7 +132,7 @@ deviceResources:
     properties:
       valueType: "Float32"
       readWrite: "R"
-      scale: "0.1"
+      scale: 0.1
 
 deviceCommands:
   -
@@ -179,7 +179,7 @@ deviceResources:
     properties:
       valueType: "Float32"
       readWrite: "R"
-      scale: "0.1"
+      scale: 0.1
 ```
 
 In the device-modbus, the Property `valueType` decides how many registers will be read. Like
