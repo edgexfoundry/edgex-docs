@@ -38,18 +38,24 @@ To configure the username and password for rtsp authentication when building you
     RUN sed -i 's,externalAuthenticationURL:,externalAuthenticationURL: http://localhost:8000/rtspauth,g' rtsp-simple-server.yml
     ```
 
-## Set Device Parameters
+## Set Device Configuration Parameters
 ### Set frame rate
 This option sets the frame rate for the capture device.
-!!! Note
-    The `path list index` refers to the index of the desired path in the path list. Omit this to use the first entry in the path list.
 
-1. Execute the `DataFormat` api call to see the available framerates:
-```bash
-curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat?PathIndex=<path list index>
-```
+1. Before setting the frame rate first execute the `DataFormat` api to see the available frame rates of a device for any of its video streaming path:
 
-    !!! example - "Example response"
+    !!! example - "Example DataFormat Command"
+        ```bash
+        curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat?PathIndex=<path_index>
+        ```
+   
+    !!! Note
+        The `path_index` refers to the index of the device video streaming path from the path list. For e.g. if a usb device has one
+        video streaming path such as /dev/video0 the `path_index` value will be 0. In case of Intel real sense cameras there are three video 
+        streaming paths, hence the user will have 3 options for `path_index` which are 0,1 and 2. The default value is 0 if no `path_index`
+        input is provided.
+    
+    !!! example - "Example DataFormat Response"
         ```json
         {
             "apiVersion": "v3",
@@ -118,23 +124,28 @@ curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat?PathInde
         }
         ```
 
+1. Use one of the supported `FrameRates` values from the previous command to set frame rate.
 
-1. Use the `FrameRates` field to determine the possible fps values for the current video data format.
-
-1. Use one of the supported fps values from the previous command to execute the `SetFrameRate` command.
-
-    !!! example - "Example Set FrameRate command"
+    !!! example - "Example Set FrameRate Command"
         ```bash
         curl -X PUT -d '{
-                "SetFrameRate": {
-                "FpsValueNumerator": "10",
+                "FrameRate": {
                 "FpsValueDenominator": "1"
+                "FpsValueNumerator": "10",
                 }
-            }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/FrameRate?PathIndex=<path list index>
+            }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/FrameRate?PathIndex=<path_index>
+        ``` 
+
+    !!! example - "Example Set FrameRate Response"
+        ```bash
+        {
+          "apiVersion": "v3",
+          "statusCode": 200
+        } 
         ``` 
 
     !!! warning
-        3rd party applications such vlc or ffplay may overwrite your chosen framerate value, so make sure to keep that in mind when using other applications.
+         3rd party applications such vlc or ffplay may overwrite your chosen frame rate value, so make sure to keep that in mind when using other applications.
 
 ## Video options
 There are two types of options:
