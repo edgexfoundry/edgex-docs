@@ -1294,13 +1294,13 @@
 <nav aria-label="Background Publisher APIs" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#addbackgroundpublisher">
-    AddBackgroundPublisher
+<a class="md-nav__link" href="#addbackgroundpublisher-deprecated">
+    AddBackgroundPublisher DEPRECATED
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#addbackgroundpublisherwithtopic">
-    AddBackgroundPublisherWithTopic
+<a class="md-nav__link" href="#addbackgroundpublisherwithtopic-deprecated">
+    AddBackgroundPublisherWithTopic DEPRECATED
   </a>
 </li>
 <li class="md-nav__item">
@@ -1350,6 +1350,16 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#metricsmanager">
     MetricsManager
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#publish">
+    Publish
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#publishwithtopic">
+    PublishWithTopic
   </a>
 </li>
 </ul>
@@ -1913,13 +1923,13 @@
 <nav aria-label="Background Publisher APIs" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#addbackgroundpublisher">
-    AddBackgroundPublisher
+<a class="md-nav__link" href="#addbackgroundpublisher-deprecated">
+    AddBackgroundPublisher DEPRECATED
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#addbackgroundpublisherwithtopic">
-    AddBackgroundPublisherWithTopic
+<a class="md-nav__link" href="#addbackgroundpublisherwithtopic-deprecated">
+    AddBackgroundPublisherWithTopic DEPRECATED
   </a>
 </li>
 <li class="md-nav__item">
@@ -1969,6 +1979,16 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#metricsmanager">
     MetricsManager
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#publish">
+    Publish
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#publishwithtopic">
+    PublishWithTopic
   </a>
 </li>
 </ul>
@@ -2028,6 +2048,8 @@
 <span class="w">    </span><span class="nx">RequestTimeout</span><span class="p">()</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
 <span class="w">    </span><span class="nx">RegisterCustomTriggerFactory</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">factory</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">TriggerConfig</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">Trigger</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">RegisterCustomStoreFactory</span><span class="p">(</span><span class="nx">name</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">factory</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">cfg</span><span class="w"> </span><span class="nx">DatabaseInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">cred</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Credentials</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">StoreClient</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">))</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">Publish</span><span class="p">(</span><span class="nx">data</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">PublishWithTopic</span><span class="p">(</span><span class="nx">topic</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="factory-functions">Factory Functions</h2>
@@ -2355,10 +2377,10 @@ See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/main/regis
 <p>This API returns the Device Client. Note if Core Metadata is not specified in the Clients configuration, this will return nil. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/main/clients/interfaces/device.go#L17-L44">Device Client interface</a> for more details. Useful for querying list of devices for a specific Device Service or Device Profile.</p>
 <h2 id="background-publisher-apis">Background Publisher APIs</h2>
 <p>The following <code>ApplicationService</code> APIs allow Application Services to have background publishers. See the <a href="../AdvancedTopics/#background-publishing">Background Publishing</a> advanced topic for more details and example.</p>
-<h3 id="addbackgroundpublisher">AddBackgroundPublisher</h3>
+<h3 id="addbackgroundpublisher-deprecated">AddBackgroundPublisher <em>DEPRECATED</em></h3>
 <p><code>AddBackgroundPublisher(capacity int) (BackgroundPublisher, error)</code></p>
 <p>This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus. </p>
-<h3 id="addbackgroundpublisherwithtopic">AddBackgroundPublisherWithTopic</h3>
+<h3 id="addbackgroundpublisherwithtopic-deprecated">AddBackgroundPublisherWithTopic <em>DEPRECATED</em></h3>
 <p><code>AddBackgroundPublisherWithTopic(capacity int, topic string) (BackgroundPublisher, error)</code></p>
 <p>This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus on the specified topic. </p>
 <h3 id="buildcontext">BuildContext</h3>
@@ -2405,6 +2427,12 @@ See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/main/regis
 <span class="nx">myTags</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">"Tag1"</span><span class="p">:</span><span class="s">"Value1"</span><span class="p">}</span>
 <span class="nx">app</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">MetricsManager</span><span class="p">().</span><span class="nx">Register</span><span class="p">(</span><span class="nx">myCounterMetricName</span><span class="p">,</span><span class="w"> </span><span class="nx">myCounter</span><span class="p">,</span><span class="w"> </span><span class="nx">myTags</span><span class="p">)</span><span class="w">   </span>
 </code></pre></div>
+<h3 id="publish">Publish</h3>
+<p><code>Publish(data any) error</code></p>
+<p>This API pushes data to the EdgeX MessageBus using configured topic and returns an error if the EdgeX MessageBus is disabled in configuration</p>
+<h3 id="publishwithtopic">PublishWithTopic</h3>
+<p><code>PublishWithTopic(topic string, data any) error</code></p>
+<p>This API pushes data to the EdgeX MessageBus using a given topic and returns an error if the EdgeX MessageBus is disabled in configuration</p>
 </article>
 </div>
 </div>
