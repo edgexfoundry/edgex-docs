@@ -130,8 +130,8 @@ This option sets the frame rate for the capture device.
         ```bash
         curl -X PUT -d '{
                 "FrameRate": {
-                "FpsValueDenominator": "1"
-                "FpsValueNumerator": "10",
+                "FrameRateValueDenominator": "1"
+                "FrameRateValueNumerator": "10",
                 }
             }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/FrameRate?PathIndex=<path_index>
         ``` 
