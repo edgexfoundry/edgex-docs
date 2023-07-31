@@ -166,7 +166,7 @@ For example: `{ primaryTable: "INPUT_REGISTERS", startingAddress: "4", isByteSwa
 
 4.`RAW_TYPE`: This attribute defines the binary data read from the Modbus device, then we can use the value type to indicate the data type that the user wants to receive.
 
-We only support `Int16` and `Uint16` for rawType. The corresponding value type must be `Float32` and `Float64`.
+We only support `Int16`, `Int32` and `Uint16` for rawType. The corresponding value type must be `Float32` and `Float64`.
 For example:
 ```yaml
 deviceResources:
@@ -182,7 +182,7 @@ deviceResources:
       scale: "0.1"
 ```
 
-In the device-modbus, the Property `valueType` decides how many registers will be read. Like
+In the device-modbus, the Property `rawType` (or `valueType` if `rawType` is not defined) decides how many registers will be read. Like
 Holding registers, a register has 16 bits. If the Modbus device's user manual
 specifies that a value has two registers, define it as `Float32` or `Int32`
 or `Uint32` in the deviceProfile.
