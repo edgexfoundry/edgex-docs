@@ -913,18 +913,14 @@
     DeviceDiscoveryEnabled
   </a>
 </li>
-</ul>
-</nav>
-</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#addroute-deprecated">
     AddRoute (Deprecated)
   </a>
-<nav aria-label="AddRoute (Deprecated)" class="md-nav">
-<ul class="md-nav__list">
+</li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#addroute">
-    AddRoute
+<a class="md-nav__link" href="#addcustomroute">
+    AddCustomRoute
   </a>
 </li>
 <li class="md-nav__item">
@@ -1979,18 +1975,14 @@
     DeviceDiscoveryEnabled
   </a>
 </li>
-</ul>
-</nav>
-</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#addroute-deprecated">
     AddRoute (Deprecated)
   </a>
-<nav aria-label="AddRoute (Deprecated)" class="md-nav">
-<ul class="md-nav__list">
+</li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#addroute">
-    AddRoute
+<a class="md-nav__link" href="#addcustomroute">
+    AddCustomRoute
   </a>
 </li>
 <li class="md-nav__item">
@@ -2082,7 +2074,7 @@
 <span class="w">    </span><span class="nx">DeviceDiscoveryEnabled</span><span class="p">()</span><span class="w"> </span><span class="kt">bool</span>
 <span class="w">    </span><span class="nx">DriverConfigs</span><span class="p">()</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
 <span class="w">    </span><span class="nx">AddRoute</span><span class="p">(</span><span class="nx">route</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">),</span><span class="w"> </span><span class="nx">methods</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
-<span class="w">    </span><span class="nx">AddCustomRoute</span><span class="p">(</span><span class="nx">route</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">authenticated</span><span class="w"> </span><span class="nx">Authenticated</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">),</span><span class="w"> </span><span class="nx">methods</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">AddCustomRoute</span><span class="p">(</span><span class="nx">route</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">authenticated</span><span class="w"> </span><span class="nx">Authenticated</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">echo</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="p">,</span><span class="w"> </span><span class="nx">methods</span><span class="w"> </span><span class="o">...</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">LoadCustomConfig</span><span class="p">(</span><span class="nx">customConfig</span><span class="w"> </span><span class="nx">UpdatableConfig</span><span class="p">,</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">ListenForCustomConfigChanges</span><span class="p">(</span><span class="nx">configToWatch</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">sectionName</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">changedCallback</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{}))</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">LoggingClient</span><span class="p">()</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
@@ -2202,12 +2194,16 @@ must be sent, as it is applied as an overwrite operation.</p>
 <h4 id="devicediscoveryenabled">DeviceDiscoveryEnabled</h4>
 <p><code>DeviceDiscoveryEnabled() bool</code></p>
 <p>This API returns a bool value to indicate whether the device discovery is enabled via configuration.</p>
-<h3 id="addroute-deprecated">AddRoute (Deprecated)</h3>
+<h4 id="addroute-deprecated">AddRoute (Deprecated)</h4>
 <p><code>AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error</code></p>
 <p>This API is deprecated in favor of <code>AddCustomRoute()</code> which has an explicit parameter to indicate whether the route should require authentication.</p>
-<h4 id="addroute">AddRoute</h4>
-<p><code>AddRoute(route string, authenticated interfaces.Authenticated, handler func(http.ResponseWriter, *http.Request), methods ...string) error</code></p>
+<h4 id="addcustomroute">AddCustomRoute</h4>
+<p><code>AddCustomRoute(route string, authenticated interfaces.Authenticated, handler func(echo.Context) error, methods ...string) error</code></p>
 <p>This API allows leveraging the existing internal web server to add routes specific to the Device Service.  If the route is marked authenticated, it will require an EdgeX JWT when security is enabled.  Returns error is route could not be added.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>handler</code> function uses the signature of <code>echo.HandlerFunc</code> which is <code>func(echo.Context) error</code>. See <a href="https://pkg.go.dev/github.com/labstack/echo#HandlerFunc">echo API HandlerFunc section</a> for more details. </p>
+</div>
 <h4 id="loggingclient">LoggingClient</h4>
 <p><code>LoggingClient() logger.LoggingClient</code></p>
 <p>This API returns the <code>LoggingClient</code> used to log messages.</p>
