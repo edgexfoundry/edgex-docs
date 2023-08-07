@@ -6,7 +6,7 @@ EdgeX Foundry is a vendor-neutral open source project hosted by The Linux Founda
   <div class="home-nav-column">
     <div class="home-nav-card">
         <a href="./getting-started/quick-start/">
-          <b>Quick Start</b>
+          <b>Docker Quick Start</b>
           <p>Jump in to EdgeX Foundry by running locally with Docker containers.</p>
           <img class="home-nav-icons" src="docker.png"/>
         </a>
@@ -30,12 +30,23 @@ EdgeX Foundry is a vendor-neutral open source project hosted by The Linux Founda
         </a>
     </div>
   </div>
+</div>
+<div class="home-nav-row">
   <div class="home-nav-column">
     <div class="home-nav-card">
         <a href="./getting-started/Ch-GettingStartedSDK/">
         <b>Build a Device Service</b>
         <p>Build a custom device service to connect to your sensor or device.</p>
         <img class="home-nav-icons" src="sensor.png"/>
+        </a>
+    </div>
+  </div>
+  <div class="home-nav-column">
+    <div class="home-nav-card">
+        <a href="./getting-started/Ch-GettingStartedSDK/">
+        <b>Build an Application Service</b>
+        <p>Build or configure a new application service to get data to the cloud, database, enterprise application or other external system.</p>
+        <img class="home-nav-icons" src="cloud-upload.png"/>
         </a>
     </div>
   </div>

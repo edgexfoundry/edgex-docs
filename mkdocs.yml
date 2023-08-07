@@ -1,13 +1,25 @@
 site_name: EdgeX Foundry Documentation
-docs_dir: docs_src
-site_dir: docs/3.1
 site_description: 'Documentation for use of EdgeX Foundry'
 site_author: 'Jim White'
-site_url: 'https://docs.edgexfoundry.org/3.1'
+site_url: 'https://github.com/edgexfoundry/edgex-docs'
 repo_url: 'https://github.com/edgexfoundry/edgex-go'
 repo_name: 'edgex/edgex-go'
 copyright: 'Copyright &copy; 2023 EdgeX Foundry'
+docs_dir: docs_src
+site_dir: docs/3.1
 strict: false   # mkdocs-materials will prevent running on 0.0.0.0 otherwise (or have custom image)
+extra:
+  version:
+    provider: mike
+validation:
+  nav:
+    omitted_files: info
+    not_found: warn
+    absolute_links: info
+  links:
+    not_found: warn
+    absolute_links: info
+    unrecognized_links: ignore
 theme:
   name: 'material'
   logo: 'assets/logo_edgex_white.png'
@@ -31,6 +43,7 @@ theme:
 nav:
   - Home:
     - Overview: index.md
+    - about.md
     - Getting Started: 
       - Guides: getting-started/index.md
       - getting-started/quick-start/index.md
@@ -38,7 +51,6 @@ nav:
       - getting-started/Ch-GettingStartedDockerUsers.md
       - getting-started/Ch-GettingStartedSnapUsers.md
       - getting-started/tools/Ch-GUI.md
-    - about.md
     - Services:
       - Core: 
         - microservices/core/Ch-CoreServices.md
@@ -54,7 +66,7 @@ nav:
       - Device: 
         - microservices/device/Ch-DeviceServices.md
         - microservices/device/profile/Ch-DeviceProfile.md
-        - microservices/device/sdk/Ch-DeviceSDK.md
+        - Device Service SDK: microservices/device/sdk/Ch-DeviceSDK.md
         - Device SDK API: microservices/device/sdk/SDK-Go-API.md
         - Supported Device Services: 
           - microservices/device/Ch-DeviceServiceList.md
@@ -106,7 +118,7 @@ nav:
         - Getting Started: microservices/application/GettingStarted.md
         - Triggers: microservices/application/Triggers.md
         - Application Functions SDK:
-            - microservices/application/ApplicationFunctionsSDK.md
+            - App Functions ADK: microservices/application/ApplicationFunctionsSDK.md
             - microservices/application/ApplicationServiceAPI.md
             - microservices/application/AppFunctionContextAPI.md
             - microservices/application/ErrorHandling.md
@@ -147,6 +159,30 @@ nav:
         - threat-models/secret-store/README.md
         - threat-models/stride-model/EdgeX-STRIDE.md
         - threat-models/stride-model/EdgeXFoundryThreatReportV2.2.md
+    - Migration:
+      - V3.0 Migration:
+        - General Migration: V3TopLevelMigration.md
+        - Security Migration: security/V3Migration.md
+        - Configuration Migration: microservices/configuration/V3MigrationCommonConfig.md
+        - Device Service Migration: microservices/device/V3Migration.md
+        - Application Service Migration: microservices/application/V3Migration.md
+    - Developer:
+      - getting-started/Ch-GettingStartedDevelopers.md
+      - getting-started/Ch-GettingStartedGoDevelopers.md
+      - getting-started/Ch-GettingStartedCDevelopers.md
+      - getting-started/Ch-GettingStartedHybrid.md
+      - Native Build and Run Guides:
+        - getting-started/native/Ch-BuildRunNative.md
+        - getting-started/native/Ch-BuildRunOnLinuxDistro.md
+        - getting-started/native/Ch-BuildRunOnArm32.md
+        - getting-started/native/Ch-BuildRunOnWindows.md
+      - Application Functions SDK: getting-started/ApplicationFunctionsSDK.md
+      - Device Services:
+        - getting-started/Ch-GettingStartedSDK.md
+        - getting-started/Ch-GettingStartedSDK-C.md
+        - getting-started/Ch-GettingStartedSDK-Go.md
+      - getting-started/Ch-GettingStartedUsersNexus.md
+      - getting-started/Ch-GettingStartedDTOValidation.md
     - Tutorials:
       - examples/Ch-ExamplesVirtualDeviceService.md
       - examples/Ch-ExamplesSendingAndConsumingBinary.md
@@ -167,6 +203,11 @@ nav:
         - walk-through/Ch-WalkthroughCommands.md
         - walk-through/Ch-WalkthroughReading.md
         - walk-through/Ch-WalkthroughExporting.md
+    - Examples:
+      - Code Examples: examples/index.md
+      - App Service Examples:
+        - examples/AppServiceExamples.md
+        - examples/app-service-examples/camera-management/Ch-CameraManagement.md
     - APIs: 
       - api/Ch-APIIntroduction.md
       - api/core/Ch-APICoreCommand.md
@@ -178,35 +219,6 @@ nav:
       - api/devices/Ch-APIDeviceSDK.md
       - api/applications/Ch-APIAppFunctionsSDK.md
       - api/applications/Ch-APIRulesEngine.md  
-  - Migration:
-    - V3.0 Migration:
-      - General Migration: V3TopLevelMigration.md
-      - Security Migration: security/V3Migration.md
-      - Configuration Migration: microservices/configuration/V3MigrationCommonConfig.md
-      - Device Service Migration: microservices/device/V3Migration.md
-      - Application Service Migration: microservices/application/V3Migration.md
-  - Developer:
-    - getting-started/Ch-GettingStartedDevelopers.md
-    - getting-started/Ch-GettingStartedGoDevelopers.md
-    - getting-started/Ch-GettingStartedCDevelopers.md
-    - getting-started/Ch-GettingStartedHybrid.md
-    - Native Build and Run Guides:
-      - getting-started/native/Ch-BuildRunNative.md
-      - getting-started/native/Ch-BuildRunOnLinuxDistro.md
-      - getting-started/native/Ch-BuildRunOnArm32.md
-      - getting-started/native/Ch-BuildRunOnWindows.md
-    - Application Functions SDK: getting-started/ApplicationFunctionsSDK.md
-    - Device Services:
-      - getting-started/Ch-GettingStartedSDK.md
-      - getting-started/Ch-GettingStartedSDK-C.md
-      - getting-started/Ch-GettingStartedSDK-Go.md
-    - getting-started/Ch-GettingStartedUsersNexus.md
-    - getting-started/Ch-GettingStartedDTOValidation.md
-  - Examples:
-    - Code Examples: examples/index.md
-    - App Service Examples:
-      - examples/AppServiceExamples.md
-      - examples/app-service-examples/camera-management/Ch-CameraManagement.md
   - Reference:
     - general/Definitions.md
     - general/PlatformRequirements.md
@@ -215,11 +227,11 @@ nav:
     - general/ServiceConfiguration.md
     - general/EdgeX_CN.md
   - Use Case & Design:
-    - design/Process.md
-    - design/TOC.md
+    - Process: design/Process.md
+    - Documents: design/TOC.md
     - Legacy:
-      - design/legacy-design/README.md
-      - design/legacy-requirements/README.md
+      - Designs: design/legacy-design/README.md
+      - Requirements: design/legacy-requirements/README.md
 markdown_extensions:
   - codehilite
   - admonition
@@ -257,19 +269,19 @@ extra_javascript:
   - assets/javascripts/version-select.js
 plugins:
   - search
-  # - swagger-ui-tag
-  # - mermaid2
+  - swagger-ui-tag
+  - mermaid2
   - macros:
       include_yaml:
         - template_macros.yaml
       on_error_fail: true
-  # - htmlproofer:
-  #     enabled: !ENV [ENABLED_HTMLPROOFER, false]
-  #     raise_error: true
-  #     raise_error_excludes:
-  #       404: ['https://support.google.com/accounts/answer/185833?hl=en',
-  #             'https://support.google.com/accounts/answer/6010255?hl=en']
-  #       429: ['*']
-  #       -1: ['https://www.rfc-editor.org/rfc/rfc7519',
-  #            'https://tools.ietf.org/html/rfc5869','https://docs.iotaap.io/docs-rest/']
-  #       500: [https://packages.ubuntu.com/bionic/build-essential]
+  - htmlproofer:
+      enabled: !ENV [ENABLED_HTMLPROOFER, false]
+      raise_error: true
+      raise_error_excludes:
+        404: ['https://support.google.com/accounts/answer/185833?hl=en',
+              'https://support.google.com/accounts/answer/6010255?hl=en']
+        429: ['*']
+        -1: ['https://www.rfc-editor.org/rfc/rfc7519',
+             'https://tools.ietf.org/html/rfc5869','https://docs.iotaap.io/docs-rest/']
+        500: [https://packages.ubuntu.com/bionic/build-essential]
