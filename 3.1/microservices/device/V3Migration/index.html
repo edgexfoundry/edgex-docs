@@ -1800,8 +1800,15 @@
 <h3 id="device-profile-files">Device Profile Files</h3>
 <ol>
 <li>Add <code>optional</code> field in ResourceProperties to allow any additional or customized data.</li>
-<li>Change the data type of <code>mask</code>, <code>shift</code>, <code>scale</code>, <code>base</code>, <code>offset</code>, <code>maximum</code> and <code>minimum</code> from string to number in ResourceProperties.</li>
-<li>Added <code>tags</code> field in DeviceResource for reading level tagging. See <a href="../../core/metadata/Ch-Metadata/#data-dictionary">Metadata Dictionary</a> and point to <strong>DeviceResource tab</strong> for complete details.</li>
+<li>
+<p>Change the data type of <code>mask</code>, <code>shift</code>, <code>scale</code>, <code>base</code>, <code>offset</code>, <code>maximum</code> and <code>minimum</code> from string to number in ResourceProperties.</p>
+<blockquote>
+<p>NOTE: When the device profile is in JSON format, please ensure that the values for <code>mask</code> are specified in decimal, as the JSON number type does not support hexadecimal. YAML does not have this limitation.</p>
+</blockquote>
+</li>
+<li>
+<p>Added <code>tags</code> field in DeviceResource for reading level tagging. See <a href="../../core/metadata/Ch-Metadata/#data-dictionary">Metadata Dictionary</a> and point to <strong>DeviceResource tab</strong> for complete details.</p>
+</li>
 <li>Added <code>tags</code> field in DeviceCommand for event level tagging. See <a href="../../core/metadata/Ch-Metadata/#data-dictionary">Metadata Dictionary</a> and point to <strong>DeviceCommand tab</strong> for complete details.</li>
 </ol>
 <h3 id="provision-watcher-files">Provision Watcher files</h3>
