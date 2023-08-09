@@ -29,6 +29,9 @@ See [Top Level V3 Migration Guide](../../../V3TopLevelMigration) for details app
 
 1. Add `optional` field in ResourceProperties to allow any additional or customized data.
 2. Change the data type of `mask`, `shift`, `scale`, `base`, `offset`, `maximum` and `minimum` from string to number in ResourceProperties.
+
+    > NOTE: When the device profile is in JSON format, please ensure that the values for `mask` are specified in decimal, as the JSON number type does not support hexadecimal. YAML does not have this limitation.
+
 3. Added `tags` field in DeviceResource for reading level tagging. See [Metadata Dictionary](../core/metadata/Ch-Metadata.md#data-dictionary) and point to **DeviceResource tab** for complete details.
 4. Added `tags` field in DeviceCommand for event level tagging. See [Metadata Dictionary](../core/metadata/Ch-Metadata.md#data-dictionary) and point to **DeviceCommand tab** for complete details.
 
