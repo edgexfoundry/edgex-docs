@@ -105,6 +105,37 @@ Clone the EdgeX compose repository:
 git clone https://github.com/edgexfoundry/edgex-compose.git
 ```
 
+## Proxy Setup
+
+Setup Docker Daemon or Docker Desktop to use proxied environment.
+
+- Follow guide [here](https://docs.docker.com/config/daemon/systemd/#httphttps-proxy) for Docker Daemon proxy setup
+
+- Follow guide [here](https://docs.docker.com/desktop/settings/windows/#proxies) for Docker Desktop proxy setup
+
+!!! example - "http.conf file to configure Docker Client proxy"
+    ```
+        {
+            "proxies": {
+                "httpProxy": "http://proxy.example.com:3128",
+                "httpsProxy": "https://proxy.example.com:3129",
+                "noProxy": "*.test.example.com,.example.org,127.0.0.0/8"
+            }
+        }
+    ```
+
+!!! Note - "Note if building custom images"
+    If building your own custom images, set environment variables for HTTP_PROXY, HTTPS_PROXY and NO_PROXY
+    !!! example
+        ```
+        export HTTP_PROXY=http://proxy.example.com:3128
+        export HTTPS_PROXY=https://proxy.example.com:3129
+        export NO_PROXY=*.test.example.com,localhost,127.0.0.0/8
+        ```
+
+!!! Warning - "Limitations"
+      Automated discovery of ONVIF device is not available when using a proxy/vpn. Manual device adding is required for use of ONVIF device service.
+
 ## Next Steps
 
    [Default Images>](./deployment.md){: .md-button }
