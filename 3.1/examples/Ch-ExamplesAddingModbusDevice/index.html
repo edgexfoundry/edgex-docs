@@ -1984,7 +1984,7 @@ In the Modbus protocol, we provide the following attributes:</p>
 <p>3.<code>IS_BYTE_SWAP</code>, <code>IS_WORD_SWAP</code>: To handle the different Modbus binary data order, we support Int32, Uint32, Float32 to do the swap operation before decoding the binary data.</p>
 <p>For example: <code>{ primaryTable: "INPUT_REGISTERS", startingAddress: "4", isByteSwap: "false", isWordSwap: "true" }</code></p>
 <p>4.<code>RAW_TYPE</code>: This attribute defines the binary data read from the Modbus device, then we can use the value type to indicate the data type that the user wants to receive.</p>
-<p>We only support <code>Int16</code> and <code>Uint16</code> for rawType. The corresponding value type must be <code>Float32</code> and <code>Float64</code>.
+<p>We only support <code>Int16</code>, <code>Int32</code> and <code>Uint16</code> for rawType. The corresponding value type must be <code>Float32</code> and <code>Float64</code>.
 For example:
 <div class="highlight"><pre><span></span><code><span class="nt">deviceResources</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span>
@@ -1998,7 +1998,7 @@ For example:
 <span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">"R"</span>
 <span class="w">      </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
 </code></pre></div></p>
-<p>In the device-modbus, the Property <code>valueType</code> decides how many registers will be read. Like
+<p>In the device-modbus, the Property <code>rawType</code> (or <code>valueType</code> if <code>rawType</code> is not defined) decides how many registers will be read. Like
 Holding registers, a register has 16 bits. If the Modbus device's user manual
 specifies that a value has two registers, define it as <code>Float32</code> or <code>Int32</code>
 or <code>Uint32</code> in the deviceProfile.</p>

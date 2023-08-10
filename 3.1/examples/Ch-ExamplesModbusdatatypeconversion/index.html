@@ -1610,12 +1610,12 @@ Int16 and the <code>valueType</code> as Float32:</p>
 16-bit integer and a float value.</p>
 <p>The following limitations apply:</p>
 <ul>
-<li><code>rawType</code> supports only Int16 and Uint16 data types</li>
+<li><code>rawType</code> supports only Int16, Uint16 and Int32 data types</li>
 <li>The corresponding <code>valueType</code> must be Float32 or Float64</li>
 </ul>
 <p>If an unsupported data type is defined for the <code>rawType</code> attribute, the
 device service throws an exception similar to the following:</p>
-<div class="highlight"><pre><span></span><code>Read command failed. Cmd:temperature err:the raw type Int32 is not supported
+<div class="highlight"><pre><span></span><code>Read command failed. Cmd:temperature err:the raw type Int64 is not supported
 </code></pre></div>
 <h2 id="supported-transformations">Supported Transformations</h2>
 <p>The supported transformations are as follows:</p>
@@ -1633,6 +1633,10 @@ device service throws an exception similar to the following:</p>
 </tr>
 <tr>
 <td>Int16</td>
+<td>Float64</td>
+</tr>
+<tr>
+<td>Int32</td>
 <td>Float64</td>
 </tr>
 <tr>
