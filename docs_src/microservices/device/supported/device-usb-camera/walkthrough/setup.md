@@ -100,7 +100,10 @@ Clone the EdgeX compose repository:
 git clone https://github.com/edgexfoundry/edgex-compose.git
 ```
 
-## Proxy Setup
+## Proxy Setup (Optional)
+
+!!! Note
+    The device used for deployment of device-usb-service must be behind proxy/VPN.
 
 Setup Docker Daemon or Docker Desktop to use proxied environment.
 

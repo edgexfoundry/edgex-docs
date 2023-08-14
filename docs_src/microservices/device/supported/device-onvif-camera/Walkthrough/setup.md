@@ -105,7 +105,11 @@ Clone the EdgeX compose repository:
 git clone https://github.com/edgexfoundry/edgex-compose.git
 ```
 
-## Proxy Setup
+## Proxy Setup (Optional)
+
+!!! Note
+    The device used for deployment of device-onvif-service must be behind proxy/VPN.
+
 
 Setup Docker Daemon or Docker Desktop to use proxied environment.
 
@@ -133,8 +137,8 @@ Setup Docker Daemon or Docker Desktop to use proxied environment.
         export NO_PROXY=*.test.example.com,localhost,127.0.0.0/8
         ```
 
-!!! Warning - "Limitations"
-      Automated discovery of ONVIF device is not available when using a proxy/vpn. Manual device adding is required for use of ONVIF device service.
+!!! Note
+      Automated discovery of ONVIF device requires using provided script to get proper discovery subnets and proper network interface.
 
 ## Next Steps
 
