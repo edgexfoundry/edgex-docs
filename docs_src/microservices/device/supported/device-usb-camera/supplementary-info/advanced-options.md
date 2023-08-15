@@ -218,7 +218,7 @@ It's recommended to trigger a check after re-plugging cameras.
 
 ## Configurable RTSP server hostname and port
 
-Enable/Disable RTSP server and set hostname and port hostname and port of the RTSP server to which the device service publishes video streams can be configured in the [Driver] section of the service configuration located in the `cmd/res/configuration.yaml` file.
+Enable/Disable RTSP server and set hostname and port of the RTSP server to which the device service publishes video streams can be configured in the [Driver] section of the service configuration located in the `cmd/res/configuration.yaml` file.
 
 !!! example - "Snippet from configuration.yaml"
     ```yaml
