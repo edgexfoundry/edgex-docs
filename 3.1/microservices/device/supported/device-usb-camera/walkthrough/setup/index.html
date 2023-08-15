@@ -1036,6 +1036,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#proxy-setup-optional">
+    Proxy Setup (Optional)
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#next-steps">
     Next Steps
   </a>
@@ -1592,6 +1597,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#proxy-setup-optional">
+    Proxy Setup (Optional)
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#next-steps">
     Next Steps
   </a>
@@ -1730,6 +1740,42 @@ This<span class="w"> </span>message<span class="w"> </span>shows<span class="w">
 <p>Clone the EdgeX compose repository:
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/edgexfoundry/edgex-compose.git
 </code></pre></div></p>
+<h2 id="proxy-setup-optional">Proxy Setup (Optional)</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These steps are only required if a proxy is present in the user environment.</p>
+</div>
+<p>Setup Docker Daemon or Docker Desktop to use proxied environment.</p>
+<ul>
+<li>
+<p>Follow guide <a href="https://docs.docker.com/config/daemon/systemd/#httphttps-proxy">here</a> for Docker Daemon proxy setup (Linux)</p>
+</li>
+<li>
+<p>Follow guide <a href="https://docs.docker.com/desktop/settings/windows/#proxies">here</a> for Docker Desktop proxy setup (Windows)</p>
+</li>
+</ul>
+<div class="admonition example -">
+<p class="admonition-title">Configuration file to set Docker Daemon proxy via daemon.json</p>
+<div class="highlight"><pre><span></span><code>    {
+        "proxies": {
+            "http-proxy": "http://proxy.example.com:3128",
+            "https-proxy": "https://proxy.example.com:3129",
+            "no-proxy": "*.test.example.com,.example.org,127.0.0.0/8"
+        }
+    }
+</code></pre></div>
+</div>
+<div class="admonition note -">
+<p class="admonition-title">Note if building custom images</p>
+<p>If building your own custom images, set environment variables for HTTP_PROXY, HTTPS_PROXY and NO_PROXY</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code>export HTTP_PROXY=http://proxy.example.com:3128
+export HTTPS_PROXY=https://proxy.example.com:3129
+export NO_PROXY=*.test.example.com,localhost,127.0.0.0/8
+</code></pre></div>
+</div>
+</div>
 <h2 id="next-steps">Next Steps</h2>
 <p><a class="md-button" href="../deployment/">Deploy the service with default images&gt;</a></p>
 <div class="admonition warning">
