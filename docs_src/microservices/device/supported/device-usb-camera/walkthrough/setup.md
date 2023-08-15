@@ -103,21 +103,21 @@ git clone https://github.com/edgexfoundry/edgex-compose.git
 ## Proxy Setup (Optional)
 
 !!! Note
-    The device used for deployment of device-usb-service must be behind proxy/VPN.
+    These steps are only required if a proxy is present in the user environment.
 
 Setup Docker Daemon or Docker Desktop to use proxied environment.
 
-- Follow guide [here](https://docs.docker.com/config/daemon/systemd/#httphttps-proxy) for Docker Daemon proxy setup
+- Follow guide [here](https://docs.docker.com/config/daemon/systemd/#httphttps-proxy) for Docker Daemon proxy setup (Linux)
 
-- Follow guide [here](https://docs.docker.com/desktop/settings/windows/#proxies) for Docker Desktop proxy setup
+- Follow guide [here](https://docs.docker.com/desktop/settings/windows/#proxies) for Docker Desktop proxy setup (Windows)
 
-!!! example - "http.conf file to configure Docker Client proxy"
+!!! example - "Configuration file to set Docker Daemon proxy via daemon.json"
     ```
         {
             "proxies": {
-                "httpProxy": "http://proxy.example.com:3128",
-                "httpsProxy": "https://proxy.example.com:3129",
-                "noProxy": "*.test.example.com,.example.org,127.0.0.0/8"
+                "http-proxy": "http://proxy.example.com:3128",
+                "https-proxy": "https://proxy.example.com:3129",
+                "no-proxy": "*.test.example.com,.example.org,127.0.0.0/8"
             }
         }
     ```
