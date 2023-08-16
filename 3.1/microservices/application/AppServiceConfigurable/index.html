@@ -2300,6 +2300,7 @@
 <li><code>HeaderName</code> - (Optional) Name of the header key to add to the HTTP header</li>
 <li><code>SecretName</code> - (Optional) Name of the secret in the <code>Secret Store</code> where the header value is stored.</li>
 <li><code>SecretValueKey</code> - (Optional) Key for the header value in the secret data.</li>
+<li><code>HttpRequestHeaders</code> - (Optional) HTTP Request header parameters in json format.</li>
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -2309,6 +2310,14 @@
 <span class="w">        </span><span class="nt">Method</span><span class="p">:</span><span class="w"> </span><span class="s">"post"</span><span class="w"> </span>
 <span class="w">        </span><span class="nt">MimeType</span><span class="p">:</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
 <span class="w">        </span><span class="nt">Url</span><span class="p">:</span><span class="w"> </span><span class="s">"http://my.api.net/edgexdata"</span><span class="w"> </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># HTTP Export with multiple HTTP Request header Parameters</span>
+<span class="w">    </span><span class="nt">HTTPExport</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">Method</span><span class="p">:</span><span class="w"> </span><span class="s">"post"</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">MimeType</span><span class="p">:</span><span class="w"> </span><span class="s">"application/xml"</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">Url</span><span class="p">:</span><span class="w"> </span><span class="s">"http://my.api.net/edgexdata"</span>
+<span class="w">        </span><span class="nt">HttpRequestHeaders</span><span class="p">:</span><span class="w"> </span><span class="s">"{"</span><span class="l l-Scalar l-Scalar-Plain">Connection"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">"keep-alive"</span><span class="err">,</span><span class="w"> </span><span class="s">"From"</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">"[user@example.com](mailto:user@example.com)"</span><span class="w"> </span><span class="err">}</span><span class="s">"</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1"># HTTP Export with secret header data pull from Secret Store</span>
 <span class="w">    </span><span class="nt">HTTPExport</span><span class="p">:</span>

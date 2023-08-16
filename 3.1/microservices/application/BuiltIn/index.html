@@ -1239,6 +1239,11 @@
     URL Formatting
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#http-request-header-parameters">
+    HTTP Request Header Parameters
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -1822,6 +1827,11 @@
     URL Formatting
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#http-request-header-parameters">
+    HTTP Request Header Parameters
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -2266,7 +2276,7 @@ NewHTTPSender("https://myendpoint.com","application/json",false).HTTPPost </p>
 NewHTTPSender("https://myendpoint.com","application/json",false).HTTPPut </p>
 <p><strong>POST with secure header</strong>
 NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt","AuthToken").HTTPPost </p>
-<p><strong> PUT with secure header</strong>
+<p><strong>PUT with secure header</strong>
 NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt","AuthToken").HTTPPPut </p>
 </div>
 <h4 id="http-put">HTTP PUT</h4>
@@ -2278,6 +2288,26 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <p class="admonition-title">Example</p>
 <p>Export the Events to  different endpoints base on their device name            <br/>
 <code>Url="http://myhost.com/edgex-events/{devicename}"</code> </p>
+</div>
+<h4 id="http-request-header-parameters">HTTP Request Header Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SetHttpRequestHeaders(httpRequestHeaders map[string]string)</td>
+<td>This function sets the request header parameters which will be passed in HTTP request</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>httpRequestHeaders = map[string]string{ "Connection": "keep-alive", "From": "<a href="mailto:user@example.com">user@example.com</a>" }
+<code>SetHttpRequestHeaders(httpRequestHeaders)</code> </p>
 </div>
 <h3 id="mqtt-export">MQTT Export</h3>
 <table>
