@@ -277,7 +277,7 @@ The `URLFormatter` option allows you to override the default formatter with your
 
 | Method                                                                                                                           | Description                                                                                                                                                                                                                                                                                          |
 |------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| SetHttpRequestHeaders(httpRequestHeaders map[string]string) | This function returns a `HTTPSender` instance initialized with the passed in HTTP request header parameters  |      
+| SetHttpRequestHeaders(httpRequestHeaders map[string]string) | This function sets the request header parameters which will be passed in HTTP request |      
 
 
 !!! example
