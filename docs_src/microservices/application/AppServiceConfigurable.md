@@ -479,6 +479,7 @@ Please refer to the function's detailed documentation by clicking the function n
 - `HeaderName` - (Optional) Name of the header key to add to the HTTP header
 - `SecretName` - (Optional) Name of the secret in the `Secret Store` where the header value is stored.
 - `SecretValueKey` - (Optional) Key for the header value in the secret data.
+- `HttpRequestHeaders` - (Optional) HTTP Request header parameters in json format.
 
 !!! example
     ```yaml
@@ -488,6 +489,15 @@ Please refer to the function's detailed documentation by clicking the function n
             Method: "post" 
             MimeType: "application/xml" 
             Url: "http://my.api.net/edgexdata" 
+    ```
+    ```yaml
+        # HTTP Export with multiple HTTP Request header Parameters
+        HTTPExport:
+          Parameters:
+            Method: "post" 
+            MimeType: "application/xml" 
+            Url: "http://my.api.net/edgexdata"
+            HttpRequestHeaders: "{"Connection": "keep-alive", "From": "[user@example.com](mailto:user@example.com)" }"
     ```
     ```yaml
         # HTTP Export with secret header data pull from Secret Store
