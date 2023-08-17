@@ -1566,18 +1566,31 @@ but CORS pre-flight requests are always unauthenticated.</p>
 and at the individual microservice level in the non-security configuration.
 However, implementers should choose one or the other, not both.</p>
 <h3 id="enabling-cors-for-individual-microservices">Enabling CORS for Individual Microservices</h3>
-<p>Configure CORS in the <code>Service.CORSConfiguration</code> configuration section for each microservice to be exposed via CORS.  They can also be set via <code>Service_CORSConfiguration_*</code> environment variables.
+<p>Configure CORS in the <code>Service.CORSConfiguration</code> configuration section for each microservice to be exposed via CORS.  They can also be set via <code>SERVICE_CORSCONFIGURATION_*</code> environment variables.
 Please refer to the <a href="../microservices/configuration/CommonConfiguration.md/#configuration-properties">Common Configuration</a> page to learn the details.</p>
 <h3 id="enabling-cors-for-api-gateway">Enabling CORS for API Gateway</h3>
-<p>Configure CORS in the <code>CORSConfiguration</code> configuration section for the <code>security-proxy-setup</code> microservice.
-They can also be set via <code>CORSConfiguration_*</code> environment variables.</p>
+<p>The default CORS settings for the API gateway come from the following section in <code>cat cmd/core-common-config-bootstrapper/res/configuration.yaml</code> in the <code>edgex-go</code> repository</p>
+<div class="highlight"><pre><span></span><code>all-services:
+  Service:
+    CORSConfiguration:
+      EnableCORS: false
+      CORSAllowCredentials: false
+      CORSAllowedOrigin: "https://localhost"
+      CORSAllowedMethods: "GET, POST, PUT, PATCH, DELETE"
+      CORSAllowedHeaders: "Authorization, Accept, Accept-Language, Content-Language, Content-Type, X-Correlation-ID"
+      CORSExposeHeaders: "Cache-Control, Content-Language, Content-Length, Content-Type, Expires, Last-Modified, Pragma, X-Correlation-ID"
+      CORSMaxAge: 3600
+</code></pre></div>
+<p>In the Docker configuration if the <code>EDGEX_SERVICE_CORSCONFIGURATION_*</code> environment variables are set on the <code>security-proxy-setup</code> microservice,
+the CORS configuration will be applied to <strong>all</strong> microservices (<code>EDGEX_SERVICE_CORSCONFIGURATION_ENABLECORS=true</code>).
+There is not a way, when using the API gateway, to turn CORS on for one microservice but not another without writing a custom <code>security-proxy-setup</code> microservice.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The settings under the CORSConfiguration configuration section are the same as those under the Service.CORSConfiguration so please refer to the <a href="../microservices/configuration/CommonConfiguration.md/#configuration-properties">Common Configuration</a> page to learn the details.</p>
+<p>The settings under the CORSConfiguration configuration section are the same as those under the Service.CORSConfiguration so please refer to the <a href="../microservices/configuration/CommonConfiguration.md/#configuration-properties">Common Configuration</a> page to learn the details.  Note that these overrides are prefixed with <code>EDGEX_</code>.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The name of the configuration sections and environment variable overrides are intentionally different than the API gateway section, in alignment with the guidance that CORS should be enabled at the microservice level or the API gateway level, but not both.</p>
+<p>The name of the configuration sections and environment variable overrides are intentionally different than the API gateway section, in alignment with the guidance that CORS should be enabled at the microservice level or the API gateway level, but not both.  Thus, the security-enabled overrides are accomplished with <code>EDGEX_SERVICE_CORSCONFIGURATION_*</code> overrides, and the no-security overrides with <code>SERVICE_CORSCONFIGURATION_*</code>.</p>
 </div>
 </article>
 </div>
