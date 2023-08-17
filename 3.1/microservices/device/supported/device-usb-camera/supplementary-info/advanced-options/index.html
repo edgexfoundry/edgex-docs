@@ -1831,10 +1831,11 @@ If there is a mismatch between them, the device service will scan all paths to f
 </code></pre></div></p>
 <p>It's recommended to trigger a check after re-plugging cameras.</p>
 <h2 id="configurable-rtsp-server-hostname-and-port">Configurable RTSP server hostname and port</h2>
-<p>The hostname and port of the RTSP server to which the device service publishes video streams can be configured in the [Driver] section of the service configuration located in the <code>cmd/res/configuration.yaml</code> file.</p>
+<p>Enable/Disable RTSP server and set hostname and port of the RTSP server to which the device service publishes video streams can be configured in the [Driver] section of the service configuration located in the <code>cmd/res/configuration.yaml</code> file. RTSP server is enabled by default.</p>
 <div class="admonition example -">
 <p class="admonition-title">Snippet from configuration.yaml</p>
 <div class="highlight"><pre><span></span><code><span class="nt">Driver</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">EnableRtspServer</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">    </span><span class="nt">RtspServerHostName</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost"</span>
 <span class="w">    </span><span class="nt">RtspTcpPort</span><span class="p">:</span><span class="w"> </span><span class="s">"8554"</span>
 <span class="w">    </span><span class="nt">RtspAuthenticationServer</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost:8000"</span>

@@ -1932,12 +1932,13 @@ This<span class="w"> </span>message<span class="w"> </span>shows<span class="w">
 <p class="admonition-title">Note</p>
 <p>This step is only required if you plan on using USB cameras.</p>
 </div>
-<p>a. Add the rtsp server hostname environment variable to the <code>device-usb-camera</code> service, where <code>your-local-ip-address</code> is the ip address of the machine running the <code>device-usb-camera</code> service.</p>
+<p>a. Add enable rtsp server and the rtsp server hostname environment variables to the <code>device-usb-camera</code> service, where <code>your-local-ip-address</code> is the ip address of the machine running the <code>device-usb-camera</code> service.</p>
 <div class="admonition example -">
 <p class="admonition-title">Snippet from <code>add-device-usb-camera.yml</code></p>
 <div class="highlight"><pre><span></span><code>services:
   device-usb-camera:
     environment:
+      DRIVER_ENABLERTSPSERVER: "true"
       DRIVER_RTSPSERVERHOSTNAME: "your-local-ip-address"
 </code></pre></div>
 </div>
