@@ -87,7 +87,7 @@ All services have the ability to collect the following common service metrics
 
 ## URI for Files
 
-Different files like load configuration, units of measurements, device profiles, device definitions, and provision watches can be loaded either from the local file system or from a remote location.
+Different files like configurations, units of measurements, device profiles, device definitions, and provision watchers can be loaded either from the local file system or from a remote location.
 For the remote location, HTTP and HTTPS URIs are supported. When using HTTPS, certificate validation is performed using the system's built-in trust anchors.
 
 ### Authentication
@@ -106,13 +106,26 @@ This is ok network wise when using HTTPS, but if the credentials are specified i
 #### Secure Credentials (preferred)
 
 The `edgexSecretName` query parameter can be specified in the URI as a secure way for users to specify credentials.
-This parameter specifies a Secret Name from the service's Secret Store where the credentials reside. 
+When running in secure mode, this parameter specifies a Secret Name from the service's Secret Store where the credentials must be [seeded](../../security/SeedingServiceSecrets.md#seeding-service-secrets).
+If insecure mode is running, `edgexSecretName` must be specified in the [InsecureSecrets](../configuration/CommonConfiguration.md#common-configuration-properties) section of the configuration.
 
 !!! example "Example - configuration file with `edgexSecretName` query parameter"
-```
-[UoM]
-UoMFile = "https://example.com/uom.yaml?edgexSecretName=mySecretName"
-```
+    ```
+    [UoM]
+    UoMFile = "https://example.com/uom.yaml?edgexSecretName=mySecretName"
+    ```
 
-The authentication type and credentials are contained in the secret data specified by the Secret Name. 
-Only `httpheader` is currently supported.
+The authentication type and credentials are contained in the secret data specified by the Secret Name.
+Only `httpheader` is currently supported. The `headername` specifies the authentication method (ie Basic Auth, API-Key, Bearer)
+
+!!! example "Example - secret data using `httpheader`"
+    ```
+    type=httpheader
+    headername=<name>
+    headercontents=<contents>
+    ```
+    For a request header set as:
+    ```
+    GET https://example.com/uom.yaml HTTP/1.1
+    <name>: <contents>
+    ```
