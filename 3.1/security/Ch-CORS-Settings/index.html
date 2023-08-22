@@ -480,8 +480,8 @@
 <nav aria-label="Enabling CORS" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#enabling-cors-for-individual-microservices">
-    Enabling CORS for Individual Microservices
+<a class="md-nav__link" href="#enabling-cors-for-microservices">
+    Enabling CORS for Microservices
   </a>
 </li>
 <li class="md-nav__item">
@@ -1524,8 +1524,8 @@
 <nav aria-label="Enabling CORS" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#enabling-cors-for-individual-microservices">
-    Enabling CORS for Individual Microservices
+<a class="md-nav__link" href="#enabling-cors-for-microservices">
+    Enabling CORS for Microservices
   </a>
 </li>
 <li class="md-nav__item">
@@ -1565,9 +1565,27 @@ but CORS pre-flight requests are always unauthenticated.</p>
 <p>CORS can be enabled at the API gateway in a security-enabled configuration,
 and at the individual microservice level in the non-security configuration.
 However, implementers should choose one or the other, not both.</p>
-<h3 id="enabling-cors-for-individual-microservices">Enabling CORS for Individual Microservices</h3>
-<p>Configure CORS in the <code>Service.CORSConfiguration</code> configuration section for each microservice to be exposed via CORS.  They can also be set via <code>SERVICE_CORSCONFIGURATION_*</code> environment variables.
-Please refer to the <a href="../microservices/configuration/CommonConfiguration.md/#configuration-properties">Common Configuration</a> page to learn the details.</p>
+<h3 id="enabling-cors-for-microservices">Enabling CORS for Microservices</h3>
+<p>There are two different options to enable CORS. </p>
+<ul>
+<li>Enable CORS for all services by environment variables override under <code>core-common-config-bootstrapper</code> service section on <em>docker-compose.file</em>. They can be set via <code>SERVICE_CORSCONFIGURATION_*</code> environment variables. 
+Please refer to the following example:</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example - Set <code>EnableCORS</code> to <code>true</code> by environment variables override</p>
+<div class="highlight"><pre><span></span><code><span class="nt">core-common-config-bootstrapper</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">SERVICE_CORSCONFIGURATION_ENABLECORS</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+</code></pre></div>
+</div>
+<ul>
+<li>Enable CORS for individual microservices<ol>
+<li>Add <code>Service.CORSConfiguration.EnableCORS</code> via Consul for the targeted service and restart the service.</li>
+<li>Add <code>Service.CORSConfiguration.EnableCORS</code> to each services private configuration file.</li>
+</ol>
+</li>
+</ul>
+<p>Please refer to the <a href="../microservices/configuration/CommonConfiguration.md/#configuration-properties">Common Configuration</a> page to learn the details.</p>
 <h3 id="enabling-cors-for-api-gateway">Enabling CORS for API Gateway</h3>
 <p>The default CORS settings for the API gateway come from the following section in <code>cat cmd/core-common-config-bootstrapper/res/configuration.yaml</code> in the <code>edgex-go</code> repository</p>
 <div class="highlight"><pre><span></span><code>all-services:
