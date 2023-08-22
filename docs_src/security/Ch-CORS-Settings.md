@@ -21,9 +21,23 @@ CORS can be enabled at the API gateway in a security-enabled configuration,
 and at the individual microservice level in the non-security configuration.
 However, implementers should choose one or the other, not both.
 
-### Enabling CORS for Individual Microservices
+### Enabling CORS for Microservices
 
-Configure CORS in the `Service.CORSConfiguration` configuration section for each microservice to be exposed via CORS.  They can also be set via `SERVICE_CORSCONFIGURATION_*` environment variables.
+There are two different options to enable CORS. 
+
+- Enable CORS for all services by environment variables override under `core-common-config-bootstrapper` service section on *docker-compose.file*. They can be set via `SERVICE_CORSCONFIGURATION_*` environment variables. 
+Please refer to the following example:
+!!! example "Example - Set `EnableCORS` to `true` by environment variables override"
+    ```yaml
+    core-common-config-bootstrapper:
+      environment: 
+        SERVICE_CORSCONFIGURATION_ENABLECORS: "true"
+    ```
+
+- Enable CORS for individual microservices
+    1. Add `Service.CORSConfiguration.EnableCORS` via Consul for the targeted service and restart the service.
+    2. Add `Service.CORSConfiguration.EnableCORS` to each services private configuration file.
+
 Please refer to the [Common Configuration](../microservices/configuration/CommonConfiguration.md/#configuration-properties) page to learn the details.
 
 ### Enabling CORS for API Gateway
