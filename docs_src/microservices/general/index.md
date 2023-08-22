@@ -84,3 +84,35 @@ All services have the ability to collect the following common service metrics
 - **SecuritySecretsStored** - Count of secret stored to the service's Secret Store.
 - **SecurityConsulTokensRequested** - Count of Consul tokens been requested.
 - **SecurityConsulTokenDuration** - Duration of obtaining Consul token.
+
+## URI for Files
+
+Different files like load configuration, units of measurements, device profiles, device definitions, and provision watches can be loaded either from the local file system or from a remote location.
+For the remote location, HTTP and HTTPS URIs are supported. When using HTTPS, certificate validation is performed using the system's built-in trust anchors.
+
+### Authentication
+
+#### username-password in URI (not recommended)
+
+Users can specify the username-password (`<username>:<password>@`) in the URI as plain text.
+This is ok network wise when using HTTPS, but if the credentials are specified in configuration or other service files, this is not a good practice to follow.
+
+!!! example "Example - configuration file with plain text `username-password` in URI"
+    ```
+        [UoM]
+        UoMFile = "https://myuser:mypassword@example.com/uom.yaml"
+    ```
+
+#### Secure Credentials (preferred)
+
+The `edgexSecretName` query parameter can be specified in the URI as a secure way for users to specify credentials.
+This parameter specifies a Secret Name from the service's Secret Store where the credentials reside. 
+
+!!! example "Example - configuration file with `edgexSecretName` query parameter"
+```
+[UoM]
+UoMFile = "https://example.com/uom.yaml?edgexSecretName=mySecretName"
+```
+
+The authentication type and credentials are contained in the secret data specified by the Secret Name. 
+Only `httpheader` is currently supported.
