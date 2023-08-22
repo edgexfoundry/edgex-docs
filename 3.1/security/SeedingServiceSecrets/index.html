@@ -1605,10 +1605,10 @@
 <span class="p">}</span>
 </code></pre></div>
 </div>
-<p>The secrets marked with <code>imported=true</code> are ignored the next time the service starts up since they are already in the the service's <code>SecretStore</code>.  If the Secret Store service's persistence is cleared, the original version of service's secrets file will need to be provided for the next time the service starts up.</p>
+<p>The secrets marked with <code>imported=true</code> are ignored the next time the service starts up since they are already in the service's <code>SecretStore</code>.  If the Secret Store service's persistence is cleared, the original version of service's secrets file will need to be provided for the next time the service starts up.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The secrets file must be have write permissions for the file to be scrubbed of the secret data. If not the service with fail to start-up with an error re-writing the file.</p>
+<p>The secrets file must have write permissions for the file to be scrubbed of the secret data. If not the service will fail to start-up with an error re-writing the file.</p>
 </div>
 <h2 id="disable-scrubbing">Disable Scrubbing</h2>
 <p>Scrubbing of the secret data can be disabled by setting <code>SecretStore.DisableScrubSecretsFile</code> to <code>true</code>. This can be done in the by using the <code>SECRETSTORE_DISABLESCRUBSECRETSFILE</code> environment variable override. </p>

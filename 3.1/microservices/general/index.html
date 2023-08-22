@@ -571,6 +571,34 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#uri-for-files">
+    URI for Files
+  </a>
+<nav aria-label="URI for Files" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#authentication">
+    Authentication
+  </a>
+<nav aria-label="Authentication" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#username-password-in-uri-not-recommended">
+    username-password in URI (not recommended)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#secure-credentials-preferred">
+    Secure Credentials (preferred)
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
 </ul>
 </nav>
 </li>
@@ -1564,6 +1592,34 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#uri-for-files">
+    URI for Files
+  </a>
+<nav aria-label="URI for Files" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#authentication">
+    Authentication
+  </a>
+<nav aria-label="Authentication" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#username-password-in-uri-not-recommended">
+    username-password in URI (not recommended)
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#secure-credentials-preferred">
+    Secure Credentials (preferred)
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
 </ul>
 </nav>
 </div>
@@ -1641,6 +1697,42 @@ This can be accomplished with a custom application service that sets the functio
 <li><strong>SecurityConsulTokensRequested</strong> - Count of Consul tokens been requested.</li>
 <li><strong>SecurityConsulTokenDuration</strong> - Duration of obtaining Consul token.</li>
 </ul>
+<h2 id="uri-for-files">URI for Files</h2>
+<p>Different files like configurations, units of measurements, device profiles, device definitions, and provision watchers can be loaded either from the local file system or from a remote location.
+For the remote location, HTTP and HTTPS URIs are supported. When using HTTPS, certificate validation is performed using the system's built-in trust anchors.</p>
+<h3 id="authentication">Authentication</h3>
+<h4 id="username-password-in-uri-not-recommended">username-password in URI (not recommended)</h4>
+<p>Users can specify the username-password (<code>&lt;username&gt;:&lt;password&gt;@</code>) in the URI as plain text.
+This is ok network wise when using HTTPS, but if the credentials are specified in configuration or other service files, this is not a good practice to follow.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - configuration file with plain text <code>username-password</code> in URI</p>
+<div class="highlight"><pre><span></span><code>    [UoM]
+    UoMFile = "https://myuser:mypassword@example.com/uom.yaml"
+</code></pre></div>
+</div>
+<h4 id="secure-credentials-preferred">Secure Credentials (preferred)</h4>
+<p>The <code>edgexSecretName</code> query parameter can be specified in the URI as a secure way for users to specify credentials.
+When running in secure mode, this parameter specifies a Secret Name from the service's Secret Store where the credentials must be <a href="../../security/SeedingServiceSecrets/#seeding-service-secrets">seeded</a>.
+If insecure mode is running, <code>edgexSecretName</code> must be specified in the <a href="../configuration/CommonConfiguration/#common-configuration-properties">InsecureSecrets</a> section of the configuration.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - configuration file with <code>edgexSecretName</code> query parameter</p>
+<div class="highlight"><pre><span></span><code>[UoM]
+UoMFile = "https://example.com/uom.yaml?edgexSecretName=mySecretName"
+</code></pre></div>
+</div>
+<p>The authentication type and credentials are contained in the secret data specified by the Secret Name.
+Only <code>httpheader</code> is currently supported. The <code>headername</code> specifies the authentication method (ie Basic Auth, API-Key, Bearer)</p>
+<div class="admonition example">
+<p class="admonition-title">Example - secret data using <code>httpheader</code></p>
+<p><div class="highlight"><pre><span></span><code>type=httpheader
+headername=&lt;name&gt;
+headercontents=&lt;contents&gt;
+</code></pre></div>
+For a request header set as:
+<div class="highlight"><pre><span></span><code>GET https://example.com/uom.yaml HTTP/1.1
+&lt;name&gt;: &lt;contents&gt;
+</code></pre></div></p>
+</div>
 </article>
 </div>
 </div>
