@@ -47,14 +47,14 @@ This command sets the frame rate for the capture device.
 
     !!! example - "Example DataFormat Command (path_index)"
         ```bash
-        curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat?PathIndex=<path_index>
+        curl http://localhost:59882/api/{{api_version}}/device/name/<device name>/DataFormat?PathIndex=<path_index>
         ```
         
     OR
     
     !!! example - "Example DataFormat Command (stream_format)"
         ```bash
-        curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat?StreamFormat=<stream_format>
+        curl http://localhost:59882/api/{{api_version}}/device/name/<device name>/DataFormat?StreamFormat=<stream_format>
         ```
    
     !!! Note
@@ -209,6 +209,12 @@ This command sets the desired pixel format for the capture device.
 
 1. Use one of the supported `PixelFormat` values to set the pixel format based on `path_index`
    or `stream_format`.
+
+    !!! Note
+        `PixelFormat` has to be specified in the set request with a specific code which is acceptable by the v4l2 driver.
+         This service currently supports the formats whose codes are `YUYV`,`GREY`,`MJPG`,`Z16`,`RGB`,`JPEG`,`MPEG`,`H264`,`MPEG4`,`UYVY`,`BYR2`,`Y8I`,`Y12I`.
+         Refer [V4l2 Image Formats](https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/pixfmt.html) for more info. The service only supports setting of height, width or
+         pixel format.
 
     !!! example - "Example Set PixelFormat Command"
         ```bash
