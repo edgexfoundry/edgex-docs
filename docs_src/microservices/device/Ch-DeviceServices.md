@@ -176,6 +176,34 @@ Please refer to the general [Common Configuration documentation](../configuratio
     |---|---|---|
     |MaxEventSize|0|maximum event size in kilobytes sent to Core Data or MessageBus. 0 represents default to system max.|
 
+### URIs for Device Service Files
+
+!!! edgey "EdgeX 3.1"
+    Support for URIs for Devices, Profiles, and Provision Watchers is new in EdgeX 3.1.
+
+When loading  device definitions, device profiles, and provision watchers from a [URI](../general/index.md#uri-for-files), the directory field (ie `DevicesDir`, `ProfilesDir`, `ProvisionWatchersDir`) loads an index file instead of a folder name.
+The contents of the index file will specify the individual files to load by URI by appending the filenames to the URI as shown in the example below.
+Any authentication specified in the original URI will be used in subsequent URIs.
+
+!!! example "Example Device Dir loaded from URI in service configuration"
+    ```yaml
+    ...
+    ProfilesDir = "./res/profiles"
+    DevicesDir = "http://example.com/devices/index.json"
+    ProvisionWatchersDir = "./res/provisionwatchers"
+    ...
+    ```
+
+!!! example "Example Device Index File at `http://example.com/devices/index.json` and resulting URIs"
+    ```json
+    [
+        "device1.yaml", "device2.yaml"
+    ]
+    which results in the following URIs:
+    http://example.com/devices/device1.yaml
+    http://example.com/devices/device2.yaml
+    ```
+
 ### Custom Configuration
 
 Device services can have custom configuration in one of two ways. See the table below for details.
