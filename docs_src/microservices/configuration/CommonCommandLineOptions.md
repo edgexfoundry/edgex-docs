@@ -25,7 +25,7 @@ Can be overridden with [EDGEX_CONFIG_DIR](./CommonEnvironmentVariables.md#edgex_
     The `-f/--file` command line option is replaced by `-cf/--configFile` in EdgeX 3.0.
 
 
-Indicates the name of the local configuration file or the [URI](../general/index.md#uri-for-files) of the private configuration. Default is `configuration.yaml`.
+Indicates the name of the local configuration file or the URI of the private configuration. See the [URI for Files](../general/index.md#uri-for-files) section for more details. Default is `configuration.yaml`.
 
 Can be overridden with [EDGEX_CONFIG_FILE](./CommonEnvironmentVariables.md#edgex_config_file) environment variable.
 
@@ -50,7 +50,7 @@ Can be overridden with [EDGEX_CONFIG_PROVIDER](./CommonEnvironmentVariables.md#e
 !!! edgey "EdgeX 3.0"
     The Common Config flag is new to EdgeX 3.0
 
-Takes the location where the common configuration is loaded from - either a local file path or a [URI](../general/index.md#uri-for-files) when not using the Configuration Provider. Default is blank.
+Takes the location where the common configuration is loaded from - either a local file path or a URI when not using the Configuration Provider. See the [URI for Files](../general/index.md#uri-for-files) section for more details. Default is blank.
 
 Can be overridden with [EDGEX_COMMON_CONFIG](./CommonEnvironmentVariables.md#edgex_common_config) environment variable.
 

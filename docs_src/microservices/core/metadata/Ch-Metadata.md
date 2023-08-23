@@ -456,7 +456,7 @@ The System Event DTO for Device System Events is published to the topic specifie
 ## Units of Measure
 
 Core metadata will read unit of measure configuration (see configuration example below) located in `UoM.UoMFile` during startup.
-The specified configuration may be a local configuration file or the [URI](../../general/index.md#uri-for-files) of the configuration.
+The specified configuration may be a local configuration file or the URI of the configuration. See the [URI for Files](../../general/index.md#uri-for-files) section for more details.
 
 !!! edgey "EdgeX 3.1"
     Support for loading the `UoM.UoMFile` configuration via URI is new in EdgeX 3.1. 
