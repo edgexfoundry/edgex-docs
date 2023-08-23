@@ -442,11 +442,11 @@ Follow these instructions to add and update devices manually.
       curl -s http://localhost:59881/api/{{api_version}}/device/all | jq -r '"deviceName: " + '.devices[].name''
       ```
 
-      Example output: 
-      ```bash
-      deviceName: Camera001
-      deviceName: device-onvif-camera
-      ```
+    Example output: 
+    ```bash
+    deviceName: Camera001
+    deviceName: device-onvif-camera
+    ```
      
     !!! note
         `jq -r` is used to reduce the size of the displayed response. The entire device with all information can be seen by removing `-r '"deviceName: " + '.devices[].name'', and replacing it with '.'`

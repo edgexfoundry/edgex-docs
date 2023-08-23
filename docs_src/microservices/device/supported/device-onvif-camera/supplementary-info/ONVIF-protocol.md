@@ -16,11 +16,11 @@ The latest version {{version}} of the device service API specifications can be f
 
 ## ONVIF Protocol Properties
 
-| Property | Description | EdgeX Value Type                    
+| Property | Description | EdgeX Value Type |               
 | -- | -- | -- |  
 | **Address** | The IP address of the camera. | String |  
-| **Port** | The internet port of the camera. | String|  
-| **EndpointRefAddress** | | String |  
+| **Port** | The internet port of the camera. | String |  
+| **EndpointRefAddress** | A unique identifier | String |  
 | **DeviceStatus** | The authorization status of the camera.  | String |  
 | &nbsp; UpWithAuth | The device can operate with full authorization. |  |
 | &nbsp; UpWithoutAuth | The device only execute commands that do not require authorization. |  |
