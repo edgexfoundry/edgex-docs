@@ -2685,16 +2685,11 @@ edgex/system-events/core-metadata/device/delete/device-virtual/Random-Boolean-De
 </code></pre></div>
 </div>
 <h2 id="units-of-measure">Units of Measure</h2>
-<p>Core metadata will read unit of measure configuration (see configuration example below) located in <code>UoM.UoMFile</code> during startup.</p>
-<p>When validation is turned on (<code>Writable.UoM.Validation</code> is set to <code>true</code>),
-all device profile <code>units</code> (in device resource, device properties) will be validated against the list of units of measure by core metadata.</p>
-<p>In other words, when a device profile is created or updated via the core metadata API, the units specified in the device resource's <code>units</code> field
-will be checked against the valid list of UoM provided via core metadata configuration.</p>
-<p>If the <code>units</code> value matches any one of the configuration units of measure, then the device resource is considered valid - allowing the create or update operation to continue.
-If the <code>units</code> value does not match any one of the configuration units of measure, then the device profile or device resource operation (create or update) is rejected (error code 500 is returned) and an appropriate error message is returned in the response to the caller of the core metadata API.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <code>units</code> field on a profile is and shall remain optional.  If the <code>units</code> field is not specified in the device profile, then it is assumed that the device resource does not have well-defined units of measure.  In other words, core metadata will not fail a profile with no <code>units</code> field specified on a device resource.</p>
+<p>Core metadata will read unit of measure configuration (see configuration example below) located in <code>UoM.UoMFile</code> during startup.
+The specified configuration may be a local configuration file or the <a href="../../../general/#uri-for-files">URI</a> of the configuration.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.1</p>
+<p>Support for loading the <code>UoM.UoMFile</code> configuration via URI is new in EdgeX 3.1. </p>
 </div>
 <div class="admonition example -">
 <p class="admonition-title">Sample unit of measure configuration</p>
@@ -2714,6 +2709,16 @@ If the <code>units</code> value does not match any one of the configuration unit
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kilos</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grams</span>
 </code></pre></div>
+</div>
+<p>When validation is turned on (<code>Writable.UoM.Validation</code> is set to <code>true</code>),
+all device profile <code>units</code> (in device resource, device properties) will be validated against the list of units of measure by core metadata.</p>
+<p>In other words, when a device profile is created or updated via the core metadata API, the units specified in the device resource's <code>units</code> field
+will be checked against the valid list of UoM provided via core metadata configuration.</p>
+<p>If the <code>units</code> value matches any one of the configuration units of measure, then the device resource is considered valid - allowing the create or update operation to continue.
+If the <code>units</code> value does not match any one of the configuration units of measure, then the device profile or device resource operation (create or update) is rejected (error code 500 is returned) and an appropriate error message is returned in the response to the caller of the core metadata API.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>units</code> field on a profile is and shall remain optional.  If the <code>units</code> field is not specified in the device profile, then it is assumed that the device resource does not have well-defined units of measure.  In other words, core metadata will not fail a profile with no <code>units</code> field specified on a device resource.</p>
 </div>
 <h2 id="api-reference">API Reference</h2>
 <p><a href="../../../../api/core/Ch-APICoreMetadata/">Core Metadata API Reference</a></p>
