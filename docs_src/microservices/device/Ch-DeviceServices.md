@@ -164,9 +164,9 @@ Please refer to the general [Common Configuration documentation](../configuratio
     |DataTransform|true|Controls whether transformations are applied to numeric readings|
     |MaxCmdOps|128|Maximum number of resources in a device command (hence, readings in an event)|
     |MaxCmdResultLen|256|Maximum JSON string length for command results|
-    |ProfilesDir|'./res/profiles'|If set, directory containing profile definition files to upload to core-metadata. Also may be in device service private config so it can be overridden with environment variable|
-    |DevicesDir|'./res/devices'|If set, directory containing device definition files to upload to core-metadata. Also may be in device service private config so it can be overridden with environment variable|
-    |ProvisionWatchersDir|''|If set, directory containing provision watcher definition files to upload to core-metadata (service specific when needed)|
+    |ProfilesDir|'./res/profiles'|If set, directory or index URI containing profile definition files to upload to core-metadata. See [URI for Device Service Files](#uris-for-device-service-files) for more information on URI index files. Also may be in device service private config, so it can be overridden with environment variable|
+    |DevicesDir|'./res/devices'|If set, directory or index URI containing device definition files to upload to core-metadata. See [URI for Device Service Files](#uris-for-device-service-files) for more information on URI index files. Also may be in device service private config, so it can be overridden with environment variable|
+    |ProvisionWatchersDir|''|If set, directory or index URI containing provision watcher definition files to upload to core-metadata (service specific when needed). See [URI for Device Service Files](#uris-for-device-service-files) for more information on URI index files.|
     |EnableAsyncReadings| true| Enables/Disables the Device Service ability to handle async readings |
     |AsyncBufferSize| 16| Size of the buffer for async readings|
     |Discovery/Enabled|false|Controls whether device discovery is enabled|
@@ -175,6 +175,33 @@ Please refer to the general [Common Configuration documentation](../configuratio
     |Property|Default Value|Description|    
     |---|---|---|
     |MaxEventSize|0|maximum event size in kilobytes sent to Core Data or MessageBus. 0 represents default to system max.|
+
+### URIs for Device Service Files
+
+!!! edgey "EdgeX 3.1"
+    Support for URIs for Devices, Profiles, and Provision Watchers is new in EdgeX 3.1.
+
+When loading  device definitions, device profiles, and provision watchers from a URI, the directory field (ie `DevicesDir`, `ProfilesDir`, `ProvisionWatchersDir`) loads an index file instead of a folder name.
+The contents of the index file will specify the individual files to load by URI by appending the filenames to the URI as shown in the example below.
+Any authentication specified in the original URI will be used in subsequent URIs. See the [URI for Files](../general/index.md#uri-for-files) section for more details.
+!!! example "Example Device Dir loaded from URI in service configuration"
+    ```yaml
+    ...
+    ProfilesDir = "./res/profiles"
+    DevicesDir = "http://example.com/devices/index.json"
+    ProvisionWatchersDir = "./res/provisionwatchers"
+    ...
+    ```
+
+!!! example "Example Device Index File at `http://example.com/devices/index.json` and resulting URIs"
+    ```json
+    [
+        "device1.yaml", "device2.yaml"
+    ]
+    which results in the following URIs:
+    http://example.com/devices/device1.yaml
+    http://example.com/devices/device2.yaml
+    ```
 
 ### Custom Configuration
 
