@@ -30,7 +30,7 @@ Indicates the name of the local configuration file or the [URI](../general/index
 Can be overridden with [EDGEX_CONFIG_FILE](./CommonEnvironmentVariables.md#edgex_config_file) environment variable.
 
 !!! edgey "EdgeX 3.1"
-    Support for use of **either** a local private configuration file or URI of a private configuration.
+    Support for loading private configuration via URI is new in EdgeX 3.1.
 
 ## Config Provider
 
@@ -55,7 +55,7 @@ Takes the location where the common configuration is loaded from - either a loca
 Can be overridden with [EDGEX_COMMON_CONFIG](./CommonEnvironmentVariables.md#edgex_common_config) environment variable.
 
 !!! edgey "EdgeX 3.1"
-    Support for use of **either** a local common configuration file or URI of a common configuration.
+    Support for loading common configuration via URI is new in EdgeX 3.1.
 
 ## Profile
 
