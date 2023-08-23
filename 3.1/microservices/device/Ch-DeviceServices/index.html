@@ -755,6 +755,11 @@
 <nav aria-label="Configuration Properties" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#uris-for-device-service-files">
+    URIs for Device Service Files
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#custom-configuration">
     Custom Configuration
   </a>
@@ -1708,6 +1713,11 @@
 <nav aria-label="Configuration Properties" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#uris-for-device-service-files">
+    URIs for Device Service Files
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#custom-configuration">
     Custom Configuration
   </a>
@@ -2008,17 +2018,17 @@ and role of a device service.</p>
 <tr>
 <td>ProfilesDir</td>
 <td>'./res/profiles'</td>
-<td>If set, directory containing profile definition files to upload to core-metadata. Also may be in device service private config so it can be overridden with environment variable</td>
+<td>If set, directory or index URI containing profile definition files to upload to core-metadata. See <a href="#uris-for-device-service-files">URI for Device Service Files</a> for more information on URI index files. Also may be in device service private config, so it can be overridden with environment variable</td>
 </tr>
 <tr>
 <td>DevicesDir</td>
 <td>'./res/devices'</td>
-<td>If set, directory containing device definition files to upload to core-metadata. Also may be in device service private config so it can be overridden with environment variable</td>
+<td>If set, directory or index URI containing device definition files to upload to core-metadata. See <a href="#uris-for-device-service-files">URI for Device Service Files</a> for more information on URI index files. Also may be in device service private config, so it can be overridden with environment variable</td>
 </tr>
 <tr>
 <td>ProvisionWatchersDir</td>
 <td>''</td>
-<td>If set, directory containing provision watcher definition files to upload to core-metadata (service specific when needed)</td>
+<td>If set, directory or index URI containing provision watcher definition files to upload to core-metadata (service specific when needed). See <a href="#uris-for-device-service-files">URI for Device Service Files</a> for more information on URI index files.</td>
 </tr>
 <tr>
 <td>EnableAsyncReadings</td>
@@ -2063,6 +2073,33 @@ and role of a device service.</p>
 </div>
 </div>
 </input></input></input></input></input></input></div>
+<h3 id="uris-for-device-service-files">URIs for Device Service Files</h3>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.1</p>
+<p>Support for URIs for Devices, Profiles, and Provision Watchers is new in EdgeX 3.1.</p>
+</div>
+<p>When loading  device definitions, device profiles, and provision watchers from a URI, the directory field (ie <code>DevicesDir</code>, <code>ProfilesDir</code>, <code>ProvisionWatchersDir</code>) loads an index file instead of a folder name.
+The contents of the index file will specify the individual files to load by URI by appending the filenames to the URI as shown in the example below.
+Any authentication specified in the original URI will be used in subsequent URIs. See the <a href="../../general/#uri-for-files">URI for Files</a> section for more details.</p>
+<div class="admonition example">
+<p class="admonition-title">Example Device Dir loaded from URI in service configuration</p>
+<div class="highlight"><pre><span></span><code><span class="nn">...</span>
+<span class="l l-Scalar l-Scalar-Plain">ProfilesDir = "./res/profiles"</span>
+<span class="l l-Scalar l-Scalar-Plain">DevicesDir = "http://example.com/devices/index.json"</span>
+<span class="l l-Scalar l-Scalar-Plain">ProvisionWatchersDir = "./res/provisionwatchers"</span>
+<span class="nn">...</span>
+</code></pre></div>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example Device Index File at <code>http://example.com/devices/index.json</code> and resulting URIs</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">    </span><span class="s2">"device1.yaml"</span><span class="p">,</span><span class="w"> </span><span class="s2">"device2.yaml"</span>
+<span class="p">]</span>
+<span class="err">which</span><span class="w"> </span><span class="err">resul</span><span class="kc">ts</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="kc">f</span><span class="err">ollowi</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">URIs</span><span class="p">:</span>
+<span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//example.com/devices/device1.yaml</span>
+<span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//example.com/devices/device2.yaml</span>
+</code></pre></div>
+</div>
 <h3 id="custom-configuration">Custom Configuration</h3>
 <p>Device services can have custom configuration in one of two ways. See the table below for details.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Driver</label><label for="__tabbed_2_2">Custom Structured Configuration</label></div>
