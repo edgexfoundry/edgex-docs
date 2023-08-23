@@ -2,7 +2,7 @@
 
 This section describes the command line options that are common to all EdgeX services. Some services have addition command line options which are documented in the specific sections for those services.
 
-## ConfDir 
+## Config Directory
 
 `-cd/--configDir`
 
@@ -10,14 +10,14 @@ This section describes the command line options that are common to all EdgeX ser
     The `-c/--confdir` command line option is replaced by `-cd/--configDir` in EdgeX 3.0.
 
 
-Specify local configuration directory. Default is `./res`
+Specify local configuration directory. Default is `./res`, but will be ignored if Config File parameter refers to a URI beginning with `http` or `https`.
 
 Can be overridden with [EDGEX_CONFIG_DIR](./CommonEnvironmentVariables.md#edgex_config_dir) environment variable.
 
 !!! edgey "EdgeX 3.0"
     The `EDGEX_CONF_DIR` environment variable is replaced by `EDGEX_CONFIG_DIR` in EdgeX 3.0.
 
-## File
+## Config File
 
 `-cf/--configFile <name>`
 
@@ -25,9 +25,12 @@ Can be overridden with [EDGEX_CONFIG_DIR](./CommonEnvironmentVariables.md#edgex_
     The `-f/--file` command line option is replaced by `-cf/--configFile` in EdgeX 3.0.
 
 
-Indicates the name of the local configuration file. Default is `configuration.yaml`
+Indicates the name of the local configuration file or the [URI](../general/index.md#uri-for-files) of the private configuration. Default is `configuration.yaml`.
 
 Can be overridden with [EDGEX_CONFIG_FILE](./CommonEnvironmentVariables.md#edgex_config_file) environment variable.
+
+!!! edgey "EdgeX 3.1"
+    Support for loading private configuration via URI is new in EdgeX 3.1.
 
 ## Config Provider
 
@@ -44,12 +47,15 @@ Can be overridden with [EDGEX_CONFIG_PROVIDER](./CommonEnvironmentVariables.md#e
 
 `-cc/ --commonConfig`
 
-Takes the location where the common configuration is loaded from when not using the Configuration Provider. Default is blank.
+!!! edgey "EdgeX 3.0"
+    The Common Config flag is new to EdgeX 3.0
+
+Takes the location where the common configuration is loaded from - either a local file path or a [URI](../general/index.md#uri-for-files) when not using the Configuration Provider. Default is blank.
 
 Can be overridden with [EDGEX_COMMON_CONFIG](./CommonEnvironmentVariables.md#edgex_common_config) environment variable.
 
-!!! edgey "EdgeX 3.0"
-    The Common Config flag is new to EdgeX 3.0
+!!! edgey "EdgeX 3.1"
+    Support for loading common configuration via URI is new in EdgeX 3.1.
 
 ## Profile
 
@@ -73,8 +79,8 @@ Can be overridden with [EDGEX_USE_REGISTRY](./CommonEnvironmentVariables.md#edge
 
 Overwrite configuration in provider with local configuration.
 
-!!! caution "Use with cation" 
-   This will clobber existing settings in provider, problematic if those settings were edited by hand intentionally. Typically only used during development.
+!!! caution "Use with caution" 
+   This will clobber existing settings in provider, which is problematic if those settings were intentionally edited by hand. Typically only used during development.
 
 ## Developer Mode
 
