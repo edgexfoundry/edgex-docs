@@ -45,14 +45,14 @@ This command sets the frame rate for the capture device.
 1. Before setting the frame rate first execute the `DataFormat` command to see the available frame rates of a device for any of its video streaming path
    or stream format:
 
-    !!! example - "Example DataFormat Command (path_index)"
+    !!! example - "Example DataFormat Command with `path_index` query parameter"
         ```bash
         curl http://localhost:59882/api/{{api_version}}/device/name/<device name>/DataFormat?PathIndex=<path_index>
         ```
         
     OR
     
-    !!! example - "Example DataFormat Command (stream_format)"
+    !!! example - "Example DataFormat Command with `stream_format` query parameter"
         ```bash
         curl http://localhost:59882/api/{{api_version}}/device/name/<device name>/DataFormat?StreamFormat=<stream_format>
         ```
@@ -155,7 +155,7 @@ This command sets the frame rate for the capture device.
         } 
         ``` 
 
-1. The newly set framerate can be verified using GET request:
+1. The newly set framerate can be verified using a GET request:
 
     !!! example - "Example Get FrameRate command"
         ```bash
@@ -290,7 +290,7 @@ There are two types of options:
 - The options starting with `Input` prefix are used for the camera, such as specifying the image size and pixel format.  
 - The options starting with `Output` prefix are used for the output video, such as specifying aspect ratio and quality.  
 
-These options can be passed in through object value when calling `StartStreaming` command.
+These options can be passed in through object value when calling the `StartStreaming` command.
 
 Query parameter:  
 - `device name`: The name of the camera
@@ -310,7 +310,6 @@ Supported Input options:
 - `InputFps`: Ignore original timestamps and instead generate timestamps assuming constant frame rate fps. (default - same as source)  
 - `InputImageSize`: Specifies the image size of the camera. The format is `wxh`, for example "640x480". (default - automatically selected by FFmpeg)  
 - `InputPixelFormat`: Set the preferred pixel format (for raw video). (default - automatically selected by FFmpeg)
-- `PathIndex`: Set the index of the camera video streaming path from the path list. (default is 0)
 
 Supported Output options:
 
