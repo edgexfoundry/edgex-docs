@@ -87,6 +87,9 @@ All services have the ability to collect the following common service metrics
 
 ## URI for Files
 
+!!! edgey "EdgeX 3.1"
+    Support for loading files from the local file system or a remote location via URI is new in EdgeX 3.1.
+
 Different files like configurations, units of measurements, device profiles, device definitions, and provision watchers can be loaded either from the local file system or from a remote location.
 For the remote location, HTTP and HTTPS URIs are supported. When using HTTPS, certificate validation is performed using the system's built-in trust anchors.
 
