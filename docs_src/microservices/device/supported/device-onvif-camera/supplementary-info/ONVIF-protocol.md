@@ -4,8 +4,9 @@
 This Onvif Camera Device Service is developed to control/communicate ONVIF-compliant cameras accessible via http in an EdgeX deployment
 
 ## Table of Contents
-
-- [Onvif Features](#onvif-features)  
+- [OpenAPI Spec](#openapi-spec)  
+- [ONVIF Protocol Properties](#onvif-protocol-properties)  
+- [ONVIF Features](#onvif-features)  
 - [Custom Features](#custom-features)  
 - [How does the service work?](#how-does-the-device-service-work)  
 - [Tested Onvif Cameras](#tested-onvif-cameras)
@@ -18,17 +19,22 @@ The latest version {{version}} of the device service API specifications can be f
 
 | Property | Description | EdgeX Value Type |               
 | -- | -- | -- |  
-| **Address** | The IP address of the camera. | String |  
-| **Port** | The internet port of the camera. | String |  
-| **EndpointRefAddress** | A unique identifier | String |  
-| **DeviceStatus** | The authorization status of the camera.  | String |  
-| &nbsp; UpWithAuth | The device can operate with full authorization. |  |
-| &nbsp; UpWithoutAuth | The device only execute commands that do not require authorization. |  |
-| &nbsp; Discovered | The device has been discovered, but can not execute anny commands.|  |
-| &nbsp; Unreachable | The device can not be found on the network. |  |
-| **LastSeen** | The time that the device was last seen on the network. | String |  
-| **MACAddress** | The MAC address of the camera. | String |  
-| **FriendlyName** | The user defined name for the camera. | String |  
+| Address | The IP address of the camera. | String |  
+| Port | The internet port of the camera. | String |  
+| EndpointRefAddress | A GUID used to indentify the camera endpoint. | String |  
+| DeviceStatus | The discovery/authorization status of the camera.  | String |  
+| &nbsp;&nbsp;&nbsp;&nbsp; *UpWithAuth* | The device can operate with full authorization. |  |
+| &nbsp;&nbsp;&nbsp;&nbsp; *UpWithoutAuth* | The device only execute commands that do not require authorization. |  |
+| &nbsp;&nbsp;&nbsp;&nbsp; *Discovered* | The device has been discovered, but can not execute anny commands.|  |
+| &nbsp;&nbsp;&nbsp;&nbsp; *Unreachable* | The device can not be found on the network. |  |
+| LastSeen | The time that the device was last seen on the network. | String |  
+| MACAddress | The MAC address of the camera. | String |  
+| FriendlyName | The user defined name for the camera. | String |  
+| Manufacturer | The manufacturer of the camera. | String |
+| Model | The model desciption of the camera. | String | 
+| FirmwareVersion | The firmware version of the camera. Format will vary by manufacturer and model. | String |
+| SerialNumber | The serial number of the camera. | String |
+| HardwareId | The hardware ID of the camera. | String | 
 
 ## ONVIF Features
 The device service supports the onvif features listed in the following table:

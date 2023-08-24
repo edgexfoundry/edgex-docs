@@ -3,6 +3,6 @@
 ## USB Protocol Properties
 | Property | Description | EdgeX Value Type |               
 | -- | -- | -- |  
-| **Paths** | A list of internal /dev/video paths for the camera device.  | Object |  
-| **SerialNumber** | The internet port of the camera. | String |  
-| **CardName** | A unique identifier | String |
+| **Paths** | A list of internal [/dev/video paths](https://www.kernel.org/doc/html/v4.9/media/uapi/v4l/dev-capture.html) for the camera device. This list includes all streaming capable video paths for each device. | Object |  
+| **SerialNumber** | The serial number of the camera device. | String |  
+| **CardName** | The manufacturer name of the camera device. | String |
