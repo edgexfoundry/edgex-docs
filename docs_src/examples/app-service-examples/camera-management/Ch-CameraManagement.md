@@ -96,14 +96,14 @@ sudo apt install build-essential
     !!! note
         This step is only required if you plan on using USB cameras.
 
-    a. Add enable rtsp server and the rtsp server hostname environment variables to the `device-usb-camera` service, where `your-local-ip-address` is the ip address of the machine running the `device-usb-camera` service.
+    a. Add these environment variables to enable rtsp server and the rtsp server hostname for the `device-usb-camera` service, where `your-local-ip-address` is the ip address of the machine running the `device-usb-camera` service.
 
     !!! example - "Snippet from `add-device-usb-camera.yml`"
         ```yml
         services:
           device-usb-camera:
             environment:
-              DRIVER_ENABLERTSPSERVER: "true"
+              DRIVER_DISABLERTSPSERVER: "false"
               DRIVER_RTSPSERVERHOSTNAME: "your-local-ip-address"
         ```
 
