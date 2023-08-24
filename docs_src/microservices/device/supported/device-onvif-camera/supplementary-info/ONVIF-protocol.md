@@ -25,7 +25,7 @@ The latest version {{version}} of the device service API specifications can be f
 | DeviceStatus | The discovery/authorization status of the camera.  | String |  
 | &nbsp;&nbsp;&nbsp;&nbsp; *UpWithAuth* | The device can operate with full authorization. |  |
 | &nbsp;&nbsp;&nbsp;&nbsp; *UpWithoutAuth* | The device only execute commands that do not require authorization. |  |
-| &nbsp;&nbsp;&nbsp;&nbsp; *Discovered* | The device has been discovered, but can not execute anny commands.|  |
+| &nbsp;&nbsp;&nbsp;&nbsp; *Reachable* | The device has been discovered, but can not execute anny commands.|  |
 | &nbsp;&nbsp;&nbsp;&nbsp; *Unreachable* | The device can not be found on the network. |  |
 | LastSeen | The time that the device was last seen on the network. | String |  
 | MACAddress | The MAC address of the camera. | String |  
