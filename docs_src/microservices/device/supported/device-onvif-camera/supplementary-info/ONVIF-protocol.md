@@ -19,14 +19,14 @@ The latest version {{version}} of the device service API specifications can be f
 ## ONVIF Device Service Protocol Properties
 ### ONVIF Protocol
 
-All properties in the `ONVIF` protocol field are defined by internal device information and some user defined information.
+All properties in the `Onvif` protocol field are defined by internal device information and some user defined information.
 
 | Property | Description | EdgeX Value Type |               
 | -- | -- | -- |  
 | Address | The IP address of the camera. | String |  
 | Port | The internet port of the camera. | String |  
 | EndpointRefAddress | A GUID used to indentify the camera endpoint. | String |  
-| DeviceStatus | The discovery/authorization status of the camera.  | String |  
+| DeviceStatus | The discovery and authorization status of the camera.  | String |  
 | &nbsp;&nbsp;&nbsp;&nbsp; *UpWithAuth* | The device can execute commands requiring credentials. |  |
 | &nbsp;&nbsp;&nbsp;&nbsp; *UpWithoutAuth* | The device can only execute commands that do not require credentials. Usually this means the camera's credentials have not been registered with the service yet, or have been changed. |  |
 | &nbsp;&nbsp;&nbsp;&nbsp; *Reachable* | The device can be discovered but no commands can be received. |  |
