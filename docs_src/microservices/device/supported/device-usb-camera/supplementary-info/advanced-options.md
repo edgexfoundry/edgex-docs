@@ -199,7 +199,7 @@ This command sets the frame rate for the capture device.
 ### Set Pixel Format
 This command sets the desired pixel format for the capture device.
 
-1. Before setting the pixel format `ImageFormats` command can be executed to see the available pixel formats for a camera for any of its video streaming path
+1. Before setting the pixel format the `ImageFormats` command can be executed to see the available pixel formats for a camera for any of its video streaming path
    or stream format (RGB, Greyscale or Depth)
 
     !!! example - "Example Get ImageFormats Command"
@@ -213,7 +213,7 @@ This command sets the desired pixel format for the capture device.
     !!! Note
         `PixelFormat` has to be specified in the set request with a specific code which is acceptable by the v4l2 driver.
          This service currently supports the formats whose codes are `YUYV`,`GREY`,`MJPG`,`Z16`,`RGB`,`JPEG`,`MPEG`,`H264`,`MPEG4`,`UYVY`,`BYR2`,`Y8I`,`Y12I`.
-         Refer [V4l2 Image Formats](https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/pixfmt.html) for more info. The service only supports setting of height, width or
+         Refer to [V4l2 Image Formats](https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/pixfmt.html) for more info. The service only supports setting of height, width or
          pixel format.
 
     !!! example - "Example Set PixelFormat Command"
