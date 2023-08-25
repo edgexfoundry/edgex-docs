@@ -15,7 +15,11 @@ This Onvif Camera Device Service is developed to control/communicate ONVIF-compl
 The latest version {{version}} of the device service API specifications can be found
 [here](../swagger.md).
 
-## ONVIF Protocol Properties
+
+## ONVIF Device Service Protocol Properties
+### ONVIF Protocol
+
+All properties in the `ONVIF` protocol field are defined by internal device information and some user defined information.
 
 | Property | Description | EdgeX Value Type |               
 | -- | -- | -- |  
@@ -24,7 +28,7 @@ The latest version {{version}} of the device service API specifications can be f
 | EndpointRefAddress | A GUID used to indentify the camera endpoint. | String |  
 | DeviceStatus | The discovery/authorization status of the camera.  | String |  
 | &nbsp;&nbsp;&nbsp;&nbsp; *UpWithAuth* | The device can execute commands requiring credentials. |  |
-| &nbsp;&nbsp;&nbsp;&nbsp; *UpWithoutAuth* | The devie can only execute commands that do not require credentials. Usually this means the camera's credentials have not been registered with the service yet, or have been changed. |  |
+| &nbsp;&nbsp;&nbsp;&nbsp; *UpWithoutAuth* | The device can only execute commands that do not require credentials. Usually this means the camera's credentials have not been registered with the service yet, or have been changed. |  |
 | &nbsp;&nbsp;&nbsp;&nbsp; *Reachable* | The device can be discovered but no commands can be received. |  |
 | &nbsp;&nbsp;&nbsp;&nbsp; *Unreachable* | The device cannot be seen by service at all. Typically, this means that there is a connection issue either physically or with the network. |  |
 | LastSeen | The time that the device was last seen on the network. | String |  
@@ -35,6 +39,15 @@ The latest version {{version}} of the device service API specifications can be f
 | FirmwareVersion | The firmware version of the camera. Format will vary by manufacturer and model. | String |
 | SerialNumber | The serial number of the camera. | String |
 | HardwareId | The hardware ID of the camera. | String | 
+
+### Custom Metadata Protocol
+
+All properties in the `CustomMetadata` protocol field are user defined. It can hold multiple different entries. For more information, see [here](../supplementary-info/custom-metadata-feature.md)
+
+| Property | Description | EdgeX Value Type |               
+| -- | -- | -- |  
+| *UserDefined* | User defined. | String | 
+
 
 ## ONVIF Features
 The device service supports the onvif features listed in the following table:
