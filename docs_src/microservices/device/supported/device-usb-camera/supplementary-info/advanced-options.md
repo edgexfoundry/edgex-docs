@@ -235,7 +235,7 @@ This command sets the desired pixel format for the capture device.
         }
         ```
 
-1. The newly set pixel format can be verified using GET request:
+1. The newly set pixel format can be verified using a GET request:
 
     !!! example - "Example Get PixelFormat command"
         ```bash
