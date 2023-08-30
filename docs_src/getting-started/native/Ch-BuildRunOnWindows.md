@@ -125,7 +125,7 @@ Enter the `device-virtual-go` folder and issue the `make build` command as shown
 
 ### Build the Configurable Application Service
 
-The [configurable application service](../../microservices/application/AppServiceConfigurable.md) helps prepare device/sensor data for enterprise or cloud systems.  It also prepares data for use by the rules engine - [eKuiper](../../microservices/support/eKuiper/Ch-eKuiper.md)
+The [configurable application service](../../microservices/application/available/AppServiceConfigurable.md) helps prepare device/sensor data for enterprise or cloud systems.  It also prepares data for use by the rules engine - [eKuiper](../../microservices/support/eKuiper/Ch-eKuiper.md)
 
 Enter the `app-service-configurable` folder and issue the `make build` command as shown below.
 

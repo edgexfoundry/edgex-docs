@@ -1,6 +1,6 @@
 # App Service Configurable
 
-## Getting Started 
+## Introduction 
 
 App-Service-Configurable is provided as an easy way to get started with processing data flowing through EdgeX. This service leverages the [App Functions SDK](https://github.com/edgexfoundry/app-functions-sdk-go) and provides a way for developers to use configuration instead of having to compile standalone services to utilize built in functions in the SDK. Please refer to [Available Configurable Pipeline Functions](#available-configurable-pipeline-functions)  section below for full list of built-in functions that can be used in the configurable pipeline. 
 
@@ -36,7 +36,7 @@ The first line of note is `ExecutionOrder: "FilterByDeviceName, Transform, HTTPE
 Next, each function and its required information is listed. Each function typically has associated Parameters that must be configured to properly execute the function as designated by `Parameters:` under `{FunctionName}`. Knowing which parameters are required for each function, can be referenced by taking a look at  the [Available Configurable Pipeline Functions](#available-configurable-pipeline-functions) section below.
 
 !!! note
-    By default, the configuration provided is set to use `EdgexMessageBus` as a trigger. This means you must have EdgeX Running with devices sending data in order to trigger the pipeline. You can also change the trigger to be HTTP. For more details on triggers, view the `Triggers`documentation located in the [Triggers](./Triggers.md) section.
+    By default, the configuration provided is set to use `EdgexMessageBus` as a trigger. This means you must have EdgeX Running with devices sending data in order to trigger the pipeline. You can also change the trigger to be HTTP. For more details on triggers, view the `Triggers`documentation located in the [Triggers](../Triggers.md) section.
 
 That's it! Now we can run/deploy this service and the functions pipeline will process the data with functions we've defined.
 
@@ -145,7 +145,7 @@ EdgeX services no longer have docker specific profiles. They now rely on environ
 App Service Configurable was designed to be deployed as multiple instances for different purposes. Since the function pipeline is specified in the `configuration.yaml` file, we can use this as a way to run each instance with a different function pipeline. App Service Configurable does not have the standard default configuration at `/res/configuration.yaml`. This default configuration has been moved to the `sample` profile. This forces you to specify the profile for the configuration you would like to run. The profile is specified using the `-p/--profile=[profilename]` command line option or the `EDGEX_PROFILE=[profilename]` environment variable override. The profile name selected is used in the service key (`app-[profile name]`) to make each instance unique, e.g. `AppService-sample` when specifying `sample` as the profile.
 
 !!! note
-    If you need to run multiple instances with the same profile, e.g. `http-export`, but configured differently, you will need to override the service key with a custom name for one or more of the services. This is done with the `-sk/-serviceKey` command-line option or the `EDGEX_SERVICE_KEY` environment variable. See the [Command-line Options](./ApplicationFunctionsSDK.md#command-line-options) and [Environment Overrides](./ApplicationFunctionsSDK.md#environment-variable-overrides) sections for more detail.
+    If you need to run multiple instances with the same profile, e.g. `http-export`, but configured differently, you will need to override the service key with a custom name for one or more of the services. This is done with the `-sk/-serviceKey` command-line option or the `EDGEX_SERVICE_KEY` environment variable. See the [Command-line Options](../ApplicationFunctionsSDK.md#command-line-options) and [Environment Overrides](../ApplicationFunctionsSDK.md#environment-variable-overrides) sections for more detail.
 
 !!! note
     Functions can be declared in a profile but not used in the pipeline `ExecutionOrder`  allowing them to be added to the pipeline `ExecutionOrder` later at runtime if needed.
