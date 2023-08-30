@@ -50,5 +50,14 @@ EdgeX Foundry is a vendor-neutral open source project hosted by The Linux Founda
         </a>
     </div>
   </div>
+  <div class="home-nav-column">
+    <div class="home-nav-card">
+        <a href="./getting-started/Ch-GettingStartedHybrid/">
+        <b>Running in Hybrid Mode</b>
+        <p>How to run a service you are working on natively and then run the rest of EdgeX with Docker containers</p>
+        <img class="home-nav-icons" src="hybrid.png"/>
+        </a>
+    </div>
+  </div>
 </div>
 <p class="divider"></p>
