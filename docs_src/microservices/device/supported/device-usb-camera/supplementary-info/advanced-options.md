@@ -45,23 +45,23 @@ This command sets the frame rate for the capture device.
 1. Before setting the frame rate first execute the `DataFormat` command to see the available frame rates of a device for any of its video streaming path
    or stream format:
 
-    !!! example - "Example DataFormat Command with `path_index` query parameter"
+    !!! example - "Example DataFormat Command with `PathIndex` query parameter"
         ```bash
         curl http://localhost:59882/api/{{api_version}}/device/name/<device name>/DataFormat?PathIndex=<path_index>
         ```
         
     OR
     
-    !!! example - "Example DataFormat Command with `stream_format` query parameter"
+    !!! example - "Example DataFormat Command with `StreamFormat` query parameter"
         ```bash
         curl http://localhost:59882/api/{{api_version}}/device/name/<device name>/DataFormat?StreamFormat=<stream_format>
         ```
    
     !!! Note
-        The `path_index` refers to the index of the device video streaming path from the path list. For example if a usb device has one
-        video streaming path such as /dev/video0 the `path_index` value will be 0. In case of Intel&#8482; RealSense&#174; cameras there are three video 
-        streaming paths, hence the user will have 3 options for `path_index` which are 0, 1 and 2. The default value is 0 if no `path_index`
-        input is provided. `stream_format` refers to different video streaming formats and the formats currently supported by the service
+        The `PathIndex` refers to the index of the device video streaming path from the path list. For example if a usb device has one
+        video streaming path such as /dev/video0 the `PathIndex` value will be 0. In case of Intel&#8482; RealSense&#174; cameras there are three video 
+        streaming paths, hence the user will have 3 options for `PathIndex` which are 0, 1 and 2. The default value is 0 if no `PathIndex`
+        input is provided. `StreamFormat` refers to different video streaming formats and the formats currently supported by the service
         are `RGB`, `Depth` or `Greyscale`.
     
     !!! example - "Example DataFormat Response"
@@ -134,8 +134,8 @@ This command sets the frame rate for the capture device.
         }
         ```
 
-1. Use one of the supported `FrameRates` value from the previous command output to set the frame rate based on `path_index`
-    or `stream_format`.
+1. Use one of the supported `FrameRates` value from the previous command output to set the frame rate based on `PathIndex`
+    or `StreamFormat`.
 
     !!! example - "Example Set FrameRate Command"
         ```bash
@@ -207,8 +207,8 @@ This command sets the desired pixel format for the capture device.
         curl -X GET http://localhost:59882/api/{{api_version}}/device/name/<device name>/ImageFormats?PathIndex=<path_index>
         ```
 
-1. Use one of the supported `PixelFormat` values to set the pixel format based on `path_index`
-   or `stream_format`.
+1. Use one of the supported `PixelFormat` values to set the pixel format based on `PathIndex`
+   or `StreamFormat`.
 
     !!! Note
         `PixelFormat` has to be specified in the set request with a specific code which is acceptable by the v4l2 driver.
