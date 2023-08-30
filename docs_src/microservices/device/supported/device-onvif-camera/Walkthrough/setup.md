@@ -100,21 +100,45 @@ The table below lists command line tools this guide uses to help with EdgeX conf
 >Table 1: Command Line Tools
 
 ## Download EdgeX Compose
-1. Clone the EdgeX compose repository:
-   ```bash
-   git clone https://github.com/edgexfoundry/edgex-compose.git
-   ```
+Clone the EdgeX compose repository:
+```bash
+git clone https://github.com/edgexfoundry/edgex-compose.git
+```
 
-2. Navigate to the `edgex-compose` directory:
-   ```bash
-   cd edgex-compose
-   ```
+## Proxy Setup (Optional)
 
-3. Navigate back to your home directory:
-      ```bash
-      cd ~
-      ```
+!!! Note
+    These steps are only required if a proxy is present in the user environment.
 
+
+Setup Docker Daemon or Docker Desktop to use proxied environment.
+
+- Follow guide [here](https://docs.docker.com/config/daemon/systemd/#httphttps-proxy) for Docker Daemon proxy setup (Linux)
+
+- Follow guide [here](https://docs.docker.com/desktop/settings/windows/#proxies) for Docker Desktop proxy setup (Windows)
+
+!!! example - "Configuration file to set Docker Daemon proxy via daemon.json"
+    ```
+        {
+            "proxies": {
+                "http-proxy": "http://proxy.example.com:3128",
+                "https-proxy": "https://proxy.example.com:3129",
+                "no-proxy": "*.test.example.com,.example.org,127.0.0.0/8"
+            }
+        }
+    ```
+
+!!! Note - "Note if building custom images"
+    If building your own custom images, set environment variables for HTTP_PROXY, HTTPS_PROXY and NO_PROXY
+    !!! example
+        ```
+        export HTTP_PROXY=http://proxy.example.com:3128
+        export HTTPS_PROXY=https://proxy.example.com:3129
+        export NO_PROXY=*.test.example.com,localhost,127.0.0.0/8
+        ```
+
+!!! Note
+      Automated discovery of ONVIF device requires updating proper discovery subnets and proper network interface in ONVIF configuration.yaml or setting up EdgeX environment variables
 
 ## Next Steps
 

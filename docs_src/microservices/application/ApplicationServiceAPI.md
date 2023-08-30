@@ -41,10 +41,13 @@ type ApplicationService interface {
 	AddBackgroundPublisherWithTopic(capacity int, topic string) (BackgroundPublisher, error)
 	BuildContext(correlationId string, contentType string) AppFunctionContext
     AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
+    AddCustomRoute(route string, authenticated Authenticated, handler func(http.ResponseWriter, *http.Request), methods ...string) error
   	AppContext() context.Context
     RequestTimeout() time.Duration
 	RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error
     RegisterCustomStoreFactory(name string, factory func(cfg DatabaseInfo, cred config.Credentials) (StoreClient, error)) error
+    Publish(data any) error
+    PublishWithTopic(topic string, data any) error
 }
 ```
 
@@ -483,13 +486,13 @@ This API returns the Device Client. Note if Core Metadata is not specified in th
 
 The following `ApplicationService` APIs allow Application Services to have background publishers. See the [Background Publishing](../AdvancedTopics/#background-publishing) advanced topic for more details and example.
 
-### AddBackgroundPublisher
+### AddBackgroundPublisher *DEPRECATED*
 
 `AddBackgroundPublisher(capacity int) (BackgroundPublisher, error)`
 
 This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus. 
 
-### AddBackgroundPublisherWithTopic
+### AddBackgroundPublisherWithTopic *DEPRECATED*
 
 `AddBackgroundPublisherWithTopic(capacity int, topic string) (BackgroundPublisher, error)`
 
@@ -503,11 +506,17 @@ This API allows external callers that may need a context (eg background publishe
 
 ## Other APIs
 
-### AddRoute
+### AddRoute (Deprecated)
 
 `AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error`
 
-This API adds a custom REST route to the application service's internal webserver.  A reference to the ApplicationService is add the the context that is passed to the handler, which can be retrieved using the `AppService` key. See [Custom REST Endpoints](../AdvancedTopics/#custom-rest-endpoints) advanced topic for more details and example.
+This API is deprecated in favor of `AddCustomRoute()` which has an explicit parameter to indicate whether the route should require authentication.
+
+### AddCustomRoute
+
+`AddCustomRoute(route string, authenticated interface.Authenticated, handler func(http.ResponseWriter, *http.Request), methods ...string) error`
+
+This API adds a custom REST route to the application service's internal webserver.  If the route is marked authenticated, it will require an EdgeX JWT when security is enabled.  A reference to the ApplicationService is add the the context that is passed to the handler, which can be retrieved using the `AppService` key. See [Custom REST Endpoints](../AdvancedTopics/#custom-rest-endpoints) advanced topic for more details and example.
 
         	// 
     AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
@@ -561,3 +570,15 @@ myCounter := gometrics.NewCounter()
 myTags := map[string]string{"Tag1":"Value1"}
 app.service.MetricsManager().Register(myCounterMetricName, myCounter, myTags)	
 ```
+
+### Publish
+
+`Publish(data any) error`
+
+This API pushes data to the EdgeX MessageBus using configured topic and returns an error if the EdgeX MessageBus is disabled in configuration
+
+### PublishWithTopic
+
+`PublishWithTopic(topic string, data any) error`
+
+This API pushes data to the EdgeX MessageBus using a given topic and returns an error if the EdgeX MessageBus is disabled in configuration

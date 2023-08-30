@@ -35,6 +35,7 @@ type DeviceServiceSDK interface {
     DeviceDiscoveryEnabled() bool
     DriverConfigs() map[string]string
     AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
+    AddCustomRoute(route string, authenticated Authenticated, handler func(echo.Context) error, methods ...string) error
     LoadCustomConfig(customConfig UpdatableConfig, sectionName string) error
     ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error
     LoggingClient() logger.LoggingClient
@@ -249,11 +250,20 @@ This API returns a bool value to indicate whether the asynchronous reading is en
 
 This API returns a bool value to indicate whether the device discovery is enabled via configuration.
 
-#### AddRoute
+#### AddRoute (Deprecated)
 
 `AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error`
 
-This API allows leveraging the existing internal web server to add routes specific to the Device Service. Returns error is route could not be added.
+This API is deprecated in favor of `AddCustomRoute()` which has an explicit parameter to indicate whether the route should require authentication.
+
+#### AddCustomRoute
+
+`AddCustomRoute(route string, authenticated interfaces.Authenticated, handler func(echo.Context) error, methods ...string) error`
+
+This API allows leveraging the existing internal web server to add routes specific to the Device Service.  If the route is marked authenticated, it will require an EdgeX JWT when security is enabled.  Returns error is route could not be added.
+
+!!! Note
+    The `handler` function uses the signature of `echo.HandlerFunc` which is `func(echo.Context) error`. See [echo API HandlerFunc section](https://pkg.go.dev/github.com/labstack/echo#HandlerFunc) for more details. 
 
 #### LoggingClient
 

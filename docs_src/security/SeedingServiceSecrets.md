@@ -78,10 +78,10 @@ During service start-up, after `SecretStore` initialization, the service's secre
     }
     ```
 
-The secrets marked with `imported=true` are ignored the next time the service starts up since they are already in the the service's `SecretStore`.  If the Secret Store service's persistence is cleared, the original version of service's secrets file will need to be provided for the next time the service starts up.
+The secrets marked with `imported=true` are ignored the next time the service starts up since they are already in the service's `SecretStore`.  If the Secret Store service's persistence is cleared, the original version of service's secrets file will need to be provided for the next time the service starts up.
 
 !!! note
-    The secrets file must be have write permissions for the file to be scrubbed of the secret data. If not the service with fail to start-up with an error re-writing the file.
+    The secrets file must have write permissions for the file to be scrubbed of the secret data. If not the service will fail to start-up with an error re-writing the file.
 
 ## Disable Scrubbing 
 

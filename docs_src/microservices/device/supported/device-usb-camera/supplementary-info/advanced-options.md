@@ -38,6 +38,114 @@ To configure the username and password for rtsp authentication when building you
     RUN sed -i 's,externalAuthenticationURL:,externalAuthenticationURL: http://localhost:8000/rtspauth,g' rtsp-simple-server.yml
     ```
 
+## Set Device Configuration Parameters
+### Set frame rate
+This option sets the frame rate for the capture device.
+
+1. Before setting the frame rate first execute the `DataFormat` api to see the available frame rates of a device for any of its video streaming path:
+
+    !!! example - "Example DataFormat Command"
+        ```bash
+        curl http://localhost:59882/api/v3/device/name/<device name>/DataFormat?PathIndex=<path_index>
+        ```
+   
+    !!! Note
+        The `path_index` refers to the index of the device video streaming path from the path list. For example if a usb device has one
+        video streaming path such as /dev/video0 the `path_index` value will be 0. In case of Intel&#8482; RealSense&#174; cameras there are three video 
+        streaming paths, hence the user will have 3 options for `path_index` which are 0, 1 and 2. The default value is 0 if no `path_index`
+        input is provided.
+    
+    !!! example - "Example DataFormat Response"
+        ```json
+        {
+            "apiVersion": "v3",
+            "statusCode": 200,
+            "event": {
+                "apiVersion": "v3",
+                "id": "bf48b7c6-5e94-4831-a7ba-cea4e9773ae1",
+                "deviceName": "C270_HD_WEBCAM-8184F580",
+                "profileName": "USB-Camera-General",
+                "sourceName": "DataFormat",
+                "origin": 1689621129335558590,
+                "readings": [
+                    {
+                        "id": "7f4918ca-31c9-4bcf-9490-a328eb62beab",
+                        "origin": 1689621129335558590,
+                        "deviceName": "C270_HD_WEBCAM-8184F580",
+                        "resourceName": "DataFormat",
+                        "profileName": "USB-Camera-General",
+                        "valueType": "Object",
+                        "value": "",
+                        "objectValue": {
+                            "BytesPerLine": 1280,
+                            "Colorspace": "sRGB",
+                            "Field": "none",
+                            "FrameRates": [
+                                {
+                                    "Denominator": 1,
+                                    "Numerator": 30
+                                },
+                                {
+                                    "Denominator": 1,
+                                    "Numerator": 24
+                                },
+                                {
+                                    "Denominator": 1,
+                                    "Numerator": 20
+                                },
+                                {
+                                    "Denominator": 1,
+                                    "Numerator": 15
+                                },
+                                {
+                                    "Denominator": 1,
+                                    "Numerator": 10
+                                },
+                                {
+                                    "Denominator": 2,
+                                    "Numerator": 15
+                                },
+                                {
+                                    "Denominator": 1,
+                                    "Numerator": 5
+                                }
+                            ],
+                            "Height": 480,
+                            "PixelFormat": "YUYV 4:2:2",
+                            "Quantization": "Limited range",
+                            "SizeImage": 614400,
+                            "Width": 640,
+                            "XferFunc": "Rec. 709",
+                            "YcbcrEnc": "ITU-R 601"
+                        }
+                    }
+                ]
+            }
+        }
+        ```
+
+1. Use one of the supported `FrameRates` values from the previous command to set frame rate.
+
+    !!! example - "Example Set FrameRate Command"
+        ```bash
+        curl -X PUT -d '{
+                "FrameRate": {
+                "FrameRateValueDenominator": "1"
+                "FrameRateValueNumerator": "10",
+                }
+            }' http://localhost:59882/api/{{api_version}}/device/name/<device name>/FrameRate?PathIndex=<path_index>
+        ``` 
+
+    !!! example - "Example Set FrameRate Response"
+        ```bash
+        {
+          "apiVersion": "v3",
+          "statusCode": 200
+        } 
+        ``` 
+
+    !!! warning
+         3rd party applications such vlc or ffplay may overwrite your chosen frame rate value, so make sure to keep that in mind when using other applications.
 
 ## Video options
 There are two types of options:
@@ -110,11 +218,12 @@ It's recommended to trigger a check after re-plugging cameras.
 
 ## Configurable RTSP server hostname and port
 
-The hostname and port of the RTSP server to which the device service publishes video streams can be configured in the [Driver] section of the service configuration located in the `cmd/res/configuration.yaml` file.
+Enable/Disable RTSP server and set hostname and port of the RTSP server to which the device service publishes video streams can be configured in the [Driver] section of the service configuration located in the `cmd/res/configuration.yaml` file. RTSP server is enabled by default.
 
 !!! example - "Snippet from configuration.yaml"
     ```yaml
     Driver:
+        EnableRtspServer: "true"
         RtspServerHostName: "localhost"
         RtspTcpPort: "8554"
         RtspAuthenticationServer: "localhost:8000"

@@ -256,7 +256,7 @@ type HTTPSenderOptions struct {
     **POST with secure header**
     NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt","AuthToken").HTTPPost 
     
-    ** PUT with secure header**
+    **PUT with secure header**
     NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,"Authentication","/jwt","AuthToken").HTTPPPut 
 
 #### HTTP PUT
@@ -272,6 +272,17 @@ The `URLFormatter` option allows you to override the default formatter with your
 !!! example
     Export the Events to  different endpoints base on their device name              
     `Url="http://myhost.com/edgex-events/{devicename}"` 
+
+#### HTTP Request Header Parameters
+
+| Method                                                                                                                           | Description                                                                                                                                                                                                                                                                                          |
+|------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| SetHttpRequestHeaders(httpRequestHeaders map[string]string) | This function sets the request header parameters which will be passed in HTTP request |      
+
+
+!!! example
+    httpRequestHeaders = map[string]string{ "Connection": "keep-alive", "From": "[user@example.com](mailto:user@example.com)" }
+    `SetHttpRequestHeaders(httpRequestHeaders)`         
 
 ### MQTT Export
 

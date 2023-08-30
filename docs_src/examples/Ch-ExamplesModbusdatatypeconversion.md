@@ -72,14 +72,14 @@ You generally need to transform data when scaling readings between a
 
 The following limitations apply:
 
--  `rawType` supports only Int16 and Uint16 data types
+-  `rawType` supports only Int16, Uint16 and Int32 data types
 -  The corresponding `valueType` must be Float32 or Float64
 
 If an unsupported data type is defined for the `rawType` attribute, the
 device service throws an exception similar to the following:
 
 ```
-Read command failed. Cmd:temperature err:the raw type Int32 is not supported
+Read command failed. Cmd:temperature err:the raw type Int64 is not supported
 ```
 
 ## Supported Transformations
@@ -90,5 +90,6 @@ The supported transformations are as follows:
   |---------------------------- |------------------------------------------|
   |Int16                        |Float32|
   |Int16                        |Float64|
+  |Int32                        |Float64|
   |Uint16                       |Float32|
   |Uint16                       |Float64|

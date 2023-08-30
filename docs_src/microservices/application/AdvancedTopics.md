@@ -16,7 +16,7 @@ It is not uncommon to require your own custom REST endpoints when building an Ap
 - /api/{{api_version}}/trigger
 - /api/{{api_version}}/secret
 
-To add your own route, use the `AddRoute()` API provided on the `ApplicationService` interface. 
+To add your own route, use the `AddCustomRoute()` API provided on the `ApplicationService` interface. 
 
 !!! example  "Example - Add Custom REST route"
 
@@ -30,7 +30,7 @@ To add your own route, use the `AddRoute()` API provided on the `ApplicationServ
     }    
     
     service := pkg.NewAppService(serviceKey)    
-    service.AddRoute("/myroute", myHandler, "GET")    
+    service.AddCustomRoute("/myroute", service.Authenticated, myHandler, "GET")    
     ```    
 
 Under the hood, this simply adds the provided route, handler, and method to the gorilla `mux.Router` used in the SDK. For more information on `gorilla mux` you can check out the github repo [here](https://github.com/gorilla/mux). 

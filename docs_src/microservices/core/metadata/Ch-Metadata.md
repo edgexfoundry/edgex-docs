@@ -276,9 +276,25 @@ Not all device services support dynamic discovery.  If it does support dynamic d
     ||The atomic description of a particular protocol level interface for a class of Devices; represents a value on a device that can be read or written|
     |Description||
     |Name||
-    |Tag||
+    |Tags|Tags for adding additional information on reading level|
     |Properties|List of associated properties|
     |Attributes|List of associated attributes|
+=== "DeviceCommand"
+    |Property|Description|
+    |---|---|
+    || Defines read/write capabilities native to the device|
+    |Description||
+    |Name||
+    |isHidden|Indicate the visibility of the DeviceCommand via a CoreCommand.|
+    |Tags|Tags for adding additional information on event level|
+    |readWrite|Read/Write Permissions set for this DeviceCommand. The value can be R, W, or RW. R enables GET command, and W enables SET command.|
+    |resourceOperations|List of associated resources and attributes. Should contain more than one, otherwise it is redundant to the single Resource.|
+=== "ResourceOperation"
+    |Property|Description|
+    |---|---|
+    |DeviceResource|Name of a DeviceResource in this profile to be include in a Device Command|
+    |DefaultValue|Default value set to DeviceResource and it should be compatible with the Type field of the named DeviceResource|
+    |Mappings|Map the GET resourceOperation value to another string value and only valid where the Type of the named DeviceResource is String|
 === "DeviceService"
     |Property|Description|
     |---|---|
@@ -440,18 +456,10 @@ The System Event DTO for Device System Events is published to the topic specifie
 ## Units of Measure
 
 Core metadata will read unit of measure configuration (see configuration example below) located in `UoM.UoMFile` during startup.
+The specified configuration may be a local configuration file or the URI of the configuration. See the [URI for Files](../../general/index.md#uri-for-files) section for more details.
 
-When validation is turned on (`Writable.UoM.Validation` is set to `true`),
-all device profile `units` (in device resource, device properties) will be validated against the list of units of measure by core metadata.
-
-In other words, when a device profile is created or updated via the core metadata API, the units specified in the device resource's `units` field
-will be checked against the valid list of UoM provided via core metadata configuration.
-
-If the `units` value matches any one of the configuration units of measure, then the device resource is considered valid - allowing the create or update operation to continue.
-If the `units` value does not match any one of the configuration units of measure, then the device profile or device resource operation (create or update) is rejected (error code 500 is returned) and an appropriate error message is returned in the response to the caller of the core metadata API.
-
-!!! Note
-    The `units` field on a profile is and shall remain optional.  If the `units` field is not specified in the device profile, then it is assumed that the device resource does not have well-defined units of measure.  In other words, core metadata will not fail a profile with no `units` field specified on a device resource.
+!!! edgey "EdgeX 3.1"
+    Support for loading the `UoM.UoMFile` configuration via URI is new in EdgeX 3.1. 
 
 !!! example - "Sample unit of measure configuration"
     ```yaml
@@ -471,6 +479,19 @@ If the `units` value does not match any one of the configuration units of measur
           - kilos
           - grams
     ```
+
+When validation is turned on (`Writable.UoM.Validation` is set to `true`),
+all device profile `units` (in device resource, device properties) will be validated against the list of units of measure by core metadata.
+
+In other words, when a device profile is created or updated via the core metadata API, the units specified in the device resource's `units` field
+will be checked against the valid list of UoM provided via core metadata configuration.
+
+If the `units` value matches any one of the configuration units of measure, then the device resource is considered valid - allowing the create or update operation to continue.
+If the `units` value does not match any one of the configuration units of measure, then the device profile or device resource operation (create or update) is rejected (error code 500 is returned) and an appropriate error message is returned in the response to the caller of the core metadata API.
+
+!!! Note
+    The `units` field on a profile is and shall remain optional.  If the `units` field is not specified in the device profile, then it is assumed that the device resource does not have well-defined units of measure.  In other words, core metadata will not fail a profile with no `units` field specified on a device resource.
+
 
 ## API Reference
 
