@@ -26,7 +26,7 @@ The tabs below provide additional entries in the **Writable** section which are 
 
 === "Writable.Pipeline"
 
-    The section configures the Configurable Function Pipeline which is used only by App Service Configurable. Please refer to [App Service Configurable - Getting Started](../AppServiceConfigurable/#getting-started) section for more details
+    The section configures the Configurable Function Pipeline which is used only by App Service Configurable. Please refer to [App Service Configurable](../AppServiceConfigurable/#introduction) section for more details
 
 === "Writable.InsecureSecrets"
 
