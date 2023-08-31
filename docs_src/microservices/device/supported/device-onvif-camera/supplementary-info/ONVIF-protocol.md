@@ -4,19 +4,52 @@
 This Onvif Camera Device Service is developed to control/communicate ONVIF-compliant cameras accessible via http in an EdgeX deployment
 
 ## Table of Contents
-
-- [Onvif Features](#onvif-features)  
+- [API Specifications](#device-onvif-api-specifications)  
+- [ONVIF Protocol Properties](#onvif-protocol)  
+- [ONVIF Features](#onvif-features)  
 - [Custom Features](#custom-features)  
 - [How does the service work?](#how-does-the-device-service-work)  
 - [Tested Onvif Cameras](#tested-onvif-cameras)
 
-## OpenAPI Spec
+## Device ONVIF API Specifications
 The latest version {{version}} of the device service API specifications can be found
 [here](../swagger.md).
 
 
+## ONVIF Device Service Protocol Properties
+### ONVIF Protocol
 
-## Onvif Features
+All properties in the `Onvif` protocol field are defined by internal device information and some user defined information.
+
+| Property | Description                                                                                                                                                                            | EdgeX Value Type |               
+| -- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| -- |  
+| Address | The IP address of the camera.                                                                                                                                                          | String |  
+| Port | The internet port of the camera.                                                                                                                                                       | String |  
+| EndpointRefAddress | A GUID used to indentify the camera endpoint.                                                                                                                                          | String |  
+| DeviceStatus | The discovery and authentication status of the camera.                                                                                                                                 | String |  
+| &nbsp;&nbsp;&nbsp;&nbsp; *UpWithAuth* | The device can execute commands requiring credentials.                                                                                                                                 |  |
+| &nbsp;&nbsp;&nbsp;&nbsp; *UpWithoutAuth* | The device can only execute commands that do not require credentials. Usually this means the camera's credentials have not been registered with the service yet, or have been changed. |  |
+| &nbsp;&nbsp;&nbsp;&nbsp; *Reachable* | The device can be discovered but no commands can be received.                                                                                                                          |  |
+| &nbsp;&nbsp;&nbsp;&nbsp; *Unreachable* | The device cannot be seen by service at all. Typically, this means that there is a connection issue either physically or with the network.                                             |  |
+| LastSeen | The time that the device was last seen on the network.                                                                                                                                 | String |  
+| MACAddress | The MAC address of the camera.                                                                                                                                                         | String |  
+| FriendlyName | The user defined name for the camera.                                                                                                                                                  | String |  
+| Manufacturer | The manufacturer of the camera.                                                                                                                                                        | String |
+| Model | The model description of the camera.                                                                                                                                                   | String | 
+| FirmwareVersion | The firmware version of the camera. Format will vary by manufacturer and model.                                                                                                        | String |
+| SerialNumber | The serial number of the camera.                                                                                                                                                       | String |
+| HardwareId | The hardware ID of the camera.                                                                                                                                                         | String | 
+
+### Custom Metadata Protocol
+
+All properties in the `CustomMetadata` protocol field are user defined. It can hold multiple different entries. For more information, see [here](../supplementary-info/custom-metadata-feature.md)
+
+| Property | Description | EdgeX Value Type |               
+| -- | -- | -- |  
+| *UserDefined* | User defined. | String | 
+
+
+## ONVIF Features
 The device service supports the onvif features listed in the following table:
 
 | Feature                                                                 | Onvif Web Service | Onvif Function                                                                                                                  | EdgeX Value Type |

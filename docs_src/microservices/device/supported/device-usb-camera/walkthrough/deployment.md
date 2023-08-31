@@ -264,10 +264,7 @@ Devices can either be added to the service by defining them in a static configur
     For this example, the `Path` is `/dev/video6`.
 
 
-1. Edit the information to appropriately match the camera. The device's protocol properties contain:
-   * `name` is the name of the device. For this example, the name is `Camera001`
-   * `Path` is a file descriptor of camera created by the OS. Use the `Path` determined in the previous step.
-   * `AutoStreaming` indicates whether the device service should automatically start video streaming for cameras. Default value is false.
+1. Edit the information to appropriately match the camera. Find more information about the device protocol properties [here](../supplementary-info/USB-protocol.md#usb-protocol-properties).
    
     !!! example - "Example Command"
         ```bash
@@ -286,7 +283,7 @@ Devices can either be added to the service by defining them in a static configur
                 "protocols": {
                     "USB": {
                     "CardName": "NexiGo N930AF FHD Webcam: NexiG",
-                    "Path": "/dev/video6",
+                    "Paths": ["/dev/video6",],
                     "AutoStreaming": "false"
                     }
                 }
