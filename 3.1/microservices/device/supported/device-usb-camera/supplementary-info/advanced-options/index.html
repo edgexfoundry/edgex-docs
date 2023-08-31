@@ -1061,6 +1061,11 @@
     Set frame rate
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-pixel-format">
+    Set Pixel Format
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -1070,8 +1075,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#keep-the-paths-of-existing-camera-up-to-date">
-    Keep the paths of existing camera up to date
+<a class="md-nav__link" href="#keep-the-paths-of-existing-cameras-up-to-date">
+    Keep the paths of existing cameras up to date
   </a>
 </li>
 <li class="md-nav__item">
@@ -1581,6 +1586,11 @@
     Set frame rate
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-pixel-format">
+    Set Pixel Format
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -1590,8 +1600,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#keep-the-paths-of-existing-camera-up-to-date">
-    Keep the paths of existing camera up to date
+<a class="md-nav__link" href="#keep-the-paths-of-existing-cameras-up-to-date">
+    Keep the paths of existing cameras up to date
   </a>
 </li>
 <li class="md-nav__item">
@@ -1657,21 +1667,29 @@
 </div>
 <h2 id="set-device-configuration-parameters">Set Device Configuration Parameters</h2>
 <h3 id="set-frame-rate">Set frame rate</h3>
-<p>This option sets the frame rate for the capture device.</p>
+<p>This command sets the frame rate for the capture device.</p>
 <ol>
 <li>
-<p>Before setting the frame rate first execute the <code>DataFormat</code> api to see the available frame rates of a device for any of its video streaming path:</p>
+<p>Before setting the frame rate first execute the <code>DataFormat</code> command to see the available frame rates of a device for any of its video streaming path
+   or stream format:</p>
 <div class="admonition example -">
-<p class="admonition-title">Example DataFormat Command</p>
+<p class="admonition-title">Example DataFormat Command with <code>PathIndex</code> query parameter</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/DataFormat?PathIndex<span class="o">=</span>&lt;path_index&gt;
+</code></pre></div>
+</div>
+<p>OR</p>
+<div class="admonition example -">
+<p class="admonition-title">Example DataFormat Command with <code>StreamFormat</code> query parameter</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/DataFormat?StreamFormat<span class="o">=</span>&lt;stream_format&gt;
 </code></pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code>path_index</code> refers to the index of the device video streaming path from the path list. For example if a usb device has one
-video streaming path such as /dev/video0 the <code>path_index</code> value will be 0. In case of Intel™ RealSense® cameras there are three video 
-streaming paths, hence the user will have 3 options for <code>path_index</code> which are 0, 1 and 2. The default value is 0 if no <code>path_index</code>
-input is provided.</p>
+<p>The <code>PathIndex</code> refers to the index of the device video streaming path from the path list. For example if a usb device has one
+video streaming path such as /dev/video0 the <code>PathIndex</code> value will be 0. In case of Intel™ RealSense® cameras there are three video 
+streaming paths, hence the user will have 3 options for <code>PathIndex</code> which are 0, 1 and 2. The default value is 0 if no <code>PathIndex</code>
+input is provided. <code>StreamFormat</code> refers to different video streaming formats and the formats currently supported by the service
+are <code>RGB</code>, <code>Depth</code> or <code>Greyscale</code>.</p>
 </div>
 <div class="admonition example -">
 <p class="admonition-title">Example DataFormat Response</p>
@@ -1695,46 +1713,47 @@ input is provided.</p>
 <span class="w">                </span><span class="nt">"valueType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Object"</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
 <span class="w">                </span><span class="nt">"objectValue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">"BytesPerLine"</span><span class="p">:</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">"Colorspace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sRGB"</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">"Field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">"FrameRates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                        </span><span class="p">{</span>
-<span class="w">                            </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                            </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span>
-<span class="w">                        </span><span class="p">},</span>
-<span class="w">                        </span><span class="p">{</span>
-<span class="w">                            </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                            </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span>
-<span class="w">                        </span><span class="p">},</span>
-<span class="w">                        </span><span class="p">{</span>
-<span class="w">                            </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                            </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span>
-<span class="w">                        </span><span class="p">},</span>
-<span class="w">                        </span><span class="p">{</span>
-<span class="w">                            </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                            </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span>
-<span class="w">                        </span><span class="p">},</span>
-<span class="w">                        </span><span class="p">{</span>
-<span class="w">                            </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                            </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
-<span class="w">                        </span><span class="p">},</span>
-<span class="w">                        </span><span class="p">{</span>
-<span class="w">                            </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
-<span class="w">                            </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span>
-<span class="w">                        </span><span class="p">},</span>
-<span class="w">                        </span><span class="p">{</span>
-<span class="w">                            </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">                            </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
-<span class="w">                        </span><span class="p">}</span>
-<span class="w">                    </span><span class="p">],</span>
-<span class="w">                    </span><span class="nt">"Height"</span><span class="p">:</span><span class="w"> </span><span class="mi">480</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">"PixelFormat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YUYV 4:2:2"</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">"Quantization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Limited range"</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">"SizeImage"</span><span class="p">:</span><span class="w"> </span><span class="mi">614400</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">"Width"</span><span class="p">:</span><span class="w"> </span><span class="mi">640</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">"XferFunc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rec. 709"</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">"YcbcrEnc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ITU-R 601"</span>
+<span class="w">                    </span><span class="nt">"/dev/video6"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"BytesPerLine"</span><span class="p">:</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Colorspace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sRGB"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"FrameRates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                            </span><span class="p">{</span>
+<span class="w">                                </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                                </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span>
+<span class="w">                            </span><span class="p">},</span>
+<span class="w">                            </span><span class="p">{</span>
+<span class="w">                                </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                                </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span>
+<span class="w">                            </span><span class="p">},</span>
+<span class="w">                            </span><span class="p">{</span>
+<span class="w">                                </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                                </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span>
+<span class="w">                            </span><span class="p">},</span>
+<span class="w">                            </span><span class="p">{</span>
+<span class="w">                                </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                                </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span>
+<span class="w">                            </span><span class="p">},</span>
+<span class="w">                            </span><span class="p">{</span>
+<span class="w">                                </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                                </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+<span class="w">                            </span><span class="p">},</span>
+<span class="w">                            </span><span class="p">{</span>
+<span class="w">                                </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">                                </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span>
+<span class="w">                            </span><span class="p">},</span>
+<span class="w">                            </span><span class="p">{</span>
+<span class="w">                                </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                                </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">                            </span><span class="p">}</span>
+<span class="w">                        </span><span class="p">],</span>
+<span class="w">                        </span><span class="nt">"Height"</span><span class="p">:</span><span class="w"> </span><span class="mi">480</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"PixelFormat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YUYV 4:2:2"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Quantization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Limited range"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"SizeImage"</span><span class="p">:</span><span class="w"> </span><span class="mi">614400</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"Width"</span><span class="p">:</span><span class="w"> </span><span class="mi">640</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"XferFunc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rec. 709"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"YcbcrEnc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ITU-R 601"</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">]</span>
@@ -1744,7 +1763,8 @@ input is provided.</p>
 </div>
 </li>
 <li>
-<p>Use one of the supported <code>FrameRates</code> values from the previous command to set frame rate.</p>
+<p>Use one of the supported <code>FrameRates</code> value from the previous command output to set the frame rate based on <code>PathIndex</code>
+    or <code>StreamFormat</code>.</p>
 <div class="admonition example -">
 <p class="admonition-title">Example Set FrameRate Command</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{</span>
@@ -1763,17 +1783,151 @@ input is provided.</p>
 <span class="o">}</span><span class="w"> </span>
 </code></pre></div>
 </div>
+</li>
+<li>
+<p>The newly set framerate can be verified using a GET request:</p>
+<div class="admonition example -">
+<p class="admonition-title">Example Get FrameRate command</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/FrameRate?PathIndex<span class="o">=</span>&lt;path_index&gt;
+</code></pre></div>
+</div>
+<div class="admonition example -">
+<p class="admonition-title">Example Get FrameRate response</p>
+<div class="highlight"><pre><span></span><code><span class="w">   </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8ee12059-fed6-401c-b268-992fede19840"</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C270_HD_WEBCAM-8184F580"</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USB-Camera-General"</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">"sourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FrameRate"</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">"origin"</span><span class="p">:</span><span class="w"> </span><span class="mi">1692730015347762386</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">"readings"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">             </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b991d703-b7ac-4139-a598-87e0f190d617"</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">"origin"</span><span class="p">:</span><span class="w"> </span><span class="mi">1692730015347762386</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C270_HD_WEBCAM-8184F580"</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FrameRate"</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USB-Camera-General"</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">"valueType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Object"</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">             </span><span class="nt">"objectValue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                 </span><span class="nt">"/dev/video6"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                     </span><span class="nt">"Denominator"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"Numerator"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+<span class="w">                 </span><span class="p">}</span>
+<span class="w">             </span><span class="p">}</span>
+<span class="w">         </span><span class="p">}]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">   </span><span class="p">}</span>
+</code></pre></div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>3rd party applications such vlc or ffplay may overwrite your chosen frame rate value, so make sure to keep that in mind when using other applications.</p>
+<p>3rd party applications such as vlc or ffplay may overwrite your chosen frame rate value, so make sure to keep that in mind when using other applications.</p>
+</div>
+</li>
+</ol>
+<h3 id="set-pixel-format">Set Pixel Format</h3>
+<p>This command sets the desired pixel format for the capture device.</p>
+<ol>
+<li>
+<p>Before setting the pixel format the <code>ImageFormats</code> command can be executed to see the available pixel formats for a camera for any of its video streaming path
+   or stream format (RGB, Greyscale or Depth)</p>
+<div class="admonition example -">
+<p class="admonition-title">Example Get ImageFormats Command</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/ImageFormats?PathIndex<span class="o">=</span>&lt;path_index&gt;
+</code></pre></div>
+</div>
+</li>
+<li>
+<p>Use one of the supported <code>PixelFormat</code> values to set the pixel format based on <code>PathIndex</code>
+   or <code>StreamFormat</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>PixelFormat</code> has to be specified in the set request with a specific code which is acceptable by the v4l2 driver.
+ This service currently supports the formats whose codes are <code>YUYV</code>,<code>GREY</code>,<code>MJPG</code>,<code>Z16</code>,<code>RGB</code>,<code>JPEG</code>,<code>MPEG</code>,<code>H264</code>,<code>MPEG4</code>,<code>UYVY</code>,<code>BYR2</code>,<code>Y8I</code>,<code>Y12I</code>.
+ Refer to <a href="https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/pixfmt.html">V4l2 Image Formats</a> for more info. The service only supports setting of height, width or
+ pixel format.</p>
+</div>
+<div class="admonition example -">
+<p class="admonition-title">Example Set PixelFormat Command</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">      "PixelFormat": {</span>
+<span class="s1">         "Width":"640",</span>
+<span class="s1">         "Height":"480",</span>
+<span class="s1">         "PixelFormat": "YUYV"</span>
+<span class="s1">       }</span>
+<span class="s1">}'</span><span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/PixelFormat?PathIndex<span class="o">=</span>&lt;path_index&gt;
+</code></pre></div>
+</div>
+<div class="admonition example -">
+<p class="admonition-title">Example Set PixelFormat Response</p>
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">   </span><span class="s2">"apiVersion"</span>:<span class="w"> </span><span class="s2">"v3"</span>,
+<span class="w">   </span><span class="s2">"statusCode"</span>:<span class="w"> </span><span class="m">200</span>
+<span class="o">}</span>
+</code></pre></div>
+</div>
+</li>
+<li>
+<p>The newly set pixel format can be verified using a GET request:</p>
+<div class="admonition example -">
+<p class="admonition-title">Example Get PixelFormat command</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://localhost:59882/api/v3/device/name/&lt;device<span class="w"> </span>name&gt;/PixelFormat?PathIndex<span class="o">=</span>&lt;path_index&gt;
+</code></pre></div>
+</div>
+<div class="admonition example -">
+<p class="admonition-title">Example Get PixelFormat Response</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w"> </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w"> </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"03cc2182-6a48-4869-ac00-52f968850452"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C270_HD_WEBCAM-8184F580"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USB-Camera-General"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"sourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PixelFormat"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"origin"</span><span class="p">:</span><span class="w"> </span><span class="mi">1692728351448270645</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"readings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ded64ad7-955a-4979-9acd-ff5f1cbc9e9c"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"origin"</span><span class="p">:</span><span class="w"> </span><span class="mi">1692728351448270645</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C270_HD_WEBCAM-8184F580"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PixelFormat"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USB-Camera-General"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"valueType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Object"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"objectValue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"BytesPerLine"</span><span class="p">:</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Colorspace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sRGB"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Flags"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"HSVEnc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Default"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Height"</span><span class="p">:</span><span class="w"> </span><span class="mi">480</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"PixelFormat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YUYV 4:2:2"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Priv"</span><span class="p">:</span><span class="w"> </span><span class="mi">4276996862</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Quantization"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Default"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"SizeImage"</span><span class="p">:</span><span class="w"> </span><span class="mi">614400</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"Width"</span><span class="p">:</span><span class="w"> </span><span class="mi">640</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"XferFunc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Default"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"YcbcrEnc"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Default"</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 </div>
 </li>
 </ol>
 <h2 id="video-options">Video options</h2>
-<p>There are two types of options:
-- The options start with <code>Input</code> prefix are used for the camera, such as specifying the image size and pixel format.<br/>
-- The options start with <code>Output</code> prefix are used for the output video, such as specifying aspect ratio and quality.  </p>
-<p>These options can be passed in through object value when calling <code>StartStreaming</code>.</p>
+<p>There are two types of options:</p>
+<ul>
+<li>The options starting with <code>Input</code> prefix are used for the camera, such as specifying the image size and pixel format.  </li>
+<li>The options starting with <code>Output</code> prefix are used for the output video, such as specifying aspect ratio and quality.  </li>
+</ul>
+<p>These options can be passed in through object value when calling the <code>StartStreaming</code> command.</p>
 <p>Query parameter:<br/>
 - <code>device name</code>: The name of the camera</p>
 <div class="admonition example -">
@@ -1790,7 +1944,7 @@ input is provided.</p>
 <ul>
 <li><code>InputFps</code>: Ignore original timestamps and instead generate timestamps assuming constant frame rate fps. (default - same as source)  </li>
 <li><code>InputImageSize</code>: Specifies the image size of the camera. The format is <code>wxh</code>, for example "640x480". (default - automatically selected by FFmpeg)  </li>
-<li><code>InputPixelFormat</code>: Set the preferred pixel format (for raw video). (default - automatically selected by FFmpeg)  </li>
+<li><code>InputPixelFormat</code>: Set the preferred pixel format (for raw video). (default - automatically selected by FFmpeg)</li>
 </ul>
 <p>Supported Output options:</p>
 <ul>
@@ -1822,7 +1976,7 @@ The attribute name consists of a prefix "default" and the option name.</p>
 <p class="admonition-title">Note</p>
 <p>It's <strong>NOT</strong> recommended to set default video options in the 'cmd/res/profiles/general.usb.camera.yaml' as they may not be supported by every camera.</p>
 </div>
-<h2 id="keep-the-paths-of-existing-camera-up-to-date">Keep the paths of existing camera up to date</h2>
+<h2 id="keep-the-paths-of-existing-cameras-up-to-date">Keep the paths of existing cameras up to date</h2>
 <p>The paths (/dev/video*) of the connected cameras may change whenever the cameras are re-connected or the system restarts.
 To ensure the paths of the existing cameras are up to date, the device service scans all the existing cameras to check whether their serial numbers match the connected cameras.
 If there is a mismatch between them, the device service will scan all paths to find the matching device and update the existing device with the correct path.</p>
