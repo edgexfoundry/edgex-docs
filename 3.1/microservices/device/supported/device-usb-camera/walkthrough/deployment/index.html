@@ -766,7 +766,7 @@
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../device-onvif-camera/swagger/">
-        Swagger API Documentation
+        Device ONVIF Swagger API Documentation
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
@@ -1054,6 +1054,11 @@
           Supplementary Information
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../supplementary-info/USB-protocol/">
+        USB Camera Device Service Specifications
+      </a>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../supplementary-info/discovery/">
         Dynamic Discovery
@@ -1820,12 +1825,7 @@ Unsuccessful:
 <p>For this example, the <code>Path</code> is <code>/dev/video6</code>.</p>
 </li>
 <li>
-<p>Edit the information to appropriately match the camera. The device's protocol properties contain:</p>
-</li>
-<li><code>name</code> is the name of the device. For this example, the name is <code>Camera001</code></li>
-<li><code>Path</code> is a file descriptor of camera created by the OS. Use the <code>Path</code> determined in the previous step.</li>
-<li>
-<p><code>AutoStreaming</code> indicates whether the device service should automatically start video streaming for cameras. Default value is false.</p>
+<p>Edit the information to appropriately match the camera. Find more information about the device protocol properties <a href="../../supplementary-info/USB-protocol/#usb-protocol-properties">here</a>.</p>
 <div class="admonition example -">
 <p class="admonition-title">Example Command</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w">  </span><span class="se">\</span>
@@ -1843,7 +1843,7 @@ http://localhost:59881/api/v3/device<span class="w"> </span><span class="se">\</
 <span class="s1">        "protocols": {</span>
 <span class="s1">            "USB": {</span>
 <span class="s1">            "CardName": "NexiGo N930AF FHD Webcam: NexiG",</span>
-<span class="s1">            "Path": "/dev/video6",</span>
+<span class="s1">            "Paths": ["/dev/video6",],</span>
 <span class="s1">            "AutoStreaming": "false"</span>
 <span class="s1">            }</span>
 <span class="s1">        }</span>
