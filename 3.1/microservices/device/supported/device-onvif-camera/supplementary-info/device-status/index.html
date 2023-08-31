@@ -1574,62 +1574,7 @@ operating status of the existing cameras. This applies to all devices regardless
 <li><strong>Unreachable</strong>: Cannot be seen by service at all. Typically, this means that there is a connection issue either physically or with the network.</li>
 </ul>
 <h3 id="status-check-flow-for-each-device">Status Check flow for each device</h3>
-<div class="mermaid">
-%% Note: The node and edge definitions are split up to make it easier to adjust the
-%% links between the various nodes.
-flowchart TD;
-    %% -------- Node Definitions -------- %%
-    CheckDeviceStatus(Check Device Status)
-    UpdateDeviceStatus[Update Device Status<br/>in Core-Metadata]
-    SetLastSeen[Set LastSeen = Now]
-    UpdateMetadata[Update Core-Metadata]
-    CheckNowUpWithAuth{Status Changed<br/>&amp;&amp;<br/>Status == UpWithAuth?}
-    DeviceHasMAC{Device Has<br/>MAC Address?}
-    CreateClient[Create Onvif Client]
-    GetCapabilities[Device::GetCapabilities]
-    CheckUpdatedMAC[Check CredentialsMap for<br/>updated MAC Address]
-    TCPProbe[TCP Probe]
-    GetDeviceInfo[GetDeviceInformation]
-    UpdateDeviceInfo[Update Device Information]
-    UpdateMACAddress[Update MAC Address]
-    UpdateEndpointRef[Update EndpointRefAddress]
-    DeviceUnknown{Device Name<br/>begins with<br/>unknown_unknown_?}
-    RemoveDevice[Remove Device<br/>unknown_unknown_&amp;ltEndpointRef&gt;]
-    CreateDevice[Create Device<br/>&amp;ltMfg&amp;gt-&amp;ltModel&amp;gt-&amp;ltEndpointRef&gt;]
-
-    %% -------- Graph Definitions -------- %%
-    CheckDeviceStatus --&gt; DeviceHasMAC
-    DeviceHasMAC --&gt;|No| CheckUpdatedMAC
-    DeviceHasMAC --&gt;|Yes| CreateClient
-    CheckUpdatedMAC --&gt; CreateClient
-
-    subgraph TestConnection[Test Connection Methods]
-        CreateClient --&gt; GetCapabilities
-        GetCapabilities --&gt;|Failed| TCPProbe
-        GetCapabilities --&gt;|Success| GetDeviceInfo
-        GetDeviceInfo --&gt;|Success| UpWithAuth
-        GetDeviceInfo --&gt;|Failed| UpWithoutAuth
-        TCPProbe --&gt;|Failed| Unreachable
-        TCPProbe --&gt;|Success| Reachable
-    end
-
-    UpWithAuth --&gt; SetLastSeen
-    UpWithoutAuth --&gt; SetLastSeen
-    Reachable --&gt; SetLastSeen
-    Unreachable --&gt; UpdateDeviceStatus
-    UpdateDeviceStatus --&gt; CheckNowUpWithAuth
-    SetLastSeen --&gt; UpdateDeviceStatus
-    CheckNowUpWithAuth --&gt;|Yes| RefreshDevice
-
-    subgraph RefreshDevice[Refresh Device]
-        UpdateDeviceInfo --&gt; UpdateMACAddress
-        UpdateMACAddress --&gt; UpdateEndpointRef
-        UpdateEndpointRef --&gt; DeviceUnknown
-        DeviceUnknown --&gt;|No| UpdateMetadata
-        DeviceUnknown --&gt;|Yes| RemoveDevice
-        RemoveDevice --&gt; CreateDevice
-    end
-</div>
+<p><img alt="status-check" src="../../images/status-flowchart.png"/></p>
 <h2 id="configuration-options">Configuration Options</h2>
 <ul>
 <li>Use <code>EnableStatusCheck</code> to enable the device status background service.</li>
@@ -1776,6 +1721,5 @@ flowchart TD;
             }
             observer = new MutationObserver(color_scheme_callback);
             observer.observe(document.body, options);
-            })</script><script type="module">import mermaid from "https://unpkg.com/mermaid@10.1.0/dist/mermaid.esm.min.mjs";
-mermaid.initialize({});</script></body>
+            })</script></body>
 </html>
