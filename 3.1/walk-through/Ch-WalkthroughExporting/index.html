@@ -1136,11 +1136,6 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/AppServiceConfigurable/">
-        App Service Configurable
-      </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="../../microservices/application/GeneralAppServiceConfig/">
         Application Service Configuration
       </a>
@@ -1149,6 +1144,41 @@
 <a class="md-nav__link" href="../../microservices/application/V3Migration/">
         V3 Migration Guide
       </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_7_7" id="__nav_4_7_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_7_7">
+          Available Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Available Services" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_4_7_7">
+<span class="md-nav__icon md-icon"></span>
+          Available Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/available/AvailableAppServices/">
+        Overview
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/available/AppServiceConfigurable/">
+        App Service Configurable
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/available/AppRecordReplay/">
+        App Record and Replay
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../microservices/application/available/AppLLRPInventory/">
+        App RFID LLRP Inventory
+      </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -1594,7 +1624,7 @@
 How can that data be sent to an enterprise system or the Cloud? How can
 that data be used by an edge analytics system (like a rules engine) to actuate on a device?</p>
 <h2 id="getting-data-to-the-rules-engine">Getting data to the rules engine</h2>
-<p>By default, data is already passed from the core data service to application services (app services) via Redis Pub/Sub messaging.  Alternately, the data can be supplied between the two via MQTT.  A preconfigured application service is provided with the EdgeX default Docker Compose files that gets this data and routes it to the <a href="../../microservices/support/eKuiper/Ch-eKuiper/">eKuiper rules engine</a>.  The application service is called <code>app-service-rules</code> (see below).  More specifically, it is an <a href="../../microservices/application/AppServiceConfigurable/">app service configurable</a>.</p>
+<p>By default, data is already passed from the core data service to application services (app services) via Redis Pub/Sub messaging.  Alternately, the data can be supplied between the two via MQTT.  A preconfigured application service is provided with the EdgeX default Docker Compose files that gets this data and routes it to the <a href="../../microservices/support/eKuiper/Ch-eKuiper/">eKuiper rules engine</a>.  The application service is called <code>app-service-rules</code> (see below).  More specifically, it is an <a href="../../microservices/application/available/AppServiceConfigurable/">app service configurable</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">app-service-rules</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-app-rules-engine</span>
 <span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
