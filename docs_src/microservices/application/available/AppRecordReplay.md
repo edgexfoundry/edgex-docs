@@ -19,15 +19,15 @@ Control of this service is accomplished via the following REST API.
 
 <swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/app-record-replay/{{version}}/openapi/{{api_version}}/app-record-replay.yaml"/>
 
-## PostMan Collection
+## Postman Collection
 
-A sample PostMan collection can be found [here](https://github.com/edgexfoundry/app-record-replay/blob/{{version}}/Record%20and%20Reply.postman_collection.json).
-
-!!! note
-    Use the PostMan `Send and Download` option for the `Export recording - JSON` request so that the response can be save to file. The `Send and Download` option is on the `Send` button.
+A sample Postman collection can be found [here](https://github.com/edgexfoundry/app-record-replay/blob/{{version}}/Record%20and%20Reply.postman_collection.json).
 
 !!! note
-    PostMan automatically un-compresses the responses when requesting GZIB or ZLIB compression. Use the following curl command to save the compressed response to file.
+    Use the Postman `Send and Download` option for the `Export recording - JSON` request so that the response can be saved to file. The `Send and Download` option is on the `Send` button.
+
+!!! note
+    Postman automatically un-compresses the responses when requesting GZIB or ZLIB compression. Use the following curl command to save the compressed response to file.
     
     ```text
     curl localhost:59712/api/{{api_version}}/data?compression=gzip -o test.gz
