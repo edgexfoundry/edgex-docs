@@ -169,75 +169,7 @@ in conjunction with each other.
 Here is an in-depth look at the logic behind mapping `Credentials` to Devices.
 
 ### During Discovery
-
-<div class="mermaid">
-    %% Note: The node and edge definitions are split up to make it easier to adjust the
-    %% links between the various nodes.
-    flowchart TD;   
-        %% -------- Node Definitions -------- %%
-        DiscoveredDevice[/Discovered Device/]
-        UseDefault[Use Default Credentials]
-        EndpointRefHasMAC{Does EndpointRef<br/>contain<br/>MAC Address?}
-        InNoAuthGroup{MAC Belongs<br/>to NoAuth group?}
-        AuthModeNone[Set AuthMode to 'none']
-        ApplyCreds[Apply Credentials]
-        InSecretStore{Credentials exist<br/>in SecretStore?}
-        CreateClient[Create Onvif Client]
-        GetDeviceInfo[Get Device Information]
-        GetNetIfaces[Get Network Interfaces]
-        CreateDevice(Create Device:<br/>&ltMfg&gt-&ltModel&gt-&ltEndpointRef&gt)
-        CreateUnknownDevice(Create Device:<br/>unknown_unknown_&ltEndpointRef&gt)
-
-        %% -------- Graph Definitions -------- %%
-        DiscoveredDevice --> ForAllMAC
-        subgraph ForAllMAC[For all MAC Addresses in CredentialsMap]
-        EndpointRefHasMAC
-        end
-        EndpointRefHasMAC -->|Yes| InNoAuthGroup
-        EndpointRefHasMAC -- No Matches --> UseDefault
-        InNoAuthGroup -->|Yes| AuthModeNone
-        InNoAuthGroup -->|No| InSecretStore
-        UseDefault --> InSecretStore
-        AuthModeNone --> CreateClient
-        InSecretStore -->|Yes| ApplyCreds
-        InSecretStore -->|No| AuthModeNone
-        ApplyCreds --> CreateClient
-        CreateClient --> GetDeviceInfo
-        GetDeviceInfo -->|Failed| CreateUnknownDevice
-        GetDeviceInfo -->|Success| GetNetIfaces
-        GetNetIfaces ----> CreateDevice
-</div>
+![during-discovery](../images/credential-lookup-during-discovery.png)
 
 ### Connecting to Existing Devices
-<div class="mermaid">
-%% Note: The node and edge definitions are split up to make it easier to adjust the
-%% links between the various nodes.
-flowchart TD;
-    %% -------- Node Definitions -------- %%
-    ExistingDevice[/Existing Device/]
-    ContainsMAC{Device Metadata contains<br/>MAC Address?}
-    ValidMAC{Is it a valid<br/>MAC Address?}
-    InMap{MAC exists in<br/>CredentialsMap?}
-    InNoAuth{MAC Belongs<br/>to NoAuth group?}
-    UseDefault[Use Default Credentials]
-    InSecretStore{Credentials exist<br/>in SecretStore?}
-    AuthModeNone(Set AuthMode to 'none')
-    ApplyCreds(Apply Credentials)
-    CreateClient(Create Onvif Client)
-
-    %% -------- Edge Definitions -------- %%
-    ExistingDevice --> ContainsMAC
-    ContainsMAC -->|Yes| ValidMAC
-    ValidMAC -->|Yes| InMap
-    ValidMAC -->|No| AuthModeNone
-    InMap -->|Yes| InNoAuth
-    InMap -->|No| AuthModeNone
-    ContainsMAC -->|No| UseDefault
-    InNoAuth -->|Yes| AuthModeNone
-    InNoAuth -->|No| InSecretStore
-    UseDefault --> InSecretStore
-    InSecretStore -->|Yes| ApplyCreds
-    InSecretStore -->|No| AuthModeNone
-    AuthModeNone ----> CreateClient
-    ApplyCreds ----> CreateClient
-</div>
+![existing-devices](../images/connect-existing-device.png)

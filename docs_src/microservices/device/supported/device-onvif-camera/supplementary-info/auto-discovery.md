@@ -186,17 +186,7 @@ It is especially important to have this configured in the case of larger subnets
 
 ## Adding the Devices to EdgeX
 
-<div class="mermaid">
-sequenceDiagram
-    Onvif Device Service->>Onvif Camera: WS-Discovery Probe
-    Onvif Camera->>Onvif Device Service: Probe Response
-    Onvif Device Service->>Onvif Camera: GetDeviceInformation
-    Onvif Camera->>Onvif Device Service: GetDeviceInformation Response
-    Onvif Device Service->>Onvif Camera: GetNetworkInterfaces
-    Onvif Camera->>Onvif Device Service: GetNetworkInterfaces Response
-    Onvif Device Service->>EdgeX Core-Metadata: Create Device
-    EdgeX Core-Metadata->>Onvif Device Service: Device Added
-</div>
+![add-device-sequence](../images/add-device-sequence.png)
 
 ## Rediscovery
 The device service is able to rediscover and update devices that have been discovered previously.
@@ -205,43 +195,7 @@ of whether it is a manual or automated call to discover.
 
 The following logic is to determine if the device is already registered or not.
 
-<div class="mermaid">
-%% Note: The node and edge definitions are split up to make it easier to adjust the
-%% links between the various nodes.
-flowchart TD
-    %% -------- Node Definitions -------- %%
-    Multicast[/Devices Discovered<br/>via Multicast/]
-    Netscan[/Devices Discovered<br/>via Netscan/]
-    DupeFilter[Filter Duplicate Devices<br/>based on EndpointRef]    
-    MACMatches{MAC Address<br/>matches existing<br/>device?}
-    RefMatches{EndpointRef<br/>matches existing<br/>device?}
-    IPChanged{IP Address<br/>Changed?}
-    MACChanged{MAC Address<br/>Changed?}
-    UpdateIP[Update IP Address]
-    UpdateMAC(Update MAC Address)
-    RegisterDevice(Register New Device<br/>With EdgeX)
-    DeviceNotRegistered(Device Not Registered)
-    PWMatches{Device matches<br/>Provision Watcher?}
-    
-    %% -------- Graph Definitions -------- %%
-    Multicast --> DupeFilter
-    Netscan --> DupeFilter
-    DupeFilter --> ForEachDevice
-    subgraph ForEachDevice[For Each Unique Device]
-        MACMatches -->|Yes| IPChanged
-        MACMatches -->|No| RefMatches
-        RefMatches -->|Yes| IPChanged
-        RefMatches -->|No| ForEachPW
-        ForEachPW --> PWMatches
-        PWMatches-->|No Matches| DeviceNotRegistered
-        IPChanged -->|No| MACChanged
-        IPChanged -->|Yes| UpdateIP
-        UpdateIP --> MACChanged
-        MACChanged -->|Yes| UpdateMAC
-
-        PWMatches -->|Yes| RegisterDevice
-    end
-</div>
+![auto-discovery](../images/auto-discovery-flowchart.png)
 
 ## Troubleshooting
 
