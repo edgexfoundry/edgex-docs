@@ -21,12 +21,10 @@ To add your own route, use the `AddCustomRoute()` API provided on the `Applicati
 !!! example  "Example - Add Custom REST route"
 
     ``` go      
-    myhandler := func(writer http.ResponseWriter, req *http.Request) {    
-      service := req.Context().Value(interfaces.AppServiceContextKey).(interfaces.ApplicationService)    
+    myhandler := func(c echo.Context) error {
       service.LoggingClient().Info("TEST")     
-      writer.Header().Set("Content-Type", "text/plain")   
-      writer.Write([]byte("hello"))   
-      writer.WriteHeader(200)    
+      c.Response().WriteHeader(http.StatusOK)
+	  c.Response().Write([]byte("hello"))   
     }    
     
     service := pkg.NewAppService(serviceKey)    
