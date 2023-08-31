@@ -1,6 +1,6 @@
 # App Service Configurable
 
-## Getting Started 
+## Introduction 
 
 App-Service-Configurable is provided as an easy way to get started with processing data flowing through EdgeX. This service leverages the [App Functions SDK](https://github.com/edgexfoundry/app-functions-sdk-go) and provides a way for developers to use configuration instead of having to compile standalone services to utilize built in functions in the SDK. Please refer to [Available Configurable Pipeline Functions](#available-configurable-pipeline-functions)  section below for full list of built-in functions that can be used in the configurable pipeline. 
 
@@ -36,17 +36,17 @@ The first line of note is `ExecutionOrder: "FilterByDeviceName, Transform, HTTPE
 Next, each function and its required information is listed. Each function typically has associated Parameters that must be configured to properly execute the function as designated by `Parameters:` under `{FunctionName}`. Knowing which parameters are required for each function, can be referenced by taking a look at  the [Available Configurable Pipeline Functions](#available-configurable-pipeline-functions) section below.
 
 !!! note
-    By default, the configuration provided is set to use `EdgexMessageBus` as a trigger. This means you must have EdgeX Running with devices sending data in order to trigger the pipeline. You can also change the trigger to be HTTP. For more details on triggers, view the `Triggers`documentation located in the [Triggers](./Triggers.md) section.
+    By default, the configuration provided is set to use `EdgexMessageBus` as a trigger. This means you must have EdgeX Running with devices sending data in order to trigger the pipeline. You can also change the trigger to be HTTP. For more details on triggers, view the `Triggers`documentation located in the [Triggers](../Triggers.md) section.
 
 That's it! Now we can run/deploy this service and the functions pipeline will process the data with functions we've defined.
 
 ## Pipeline Per Topics
 
-The above pipeline configuration in [Getting Started](#getting-started) section is the preferred way if your use case only requires a single functions pipeline. For use cases that require multiple functions pipelines in order to process the data differently based on the `profile`, `device` or `source` for the Event, there is the Pipeline Per Topics feature. This feature allows multiple pipelines to be configured in the `[Writable.Pipeline.PerTopicPipelines]`section. This section is a map of pipelines. The map key must be unique , but isn't used so can be any value. Each pipleline is defined by the following configuration settings:
+The above pipeline configuration in [Introduction](#introduction) section is the preferred way if your use case only requires a single functions pipeline. For use cases that require multiple functions pipelines in order to process the data differently based on the `profile`, `device` or `source` for the Event, there is the Pipeline Per Topics feature. This feature allows multiple pipelines to be configured in the `[Writable.Pipeline.PerTopicPipelines]`section. This section is a map of pipelines. The map key must be unique , but isn't used so can be any value. Each pipleline is defined by the following configuration settings:
 
 - Id - This is the unique ID given to each pipeline
 - Topics - Comma separated list of topics that control when the pipeline is executed. See [Pipeline Per Topics](../AdvancedTopics/#pipeline-per-topics)  for details on using wildcards in the topic.
-- ExecutionOrder - This is the list of functions, in order, that the pipeline will execute. Same as `ExecutionOrder` in the above example in the  [Getting Started](#getting-started) section
+- ExecutionOrder - This is the list of functions, in order, that the pipeline will execute. Same as `ExecutionOrder` in the above example in the  [Introduction](#introduction) section
 
 !!! example "Example - Writable.Pipeline.PerTopicPipelines"
     In this example Events from the device  `Random-Float-Device` are transformed to JSON and then HTTP exported. At the same time, Events for the source `Int8`  are transformed to XML and then HTTP exported to same endpoint. Note the custom naming for `TransformJson` and `TransformXml`. This is taking advantage of the [Multiple Instances of a Function](#multiple-instances-of-a-function) described below.
@@ -145,7 +145,7 @@ EdgeX services no longer have docker specific profiles. They now rely on environ
 App Service Configurable was designed to be deployed as multiple instances for different purposes. Since the function pipeline is specified in the `configuration.yaml` file, we can use this as a way to run each instance with a different function pipeline. App Service Configurable does not have the standard default configuration at `/res/configuration.yaml`. This default configuration has been moved to the `sample` profile. This forces you to specify the profile for the configuration you would like to run. The profile is specified using the `-p/--profile=[profilename]` command line option or the `EDGEX_PROFILE=[profilename]` environment variable override. The profile name selected is used in the service key (`app-[profile name]`) to make each instance unique, e.g. `AppService-sample` when specifying `sample` as the profile.
 
 !!! note
-    If you need to run multiple instances with the same profile, e.g. `http-export`, but configured differently, you will need to override the service key with a custom name for one or more of the services. This is done with the `-sk/-serviceKey` command-line option or the `EDGEX_SERVICE_KEY` environment variable. See the [Command-line Options](./ApplicationFunctionsSDK.md#command-line-options) and [Environment Overrides](./ApplicationFunctionsSDK.md#environment-variable-overrides) sections for more detail.
+    If you need to run multiple instances with the same profile, e.g. `http-export`, but configured differently, you will need to override the service key with a custom name for one or more of the services. This is done with the `-sk/-serviceKey` command-line option or the `EDGEX_SERVICE_KEY` environment variable. See the [Command-line Options](../ApplicationFunctionsSDK.md#command-line-options) and [Environment Overrides](../ApplicationFunctionsSDK.md#environment-variable-overrides) sections for more detail.
 
 !!! note
     Functions can be declared in a profile but not used in the pipeline `ExecutionOrder`  allowing them to be added to the pipeline `ExecutionOrder` later at runtime if needed.
@@ -304,7 +304,7 @@ Now multiple instances of the same configurable pipeline function can be specifi
 
 ## Available Configurable Pipeline Functions
 
-Below are the functions that are available to use in the configurable pipeline function pipeline (`[Writable.Pipeline]`) section of the configuration. The function names below can be added to the `Writable.Pipeline.ExecutionOrder` setting (comma separated list) and must also be present or added to the `[Writable.Pipeline.Functions]` section as `{FunctionName}]`. The functions will also have the `{FunctionName}.Parameters:` section where the function's parameters are configured. Please refer to the [Getting Started](#getting-started) section above for an example.
+Below are the functions that are available to use in the configurable pipeline function pipeline (`[Writable.Pipeline]`) section of the configuration. The function names below can be added to the `Writable.Pipeline.ExecutionOrder` setting (comma separated list) and must also be present or added to the `[Writable.Pipeline.Functions]` section as `{FunctionName}]`. The functions will also have the `{FunctionName}.Parameters:` section where the function's parameters are configured. Please refer to the [Introduction](#introduction) section above for an example.
 
 !!! note
     The `Parameters` section for each function is a key/value map of `string` values. So even tough the parameter is referred to as an Integer or Boolean, it has to be specified as a valid string representation, e.g. "20" or "true".
