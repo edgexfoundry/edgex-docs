@@ -41,7 +41,7 @@ type ApplicationService interface {
 	AddBackgroundPublisherWithTopic(capacity int, topic string) (BackgroundPublisher, error)
 	BuildContext(correlationId string, contentType string) AppFunctionContext
     AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
-    AddCustomRoute(route string, authenticated Authenticated, handler func(http.ResponseWriter, *http.Request), methods ...string) error
+    AddCustomRoute(route string, authentication Authentication, handler echo.HandlerFunc, methods ...string) error
   	AppContext() context.Context
     RequestTimeout() time.Duration
 	RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error
@@ -514,13 +514,9 @@ This API is deprecated in favor of `AddCustomRoute()` which has an explicit para
 
 ### AddCustomRoute
 
-`AddCustomRoute(route string, authenticated interface.Authenticated, handler func(http.ResponseWriter, *http.Request), methods ...string) error`
+`AddCustomRoute(route string, authentication Authentication, handler echo.HandlerFunc, methods ...string) error`
 
-This API adds a custom REST route to the application service's internal webserver.  If the route is marked authenticated, it will require an EdgeX JWT when security is enabled.  A reference to the ApplicationService is add the the context that is passed to the handler, which can be retrieved using the `AppService` key. See [Custom REST Endpoints](../AdvancedTopics/#custom-rest-endpoints) advanced topic for more details and example.
-
-        	// 
-    AddRoute(route string, handler func(http.ResponseWriter, *http.Request), methods ...string) error
-    AppContext() context.Context
+This API adds a custom REST route to the application service's internal webserver.  If the route is marked authenticated, it will require an EdgeX JWT when security is enabled.  A reference to the ApplicationService is added to the context that is passed to the handler, which can be retrieved using the `AppService` key. See [Custom REST Endpoints](../AdvancedTopics/#custom-rest-endpoints) advanced topic for more details and example.
 
 ### AppContext
 
