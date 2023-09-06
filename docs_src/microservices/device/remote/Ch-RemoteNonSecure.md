@@ -122,6 +122,9 @@ This example can be further expanded to run multiple instances of device-usb-cam
     1. Add credentials for RTSP streaming by referring to [RTSP Stream Credentials](../supported/device-usb-camera/walkthrough/deployment.md#add-credentials-for-the-rtsp-stream).
        Make sure to use correct host IP address in the POST request instead of localhost.
 
+        !!! note
+            The node used for rtsp streaming should have FFMPEG version of 5.0 atleast.
+
     1. Follow [USB Service API Guide](../supported/device-usb-camera/walkthrough/general-usage.md) to execute APIs such as Streaming. Again make sure to replace localhost with the applicable
        host or remote IP addresses.
 
