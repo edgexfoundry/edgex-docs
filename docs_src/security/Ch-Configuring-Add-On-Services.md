@@ -14,7 +14,7 @@ software stack running in secure mode.  This can be done vai Docker-compose file
 environment variables and some modification of micro-service's Dockerfile. From `edgex-compose` repository,
 the `compose-builder` utility provides some ways to deal with those add-on services like through `add-security.yml`
 via `make` targets to generate `docker-compose` file for running them in secure mode. For more details, please refer to
-[README documentation of compose-builder](https://github.com/edgexfoundry/edgex-compose/blob/{{version}}/compose-builder/README.md).
+[README documentation of compose-builder](https://github.com/edgexfoundry/edgex-compose/blob/{{edgexversion}}/compose-builder/README.md).
 
 The above same guidelines can also be applied to custom device and application services, i.e. non-EdgeX built services.
 

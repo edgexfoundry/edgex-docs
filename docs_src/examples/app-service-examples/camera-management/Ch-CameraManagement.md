@@ -81,9 +81,9 @@ sudo apt install build-essential
     cd edgex-compose
     ```
 
-1. Checkout the latest release ({{version}}):
+1. Checkout the latest release ({{edgexversion}}):
     ```shell
-    git checkout {{version}}
+    git checkout {{edgexversion}}
     ```
 
 1. Navigate to the `compose-builder` subdirectory:
@@ -119,9 +119,9 @@ sudo apt install build-essential
     cd edgex-examples
     ```
 
-1. Checkout the latest release ({{version}}):
+1. Checkout the latest release ({{edgexversion}}):
     ```shell
-    git checkout {{version}}
+    git checkout {{edgexversion}}
     ```
 
 1. Navigate to the `application-services/custom/camera-management` directory
@@ -131,9 +131,9 @@ sudo apt install build-essential
 
 1. Configure [device-mqtt] service to send [Edge Video Analytics Microservice][evam] inference results into Edgex via MQTT
 
-    a. Copy the entire [evam-mqtt-edgex](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/application-services/custom/camera-management/edge-video-analytics/evam-mqtt-edgex) folder into `edgex-compose/compose-builder` directory.
+    a. Copy the entire [evam-mqtt-edgex](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/application-services/custom/camera-management/edge-video-analytics/evam-mqtt-edgex) folder into `edgex-compose/compose-builder` directory.
 
-    b. Add this information into the [add-device-mqtt.yml](https://github.com/edgexfoundry/edgex-compose/blob/{{version}}/compose-builder/add-device-mqtt.yml) file in the `edgex-compose/compose-builder` directory.
+    b. Add this information into the [add-device-mqtt.yml](https://github.com/edgexfoundry/edgex-compose/blob/{{edgexversion}}/compose-builder/add-device-mqtt.yml) file in the `edgex-compose/compose-builder` directory.
 
     !!! example - "Snippet from add-device-mqtt.yml"
         ```yaml
@@ -151,7 +151,7 @@ sudo apt install build-essential
               # example: - /home/github.com/edgexfoundry/edgex-compose/compose-builder/evam-mqtt-edgex:/evam-mqtt-edgex
               - <add-absolute-path-of-your-edgex-compose-builder-here-example-above>/evam-mqtt-edgex:/evam-mqtt-edgex
         ```
-    c. Add this information into the [add-mqtt-broker-mosquitto.yml](https://github.com/edgexfoundry/edgex-compose/blob/{{version}}/compose-builder/add-mqtt-broker-mosquitto.yml) file in the `edgex-compose/compose-builder` directory.
+    c. Add this information into the [add-mqtt-broker-mosquitto.yml](https://github.com/edgexfoundry/edgex-compose/blob/{{edgexversion}}/compose-builder/add-mqtt-broker-mosquitto.yml) file in the `edgex-compose/compose-builder` directory.
 
     !!! example - "Snippet from add-mqtt-broker-mosquitto.yml"
         ```yaml
@@ -203,7 +203,7 @@ sudo apt install build-essential
 
 === "configuration.yaml"
 
-    Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/res/configuration.yaml) file
+    Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{edgexversion}}/application-services/custom/camera-management/res/configuration.yaml) file
  
     ```yaml
     InsecureSecrets:
@@ -231,7 +231,7 @@ sudo apt install build-essential
 
 === "configuration.yaml"
 
-    Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/res/configuration.yaml) file
+    Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{edgexversion}}/application-services/custom/camera-management/res/configuration.yaml) file
 
     ```yaml
     InsecureSecrets:
@@ -253,7 +253,7 @@ sudo apt install build-essential
 #### 3.3 Configure Default Pipeline
 Initially, all new cameras added to the system will start the default analytics pipeline as defined in the configuration file below. The desired pipeline can be changed or the feature can be disabled by setting the `DefaultPipelineName` and `DefaultPipelineVersion` to empty strings.   
 
-Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{version}}/application-services/custom/camera-management/res/configuration.yaml) file with the name and version of the default pipeline to use when a new device is added to the system.
+Modify the [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{edgexversion}}/application-services/custom/camera-management/res/configuration.yaml) file with the name and version of the default pipeline to use when a new device is added to the system.
 
 !!! note 
     These values can be left empty to disable the feature.

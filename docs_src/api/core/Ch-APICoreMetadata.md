@@ -7,4 +7,4 @@ this service's API. See [Core Metadata](../../microservices/core/metadata/Ch-Met
 
 ## Swagger
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{version}}/openapi/{{api_version}}/core-metadata.yaml"/>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{edgexversion}}/openapi/{{api_version}}/core-metadata.yaml"/>

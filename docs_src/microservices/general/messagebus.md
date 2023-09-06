@@ -18,7 +18,7 @@ The EdgeX services intended as external entry points are:
   
 - **App Service using HTTP Trigger** - An App Service configured to use the [HTTP Trigger](../../application/Triggers/#http-trigger) will accept data from external services on an "external" REST connection. Accessed in the same manner as other EdgeX REST APIs.
 
-- **App Service using Custom Trigger** - An App Service configured to use a [Custom Trigger](../../application/Triggers/#custom-trigger) can accept data from external services or over additional protocols with few limitations. See [Custom Trigger Example](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/application-services/custom/custom-trigger) for an example.
+- **App Service using Custom Trigger** - An App Service configured to use a [Custom Trigger](../../application/Triggers/#custom-trigger) can accept data from external services or over additional protocols with few limitations. See [Custom Trigger Example](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/application-services/custom/custom-trigger) for an example.
 
 - **Core Command External MQTT Connection** - Core Command now receives command requests and publishes responses via an external MQTT connection that is separate from the EdgeX MessageBus. The requests are forwarded to the EdgeX MessageBus and the corresponding responses are forwarded back to the external MQTT connection. 
 
@@ -223,7 +223,7 @@ The MessageBus configuration is in common configuration where the following chan
 
 #### Docker
 
-The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for MQTT 3.1 using environment overrides. This is accomplished by using the `mqtt-bus` option. See [Compose Builder README](https://github.com/edgexfoundry/edgex-compose/tree/{{version}}/compose-builder) for details on all available options.
+The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for MQTT 3.1 using environment overrides. This is accomplished by using the `mqtt-bus` option. See [Compose Builder README](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder) for details on all available options.
 
 !!! example - "Example Secure mode compose generation for MQTT 3.1"
     ```
@@ -277,7 +277,7 @@ The MessageBus configuration is in common configuration where the following chan
 
 #### Docker
 
-The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for NATS using environment overrides. This is accomplished by using the `nats-bus` option. This option configures the services to use the NATS Jetstream implementation. See [Compose Builder README](https://github.com/edgexfoundry/edgex-compose/tree/{{version}}/compose-builder) for details on all available options. If NATS Core is preferred, simply do a search and replace of `nats-jeststream` with `nats-core` in the generated compose file.
+The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for NATS using environment overrides. This is accomplished by using the `nats-bus` option. This option configures the services to use the NATS Jetstream implementation. See [Compose Builder README](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder) for details on all available options. If NATS Core is preferred, simply do a search and replace of `nats-jeststream` with `nats-core` in the generated compose file.
 
 !!! example - "Example Secure mode compose generation for NATS"
 

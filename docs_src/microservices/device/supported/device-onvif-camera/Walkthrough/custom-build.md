@@ -17,9 +17,9 @@ Follow this guide to make custom configurations and build the device service ima
    cd device-onvif-camera
    ```
 
-3. Checkout the latest release ({{version}}):
+3. Checkout the latest release ({{edgexversion}}):
    ```bash
-   git checkout {{version}}
+   git checkout {{edgexversion}}
    ```
 
 ## Configuration
@@ -103,7 +103,7 @@ For optional configurations, see [here.](#additional-configuration)
             ```bash
             make docker-nats
             ```
-            See [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/{{version}}/compose-builder#gen) `nat-bus` option to generate compose file for NATS and local dev images.
+            See [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder#gen) `nat-bus` option to generate compose file for NATS and local dev images.
       </details>
 
 2. Verify the ONVIF Device Service Docker image was successfully created:
@@ -185,4 +185,4 @@ The provision watcher sets up parameters for EdgeX to automatically add devices 
 
 ## License
 
-[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/{{version}}/LICENSE)
+[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/{{edgexversion}}/LICENSE)

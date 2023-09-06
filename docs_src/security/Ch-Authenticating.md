@@ -221,7 +221,7 @@ the service proxies configured by go-mod-bootstrap.
 
 Clients are retrieved from the dependency injection container
 using the helper functions in 
-[clients.go](https://github.com/edgexfoundry/go-mod-bootstrap/blob/{{version}}/bootstrap/container/clients.go)
+[clients.go](https://github.com/edgexfoundry/go-mod-bootstrap/blob/{{edgexversion}}/bootstrap/container/clients.go)
 in go-mod-bootstrap.
 For example:
 

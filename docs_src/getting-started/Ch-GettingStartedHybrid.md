@@ -24,7 +24,7 @@ EdgeX environment up and running via Docker containers. How would you set up thi
         These notes assume you are working with the EdgeX Minnesota or later release.  It also assumes you have downloaded the appropriate Docker Compose file and have named it `docker-compose.yml` so you don't have to specify the file name each time you run a Docker Compose command.  Some versions of EdgeX may require other or additional containers to run.
 
     !!! Tip
-        You can also use the EdgeX Compose Builder tool to create a custom Docker Compose file with just the services you want.  See the [Compose Builder documentation](./Ch-GettingStartedDockerUsers.md#generate-a-custom-docker-compose-file) on and checkout the [Compose Builder tool in GitHub](https://github.com/edgexfoundry/edgex-compose/tree/{{version}}/compose-builder).
+        You can also use the EdgeX Compose Builder tool to create a custom Docker Compose file with just the services you want.  See the [Compose Builder documentation](./Ch-GettingStartedDockerUsers.md#generate-a-custom-docker-compose-file) on and checkout the [Compose Builder tool in GitHub](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder).
     
 3.  Run the command below to confirm that all the containers have started and that the virtual device container is no longer running.
     ``` bash

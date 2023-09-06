@@ -51,8 +51,8 @@ For more information, please visit the [EdgeX Security documentation](../../../.
 
 
 ## Resources
-[Learn more about EdgeX Core Metadata](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/{{version}})  
-[Learn more about EdgeX Core Command](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/{{version}})
+[Learn more about EdgeX Core Metadata](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-metadata/{{edgexversion}})  
+[Learn more about EdgeX Core Command](https://app.swaggerhub.com/apis-docs/EdgeXFoundry1/core-command/{{edgexversion}})
 
 
 ## References
@@ -67,4 +67,4 @@ For more information, please visit the [EdgeX Security documentation](../../../.
 
 ## License
 
-[Apache-2.0](https://github.com/edgexfoundry/device-onvif-camera/blob/{{version}}/LICENSE)
+[Apache-2.0](https://github.com/edgexfoundry/device-onvif-camera/blob/{{edgexversion}}/LICENSE)

@@ -151,4 +151,4 @@ Setup Docker Daemon or Docker Desktop to use proxied environment.
 
 ## License
 
-[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/{{version}}/LICENSE)
+[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/{{edgexversion}}/LICENSE)
