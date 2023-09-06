@@ -129,25 +129,3 @@ This example can be further expanded to run multiple instances of device-usb-cam
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
