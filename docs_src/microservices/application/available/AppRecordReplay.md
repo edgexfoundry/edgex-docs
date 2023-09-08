@@ -17,11 +17,11 @@ Since this is targeted as a developer testing tool, the storage model is kept si
 
 Control of this service is accomplished via the following REST API. 
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/app-record-replay/{{edgexversionmain}}/openapi/{{api_version}}/app-record-replay.yaml"/>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/app-record-replay/{{edgexversion}}/openapi/{{api_version}}/app-record-replay.yaml"/>
 
 ## Postman Collection
 
-A sample Postman collection can be found [here](https://github.com/edgexfoundry/app-record-replay/blob/{{edgexversionmain}}/Record%20and%20Reply.postman_collection.json).
+A sample Postman collection can be found [here](https://github.com/edgexfoundry/app-record-replay/blob/{{edgexversion}}/Record%20and%20Reply.postman_collection.json).
 
 !!! note
     Use the Postman `Send and Download` option for the `Export recording - JSON` request so that the response can be saved to file. The `Send and Download` option is on the `Send` button.
