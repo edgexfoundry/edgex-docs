@@ -182,7 +182,13 @@ Below are only the additional settings and sections that are specific to Support
     |Smtp SecretPath| smtp | Specify the secret path to store the credential(username and password) for connecting the SMTP server via the /secret API, or set Writable SMTP username and password for insecure secrets|
     |Smtp Sender|jdoe@gmail.com |SMTP service sender/username|
     |Smtp Subject|EdgeX Notification|SMTP notification message subject|
-
+=== "Retention"
+    |Property|Default Value|Description|    
+    |---|---|---|
+    | Enabled|false|Enable or disable notification retention.|
+    | Interval|30m|Purging interval defines when the database should be rid of notifications above the MaxCap.|
+    | MaxCap|5000|The maximum capacity defines where the high watermark of notifications should be detected for purging the amount of the notification to the minimum capacity.|
+    | MinCap|4000|The minimum capacity defines where the total count of notifications should be returned to during purging.|
 
 ### V3 Configuration Migration Guide
 No configuration updated
