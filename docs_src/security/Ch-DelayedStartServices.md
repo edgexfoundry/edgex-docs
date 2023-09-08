@@ -116,7 +116,7 @@ type:"unix"    value:"sha256:2c72b9f4a871ff98ba410c292ee97206df8ee584002b34a4d08
 
 The agent communicates with the server/controller to authorize the workload.
 The server/controller consults an authorization database that is seeded with a script:
-<https://github.com/edgexfoundry/edgex-go/blob/{{version}}/cmd/security-spire-config/seed_builtin_entries.sh>
+<https://github.com/edgexfoundry/edgex-go/blob/{{edgexversion}}/cmd/security-spire-config/seed_builtin_entries.sh>
 
 This authorization database can be dumped with the following command:
 

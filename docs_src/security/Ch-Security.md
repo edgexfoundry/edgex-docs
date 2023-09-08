@@ -1,4 +1,4 @@
-# Security
+# Security Services
 
 ![image](./EdgeX_Security.png)
 

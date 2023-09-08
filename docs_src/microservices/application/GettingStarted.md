@@ -14,7 +14,7 @@ Custom Application Services are needed when use case needs can not be meet with 
 
 ### Template
 
-To help accelerate the creation of your custom Application Service the `App Functions SDK` contains a template for new custom Application Services. This template has TODO's in the code and a README that walk you through the creation of your new custom Application Service. See the template [README](https://github.com/edgexfoundry/app-functions-sdk-go/tree/{{version}}/app-service-template#readme) for more details.
+To help accelerate the creation of your custom Application Service the `App Functions SDK` contains a template for new custom Application Services. This template has TODO's in the code and a README that walk you through the creation of your new custom Application Service. See the template [README](https://github.com/edgexfoundry/app-functions-sdk-go/tree/{{edgexversion}}/app-service-template#readme) for more details.
 
 ## Triggers
 

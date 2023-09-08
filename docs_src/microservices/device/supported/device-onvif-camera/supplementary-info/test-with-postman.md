@@ -20,8 +20,8 @@ Before using `device-onvif-camera`, the user can verify the camera's functionali
 ### Import the Postman collections
 
 Download and import the following JSON files into Postman REST client tool:  
-- [onvif_camera_without_edgex_postman_collection.json](https://raw.githubusercontent.com/edgexfoundry/device-onvif-camera/{{version}}/doc/postman/onvif_camera_without_edgex_postman_collection.json)  
-- [onvif_camera_without_edgex_postman_environment.json](https://raw.githubusercontent.com/edgexfoundry/device-onvif-camera/{{version}}/doc/postman/onvif_camera_without_edgex_postman_environment.json)  
+- [onvif_camera_without_edgex_postman_collection.json](https://raw.githubusercontent.com/edgexfoundry/device-onvif-camera/{{edgexversion}}/doc/postman/onvif_camera_without_edgex_postman_collection.json)  
+- [onvif_camera_without_edgex_postman_environment.json](https://raw.githubusercontent.com/edgexfoundry/device-onvif-camera/{{edgexversion}}/doc/postman/onvif_camera_without_edgex_postman_environment.json)  
   
 ### Set Up the Authentication for ONVIF security
 
@@ -99,5 +99,5 @@ Then we can execute other ONVIF function via Postman REST client tool.
 ## Test device-onvif-camera API
 
 After adding the device according to the [Getting Started Guide](../deployment), then we can import the following Postman collections for testing the APIs:  
-- [onvif_camera_with_edgex_postman_collection.json](https://raw.githubusercontent.com/edgexfoundry/device-onvif-camera/{{version}}/doc/postman/onvif_camera_with_edgex_postman_collection.json)  
-- [onvif_camera_with_edgex_postman_environment.json](https://raw.githubusercontent.com/edgexfoundry/device-onvif-camera/{{version}}/doc/postman/onvif_camera_with_edgex_postman_environment.json)  
+- [onvif_camera_with_edgex_postman_collection.json](https://raw.githubusercontent.com/edgexfoundry/device-onvif-camera/{{edgexversion}}/doc/postman/onvif_camera_with_edgex_postman_collection.json)  
+- [onvif_camera_with_edgex_postman_environment.json](https://raw.githubusercontent.com/edgexfoundry/device-onvif-camera/{{edgexversion}}/doc/postman/onvif_camera_with_edgex_postman_environment.json)  

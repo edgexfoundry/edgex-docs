@@ -69,4 +69,4 @@ If while using Axis cameras you face authentication failure it might help by dis
 
 ## License
 
-[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/{{version}}/LICENSE)
+[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/{{edgexversion}}/LICENSE)

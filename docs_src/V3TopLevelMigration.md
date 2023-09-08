@@ -77,13 +77,13 @@ If you have custom [environment overrides](../microservices/configuration/Common
 
 The compose files for V3 have many changes from their V2 counter parts. If you have customized a V2 compose file to add additional services and/or add or modify configuration overrides,  it is highly recommended that you start with the appropriate V3 compose file and re-add your customizations. It is very likely that the sections for your additional services will need to be migrated to have the proper environment overrides. Best approach is to use one of the V3 service sections that closest matches your service  as a template.
 
-The latest V3 compose files can be found here: [Compose Files](https://github.com/edgexfoundry/edgex-compose/tree/{{version}})
+The latest V3 compose files can be found here: [Compose Files](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}})
 
 ### Compose Builder
 
 If the additional service(s) in your custom compose file are EdgeX released device or app services, it is highly recommended that you use the Compose Builder to regenerate your custom compose file. 
 
-The latest V3 Compose Builder can be found here: [Compose Builder Readme](https://github.com/edgexfoundry/edgex-compose/tree/{{version}}/compose-builder/README.md) 
+The latest V3 Compose Builder can be found here: [Compose Builder Readme](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder/README.md) 
 
 ## Command Line Options
 

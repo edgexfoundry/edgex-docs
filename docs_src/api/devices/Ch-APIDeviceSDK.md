@@ -6,4 +6,4 @@ The Device Service SDK provides a RESTful API that all Device Services inherit f
 
 ## Swagger
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/device-sdk-go/{{version}}/openapi/{{api_version}}/device-sdk.yaml"/>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/device-sdk-go/{{edgexversion}}/openapi/{{api_version}}/device-sdk.yaml"/>

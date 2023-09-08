@@ -230,7 +230,7 @@ The environment variables overrides for **SecretStore** configuration follow the
     <pre>**Configuration Setting**: SecretStore.Host
     **Environment Variable Override**: SECRETSTORE_HOST=edgex-vault</pre>
 
-The  complete list of **SecretStore** fields and defaults can be found in the file [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/{{version}}/config/types.go). 
+The  complete list of **SecretStore** fields and defaults can be found in the file [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/{{edgexversion}}/config/types.go). 
 The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.
 
 ### Notable Configuration Overrides

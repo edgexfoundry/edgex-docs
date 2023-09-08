@@ -9,10 +9,10 @@ Follow this guide to deploy and run the service.
         cd edgex-compose/compose-builder
         ```
 
-    2. Checkout the latest release ({{version}}):
+    2. Checkout the latest release ({{edgexversion}}):
 
         ```shell
-        git checkout {{version}}
+        git checkout {{edgexversion}}
         ```
     
     3. Run EdgeX with the USB microservice in secure or non-secure mode:  
@@ -73,10 +73,10 @@ Follow this guide to deploy and run the service.
         cd edgex-compose/compose-builder
         ```
     
-    2. Checkout the latest release ({{version}}):
+    2. Checkout the latest release ({{edgexversion}}):
 
         ```shell
-        git checkout {{version}}
+        git checkout {{edgexversion}}
         ```
 
     3. Run EdgeX:
@@ -91,10 +91,10 @@ Follow this guide to deploy and run the service.
          cd device-usb-camera
          ```
 
-    5. Checkout the latest release ({{version}}):
+    5. Checkout the latest release ({{edgexversion}}):
 
         ```shell
-        git checkout {{version}}
+        git checkout {{edgexversion}}
         ```
 
     6. Build the executable  

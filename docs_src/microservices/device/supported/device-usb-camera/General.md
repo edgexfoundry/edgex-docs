@@ -42,4 +42,4 @@ To see an example utilizing the USB device service, refer to the [camera managem
 
 
 # License
-[Apache-2.0](https://github.com/edgexfoundry/device-usb-camera/blob/{{version}}/LICENSE)
+[Apache-2.0](https://github.com/edgexfoundry/device-usb-camera/blob/{{edgexversion}}/LICENSE)
