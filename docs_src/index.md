@@ -16,8 +16,8 @@ EdgeX Foundry is a vendor-neutral open source project hosted by The Linux Founda
     <div class="home-nav-card">
         <a href="./getting-started/Ch-GettingStartedSnapUsers/">
         <b>Snap Quick Start</b>
-        <p>Jump in to EdgeX Foundry by running Ubuntu Core Snaps.</p>
-        <img class="home-nav-icons" src="snappy.png"/>
+        <p>Jump in to EdgeX Foundry by running Snaps.</p>
+        <img class="home-nav-icons" src="snap.png"/>
         </a>
     </div>
   </div>
