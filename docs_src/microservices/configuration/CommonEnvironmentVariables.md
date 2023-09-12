@@ -192,6 +192,16 @@ This environment variable overrides the [`-r/--registry` command-line option](..
       EDGEX_USE_REGISTRY: "false"
     ```
 
+#### EDGEX_REMOTE_SERVICE_HOSTS
+
+This environment variable overrides the [`-rsh/--remoteServiceHosts` command-line option](../CommonCommandLineOptions#remote-service-hosts). 
+
+!!! example "Example - Using docker-compose to override Remote Service Hosts"
+    ```yaml
+    environment: 
+      EDGEX_REMOTE_SERVICE_HOSTS: "172.26.113.174,172.26.113.150,localhost"
+    ```
+
 ## Configuration Overrides
 
 !!! edgex - "EdgeX 3.0"
