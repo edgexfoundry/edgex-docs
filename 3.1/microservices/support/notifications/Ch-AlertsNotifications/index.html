@@ -2016,7 +2016,7 @@ Below are only the additional settings and sections that are specific to Support
 <p class="admonition-title">Edgex 3.0</p>
 <p>For EdgeX 3.0 the <code>MessageQueue</code> configuration has been moved to <code>MessageBus</code> in <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:6"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><input id="__tabbed_2_4" name="__tabbed_2" type="radio"><input id="__tabbed_2_5" name="__tabbed_2" type="radio"><input id="__tabbed_2_6" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Writable</label><label for="__tabbed_2_2">Writable.Telemetry</label><label for="__tabbed_2_3">Service</label><label for="__tabbed_2_4">Database</label><label for="__tabbed_2_5">MessageBus.Optional</label><label for="__tabbed_2_6">Smtp</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:7"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><input id="__tabbed_2_4" name="__tabbed_2" type="radio"><input id="__tabbed_2_5" name="__tabbed_2" type="radio"><input id="__tabbed_2_6" name="__tabbed_2" type="radio"><input id="__tabbed_2_7" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Writable</label><label for="__tabbed_2_2">Writable.Telemetry</label><label for="__tabbed_2_3">Service</label><label for="__tabbed_2_4">Database</label><label for="__tabbed_2_5">MessageBus.Optional</label><label for="__tabbed_2_6">Smtp</label><label for="__tabbed_2_7">Retention</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -2211,8 +2211,41 @@ Below are only the additional settings and sections that are specific to Support
 </tbody>
 </table>
 </div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enabled</td>
+<td>false</td>
+<td>Enable or disable notification retention.</td>
+</tr>
+<tr>
+<td>Interval</td>
+<td>30m</td>
+<td>Purging interval defines when the database should be rid of notifications above the MaxCap.</td>
+</tr>
+<tr>
+<td>MaxCap</td>
+<td>5000</td>
+<td>The maximum capacity defines where the high watermark of notifications should be detected for purging the amount of the notification to the minimum capacity.</td>
+</tr>
+<tr>
+<td>MinCap</td>
+<td>4000</td>
+<td>The minimum capacity defines where the total count of notifications should be returned to during purging.</td>
+</tr>
+</tbody>
+</table>
 </div>
-</input></input></input></input></input></input></div>
+</div>
+</input></input></input></input></input></input></input></div>
 <h3 id="v3-configuration-migration-guide">V3 Configuration Migration Guide</h3>
 <p>No configuration updated</p>
 <p>See <a href="../../../configuration/V3MigrationCommonConfig/">Common Configuration Reference</a> for complete details on common configuration changes.</p>
