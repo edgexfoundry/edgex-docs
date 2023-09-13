@@ -4,7 +4,7 @@ The following items discuss topics that are a bit beyond the basic use cases of 
 
 ### Configurable Functions Pipeline
 
-This SDK provides the capability to define the functions pipeline via configuration rather than code by using the **app-service-configurable** application service. See the [App Service Configurable](available/AppServiceConfigurable.md) section for more details.
+This SDK provides the capability to define the functions pipeline via configuration rather than code by using the **app-service-configurable** application service. See the [App Service Configurable](services/AppServiceConfigurable.md) section for more details.
 
 ### Custom REST Endpoints
 

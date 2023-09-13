@@ -1,4 +1,4 @@
-# App Functions SDK Introduction
+# App Functions SDK Overview
 
 Welcome the App Functions SDK for EdgeX. This SDK is meant to provide all the plumbing necessary for developers to get started in processing/transforming/exporting data out of EdgeX. 
 
