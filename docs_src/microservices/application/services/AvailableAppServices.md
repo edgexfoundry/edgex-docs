@@ -1,4 +1,4 @@
-# Available Application Services
+# Available Application Services List
 
 The following table lists the available EdgeX Application Services:
 

@@ -110,7 +110,7 @@ Enter the `edgex-go` folder and issue the `make build` command as shown below.
 
 ### Build the Virtual Device Service
 
-The [virtual device service](../../microservices/device/supported/device-virtual/Ch-VirtualDevice.md) simulates devices/sensors sending data to EdgeX as if it was a "thing".  This guide uses the virtual device service to exemplify how other devices services can be built and run.
+The [virtual device service](../../microservices/device/services/device-virtual/Ch-VirtualDevice.md) simulates devices/sensors sending data to EdgeX as if it was a "thing".  This guide uses the virtual device service to exemplify how other devices services can be built and run.
 
 Enter the `device-virtual-go` folder and issue the `make build` command as shown below.
 
@@ -118,7 +118,7 @@ Enter the `device-virtual-go` folder and issue the `make build` command as shown
 
 ### Build the Configurable Application Service
 
-The [configurable application service](../../microservices/application/available/AppServiceConfigurable.md) helps prepare device/sensor data for enterprise or cloud systems.  It also prepares data for use by the rules engine - [eKuiper](../../microservices/support/eKuiper/Ch-eKuiper.md)
+The [configurable application service](../../microservices/application/services/AppServiceConfigurable.md) helps prepare device/sensor data for enterprise or cloud systems.  It also prepares data for use by the rules engine - [eKuiper](../../microservices/support/eKuiper/Ch-eKuiper.md)
 
 Enter the `app-service-configurable` folder and issue the `make build` command as shown below.
 

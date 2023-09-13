@@ -363,5 +363,5 @@ See [Top Level V3 Migration Guide](../../../V3TopLevelMigration) for details app
 
 #### RTSP Authentication
 
-All USB camera rtsp streams need authentication by default. To properly configure credentials for the stream refer [here](./supported/device-usb-camera/supplementary-info/advanced-options.md#rtsp-authentication). This will require the building of custom images.  
-To see how to use this feature once the service is deployed, see [here](./supported/device-usb-camera/walkthrough/deployment.md#add-credentials-for-the-rtsp-stream).
+All USB camera rtsp streams need authentication by default. To properly configure credentials for the stream refer [here](services/device-usb-camera/supplementary-info/advanced-options.md#rtsp-authentication). This will require the building of custom images.  
+To see how to use this feature once the service is deployed, see [here](services/device-usb-camera/walkthrough/deployment.md#add-credentials-for-the-rtsp-stream).
