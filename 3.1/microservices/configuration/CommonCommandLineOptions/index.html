@@ -1733,13 +1733,24 @@
 <p>New in EdgeX 3.1</p>
 </div>
 <p><code>-rsh/--remoteServiceHosts &lt;host names&gt;</code></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This command line option is intended to be used in non-secure EdgeX deployments that are run with in a secured network. See <a href="../../..//security/Ch-RemoteDeviceServices/">Remote Device Services in Secure Mode</a> section for details of deploying remote EdgeX services in secure EdgeX deployments.</p>
+</div>
 <p>Sets the three host names required when running the service remotely so that it can connect to the core EdgeX services running on another system and also be connected to from those same core EdgeX services.</p>
 <p><code>&lt;host names&gt;</code> must contain and only contain the following three host names in a comma separated string</p>
 <ol>
-<li>Host name of local system where the service is running</li>
-<li>Host name of the system where the core EdgeX services are running</li>
-<li>Host name to bind to for the internal WebServer for hosting the REST API</li>
+<li>
+<p>Host name of local system where the service is running</p>
+</li>
+<li>
+<p>Host name of the system where the core EdgeX services are running</p>
+</li>
+<li>
+<p>Host name to bind to for the internal WebServer for hosting the REST API</p>
+</li>
 </ol>
+<p>This allows the service to be accessed from external network. When running native it can be set to the local system Hostname/IP or <code>0.0.0.0</code> When running in docker it must be set to <code>localhost</code> or <code>0.0.0.0</code> and use docker port mapping to expose the service to external network.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Each host name can be a known DNS host name or the IP address of the host</p>
