@@ -1788,6 +1788,11 @@
 <td>5s</td>
 <td>Specifies a timeout duration for handling requests</td>
 </tr>
+<tr>
+<td>EnableNameFieldEscape</td>
+<td>false</td>
+<td>The name field escape could allow the system to use special or Chinese characters in the different name fields, including device, profile, and so on.  If the EnableNameFieldEscape is false, some special characters might cause system error. If EnableNameFieldEscape is true, the client of event or command message bus API clients have to escape the name to subscribe the topics, for example, if the device name is <code>test-device</code>, the escaped device name should be <code>test%2Ddevice</code>, and the event topic is similar to <code>edgex/events/device/device%2Dvirtual/test%2Dprofile/test%2Ddevice/test%2Dresource</code>.</td>
+</tr>
 </tbody>
 </table>
 </div>
