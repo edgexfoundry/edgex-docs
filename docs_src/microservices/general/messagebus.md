@@ -22,7 +22,7 @@ The EdgeX services intended as external entry points are:
 
 - **Core Command External MQTT Connection** - Core Command now receives command requests and publishes responses via an external MQTT connection that is separate from the EdgeX MessageBus. The requests are forwarded to the EdgeX MessageBus and the corresponding responses are forwarded back to the external MQTT connection. 
 
-Originally the EdgeX MessageBus was only used to send *Event/Readings* from Core Data to the Application Services layer. In recent releases more services are now using the EdgeX MessageBus rather than REST for inner service communication. 
+Originally, the EdgeX MessageBus was only used to send *Event/Readings* from Core Data to the Application Services layer. In recent releases, more services use the EdgeX MessageBus rather than REST for inter service communication.  
 
 - Device Services publish *Event/Readings* directly to the EdgeX MessageBus rather than sending them via REST to Core Data. 
 - [Service Metrics](../#service-metrics) are published to the EdgeX MessageBus
@@ -43,7 +43,7 @@ The EdgeX MessageBus is defined by the message bus abstraction implemented in [g
 
 ### Common MessageBus Configuration
 
-Each service that uses the EdgeX MessageBus has a configuration section which defines which implementation to use and how to connect and configure the specific underlying protocol client. This section is the `MessageBus:` section which is now contained in the service common configuration for all EdgeX services. See the **MessageBus** tab in [Common Configuration](../../configuration/CommonConfiguration/#common-configuration-properties) for more details. 
+Each service that uses the EdgeX MessageBus has a configuration section which defines the implementation to use, the connection method, and the underlying protocol client. This section is the `MessageBus:` section in the service common configuration for all EdgeX services. See the **MessageBus** tab in [Common Configuration](../../configuration/CommonConfiguration/#common-configuration-properties) for more details. 
 
 The common MessageBus configuration elements for each implementation are:
 
@@ -290,7 +290,7 @@ The MessageBus configuration is in common configuration where the following chan
 
 #### Docker
 
-The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for NATS using environment overrides. This is accomplished by using the `nats-bus` option. This option configures the services to use the NATS Jetstream implementation. See [Compose Builder README](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder/README.md) for details on all available options. If NATS Core is preferred, simply do a search and replace of `nats-jeststream` with `nats-core` in the generated compose file.
+The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for NATS using environment overrides. This is accomplished by using the `nats-bus` option. This option configures the services to use the NATS Jetstream implementation. See [Compose Builder README](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder/README.md) for details on all available options. If NATS Core is preferred, simply do a search and replace of `nats-jetstream` with `nats-core` in the generated compose file.
 
 !!! example - "Example Secure mode compose generation for NATS"
 
