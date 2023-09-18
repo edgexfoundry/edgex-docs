@@ -325,7 +325,14 @@ When in secure mode, the secrets are retrieved from the service secure SecretSto
 
 When running in insecure mode, the secrets are retrieved from the `Writable.InsecureSecrets` configuration.
 
-### Background Publishing
+### Background Publishing *DEPRECATED*
+
+The background publisher API has been deprecated.  Any applications using it should migrate replacements available on the `ApplicationService` or `AppFunctionContext` APIs:
+
+- [interfaces.ApplicationService.Publish](../ApplicationServiceAPI/#publish)
+- [interfaces.ApplicationService.PublishWithTopic](../ApplicationServiceAPI/#publishwithtopic)
+- [interfaces.AppFunctionContext.Publish](../AppFunctionContextAPI/#publish)
+- [interfaces.AppFunctionContext.PublishWithTopic](../AppFunctionContextAPI/#publishwithtopic)
 
 Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  A custom topic can be provided to use instead of the configured message bus output as well.
 
