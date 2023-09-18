@@ -923,8 +923,8 @@
 <nav aria-label="Implementations" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#common-configuration">
-    Common Configuration
+<a class="md-nav__link" href="#common-messagebus-configuration">
+    Common MessageBus Configuration
   </a>
 </li>
 <li class="md-nav__item">
@@ -1771,8 +1771,8 @@
 <nav aria-label="Implementations" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#common-configuration">
-    Common Configuration
+<a class="md-nav__link" href="#common-messagebus-configuration">
+    Common MessageBus Configuration
   </a>
 </li>
 <li class="md-nav__item">
@@ -1980,14 +1980,14 @@
 <p><strong>Core Command External MQTT Connection</strong> - Core Command now receives command requests and publishes responses via an external MQTT connection that is separate from the EdgeX MessageBus. The requests are forwarded to the EdgeX MessageBus and the corresponding responses are forwarded back to the external MQTT connection. </p>
 </li>
 </ul>
-<p>Originally the EdgeX MessageBus was only used to send <em>Event/Readings</em> from Core Data to the Application Services layer. In recent V2 releases more services are now using the EdgeX MessageBus rather than REST for inner service communication. </p>
+<p>Originally the EdgeX MessageBus was only used to send <em>Event/Readings</em> from Core Data to the Application Services layer. In recent releases more services are now using the EdgeX MessageBus rather than REST for inner service communication. </p>
 <ul>
 <li>Device Services publish <em>Event/Readings</em> directly to the EdgeX MessageBus rather than sending them via REST to Core Data. </li>
 <li><a href="../#service-metrics">Service Metrics</a> are published to the EdgeX MessageBus</li>
 <li><a href="../../core/metadata/Ch-Metadata/#device-system-events">System Events</a> are published to the EdgeX MessageBus. </li>
 <li><a href="../../../design/adr/0023-North-South-Messaging">Command Request/Reponses</a> are now published to the EdgeX MessageBus by Core Command and Devices Services.  </li>
+<li>Device validation requests from Core Metadata to Device Services via the EdgeX MessageBus.</li>
 </ul>
-<p>This trend away from REST to the EdgeX MessageBus for inner service communication continues. In the future, Device Services will receive Device System Events via the EdgeX MessageBus  rather than the current REST callbacks used when devices are added/updated/deleted in Core Metadata.</p>
 <h2 id="message-envelope">Message Envelope</h2>
 <p>All messages published to the EdgeX MessageBus are wrapped in a <code>MessageEnvelope</code>. This envelope contains metadata describing the message payload, such as the payload Content Type (JSON or CBOR), Correlation Id, etc. </p>
 <div class="admonition note">
@@ -1995,14 +1995,27 @@
 <p>Unless noted below, the <code>MessageEnvelope</code> is  JSON encoded when publishing it to the EdgeX MessageBus. This does result in the <code>MessageEnvelope</code>'s payload being double encoded.</p>
 </div>
 <h2 id="implementations">Implementations</h2>
-<p>The EdgeX MessageBus is defined by the message bus abstraction implemented in <a href="https://github.com/edgexfoundry/go-mod-messaging">go-mod-messaging</a>. This module defines an abstract client API which currently has five implementations of the API for the different underlying message bus protocols. </p>
-<h3 id="common-configuration">Common Configuration</h3>
-<p>Each service that uses the EdgeX MessageBus has a configuration section which defines which implementation to use and how to connect and configure the specific underlying protocol client. This section is  <code>[Trigger.EdgexMessageBus]</code> for <a href="../../application/GeneralAppServiceConfig">Application Services</a> and<code>[MessageQueue]</code> for <a href="../../core/data/Ch-CoreData/#configuration-properties">Core Data</a>, <a href="../../core/metadata/Ch-Metadata/#configuration-properties">Core Metadata</a> and <a href="../../device/Ch-DeviceServices/#configuration-properties">Device Services</a>. The <code>Type</code> setting specifies which of the following implementations to use. </p>
+<p>The EdgeX MessageBus is defined by the message bus abstraction implemented in <a href="https://github.com/edgexfoundry/go-mod-messaging">go-mod-messaging</a>. This module defines an abstract client API which currently has four implementations of the API for the different underlying message bus protocols. </p>
+<h3 id="common-messagebus-configuration">Common MessageBus Configuration</h3>
+<p>Each service that uses the EdgeX MessageBus has a configuration section which defines which implementation to use and how to connect and configure the specific underlying protocol client. This section is the <code>MessageBus:</code> section which is now contained in the service common configuration for all EdgeX services. See the <strong>MessageBus</strong> tab in <a href="../../configuration/CommonConfiguration/#common-configuration-properties">Common Configuration</a> for more details. </p>
+<p>The common MessageBus configuration elements for each implementation are:</p>
 <ul>
+<li>Type - Specifies which of the following implementations to use. <ul>
 <li><strong>Redis Pub/Sub</strong> (<strong>default</strong>) - <code>Type=redis</code></li>
 <li><strong>MQTT 3.1</strong> - <code>Type=mqtt</code></li>
 <li><strong>NATS Core</strong> - <code>Type=nats-core</code> </li>
 <li><strong>NATS JetStream</strong> - <code>Type=nats-jetstream</code> </li>
+</ul>
+</li>
+<li>Host - Specifies the name or IP for the message broker </li>
+<li>Port - Specifies the port number for the message broker </li>
+<li>Protocol - Specifies portocol used by the message broker<ul>
+<li><code>redis</code> for <strong>Redis Pub/Sub</strong></li>
+<li><code>tcp</code> for <strong>MQTT 3.1</strong></li>
+<li><code>tcp</code> for <strong>NATS Core</strong></li>
+<li><code>tcp</code> for <strong>NATS JetStream</strong></li>
+</ul>
+</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2011,7 +2024,7 @@
 <h3 id="redis-pubsub">Redis Pub/Sub</h3>
 <p>As stated above this is the default implementation that all EdgeX Services are configured to use. It takes advantage of the existing Redis DB instance for the broker. Redis Pub/Sub is a fire and forget protocol, so delivery is not guaranteed. If more robustness is required, use the MQTT or NATS implementations.</p>
 <h4 id="configuration">Configuration</h4>
-<p>See <a href="#common-configuration">Common Configuration</a> section above for the common configuration elements for all implementations.</p>
+<p>See <a href="#common-messagebus-configuration">Common Configuration</a> section above for the common configuration elements for all implementations.</p>
 <h5 id="security-configuration">Security Configuration</h5>
 <table>
 <thead>
@@ -2039,7 +2052,7 @@
 <h3 id="mqtt-31">MQTT 3.1</h3>
 <p>Robust message bus protocol, which has additional configuration options for robustness and requires an additional MQTT Broker to be running. See <a href="http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html">MQTT Spec</a> for more details on this protocol.</p>
 <h4 id="configuration_1">Configuration</h4>
-<p>See <a href="#common-configuration">Common Configuration</a> section above for the common configuration elements for all implementations.</p>
+<p>See <a href="#common-messagebus-configuration">Common Configuration</a> section above for the common configuration elements for all implementations.</p>
 <h5 id="security-configuration_1">Security Configuration</h5>
 <table>
 <thead>
@@ -2063,6 +2076,7 @@
 </tbody>
 </table>
 <h5 id="additional-configuration_1">Additional Configuration</h5>
+<p>Except where noted default values exist in the service common configuration.</p>
 <table>
 <thead>
 <tr>
@@ -2075,7 +2089,7 @@
 <tr>
 <td>ClientId</td>
 <td>service key</td>
-<td>Unique name of the client connecting to the MQTT broker</td>
+<td>Unique name of the client connecting to the MQTT broker (<strong>Set in each service's private configuration</strong>)</td>
 </tr>
 <tr>
 <td>Qos</td>
@@ -2116,7 +2130,7 @@
 <h4 id="nats-jetstream">NATS JetStream</h4>
 <p>The JetStream persistence layer binds NATS subjects to persistent streams which enables the server to collect messages for subjects that have no registered interest, and allows support for <code>at least once</code> quality of service.  Notably, services running in <code>core-nats</code> mode can still subscribe and publish to jetstream-enabled subjects without the additional overhead associated with publish acknowledgement.</p>
 <h4 id="configuration_2">Configuration</h4>
-<p>See <a href="#common-configuration">Common Configuration</a> section above for the common configuration elements for all implementations.</p>
+<p>See <a href="#common-messagebus-configuration">Common Configuration</a> section above for the common configuration elements for all implementations.</p>
 <h5 id="security-configuration_2">Security Configuration</h5>
 <table>
 <thead>
@@ -2150,6 +2164,7 @@
 </tbody>
 </table>
 <h5 id="additional-configuration_2">Additional Configuration</h5>
+<p>Except where noted default values exist in the service common configuration.</p>
 <table>
 <thead>
 <tr>
@@ -2162,7 +2177,7 @@
 <tr>
 <td>ClientId</td>
 <td>service key</td>
-<td>Unique name of the client connecting to the NATS Server</td>
+<td>Unique name of the client connecting to the NATS Server (<strong>Set in each service's private configuration</strong>)</td>
 </tr>
 <tr>
 <td>Format</td>
@@ -2261,7 +2276,7 @@
 <p class="admonition-title">Edgex 3.0</p>
 <p>For EdgeX 3.0 <code>MessageQueue</code> configuration has been renamed to MessageBus and is now in common configuration.</p>
 </div>
-<p>The MessageBus configuration is in common configuration where the following changes only need to be made once and apply to all services. See the <strong>MessageBus</strong> tab in <a href="../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a> for more details.</p>
+<p>The MessageBus configuration is in common configuration where the following changes only need to be made once and apply to all services. See the <strong>MessageBus</strong> tab in <a href="../../configuration/CommonConfiguration/#common-configuration-properties">Common Configuration</a> for more details.</p>
 <div class="admonition example -">
 <p class="admonition-title">Example MQTT Configurations changes for all services</p>
 <p>The following <code>MessageBus</code> configuration settings must be changed in common configuration for all EdgeX Services to use MQTT 3.1
@@ -2280,7 +2295,7 @@
 <p>The optional settings that apply to MQTT are already in the common configuration, so are not included above.</p>
 </div>
 <h4 id="docker">Docker</h4>
-<p>The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for MQTT 3.1 using environment overrides. This is accomplished by using the <code>mqtt-bus</code> option. See <a href="https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder">Compose Builder README</a> for details on all available options.</p>
+<p>The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for MQTT 3.1 using environment overrides. This is accomplished by using the <code>mqtt-bus</code> option. See <a href="https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder/README.md">Compose Builder README</a> for details on all available options.</p>
 <div class="admonition example -">
 <p class="admonition-title">Example Secure mode compose generation for MQTT 3.1</p>
 <div class="highlight"><pre><span></span><code>make gen ds-virtual ds-rest mqtt-bus
@@ -2314,7 +2329,7 @@
 <p class="admonition-title">Edgex 3.0</p>
 <p>For EdgeX 3.0 <code>MessageQueue</code> configuration has been renamed to MessageBus and is now in common configuration.</p>
 </div>
-<p>The MessageBus configuration is in common configuration where the following changes only need to be made once and apply to all services. See the <strong>MessageBus</strong> tab in <a href="../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a> for more details.</p>
+<p>The MessageBus configuration is in common configuration where the following changes only need to be made once and apply to all services. See the <strong>MessageBus</strong> tab in <a href="../../configuration/CommonConfiguration/#common-configuration-properties">Common Configuration</a> for more details.</p>
 <div class="admonition example -">
 <p class="admonition-title">Example NATS Configurations changes for all services</p>
 <p>The following <code>MessageBus</code> configuration settings must be changed in common configuration for all EdgeX Services to use NATS Jetstream
@@ -2331,7 +2346,7 @@
 <p>The optional setting that apply to NATS are already in the common configuration, so are not included above.</p>
 </div>
 <h4 id="docker_1">Docker</h4>
-<p>The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for NATS using environment overrides. This is accomplished by using the <code>nats-bus</code> option. This option configures the services to use the NATS Jetstream implementation. See <a href="https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder">Compose Builder README</a> for details on all available options. If NATS Core is preferred, simply do a search and replace of <code>nats-jeststream</code> with <code>nats-core</code> in the generated compose file.</p>
+<p>The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for NATS using environment overrides. This is accomplished by using the <code>nats-bus</code> option. This option configures the services to use the NATS Jetstream implementation. See <a href="https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder/README.md">Compose Builder README</a> for details on all available options. If NATS Core is preferred, simply do a search and replace of <code>nats-jeststream</code> with <code>nats-core</code> in the generated compose file.</p>
 <div class="admonition example -">
 <p class="admonition-title">Example Secure mode compose generation for NATS</p>
 <div class="highlight"><pre><span></span><code>make gen ds-virtual ds-rest nats-bus
