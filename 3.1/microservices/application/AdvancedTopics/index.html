@@ -910,8 +910,8 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#background-publishing">
-    Background Publishing
+<a class="md-nav__link" href="#background-publishing-deprecated">
+    Background Publishing DEPRECATED
   </a>
 </li>
 <li class="md-nav__item">
@@ -1848,8 +1848,8 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#background-publishing">
-    Background Publishing
+<a class="md-nav__link" href="#background-publishing-deprecated">
+    Background Publishing DEPRECATED
   </a>
 </li>
 <li class="md-nav__item">
@@ -2173,7 +2173,14 @@ A factory function to create these clients can then be registered with your serv
 <p>Application Services can retrieve their secrets from their SecretStore using the  <a href="../ApplicationServiceAPI/#secretprovider">interfaces.ApplicationService.SecretProvider.GetSecret()</a> API or from the <a href="../AppFunctionContextAPI/#secretprovider">interfaces.AppFunctionContext.SecretProvider.GetSecret()</a> API  </p>
 <p>When in secure mode, the secrets are retrieved from the service secure SecretStore. </p>
 <p>When running in insecure mode, the secrets are retrieved from the <code>Writable.InsecureSecrets</code> configuration.</p>
-<h3 id="background-publishing">Background Publishing</h3>
+<h3 id="background-publishing-deprecated">Background Publishing <em>DEPRECATED</em></h3>
+<p>The background publisher API has been deprecated.  Any applications using it should migrate replacements available on the <code>ApplicationService</code> or <code>AppFunctionContext</code> APIs:</p>
+<ul>
+<li><a href="../ApplicationServiceAPI/#publish">interfaces.ApplicationService.Publish</a></li>
+<li><a href="../ApplicationServiceAPI/#publishwithtopic">interfaces.ApplicationService.PublishWithTopic</a></li>
+<li><a href="../AppFunctionContextAPI/#publish">interfaces.AppFunctionContext.Publish</a></li>
+<li><a href="../AppFunctionContextAPI/#publishwithtopic">interfaces.AppFunctionContext.PublishWithTopic</a></li>
+</ul>
 <p>Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  A custom topic can be provided to use instead of the configured message bus output as well.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Background Publisher</p>
