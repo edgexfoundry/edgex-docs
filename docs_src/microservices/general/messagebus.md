@@ -22,14 +22,13 @@ The EdgeX services intended as external entry points are:
 
 - **Core Command External MQTT Connection** - Core Command now receives command requests and publishes responses via an external MQTT connection that is separate from the EdgeX MessageBus. The requests are forwarded to the EdgeX MessageBus and the corresponding responses are forwarded back to the external MQTT connection. 
 
-Originally the EdgeX MessageBus was only used to send *Event/Readings* from Core Data to the Application Services layer. In recent V2 releases more services are now using the EdgeX MessageBus rather than REST for inner service communication. 
+Originally the EdgeX MessageBus was only used to send *Event/Readings* from Core Data to the Application Services layer. In recent releases more services are now using the EdgeX MessageBus rather than REST for inner service communication. 
 
 - Device Services publish *Event/Readings* directly to the EdgeX MessageBus rather than sending them via REST to Core Data. 
 - [Service Metrics](../#service-metrics) are published to the EdgeX MessageBus
 - [System Events](../../core/metadata/Ch-Metadata/#device-system-events) are published to the EdgeX MessageBus. 
 - [Command Request/Reponses](../../../design/adr/0023-North-South-Messaging) are now published to the EdgeX MessageBus by Core Command and Devices Services.  
-
-This trend away from REST to the EdgeX MessageBus for inner service communication continues. In the future, Device Services will receive Device System Events via the EdgeX MessageBus  rather than the current REST callbacks used when devices are added/updated/deleted in Core Metadata.
+- Device validation requests from Core Metadata to Device Services via the EdgeX MessageBus.
 
 ## Message Envelope
 
@@ -40,16 +39,26 @@ All messages published to the EdgeX MessageBus are wrapped in a `MessageEnvelope
 
 ## Implementations
 
-The EdgeX MessageBus is defined by the message bus abstraction implemented in [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging). This module defines an abstract client API which currently has five implementations of the API for the different underlying message bus protocols. 
+The EdgeX MessageBus is defined by the message bus abstraction implemented in [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging). This module defines an abstract client API which currently has four implementations of the API for the different underlying message bus protocols. 
 
-### Common Configuration
+### Common MessageBus Configuration
 
-Each service that uses the EdgeX MessageBus has a configuration section which defines which implementation to use and how to connect and configure the specific underlying protocol client. This section is  `[Trigger.EdgexMessageBus]` for [Application Services](../../application/GeneralAppServiceConfig) and`[MessageQueue]` for [Core Data](../../core/data/Ch-CoreData/#configuration-properties), [Core Metadata](../../core/metadata/Ch-Metadata/#configuration-properties) and [Device Services](../../device/Ch-DeviceServices/#configuration-properties). The `Type` setting specifies which of the following implementations to use. 
+Each service that uses the EdgeX MessageBus has a configuration section which defines which implementation to use and how to connect and configure the specific underlying protocol client. This section is the `MessageBus:` section which is now contained in the service common configuration for all EdgeX services. See the **MessageBus** tab in [Common Configuration](../../configuration/CommonConfiguration/#common-configuration-properties) for more details. 
 
-- **Redis Pub/Sub** (**default**) - `Type=redis`
-- **MQTT 3.1** - `Type=mqtt`
-- **NATS Core** - `Type=nats-core` 
-- **NATS JetStream** - `Type=nats-jetstream` 
+The common MessageBus configuration elements for each implementation are:
+
+- Type - Specifies which of the following implementations to use. 
+    - **Redis Pub/Sub** (**default**) - `Type=redis`
+    - **MQTT 3.1** - `Type=mqtt`
+    - **NATS Core** - `Type=nats-core` 
+    - **NATS JetStream** - `Type=nats-jetstream` 
+- Host - Specifies the name or IP for the message broker 
+- Port - Specifies the port number for the message broker 
+- Protocol - Specifies portocol used by the message broker
+    - `redis` for **Redis Pub/Sub**
+    - `tcp` for **MQTT 3.1**
+    - `tcp` for **NATS Core**
+    - `tcp` for **NATS JetStream**
 
 !!! note
     In general all EdgeX Services running in a deployment must be configured to use the same EdgeX MessageBus implementation. By default all services that use the EdgeX MessageBus are configured to use the Redis Pub/Sub implementation. NATS does support a compatibility mode with MQTT. See the [NATS MQTT Mode](#nats-mqtt-mode) section below for details.
@@ -60,7 +69,7 @@ As stated above this is the default implementation that all EdgeX Services are c
 
 #### Configuration
 
-See [Common Configuration](#common-configuration) section above for the common configuration elements for all implementations.
+See [Common Configuration](#common-messagebus-configuration) section above for the common configuration elements for all implementations.
 
 ##### Security Configuration 
 
@@ -79,7 +88,7 @@ Robust message bus protocol, which has additional configuration options for robu
 
 #### Configuration
 
-See [Common Configuration](#common-configuration) section above for the common configuration elements for all implementations.
+See [Common Configuration](#common-messagebus-configuration) section above for the common configuration elements for all implementations.
 
 ##### Security Configuration 
 
@@ -88,11 +97,13 @@ See [Common Configuration](#common-configuration) section above for the common c
 | AuthMode   | `none`        | Mode of authentication to use. Values are `none`, `usernamepassword`, `clientcert`, or `cacert`. In secure mode the MQTT Broker uses `usernamepassword` |
 | SecretName | blank         | Secret name used to look up credentials in the service's SecretStore |
 
-##### Additional Configuration
+##### Additional Configuration 
+
+Except where noted default values exist in the service common configuration.
 
 | Option    | Default Value                                     | Description                                                  |
 | -------------- | ------------------------------------------------------------ | -------------- |
-| ClientId       | service key | Unique name of the client connecting to the MQTT broker      |
+| ClientId       | service key | Unique name of the client connecting to the MQTT broker (**Set in each service's private configuration**) |
 | Qos            | `0` | Quality of Service level <br />0: At most once delivery<br />1: At least once delivery<br />2: Exactly once delivery<br />See the [MQTT QOS Spec](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718099) for more details |
 | KeepAlive     | `10`        | Maximum time interval in seconds that is permitted to elapse between the point at which the client finishes transmitting one control packet and the point it starts sending the next. If exceeded, the broker will close the client connection |
 | Retained       | `false` | If true, Server MUST store the Application Message and its QoS, so that it can be delivered to future subscribers whose subscriptions match its topic name. See [Retained Messages](https://www.hivemq.com/blog/mqtt-essentials-part-8-retained-messages) for more details. |
@@ -114,7 +125,7 @@ The JetStream persistence layer binds NATS subjects to persistent streams which 
 
 #### Configuration
 
-See [Common Configuration](#common-configuration) section above for the common configuration elements for all implementations.
+See [Common Configuration](#common-messagebus-configuration) section above for the common configuration elements for all implementations.
 
 ##### Security Configuration 
 
@@ -127,18 +138,20 @@ See [Common Configuration](#common-configuration) section above for the common c
 
 ##### Additional Configuration
 
-| Option                  | Default Value | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-|-------------------------|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ClientId                | service key   | Unique name of the client connecting to the NATS Server                                                                                                                                                                                                                                                                                                                                                                                                            |
+Except where noted default values exist in the service common configuration.
+
+| Option                  | Default Value | Description                                                  |
+| ----------------------- | ------------- | ------------------------------------------------------------ |
+| ClientId                | service key   | Unique name of the client connecting to the NATS Server (**Set in each service's private configuration**) |
 | Format                  | `nats`        | Format of the actual message published. Valid values are:<br />- **nats** : Metadata from the `MessageEnvlope` are put into the NATS header and the payload from the `MessageEnvlope` is published as is. **Preferred format when all services are using NATS**<br />- **json** : JSON encodes the `MessageEnvelope` and publish it as the message. Use this format for compatibility when other services using MQTT 3.1 and running the NATS Server in MQTT mode. |
-| ConnectTimeout          | `30`          | Timeout in seconds for the connection to the broker to be successful                                                                                                                                                                                                                                                                                                                                                                                               |
-| RetryOnFailedConnect    | `false`       | Retry on connection failure - expects a string representation of a boolean                                                                                                                                                                                                                                                                                                                                                                                         |
-| QueueGroup              | blank         | Specifies a queue group to distribute messages from a stream to a pool of worker services                                                                                                                                                                                                                                                                                                                                                                          |
-| Durable                 | blank         | Specifies a durable consumer should be used with the given name.  Note that if a durable consumer with the specified name does not exist it will be considered ephemeral and deleted by the client on drain / unsubscribe (**JetStream only**)                                                                                                                                                                                                                     |
-| Subject                 | blank         | Specifies the subject for subscribing stream if a Durable is not specified - will also be formatted into a stream name to be used on subscription.  This subject is used for auto-provisioning the stream if needed as well and should be configured with the 'root' topic common to all subscriptions (eg `edgex/#`) to ensure that all topics on the bus are covered.   (**JetStream only**)                                                                     |
-| AutoProvision           | `false`       | Automatically provision NATS streams. (**JetStream only**)                                                                                                                                                                                                                                                                                                                                                                                                         |
-| Deliver                 | `new`         | Specifies delivery mode for subscriptions - options are "new", "all", "last" or "lastpersubject".  See the [NATS documentation](https://docs.nats.io/nats-concepts/jetstream/consumers#deliverpolicy-optstartseq-optstarttime) for more detail (**JetStream only**)                                                                                                                                                                                                |
-| DefaultPubRetryAttempts | `2`           | Number of times to attempt to retry on failed publish (**JetStream only**)                                                                                                                                                                                                                                                                                                                                                                                         |
+| ConnectTimeout          | `30`          | Timeout in seconds for the connection to the broker to be successful |
+| RetryOnFailedConnect    | `false`       | Retry on connection failure - expects a string representation of a boolean |
+| QueueGroup              | blank         | Specifies a queue group to distribute messages from a stream to a pool of worker services |
+| Durable                 | blank         | Specifies a durable consumer should be used with the given name.  Note that if a durable consumer with the specified name does not exist it will be considered ephemeral and deleted by the client on drain / unsubscribe (**JetStream only**) |
+| Subject                 | blank         | Specifies the subject for subscribing stream if a Durable is not specified - will also be formatted into a stream name to be used on subscription.  This subject is used for auto-provisioning the stream if needed as well and should be configured with the 'root' topic common to all subscriptions (eg `edgex/#`) to ensure that all topics on the bus are covered.   (**JetStream only**) |
+| AutoProvision           | `false`       | Automatically provision NATS streams. (**JetStream only**)   |
+| Deliver                 | `new`         | Specifies delivery mode for subscriptions - options are "new", "all", "last" or "lastpersubject".  See the [NATS documentation](https://docs.nats.io/nats-concepts/jetstream/consumers#deliverpolicy-optstartseq-optstarttime) for more detail (**JetStream only**) |
+| DefaultPubRetryAttempts | `2`           | Number of times to attempt to retry on failed publish (**JetStream only**) |
 
 #### Resource Provisioning with nats-box
 
@@ -203,7 +216,7 @@ All EdgeX services are capable of using MQTT 3.1 by simply making changes to eac
 !!! edgey "Edgex 3.0"
     For EdgeX 3.0 `MessageQueue` configuration has been renamed to MessageBus and is now in common configuration.
 
-The MessageBus configuration is in common configuration where the following changes only need to be made once and apply to all services. See the **MessageBus** tab in [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for more details.
+The MessageBus configuration is in common configuration where the following changes only need to be made once and apply to all services. See the **MessageBus** tab in [Common Configuration](../../configuration/CommonConfiguration/#common-configuration-properties) for more details.
 
 !!! example - "Example MQTT Configurations changes for all services"
     The following `MessageBus` configuration settings must be changed in common configuration for all EdgeX Services to use MQTT 3.1
@@ -223,7 +236,7 @@ The MessageBus configuration is in common configuration where the following chan
 
 #### Docker
 
-The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for MQTT 3.1 using environment overrides. This is accomplished by using the `mqtt-bus` option. See [Compose Builder README](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder) for details on all available options.
+The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for MQTT 3.1 using environment overrides. This is accomplished by using the `mqtt-bus` option. See [Compose Builder README](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder/README.md) for details on all available options.
 
 !!! example - "Example Secure mode compose generation for MQTT 3.1"
     ```
@@ -260,7 +273,7 @@ The EdgeX Go based services are not capable of using the NATS implementation wit
 !!! edgey - "Edgex 3.0"
     For EdgeX 3.0 `MessageQueue` configuration has been renamed to MessageBus and is now in common configuration.
 
-The MessageBus configuration is in common configuration where the following changes only need to be made once and apply to all services. See the **MessageBus** tab in [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for more details.
+The MessageBus configuration is in common configuration where the following changes only need to be made once and apply to all services. See the **MessageBus** tab in [Common Configuration](../../configuration/CommonConfiguration/#common-configuration-properties) for more details.
 
 !!! example - "Example NATS Configurations changes for all services"
     The following `MessageBus` configuration settings must be changed in common configuration for all EdgeX Services to use NATS Jetstream
@@ -277,7 +290,7 @@ The MessageBus configuration is in common configuration where the following chan
 
 #### Docker
 
-The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for NATS using environment overrides. This is accomplished by using the `nats-bus` option. This option configures the services to use the NATS Jetstream implementation. See [Compose Builder README](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder) for details on all available options. If NATS Core is preferred, simply do a search and replace of `nats-jeststream` with `nats-core` in the generated compose file.
+The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for NATS using environment overrides. This is accomplished by using the `nats-bus` option. This option configures the services to use the NATS Jetstream implementation. See [Compose Builder README](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder/README.md) for details on all available options. If NATS Core is preferred, simply do a search and replace of `nats-jeststream` with `nats-core` in the generated compose file.
 
 !!! example - "Example Secure mode compose generation for NATS"
 
