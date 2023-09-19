@@ -70,6 +70,7 @@ The tables in each of the tabs below document configuration properties that are 
     |MaxResultCount|1024*|Read data limit per invocation. *Default value is for core/support services. Application and Device services do not implement this setting. |
     |MaxRequestSize|0|Defines the maximum size of http request body in kilbytes. 0 represents default to system max.|
     |RequestTimeout         |5s                          | Specifies a timeout duration for handling requests |
+    |EnableNameFieldEscape|false|The name field escape could allow the system to use special or Chinese characters in the different name fields, including device, profile, and so on.  If the EnableNameFieldEscape is false, some special characters might cause system error. If EnableNameFieldEscape is true, the client of event or command message bus API clients have to escape the name to subscribe the topics, for example, if the device name is `test-device`, the escaped device name should be `test%2Ddevice`, and the event topic is similar to `edgex/events/device/device%2Dvirtual/test%2Dprofile/test%2Ddevice/test%2Dresource`.|
 === "Service.CORSConfiguration"
     |Property|Default Value|Description|
     |---|---|---|

@@ -4,7 +4,7 @@ The following items discuss topics that are a bit beyond the basic use cases of 
 
 ### Configurable Functions Pipeline
 
-This SDK provides the capability to define the functions pipeline via configuration rather than code by using the **app-service-configurable** application service. See the [App Service Configurable](available/AppServiceConfigurable.md) section for more details.
+This SDK provides the capability to define the functions pipeline via configuration rather than code by using the **app-service-configurable** application service. See the [App Service Configurable](services/AppServiceConfigurable.md) section for more details.
 
 ### Custom REST Endpoints
 
@@ -137,10 +137,10 @@ The `ApplicationService` API provides the follow APIs to enable structured custo
 - `ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error`
     - Starts a listener on the Configuration Provider for changes to the specified section of the custom configuration. When changes are received from the Configuration Provider the UpdateWritableFromRaw interface will be called on the custom configuration to apply the updates and then signal that the changes occurred via changedCallback.
 
-See the [Application Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/tree/{{version}}/app-service-template) for an example of using the new Structured Custom Configuration capability.
+See the [Application Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/tree/{{edgexversion}}/app-service-template) for an example of using the new Structured Custom Configuration capability.
 
-- [See here for defining the structured custom configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{version}}/app-service-template/config/configuration.go#L36-L81)
-- [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{version}}/app-service-template/main.go#L73-L97)
+- [See here for defining the structured custom configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{edgexversion}}/app-service-template/config/configuration.go#L36-L81)
+- [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{edgexversion}}/app-service-template/main.go#L73-L97)
 
 ### Store and Forward
 
@@ -181,7 +181,7 @@ Database configuration section describes which database type to use and the info
 When an export function encounters an error sending data it can call `SetRetryData(payload []byte)` on the `AppFunctionContext`. This will store the data for later retry. If the Application Service is stopped and then restarted while stored data hasn't been successfully exported, the export retry will resume once the service is up and running again.
 
 !!! note
-    It is important that export functions return an error and stop pipeline execution after the call to `SetRetryData`. See [HTTPPost](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{version}}/pkg/transforms/http.go) function in SDK as an example
+    It is important that export functions return an error and stop pipeline execution after the call to `SetRetryData`. See [HTTPPost](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{edgexversion}}/pkg/transforms/http.go) function in SDK as an example
 
 When the `RetryInterval` expires, the function pipeline will be re-executed starting with the export function that saved the data. The saved data will be passed to the export function which can then attempt to resend the data. 
 
@@ -325,7 +325,14 @@ When in secure mode, the secrets are retrieved from the service secure SecretSto
 
 When running in insecure mode, the secrets are retrieved from the `Writable.InsecureSecrets` configuration.
 
-### Background Publishing
+### Background Publishing *DEPRECATED*
+
+The background publisher API has been deprecated.  Any applications using it should migrate replacements available on the `ApplicationService` or `AppFunctionContext` APIs:
+
+- [interfaces.ApplicationService.Publish](../ApplicationServiceAPI/#publish)
+- [interfaces.ApplicationService.PublishWithTopic](../ApplicationServiceAPI/#publishwithtopic)
+- [interfaces.AppFunctionContext.Publish](../AppFunctionContextAPI/#publish)
+- [interfaces.AppFunctionContext.PublishWithTopic](../AppFunctionContextAPI/#publishwithtopic)
 
 Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  A custom topic can be provided to use instead of the configured message bus output as well.
 

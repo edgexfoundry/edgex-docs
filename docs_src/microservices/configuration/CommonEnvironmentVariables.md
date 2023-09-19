@@ -192,6 +192,16 @@ This environment variable overrides the [`-r/--registry` command-line option](..
       EDGEX_USE_REGISTRY: "false"
     ```
 
+#### EDGEX_REMOTE_SERVICE_HOSTS
+
+This environment variable overrides the [`-rsh/--remoteServiceHosts` command-line option](../CommonCommandLineOptions#remote-service-hosts). 
+
+!!! example "Example - Using docker-compose to override Remote Service Hosts"
+    ```yaml
+    environment: 
+      EDGEX_REMOTE_SERVICE_HOSTS: "172.26.113.174,172.26.113.150,localhost"
+    ```
+
 ## Configuration Overrides
 
 !!! edgex - "EdgeX 3.0"
@@ -230,7 +240,7 @@ The environment variables overrides for **SecretStore** configuration follow the
     <pre>**Configuration Setting**: SecretStore.Host
     **Environment Variable Override**: SECRETSTORE_HOST=edgex-vault</pre>
 
-The  complete list of **SecretStore** fields and defaults can be found in the file [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/{{version}}/config/types.go). 
+The  complete list of **SecretStore** fields and defaults can be found in the file [here](https://github.com/edgexfoundry/go-mod-bootstrap/blob/{{edgexversion}}/config/types.go). 
 The defaults for the remaining fields typically do not need to be overridden, but may be overridden if needed using that same naming scheme as above.
 
 ### Notable Configuration Overrides

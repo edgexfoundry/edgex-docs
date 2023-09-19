@@ -1,4 +1,4 @@
-# Device Services Microservices
+# Device Services Overview
 
 ![image](EdgeX_DeviceServices.png)
 
@@ -105,7 +105,7 @@ Data collected from devices by a device service is marshalled into EdgeX event a
 
 Among the many available device services provided by EdgeX, there are two device services that are typically used for demonstration, education and testing purposes only.  The random device service ([device-random-go](https://github.com/edgexfoundry/device-random)) is a very simple device service used to provide device service authors a bare bones example inclusive of a device profile.  It can also be used to create random integer data (either 8, 16, or 32 bit signed or unsigned) to simulate integer readings when developing or testing other EdgeX micro services. It was created from the Go-based device service SDK.
 
-The virtual device service ([device-virtual-go](https://github.com/edgexfoundry/device-virtual-go)) is also used for demonstration, education and testing.  It is a more complex simulator in that it allows any type of data to be generated on a scheduled basis and used an embedded SQL database (ql) to provide simulated data.  Manipulating the data in the embedded database allows the service to mimic almost any type of sensing device.   More information on the [virtual device service](./supported/device-virtual/Ch-VirtualDevice.md) is available in this documentation.
+The virtual device service ([device-virtual-go](https://github.com/edgexfoundry/device-virtual-go)) is also used for demonstration, education and testing.  It is a more complex simulator in that it allows any type of data to be generated on a scheduled basis and used an embedded SQL database (ql) to provide simulated data.  Manipulating the data in the embedded database allows the service to mimic almost any type of sensing device.   More information on the [virtual device service](services/device-virtual/Ch-VirtualDevice.md) is available in this documentation.
 
 ## Running multiple instances
 
@@ -181,17 +181,21 @@ Please refer to the general [Common Configuration documentation](../configuratio
 !!! edgey "EdgeX 3.1"
     Support for URIs for Devices, Profiles, and Provision Watchers is new in EdgeX 3.1.
 
-When loading  device definitions, device profiles, and provision watchers from a URI, the directory field (ie `DevicesDir`, `ProfilesDir`, `ProvisionWatchersDir`) loads an index file instead of a folder name.
+When loading device definitions, device profiles, and provision watchers from a URI, the directory field (ie `DevicesDir`, `ProfilesDir`, `ProvisionWatchersDir`) loads an index file instead of a folder name.
 The contents of the index file will specify the individual files to load by URI by appending the filenames to the URI as shown in the example below.
 Any authentication specified in the original URI will be used in subsequent URIs. See the [URI for Files](../general/index.md#uri-for-files) section for more details.
+
 !!! example "Example Device Dir loaded from URI in service configuration"
-    ```yaml
-    ...
-    ProfilesDir = "./res/profiles"
-    DevicesDir = "http://example.com/devices/index.json"
-    ProvisionWatchersDir = "./res/provisionwatchers"
-    ...
-    ```
+```yaml
+...
+ProfilesDir = "./res/profiles"
+DevicesDir = "http://example.com/devices/index.json"
+ProvisionWatchersDir = "./res/provisionwatchers"
+...
+```
+
+#### Device Definition URI Example
+For device definitions, the index file contains the list of references to device files that contain one or more devices.
 
 !!! example "Example Device Index File at `http://example.com/devices/index.json` and resulting URIs"
     ```json
@@ -201,6 +205,21 @@ Any authentication specified in the original URI will be used in subsequent URIs
     which results in the following URIs:
     http://example.com/devices/device1.yaml
     http://example.com/devices/device2.yaml
+    ```
+
+#### Device Profile and Provision Watchers URI Example
+For device profiles and provision watchers, the index file contains a dictionary of key-value pairs that map the name of the profile or provision watcher to its file.
+The name is mapped so that the resources are only loaded from a URI if a device profile or provision watcher by that name has not been loaded yet.
+
+!!! example "Example Device Profile Index File at `http://example.com/profiles/index.json` and resulting URIs"
+    ```json
+    {
+        "Simple-Device": "Simple-Driver.yaml",
+        "Simple-Device2": "Simple-Driver2.yml"
+    }
+    which results in the following URIs:
+    http://example.com/profiles/Simple-Driver.yaml
+    http://example.com/profiles/Simple-Driver2.yml
     ```
 
 ### Custom Configuration

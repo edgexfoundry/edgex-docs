@@ -1,4 +1,4 @@
-# Supporting Services Microservices
+# Supporting Services
 
 ![image](EdgeX_SupportingServices.png)
 

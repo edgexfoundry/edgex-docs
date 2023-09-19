@@ -66,7 +66,7 @@ edgex/events/device/<device-service>/<profile-name>/<device-name>/<source-name>
 
 This with App Services capability to have multiple subscriptions allows for multiple filters by subscriptions. The `SubscribeTopics` setting takes a comma separated list of subscribe topics.
 
- Here are a few examples of how to configure the `SubscribeTopics` setting under the `Trigger.EdgexMessageBus.SubscribeHost` section to filter by subscriptions using the `profile`, `device` and `source` names from the SNMP Device Service file [here](https://github.com/edgexfoundry/device-snmp-go/tree/{{version}}/cmd/res):
+ Here are a few examples of how to configure the `SubscribeTopics` setting under the `Trigger.EdgexMessageBus.SubscribeHost` section to filter by subscriptions using the `profile`, `device` and `source` names from the SNMP Device Service file [here](https://github.com/edgexfoundry/device-snmp-go/tree/{{edgexversion}}/cmd/res):
 
 - Filter for all Events (default in common Trigger configuration)
 
@@ -296,7 +296,7 @@ appService.RegisterCustomTriggerFactory("custom-stdin", func(config appsdk.Trigg
 
 Now the custom trigger is configured to be used rather than one of the built-in triggers.
 
-A complete working example can be found [**here**](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/application-services/custom/custom-trigger)
+A complete working example can be found [**here**](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/application-services/custom/custom-trigger)
 
 ## Publish Topic Placeholders
 

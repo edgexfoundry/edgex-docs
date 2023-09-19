@@ -234,7 +234,7 @@ Now update the configuration for the new device service.    This documentation p
 
 - changes the port the service operates on so as not to conflict with other device services
 
-Download  **[configuration.yaml](https://github.com/edgexfoundry/device-sdk-go/blob/{{version}}/example/cmd/device-simple/res/configuration.yaml)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res` folder (overwrite the existing configuration file).  Change the host address of the device service to your system's IP address.
+Download  **[configuration.yaml](https://github.com/edgexfoundry/device-sdk-go/blob/{{edgexversion}}/example/cmd/device-simple/res/configuration.yaml)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res` folder (overwrite the existing configuration file).  Change the host address of the device service to your system's IP address.
 
 !!! Warning
     In the configuration.yaml, change the host address (around line 14) to the IP address of the system host.  This allows core metadata to callback to your new device service when a new device is created.  Because the rest of EdgeX, to include core metadata, will be running in Docker, the IP address of the host system on the Docker network must be provided to allow metadata in Docker to call out from Docker to the new device service running on your host system.
@@ -255,11 +255,11 @@ The `SDK` API provides the follow APIs to enable structured custom configuration
   
     Starts a listener on the Configuration Provider for changes to the specified section of the custom configuration. When changes are received from the Configuration Provider the UpdateWritableFromRaw interface will be called on the custom configuration to apply the updates and then signal that the changes occurred via changedCallback.
 
-See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/tree/{{version}}) for an example of using the new Structured Custom Configuration capability.
+See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/tree/{{edgexversion}}) for an example of using the new Structured Custom Configuration capability.
 
-- [See here for defining the structured custom configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/{{version}}/internal/driver/config.go#L21-L72)
-- [See here for custom section on the configuration.yaml file](https://github.com/edgexfoundry/device-mqtt-go/blob/{{version}}/cmd/res/configuration.yaml#L28-L50)
-- [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/{{version}}/internal/driver/driver.go#L53-L67)
+- [See here for defining the structured custom configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/{{edgexversion}}/internal/driver/config.go#L21-L72)
+- [See here for custom section on the configuration.yaml file](https://github.com/edgexfoundry/device-mqtt-go/blob/{{edgexversion}}/cmd/res/configuration.yaml#L28-L50)
+- [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/{{edgexversion}}/internal/driver/driver.go#L53-L67)
 
 ## Device Service Metrics
 
@@ -331,7 +331,7 @@ The following are the steps to collect and report service metrics:
 
 ## Retrieving Secrets
 
-The Go Device SDK provides the `SecretProvider.GetSecret()` API to retrieve the Device Services secrets.  See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/blob/{{version}}/internal/driver/config.go#L118) for an example of using the `SecretProvider.GetSecret()` API. Note that this code implements a retry loop allowing time for the secret(s) to be push into the service's `SecretStore` via the /secret endpoint. See [Storing Secrets](../../microservices/device/Ch-DeviceServices/#storing-secrets) section for more details.
+The Go Device SDK provides the `SecretProvider.GetSecret()` API to retrieve the Device Services secrets.  See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/blob/{{edgexversion}}/internal/driver/config.go#L118) for an example of using the `SecretProvider.GetSecret()` API. Note that this code implements a retry loop allowing time for the secret(s) to be push into the service's `SecretStore` via the /secret endpoint. See [Storing Secrets](../../microservices/device/Ch-DeviceServices/#storing-secrets) section for more details.
 
 ## Rebuild your Device Service
 

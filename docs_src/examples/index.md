@@ -1,6 +1,6 @@
 # EdgeX Examples
 
-In addition to the examples listed in this section of the documentation, you will find other examples in the [EdgeX Examples Repository](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}).
+In addition to the examples listed in this section of the documentation, you will find other examples in the [EdgeX Examples Repository](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}).
 
 The tabs below provide a listing (may be partial based on latest updates) for reference.
 
@@ -10,8 +10,8 @@ The tabs below provide a listing (may be partial based on latest updates) for re
 === "Deployment"
     |Example|Location|
     |---|---|
-    |Helm (Kubernetes)|[Github - examples, deployment](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/deployment/helm)|
-    |Raspberry Pi 4|[Github - examples, raspberry-pi-4](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/deployment/raspberry-pi-4)|
+    |Helm (Kubernetes)|[Github - examples, deployment](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/deployment/helm)|
+    |Raspberry Pi 4|[Github - examples, raspberry-pi-4](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/deployment/raspberry-pi-4)|
 
 === "Device Services"
     |Example|Location|
@@ -21,7 +21,7 @@ The tabs below provide a listing (may be partial based on latest updates) for re
 === "Security"
     |Example|Location|
     |---|---|
-    |security-enabled EdgeX Remote Device Service|[Github - examples, security](https://github.com/edgexfoundry/edgex-examples/tree/{{version}}/security/remote_devices/spiffe_and_ssh)|
+    |security-enabled EdgeX Remote Device Service|[Github - examples, security](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/security/remote_devices/spiffe_and_ssh)|
 
 
 

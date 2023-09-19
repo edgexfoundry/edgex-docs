@@ -11,10 +11,10 @@ Follow this guide to deploy and run the service.
          cd edgex-compose/compose-builder/
          ```
       
-      2. Checkout the latest release ({{version}}):
+      2. Checkout the latest release ({{edgexversion}}):
 
         ```bash
-        git checkout {{version}}
+        git checkout {{edgexversion}}
         ```
 
       3. Run Edgex with the ONVIF microservice in secure or non-secure mode.
@@ -78,10 +78,10 @@ Follow this guide to deploy and run the service.
          cd edgex-compose/compose-builder/
          ```
      
-      2. Checkout the latest release ({{version}}):
+      2. Checkout the latest release ({{edgexversion}}):
 
          ```bash
-         git checkout {{version}}
+         git checkout {{edgexversion}}
          ```
 
       3. Run EdgeX:
@@ -96,10 +96,10 @@ Follow this guide to deploy and run the service.
          cd device-onvif-camera
          ```
 
-      5. Checkout the latest release ({{version}}):
+      5. Checkout the latest release ({{edgexversion}}):
 
          ```bash
-         git checkout {{version}}
+         git checkout {{edgexversion}}
          ```
 
       6. Run the service
@@ -483,4 +483,4 @@ To stop all EdgeX services (containers), execute the `make down` command. This w
 
 # License
 
-[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/{{version}}/LICENSE)
+[Apache-2.0](https://github.com/edgexfoundry-holding/device-onvif-camera/blob/{{edgexversion}}/LICENSE)

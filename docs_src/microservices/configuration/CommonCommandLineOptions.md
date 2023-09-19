@@ -82,6 +82,40 @@ Overwrite configuration in provider with local configuration.
 !!! caution "Use with caution" 
    This will clobber existing settings in provider, which is problematic if those settings were intentionally edited by hand. Typically only used during development.
 
+## Remote Service Hosts
+
+!!! edgey "EdgeX 3.1"
+    New in EdgeX 3.1
+
+`-rsh/--remoteServiceHosts <host names>`
+
+!!! warning
+    This command line option is intended to be used in non-secure EdgeX deployments that are run with in a secured network. See [Remote Device Services in Secure Mode](../../..//security/Ch-RemoteDeviceServices/) section for details of deploying remote EdgeX services in secure EdgeX deployments.
+
+Sets the three host names required when running the service remotely so that it can connect to the core EdgeX services running on another system and also be connected to from those same core EdgeX services.
+
+`<host names>` must contain and only contain the following three host names in a comma separated string
+
+1. Host name of local system where the service is running
+
+2. Host name of the system where the core EdgeX services are running
+
+3. Host name to bind to for the internal WebServer for hosting the REST API
+
+   This allows the service to be accessed from external network. When running native it can be set to the local system Hostname/IP or `0.0.0.0` When running in docker it must be set to `localhost` or `0.0.0.0` and use docker port mapping to expose the service to external network.
+
+!!! note
+    Each host name can be a known DNS host name or the IP address of the host
+
+!!! example - "Example setting Remote Service Hosts"
+    ```    
+    --remoteServiceHosts 172.26.113.174,172.26.113.150,0.0.0.0
+    or
+    -rsh 172.26.113.174,172.26.113.150,localhost
+    ```
+
+Can be overridden with [EDGEX_REMOTE_SERVICE_HOSTS](http://localhost:8008/3.1/microservices/configuration/CommonEnvironmentVariables/#edgex_remote_service_hosts) environment variable.
+
 ## Developer Mode
 
 !!! edgey "EdgeX 3.0"

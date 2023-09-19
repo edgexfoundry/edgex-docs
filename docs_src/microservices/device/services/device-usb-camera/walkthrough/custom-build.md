@@ -12,9 +12,9 @@
    git clone https://github.com/edgexfoundry/device-usb-camera.git
    ```
 
-3. Checkout the latest release ({{version}}):
+3. Checkout the latest release ({{edgexversion}}):
    ```bash
-   git checkout {{version}}
+   git checkout {{edgexversion}}
    ```
 
 ## Define the device profile
@@ -127,7 +127,7 @@ For more information on rtsp authentication, including how to disable it, see [h
         ```bash
         make docker-nats
         ```
-        See [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/{{version}}/compose-builder#gen) `nat-bus` option to generate compose file for NATS and local dev images.
+        See [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder#gen) `nat-bus` option to generate compose file for NATS and local dev images.
     </details>
 
 1. Navigate to the Edgex compose directory.
