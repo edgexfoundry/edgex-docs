@@ -1,24 +1,23 @@
-# Non-Secure Mode
+# Remote deployment of device services in non-secure mode
 
-## Remote deployment of device services in non-secure mode
 Usually microservices are deployed using multiple nodes for scalability, availability and performance 
 instead of running all services in one node.
 
-This page provides an example of remote deployment of `device-usb-camera` service using multiple nodes in non-secure mode.
+This page provides an example of remote deployment of [device-usb-camera](../services/device-usb-camera/General.md) service using multiple nodes in non-secure mode.
 The deployment can be done by running the service `natively` or by running it in `docker`.
 
 ## Example
-This example uses 2 nodes for remote deployment. One node (remote) is used to run all Edgex core services in docker and the other node (host)
-for running the device-usb-camera service natively or in docker. Both the nodes are on the same network.
-This example can be further expanded to run multiple instances of device-usb-camera service in multiple nodes.
+This example uses 2 nodes for remote deployment. One of the nodes (host) is used to run all Edgex core services in docker and the other node (remote)
+for running the device-usb-camera service either natively or in docker. Both the nodes are on the same network.
+This example can be further extended to run multiple instances of device-usb-camera service in multiple nodes.
 
 ## Running of the example
 
-1. Set up the two nodes to be ready for remote deployment. Refer [USB Service Setup](../supported/device-usb-camera/walkthrough/setup.md)
+1. Set up the two nodes to be ready for remote deployment. Refer [USB Service Setup](../services/device-usb-camera/walkthrough/setup.md)
    for system requirements and dependencies such as Git, Docker, Docker compose, etc. Additional to this Golang needs to be installed
-   in the host node where the device-usb-camera service will be built and run natively.
+   in the remote node where the device-usb-camera service will be built and run natively.
 
-1. Next step is to install Edgex compose in the remote node which will be used to run all Edgex core services. So clone the `edgex-compose`
+1. Next step is to install [Edgex compose](https://github.com/edgexfoundry/edgex-compose) in the host node which will be used to run all Edgex core services. So clone the `edgex-compose`
    repository:
 
      ```bash
@@ -28,10 +27,14 @@ This example can be further expanded to run multiple instances of device-usb-cam
 1. Checkout the required version:
 
       ```bash
-      git checkout {{version}}
+      git checkout {{edgexversion}}
       ```
 
-1. Update the `docker-compose-no-secty.yml` file by changing the `host_ip` address of all the Edgex core services to the remote node ip address.
+1. Update the [docker-compose-no-secty.yml](https://github.com/edgexfoundry/edgex-compose/blob/main/docker-compose-no-secty.yml) file by removing the `host_ip` section of all the Edgex core services. E.g.
+      ```bash
+      host_ip: 127.0.0.1
+      ```
+   The example line provided above should be removed from the services, the host_ip will be provided while running the usb service.
    Non-Edgex core services such as device-rest, device-virtual, app-rules-engine, etc. can be removed or commented out if needed.
 
 1. Run Edgex core services:
