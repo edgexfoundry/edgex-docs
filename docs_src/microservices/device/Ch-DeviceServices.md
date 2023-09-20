@@ -149,6 +149,7 @@ Please refer to the general [Common Configuration documentation](../configuratio
     |Metrics|     |Service metrics that the device service collects. Boolean value indicates if reporting of the metric is enabled. Common and custom metrics are also included.|
     ||`EventsSent` = false     |Enable/disable reporting of the built-in **EventsSent** metric|
     ||`ReadingsSent` = false     |Enable/disable reporting of the built-in **ReadingsSent** metric|
+    ||`LastConnected` = false     |Enable/disable reporting of the built-in **LastConnected** metric|
     ||`<CustomMetric>` = false    |Enable/disable reporting of custom device service's custom metric. See [Custom Device Service Metrics](../../getting-started/Ch-GettingStartedSDK-Go/#built-in) for more details.|
     |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported.  |
 === "Clients.core-metadata*"
