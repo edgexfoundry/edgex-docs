@@ -15,6 +15,7 @@ type AppFunctionContext interface {
     SecretProvider() interfaces.SecretProvider
     LoggingClient() logger.LoggingClient
     EventClient() interfaces.EventClient
+    ReadingClient() interfaces.ReadingClient
     CommandClient() interfaces.CommandClient
     NotificationClient() interfaces.NotificationClient
     SubscriptionClient() interfaces.SubscriptionClient
@@ -76,6 +77,12 @@ Returns a `LoggingClient` to leverage logging libraries/service utilized through
 `EventClient() interfaces.EventClient`
 
 Returns an `EventClient` to leverage Core Data's `Event` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{edgexversion}}/clients/interfaces/event.go) for more details. This client is useful for querying events. Note if Core Data is not specified in the Clients configuration, this will return nil.
+
+### ReadingClient
+
+`ReadingClient() interfaces.ReadingClient`
+
+Returns an `ReadingClient` to leverage Core Data's `Reading` API. See [interface definition](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{edgexversion}}/clients/interfaces/reading.go) for more details. This client is useful for querying readings. Note if Core Data is not specified in the Clients configuration, this will return nil.
 
 ### CommandClient
 
