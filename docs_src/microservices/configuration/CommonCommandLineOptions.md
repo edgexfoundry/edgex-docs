@@ -89,9 +89,6 @@ Overwrite configuration in provider with local configuration.
 
 `-rsh/--remoteServiceHosts <host names>`
 
-!!! warning
-    This command line option is intended to be used in non-secure EdgeX deployments that are run with in a secured network. See [Remote Device Services in Secure Mode](../../..//security/Ch-RemoteDeviceServices/) section for details of deploying remote EdgeX services in secure EdgeX deployments.
-
 Sets the three host names required when running the service remotely so that it can connect to the core EdgeX services running on another system and also be connected to from those same core EdgeX services.
 
 `<host names>` must contain and only contain the following three host names in a comma separated string
@@ -114,7 +111,7 @@ Sets the three host names required when running the service remotely so that it 
     -rsh 172.26.113.174,172.26.113.150,localhost
     ```
 
-Can be overridden with [EDGEX_REMOTE_SERVICE_HOSTS](http://localhost:8008/3.1/microservices/configuration/CommonEnvironmentVariables/#edgex_remote_service_hosts) environment variable.
+Can be overridden with [EDGEX_REMOTE_SERVICE_HOSTS](./CommonEnvironmentVariables.md/#edgex_remote_service_hosts) environment variable.
 
 ## Developer Mode
 
