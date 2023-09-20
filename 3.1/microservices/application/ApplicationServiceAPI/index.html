@@ -943,6 +943,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#readingclient">
+    ReadingClient
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#commandclient">
     CommandClient
   </a>
@@ -1990,6 +1995,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#readingclient">
+    ReadingClient
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#commandclient">
     CommandClient
   </a>
@@ -2134,6 +2144,7 @@
 <span class="w">    </span><span class="nx">SecretProvider</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SecretProvider</span>
 <span class="w">    </span><span class="nx">LoggingClient</span><span class="p">()</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
 <span class="w">    </span><span class="nx">EventClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">EventClient</span>
+<span class="w">    </span><span class="nx">ReadingClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">ReadingClient</span>
 <span class="w">    </span><span class="nx">CommandClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">CommandClient</span>
 <span class="w">    </span><span class="nx">NotificationClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">NotificationClient</span>
 <span class="w">    </span><span class="nx">SubscriptionClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SubscriptionClient</span>
@@ -2460,6 +2471,9 @@ See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/main/regis
 <h3 id="eventclient">EventClient</h3>
 <p><code>EventClient() interfaces.EventClient</code></p>
 <p>This API returns the Event Client. Note if Core Data is not specified in the Clients configuration, this will return nil. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/main/clients/interfaces/event.go#L18-L43">Event Client interface</a> for more details. Useful for adding, deleting  or querying Events.</p>
+<h3 id="readingclient">ReadingClient</h3>
+<p><code>ReadingClient() interfaces.ReadingClient</code></p>
+<p>This API returns the Reading Client. Note if Core Data is not specified in the Clients configuration, this will return nil. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/main/clients/interfaces/reading.go">Reading Client interface</a> for more details. Useful for querying Reading.</p>
 <h3 id="commandclient">CommandClient</h3>
 <p><code>CommandClient() interfaces.CommandClient</code></p>
 <p>This API returns the Command Client. Note if Core Command is not specified in the Clients configuration, this will return nil. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/main/clients/interfaces/command.go#L17-L35">Command Client interface</a> for more details. Useful for issuing commands to devices.</p>
