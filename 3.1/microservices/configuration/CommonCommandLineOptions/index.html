@@ -1778,10 +1778,6 @@
 <p>New in EdgeX 3.1</p>
 </div>
 <p><code>-rsh/--remoteServiceHosts &lt;host names&gt;</code></p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This command line option is intended to be used in non-secure EdgeX deployments that are run with in a secured network. See <a href="../../..//security/Ch-RemoteDeviceServices/">Remote Device Services in Secure Mode</a> section for details of deploying remote EdgeX services in secure EdgeX deployments.</p>
-</div>
 <p>Sets the three host names required when running the service remotely so that it can connect to the core EdgeX services running on another system and also be connected to from those same core EdgeX services.</p>
 <p><code>&lt;host names&gt;</code> must contain and only contain the following three host names in a comma separated string</p>
 <ol>
@@ -1807,7 +1803,7 @@ or
 -rsh 172.26.113.174,172.26.113.150,localhost
 </code></pre></div>
 </div>
-<p>Can be overridden with <a href="http://localhost:8008/3.1/microservices/configuration/CommonEnvironmentVariables/#edgex_remote_service_hosts">EDGEX_REMOTE_SERVICE_HOSTS</a> environment variable.</p>
+<p>Can be overridden with <a href="../CommonEnvironmentVariables/#edgex_remote_service_hosts">EDGEX_REMOTE_SERVICE_HOSTS</a> environment variable.</p>
 <h2 id="developer-mode">Developer Mode</h2>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 3.0</p>
