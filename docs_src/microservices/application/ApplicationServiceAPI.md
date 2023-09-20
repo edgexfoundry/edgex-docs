@@ -29,7 +29,8 @@ type ApplicationService interface {
     SecretProvider() interfaces.SecretProvider
 	LoggingClient() logger.LoggingClient
 	EventClient() interfaces.EventClient
-	CommandClient() interfaces.CommandClient
+	ReadingClient() interfaces.ReadingClient
+    CommandClient() interfaces.CommandClient
 	NotificationClient() interfaces.NotificationClient
 	SubscriptionClient() interfaces.SubscriptionClient
 	DeviceServiceClient() interfaces.DeviceServiceClient
@@ -445,6 +446,12 @@ See the [Registry Client interface](https://github.com/edgexfoundry/go-mod-regis
 `EventClient() interfaces.EventClient`
 
 This API returns the Event Client. Note if Core Data is not specified in the Clients configuration, this will return nil. See the [Event Client interface](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{edgexversion}}/clients/interfaces/event.go#L18-L43) for more details. Useful for adding, deleting  or querying Events.
+
+### ReadingClient
+
+`ReadingClient() interfaces.ReadingClient`
+
+This API returns the Reading Client. Note if Core Data is not specified in the Clients configuration, this will return nil. See the [Reading Client interface](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{edgexversion}}/clients/interfaces/reading.go) for more details. Useful for querying Reading.
 
 ### CommandClient
 
