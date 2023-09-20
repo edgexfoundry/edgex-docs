@@ -219,7 +219,7 @@ If you have custom V2 Device Profile(s) for one of the EdgeX Device Services the
 
 ## Custom Pre-Defined Device
 
-If you have custom V2 Pre-Defined Device(s) for one of the EdgeX Device Services they will need to be migrated to the V3 version of Pre-Defined Devices.  See [Device Service V3 Migration Guide](../microservices/device/V2Migration/#pre-defined-devices) for complete details.
+If you have custom V2 Pre-Defined Device(s) for one of the EdgeX Device Services they will need to be migrated to the V3 version of Pre-Defined Devices.  See [Device Service V3 Migration Guide](../microservices/device/V3Migration/#device-files) for complete details.
 
 ## Custom Applications Service
 
