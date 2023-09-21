@@ -30,14 +30,14 @@ This example can be further extended to run multiple instances of device-usb-cam
       git checkout {{edgexversion}}
       ```
 
-1. Update the [docker-compose-no-secty.yml](https://github.com/edgexfoundry/edgex-compose/blob/main/docker-compose-no-secty.yml) file by removing the `host_ip` section of all the Edgex core services. E.g.
+1. Update the [docker-compose-no-secty.yml](https://github.com/edgexfoundry/edgex-compose/blob/main/docker-compose-no-secty.yml) file by removing the `host_ip` section of all the EdgeX core services. E.g.
       ```bash
       host_ip: 127.0.0.1
       ```
    The example line provided above should be removed from the services, the host_ip will be provided while running the usb service.
-   Non-Edgex core services such as device-rest, device-virtual, app-rules-engine, etc. can be removed or commented out if needed.
+   Non-EdgeX core services such as device-rest, device-virtual, app-rules-engine, etc. can be removed or commented out if needed.
 
-1. Run Edgex core services:
+1. Run EdgeX core services:
 
       ```bash
       make run no-secty
@@ -110,7 +110,7 @@ This example can be further extended to run multiple instances of device-usb-cam
         ```
         
         !!! note
-            If multiple instances of the service has to be run then add `EDGEX_INSTANCE_NAME` enviroment variable above with a value of number of instances desired.
+            If multiple instances of the service have to be run, then add `EDGEX_INSTANCE_NAME` environment variable above with a value of number of instances desired.
 
 
     1. Run `docker-compose.yml`:
@@ -138,14 +138,14 @@ This example can be further extended to run multiple instances of device-usb-cam
          ```
 
         !!! note
-            If multiple instances of the service has to be run then attach `-i` followed by the number of instances desired. E.g:
+            If multiple instances of the service have to be run, then attach `-i` followed by the number of instances desired. E.g:
             ```bash
             EDGEX_SECURITY_SECRET_STORE=false ./cmd/device-usb-camera -cp -r -rsh=172.26.113.174,172.26.113.150,0.0.0.0 -i 2
             ```
 
 ## Verify Service, Device(s) and next steps
 
-1. Make sure the service has no errors and check whether the service is added to Edgex i.e. to core-metadata (running in host node):
+1. Make sure the service has no errors and check whether the service is added to EdgeX i.e. to core-metadata (running in host node):
 
     ```bash
     curl -s http://<core-metadata-ip-address>:59881/api/{{api_version}}/deviceservice/name/device-usb-camera | jq .
