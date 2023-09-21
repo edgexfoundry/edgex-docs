@@ -15,7 +15,7 @@ This example can be further extended to run multiple instances of device-usb-cam
 
 1. Set up the two nodes to be ready for remote deployment. Refer to [USB Service Setup](../services/device-usb-camera/walkthrough/setup.md)
    for system requirements and dependencies such as Git, Docker, Docker Compose, etc. Additionally Golang needs to be installed
-   in the remote node where the device-usb-camera service will be built and run natively.
+   in the remote node if the device-usb-camera service will be built and run natively.
 
 1. Next step is to install [EdgeX compose](https://github.com/edgexfoundry/edgex-compose) in the host node which will be used to run all EdgeX core services. So clone the `edgex-compose`
    repository:
@@ -49,25 +49,77 @@ This example can be further extended to run multiple instances of device-usb-cam
       docker ps 
       ```
 
-1. Follow this guide to run the `device-usb-camera` service in Docker or natively.
+   1. Clone the [device-usb-camera](https://github.com/edgexfoundry/device-usb-camera) service repository:
+
+       ```bash
+       git clone https://github.com/edgexfoundry/device-usb-camera.git
+       ```
+
+   1. Checkout the required version:
+
+       ```bash
+       git checkout {{edgexversion}}
+       ```
+
+   1. Follow the guide below to build and run the `device-usb-camera` service in Docker or natively.
 
 === "Docker"
 
-    Todo
-
-=== "Native"
-
-    1. Clone the [device-usb-camera](https://github.com/edgexfoundry/device-usb-camera) service repository:
-
-        ```bash
-        git clone https://github.com/edgexfoundry/device-usb-camera.git
-        ```
-    
-    1. Checkout the required version:
+    1. Build the service from the `main` directory:
 
          ```bash
-         git checkout {{edgexversion}}
+         make docker
          ```
+
+    1. Create `docker-compose.yml` file from anywhere in the remote node to run the device service in Docker. Copy the content below into the compose file and edit with approriate values:
+
+        ```bash
+        name: edgex
+        services:
+            device-usb-camera:
+            container_name: edgex-device-usb-camera
+            device_cgroup_rules:
+            - c 81:* rw
+            environment:
+              EDGEX_SECURITY_SECRET_STORE: "false"
+              EDGEX_REMOTE_SERVICE_HOSTS: "<host-ip-address>,<remote-ip-address>,<service-bind-address>"
+              #E.g.EDGEX_REMOTE_SERVICE_HOSTS: "172.118.1.92,172.118.1.167,0.0.0.0"
+            hostname: edgex-device-usb-camera
+            image: <device-usb-camera-docker-image previously built>
+            ports:
+            - "59983:59983"
+            - "8554:8554"
+            - "8000:8000"
+            read_only: true
+            restart: always
+            security_opt:
+            - no-new-privileges:true
+            user: root:root
+            volumes:
+            - type: bind
+              source: /dev
+              target: /dev
+              bind:
+                create_host_path: true
+            - type: bind
+              source: /run/udev
+              target: /run/udev
+              read_only: true
+              bind:
+                create_host_path: true
+        ```
+        
+        !!! note
+            If multiple instances of the service has to be run then add `EDGEX_INSTANCE_NAME` enviroment variable above with a value of number of instances desired.
+
+
+    1. Run `docker-compose.yml`:
+      
+         ```bash
+         docker compose up -d
+         ```
+
+=== "Native"
 
     1. For RTSP streaming get [rtsp-simple-server](https://github.com/bluenviron/mediamtx/releases) binary
        and rtsp config yml file and copy them into the [cmd](https://github.com/edgexfoundry/device-usb-camera/tree/main/cmd) directory.
@@ -91,29 +143,58 @@ This example can be further extended to run multiple instances of device-usb-cam
             EDGEX_SECURITY_SECRET_STORE=false ./cmd/device-usb-camera -cp -r -rsh=172.26.113.174,172.26.113.150,0.0.0.0 -i 2
             ```
 
-    1. Make sure the service has no errors and it discovers connected usb devices after some time. 
+## Verify Service, Device(s) and next steps
 
+1. Make sure the service has no errors and check whether the service is added to Edgex i.e. to core-metadata (running in host node):
 
-    1. Verify device(s) have been successfully added to core-metadata (running in host node).
+    ```bash
+    curl -s http://<core-metadata-ip-address>:59881/api/{{api_version}}/deviceservice/name/device-usb-camera | jq .
+    ```
 
-         ```bash
-         curl -s http://<core-metadata-ip-address>:59881/api/v3/device/all | jq -r '"deviceName: " + '.devices[].name''
-         ```
+    Successful:
+    ```json
+    {
+        "apiVersion" : "{{api_version}}",
+        "statusCode": 200,
+        "service": {
+            "created": 1658769423192,
+            "modified": 1658872893286,
+            "id": "04470def-7b5b-4362-9958-bc5ff9f54f1e",
+            "name": "device-usb-camera",
+            "baseAddress": "http://edgex-device-usb-camera:59983",
+            "adminState": "UNLOCKED"
+        }
+    }
+    ```
+    Unsuccessful:
+    ```json
+    {
+        "apiVersion" : "{{api_version}}",
+        "message": "fail to query device service by name device-usb-camera",
+        "statusCode": 404
+    }
+    ```       
 
-         Example Output:
+1. Verify device(s) have been successfully added:
 
-         ```bash
-         deviceName: NexiGo_N930AF_FHD_Webcam_NexiG-20201217010
-         ```
+    ```bash
+    curl -s http://<core-metadata-ip-address>:59881/api/{{api_version}}/device/all | jq -r '"deviceName: " + '.devices[].name''
+    ```
+
+    Example Output:
+
+    ```bash
+    deviceName: NexiGo_N930AF_FHD_Webcam_NexiG-20201217010
+    ```
          
-    1. Add credentials for RTSP streaming by referring to [RTSP Stream Credentials](../services/device-usb-camera/walkthrough/deployment.md#add-credentials-for-the-rtsp-stream).
-       Make sure to replace localhost with the host node IP address.
+1. Add credentials for RTSP streaming by referring to [RTSP Stream Credentials](../services/device-usb-camera/walkthrough/deployment.md#add-credentials-for-the-rtsp-stream).
+   Make sure to replace localhost with the host node IP address.
 
-        !!! note
-            The remote node used for rtsp streaming should have FFMPEG version of 5.0 atleast.
+    !!! note
+        The remote node used for rtsp streaming should have FFMPEG version of 5.0 atleast.
 
-    1. Follow [USB Service API Guide](../services/device-usb-camera/walkthrough/general-usage.md) to execute APIs such as Streaming. Again make sure to replace localhost with the applicable
-       host or remote node IP addresses.
+1. Follow [USB Service API Guide](../services/device-usb-camera/walkthrough/general-usage.md) to execute APIs such as Streaming. Again make sure to replace localhost with the applicable
+   host or remote node IP addresses.
 
 
 
