@@ -1,7 +1,7 @@
 # Remote deployment of device services in non-secure mode
 
-Usually microservices are deployed using multiple nodes for scalability, availability and performance 
-instead of running all services in one node.
+In some use cases, devices are connected to nodes where core EdgeX services are not running. In these cases the appropriate device service 
+needs to run on the remote nodes where it can connect to the device(s) and communicate to the host node where the rest of the EdgeX services are running.
 
 This page provides an example of remote deployment of [device-usb-camera](../services/device-usb-camera/General.md) service using multiple nodes in non-secure mode.
 The deployment can be done by running the service `natively` or by running it in `Docker`.
