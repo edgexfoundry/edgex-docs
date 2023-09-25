@@ -49,27 +49,9 @@ This example can be further extended to run multiple instances of device-usb-cam
       docker ps 
       ```
 
-   1. Clone the [device-usb-camera](https://github.com/edgexfoundry/device-usb-camera) service repository:
-
-       ```bash
-       git clone https://github.com/edgexfoundry/device-usb-camera.git
-       ```
-
-   1. Checkout the required version:
-
-       ```bash
-       git checkout {{edgexversion}}
-       ```
-
-   1. Follow the guide below to build and run the `device-usb-camera` service in Docker or natively.
+   1. Follow the guide below to run the `device-usb-camera` service in Docker or natively.
 
 === "Docker"
-
-    1. Build the service from the `main` directory:
-
-         ```bash
-         make docker
-         ```
 
     1. Create `docker-compose.yml` file from anywhere in the remote node to run the device service in Docker. Copy the content below into the compose file and edit with approriate values:
 
@@ -82,10 +64,10 @@ This example can be further extended to run multiple instances of device-usb-cam
             - c 81:* rw
             environment:
               EDGEX_SECURITY_SECRET_STORE: "false"
-              EDGEX_REMOTE_SERVICE_HOSTS: "<host-ip-address>,<remote-ip-address>,<service-bind-address>"
+              EDGEX_REMOTE_SERVICE_HOSTS: "<remote-node-ip-address>,<host-node-ip-address>,<service-bind-address>"
               #E.g.EDGEX_REMOTE_SERVICE_HOSTS: "172.118.1.92,172.118.1.167,0.0.0.0"
             hostname: edgex-device-usb-camera
-            image: <device-usb-camera-docker-image previously built>
+            image: <published docker image of device-usb-camera>
             ports:
             - "59983:59983"
             - "8554:8554"
@@ -121,6 +103,18 @@ This example can be further extended to run multiple instances of device-usb-cam
 
 === "Native"
 
+    1. Clone the [device-usb-camera](https://github.com/edgexfoundry/device-usb-camera) service repository:
+   
+          ```bash
+          git clone https://github.com/edgexfoundry/device-usb-camera.git
+          ```
+
+    1. Checkout the required version:
+   
+         ```bash
+         git checkout {{edgexversion}}
+         ```
+
     1. For RTSP streaming get [rtsp-simple-server](https://github.com/bluenviron/mediamtx/releases) binary
        and rtsp config yml file and copy them into the [cmd](https://github.com/edgexfoundry/device-usb-camera/tree/main/cmd) directory.
 
@@ -148,7 +142,7 @@ This example can be further extended to run multiple instances of device-usb-cam
 1. Make sure the service has no errors and check whether the service is added to EdgeX i.e. to core-metadata (running in host node):
 
     ```bash
-    curl -s http://<core-metadata-ip-address>:59881/api/{{api_version}}/deviceservice/name/device-usb-camera | jq .
+    curl -s http://<host-node-ip-address>:59881/api/{{api_version}}/deviceservice/name/device-usb-camera | jq .
     ```
 
     Successful:
@@ -178,7 +172,7 @@ This example can be further extended to run multiple instances of device-usb-cam
 1. Verify device(s) have been successfully added:
 
     ```bash
-    curl -s http://<core-metadata-ip-address>:59881/api/{{api_version}}/device/all | jq -r '"deviceName: " + '.devices[].name''
+    curl -s http://<host-node-ip-address>:59881/api/{{api_version}}/device/all | jq -r '"deviceName: " + '.devices[].name''
     ```
 
     Example Output:
