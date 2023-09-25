@@ -71,7 +71,6 @@ This example can be further extended to run multiple instances of device-usb-cam
             ports:
             - "59983:59983"
             - "8554:8554"
-            - "8000:8000"
             read_only: true
             restart: always
             security_opt:
