@@ -14,7 +14,7 @@ For example, a device service could populate the `Tags` property with latitude a
 
 ### Application Service Configurable
 
-When the Event gets to the [Application Service Configurable](../application/services/AppServiceConfigurable.md#available-configurable-pipeline-functions), for example, the service has an optional function (defined by `Writable.Pipeline.Functions.AddTags` in configuration) that will add additional key/value pair to the Event `Tags`.  The key and value for the additional tag are provided in configuration (as shown by the example below).  Multiple tags can be provide separated by commas.
+When the Event gets to the [Application Service Configurable](../application/services/AppServiceConfigurable/Purpose.md), for example, the service has an optional function (defined by `Writable.Pipeline.Functions.AddTags` in configuration) that will add additional key/value pair to the Event `Tags`.  The key and value for the additional tag are provided in configuration (as shown by the example below).  Multiple tags can be provide separated by commas.
 
 ```yaml
     AddTags:
