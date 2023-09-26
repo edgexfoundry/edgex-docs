@@ -179,6 +179,22 @@ This environment variable overrides the [`-p/--profile` command-line option](../
 
 This sets the `profile` so that the App Service Configurable uses the `rules-engine` configuration profile which resides at `/res/rules-engine/configuration.yaml`
 
+#### EDGEX_SERVICE_KEY
+
+This environment variable overrides the [`-sk/--serviceKey` command-line option](../CommonCommandLineOptions#service-key). When non-empty, the value is used as the service key, which is used as the unique service name in many aspects of EdgeX.  This is useful when running multiple instances of a service so the additional instance has a unique service key name.
+
+!!! example "Example - Using docker-compose to override the service key"
+    ```yaml
+    app-service-rules:
+      image: edgexfoundry/docker-app-service-configurable:2.0.0
+      environment: 
+        EDGEX_PROFILE: "rules-engine"
+        EDGEX_SEVRICE_KEY: "app-rules-engine-2"
+    ...
+    ```
+
+This changes the service key to be `app-rules-engine-2` instead of `app-rules-engine`
+
 #### EDGEX_USE_REGISTRY
 
 This environment variable overrides the [`-r/--registry` command-line option](../CommonCommandLineOptions#registry). 

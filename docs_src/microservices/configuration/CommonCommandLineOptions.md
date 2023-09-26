@@ -57,6 +57,15 @@ Can be overridden with [EDGEX_COMMON_CONFIG](./CommonEnvironmentVariables.md#edg
 !!! edgey "EdgeX 3.1"
     Support for loading common configuration via URI is new in EdgeX 3.1.
 
+## Overwrite
+
+`-o/--overwrite`
+
+Overwrite configuration in provider with local configuration.
+
+!!! caution "Use with caution" 
+   This will clobber existing settings in provider, which is problematic if those settings were intentionally edited by hand. Typically only used during development.
+
 ## Profile
 
 `-p/--profile <name>`
@@ -73,14 +82,13 @@ Indicates service should use the Registry. Connection information is pulled from
 
 Can be overridden with [EDGEX_USE_REGISTRY](./CommonEnvironmentVariables.md#edgex_use_registry) environment variable.
 
-## Overwrite
+## Service Key
 
-`-o/--overwrite`
+`-sk/--serviceKey<name>`
 
-Overwrite configuration in provider with local configuration.
+Sets the service key used by the service. The service key is used as the unique name of the service is many aspects of EdgeX. This option is useful when deploying multiple instances of the same service so the additional instances have unique names.
 
-!!! caution "Use with caution" 
-   This will clobber existing settings in provider, which is problematic if those settings were intentionally edited by hand. Typically only used during development.
+Can be overridden with [EDGEX_SERVICE_KEY ](./CommonEnvironmentVariables.md#edgex_service_key) environment variable.
 
 ## Remote Service Hosts
 
