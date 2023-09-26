@@ -47,9 +47,9 @@ The tabs below provide additional entries in the **Writable** section which are 
     |Metrics.MessagesReceived |  false |Enable/disable reporting of the built-in **MessagesReceived** metric|
     |Metrics.InvalidMessagesReceived | false |Enable/disable reporting of the built-in **InvalidMessagesReceived** metric|
     |Metrics.HttpExportSize   |  false| Enable/disable reporting of the built-in **HttpExportSize** metric|
-    |Metrics.HttpExportErrors   |  false| Enable/disable reporting of the built-in **HttpExportErros** metric|
+    |Metrics.HttpExportErrors   |  false| Enable/disable reporting of the built-in **HttpExportErrors** metric|
     |Metrics.MqttExportSize   | false |Enable/disable reporting of the built-in **MqttExportSize** metric|
-    |Metrics.MqttExportErrors   | false |Enable/disable reporting of the built-in **MqttExportErros** metric|
+    |Metrics.MqttExportErrors   | false |Enable/disable reporting of the built-in **MqttExportErrors** metric|
     |Metrics.PipelineMessagesProcessed | false |Enable/disable reporting of the built-in **PipelineMessagesProcessed** metric|
     |Metrics.PipelineProcessingErrors | false | Enable/disable reporting of the built-in **PipelineProcessingErrors** metric|
     |Metrics.PipelineMessageProcessingTime | false |Enable/disable reporting of the built-in **PipelineMessageProcessingTime** metric|
