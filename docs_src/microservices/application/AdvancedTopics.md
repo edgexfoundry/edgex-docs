@@ -24,7 +24,7 @@ To add your own route, use the `AddCustomRoute()` API provided on the `Applicati
     myhandler := func(c echo.Context) error {
       service.LoggingClient().Info("TEST")     
       c.Response().WriteHeader(http.StatusOK)
-	  c.Response().Write([]byte("hello"))   
+      c.Response().Write([]byte("hello"))   
     }    
     
     service := pkg.NewAppService(serviceKey)    
@@ -465,15 +465,19 @@ All application services have the following built-in metrics:
 
 - `MessagesReceived` - This is a **counter** metric that counts the number of messages received by the application service. Includes invalid messages.
 
-- `InvalidMessagesReceived ` - **(NEW)** This is a **counter** metric that counts the number of invalid messages received by the application service. 
+- `InvalidMessagesReceived ` -  This is a **counter** metric that counts the number of invalid messages received by the application service. 
 
-- `HttpExportSize  ` - **(NEW)** This is a **histogram** metric that collects the size of data exported via the built-in [HTTP Export pipeline function](../BuiltIn/#http-export). The metric data is not currently tagged due to breaking changes required to tag the data with the destination endpoint. This will be addressed in a future EdgeX 3.0 release.
+- `HttpExportSize  ` -  This is a **histogram** metric that collects the size of data exported via the built-in [HTTP Export pipeline function](../BuiltIn/#http-export). The metric data is not currently tagged due to breaking changes required to tag the data with the destination endpoint. This will be addressed in a future EdgeX 3.0 release.
 
-- `MqttExportSize  ` - **(NEW)** This is a **histogram** metric that collects the size of data exported via the built-in [MQTT Export pipeline function](../BuiltIn/#mqtt-export). The metric data is tagged with the specific broker address and topic.
+- `HttpExportErrors` - **(New)** This is a **counter** metric that counts the number errors encounter when exporting via HTTP. 
+
+- `MqttExportSize  ` -  This is a **histogram** metric that collects the size of data exported via the built-in [MQTT Export pipeline function](../BuiltIn/#mqtt-export). The metric data is tagged with the specific broker address and topic.
+
+- `MqttExportErrors` -  **(New)** This is a **counter** metric that counts the number errors encounter when exporting via MQTT. 
 
 - `PipelineMessagesProcessed` - This is a **counter** metric that counts the number of messages processed by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the count is for.
 
-- `PipelineProcessingErrors ` - **(NEW)** This is a **counter** metric that counts the number of errors returned by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the count is for.
+- `PipelineProcessingErrors ` -  This is a **counter** metric that counts the number of errors returned by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the count is for.
 
 - `PipelineMessageProcessingTime` - This is a **timer** metric that tracks the amount of time taken to process messages by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the timer is for.
 
@@ -494,10 +498,13 @@ Reporting of these built-in metrics is disabled by default in the `Writable.Tele
           PipelineMessageProcessingTime: true
           PipelineProcessingErrors: true 
           HttpExportSize: true 
+          HttpExportErrors: true
           MqttExportSize: true 
+          MqttExportErrors: true 
         Tags: # Contains the service level tags to be attached to all the service's metrics
-          Gateway: "my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
+        Gateway: "my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
     ```
+
 ### Custom Application Service Metrics
 
 The Custom Application Service Metrics capability allows for custom application services to define, collect and report their own custom service metrics.

@@ -47,7 +47,9 @@ The tabs below provide additional entries in the **Writable** section which are 
     |Metrics.MessagesReceived |  false |Enable/disable reporting of the built-in **MessagesReceived** metric|
     |Metrics.InvalidMessagesReceived | false |Enable/disable reporting of the built-in **InvalidMessagesReceived** metric|
     |Metrics.HttpExportSize   |  false| Enable/disable reporting of the built-in **HttpExportSize** metric|
+    |Metrics.HttpExportErrors   |  false| Enable/disable reporting of the built-in **HttpExportErros** metric|
     |Metrics.MqttExportSize   | false |Enable/disable reporting of the built-in **MqttExportSize** metric|
+    |Metrics.MqttExportErrors   | false |Enable/disable reporting of the built-in **MqttExportErros** metric|
     |Metrics.PipelineMessagesProcessed | false |Enable/disable reporting of the built-in **PipelineMessagesProcessed** metric|
     |Metrics.PipelineProcessingErrors | false | Enable/disable reporting of the built-in **PipelineProcessingErrors** metric|
     |Metrics.PipelineMessageProcessingTime | false |Enable/disable reporting of the built-in **PipelineMessageProcessingTime** metric|
@@ -59,7 +61,7 @@ The tabs below provide additional entries in the **Writable** section which are 
 The tabs below provide additional configuration which are applicable to Application Services that require the service to be restarted after value(s) are changed.
 
 === "HttpServer"
- 
+
     This section contains the configuration for the internal Webserver. Only need if configuring the Webserver for `HTTPS`
     
     | Configuration | Default Value | Description                                                  |
