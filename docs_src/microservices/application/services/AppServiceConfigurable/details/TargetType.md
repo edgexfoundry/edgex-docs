@@ -3,7 +3,8 @@
 ## Target Type
 
 The default `TargetType` for data flowing into the functions pipeline is an EdgeX Event DTO. 
-There are cases when this incoming data might not be an EdgeX Event DTO. There are two setting that configure the TargetType to non-Event data.
+There are cases when this incoming data might not be an EdgeX Event DTO. There are two values that TargetType can be 
+configured to for non-Event data.
 
 ### Raw TargetType
 
