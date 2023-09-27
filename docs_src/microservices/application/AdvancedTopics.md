@@ -469,11 +469,11 @@ All application services have the following built-in metrics:
 
 - `HttpExportSize  ` -  This is a **histogram** metric that collects the size of data exported via the built-in [HTTP Export pipeline function](../BuiltIn/#http-export). The metric data is not currently tagged due to breaking changes required to tag the data with the destination endpoint. This will be addressed in a future EdgeX 3.0 release.
 
-- `HttpExportErrors` - **(New)** This is a **counter** metric that counts the number errors encounter when exporting via HTTP. 
+- `HttpExportErrors` - **(New)** This is a **counter** metric that counts the number of errors encountered when exporting via HTTP. 
 
 - `MqttExportSize  ` -  This is a **histogram** metric that collects the size of data exported via the built-in [MQTT Export pipeline function](../BuiltIn/#mqtt-export). The metric data is tagged with the specific broker address and topic.
 
-- `MqttExportErrors` -  **(New)** This is a **counter** metric that counts the number errors encounter when exporting via MQTT. 
+- `MqttExportErrors` -  **(New)** This is a **counter** metric that counts the number of errors encountered when exporting via MQTT. 
 
 - `PipelineMessagesProcessed` - This is a **counter** metric that counts the number of messages processed by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the count is for.
 
