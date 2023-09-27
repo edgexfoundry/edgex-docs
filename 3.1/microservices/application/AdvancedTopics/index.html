@@ -2377,19 +2377,25 @@ A factory function to create these clients can then be registered with your serv
 <p><code>MessagesReceived</code> - This is a <strong>counter</strong> metric that counts the number of messages received by the application service. Includes invalid messages.</p>
 </li>
 <li>
-<p><code>InvalidMessagesReceived</code> - <strong>(NEW)</strong> This is a <strong>counter</strong> metric that counts the number of invalid messages received by the application service. </p>
+<p><code>InvalidMessagesReceived</code> -  This is a <strong>counter</strong> metric that counts the number of invalid messages received by the application service. </p>
 </li>
 <li>
-<p><code>HttpExportSize</code> - <strong>(NEW)</strong> This is a <strong>histogram</strong> metric that collects the size of data exported via the built-in <a href="../BuiltIn/#http-export">HTTP Export pipeline function</a>. The metric data is not currently tagged due to breaking changes required to tag the data with the destination endpoint. This will be addressed in a future EdgeX 3.0 release.</p>
+<p><code>HttpExportSize</code> -  This is a <strong>histogram</strong> metric that collects the size of data exported via the built-in <a href="../BuiltIn/#http-export">HTTP Export pipeline function</a>. The metric data is not currently tagged due to breaking changes required to tag the data with the destination endpoint. This will be addressed in a future EdgeX 3.0 release.</p>
 </li>
 <li>
-<p><code>MqttExportSize</code> - <strong>(NEW)</strong> This is a <strong>histogram</strong> metric that collects the size of data exported via the built-in <a href="../BuiltIn/#mqtt-export">MQTT Export pipeline function</a>. The metric data is tagged with the specific broker address and topic.</p>
+<p><code>HttpExportErrors</code> - <strong>(New)</strong> This is a <strong>counter</strong> metric that counts the number of errors encountered when exporting via HTTP. </p>
+</li>
+<li>
+<p><code>MqttExportSize</code> -  This is a <strong>histogram</strong> metric that collects the size of data exported via the built-in <a href="../BuiltIn/#mqtt-export">MQTT Export pipeline function</a>. The metric data is tagged with the specific broker address and topic.</p>
+</li>
+<li>
+<p><code>MqttExportErrors</code> -  <strong>(New)</strong> This is a <strong>counter</strong> metric that counts the number of errors encountered when exporting via MQTT. </p>
 </li>
 <li>
 <p><code>PipelineMessagesProcessed</code> - This is a <strong>counter</strong> metric that counts the number of messages processed by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the count is for.</p>
 </li>
 <li>
-<p><code>PipelineProcessingErrors</code> - <strong>(NEW)</strong> This is a <strong>counter</strong> metric that counts the number of errors returned by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the count is for.</p>
+<p><code>PipelineProcessingErrors</code> -  This is a <strong>counter</strong> metric that counts the number of errors returned by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the count is for.</p>
 </li>
 <li>
 <p><code>PipelineMessageProcessingTime</code> - This is a <strong>timer</strong> metric that tracks the amount of time taken to process messages by the individual function pipelines defined by the application service. The metric data is tagged with the specific function pipeline ID the timer is for.</p>
@@ -2412,9 +2418,11 @@ A factory function to create these clients can then be registered with your serv
 <span class="w">      </span><span class="nt">PipelineMessageProcessingTime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">      </span><span class="nt">PipelineProcessingErrors</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span>
 <span class="w">      </span><span class="nt">HttpExportSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">HttpExportErrors</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">      </span><span class="nt">MqttExportSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">MqttExportErrors</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span>
 <span class="w">    </span><span class="nt">Tags</span><span class="p">:</span><span class="w"> </span><span class="c1"># Contains the service level tags to be attached to all the service's metrics</span>
-<span class="w">      </span><span class="nt">Gateway</span><span class="p">:</span><span class="w"> </span><span class="s">"my-iot-gateway"</span><span class="w"> </span><span class="c1"># Tag must be added here or via Consul Env Override can only change existing value, not added new ones.</span>
+<span class="w">    </span><span class="nt">Gateway</span><span class="p">:</span><span class="w"> </span><span class="s">"my-iot-gateway"</span><span class="w"> </span><span class="c1"># Tag must be added here or via Consul Env Override can only change existing value, not added new ones.</span>
 </code></pre></div>
 </div>
 <h3 id="custom-application-service-metrics">Custom Application Service Metrics</h3>
