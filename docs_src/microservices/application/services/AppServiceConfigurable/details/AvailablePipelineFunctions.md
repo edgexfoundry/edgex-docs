@@ -17,7 +17,9 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `tags` - String containing comma separated list of tag key/value pairs. The tag key/value pairs are colon seperated
+| Name | Description                                                  |
+| ---- | ------------------------------------------------------------ |
+| tags | String containing comma separated list of tag key/value pairs. The tag key/value pairs are colon separated |
 
 !!! example
     ```yaml
@@ -30,11 +32,13 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `Mode`- The batch mode to use. can be 'bycount', 'bytime' or 'bytimecount'
-- `BatchThreshold` - Number of items to batch before sending batched items to the next function in the pipeline. Used with  'bycount' and 'bytimecount' modes
-- `TimeInterval` - Amount of time to batch before sending batched items to the next function in the pipeline. Used with  'bytime' and 'bytimecount' modes
-- `IsEventData` - If true, specifies that the data being batched is `Events` and to un-marshal the batched data to `[]Event` prior to returning the batched data. By default the batched data returned is `[][]byte`
-- `MergeOnSend` - If true, specifies that the data being batched is to be merged to a single `[]byte` prior to returning the batched data. By default the batched data returned is `[][]byte`
+| Name           | Description                                                  |
+| -------------- | ------------------------------------------------------------ |
+| Mode           | The batch mode to use. can be 'bycount', 'bytime' or 'bytimecount' |
+| BatchThreshold | Number of items to batch before sending batched items to the next function in the pipeline. Used with  'bycount' and 'bytimecount' modes |
+| TimeInterval   | Amount of time to batch before sending batched items to the next function in the pipeline. Used with  'bytime' and 'bytimecount' modes |
+| IsEventData    | If true, specifies that the data being batched is `Events` and to un-marshal the batched data to `[]Event` prior to returning the batched data. By default the batched data returned is `[][]byte` |
+| MergeOnSend    | If true, specifies that the data being batched is to be merged to a single `[]byte` prior to returning the batched data. By default the batched data returned is `[][]byte` |
 
 !!! example
     ```yaml
@@ -67,7 +71,9 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `Algorithm ` - Compression algorithm to use.  Can be 'gzip' or 'zlib'
+| Name      | Description                                            |
+| --------- | ------------------------------------------------------ |
+| Algorithm | Compression algorithm to use.  Can be 'gzip' or 'zlib' |
 
 !!! example
     ```yaml
@@ -80,9 +86,11 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `Algorithm` - AES256
-- `SecretName` - (required for AES256) Name of the secret in the `Secret Store` where the encryption key is located.
-- `SecretValueKey` - (required for AES256) Key of the secret data for the encryption key in the secret's data.
+| Name           | Description                                                  |
+| -------------- | ------------------------------------------------------------ |
+| Algorithm      | Always set to `AES256`                                       |
+| SecretName     | Name of the secret in the `Secret Store` where the encryption key is located |
+| SecretValueKey | Key of the secret data for the encryption key in the secret's data |
 
 !!! example
     ```yaml
@@ -98,8 +106,10 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `DeviceNames` - Comma separated list of device names or regular expressions for filtering
-- `FilterOut`- Boolean indicating if the data matching the device names should be filtered out or filtered for.
+| Name        | Description                                                  |
+| ----------- | ------------------------------------------------------------ |
+| DeviceNames | Comma separated list of device names or regular expressions for filtering |
+| FilterOut   | Boolean indicating if the data matching the device names should be filtered out or filtered for |
 
 !!! example
     ```yaml
@@ -118,8 +128,10 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `ProfileNames` - Comma separated list of profile names or regular expressions for filtering
-- `FilterOut`- Boolean indicating if the data matching the profile names should be filtered out or filtered for.
+| Name         | Description                                                  |
+| ------------ | ------------------------------------------------------------ |
+| ProfileNames | Comma separated list of profile names or regular expressions for filtering |
+| FilterOut    | Boolean indicating if the data matching the profile names should be filtered out or filtered for |
 
 !!! example
     ```yaml
@@ -138,8 +150,10 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `ResourceName` - Comma separated list of reading resource names or regular expressions for filtering
-- `FilterOut`- Boolean indicating if the readings matching the resource names should be filtered out or filtered for.
+| Name          | Description                                                  |
+| ------------- | ------------------------------------------------------------ |
+| ResourceNames | Comma separated list of resource names or regular expressions for filtering |
+| FilterOut     | Boolean indicating if the data matching the resource  names should be filtered out or filtered for |
 
 !!! example
     ```yaml
@@ -150,7 +164,7 @@ Please refer to the function's detailed documentation by clicking the function n
     or
     FilterByResourceName:
       Parameters:
-        DeviceNames: "(Int)[0-9]+"
+        ResourceNames: "(Int)[0-9]+"
         FilterOut: "false"
     ```
 
@@ -158,8 +172,10 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `SourceNames` - Comma separated list of source names or regular expressions for filtering. Source name is either the device command name or the resource name that created the Event
-- `FilterOut`- Boolean indicating if the data matching the device names should be filtered out or filtered for.
+| Name        | Description                                                  |
+| ----------- | ------------------------------------------------------------ |
+| SourceNames | Comma separated list of source names or regular expressions for filtering. Source name is either the device command name or the resource name that created the Event |
+| FilterOut   | Boolean indicating if the data matching the source names should be filtered out or filtered for |
 
 !!! example
     ```yaml
@@ -173,16 +189,18 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `Method` - HTTP Method to use. Can be `post` or `put`
-- `Url` - HTTP endpoint to POST/PUT the data.
-- `MimeType` - Optional mime type for the data. Defaults to `application/json` if not set.
-- `PersistOnError` - Indicates to persist the data if the POST fails. Store and Forward must also be enabled if this is set to "true".
-- `ContinueOnSendError` - For chained multi destination exports, if true continues after send error so next export function executes.
-- `ReturnInputData` - For chained multi destination exports if true, passes the input data to next export function.
-- `HeaderName` - (Optional) Name of the header key to add to the HTTP header
-- `SecretName` - (Optional) Name of the secret in the `Secret Store` where the header value is stored.
-- `SecretValueKey` - (Optional) Key for the header value in the secret data.
-- `HttpRequestHeaders` - (Optional) HTTP Request header parameters in json format.
+| Name                | Description                                                  |
+| ------------------- | ------------------------------------------------------------ |
+| Method              | HTTP Method to use. Can be `post` or `put`                   |
+| Url                 | HTTP endpoint to POST/PUT the data                           |
+| PersistOnError      | Indicates to persist the data if the POST fails. Store and Forward must also be enabled if this is set to "true" |
+| ContinueOnSendError | For chained multi destination exports. If true continues after send error so next export function executes |
+| ReturnInputData     | For chained multi destination exports. If true, passes the input data to next export function |
+| MimeType            | (**Optional**) mime type for the data. Defaults to `application/json` if not set |
+| HeaderName          | (**Optional**) Name of the header key to add to the HTTP he  |
+| SecretName          | (**Optional**) Name of the secret in the `Secret Store` where the header value is stored |
+| SecretValueKey      | (**Optional**) Key for the header value in the secret data   |
+| HttpRequestHeaders  | (**Optional**) HTTP Request header parameters in json format |
 
 !!! example
     ```yaml
@@ -237,7 +255,9 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `Rule` - The JSON formatted rule that with be executed on the data by JSONLogic
+| Name | Description                                                  |
+| ---- | ------------------------------------------------------------ |
+| Rule | The JSON formatted rule that with be executed on the data by JSONLogic |
 
 !!! example
     ```yaml
@@ -250,20 +270,22 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `BrokerAddress` - URL specify the address of the MQTT Broker
-- `Topic` - Topic to publish the data
-- `ClientId` - Id to use when connecting to the MQTT Broker
-- `Qos` - MQTT Quality of Service (QOS) setting to use (0, 1 or 2). Please refer [**here**](https://www.eclipse.org/paho/files/mqttdoc/MQTTClient/html/qos.html) for more details on QOS values
-- `AutoReconnect` - Boolean specifying if reconnect should be automatic if connection to MQTT broker is lost
-- `Retain` - Boolean  specifying if the MQTT Broker should save the last message published as the “Last Good Message” on that topic.
-- `SkipVerify` - Boolean indicating if the certificate verification should be skipped.
-- `PersistOnError` - Indicates to persist the data if the POST fails. Store and Forward must also be enabled if this is set to "true".
-- `AuthMode` - Mode of authentication to use when connecting to the MQTT Broker
-  - `none` - No authentication required
-  - `usernamepassword` - Use username and password authentication. The Secret Store (Vault or [InsecureSecrets](../../../../GeneralAppServiceConfig/#writable)) must contain the `username` and `password` secrets.
-  - `clientcert` - Use Client Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../../../../GeneralAppServiceConfig/#writable)) must contain the `clientkey` and `clientcert` secrets.
-  - `cacert` - Use CA Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../../../../GeneralAppServiceConfig/#writable)) must contain the `cacert` secret.
-- `SecretName` - Name of the  secret in the SecretStore where authentication secrets are stored.
+| Name           | Description                                                  |
+| -------------- | ------------------------------------------------------------ |
+| BrokerAddress  | URL specify the address of the MQTT Broker                   |
+| Topic          | Topic to publish the data                                    |
+| ClientId       | Id to use when connecting to the MQTT Broker                 |
+| Qos            | MQTT Quality of Service (QOS) setting to use (0, 1 or 2). Please refer [**here**](https://www.eclipse.org/paho/files/mqttdoc/MQTTClient/html/qos.html) for more details on QOS values |
+| AutoReconnect  | Boolean specifying if reconnect should be automatic if connection to MQTT broker is lost |
+| Retain         | Boolean  specifying if the MQTT Broker should save the last message published as the “Last Good Message” on that topic |
+| SkipVerify     | Boolean indicating if the certificate verification should be skipped |
+| PersistOnError | Indicates to persist the data if the POST fails. Store and Forward must also be enabled if this is set to "true" |
+| AuthMode       | Mode of authentication to use when connecting to the MQTT Broker. Valid values are: |
+|                | **none** - No authentication required                        |
+|                | **usernamepassword** - Use username and password authentication. The Secret Store (Vault or [InsecureSecrets](../../../../GeneralAppServiceConfig/#writable)) must contain the `username` and `password` secrets |
+|                | **clientcert** - Use Client Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../../../../GeneralAppServiceConfig/#writable)) must contain the `clientkey` and `clientcert` secrets |
+|                | **cacert** - Use CA Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../../../../GeneralAppServiceConfig/#writable)) must contain the `cacert` secret |
+| SecretName     | Name of the  secret in the SecretStore where authentication secrets are stored |
 
 !!! note
     `Authmode=cacert` is only needed when client authentication (e.g. `usernamepassword`) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.
@@ -297,7 +319,9 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `ResponseContentType` - Used to specify content-type header for response - optional
+| Name                | Description                                                  |
+| ------------------- | ------------------------------------------------------------ |
+| ResponseContentType | (**Optional**) Used to specify content-type header for response. Default to JSON if not specified |
 
 !!! example
     ```yaml
@@ -310,7 +334,9 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `Type` - Type of transformation to perform. Can be 'xml' or 'json'
+| Name | Description                                               |
+| ---- | --------------------------------------------------------- |
+| Type | Type of transformation to perform. Can be 'xml' or 'json' |
 
 !!! example
     ```yaml
@@ -323,7 +349,9 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `Tags` - optional comma separated list of additional tags to add to the metric in to form "tag:value,..."
+| Name | Description                                                  |
+| ---- | ------------------------------------------------------------ |
+| Tags | (**Optional**) Comma separated list of additional tags to add to the metric in to form "tag:value,..." |
 
 !!! example
     ```yaml
@@ -339,11 +367,13 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-- `ProfileName` - Profile name to use for the new Event
-- `DeviceName` - Device name to use for  the new Event
-- `ResourceName` -  Resource name name to use for  the new Event's` SourceName` and Reading's `ResourceName`
-- `ValueType` - Value type to use  the new Event Reading's value type
-- `MediaType` - Media type to use the new Event Reading's value type. Required when the value type is `Binary`
+| Name         | Description                                                  |
+| ------------ | ------------------------------------------------------------ |
+| ProfileName  | Profile name to use for the new Event                        |
+| DeviceName   | Device name to use for  the new Event                        |
+| ResourceName | Resource name name to use for  the new Event's `SourceName` and Reading's `ResourceName` |
+| ValueType    | Value type to use  the new Event Reading's value             |
+| MediaType    | Media type to use the new Event Reading's value type. Required when the value type is `Binary` |
 
 !!! example
     ```yaml
