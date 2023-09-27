@@ -2,7 +2,11 @@
 
 ## Pipeline Per Topics
 
-The above pipeline configuration in [Getting Started](../../GettingStarted) section is the preferred way if your use case only requires a single functions pipeline. For use cases that require multiple functions pipelines in order to process the data differently based on the `profile`, `device` or `source` for the Event, there is the Pipeline Per Topics feature. This feature allows multiple pipelines to be configured in the `Writable.Pipeline.PerTopicPipelines` section. This section is a map of pipelines. The map key must be unique , but isn't used so can be any value. 
+The pipeline configuration in [Getting Started](../../GettingStarted) section is the preferred way if your use case only 
+requires a single functions pipeline. For use cases that require multiple functions pipelines in order to process the data 
+differently based on the `profile`, `device` or `source` for the Event, there is the Pipeline Per Topics feature. 
+This feature allows multiple pipelines to be configured in the `Writable.Pipeline.PerTopicPipelines` section. 
+This section is a map of pipelines. The map key must be unique, but the value isn't used, so it can be any value. 
 
 Each pipeline is defined by the following configuration elements:
 
