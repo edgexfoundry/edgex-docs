@@ -82,13 +82,29 @@ See the examples at `cmd/res/devices`
 !!! Note 
     When a new device is created in Core Metadata, a callback function of the device service will be called to add the device card name and serial number to protocol properties for identification purposes. These two pieces of information are obtained through `V4L2` API and `udev` utility.
 
-## Configurable RTSP server hostname and port
-Enable/Disable RTSP server and set hostname and port in the `Driver` section of `device-usb-camera/cmd/res/configuration.yaml` file. The default values can be used in this guide. The RtspAuthenticationServer value indicates the internal hostname and port on which the device service will listen for RTSP authentication requests on. If this value is changed, you will have to also change the [mediamtx configuration](../supplementary-info/advanced-options.md#authentication-server-configuration) to point to the new hostname/port as well.
+## Configure RTSP server mode, hostname, and port
+Set the RTSP server hostname and port in the `Driver` section of `device-usb-camera/cmd/res/configuration.yaml` file.
+The default values can be used in this guide.
+
+- **RtspServerMode**:
+  Starting in version 3.1, the RTSP Server mode is configurable via `RtspServerMode`.
+  The values can be "internal", "external", or "none".
+  The default is "internal" if the field is missing or left blank in order to preserve backwards compatibility
+  with version 3.0.
+      - **internal**: Use this mode when you want an all-in-one package. This mode runs the RTSP server binary, runs the authentication server, and enables the Streaming REST APIs.
+      - **external**: Use this mode when you want to use an external rtsp server on another machine or in a different container. This mode does not run the RTSP server, however it still runs the authentication server, and enables the streaming REST APIs.
+      - **none**: Use this mode when you have no use for the RTSP server functionality (i.e. you want to work directly with the /dev/video paths). RTSP and authentication servers are not run, and the streaming REST APIs are disabled.
+
+- **RtspServerHostName**: Configures the external hostname for the RTSP server. This value will be used both internally for setting the destination of the ffmpeg transcoding, and externally for the StreamUri REST API. When running in `internal` mode, this should be localhost or the hostname of the machine running the device service. In `external` mode, this should point to the ip address or hostname of the machine/container running the RTSP server.
+
+- **RtspTcpPort**: Configures the port number of the RTSP server. Used in conjunction with the RtspServerHostName.
+
+- **RtspAuthenticationServer**: indicates the internal hostname and port on which the device service will listen for RTSP authentication requests on. If this value is changed, you will have to also change the [mediamtx configuration](../supplementary-info/advanced-options.md#authentication-server-configuration) to point to the new hostname/port as well.
 
 !!! example - "Snippet from configuration.yaml"
     ```yaml
     Driver:
-        EnableRtspServer: "true"
+        RtspServerMode: "internal"
         RtspServerHostName: "localhost"
         RtspTcpPort: "8554"
         RtspAuthenticationServer: "localhost:8000"
