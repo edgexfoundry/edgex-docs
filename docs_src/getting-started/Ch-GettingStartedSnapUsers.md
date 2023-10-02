@@ -639,14 +639,14 @@ The default configuration files are installed at:
 
 ??? example "Filtering devices using snap options"
     App service configurable provides various event filtering options.
-    For example, to [filter by device names](../../microservices/application/AppServiceConfigurable/#filterbydevicename) `Random-Integer-Device` and `Random-Binary-Device` using snap options:
+    For example, to [filter by device names](../../microservices/application/services/AppServiceConfigurable/details/AvailablePipelineFunctions/#filterbydevicename) `Random-Integer-Device` and `Random-Binary-Device` using snap options:
     ```
     snap set edgex-app-service-configurable config.writable-pipeline-executionorder="FilterByDeviceName, SetResponseData"
     snap set edgex-app-service-configurable config.writable-pipeline-functions-filterbydevicename-parameters-devicenames="Random-Integer-Device, Random-Binary-Device"
     snap set edgex-app-service-configurable config.writable-pipeline-functions-filterbydevicename-parameters-filterout=true
     ```
 
-Please refer to [App Service Configurable](../../microservices/application/AppServiceConfigurable/) guide for detailed usage instructions.
+Please refer to [App Service Configurable](../../microservices/application/services/AppServiceConfigurable/details/Purpose/) guide for detailed usage instructions.
 
 **Profile**
 

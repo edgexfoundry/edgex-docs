@@ -6,7 +6,7 @@ There are two flavors of Applications Service which are `configurable` and `cust
 
 ### Configurable
 
-The `App Functions SDK` has a full suite of built-in features that are accessible via configuration when using the `App Service Configurable` service. This service is built using the `App Functions SDK` and uses  configuration profiles to define separate distinct instances of the service. The service comes with a few built in profiles for common use cases, but custom profiles can also be used. If your use case needs can be meet with the built-in functionality then the `App Service Configurable` service is right for you. See the [App Service Configurable](services/AppServiceConfigurable.md) section for more details.
+The `App Functions SDK` has a full suite of built-in features that are accessible via configuration when using the `App Service Configurable` service. This service is built using the `App Functions SDK` and uses  configuration profiles to define separate distinct instances of the service. The service comes with a few built in profiles for common use cases, but custom profiles can also be used. If your use case needs can be meet with the built-in functionality then the `App Service Configurable` service is right for you. See the [App Service Configurable](services/AppServiceConfigurable/Purpose.md) section for more details.
 
 ### Custom
 
