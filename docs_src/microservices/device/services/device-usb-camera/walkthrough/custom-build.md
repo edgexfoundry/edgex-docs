@@ -83,13 +83,13 @@ See the examples at `cmd/res/devices`
     When a new device is created in Core Metadata, a callback function of the device service will be called to add the device card name and serial number to protocol properties for identification purposes. These two pieces of information are obtained through `V4L2` API and `udev` utility.
 
 ## Configure RTSP server mode, hostname, and port
-Set the RTSP server hostname and port in the `Driver` section of `device-usb-camera/cmd/res/configuration.yaml` file.
+Set the RTSP server hostname and port in the `Driver` section of [configuration.yaml](https://github.com/edgexfoundry/device-usb-camera/blob/{{edgexversion}}/cmd/res/configuration.yaml) file.
 The default values can be used in this guide.
 
 - **RtspServerMode**:
   Starting in version 3.1, the RTSP Server mode is configurable via `RtspServerMode`.
   The values can be "internal", "external", or "none".
-  The default is "internal" if the field is missing or left blank in order to preserve backwards compatibility
+  The default is `internal` if the field is missing or left blank in order to preserve backwards compatibility
   with version 3.0.
       - **internal**: Use this mode when you want an all-in-one package. This mode runs the RTSP server binary, runs the authentication server, and enables the Streaming REST APIs.
       - **external**: Use this mode when you want to use an external rtsp server on another machine or in a different container. This mode does not run the RTSP server, however it still runs the authentication server, and enables the streaming REST APIs.
