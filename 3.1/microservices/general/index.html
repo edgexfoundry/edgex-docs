@@ -865,10 +865,80 @@
         Available Services
       </a>
 </li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_4_4_6_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_4_4_6_2" id="__nav_1_4_4_6_2_label" tabindex="0">
+          App Service Configurable
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_4_6_2_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_4_4_6_2">
+<span class="md-nav__icon md-icon"></span>
+          App Service Configurable
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../application/services/AppServiceConfigurable/">
-        App Service Configurable
+<a class="md-nav__link" href="../application/services/AppServiceConfigurable/Purpose/">
+        Purpose
       </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../application/services/AppServiceConfigurable/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../application/services/AppServiceConfigurable/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../application/services/AppServiceConfigurable/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../application/services/AppServiceConfigurable/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_4_4_6_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_4_4_6_2_6" id="__nav_1_4_4_6_2_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_4_6_2_6_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_4_4_6_2_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../application/services/AppServiceConfigurable/details/PipelinePerTopics/">
+        Pipeline Per Topics
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../application/services/AppServiceConfigurable/details/AvailablePipelineFunctions/">
+        Available Pipeline Functions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../application/services/AppServiceConfigurable/details/Profiles/">
+        Available Profiles
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../application/services/AppServiceConfigurable/details/TargetType/">
+        Target Type
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../application/services/AppRecordReplay/">
@@ -1771,7 +1841,7 @@
 <p>EdgeX provides the means to “tag” the event data from any point in the system.  The Event object has a <code>Tags</code> property which is a key/value pair map that allows any service that creates or otherwise handles events to add custom information to the Event in order to help identify its origin or otherwise label it before it is sent to the <a href="../../general/Definitions/#south-and-north-side">north side</a>.</p>
 <p>For example, a device service could populate the <code>Tags</code> property with latitude and longitude key/value pairs of the physical location of the sensor when the Event is created to send sensed information to Core Data.</p>
 <h3 id="application-service-configurable">Application Service Configurable</h3>
-<p>When the Event gets to the <a href="../application/services/AppServiceConfigurable/#available-configurable-pipeline-functions">Application Service Configurable</a>, for example, the service has an optional function (defined by <code>Writable.Pipeline.Functions.AddTags</code> in configuration) that will add additional key/value pair to the Event <code>Tags</code>.  The key and value for the additional tag are provided in configuration (as shown by the example below).  Multiple tags can be provide separated by commas.</p>
+<p>When the Event gets to the <a href="../application/services/AppServiceConfigurable/Purpose/">Application Service Configurable</a>, for example, the service has an optional function (defined by <code>Writable.Pipeline.Functions.AddTags</code> in configuration) that will add additional key/value pair to the Event <code>Tags</code>.  The key and value for the additional tag are provided in configuration (as shown by the example below).  Multiple tags can be provide separated by commas.</p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">AddTags</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">Parameters</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="s">"GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603"</span>
