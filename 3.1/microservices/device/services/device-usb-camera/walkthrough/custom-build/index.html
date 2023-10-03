@@ -724,8 +724,8 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#configurable-rtsp-server-hostname-and-port">
-    Configurable RTSP server hostname and port
+<a class="md-nav__link" href="#configure-rtsp-server-mode-hostname-and-port">
+    Configure RTSP server mode, hostname, and port
   </a>
 </li>
 <li class="md-nav__item">
@@ -1758,8 +1758,8 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#configurable-rtsp-server-hostname-and-port">
-    Configurable RTSP server hostname and port
+<a class="md-nav__link" href="#configure-rtsp-server-mode-hostname-and-port">
+    Configure RTSP server mode, hostname, and port
   </a>
 </li>
 <li class="md-nav__item">
@@ -1864,12 +1864,36 @@
 <p class="admonition-title">Note</p>
 <p>When a new device is created in Core Metadata, a callback function of the device service will be called to add the device card name and serial number to protocol properties for identification purposes. These two pieces of information are obtained through <code>V4L2</code> API and <code>udev</code> utility.</p>
 </div>
-<h2 id="configurable-rtsp-server-hostname-and-port">Configurable RTSP server hostname and port</h2>
-<p>Enable/Disable RTSP server and set hostname and port in the <code>Driver</code> section of <code>device-usb-camera/cmd/res/configuration.yaml</code> file. The default values can be used in this guide. The RtspAuthenticationServer value indicates the internal hostname and port on which the device service will listen for RTSP authentication requests on. If this value is changed, you will have to also change the <a href="../../supplementary-info/advanced-options/#authentication-server-configuration">mediamtx configuration</a> to point to the new hostname/port as well.</p>
+<h2 id="configure-rtsp-server-mode-hostname-and-port">Configure RTSP server mode, hostname, and port</h2>
+<p>Set the RTSP server hostname and port in the <code>Driver</code> section of <a href="https://github.com/edgexfoundry/device-usb-camera/blob/main/cmd/res/configuration.yaml">configuration.yaml</a> file.
+The default values can be used in this guide.</p>
+<ul>
+<li>
+<p><strong>RtspServerMode</strong>:
+  Starting in version 3.1, the RTSP Server mode is configurable via <code>RtspServerMode</code>.
+  The values can be "internal", "external", or "none".
+  The default is <code>internal</code> if the field is missing or left blank in order to preserve backwards compatibility
+  with version 3.0.</p>
+<ul>
+<li><strong>internal</strong>: Use this mode when you want an all-in-one package. This mode runs the RTSP server binary, runs the authentication server, and enables the Streaming REST APIs.</li>
+<li><strong>external</strong>: Use this mode when you want to use an external rtsp server on another machine or in a different container. This mode does not run the RTSP server, however it still runs the authentication server, and enables the streaming REST APIs.</li>
+<li><strong>none</strong>: Use this mode when you have no use for the RTSP server functionality (i.e. you want to work directly with the /dev/video paths). RTSP and authentication servers are not run, and the streaming REST APIs are disabled.</li>
+</ul>
+</li>
+<li>
+<p><strong>RtspServerHostName</strong>: Configures the external hostname for the RTSP server. This value will be used both internally for setting the destination of the ffmpeg transcoding, and externally for the StreamUri REST API. When running in <code>internal</code> mode, this should be localhost or the hostname of the machine running the device service. In <code>external</code> mode, this should point to the ip address or hostname of the machine/container running the RTSP server.</p>
+</li>
+<li>
+<p><strong>RtspTcpPort</strong>: Configures the port number of the RTSP server. Used in conjunction with the RtspServerHostName.</p>
+</li>
+<li>
+<p><strong>RtspAuthenticationServer</strong>: indicates the internal hostname and port on which the device service will listen for RTSP authentication requests on. If this value is changed, you will have to also change the <a href="../../supplementary-info/advanced-options/#authentication-server-configuration">mediamtx configuration</a> to point to the new hostname/port as well.</p>
+</li>
+</ul>
 <div class="admonition example -">
 <p class="admonition-title">Snippet from configuration.yaml</p>
 <div class="highlight"><pre><span></span><code><span class="nt">Driver</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">EnableRtspServer</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">    </span><span class="nt">RtspServerMode</span><span class="p">:</span><span class="w"> </span><span class="s">"internal"</span>
 <span class="w">    </span><span class="nt">RtspServerHostName</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost"</span>
 <span class="w">    </span><span class="nt">RtspTcpPort</span><span class="p">:</span><span class="w"> </span><span class="s">"8554"</span>
 <span class="w">    </span><span class="nt">RtspAuthenticationServer</span><span class="p">:</span><span class="w"> </span><span class="s">"localhost:8000"</span>
