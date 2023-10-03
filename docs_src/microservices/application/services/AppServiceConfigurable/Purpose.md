@@ -8,4 +8,6 @@ developers to use configuration instead of code to utilize the built-in pipeline
 Please refer to [Available Configurable Pipeline Functions](../details/AvailablePipelineFunctions)  section below for
 full list of built-in functions that can be used in the configurable pipeline. 
 
+## Next Section
+
 See [Getting Started](GettingStarted.md) section next

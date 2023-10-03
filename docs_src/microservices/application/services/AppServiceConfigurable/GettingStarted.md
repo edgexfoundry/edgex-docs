@@ -37,4 +37,6 @@ Next, each function and its required information is listed. Each function typica
 
 That's it! Now we can run/deploy this service and the functions pipeline will process the data with functions we've defined.
 
+## Next Section
+
 See [Configuration](Configuration.md) section next for more in-depth details on configuring your function pipeline(s).
