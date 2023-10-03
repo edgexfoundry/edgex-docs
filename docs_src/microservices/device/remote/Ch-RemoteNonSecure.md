@@ -30,7 +30,7 @@ This example can be further extended to run multiple instances of device-usb-cam
       git checkout {{edgexversion}}
       ```
 
-1. Update the [docker-compose-no-secty.yml](https://github.com/edgexfoundry/edgex-compose/blob/main/docker-compose-no-secty.yml) file by removing the `host_ip` section of all the EdgeX core services. E.g.
+1. Update the [docker-compose-no-secty.yml](https://github.com/edgexfoundry/edgex-compose/blob/{{edgexversion}}/docker-compose-no-secty.yml) file by removing the `host_ip` section of all the EdgeX core services. E.g.
       ```bash
       host_ip: 127.0.0.1
       ```
@@ -66,6 +66,8 @@ This example can be further extended to run multiple instances of device-usb-cam
               EDGEX_SECURITY_SECRET_STORE: "false"
               EDGEX_REMOTE_SERVICE_HOSTS: "<remote-node-ip-address>,<host-node-ip-address>,<service-bind-address>"
               #E.g.EDGEX_REMOTE_SERVICE_HOSTS: "172.118.1.92,172.118.1.167,0.0.0.0"
+              DRIVER_RTSPSERVERHOSTNAME: "<remote-node-ip-address>"
+              DRIVER_RTSPAUTHENTICATIONSERVER: "<service-bind-address>:8000"
             hostname: edgex-device-usb-camera
             image: <published docker image of device-usb-camera>
             ports:
@@ -115,7 +117,7 @@ This example can be further extended to run multiple instances of device-usb-cam
          ```
 
     1. For RTSP streaming get [rtsp-simple-server](https://github.com/bluenviron/mediamtx/releases) binary
-       and rtsp config yml file and copy them into the [cmd](https://github.com/edgexfoundry/device-usb-camera/tree/main/cmd) directory.
+       and rtsp config yml file and copy them into the [cmd](https://github.com/edgexfoundry/device-usb-camera/tree/{{edgexversion}}/cmd) directory.
 
     1. Build the service from the `main` directory:
 
