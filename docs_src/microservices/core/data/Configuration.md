@@ -21,7 +21,7 @@ Below are only the additional settings and sections that are specific to Core Da
 | Metrics| |Service metrics that Core Data collects. Boolean value indicates if reporting of the metric is enabled.|
 |Metrics.EventsPersisted |  false| Enable/Disable reporting of number of events persisted.|
 |Metrics.ReadingsPersisted | false|Enable/Disable reporting of number of readings persisted.|
-|Tags|`<empty>`|List of arbitrary Core Data service level tags to included with every metric that is reported.  |
+|Tags|`<empty>`|List of arbitrary Core Data service level tags to be included with every metric that is reported.  |
 === "Service"
 |Property|Default Value|Description|
 |---|---|---|

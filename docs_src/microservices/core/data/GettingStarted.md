@@ -37,8 +37,7 @@ The simplest way to run all the required services is to use the [Compose Builder
 4. Remove core-data from the compose file and resolve any depends on for core-data.
 5. Run the compsoe file.
     ```
-   docker compose -p edgex -f docker-compose.yml up -d
+   make up
    ```
 
 This runs, in non-secure mode, all the standard EdgeX services, except for core data, along with the Device Virtual.
-Core Data will use the Redis database as its datastore.

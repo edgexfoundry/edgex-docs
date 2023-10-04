@@ -4,13 +4,13 @@
 
 Data collected from sensors is marshalled into EdgeX event and reading objects (delivered as JSON objects or a binary object encoded as [CBOR](../../../general/Definitions.md#cbor) to core data).
 An event represents a collection of one or more sensor readings.  
-The number of readings depends on the connected device/sensor.
+The number of readings depend on the connected device/sensor.
 
 An event must have at least one reading. 
 Events are associated with a sensor or device – the “thing” that sensed the environment and produced the readings. 
-Readings are a component an event. Readings are a simple key/value pair  where the key ([ResourceName](../../../general/Definitions.md#resource)) is the metric sensed and the value is the actual data sensed.  
+Readings are a component of an event. Readings are a simple key/value pair  where the key ([ResourceName](../../../general/Definitions.md#resource)) is the metric sensed and the value is the actual data sensed.  
 A reading may include other bits of information to provide more context (for example, the data type of the value) for the users of that data.
-Consumers of the reading data could include things like user interfaces, data visualization systems and analytics tools.
+Reading data can be consumed via interfaces, data visualization systems and analytics tools.
 
 !!! example 
     The event coming from the “motor123” device has two readings (or sensed values). 

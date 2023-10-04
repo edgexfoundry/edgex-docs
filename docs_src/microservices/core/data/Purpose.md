@@ -6,7 +6,7 @@ The Core Data microservice provides a centralized persistence for data collected
 Device services that collect sensor data call on the core data service to
 store the sensor data on the edge system (such as in a [gateway](../../../general/Definitions.md#gateway)) until the data gets moved "north" and then exported to Enterprise and cloud systems. 
 Core data persists the data in a local database.  
-[Redis](https://redis.io/) is used by default, but a database abstraction layer allows for other databases to be used.
+[Redis](https://redis.io/) is used by default, but a database abstraction layer allows for other database implementations to be added.
 
 ![image](EdgeX_CoreData.png)
 
@@ -29,7 +29,7 @@ Sensor data can be sent to core data via two different means:
         ![image](EdgeX_CoreDataSubscriber.png)
 
 2. Services and systems can call on the core data REST API to send data to core data and have the data put in local storage.
-   This REST method of sending data to core data is an alternative method to send data to core data.
+   The REST method is an alternative method to send data to core data.
    When data is sent via REST to core data, core data re-publishes the data on to message bus so that other services can subscribe to it.
        ![image](EdgeX_CoreDataRESTEndpoint.png)
 
