@@ -208,7 +208,3 @@ This API has a the optional `overwrite` query parameter, which specifies to over
 
 !!! warning
     The source device service(s) must be running will importing and the `overwite` parameter above is `true`. This is because the device service(s) are sent messages when the devices and profiles in the imported data are added to the system.
-
-## Next Topic
-
-See [Configuration](Configuration.md) section next for details on service configuration.

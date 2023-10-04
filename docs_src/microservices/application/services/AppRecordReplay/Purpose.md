@@ -9,7 +9,3 @@ This service is a developer testing tool which will record Events from the EdgeX
 
 !!! warning - "Storage Model"
     Since this is targeted as a developer testing tool, the storage model is kept simple by using in-memory storage for the recorded data. This should be kept in mind when recording or importing a recoding on systems with limited resources.
-
-## Next Section
-
-See [Getting Started](GettingStarted.md) section next

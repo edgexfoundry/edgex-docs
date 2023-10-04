@@ -25,8 +25,3 @@ The `Writable.Pipeline` section of configuration has the following elements:
 | Functions                     | Collection     | This section defines and configures the collection of available pipeline functions to be used in the above functions pipelines. The names used must be unique and a partial match (start-with) the name of one of the built-in pipeline functions listed in the [Available Configurable Pipeline Functions](../details/AvailablePipelineFunctions) section below. This partial match allows the definition and configuration of multiple instances of the same built-in pipeline function. See [Multiple Instances of a Function](../details/DeployMultipleInstances) section below for more details. |
 | Functions.`<name>`            | Unique name    | Unique name of the function that starts with the name of one of the built-in pipeline functions. |
 | Functions.`<name>`.Parameters | Collection     | Collection of key/value parameters that are unique to the matching built-in pipeline function. All values are of type string. See  [Available Configurable Pipeline Functions](../details/AvailablePipelineFunctions) section below for specifics on the required and option parameters for each function. |
-
-
-## Next Section
-
-See [API Reference](ApiReference.md) section next

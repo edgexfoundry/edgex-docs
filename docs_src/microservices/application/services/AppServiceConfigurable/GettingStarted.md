@@ -36,7 +36,3 @@ Next, each function and its required information is listed. Each function typica
     By default, the configuration provided is set to use `EdgexMessageBus` as a trigger. This means you must have EdgeX Running with devices sending data in order to trigger the pipeline. You can also change the trigger to be HTTP. For more details on triggers, view the `Triggers`documentation located in the [Triggers](../../Triggers.md) section.
 
 That's it! Now we can run/deploy this service and the functions pipeline will process the data with functions we've defined.
-
-## Next Section
-
-See [Configuration](Configuration.md) section next for more in-depth details on configuring your function pipeline(s).

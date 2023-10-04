@@ -23,6 +23,3 @@ A sample Postman collection can be found [here](https://github.com/edgexfoundry/
     curl localhost:59712/api/{{api_version}}/data?compression=gzip -o test.gz
     curl localhost:59712/api/{{api_version}}/data?compression=zlib -o test.zlib
     ```
-## Next Section
-
-See [Source Code](SourceCode.md) section next
