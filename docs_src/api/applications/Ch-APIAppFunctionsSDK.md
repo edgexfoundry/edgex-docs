@@ -1,6 +1,9 @@
 # Application Services 
 
-The App Functions SDK is provided to help build Application Services by assembling triggers, pre-existing functions and custom functions of your making into a functions pipeline. This functions pipeline processes messages received by the configured trigger.  See [Application Functions SDK](../../microservices/application/ApplicationFunctionsSDK.md) for more details on this SDK.
+The App Functions SDK is provided to help build Application Services by assembling triggers, pre-existing functions 
+and custom functions of your making into a functions pipeline. This functions pipeline processes messages received by 
+the configured trigger.  
+See [Application Functions SDK](../../microservices/application/sdk/Purpose.md) for more details on this SDK.
 
 The App Functions SDK provides a RESTful API that all Application Services inherit from the SDK.
 

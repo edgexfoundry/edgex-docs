@@ -1,6 +1,4 @@
-
-
-# Built-In Pipeline Functions
+# App Functions SDK - Built-In Pipeline Functions APIs
 
 All pipeline functions define a type and a factory function which is used to initialize an instance of the type with the  required options. The instances returned by these factory functions give access to their appropriate pipeline function pointers when setting up the function pipeline.
 
@@ -244,7 +242,7 @@ type HTTPSenderOptions struct {
 
 #### HTTP POST
 
-`HTTPPost` - This pipeline function receives either a `string`, `[]byte`, or `json.Marshaler` type from the previous function in the pipeline and posts it to the configured endpoint and returns the HTTP response. If no previous function exists, then the event that triggered the pipeline, marshaled to json, will be used. If the post fails and `persistOnError=true` and `Store and Forward` is enabled, the data will be stored for later retry. See [Store and Forward](./AdvancedTopics.md#store-and-forward) for more details. If `ReturnInputData=true`  the function will return the data that it received instead of the HTTP response. This allows the following function in the pipeline to be another HTTP Export which receives the same data but is configured to send to a different endpoint. When chaining for multiple HTTP Exports you need to decide how to handle errors. Do you want to stop execution of the pipeline or continue so that the next HTTP Export function can attempt to export to its endpoint. This is where `ContinueOnSendError` comes in. If set to `true` the error is logged and the function returns the received data for the next function to use. `ContinueOnSendError=true` can only be used when `ReturnInputData=true` and cannot be use when `PersistOnError=true`.
+`HTTPPost` - This pipeline function receives either a `string`, `[]byte`, or `json.Marshaler` type from the previous function in the pipeline and posts it to the configured endpoint and returns the HTTP response. If no previous function exists, then the event that triggered the pipeline, marshaled to json, will be used. If the post fails and `persistOnError=true` and `Store and Forward` is enabled, the data will be stored for later retry. See [Store and Forward](../details/AdvancedTopics.md#store-and-forward) for more details. If `ReturnInputData=true`  the function will return the data that it received instead of the HTTP response. This allows the following function in the pipeline to be another HTTP Export which receives the same data but is configured to send to a different endpoint. When chaining for multiple HTTP Exports you need to decide how to handle errors. Do you want to stop execution of the pipeline or continue so that the next HTTP Export function can attempt to export to its endpoint. This is where `ContinueOnSendError` comes in. If set to `true` the error is logged and the function returns the received data for the next function to use. `ContinueOnSendError=true` can only be used when `ReturnInputData=true` and cannot be use when `PersistOnError=true`.
 
 !!! example
     **POST**              

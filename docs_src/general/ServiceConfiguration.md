@@ -22,8 +22,9 @@ Please refer to the general [Common Configuration documentation](../microservice
 === "Application & Analytics"
     |Services Name|	Configuration Reference|
     |---|---|
-    |app-service|[General Application Service Configuration](../microservices/application/GeneralAppServiceConfig.md)|
+    |app-service|[General Application Service Configuration](../microservices/application/Configuration.md)|
     |app-service-configurable|[Configurable Application Service Configuration](../microservices/application/services/AppServiceConfigurable/Configuration.md)|
+    |app-record-replay|[App Record Replay Configuration](../microservices/application/services/AppRecordReplay/Configuration.md)|
     |eKuiper rules engine/eKuiper|[Basic eKuiper Configuration](https://github.com/lf-edge/ekuiper/blob/7ef3a19366ee1f4537747fdc2e574389225f5d51/docs/en_US/operation/config/configuration_file.md)|
 === "Device"
     |Services Name|	Configuration Reference|

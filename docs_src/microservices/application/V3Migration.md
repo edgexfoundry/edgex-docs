@@ -1,4 +1,4 @@
-# V3 Application Service Migration Guide
+# Application Services - V3 Migration Guide
 
 ## Configuration
 
@@ -9,7 +9,7 @@ The migration of any Application Service's configuration starts with migrating c
 Any configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom application service's private configuration. 
 
 - See [Common Service Configuration](../../configuration/CommonConfiguration/) section for details about configuration that is common to all Edgex services. 
-- See [Application Service Configuration](../GeneralAppServiceConfig) section for details about configuration that is common to all EdgeX Application Services.
+- See [Application Service Configuration](Configuration.md) section for details about configuration that is common to all EdgeX Application Services.
 
 !!! note
     With this change, any custom application service must be run with either the `-cp/--configProvider` flag or the `-cc/--commonConfig` flag in order for the service to receive the common configuration that has been removed from its private configuration. See [Config Provider](../../configuration/CommonCommandLineOptions/#config-provider) and [Common Config](../../configuration/CommonCommandLineOptions/#common-config) sections for more details on these flags.
@@ -158,13 +158,13 @@ The `ApplicationService` API has the following changes:
 6. `LoadConfigurablePipeline` has been removed. Use `LoadConfigurableFunctionPipelines`
 7. `CommandClient` `Get` API's `dsPushEvent` and `dsReturnEvent` parameters changed to be type `bool`
 
-See [Application Service API](../ApplicationServiceAPI) section for completed details on this API, including some new capabilities.
+See [Application Service API](sdk/api/ApplicationServiceAPI.md) section for completed details on this API, including some new capabilities.
 
 ##### AppFunctionContext API
 
 The `AppFunctionContext ` API has the following changes:
 
-1. Deprecated `PushToCore` has been removed. Use [WrapIntoEvent](..//BuiltIn/#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](../Triggers/#publishtopic) or [Background Publisher](../ApplicationServiceAPI/#background-publisher-apis) sections for more details on publishing data back to the EdgeX MessageBus.
+1. Deprecated `PushToCore` has been removed. Use [WrapIntoEvent](sdk/api/BuiltInPipelineFunctions.md#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](sdk/details/Triggers.md#publishtopic) or [Publish](sdk/api/ApplicationServiceAPI.md#publish) sections for more details on publishing data back to the EdgeX MessageBus.
 2. `GetSecret` has been removed. Use `SecretProvider().GetSecret`
 3. `StoreSecret` has been removed. Use `SecretProvider().StoreSecret`
 4. `SecretsLastUpdated` has been removed. Use `SecretProvider().SecretsLastUpdated`
@@ -185,9 +185,9 @@ The `AppFunctionContext ` API has the following changes:
     - All `Conversion` pipeline functions now require a `*Conversion` for the receiver
     - `NewConversion` now returns a `*Conversion`
 - **CoreData**- Removed
-    - The deprecated `PushToCoreData ` function has been removed. Use [WrapIntoEvent](..//BuiltIn/#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](../Triggers/#publishtopic) or [Background Publisher](../ApplicationServiceAPI/#background-publisher-apis) sections for more details on publishing data back to the EdgeX MessageBus.
+    - The deprecated `PushToCoreData ` function has been removed. Use [WrapIntoEvent](sdk/api/BuiltInPipelineFunctions.md#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](sdk/details/Triggers.md#publishtopic) or [Publish](sdk/api/ApplicationServiceAPI.md#publish) sections for more details on publishing data back to the EdgeX MessageBus.
 - **Encryption** - Removed
-    - The deprecated `EncryptWithAES` function has been removed, use `AESProtection.Encrypt` instead. See [AES Protection](../BuiltIn/#aesprotection) for more details
+    - The deprecated `EncryptWithAES` function has been removed, use `AESProtection.Encrypt` instead. See [AES Protection](sdk/api/BuiltInPipelineFunctions.md#aesprotection) for more details
 - **Filter**
     - All `Filter` pipeline functions now requires a `*Filter` for the receiver
     - `NewFilterFor` and `NewFilterOut` now return a `*Filter`
@@ -212,11 +212,11 @@ The `AppFunctionContext ` API has the following changes:
 
 ### Profiles
 
-- `PushToCore` profile has been removed. Use [WrapIntoEvent](..//BuiltIn/#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](../Triggers/#publishtopic) or [Background Publisher](../ApplicationServiceAPI/#background-publisher-apis) sections for more details on publishing data back to the EdgeX MessageBus.
+- `PushToCore` profile has been removed. Use [WrapIntoEvent](sdk/api/BuiltInPipelineFunctions.md#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](sdk/details/Triggers.md#publishtopic) or [Publish](sdk/api/ApplicationServiceAPI.md#publish) sections for more details on publishing data back to the EdgeX MessageBus.
 
 ### Custom Profiles
 
-Custom profiles for App Service Configurable must be migrated in a similar fashion to the configuration for custom application services.  All configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom profiles. See [Common Service Configuration](../../configuration/CommonConfiguration/) section for details about configuration that is common to all Edgex services. See [Application Service Configuration](../GeneralAppServiceConfig) section for details about configuration that is common to all EdgeX Application Services. Use the App Service Configurable provided profiles as examples of what configuration is left after removing the common configuration.
+Custom profiles for App Service Configurable must be migrated in a similar fashion to the configuration for custom application services.  All configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom profiles. See [Common Service Configuration](../../configuration/CommonConfiguration/) section for details about configuration that is common to all Edgex services. See [Application Service Configuration](Configuration.md) section for details about configuration that is common to all EdgeX Application Services. Use the App Service Configurable provided profiles as examples of what configuration is left after removing the common configuration.
 
 ### Pipeline Configuration
 

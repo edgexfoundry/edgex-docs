@@ -1,9 +1,8 @@
+# Application Services - Configuration
 
-# Application Service Configuration
+Similar to other EdgeX services, application service configuration is first determined by the `configuration.yaml` file in the `/res` folder. Once loaded any environment overrides are applied. If `-cp` is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e Consul) to push the configuration into the provider and monitor `Writeable` configuration from there. Any environment overrides are applied prior to the values being pushed. You will find the configuration under the `edgex/{{api_version}}/` key in the provider (i.e Consul). On re-restart the service will pull the configuration from the provider.
 
-Similar to other EdgeX services, configuration is first determined by the `configuration.yaml` file in the `/res` folder. Once loaded any environment overrides are applied. If `-cp` is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e Consul) to push the configuration into the provider and monitor `Writeable` configuration from there. You will find the configuration under the `edgex/appservices/2.0/` key in the provider (i.e Consul). On re-restart the service will pull the configuration from the provider and apply any environment overrides.
-
-This section describes the configuration elements that are unique to Application Services
+This section describes the configuration elements provided by the SDK that are unique to Application Services
 
 Please first refer to the general [Configuration documentation](../../configuration/CommonConfiguration) for configuration properties common across all EdgeX services.
 
@@ -11,12 +10,12 @@ Please first refer to the general [Configuration documentation](../../configurat
     `*`indicates the configuration value can be changed on the fly if using a configuration provider (like Consul).
     `**`indicates the configuration value can be changed but the service must be restarted.
 
-## Writable
+### Writable
 The tabs below provide additional entries in the **Writable** section which are applicable to Application Services.
 
 === "Writable.StoreAndForward"
 
-    The section configures the **Store and Forward** capability. Please refer to [Store and Forward](../ApplicationFunctionsSDK/#store-and-forward) documentation for more details.
+    The section configures the **Store and Forward** capability. Please refer to [Store and Forward](sdk/details/AdvancedTopics.md#store-and-forward) documentation for more details.
     
     | Configuration | Default Value |                                                              |
     | :------------ | ------------- | ------------------------------------------------------------ |
@@ -42,7 +41,7 @@ The tabs below provide additional entries in the **Writable** section which are 
 === "Writable.Telemetry"
     |Property|<Default Value|Description|
     |---|---|---|
-    |||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
+    |||See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration.md/#configuration-properties) for the Telemetry configuration common to all services |
     |Metrics|     |Service metrics that the application service collects. Boolean value indicates if reporting of the metric is enabled. Custom metrics are also included here for custom application services that define custom metrics|
     |Metrics.MessagesReceived |  false |Enable/disable reporting of the built-in **MessagesReceived** metric|
     |Metrics.InvalidMessagesReceived | false |Enable/disable reporting of the built-in **InvalidMessagesReceived** metric|
@@ -53,10 +52,10 @@ The tabs below provide additional entries in the **Writable** section which are 
     |Metrics.PipelineMessagesProcessed | false |Enable/disable reporting of the built-in **PipelineMessagesProcessed** metric|
     |Metrics.PipelineProcessingErrors | false | Enable/disable reporting of the built-in **PipelineProcessingErrors** metric|
     |Metrics.PipelineMessageProcessingTime | false |Enable/disable reporting of the built-in **PipelineMessageProcessingTime** metric|
-    |Metrics.`<CustomMetric>`| false | (Service Specific) Enable/disable reporting of custom application service's custom metric. See [Custom Application Service Metrics](../AdvancedTopics/#custom-application-service-metrics) for more detail|
+    |Metrics.`<CustomMetric>`| false | (Service Specific) Enable/disable reporting of custom application service's custom metric. See [Custom Application Service Metrics](sdk/details/AdvancedTopics.md/#custom-application-service-metrics) for more detail|
     |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
 
-## Not Writable
+### Not Writable
 
 The tabs below provide additional configuration which are applicable to Application Services that require the service to be restarted after value(s) are changed.
 
@@ -73,17 +72,19 @@ The tabs below provide additional configuration which are applicable to Applicat
 
 === "Clients"
 
-    This service specific section defines the connection information for the EdgeX Clients and is the same as that used by all EdgeX services, just which clients are needed differs. Please refer to the [Note about Clients](../ApplicationFunctionsSDK/#note-about-clients) section for more details.
+    This service specific section defines the connection information for the EdgeX Clients and is the same as that used by all EdgeX services, just which clients are needed differs. 
 
+    !!! note
+        Clients that are used from code must be present in the configuration, otherwise a nill reference will occur. `core-metadata` is already present in the common configuration, so it is not needed in the local private configuartion.
 === "Trigger"
 
-    This section defines the `Trigger` for incoming data. See the [Triggers](Triggers.md) documentation for more details on the inner working of triggers. 
+    This section defines the `Trigger` for incoming data. See the [Triggers](sdk/details/Triggers.md) documentation for more details on the inner working of triggers. 
      
     |Configuration  |     Default Value     | Description |
     | --- | --- | -- |
     | Type | edgex-messagebus** | Indicates the `Trigger` binding type. valid values are `edgex-messagebus`, `external-mqtt`, `http`, or `<custom>` |
-    | SubscribeTopics | events/#** | Topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](Triggers.md#edgex-message-bus) Trigger for more details. |
-    | PublishTopic | blank** | Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](Triggers.md#edgex-message-bus) Trigger for more details. |
+    | SubscribeTopics | events/#** | Topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](sdk/details/Triggers.md#edgex-message-bus) Trigger for more details. |
+    | PublishTopic | blank** | Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](sdk/details/Triggers.md#edgex-message-bus) Trigger for more details. |
 
 === "Trigger ExternalMqtt"
 
@@ -122,5 +123,5 @@ The tabs below provide additional configuration which are applicable to Applicat
 
 === "Custom Structured Configuration"
 
-    Custom Application Services can now define their own custom structured configuration section in the `configuration.yaml` file. Any additional sections in the configuration file are ignore by the SDK when it parses the file for the SDK defined sections. See the [Custom Configuration](ApplicationFunctionsSDK.md#custom-configuration) section of the SDK documentation for more details.
+    Custom Application Services can define their own custom structured configuration section in the `configuration.yaml` file. Any additional sections in the configuration file are ignore by the SDK when it parses the file for the SDK defined sections. See the [Custom Configuration](sdk/details/CustomConfiguration.md) section of the SDK documentation for more details.
 

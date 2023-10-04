@@ -1,12 +1,12 @@
-# Advanced Topics
+# App Functions SDK - Advanced Topics
 
 The following items discuss topics that are a bit beyond the basic use cases of the Application Functions SDK when interacting with EdgeX.
 
-### Configurable Functions Pipeline
+## Configurable Functions Pipeline
 
-This SDK provides the capability to define the functions pipeline via configuration rather than code by using the **app-service-configurable** application service. See the [App Service Configurable](services/AppServiceConfigurable/Purpose.md) section for more details.
+This SDK provides the capability to define the functions pipeline via configuration rather than code by using the **app-service-configurable** application service. See the [App Service Configurable](../../services/AppServiceConfigurable/Purpose.md) section for more details.
 
-### Custom REST Endpoints
+## Custom REST Endpoints
 
 It is not uncommon to require your own custom REST endpoints when building an Application Service. Rather than spin up your own webserver inside of your app (alongside the already existing running webserver), we've exposed a method that allows you add your own routes to the existing webserver. A few routes are reserved and cannot be used:
 
@@ -76,17 +76,17 @@ The SDK supports un-marshaling JSON or CBOR encoded data into an instance of the
 
 If the target type is set to `&[]byte` the incoming data will not be un-marshaled.  The content type, if set, will be set on the `interfaces.AppFunctionContext` and can be access via the `InputContentType()` API.   Your first function will be responsible for decoding the data or not.
 
-### Command Line Options
+## Command Line Options
 
-See the [Common Command Line Options](../../configuration/CommonComandLineOptions) for the set of command line options common to all EdgeX services. The following command line options are specific to Application Services.
+See the [Common Command Line Options](../../../configuration/CommonCommandLineOptions.md) for the set of command line options common to all EdgeX services. The following command line options are specific to Application Services.
 
-#### Skip Version Check
+### Skip Version Check
 
 `-s/--skipVersionCheck`
 
 Indicates the service should skip the Core Service's version compatibility check.
 
-#### Service Key
+### Service Key
 
 `-sk/--serviceKey`
 
@@ -94,11 +94,11 @@ Sets the service key that is used with Registry, Configuration Provider and secu
 
 Can be overridden with [EDGEX_SERVICE_KEY](#edgex_service_key) environment variable.
 
-### Environment Variables
+## Environment Variables
 
-See the [Common Environment Variables](../../configuration/CommonEnvironmentVariables) section for the list of environment variables common to all EdgeX Services. The remaining in this section are specific to Application Services.
+See the [Common Environment Variables](../../../configuration/CommonEnvironmentVariables.md) section for the list of environment variables common to all EdgeX Services. The remaining in this section are specific to Application Services.
 
-#### EDGEX_SERVICE_KEY
+### EDGEX_SERVICE_KEY
 
 This environment variable overrides the [`-sk/--serviceKey` command-line option](#service-key) and the default set by the application service.
 
@@ -110,46 +110,14 @@ This environment variable overrides the [`-sk/--serviceKey` command-line option]
     `profile: http-export`    
      then service key will be `app-http-export-mycloud`    
 
-### Custom Configuration
-
-Applications can specify custom configuration in the service's configuration file in two ways. 
-
-#### Application Settings
-
-The first simple way is to add items to the `ApplicationSetting` section. This is a map of string key/value pairs, i.e. `map[string]string`. Use for simple string values or comma separated list of string values. The `ApplicationService` API provides the follow access APIs for this configuration section:
-
-- `ApplicationSettings() map[string]string`
-    - Returns the whole list of application settings
-- `GetAppSetting(setting string) (string, error)`
-    - Returns single entry from the map who's key matches the passed in `setting` value
-- `GetAppSettingStrings(setting string) ([]string, error)`
-    - Returns list of strings for the entry who's key matches the passed in `setting` value. The Entry is assumed to be a comma separated list of strings.
-
-#### Structure Custom Configuration
-
-The second is the more complex `Structured Custom Configuration` which allows the Application Service to define and watch it's own structured section in the service's configuration file.
-
-The `ApplicationService` API provides the follow APIs to enable structured custom configuration:
-
-- `LoadCustomConfig(config UpdatableConfig, sectionName string) error`
-    - Loads the service's custom configuration from local file or the Configuration Provider (if enabled). The Configuration Provider will also be seeded with the custom configuration the first time the service is started, if service is using the Configuration Provider. The `UpdateFromRaw` interface will be called on the custom configuration when the configuration is loaded from the Configuration Provider.
-
-- `ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error`
-    - Starts a listener on the Configuration Provider for changes to the specified section of the custom configuration. When changes are received from the Configuration Provider the UpdateWritableFromRaw interface will be called on the custom configuration to apply the updates and then signal that the changes occurred via changedCallback.
-
-See the [Application Service Template](https://github.com/edgexfoundry/app-functions-sdk-go/tree/{{edgexversion}}/app-service-template) for an example of using the new Structured Custom Configuration capability.
-
-- [See here for defining the structured custom configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{edgexversion}}/app-service-template/config/configuration.go#L36-L81)
-- [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/app-functions-sdk-go/blob/{{edgexversion}}/app-service-template/main.go#L73-L97)
-
-### Store and Forward
+## Store and Forward
 
 The Store and Forward capability allows for export functions to persist data on failure and for the export of the data to be retried at a later time. 
 
 !!! note
     The order the data exported via this retry mechanism is not guaranteed to be the same order in which the data was initial received from Core Data
 
-#### Configuration
+### Configuration
 
 `Writable.StoreAndForward` allows enabling, setting the interval between retries and the max number of retries. If running with Configuration Provider, these setting can be changed on the fly via Consul without having to restart the service.
 
@@ -176,7 +144,7 @@ Database configuration section describes which database type to use and the info
       Timeout: "5s"
     ```
 
-#### How it works
+### How it works
 
 When an export function encounters an error sending data it can call `SetRetryData(payload []byte)` on the `AppFunctionContext`. This will store the data for later retry. If the Application Service is stopped and then restarted while stored data hasn't been successfully exported, the export retry will resume once the service is up and running again.
 
@@ -205,7 +173,7 @@ One of three out comes can occur after the export retried has completed.
 !!! note
     Changing Writable.Pipeline.ExecutionOrder will invalidate all currently stored data and result in it all being removed from the database on the next retry. This is because the position of the *export* function can no longer be guaranteed and no way to ensure it is properly executed on the retry.
 
-#### Custom Storage
+### Custom Storage
 The default backing store is redis.  Custom implementations of the `StoreClient` interface can be provided if redis does not meet your requirements.
 
 ```go
@@ -226,7 +194,7 @@ type StoreClient interface {
 	Disconnect() error
 }
 ```
-A factory function to create these clients can then be registered with your service by calling [RegisterCustomStoreFactory](ApplicationServiceAPI.md#registercustomstorefactory)
+A factory function to create these clients can then be registered with your service by calling [RegisterCustomStoreFactory](../api/ApplicationServiceAPI.md#registercustomstorefactory)
 
 ```go
 service.RegisterCustomStoreFactory("jetstream", func(cfg interfaces.DatabaseInfo, cred config.Credentials) (interfaces.StoreClient, error) {
@@ -266,18 +234,18 @@ and configured using the registered name in the `Database` section:
       Port: 4222
       Timeout: "5s"
     ```
-### Secrets
+## Secrets
 
-#### Configuration
+### Configuration
 
-All instances of App Services running in secure mode require a SecretStore to be configured. With the use of `Redis Pub/Sub` as the default EdgeX MessageBus all App Services need the `redisdb` known secret added to their SecretStore so they can connect to the Secure EdgeX MessageBus. See the [Secure MessageBus](../../security/Ch-Secure-MessageBus.md) documentation for more details.
+All instances of App Services running in secure mode require a SecretStore to be configured. With the use of `Redis Pub/Sub` as the default EdgeX MessageBus all App Services need the `redisdb` known secret added to their SecretStore so they can connect to the Secure EdgeX MessageBus. See the [Secure MessageBus](../../../../security/Ch-Secure-MessageBus.md) documentation for more details.
 
 !!! edgey "Edgex 3.0"
-    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It now has default values which can be overridden with environment variables. See the [SecretStore Overrides](../../configuration/CommonEnvironmentVariables/#secretstore-overrides) section for more details.
+    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It now has default values which can be overridden with environment variables. See the [SecretStore Overrides](../../../configuration/CommonEnvironmentVariables.md/#secretstore-configuration-overrides) section for more details.
 
-#### Storing Secrets
+### Storing Secrets
 
-##### Secure Mode
+#### Secure Mode
 
 When running an application service in secure mode, secrets can be stored in the service's secure SecretStore by making an HTTP `POST` call to the `/api/{{api_version}}/secret` API route in the application service. The secret data POSTed is stored and retrieved from the service's secure SecretStore . Once a secret is stored, only the service that added the secret will be able to retrieve it.  For secret retrieval see [Getting Secrets](#getting-secrets) section below.
 
@@ -297,7 +265,7 @@ When running an application service in secure mode, secrets can be stored in the
 !!! note
     SecretName specifies the location of the secret within the service's SecretStore. 
 
-##### Insecure Mode
+#### Insecure Mode
 
 When running in insecure mode, the secrets are stored and retrieved from the *Writable.InsecureSecrets* section of the service's configuration file. Insecure secrets and their paths can be configured as below.
 
@@ -317,22 +285,22 @@ When running in insecure mode, the secrets are stored and retrieved from the *Wr
             password: ""
     ```
 
-#### Getting Secrets
+### Getting Secrets
 
-Application Services can retrieve their secrets from their SecretStore using the  [interfaces.ApplicationService.SecretProvider.GetSecret()](../ApplicationServiceAPI/#secretprovider) API or from the [interfaces.AppFunctionContext.SecretProvider.GetSecret()](AppFunctionContextAPI.md#secretprovider) API  
+Application Services can retrieve their secrets from their SecretStore using the  [interfaces.ApplicationService.SecretProvider.GetSecret()](../api/ApplicationServiceAPI.md/#secretprovider) API or from the [interfaces.AppFunctionContext.SecretProvider.GetSecret()](../api/AppFunctionContextAPI.md#secretprovider) API  
 
 When in secure mode, the secrets are retrieved from the service secure SecretStore. 
 
 When running in insecure mode, the secrets are retrieved from the `Writable.InsecureSecrets` configuration.
 
-### Background Publishing *DEPRECATED*
+## Background Publishing *DEPRECATED*
 
 The background publisher API has been deprecated.  Any applications using it should migrate replacements available on the `ApplicationService` or `AppFunctionContext` APIs:
 
-- [interfaces.ApplicationService.Publish](../ApplicationServiceAPI/#publish)
-- [interfaces.ApplicationService.PublishWithTopic](../ApplicationServiceAPI/#publishwithtopic)
-- [interfaces.AppFunctionContext.Publish](../AppFunctionContextAPI/#publish)
-- [interfaces.AppFunctionContext.PublishWithTopic](../AppFunctionContextAPI/#publishwithtopic)
+- [interfaces.ApplicationService.Publish](../api/ApplicationServiceAPI.md/#publish)
+- [interfaces.ApplicationService.PublishWithTopic](../api/ApplicationServiceAPI.md/#publishwithtopic)
+- [interfaces.AppFunctionContext.Publish](../api/AppFunctionContextAPI.md/#publish)
+- [interfaces.AppFunctionContext.PublishWithTopic](../api/AppFunctionContextAPI.md/#publishwithtopic)
 
 Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  A custom topic can be provided to use instead of the configured message bus output as well.
 
@@ -397,15 +365,15 @@ Application Services using the MessageBus trigger can request a background publi
       }		
     ```
 
-### Stopping the Service
+## Stopping the Service
 
 Application Services will listen for SIGTERM / SIGINT signals from the OS and stop the function pipeline in response.  The pipeline can also be exited programmatically by calling `sdk.Stop()` on the running `ApplicationService` instance.  This can be useful for cases where you want to stop a service in response to a runtime condition, e.g. receiving a "poison pill" message through its trigger.
 
-### Received Topic
+## Received Topic
 
-When messages are received via the EdgeX MessageBus or External MQTT triggers, the topic that the data was received on is seeded into the new Context Storage on the `AppFunctionContext` with the key `receivedtopic`. This make the `Received Topic` available to all functions in the pipeline. The SDK provides the `interfaces.RECEIVEDTOPIC` constant for this key. See the [Context Storage](AppFunctionContextAPI.md#context-storage) section for more details on extracting values.
+When messages are received via the EdgeX MessageBus or External MQTT triggers, the topic that the data was received on is seeded into the new Context Storage on the `AppFunctionContext` with the key `receivedtopic`. This make the `Received Topic` available to all functions in the pipeline. The SDK provides the `interfaces.RECEIVEDTOPIC` constant for this key. See the [Context Storage](../api/AppFunctionContextAPI.md#context-storage) section for more details on extracting values.
 
-### Pipeline Per Topics
+## Pipeline Per Topics
 
 The `Pipeline Per Topics` feature allows for multiple function pipelines to be defined. Each will execute only when one of the specified pipeline topics matches the received topic. The pipeline topics can have wildcards (`+` and `#`) allowing the topic to match a variety of received topics. Each pipeline has its own set of functions (transforms) that are executed on the received message. If the `#` wildcard is used by itself for a pipeline topic, it will match all received topics and the specified functions pipeline will execute on every message received. 
 
@@ -423,7 +391,7 @@ The `Pipeline Per Topics` feature allows for multiple function pipelines to be d
     "edegex/events/+/+/+/my-source" - Matches all messages received from Core Data or Device services for `my-source`
     ```
 
-Refer to the [Filter By Topics](../Triggers/#filter-by-topics) section for details on the structure of the received topic.
+Refer to the [Filter By Topics](Triggers.md/#filter-by-topics) section for details on the structure of the received topic.
 
 All pipeline function capabilities such as Store and Forward, Batching, etc. can be used with one or more of the multiple function pipelines. Store and Forward uses the Pipeline's ID to find and restart the pipeline on retries.
 
@@ -459,7 +427,7 @@ All pipeline function capabilities such as Store and Forward, Batching, etc. can
 
 
 
-### Built-in Application Service Metrics
+## Built-in Application Service Metrics
 
 All application services have the following built-in metrics:
 
@@ -467,11 +435,11 @@ All application services have the following built-in metrics:
 
 - `InvalidMessagesReceived ` -  This is a **counter** metric that counts the number of invalid messages received by the application service. 
 
-- `HttpExportSize  ` -  This is a **histogram** metric that collects the size of data exported via the built-in [HTTP Export pipeline function](../BuiltIn/#http-export). The metric data is not currently tagged due to breaking changes required to tag the data with the destination endpoint. This will be addressed in a future EdgeX 3.0 release.
+- `HttpExportSize  ` -  This is a **histogram** metric that collects the size of data exported via the built-in [HTTP Export pipeline function](../api/BuiltInPipelineFunctions.md/#http-export). The metric data is not currently tagged due to breaking changes required to tag the data with the destination endpoint. This will be addressed in a future EdgeX 3.0 release.
 
 - `HttpExportErrors` - **(New)** This is a **counter** metric that counts the number of errors encountered when exporting via HTTP. 
 
-- `MqttExportSize  ` -  This is a **histogram** metric that collects the size of data exported via the built-in [MQTT Export pipeline function](../BuiltIn/#mqtt-export). The metric data is tagged with the specific broker address and topic.
+- `MqttExportSize  ` -  This is a **histogram** metric that collects the size of data exported via the built-in [MQTT Export pipeline function](../api/BuiltInPipelineFunctions.md/#mqtt-export). The metric data is tagged with the specific broker address and topic.
 
 - `MqttExportErrors` -  **(New)** This is a **counter** metric that counts the number of errors encountered when exporting via MQTT. 
 
@@ -484,7 +452,7 @@ All application services have the following built-in metrics:
     !!! note
         The time tracked for this metric is only for the function pipeline processing time. The overhead of receiving the messages and handing them to the appropriate function pipelines is not included. Accounting for this overhead may be added as another **timer** metric in a future release.
 
-Reporting of these built-in metrics is disabled by default in the `Writable.Telemetry` configuration section. See `Writable.Telemetry` configuration details in the [Application Service Configuration](../GeneralAppServiceConfig/#writable) section for complete detail on this section. If the configuration for these built-in metrics are missing, then the reporting of the metrics will be disabled.
+Reporting of these built-in metrics is disabled by default in the `Writable.Telemetry` configuration section. See `Writable.Telemetry` configuration details in the [Application Service Configuration](../../Configuration.md/#writable) section for complete detail on this section. If the configuration for these built-in metrics are missing, then the reporting of the metrics will be disabled.
 
 !!! example "Example - Service Telemetry Configuration with all built-in metrics enabled for reporting"
     ```yaml
@@ -505,7 +473,7 @@ Reporting of these built-in metrics is disabled by default in the `Writable.Tele
         Gateway: "my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
     ```
 
-### Custom Application Service Metrics
+## Custom Application Service Metrics
 
 The Custom Application Service Metrics capability allows for custom application services to define, collect and report their own custom service metrics.
 
@@ -527,7 +495,7 @@ The Custom Application Service Metrics capability allows for custom application 
     
 3. Determine if there are any tags to report along with your metric. Not common so `nil` is typically passed for the `tags map[strings]string` parameter in the next step.
 
-4. Register your metric(s) with the MetricsManager from the `service` or `pipeline function context` reference. See [Application Service API](../ApplicationServiceAPI/#metricsmanager) and [App Function Context API](../AppFunctionContextAPI/#metricsmanager) for more details:
+4. Register your metric(s) with the MetricsManager from the `service` or `pipeline function context` reference. See [Application Service API](../api/ApplicationServiceAPI.md/#metricsmanager) and [App Function Context API](../api/AppFunctionContextAPI.md/#metricsmanager) for more details:
     - `service.MetricsManager().Register("MyCounterName", myCounter, nil)`
     - `ctx.MetricsManager().Register("MyCounterName", myCounter, nil)`
 
@@ -541,7 +509,7 @@ The Custom Application Service Metrics capability allows for custom application 
     - `myTimer.UpdateSince(someTimeValue)`
     - `myHistogram.Update(someIntvalue)`
     
-6. Configure reporting of the service's metrics. See `Writable.Telemetry` configuration details in the [Application Service Configuration](../GeneralAppServiceConfig/#writable) section for more detail.
+6. Configure reporting of the service's metrics. See `Writable.Telemetry` configuration details in the [Application Service Configuration](../../Configuration.md/#writable) section for more detail.
 
     !!! example "Example - Service Telemetry Configuration"
         ```yaml

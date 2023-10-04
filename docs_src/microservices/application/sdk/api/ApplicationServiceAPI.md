@@ -1,4 +1,4 @@
-# Application Service API
+# App Functions SDK - Application Service API
 
 The `ApplicationService` API is the central API for creating an EdgeX Application Service.
 
@@ -559,7 +559,7 @@ This API registers a trigger factory for a custom trigger to be used. See the [C
 
 `RegisterCustomStoreFactory(name string, factory func(cfg DatabaseInfo, cred config.Credentials) (StoreClient, error)) error`
 
-This API registers a factory to construct a custom store client for the [store & forward](AdvancedTopics.md#store-and-forward) loop.
+This API registers a factory to construct a custom store client for the [store & forward](../details/AdvancedTopics.md#store-and-forward) loop.
 
 ### MetricsManager
 

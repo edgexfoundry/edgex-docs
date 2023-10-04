@@ -25,7 +25,7 @@ When the Event gets to the [Application Service Configurable](../application/ser
 ### Custom Application Service 
 
 In the case, of a custom [application service](../application/ApplicationServices.md), an AddTags function can be used to 
-add a collection of specified tags to the Event's Tags collection (see [Built in Transforms/Functions](../application/BuiltIn.md#addtags))
+add a collection of specified tags to the Event's Tags collection (see [Built in Transforms/Functions](../application/sdk/api/BuiltInPipelineFunctions.md#addtags))
 
 If the Event already has `Tags` when it arrives at the application service, then configured tags will be added to the `Tags` map.  If the configured tags have the same key as an existing key in the `Tags` map, then the configured key/value will override what is already in the Event `Tags` map.
 
