@@ -5,7 +5,7 @@
 ## Introduction
 
 The virtual device service simulates different kinds of [devices](../../../../general/Definitions.md#device) to
-generate events and readings to the [core data](../../../core/data/Ch-CoreData.md) micro service, and users
+generate events and readings to the [core data](../../../core/data/Purpose.md) micro service, and users
 send commands and get responses through the [command and control](../../../core/command/Ch-Command.md) micro service. These features of the virtual device services are useful
 when executing functional or performance tests without having any real devices.
 

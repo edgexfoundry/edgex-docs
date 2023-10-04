@@ -24,7 +24,7 @@ For detailed information on the data retention see [Use Case for capping reading
 
 ## Prerequisite Knowledge
 
-- For detailed information on the data retention see [Core Data Configuration Properties](../microservices/core/data/Ch-CoreData.md#configuration-properties) and browse to **retention** tab.
+- For detailed information on the data retention see [Core Data Configuration Properties](../microservices/core/data/Configuration.md) and browse to **retention** tab.
 
 - For detailed information on the data retention see [Notifications Configuration Properties](../microservices/support/notifications/Ch-AlertsNotifications.md#configuration-properties) and browse to **retention** tab.
 
