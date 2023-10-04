@@ -7,5 +7,3 @@ This service leverages the [App Functions SDK](https://github.com/edgexfoundry/a
 developers to use configuration instead of code to utilize the built-in pipeline functions from the SDK.
 Please refer to [Available Configurable Pipeline Functions](../details/AvailablePipelineFunctions)  section below for
 full list of built-in functions that can be used in the configurable pipeline. 
-
-See [Getting Started](GettingStarted.md) section next
