@@ -190,7 +190,7 @@ This API exports all the events, related devices and device profiles. It has an 
     Use the Postman `Send and Download` option for the `Export recording - JSON` request so that the response can be saved to file. The `Send and Download` option is on the `Send` button.
 
 !!! note
-    Postman automatically will decompress the responses when requesting GZIB or ZLIB compression. Use the following curl commands to save the compressed response to file.
+    Postman automatically decompresses the responses when requesting GZIB or ZLIB compression. Use the following curl commands to save the compressed response to file.
     
     ```text
     curl localhost:59712/api/{{api_version}}/data?compression=gzip -o recording.gz
