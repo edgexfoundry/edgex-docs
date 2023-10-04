@@ -17,7 +17,7 @@ A sample Postman collection can be found [here](https://github.com/edgexfoundry/
     Use the Postman `Send and Download` option for the `Export recording - JSON` request so that the response can be saved to file. The `Send and Download` option is on the `Send` button.
 
 !!! note
-    Postman automatically un-compresses the responses when requesting GZIB or ZLIB compression. Use the following curl command to save the compressed response to file.
+    Postman automatically will decompress the responses when requesting GZIB or ZLIB compression. Use the following curl command to save the compressed response to file.
 
     ```text
     curl localhost:59712/api/{{api_version}}/data?compression=gzip -o test.gz

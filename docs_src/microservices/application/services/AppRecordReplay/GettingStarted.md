@@ -7,7 +7,7 @@
 When using the  App Record and Replay service the following EdgeX services are required to be running:
 
 1. Source device service(s). These are the device service(s) generating the events that will be recorded. 
-    - This guide uses Device Virtual as the source device service. In a real use case the source device service(s) will be ones  that connect to actual devices. 
+    - This guide uses Device Virtual as the source device service. In a real use case the source device service(s) will be connected to actual devices. 
 2. Core EdgeX services
 3. Application or Supporting service that will process the Events
     - This guide uses the standard App Rules Engine as the app service which is processing the events.
@@ -29,17 +29,17 @@ This runs, in non-secure mode, all the standard EdgeX services along with the De
 
 ### Postman
 
-A sample PostMan collection is provided to simplify controlling this service via its REST API. See the [Postman Collection](../ApiReference/#postman-collection) section for more details.
+A sample Postman collection is provided to simplify controlling this service via its REST API. See the [Postman Collection](../ApiReference/#postman-collection) section for more details.
 
 ### Debug Logging
 
-Optionally, the debug logging can be enabled on the **App Record Replay** service. This is accomplish by setting `LogLevel` value via the Consul UI at [http://localhost:8500/ui/dc1/kv/edgex/v3/app-record-replay/Writable/LogLevel/edit](http://localhost:8500/ui/dc1/kv/edgex/v3/app-record-replay/Writable/LogLevel/edit) to `DEBUG`
+Optionally, the debug logging can be enabled on the **App Record Replay** service. This is accomplished by setting `LogLevel` value via the Consul UI at [http://localhost:8500/ui/dc1/kv/edgex/v3/app-record-replay/Writable/LogLevel/edit](http://localhost:8500/ui/dc1/kv/edgex/v3/app-record-replay/Writable/LogLevel/edit) to `DEBUG`
 
-App service debug logging is very verbose, so when viewing the logs for this service. It is useful to filter the log messages for those that start with "ARR ". If you are using **Portainer** to view the service logs, simply place the "ARR " text in the `search` text box.
+App service debug logging is very verbose, so when viewing the logs for this service, it is useful to filter the log messages for those that start with "ARR ". If you are using **Portainer** to view the service logs, simply place the "ARR " text in the `search` text box.
 
 To see that the replayed events are being "processed" we also need to enable debug logging for **App Rules Engine**. Set the `LogLevel` value via the Consul UI at [http://localhost:8500/ui/dc1/kv/edgex/v3/app-rules-engine/Writable/LogLevel/edit](http://localhost:8500/ui/dc1/kv/edgex/v3/app-rules-engine/Writable/LogLevel/edit) to `DEBUG`
 
-For **App Rules Engine** we want filter for messages showing the events received. Filtering the log messages for "match the incoming topic" text will accomplish this.
+For **App Rules Engine** we want to filter for messages showing the events received. Filtering the log messages for "match the incoming topic" text will accomplish this.
 
 ### Recording a Session
 
@@ -47,9 +47,9 @@ For **App Rules Engine** we want filter for messages showing the events received
 
 Before starting a recording session first review the **Start Recording** POST API in the [API Reference](ApiReference.md) section. Be sure to view both examples.
 
-The source device service(s) need to be producing events prior to or shortly after the recording is starting. In this guide, Device Virtual is already producing events. So all that is need is to start the recording session by using the `Start Recording` request from the PostMan collection referenced above. Edit the `RecordRquest` to set the `duration` and/or `eventLimit` and optionally any of the filters. The existing example filters can be removed so that all events are recorded.
+The source device service(s) need to be producing events prior to or shortly after the recording is starting. In this guide, Device Virtual is already producing events. So all that is need is to start the recording session by using the `Start Recording` request from the Postman collection referenced above. Edit the `RecordRequest` to set the `duration` and/or `eventLimit` and optionally any of the filters. The existing example filters can be removed so that all events are recorded.
 
-After above is completed simply press `Send` in PostMan to start the recording session .
+After above is completed simply press `Send` in Postman to start the recording session .
 
 !!! example - "Example Debug Messages for Recording Session"
     ```
@@ -76,7 +76,7 @@ After above is completed simply press `Send` in PostMan to start the recording s
 
 #### Check Recording Status
 
-The status of a recording session can be checked while it is running or after is has completed. Review the **Recording Status** GET API in the [API Reference](ApiReference.md) section and use the **Recording Status** request from the PostMan collection referenced above. Press `Send` in PostMan to get the recording status.
+The status of a recording session can be checked while it is running or after is has completed. Review the **Recording Status** GET API in the [API Reference](ApiReference.md) section and use the **Recording Status** request from the Postman collection referenced above. Press `Send` in Postman to get the recording status.
 
 !!! example - "Example Recording Status responses"
     ```json
@@ -98,7 +98,7 @@ The status of a recording session can be checked while it is running or after is
 
 #### Cancel Recording 
 
-A recording session can be canceled while it is running. Review the **Cancel Recording** DELETE API in the [API Reference](ApiReference.md) section and use the **Cancel Recording** request from the PostMan collection referenced above. Press `Send` in PostMan to cancel the recording session.
+A recording session can be canceled while it is running. Review the **Cancel Recording** DELETE API in the [API Reference](ApiReference.md) section and use the **Cancel Recording** request from the Postman collection referenced above. Press `Send` in Postman to cancel the recording session.
 
 !!! note
     This API will return a **202 - Accepted** response if the recording can be canceled, otherwise it will return an error such as "***failed to cancel recording: no recording currently running***"
@@ -107,7 +107,7 @@ A recording session can be canceled while it is running. Review the **Cancel Rec
 
 #### Start Replay
 
-To start a replay session first review the **Start Replay** POST API in the [API Reference](ApiReference.md) section and then use the `Start Replay` request from the PostMan collection referenced above. 
+To start a replay session first review the **Start Replay** POST API in the [API Reference](ApiReference.md) section and then use the `Start Replay` request from the Postman collection referenced above. 
 
 Set the `replayRate` to desired value. Value must be greater than zero. Values less than 1 replay slower and values greater than 1 replay faster than originally recorded. Value of 1 replays at the originally recorded rate.
 
@@ -116,18 +116,18 @@ Set the `replayRate` to desired value. Value must be greater than zero. Values l
 
 Optionally set the `repeatCount` which determines how many times to replay the recorded session. Defaults to once if not set or set to 0.
 
-The source device services should be stopped from producing any new events prior to starting the replay session. In a real use case where the devices are no longer available, the device service(s) would not have any actual devices connected to generate events. In this guide we simple stop the **Device Virtual** container, which can be done from Portainer or with a docker CLI command.
+The source device services should be stopped from producing any new events prior to starting the replay session. In a real use case where the devices are no longer available, the device service(s) would not have any actual devices connected to generate events. In this guide we simply stop the **Device Virtual** container, which can be done from Portainer or with a docker CLI command.
 
 !!! example - "Example stopping Device Virtual container"
     ```
     docker stop edgex-device-virtual
     ```
 
-After above is completed simply press `Send` in PostMan to start the replay session .
+After above is completed simply press `Send` in Postman to start the replay session .
 
 #### Check Replay Status
 
-The status of a replay session can be checked while it is running or after is has completed. Review the **Replay Status** GET API in the [API Reference.md](ApiReference) section and use the **Replay Status** request from the PostMan collection referenced above. Press `Send` in PostMan to get the replay status.
+The status of a replay session can be checked while it is running or after is has completed. Review the **Replay Status** GET API in the [API Reference.md](ApiReference) section and use the **Replay Status** request from the Postman collection referenced above. Press `Send` in Postman to get the replay status.
 
 !!! note
     This API will always return a **202 - Accepted** response. If there were issues with the replay, the message field will contain the reason.
@@ -175,14 +175,14 @@ The status of a replay session can be checked while it is running or after is ha
 
 #### Cancel Replay
 
-A replay session can be canceled while it is running. Review the **Cancel Replay** DELETE API in the [API Reference](ApiReference.md) section and use the **Cancel Replay** request from the PostMan collection referenced above. Press `Send` in PostMan to cancel the replay session.
+A replay session can be canceled while it is running. Review the **Cancel Replay** DELETE API in the [API Reference](ApiReference.md) section and use the **Cancel Replay** request from the Postman collection referenced above. Press `Send` in Postman to cancel the replay session.
 
 !!! note
     This API will return a **202 - Accepted** response if the replay can be canceled, otherwise it will return an error such as "***failed to cancel replay: no replay currently running***"
 
 ### Export a Recorded Session
 
-The current recorded session can be exported so that data can be saved to the file system. Review the **Export** GET API in the [API Reference](ApiReference.md) section and use the **Export Recording** requests from the PostMan collection referenced above.
+The current recorded session can be exported so that data can be saved to the file system. Review the **Export** GET API in the [API Reference](ApiReference.md) section and use the **Export Recording** requests from the Postman collection referenced above.
 
 This API exports all the events, related devices and device profiles. It has an optional `compression` query parameter. Valid values are `none`, `gzip` and `zlib` . Defaults to `none` if not specified. 
 
@@ -190,7 +190,7 @@ This API exports all the events, related devices and device profiles. It has an 
     Use the Postman `Send and Download` option for the `Export recording - JSON` request so that the response can be saved to file. The `Send and Download` option is on the `Send` button.
 
 !!! note
-    Postman automatically un-compresses the responses when requesting GZIB or ZLIB compression. Use the following curl commands to save the compressed response to file.
+    Postman automatically will decompress the responses when requesting GZIB or ZLIB compression. Use the following curl commands to save the compressed response to file.
     
     ```text
     curl localhost:59712/api/{{api_version}}/data?compression=gzip -o recording.gz
@@ -199,7 +199,7 @@ This API exports all the events, related devices and device profiles. It has an 
 
 ### Import a Record Session
 
-This API allows a previously exported recording to be imported back into the service. Review the **Import** POST API in the [API Reference](ApiReference.md) section and use the **Import Recording** requests from the PostMan collection referenced above.
+This API allows a previously exported recording to be imported back into the service. Review the **Import** POST API in the [API Reference](ApiReference.md) section and use the **Import Recording** requests from the Postman collection referenced above.
 
 This API has a the optional `overwrite` query parameter, which specifies to overwrite existing Devices and Device Profiles or not. Defaults to true if not set.
 
