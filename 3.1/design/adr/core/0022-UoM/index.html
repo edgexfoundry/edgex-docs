@@ -256,10 +256,65 @@
         Core Services
       </a>
 </li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_4_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_4_1_2" id="__nav_1_4_1_2_label" tabindex="0">
+          Core Data
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_1_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_4_1_2">
+<span class="md-nav__icon md-icon"></span>
+          Core Data
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../../microservices/core/data/Ch-CoreData/">
-        Core Data
+<a class="md-nav__link" href="../../../../microservices/core/data/Purpose/">
+        Purpose
       </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../microservices/core/data/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../microservices/core/data/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../microservices/core/data/APIReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../microservices/core/data/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_4_1_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_4_1_2_6" id="__nav_1_4_1_2_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_1_2_6_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_4_1_2_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../microservices/core/data/details/EventsAndReadings/">
+        Events and Readings
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../../microservices/core/metadata/Ch-Metadata/">
@@ -1879,16 +1934,18 @@
 </code></pre></div></p>
 <p>The location of the UoM file should point to an accessible file (relative to application executable or absolute path).  The file must be something that the service can reach (ex: in shared volume, volume mount, etc.) in order to allow for the adopter to provide the units of measure independently during configuration/setup of the EdgeX instance without requiring a build of the metadata service or a reconstruction of the Docker image/container.</p>
 <div class="admonition info">
-<p class="admonition-title">Info<p>In future versions, multiple UoM definition files might be specified.  This may help the organization of the units in the future.</p>
-</p>
+<p class="admonition-title">Info</p>
+<div class="codehilite"><pre><span></span><code>In future versions, multiple UoM definition files might be specified.  This may help the organization of the units in the future.
+</code></pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <em>environmental overrides can be used to specify and override the location of the UoM configuration file</em>.</p>
 </div>
 <div class="admonition info">
-<p class="admonition-title">Info<p>It was discussed that the file location could be done via URI and even allow for HTTP, HTTPS or other protocol access of the file.  For this first implementation, it was decided (per Monthly Architect's meeting of 2/28/22) to only allow for a simple file path reference (relative or absolute).  Future implementation can consider URI use.</p>
-</p>
+<p class="admonition-title">Info</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">It</span><span class="w"> </span><span class="nx">was</span><span class="w"> </span><span class="nx">discussed</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="nx">location</span><span class="w"> </span><span class="nx">could</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">done</span><span class="w"> </span><span class="nx">via</span><span class="w"> </span><span class="nx">URI</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">even</span><span class="w"> </span><span class="nx">allow</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">HTTP</span><span class="p">,</span><span class="w"> </span><span class="nx">HTTPS</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="nx">other</span><span class="w"> </span><span class="nx">protocol</span><span class="w"> </span><span class="nx">access</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="w">  </span><span class="nx">For</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">first</span><span class="w"> </span><span class="nx">implementation</span><span class="p">,</span><span class="w"> </span><span class="nx">it</span><span class="w"> </span><span class="nx">was</span><span class="w"> </span><span class="nx">decided</span><span class="w"> </span><span class="p">(</span><span class="nx">per</span><span class="w"> </span><span class="nx">Monthly</span><span class="w"> </span><span class="nx">Architect</span><span class="err">'</span><span class="nx">s</span><span class="w"> </span><span class="nx">meeting</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="mi">2</span><span class="o">/</span><span class="mi">28</span><span class="o">/</span><span class="mi">22</span><span class="p">)</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">only</span><span class="w"> </span><span class="nx">allow</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">simple</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="nx">reference</span><span class="w"> </span><span class="p">(</span><span class="nx">relative</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="nx">absolute</span><span class="p">).</span><span class="w">  </span><span class="nx">Future</span><span class="w"> </span><span class="nx">implementation</span><span class="w"> </span><span class="nx">can</span><span class="w"> </span><span class="nx">consider</span><span class="w"> </span><span class="nx">URI</span><span class="w"> </span><span class="nx">use</span><span class="p">.</span>
+</code></pre></div>
 </div>
 <h4 id="specifying-validation-on-or-off">Specifying Validation on or off</h4>
 <p>Additionally, in metadata's configuration, a configuration option for unit of measure validation being <code>on</code> or <code>off</code> will be provided (note <code>Validation</code> in both example above).  The location of the UoM file is static, but the ability to turn validation on/off is dynamic and therefore in the writable area of configuration.  For backward compatibility, validation will be off by default.</p>

@@ -256,10 +256,65 @@
         Core Services
       </a>
 </li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_4_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_4_1_2" id="__nav_1_4_1_2_label" tabindex="0">
+          Core Data
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_1_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_4_1_2">
+<span class="md-nav__icon md-icon"></span>
+          Core Data
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../microservices/core/data/Ch-CoreData/">
-        Core Data
+<a class="md-nav__link" href="../../../microservices/core/data/Purpose/">
+        Purpose
       </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/APIReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_4_1_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_4_1_2_6" id="__nav_1_4_1_2_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_1_2_6_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_4_1_2_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/details/EventsAndReadings/">
+        Events and Readings
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../microservices/core/metadata/Ch-Metadata/">
@@ -1937,9 +1992,11 @@
 <h4 id="message-envelope">Message Envelope</h4>
 <p>The messages defined in this ADR are JSON formatted requests and responses that share a common base structure. The outer most JSON object represents the message <code>envelope</code>, which is used to convey metadata about request/response (e.g. a correlation identifier which will be added to any relayed request message as well as the response message envelope so that the 3rd party system will know to associate the responses to the original request).</p>
 <div class="admonition note">
-<p class="admonition-title">Note<p>A Correlation ID (see this <a href="https://www.rapid7.com/blog/post/2016/12/23/the-value-of-correlation-ids/">article</a> for a more detailed description) is a unique value that is added to every request and response involved in a transaction which could include multiple requests/responses between one or more microservices. It's not meant to correlate requests to responses, its meant to label every message involved in a potentially multi-request transaction.</p>
-<p>A Request ID should be an identifier returned on the response to a request (providing traceability between single request/response).</p>
-</p>
+<p class="admonition-title">Note</p>
+<div class="codehilite"><pre><span></span><code><span class="n">A</span><span class="w"> </span><span class="n">Correlation</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="p">(</span><span class="n">see</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="o">[</span><span class="n">article</span><span class="o">]</span><span class="p">(</span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="p">.</span><span class="n">rapid7</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">blog</span><span class="o">/</span><span class="n">post</span><span class="o">/</span><span class="mi">2016</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mi">23</span><span class="o">/</span><span class="n">the</span><span class="o">-</span><span class="k">value</span><span class="o">-</span><span class="k">of</span><span class="o">-</span><span class="n">correlation</span><span class="o">-</span><span class="n">ids</span><span class="o">/</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">detailed</span><span class="w"> </span><span class="n">description</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">added</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">every</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="n">involved</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="n">which</span><span class="w"> </span><span class="n">could</span><span class="w"> </span><span class="k">include</span><span class="w"> </span><span class="n">multiple</span><span class="w"> </span><span class="n">requests</span><span class="o">/</span><span class="n">responses</span><span class="w"> </span><span class="ow">between</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">microservices</span><span class="p">.</span><span class="w"> </span><span class="n">It</span><span class="err">'</span><span class="n">s</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">meant</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">correlate</span><span class="w"> </span><span class="n">requests</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">responses</span><span class="p">,</span><span class="w"> </span><span class="n">its</span><span class="w"> </span><span class="n">meant</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="k">every</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">involved</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">potentially</span><span class="w"> </span><span class="n">multi</span><span class="o">-</span><span class="n">request</span><span class="w"> </span><span class="k">transaction</span><span class="p">.</span>
+
+<span class="n">A</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">identifier</span><span class="w"> </span><span class="n">returned</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="p">(</span><span class="n">providing</span><span class="w"> </span><span class="n">traceability</span><span class="w"> </span><span class="ow">between</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">request</span><span class="o">/</span><span class="n">response</span><span class="p">).</span>
+</code></pre></div>
 </div>
 <p>The <code>envelope</code> will also contain the API version (something provided in the HTTP path when using REST).</p>
 <p>Command requests in HTTP may also contain ds-pushevent and ds-returnevent query parameters (for GET commands).  These will be optionally provided key/value pairs represented in the message <code>envelope</code>'s query parameters (and optionally allows for other parameters in the future).</p>
@@ -2029,8 +2086,9 @@
 <span class="p">}</span>
 </code></pre></div>
 <div class="admonition note">
-<p class="admonition-title">Note<p>Get command responses may include CBOR data.  The message envelope (which has a content type indicator) will indicate that the payload is either CBOR or JSON.  The same message envelope content type indicator that is used in REST communications will be used in this message bus communications.</p>
-</p>
+<p class="admonition-title">Note</p>
+<div class="codehilite"><pre><span></span><code><span class="n">Get</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="n">responses</span><span class="w"> </span><span class="n">may</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">CBOR</span><span class="w"> </span><span class="n">data</span><span class="o">.</span><span class="w">  </span><span class="n">The</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">envelope</span><span class="w"> </span><span class="p">(</span><span class="n">which</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">indicator</span><span class="p">)</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">indicate</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">payload</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">either</span><span class="w"> </span><span class="n">CBOR</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">JSON</span><span class="o">.</span><span class="w">  </span><span class="n">The</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">envelope</span><span class="w"> </span><span class="n">content</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">indicator</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">REST</span><span class="w"> </span><span class="n">communications</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">bus</span><span class="w"> </span><span class="n">communications</span><span class="o">.</span>
+</code></pre></div>
 </div>
 <div class="admonition alert">
 <p class="admonition-title">Alert</p>
@@ -2194,8 +2252,9 @@
 <span class="w">    </span><span class="n">ResponseQueryTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/commandquery/response"</span>
 </code></pre></div>
 <div class="admonition note">
-<p class="admonition-title">Note<p>Core command contains no MessageQueue configuration today.  This is all additive/new configuration and therefore backward compatible with EdgeX 2.x implementations.</p>
-</p>
+<p class="admonition-title">Note</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">Core</span><span class="w"> </span><span class="nx">command</span><span class="w"> </span><span class="nx">contains</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">MessageQueue</span><span class="w"> </span><span class="nx">configuration</span><span class="w"> </span><span class="nx">today</span><span class="p">.</span><span class="w">  </span><span class="nx">This</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">all</span><span class="w"> </span><span class="nx">additive</span><span class="o">/</span><span class="nx">new</span><span class="w"> </span><span class="nx">configuration</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">therefore</span><span class="w"> </span><span class="nx">backward</span><span class="w"> </span><span class="nx">compatible</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">EdgeX</span><span class="w"> </span><span class="mi">2</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="nx">implementations</span><span class="p">.</span>
+</code></pre></div>
 </div>
 <h4 id="device-service-configuration">device service configuration</h4>
 <p>Example device service configuration is provided below.</p>
@@ -2225,8 +2284,9 @@
 <span class="n">CommandResponseTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/command/response/"</span><span class="w">  </span><span class="c1"># publishing outbound command responses; &lt;device-service&gt;/&lt;device-name&gt;/&lt;command-name&gt;/&lt;method&gt; will be added to this publish topic prefix</span>
 </code></pre></div>
 <div class="admonition note">
-<p class="admonition-title">Note<p>Most of the device service configuration is existing based on its need to already communicate with the message bus for publishing events/readings.  The last two lines are added to allow device services to subscribe and publish command messages from/to the message bus.</p>
-</p>
+<p class="admonition-title">Note</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">Most</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">device</span><span class="w"> </span><span class="nv">service</span><span class="w"> </span><span class="nv">configuration</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">existing</span><span class="w"> </span><span class="nv">based</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">its</span><span class="w"> </span><span class="nv">need</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">already</span><span class="w"> </span><span class="nv">communicate</span><span class="w"> </span><span class="nv">with</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">message</span><span class="w"> </span><span class="nv">bus</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">publishing</span><span class="w"> </span><span class="nv">events</span><span class="o">/</span><span class="nv">readings</span>.<span class="w">  </span><span class="nv">The</span><span class="w"> </span><span class="nv">last</span><span class="w"> </span><span class="nv">two</span><span class="w"> </span><span class="nv">lines</span><span class="w"> </span><span class="nv">are</span><span class="w"> </span><span class="nv">added</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">allow</span><span class="w"> </span><span class="nv">device</span><span class="w"> </span><span class="nv">services</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">subscribe</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="nv">publish</span><span class="w"> </span><span class="nv">command</span><span class="w"> </span><span class="nv">messages</span><span class="w"> </span><span class="nv">from</span><span class="o">/</span><span class="nv">to</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">message</span><span class="w"> </span><span class="nv">bus</span>.
+</code></pre></div>
 </div>
 <h2 id="edgex-service-internal-message-bus-requests">EdgeX Service (Internal) Message Bus Requests</h2>
 <p>Application services (or other EdgeX services in the future) may want to also use message communications to make command requests.  Application services make command requests today via REST.</p>
@@ -2320,8 +2380,9 @@
 <p>The resolution to this question was to explore some options at implementation time.  The use of an enumeration (HTTP or other) can be explored during development and options brought forth via PR.</p>
 </div>
 <div class="admonition info">
-<p class="admonition-title">Info<p>This ADR does not handle securing the message bus communications between services.  This need is to be covered universally in an upcoming ADR.</p>
-</p>
+<p class="admonition-title">Info</p>
+<div class="codehilite"><pre><span></span><code>This ADR does not handle securing the message bus communications between services.  This need is to be covered universally in an upcoming ADR.
+</code></pre></div>
 </div>
 <h2 id="future-considerations">Future Considerations</h2>
 <ul>
