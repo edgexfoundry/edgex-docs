@@ -156,7 +156,7 @@ After starting (or restarting) a service, you may need to hit the `Refresh` butt
 
 ### Metadata
 
-The Metadata page (available from the Metadata menu option) provides three tabs to be able to see and manage the basic elements of metadata:  device services, device profiles and devices.
+The Metadata page (available from the Metadata menu option) provides four tabs to be able to see and manage the basic elements of metadata:  device services, device profiles ,provision watchers and devices.
 
 ![image](EdgeX_Metadata.png)
 
@@ -221,6 +221,12 @@ The `AssociatedDevice` button on each row of the Device Profile List will take y
     When deleting a profile, the system will popup an error if deices are still associated to the profile.
 
     ![image](EdgeX_CantRemoveProfile.png)
+
+#### Provision Watcher Tab
+
+The Provision Watcher Tab on the Metadata page offers you details about all the Provision Watcher known to your EdgeX instance.  Buttons at the top of the tab allow you to add, remove or edit a Provision Watcher (or collection of Provision Watchers when deleting and using the selector checkbox in the Provision Watcher list).
+
+![image](EdgeX_ProvisionWatcherList.png)
 
 ### Data Center (Seeing Event/Reading Data)
 
