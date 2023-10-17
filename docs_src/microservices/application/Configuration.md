@@ -1,6 +1,6 @@
 # Application Services - Configuration
 
-Similar to other EdgeX services, application service configuration is first determined by the `configuration.yaml` file in the `/res` folder. Once loaded any environment overrides are applied. If `-cp` is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e Consul) to push the configuration into the provider and monitor `Writeable` configuration from there. Any environment overrides are applied prior to the values being pushed. You will find the configuration under the `edgex/{{api_version}}/` key in the provider (i.e Consul). On re-restart the service will pull the configuration from the provider.
+Similar to other EdgeX services, application service configuration is first determined by the `configuration.yaml` file in the `/res` folder. Once loaded any environment overrides are applied. If `-cp` is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e. Consul) to push the configuration into the provider and monitor `Writable` configuration from there. Any environment overrides are applied prior to the values being pushed. You will find the configuration under the `edgex/{{api_version}}/` key in the provider (i.e. Consul). On re-restart the service will pull the configuration from the provider.
 
 This section describes the configuration elements provided by the SDK that are unique to Application Services
 
@@ -75,7 +75,7 @@ The tabs below provide additional configuration which are applicable to Applicat
     This service specific section defines the connection information for the EdgeX Clients and is the same as that used by all EdgeX services, just which clients are needed differs. 
 
     !!! note
-        Clients that are used from code must be present in the configuration, otherwise a nill reference will occur. `core-metadata` is already present in the common configuration, so it is not needed in the local private configuartion.
+        Clients that are used from code must be present in the configuration, otherwise a nil reference will occur. `core-metadata` is already present in the common configuration, so it is not needed in the local private configuration.
 === "Trigger"
 
     This section defines the `Trigger` for incoming data. See the [Triggers](sdk/details/Triggers.md) documentation for more details on the inner working of triggers. 
@@ -123,5 +123,5 @@ The tabs below provide additional configuration which are applicable to Applicat
 
 === "Custom Structured Configuration"
 
-    Custom Application Services can define their own custom structured configuration section in the `configuration.yaml` file. Any additional sections in the configuration file are ignore by the SDK when it parses the file for the SDK defined sections. See the [Custom Configuration](sdk/details/CustomConfiguration.md) section of the SDK documentation for more details.
+    Custom Application Services can define their own custom structured configuration section in the `configuration.yaml` file. Any additional sections in the configuration file are ignored by the SDK when it parses the file for the SDK defined sections. See the [Custom Configuration](sdk/details/CustomConfiguration.md) section of the SDK documentation for more details.
 

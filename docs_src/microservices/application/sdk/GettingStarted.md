@@ -22,13 +22,13 @@ func main() {
 	// turn off secure mode for examples. Not recommended for production
 	_ = os.Setenv("EDGEX_SECURITY_SECRET_STORE", "false")
 
-	// 1) First thing to do is to create an new instance of an EdgeX Application Service.
+	// 1) First thing to do is to create a new instance of an EdgeX Application Service.
 	service, ok := pkg.NewAppService(serviceKey)
 	if !ok {
 		os.Exit(-1)
 	}
     
-	// Leverage the built in logging service in EdgeX
+	// Leverage the built-in logging service in EdgeX
 	lc := service.LoggingClient()
 
 	// 2) shows how to access the application's specific configuration settings.
@@ -68,7 +68,7 @@ The above example is meant to merely demonstrate the structure of your applicati
 
 ```go
 func printXMLToConsole(ctx interfaces.AppFunctionContext, data interface{}) (bool, interface{}) {
-	// Leverage the built in logging service in EdgeX
+	// Leverage the built-in logging service in EdgeX
 	lc := ctx.LoggingClient()
 
 	if data == nil {

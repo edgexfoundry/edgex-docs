@@ -33,7 +33,7 @@ The EdgeX MessageBus configuration has been moved out of the Trigger configurati
 
 #### edgex-messagebus changes
 
-As noted above the EdgeX MessageBus configuration has been removed from the **Trigger** configuration. In addition the `SubscribeTopics` and `PublishTopic` settings have been move to the top level of the **Trigger** configuration. Most application services can simply use the default trigger configuration from application service common configuration.
+As noted above the EdgeX MessageBus configuration has been removed from the **Trigger** configuration. In addition, the `SubscribeTopics` and `PublishTopic` settings have been move to the top level of the **Trigger** configuration. Most application services can simply use the default trigger configuration from application service common configuration.
 
 !!! example - "Example application service Trigger configuration - From Common Configuration "
     ```yaml
@@ -52,7 +52,7 @@ Some application services may need to publish results back to the EdgeX MessageB
 !!! example - "Example local application service Trigger configuration - **PublishTopic**"
     ```yaml
     Trigger:
-      # Default value for SubscribeTopics is aslo set in common config
+      # Default value for SubscribeTopics is also set in common config
       PublishTopic: "<my-topic>"  # Base topic is prepended to this topic when using edgex-messagebus
     ```
 

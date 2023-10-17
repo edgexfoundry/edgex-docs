@@ -8,7 +8,7 @@ This SDK provides the capability to define the functions pipeline via configurat
 
 ## Custom REST Endpoints
 
-It is not uncommon to require your own custom REST endpoints when building an Application Service. Rather than spin up your own webserver inside of your app (alongside the already existing running webserver), we've exposed a method that allows you add your own routes to the existing webserver. A few routes are reserved and cannot be used:
+It is not uncommon to require your own custom REST endpoints when building an Application Service. Rather than spin up your own webserver inside your app (alongside the already existing running webserver), we've exposed a method that allows you to add your own routes to the existing webserver. A few routes are reserved and cannot be used:
 
 - /api/{{api_version}}/version
 - /api/{{api_version}}/ping
@@ -31,12 +31,12 @@ To add your own route, use the `AddCustomRoute()` API provided on the `Applicati
     service.AddCustomRoute("/myroute", service.Authenticated, myHandler, "GET")    
     ```    
 
-Under the hood, this simply adds the provided route, handler, and method to the gorilla `mux.Router` used in the SDK. For more information on `gorilla mux` you can check out the github repo [here](https://github.com/gorilla/mux). 
+Under the hood, this simply adds the provided route, handler, and method to the gorilla `mux.Router` used in the SDK. For more information on `gorilla mux` you can check out the GitHub repo [here](https://github.com/gorilla/mux). 
 You can access the `interfaces.ApplicationService` API for resources such as the logging client by pulling it from the context as shown above -- this is useful for when your routes might not be defined in your `main.go`  where you have access to the ``interfaces.ApplicationService`` instance.
 
 ### Target Type
 
-The target type is the object type of the incoming data that is sent to the first function in the function pipeline. By default this is an EdgeX `dtos.Event` since typical usage is receiving `Events` from the EdgeX MessageBus. 
+The target type is the object type of the incoming data that is sent to the first function in the function pipeline. By default, this is an EdgeX `dtos.Event` since typical usage is receiving `Events` from the EdgeX MessageBus. 
 
 There are scenarios where the incoming data is not an EdgeX `Event`. One example scenario is two application services are chained via the EdgeX MessageBus. The output of the first service is inference data from analyzing the original `Event`data, and published back to the EdgeX MessageBus. The second service needs to be able to let the SDK know the target type of the input data it is expecting.
 
@@ -131,7 +131,7 @@ The Store and Forward capability allows for export functions to persist data on 
     ```
 
 !!! note
-    RetryInterval should be at least 1 second (eg. '1s') or greater. If a value less than 1 second is specified, 1 second will be used. Endless retries will occur when MaxRetryCount is set to 0. If MaxRetryCount is set to less than 0, a default of 1 retry will be used.
+    RetryInterval should be at least 1 second (e.g. '1s') or greater. If a value less than 1 second is specified, 1 second will be used. Endless retries will occur when MaxRetryCount is set to 0. If MaxRetryCount is set to less than 0, a default of 1 retry will be used.
 
 Database configuration section describes which database type to use and the information required to connect to the database. This section is required if Store and Forward is enabled. It is optional if **not** using `Redis` for the EdgeX MessageBus which is now the default. 
 
@@ -156,7 +156,7 @@ When the `RetryInterval` expires, the function pipeline will be re-executed star
 !!! note
     The export function will receive the data as it was stored, so it is important that any transformation of the data occur in functions prior to the export function. The export function should only export the data that it receives.
 
-One of three out comes can occur after the export retried has completed. 
+One of three outcomes can occur after the export retried has completed. 
 
 1. Export retry was successful
 
@@ -238,7 +238,7 @@ and configured using the registered name in the `Database` section:
 
 ### Configuration
 
-All instances of App Services running in secure mode require a SecretStore to be configured. With the use of `Redis Pub/Sub` as the default EdgeX MessageBus all App Services need the `redisdb` known secret added to their SecretStore so they can connect to the Secure EdgeX MessageBus. See the [Secure MessageBus](../../../../security/Ch-Secure-MessageBus.md) documentation for more details.
+All App Service instances running in secure mode require a SecretStore to be configured. With the use of `Redis Pub/Sub` as the default EdgeX MessageBus all App Services need the `redisdb` known secret added to their SecretStore, so they can connect to the Secure EdgeX MessageBus. See the [Secure MessageBus](../../../../security/Ch-Secure-MessageBus.md) documentation for more details.
 
 !!! edgey "Edgex 3.0"
     For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It now has default values which can be overridden with environment variables. See the [SecretStore Overrides](../../../configuration/CommonEnvironmentVariables.md/#secretstore-configuration-overrides) section for more details.

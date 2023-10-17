@@ -46,7 +46,7 @@ Included in the SDK is an in-memory batch function that will hold on to your dat
     ```
 ### Batch
 
-`Batch` - This pipeline function will apply the selected strategy in your pipeline. By default the batched data returned by this function is `[][]byte`. This is because this function doesn't need to know the type of the individual items batched. It simply marshals the items to JSON if the data isn't already a ` []byte`.
+`Batch` - This pipeline function will apply the selected strategy in your pipeline. By default, the batched data returned by this function is `[][]byte`. This is because this function doesn't need to know the type of the individual items batched. It simply marshals the items to JSON if the data isn't already a ` []byte`.
 
 !!! warning
     Keep memory usage in mind as you determine the thresholds for both time and count. The larger they are the more memory is required and could lead to performance issue. 
@@ -149,7 +149,7 @@ It requires a 64-byte key from secrets which is split in half, the first half us
 !!! note
     The `Algorithm` used with app-service-configurable configuration to access this transform is `AES256`
 
-Reading data protected with this function is a multi step process:
+Reading data protected with this function is a multistep process:
 
 - base64 decode (for languages other than go - example code assumes hex encoding)
 - extract hash from payload (last 32 bytes)
@@ -242,7 +242,7 @@ type HTTPSenderOptions struct {
 
 #### HTTP POST
 
-`HTTPPost` - This pipeline function receives either a `string`, `[]byte`, or `json.Marshaler` type from the previous function in the pipeline and posts it to the configured endpoint and returns the HTTP response. If no previous function exists, then the event that triggered the pipeline, marshaled to json, will be used. If the post fails and `persistOnError=true` and `Store and Forward` is enabled, the data will be stored for later retry. See [Store and Forward](../details/AdvancedTopics.md#store-and-forward) for more details. If `ReturnInputData=true`  the function will return the data that it received instead of the HTTP response. This allows the following function in the pipeline to be another HTTP Export which receives the same data but is configured to send to a different endpoint. When chaining for multiple HTTP Exports you need to decide how to handle errors. Do you want to stop execution of the pipeline or continue so that the next HTTP Export function can attempt to export to its endpoint. This is where `ContinueOnSendError` comes in. If set to `true` the error is logged and the function returns the received data for the next function to use. `ContinueOnSendError=true` can only be used when `ReturnInputData=true` and cannot be use when `PersistOnError=true`.
+`HTTPPost` - This pipeline function receives either a `string`, `[]byte`, or `json.Marshaler` type from the previous function in the pipeline and posts it to the configured endpoint and returns the HTTP response. If no previous function exists, then the event that triggered the pipeline, marshaled to json, will be used. If the post fails and `persistOnError=true` and `Store and Forward` is enabled, the data will be stored for later retry. See [Store and Forward](../details/AdvancedTopics.md#store-and-forward) for more details. If `ReturnInputData=true`  the function will return the data that it received instead of the HTTP response. This allows the following function in the pipeline to be another HTTP Export which receives the same data but is configured to send to a different endpoint. When chaining for multiple HTTP Exports you need to decide how to handle errors. Do you want to stop execution of the pipeline or continue so that the next HTTP Export function can attempt to export to its endpoint? This is where `ContinueOnSendError` comes in. If set to `true` the error is logged and the function returns the received data for the next function to use. `ContinueOnSendError=true` can only be used when `ReturnInputData=true` and cannot be use when `PersistOnError=true`.
 
 !!! example
     **POST**              

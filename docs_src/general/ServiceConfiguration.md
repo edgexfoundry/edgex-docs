@@ -20,7 +20,7 @@ Please refer to the general [Common Configuration documentation](../microservice
     |support-notifications	|[Support Notifications Configuration](../microservices/support/notifications/Ch-AlertsNotifications.md#configuration-properties)|
     |support-scheduler|	[Support Scheduler Configuration](../microservices/support/scheduler/Ch-Scheduler.md#configuration-properties)|
 === "Application & Analytics"
-    |Services Name|	Configuration Reference|
+    |Service Name|	Configuration Reference|
     |---|---|
     |app-service|[General Application Service Configuration](../microservices/application/Configuration.md)|
     |app-service-configurable|[Configurable Application Service Configuration](../microservices/application/services/AppServiceConfigurable/Configuration.md)|

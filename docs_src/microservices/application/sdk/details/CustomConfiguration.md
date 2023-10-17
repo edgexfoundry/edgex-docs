@@ -9,15 +9,15 @@ The first simple way is to add items to the `ApplicationSetting` section. This i
 - `ApplicationSettings() map[string]string`
     - Returns the whole list of application settings
 - `GetAppSetting(setting string) (string, error)`
-    - Returns single entry from the map who's key matches the passed in `setting` value
+    - Returns single entry from the map whose key matches the passed in `setting` value
 - `GetAppSettingStrings(setting string) ([]string, error)`
-    - Returns list of strings for the entry who's key matches the passed in `setting` value. The Entry is assumed to be a comma separated list of strings.
+    - Returns list of strings for the entry whose key matches the passed in `setting` value. The Entry is assumed to be a comma separated list of strings.
 
 ## Structure Custom Configuration
 
-The second is the more complex `Structured Custom Configuration` which allows the Application Service to define and watch it's own structured section in the service's configuration file.
+The second is the more complex `Structured Custom Configuration` which allows the Application Service to define and watch its own structured section in the service's configuration file.
 
-The `ApplicationService` API provides the follow APIs to enable structured custom configuration:
+The `ApplicationService` API provides the following APIs to enable structured custom configuration:
 
 - `LoadCustomConfig(config UpdatableConfig, sectionName string) error`
     - Loads the service's custom configuration from local file or the Configuration Provider (if enabled). The Configuration Provider will also be seeded with the custom configuration the first time the service is started, if service is using the Configuration Provider. The `UpdateFromRaw` interface will be called on the custom configuration when the configuration is loaded from the Configuration Provider.

@@ -162,7 +162,7 @@ Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful
       Type: "http" 
     ```
 
-The `Type=` is set to `http`. This will enable listening to the `api/{{api_version}}/trigger/` endpoint. No other configuration is required. The Context function `ctx.SetResponseData([]byte outputData)` stores the data to send back as the response to the requestor that originally triggered the HTTP Request. 
+The `Type=` is set to `http`. This will enable listening to the `api/{{api_version}}/trigger/` endpoint. No other configuration is required. The Context function `ctx.SetResponseData([]byte outputData)` stores the data to send back as the response to the request that originally triggered the HTTP Request. 
 
 !!! note
     The HTTP trigger uses the `content-type` from the HTTP Header to determine if the data is JSON or CBOR encoded and the optional `X-Correlation-ID` to set the correlation ID for the request.
@@ -198,7 +198,7 @@ This type carries a pointer to the internal edgex logger, along with three funct
 - `MessageReceived` exposes a function that sends your message envelope and context to any pipelines configured in the EdgeX service.  It also takes a function that will be run to process the response for each successful pipeline.
 !!! note
     The context passed in to `Received` will be cloned for each pipeline configured to run.  If a nil context is passed a new one will be initialized from the message.
-- `ConfigLoader` exposes a function that loads your custom config struct.  By default this is done from the primary EdgeX configuration pipeline, and only loads root-level elements.
+- `ConfigLoader` exposes a function that loads your custom config struct.  By default, this is done from the primary EdgeX configuration pipeline, and only loads root-level elements.
 
 
 
@@ -300,7 +300,7 @@ A complete working example can be found [**here**](https://github.com/edgexfound
 
 ## Publish Topic Placeholders
 
-Both the `EdgeX MessageBus`and the `External MQTT` triggers support the new **Publish Topic Placeholders** capability. The configured `PublishTopic` for either of these triggers can contain placeholders for runtime replacements. The placeholders are replaced with values from the new `Context Storage` whose key match the placeholder name. Function pipelines can add values to the `Context Storage` which can then be used as replacement values in the publish topic. If an EdgeX Event is received by the configured trigger the Event's `profilename`, `devicename` and `sourcename` as well as the will be seeded into the `Context Storage`. See the [Context Storage](../api/AppFunctionContextAPI.md#context-storage) documentation for more details.
+Both the `EdgeX MessageBus`and the `External MQTT` triggers support the new **Publish Topic Placeholders** capability. The configured `PublishTopic` for either of these triggers can contain placeholders for runtime replacements. The placeholders are replaced with values from the new `Context Storage` whose key match the placeholder name. Function pipelines can add values to the `Context Storage` which can then be used as replacement values in the publish topic. If an EdgeX Event is received by the configured trigger the Event's `profilename`, `devicename` and `sourcename` as well as they will be seeded into the `Context Storage`. See the [Context Storage](../api/AppFunctionContextAPI.md#context-storage) documentation for more details.
 
 The **Publish Topic Placeholders** format is a simple `{<key-name>}` that can appear anywhere in the topic multiple times. An error will occur if a specified placeholder does not exist in the  `Context Storage`. 
 
