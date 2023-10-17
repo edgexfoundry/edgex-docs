@@ -97,9 +97,9 @@ if err := service.SetDefaultFunctionsPipeline(
 ```
 Set the Trigger type to `http` in configuration file found here: [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{edgexversion}}/application-services/custom/simple-filter-xml/res/configuration.yaml)
 
-```toml
-[Trigger]
-Type="http"
+```yaml 
+Trigger:
+  Type: http
 ```
 
 Using PostMan or curl send the following JSON to `localhost:<port>/api/{{api_version}}/trigger`

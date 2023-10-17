@@ -31,7 +31,7 @@ To add your own route, use the `AddCustomRoute()` API provided on the `Applicati
     service.AddCustomRoute("/myroute", service.Authenticated, myHandler, "GET")    
     ```    
 
-Under the hood, this simply adds the provided route, handler, and method to the gorilla `mux.Router` used in the SDK. For more information on `gorilla mux` you can check out the GitHub repo [here](https://github.com/gorilla/mux). 
+Under the hood, this simply adds the provided route, handler, and method to the `echo` router used in the SDK. For more information on `echo` you can check out the GitHub repo [here](https://github.com/labstack/echo). 
 You can access the `interfaces.ApplicationService` API for resources such as the logging client by pulling it from the context as shown above -- this is useful for when your routes might not be defined in your `main.go`  where you have access to the ``interfaces.ApplicationService`` instance.
 
 ### Target Type
