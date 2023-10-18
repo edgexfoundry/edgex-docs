@@ -160,7 +160,7 @@ Trigger:
       Retained: true # Retained setting for Will Topic
 ```
 
-See for [MQTT Last Will](https://cedalo.com/blog/mqtt-last-will-explained-and-example) for more details on MQTT Last Will capability.
+See [MQTT Last Will](https://cedalo.com/blog/mqtt-last-will-explained-and-example) for more details on MQTT Last Will capability.
 
 !!! edgey "EdgeX 3.1"
     Last Will capability is new in EdgeX 3.1

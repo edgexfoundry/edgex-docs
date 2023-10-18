@@ -338,12 +338,12 @@ type WillConfig struct {
 }
 ```
 
-See for [MQTT Last Will](https://cedalo.com/blog/mqtt-last-will-explained-and-example) for more details on MQTT Last Will capability.
+See [MQTT Last Will](https://cedalo.com/blog/mqtt-last-will-explained-and-example) for more details on MQTT Last Will capability.
 
 !!! edgey "EdgeX 3.1"
     Last Will capability is new in EdgeX 3.1
 
-Secrets in the Secret Store may be located at any SecretName however they must have some or all the follow keys at the specified in the secret data: 
+Secrets in the Secret Store may be located at any SecretName however they must have some or all the follow keys at the specified in the secret data:
 
 - `username` - username to connect to the broker
 - `password` - password used to connect to the broker
