@@ -401,7 +401,7 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../core/data/APIReference/">
+<a class="md-nav__link" href="../../core/data/ApiReference/">
         API Reference
       </a>
 </li>
@@ -1508,12 +1508,6 @@
 <nav aria-label="Custom Application Service" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#code">
-    Code
-  </a>
-<nav aria-label="Code" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
 <a class="md-nav__link" href="#dependencies">
     Dependencies
   </a>
@@ -1541,9 +1535,6 @@
 <a class="md-nav__link" href="#pipeline-functions">
     Pipeline Functions
   </a>
-</li>
-</ul>
-</nav>
 </li>
 </ul>
 </nav>
@@ -1789,7 +1780,7 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../api/core/Ch-APICoreData/">
+<a class="md-nav__link" href="../../core/data/ApiReference/">
         Core Data
       </a>
 </li>
@@ -2008,12 +1999,6 @@
 <nav aria-label="Custom Application Service" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#code">
-    Code
-  </a>
-<nav aria-label="Code" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
 <a class="md-nav__link" href="#dependencies">
     Dependencies
   </a>
@@ -2041,9 +2026,6 @@
 <a class="md-nav__link" href="#pipeline-functions">
     Pipeline Functions
   </a>
-</li>
-</ul>
-</nav>
 </li>
 </ul>
 </nav>
@@ -2194,8 +2176,7 @@
 <h3 id="writable-pipeline">Writable Pipeline</h3>
 <p>See <a href="#pipeline-configuration">Pipeline Configuration</a> section below for changes to the Writable Pipeline configuration</p>
 <h2 id="custom-application-service">Custom Application Service</h2>
-<h3 id="code">Code</h3>
-<h4 id="dependencies">Dependencies</h4>
+<h3 id="dependencies">Dependencies</h3>
 <p>You first need to update the <code>go.mod</code> file to specify <code>go 1.20</code> and the v3 versions of the App Functions SDK and any EdgeX go-mods directly used by your service. </p>
 <div class="admonition example">
 <p class="admonition-title">Example go.mod for V3</p>
@@ -2220,8 +2201,8 @@
 <span class="p">)</span>
 </code></pre></div>
 </div>
-<h4 id="api-changes">API Changes</h4>
-<h5 id="applicationservice-api">ApplicationService API</h5>
+<h3 id="api-changes">API Changes</h3>
+<h4 id="applicationservice-api">ApplicationService API</h4>
 <p>The <code>ApplicationService</code> API has the following changes:</p>
 <ol>
 <li><code>SetFunctionsPipeline</code> has been removed. Use <code>SetDefaultFunctionsPipeline</code> instead</li>
@@ -2233,7 +2214,7 @@
 <li><code>CommandClient</code> <code>Get</code> API's <code>dsPushEvent</code> and <code>dsReturnEvent</code> parameters changed to be type <code>bool</code></li>
 </ol>
 <p>See <a href="../sdk/api/ApplicationServiceAPI/">Application Service API</a> section for completed details on this API, including some new capabilities.</p>
-<h5 id="appfunctioncontext-api">AppFunctionContext API</h5>
+<h4 id="appfunctioncontext-api">AppFunctionContext API</h4>
 <p>The <code>AppFunctionContext</code> API has the following changes:</p>
 <ol>
 <li>Deprecated <code>PushToCore</code> has been removed. Use <a href="../sdk/api/BuiltInPipelineFunctions/#wrap-into-event">WrapIntoEvent</a> function and publishing to the EdgeX MessageBus instead. See <a href="../sdk/details/Triggers/#publishtopic">Trigger.PublishTopic</a> or <a href="../sdk/api/ApplicationServiceAPI/#publish">Publish</a> sections for more details on publishing data back to the EdgeX MessageBus.</li>
@@ -2242,7 +2223,7 @@
 <li><code>SecretsLastUpdated</code> has been removed. Use <code>SecretProvider().SecretsLastUpdated</code></li>
 <li><code>CommandClient</code> <code>Get</code> API's <code>dsPushEvent</code> and <code>dsReturnEvent</code> parameters changed to be type <code>bool</code></li>
 </ol>
-<h4 id="pipeline-functions">Pipeline Functions</h4>
+<h3 id="pipeline-functions">Pipeline Functions</h3>
 <ul>
 <li><strong>AESProtection</strong><ul>
 <li><code>NewAESProtection</code> signature has changes. <ul>

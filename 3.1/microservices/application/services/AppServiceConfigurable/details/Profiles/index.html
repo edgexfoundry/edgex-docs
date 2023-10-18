@@ -12,7 +12,7 @@
 <link href="../TargetType/" rel="next"/>
 <link href="../../../../../../assets/logo_edgex.png" rel="icon"/>
 <meta content="mkdocs-1.5.3, mkdocs-material-9.1.19" name="generator"/>
-<title>Available Profiles - EdgeX Foundry Documentation</title>
+<title>App Service Configurable - Available Profiles - EdgeX Foundry Documentation</title>
 <link href="../../../../../../assets/stylesheets/main.eebd395e.min.css" rel="stylesheet"/>
 <link href="../../../../../../assets/stylesheets/palette.ecc896b0.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -33,7 +33,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#app-service-configurable">
+<a class="md-skip" href="#app-service-configurable-available-profiles">
           Skip to content
         </a>
 </div>
@@ -59,7 +59,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Available Profiles
+              App Service Configurable - Available Profiles
             
           </span>
 </div>
@@ -401,7 +401,7 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../../../core/data/APIReference/">
+<a class="md-nav__link" href="../../../../../core/data/ApiReference/">
         API Reference
       </a>
 </li>
@@ -1150,12 +1150,6 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#available-profiles">
-    Available Profiles
-  </a>
-<nav aria-label="Available Profiles" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
 <a class="md-nav__link" href="#rules-engine">
     rules-engine
   </a>
@@ -1189,9 +1183,6 @@
 <a class="md-nav__link" href="#external-mqtt-trigger">
     external-mqtt-trigger
   </a>
-</li>
-</ul>
-</nav>
 </li>
 </ul>
 </nav>
@@ -1699,7 +1690,7 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../../../../api/core/Ch-APICoreData/">
+<a class="md-nav__link" href="../../../../../core/data/ApiReference/">
         Core Data
       </a>
 </li>
@@ -1854,12 +1845,6 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#available-profiles">
-    Available Profiles
-  </a>
-<nav aria-label="Available Profiles" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
 <a class="md-nav__link" href="#rules-engine">
     rules-engine
   </a>
@@ -1896,16 +1881,12 @@
 </li>
 </ul>
 </nav>
-</li>
-</ul>
-</nav>
 </div>
 </div>
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="app-service-configurable">App Service Configurable</h1>
-<h2 id="available-profiles">Available Profiles</h2>
+<h1 id="app-service-configurable-available-profiles">App Service Configurable - Available Profiles</h1>
 <p>App Service Configurable was designed to be deployed as multiple instances for different purposes. 
 Since the function pipeline is specified in the <code>configuration.yaml</code> file, we can use this as a way to run each instance
 with a different function pipeline. App Service Configurable does not have the standard default configuration 
@@ -1932,14 +1913,14 @@ e.g. <code>AppService-sample</code> when specifying <code>sample</code> as the p
 <li><code>WRITABLE_PIPELINE_FUNCTIONS_FILTERBYDEVICENAME_PARAMETERS_DEVICENAMES: "[comma separated list]"</code></li>
 </ul>
 <p>There are many optional functions and parameters provided in this profile. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/main/res/rules-engine/configuration.yaml">complete profile</a> for more details</p>
-<h3 id="http-export">http-export</h3>
+<h2 id="http-export">http-export</h2>
 <p>Starter profile used for exporting data via HTTP.  Requires further configuration which can easily be accomplished using environment variable overrides</p>
 <p>Required:</p>
 <ul>
 <li><code>WRITABLE_PIPELINE_FUNCTIONS_HTTPEXPORT_PARAMETERS_URL: [Your URL]</code></li>
 </ul>
 <p>There are many more optional functions and parameters provided in this profile. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/main/res/http-export/configuration.yaml">complete profile</a> for more details.</p>
-<h3 id="metrics-influxdb">metrics-influxdb</h3>
+<h2 id="metrics-influxdb">metrics-influxdb</h2>
 <p>Starter profile used for exporting telemetry data from other EdgeX services to InfluxDB via HTTP export. This profile configures the service to receive telemetry data from other services, transform it to Line Protocol syntax, batch the data and then export it to an InfluxDB service via HTTP. Requires further configuration which can easily be accomplished using environment variable overrides.</p>
 <p>Required:</p>
 <ul>
@@ -1988,7 +1969,7 @@ e.g. <code>AppService-sample</code> when specifying <code>sample</code> as the p
 <li><code>WRITABLE_PIPELINE_FUNCTIONS_BATCH_PARAMETERS_TIMEINTERVAL: &lt;your batch time interval&gt;</code></li>
 <li>Currently set to <code>"60s"</code></li>
 </ul>
-<h3 id="mqtt-export">mqtt-export</h3>
+<h2 id="mqtt-export">mqtt-export</h2>
 <p>Starter profile used for exporting data via MQTT. Requires further configuration which can easily be accomplished using environment variable overrides</p>
 <p>Required:</p>
 <ul>
@@ -1997,11 +1978,11 @@ e.g. <code>AppService-sample</code> when specifying <code>sample</code> as the p
 <p>There are many optional functions and parameters provided in this profile. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/main/res/mqtt-export/configuration.yaml">complete profile</a> for more details</p>
 </li>
 </ul>
-<h3 id="sample">sample</h3>
+<h2 id="sample">sample</h2>
 <p>Sample profile with all available functions declared and a sample pipeline. Provided as a sample that can be copied and modified to create new custom profiles. See the <a href="https://github.com/edgexfoundry/app-service-configurable/blob/main/res/sample/configuration.yaml">complete profile</a> for more details</p>
-<h3 id="functional-tests">functional-tests</h3>
+<h2 id="functional-tests">functional-tests</h2>
 <p>Profile used for the TAF functional testing  </p>
-<h3 id="external-mqtt-trigger">external-mqtt-trigger</h3>
+<h2 id="external-mqtt-trigger">external-mqtt-trigger</h2>
 <p>Profile used for the TAF functional testing  of external MQTT Trigger</p>
 </article>
 </div>

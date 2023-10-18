@@ -12,7 +12,7 @@
 <link href="../Configuration/" rel="next"/>
 <link href="../../../../../assets/logo_edgex.png" rel="icon"/>
 <meta content="mkdocs-1.5.3, mkdocs-material-9.1.19" name="generator"/>
-<title>Getting Started - EdgeX Foundry Documentation</title>
+<title>App Record Replay - Getting Started - EdgeX Foundry Documentation</title>
 <link href="../../../../../assets/stylesheets/main.eebd395e.min.css" rel="stylesheet"/>
 <link href="../../../../../assets/stylesheets/palette.ecc896b0.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -33,7 +33,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#app-record-and-replay">
+<a class="md-skip" href="#app-record-and-replay-getting-started">
           Skip to content
         </a>
 </div>
@@ -59,7 +59,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Getting Started
+              App Record Replay - Getting Started
             
           </span>
 </div>
@@ -401,7 +401,7 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../../core/data/APIReference/">
+<a class="md-nav__link" href="../../../../core/data/ApiReference/">
         API Reference
       </a>
 </li>
@@ -1188,12 +1188,6 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#getting-started">
-    Getting Started
-  </a>
-<nav aria-label="Getting Started" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
 <a class="md-nav__link" href="#overview">
     Overview
   </a>
@@ -1270,9 +1264,6 @@
 <a class="md-nav__link" href="#import-a-record-session">
     Import a Record Session
   </a>
-</li>
-</ul>
-</nav>
 </li>
 </ul>
 </nav>
@@ -1742,7 +1733,7 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../../../api/core/Ch-APICoreData/">
+<a class="md-nav__link" href="../../../../core/data/ApiReference/">
         Core Data
       </a>
 </li>
@@ -1897,12 +1888,6 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#getting-started">
-    Getting Started
-  </a>
-<nav aria-label="Getting Started" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
 <a class="md-nav__link" href="#overview">
     Overview
   </a>
@@ -1982,17 +1967,13 @@
 </li>
 </ul>
 </nav>
-</li>
-</ul>
-</nav>
 </div>
 </div>
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="app-record-and-replay">App Record and Replay</h1>
-<h2 id="getting-started">Getting Started</h2>
-<h3 id="overview">Overview</h3>
+<h1 id="app-record-and-replay-getting-started">App Record and Replay - Getting Started</h1>
+<h2 id="overview">Overview</h2>
 <p>When using the  App Record and Replay service the following EdgeX services are required to be running:</p>
 <ol>
 <li>Source device service(s). These are the device service(s) generating the events that will be recorded. <ul>
@@ -2005,7 +1986,7 @@
 </ul>
 </li>
 </ol>
-<h3 id="running-services">Running Services</h3>
+<h2 id="running-services">Running Services</h2>
 <p>The simplest way to run all the required services is to use the <a href="https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder">Compose Builder</a> tool from a terminal window </p>
 <ol>
 <li>
@@ -2021,15 +2002,15 @@
 </li>
 </ol>
 <p>This runs, in non-secure mode, all the standard EdgeX services along with the Device Virtual and App Record Replay services.  App Rules Engine is part of the standard services and is used in this guide for processing the events.</p>
-<h3 id="postman">Postman</h3>
+<h2 id="postman">Postman</h2>
 <p>A sample Postman collection is provided to simplify controlling this service via its REST API. See the <a href="../ApiReference/#postman-collection">Postman Collection</a> section for more details.</p>
-<h3 id="debug-logging">Debug Logging</h3>
+<h2 id="debug-logging">Debug Logging</h2>
 <p>Optionally, the debug logging can be enabled on the <strong>App Record Replay</strong> service. This is accomplished by setting <code>LogLevel</code> value via the Consul UI at <a href="http://localhost:8500/ui/dc1/kv/edgex/v3/app-record-replay/Writable/LogLevel/edit">http://localhost:8500/ui/dc1/kv/edgex/v3/app-record-replay/Writable/LogLevel/edit</a> to <code>DEBUG</code></p>
 <p>App service debug logging is very verbose, so when viewing the logs for this service, it is useful to filter the log messages for those that start with "ARR ". If you are using <strong>Portainer</strong> to view the service logs, simply place the "ARR " text in the <code>search</code> text box.</p>
 <p>To see that the replayed events are being "processed" we also need to enable debug logging for <strong>App Rules Engine</strong>. Set the <code>LogLevel</code> value via the Consul UI at <a href="http://localhost:8500/ui/dc1/kv/edgex/v3/app-rules-engine/Writable/LogLevel/edit">http://localhost:8500/ui/dc1/kv/edgex/v3/app-rules-engine/Writable/LogLevel/edit</a> to <code>DEBUG</code></p>
 <p>For <strong>App Rules Engine</strong> we want to filter for messages showing the events received. Filtering the log messages for "match the incoming topic" text will accomplish this.</p>
-<h3 id="recording-a-session">Recording a Session</h3>
-<h4 id="start-a-recording">Start a Recording</h4>
+<h2 id="recording-a-session">Recording a Session</h2>
+<h3 id="start-a-recording">Start a Recording</h3>
 <p>Before starting a recording session first review the <strong>Start Recording</strong> POST API in the <a href="../ApiReference/">API Reference</a> section. Be sure to view both examples.</p>
 <p>The source device service(s) need to be producing events prior to or shortly after the recording is starting. In this guide, Device Virtual is already producing events. So all that is need is to start the recording session by using the <code>Start Recording</code> request from the Postman collection referenced above. Edit the <code>RecordRequest</code> to set the <code>duration</code> and/or <code>eventLimit</code> and optionally any of the filters. The existing example filters can be removed so that all events are recorded.</p>
 <p>After above is completed simply press <code>Send</code> in Postman to start the recording session .</p>
@@ -2057,7 +2038,7 @@ level=DEBUG ts=2023-10-02T18:22:42.254513348Z app=app-record-replay source=manag
 <p class="admonition-title">Warning</p>
 <p>Since the storage model is simple in-memory storage, restarting the service will result in loss of recorded data. See <a href="#export-a-recorded-session">Export a Recorded Session</a> section below for details on how to save recoded data for later usage.</p>
 </div>
-<h4 id="check-recording-status">Check Recording Status</h4>
+<h3 id="check-recording-status">Check Recording Status</h3>
 <p>The status of a recording session can be checked while it is running or after is has completed. Review the <strong>Recording Status</strong> GET API in the <a href="../ApiReference/">API Reference</a> section and use the <strong>Recording Status</strong> request from the Postman collection referenced above. Press <code>Send</code> in Postman to get the recording status.</p>
 <div class="admonition example -">
 <p class="admonition-title">Example Recording Status responses</p>
@@ -2076,14 +2057,14 @@ level=DEBUG ts=2023-10-02T18:22:42.254513348Z app=app-record-replay source=manag
 <span class="p">}</span>
 </code></pre></div>
 </div>
-<h4 id="cancel-recording">Cancel Recording</h4>
+<h3 id="cancel-recording">Cancel Recording</h3>
 <p>A recording session can be canceled while it is running. Review the <strong>Cancel Recording</strong> DELETE API in the <a href="../ApiReference/">API Reference</a> section and use the <strong>Cancel Recording</strong> request from the Postman collection referenced above. Press <code>Send</code> in Postman to cancel the recording session.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This API will return a <strong>202 - Accepted</strong> response if the recording can be canceled, otherwise it will return an error such as "<strong><em>failed to cancel recording: no recording currently running</em></strong>"</p>
 </div>
-<h3 id="replaying-a-session">Replaying a Session</h3>
-<h4 id="start-replay">Start Replay</h4>
+<h2 id="replaying-a-session">Replaying a Session</h2>
+<h3 id="start-replay">Start Replay</h3>
 <p>To start a replay session first review the <strong>Start Replay</strong> POST API in the <a href="../ApiReference/">API Reference</a> section and then use the <code>Start Replay</code> request from the Postman collection referenced above. </p>
 <p>Set the <code>replayRate</code> to desired value. Value must be greater than zero. Values less than 1 replay slower and values greater than 1 replay faster than originally recorded. Value of 1 replays at the originally recorded rate.</p>
 <div class="admonition warning">
@@ -2098,7 +2079,7 @@ level=DEBUG ts=2023-10-02T18:22:42.254513348Z app=app-record-replay source=manag
 </code></pre></div>
 </div>
 <p>After above is completed simply press <code>Send</code> in Postman to start the replay session .</p>
-<h4 id="check-replay-status">Check Replay Status</h4>
+<h3 id="check-replay-status">Check Replay Status</h3>
 <p>The status of a replay session can be checked while it is running or after is has completed. Review the <strong>Replay Status</strong> GET API in the <a href="ApiReference">API Reference.md</a> section and use the <strong>Replay Status</strong> request from the Postman collection referenced above. Press <code>Send</code> in Postman to get the replay status.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2141,13 +2122,13 @@ level=DEBUG ts=2023-10-02T18:22:42.254513348Z app=app-record-replay source=manag
 }
 ```</p>
 </div>
-<h4 id="cancel-replay">Cancel Replay</h4>
+<h3 id="cancel-replay">Cancel Replay</h3>
 <p>A replay session can be canceled while it is running. Review the <strong>Cancel Replay</strong> DELETE API in the <a href="../ApiReference/">API Reference</a> section and use the <strong>Cancel Replay</strong> request from the Postman collection referenced above. Press <code>Send</code> in Postman to cancel the replay session.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This API will return a <strong>202 - Accepted</strong> response if the replay can be canceled, otherwise it will return an error such as "<strong><em>failed to cancel replay: no replay currently running</em></strong>"</p>
 </div>
-<h3 id="export-a-recorded-session">Export a Recorded Session</h3>
+<h2 id="export-a-recorded-session">Export a Recorded Session</h2>
 <p>The current recorded session can be exported so that data can be saved to the file system. Review the <strong>Export</strong> GET API in the <a href="../ApiReference/">API Reference</a> section and use the <strong>Export Recording</strong> requests from the Postman collection referenced above.</p>
 <p>This API exports all the events, related devices and device profiles. It has an optional <code>compression</code> query parameter. Valid values are <code>none</code>, <code>gzip</code> and <code>zlib</code> . Defaults to <code>none</code> if not specified. </p>
 <div class="admonition note">
@@ -2161,7 +2142,7 @@ level=DEBUG ts=2023-10-02T18:22:42.254513348Z app=app-record-replay source=manag
 curl localhost:59712/api/v3/data?compression=zlib -o recording.zlib
 </code></pre></div>
 </div>
-<h3 id="import-a-record-session">Import a Record Session</h3>
+<h2 id="import-a-record-session">Import a Record Session</h2>
 <p>This API allows a previously exported recording to be imported back into the service. Review the <strong>Import</strong> POST API in the <a href="../ApiReference/">API Reference</a> section and use the <strong>Import Recording</strong> requests from the Postman collection referenced above.</p>
 <p>This API has a the optional <code>overwrite</code> query parameter, which specifies to overwrite existing Devices and Device Profiles or not. Defaults to true if not set.</p>
 <div class="admonition note">
