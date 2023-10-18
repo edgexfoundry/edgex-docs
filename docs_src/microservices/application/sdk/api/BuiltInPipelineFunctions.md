@@ -338,6 +338,9 @@ type WillConfig struct {
 }
 ```
 
+!!! edgey "EdgeX 3.1"
+    Last Will capability is new in EdgeX 3.1
+
 Secrets in the Secret Store may be located at any SecretName however they must have some or all the follow keys at the specified in the secret data: 
 
 - `username` - username to connect to the broker

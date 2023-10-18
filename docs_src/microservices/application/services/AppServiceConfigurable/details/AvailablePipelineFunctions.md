@@ -297,6 +297,9 @@ Please refer to the function's detailed documentation by clicking the function n
 !!! note
     `Authmode=cacert` is only needed when client authentication (e.g. `usernamepassword`) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.
 
+!!! edgey "EdgeX 3.1"
+    Last Will capability is new in EdgeX 3.1
+
 !!! example
     ```yaml
     # Simple MQTT Export
