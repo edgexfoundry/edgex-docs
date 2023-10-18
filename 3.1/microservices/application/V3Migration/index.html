@@ -9,10 +9,10 @@
 <meta content="Michael Johanson" name="author"/>
 <link href="https://docs.edgexfoundry.org/3.1/microservices/application/V3Migration/" rel="canonical"/>
 <link href="../../device/V3Migration/" rel="prev"/>
-<link href="../../../getting-started/Ch-GettingStartedDevelopers/" rel="next"/>
+<link href="../../../examples/Ch-ExamplesVirtualDeviceService/" rel="next"/>
 <link href="../../../assets/logo_edgex.png" rel="icon"/>
 <meta content="mkdocs-1.5.3, mkdocs-material-9.1.19" name="generator"/>
-<title>Application Service Migration - EdgeX Foundry Documentation</title>
+<title>App Services - V3 Migration Guide - EdgeX Foundry Documentation</title>
 <link href="../../../assets/stylesheets/main.eebd395e.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.ecc896b0.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -33,7 +33,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#v3-application-service-migration-guide">
+<a class="md-skip" href="#application-services-v3-migration-guide">
           Skip to content
         </a>
 </div>
@@ -59,7 +59,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              Application Service Migration
+              App Services - V3 Migration Guide
             
           </span>
 </div>
@@ -232,23 +232,138 @@
 <li class="md-nav__item md-nav__item--nested">
 <input class="md-nav__toggle md-toggle" id="__nav_1_4" type="checkbox"/>
 <label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="0">
-          Services
+          Developer
           <span class="md-nav__icon md-icon"></span>
 </label>
 <nav aria-expanded="false" aria-labelledby="__nav_1_4_label" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_1_4">
 <span class="md-nav__icon md-icon"></span>
+          Developer
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedDevelopers/">
+        Getting Started as a Developer
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedGoDevelopers/">
+        Getting Started - Go Developers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedCDevelopers/">
+        Getting Started - C Developers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedHybrid/">
+        Working in a Hybrid Environment
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_4_5" id="__nav_1_4_5_label" tabindex="0">
+          Native Build and Run Guides
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_4_5">
+<span class="md-nav__icon md-icon"></span>
+          Native Build and Run Guides
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunNative/">
+        Native Build and Run
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunOnLinuxDistro/">
+        Build and Run on Linux on x86/x64
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunOnArm32/">
+        Build and Run on Linux on ARM 32
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunOnWindows/">
+        Build and Run on Windows on x86/x64
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../sdk/Purpose/">
+        Application Functions SDK
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_4_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_4_7" id="__nav_1_4_7_label" tabindex="0">
+          Device Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_7_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_4_7">
+<span class="md-nav__icon md-icon"></span>
+          Device Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedSDK/">
+        Device Service SDK
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedSDK-C/">
+        C SDK
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedSDK-Go/">
+        Golang SDK
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedUsersNexus/">
+        Getting Docker Images from EdgeX Nexus Repository
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedDTOValidation/">
+        DTO Validation
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5" id="__nav_1_5_label" tabindex="0">
+          Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_5">
+<span class="md-nav__icon md-icon"></span>
           Services
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_1" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_1" id="__nav_1_4_1_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_1" id="__nav_1_5_1_label" tabindex="0">
           Core
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_1_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_4_1">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_5_1">
 <span class="md-nav__icon md-icon"></span>
           Core
         </label>
@@ -259,13 +374,13 @@
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_1_2" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_1_2" id="__nav_1_4_1_2_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_1_2" id="__nav_1_5_1_2_label" tabindex="0">
           Core Data
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_1_2_label" class="md-nav" data-md-level="4">
-<label class="md-nav__title" for="__nav_1_4_1_2">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_1_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_5_1_2">
 <span class="md-nav__icon md-icon"></span>
           Core Data
         </label>
@@ -296,13 +411,13 @@
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_1_2_6" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_1_2_6" id="__nav_1_4_1_2_6_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_1_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_1_2_6" id="__nav_1_5_1_2_6_label" tabindex="0">
           Additional Details
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_1_2_6_label" class="md-nav" data-md-level="5">
-<label class="md-nav__title" for="__nav_1_4_1_2_6">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_1_2_6_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_5_1_2_6">
 <span class="md-nav__icon md-icon"></span>
           Additional Details
         </label>
@@ -337,13 +452,13 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_2" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_2" id="__nav_1_4_2_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_2" id="__nav_1_5_2_label" tabindex="0">
           Supporting
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_2_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_4_2">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_5_2">
 <span class="md-nav__icon md-icon"></span>
           Supporting
         </label>
@@ -372,13 +487,13 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_3" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_3" id="__nav_1_4_3_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_3" id="__nav_1_5_3_label" tabindex="0">
           Device
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_3_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_4_3">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_5_3">
 <span class="md-nav__icon md-icon"></span>
           Device
         </label>
@@ -404,13 +519,13 @@
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_3_5" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_3_5" id="__nav_1_4_3_5_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_3_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_3_5" id="__nav_1_5_3_5_label" tabindex="0">
           Device Services
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_3_5_label" class="md-nav" data-md-level="4">
-<label class="md-nav__title" for="__nav_1_4_3_5">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_3_5_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_5_3_5">
 <span class="md-nav__icon md-icon"></span>
           Device Services
         </label>
@@ -446,13 +561,13 @@
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_3_5_7" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_3_5_7" id="__nav_1_4_3_5_7_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_3_5_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_3_5_7" id="__nav_1_5_3_5_7_label" tabindex="0">
           Device Onvif Camera
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_3_5_7_label" class="md-nav" data-md-level="5">
-<label class="md-nav__title" for="__nav_1_4_3_5_7">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_3_5_7_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_5_3_5_7">
 <span class="md-nav__icon md-icon"></span>
           Device Onvif Camera
         </label>
@@ -468,13 +583,13 @@
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_3_5_7_3" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_3_5_7_3" id="__nav_1_4_3_5_7_3_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_3_5_7_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_3_5_7_3" id="__nav_1_5_3_5_7_3_label" tabindex="0">
           Walkthrough
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_3_5_7_3_label" class="md-nav" data-md-level="6">
-<label class="md-nav__title" for="__nav_1_4_3_5_7_3">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_3_5_7_3_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_5_3_5_7_3">
 <span class="md-nav__icon md-icon"></span>
           Walkthrough
         </label>
@@ -503,25 +618,25 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_3_5_7_4" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_3_5_7_4" id="__nav_1_4_3_5_7_4_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_3_5_7_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_3_5_7_4" id="__nav_1_5_3_5_7_4_label" tabindex="0">
           Supplementary Information
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_3_5_7_4_label" class="md-nav" data-md-level="6">
-<label class="md-nav__title" for="__nav_1_4_3_5_7_4">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_3_5_7_4_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_5_3_5_7_4">
 <span class="md-nav__icon md-icon"></span>
           Supplementary Information
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_3_5_7_4_1" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_3_5_7_4_1" id="__nav_1_4_3_5_7_4_1_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_3_5_7_4_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_3_5_7_4_1" id="__nav_1_5_3_5_7_4_1_label" tabindex="0">
           ONVIF Protocol
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_3_5_7_4_1_label" class="md-nav" data-md-level="7">
-<label class="md-nav__title" for="__nav_1_4_3_5_7_4_1">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_3_5_7_4_1_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_5_3_5_7_4_1">
 <span class="md-nav__icon md-icon"></span>
           ONVIF Protocol
         </label>
@@ -540,13 +655,13 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_3_5_7_4_2" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_3_5_7_4_2" id="__nav_1_4_3_5_7_4_2_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_3_5_7_4_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_3_5_7_4_2" id="__nav_1_5_3_5_7_4_2_label" tabindex="0">
           Features
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_3_5_7_4_2_label" class="md-nav" data-md-level="7">
-<label class="md-nav__title" for="__nav_1_4_3_5_7_4_2">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_3_5_7_4_2_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_5_3_5_7_4_2">
 <span class="md-nav__icon md-icon"></span>
           Features
         </label>
@@ -585,13 +700,13 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_3_5_7_4_3" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_3_5_7_4_3" id="__nav_1_4_3_5_7_4_3_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_3_5_7_4_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_3_5_7_4_3" id="__nav_1_5_3_5_7_4_3_label" tabindex="0">
           API Reference
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_3_5_7_4_3_label" class="md-nav" data-md-level="7">
-<label class="md-nav__title" for="__nav_1_4_3_5_7_4_3">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_3_5_7_4_3_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_5_3_5_7_4_3">
 <span class="md-nav__icon md-icon"></span>
           API Reference
         </label>
@@ -615,13 +730,13 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_3_5_7_4_4" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_3_5_7_4_4" id="__nav_1_4_3_5_7_4_4_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_3_5_7_4_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_3_5_7_4_4" id="__nav_1_5_3_5_7_4_4_label" tabindex="0">
           Utility
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_3_5_7_4_4_label" class="md-nav" data-md-level="7">
-<label class="md-nav__title" for="__nav_1_4_3_5_7_4_4">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_3_5_7_4_4_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_5_3_5_7_4_4">
 <span class="md-nav__icon md-icon"></span>
           Utility
         </label>
@@ -640,13 +755,13 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_3_5_7_4_5" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_3_5_7_4_5" id="__nav_1_4_3_5_7_4_5_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_3_5_7_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_3_5_7_4_5" id="__nav_1_5_3_5_7_4_5_label" tabindex="0">
           Miscellaneous
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_3_5_7_4_5_label" class="md-nav" data-md-level="7">
-<label class="md-nav__title" for="__nav_1_4_3_5_7_4_5">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_3_5_7_4_5_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_5_3_5_7_4_5">
 <span class="md-nav__icon md-icon"></span>
           Miscellaneous
         </label>
@@ -701,13 +816,13 @@
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_3_5_12" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_3_5_12" id="__nav_1_4_3_5_12_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_3_5_12" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_3_5_12" id="__nav_1_5_3_5_12_label" tabindex="0">
           Device USB Camera
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_3_5_12_label" class="md-nav" data-md-level="5">
-<label class="md-nav__title" for="__nav_1_4_3_5_12">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_3_5_12_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_5_3_5_12">
 <span class="md-nav__icon md-icon"></span>
           Device USB Camera
         </label>
@@ -718,13 +833,13 @@
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_3_5_12_2" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_3_5_12_2" id="__nav_1_4_3_5_12_2_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_3_5_12_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_3_5_12_2" id="__nav_1_5_3_5_12_2_label" tabindex="0">
           Walkthrough
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_3_5_12_2_label" class="md-nav" data-md-level="6">
-<label class="md-nav__title" for="__nav_1_4_3_5_12_2">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_3_5_12_2_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_5_3_5_12_2">
 <span class="md-nav__icon md-icon"></span>
           Walkthrough
         </label>
@@ -753,13 +868,13 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_3_5_12_3" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_3_5_12_3" id="__nav_1_4_3_5_12_3_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_3_5_12_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_3_5_12_3" id="__nav_1_5_3_5_12_3_label" tabindex="0">
           Supplementary Information
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_3_5_12_3_label" class="md-nav" data-md-level="6">
-<label class="md-nav__title" for="__nav_1_4_3_5_12_3">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_3_5_12_3_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_5_3_5_12_3">
 <span class="md-nav__icon md-icon"></span>
           Supplementary Information
         </label>
@@ -791,13 +906,13 @@
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_3_5_14" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_3_5_14" id="__nav_1_4_3_5_14_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_3_5_14" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_3_5_14" id="__nav_1_5_3_5_14_label" tabindex="0">
           Remote Deployment
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_3_5_14_label" class="md-nav" data-md-level="5">
-<label class="md-nav__title" for="__nav_1_4_3_5_14">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_3_5_14_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_5_3_5_14">
 <span class="md-nav__icon md-icon"></span>
           Remote Deployment
         </label>
@@ -827,20 +942,20 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_4" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_4" id="__nav_1_4_4_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_4" id="__nav_1_5_4_label" tabindex="0">
           Application
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_4_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_4_4">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_5_4">
 <span class="md-nav__icon md-icon"></span>
           Application
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="../ApplicationServices/">
-        Overview
+        Application Services
       </a>
 </li>
 <li class="md-nav__item">
@@ -849,85 +964,125 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../Triggers/">
-        Triggers
+<a class="md-nav__link" href="../Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../ApiReference/">
+        API Reference
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_4_4" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_4_4" id="__nav_1_4_4_4_label" tabindex="0">
-          Application Functions SDK
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_4_5" id="__nav_1_5_4_5_label" tabindex="0">
+          App Functions SDK
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_4_4_label" class="md-nav" data-md-level="4">
-<label class="md-nav__title" for="__nav_1_4_4_4">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_4_5_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_5_4_5">
 <span class="md-nav__icon md-icon"></span>
-          Application Functions SDK
+          App Functions SDK
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../ApplicationFunctionsSDK/">
-        Overview
+<a class="md-nav__link" href="../sdk/Purpose/">
+        Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../ApplicationServiceAPI/">
-        Application Service API
+<a class="md-nav__link" href="../sdk/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_4_5_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_4_5_3" id="__nav_1_5_4_5_3_label" tabindex="0">
+          APIs
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_4_5_3_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_5_4_5_3">
+<span class="md-nav__icon md-icon"></span>
+          APIs
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../sdk/api/ApplicationServiceAPI/">
+        Application Service
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../AppFunctionContextAPI/">
-        App Function Context API
+<a class="md-nav__link" href="../sdk/api/AppFunctionContextAPI/">
+        App Function Context
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../ErrorHandling/">
-        Pipeline Function Error Handling
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../BuiltIn/">
-        Built-In Pipeline Functions
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../AdvancedTopics/">
-        Advanced Topics
+<a class="md-nav__link" href="../sdk/api/BuiltInPipelineFunctions/">
+        Pipeline Functions
       </a>
 </li>
 </ul>
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../GeneralAppServiceConfig/">
-        Application Service Configuration
+<a class="md-nav__link" href="../sdk/SourceCode/">
+        Source Code
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_4_6" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_4_6" id="__nav_1_4_4_6_label" tabindex="0">
-          Application Services
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_4_5_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_4_5_5" id="__nav_1_5_4_5_5_label" tabindex="0">
+          Additional Details
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_4_6_label" class="md-nav" data-md-level="4">
-<label class="md-nav__title" for="__nav_1_4_4_6">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_4_5_5_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_5_4_5_5">
 <span class="md-nav__icon md-icon"></span>
-          Application Services
+          Additional Details
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../services/AvailableAppServices/">
-        Available Services
+<a class="md-nav__link" href="../sdk/details/Triggers/">
+        Triggers
       </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../sdk/details/CustomConfiguration/">
+        Custom Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../sdk/details/AdvancedTopics/">
+        Advanced Topics
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_4_6_2" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_4_6_2" id="__nav_1_4_4_6_2_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_4_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_4_6" id="__nav_1_5_4_6_label" tabindex="0">
+          Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_4_6_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_5_4_6">
+<span class="md-nav__icon md-icon"></span>
+          Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_4_6_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_4_6_1" id="__nav_1_5_4_6_1_label" tabindex="0">
           App Service Configurable
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_4_6_2_label" class="md-nav" data-md-level="5">
-<label class="md-nav__title" for="__nav_1_4_4_6_2">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_4_6_1_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_5_4_6_1">
 <span class="md-nav__icon md-icon"></span>
           App Service Configurable
         </label>
@@ -958,13 +1113,13 @@
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_4_6_2_6" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_4_6_2_6" id="__nav_1_4_4_6_2_6_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_4_6_1_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_4_6_1_6" id="__nav_1_5_4_6_1_6_label" tabindex="0">
           Additional Details
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_4_6_2_6_label" class="md-nav" data-md-level="6">
-<label class="md-nav__title" for="__nav_1_4_4_6_2_6">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_4_6_1_6_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_5_4_6_1_6">
 <span class="md-nav__icon md-icon"></span>
           Additional Details
         </label>
@@ -1001,13 +1156,13 @@
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_4_6_4" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_4_6_4" id="__nav_1_4_4_6_4_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_4_6_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_4_6_3" id="__nav_1_5_4_6_3_label" tabindex="0">
           App Record &amp; Replay
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_4_6_4_label" class="md-nav" data-md-level="5">
-<label class="md-nav__title" for="__nav_1_4_4_6_4">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_4_6_3_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_5_4_6_3">
 <span class="md-nav__icon md-icon"></span>
           App Record &amp; Replay
         </label>
@@ -1052,38 +1207,13 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_5" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_5" id="__nav_1_4_5_label" tabindex="0">
-          SDKs
-          <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_5_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_4_5">
-<span class="md-nav__icon md-icon"></span>
-          SDKs
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../ApplicationFunctionsSDK/">
-        Application Functions SDK
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../device/sdk/Ch-DeviceSDK/">
-        Device Services SDK
-      </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_4_6" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_4_6" id="__nav_1_4_6_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5_5" id="__nav_1_5_5_label" tabindex="0">
           Configuration &amp; Registry
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_4_6_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_4_6">
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_5_5">
 <span class="md-nav__icon md-icon"></span>
           Configuration &amp; Registry
         </label>
@@ -1130,13 +1260,13 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_5" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_5" id="__nav_1_5_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6" id="__nav_1_6_label" tabindex="0">
           Security
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_5_label" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_1_5">
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_6">
 <span class="md-nav__icon md-icon"></span>
           Security
         </label>
@@ -1222,13 +1352,13 @@
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_5_17" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_5_17" id="__nav_1_5_17_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_17" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_17" id="__nav_1_6_17_label" tabindex="0">
           Threat Models
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_5_17_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_5_17">
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_17_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_6_17">
 <span class="md-nav__icon md-icon"></span>
           Threat Models
         </label>
@@ -1255,25 +1385,25 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_6" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_6" id="__nav_1_6_label" tabindex="0">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_7" id="__nav_1_7_label" tabindex="0">
           Migration
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="true" aria-labelledby="__nav_1_6_label" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_1_6">
+<nav aria-expanded="true" aria-labelledby="__nav_1_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_7">
 <span class="md-nav__icon md-icon"></span>
           Migration
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_6_1" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_6_1" id="__nav_1_6_1_label" tabindex="0">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_7_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_7_1" id="__nav_1_7_1_label" tabindex="0">
           V3.0 Migration
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="true" aria-labelledby="__nav_1_6_1_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_6_1">
+<nav aria-expanded="true" aria-labelledby="__nav_1_7_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_7_1">
 <span class="md-nav__icon md-icon"></span>
           V3.0 Migration
         </label>
@@ -1452,121 +1582,6 @@
 </li>
 </ul>
 </nav>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_7" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_7" id="__nav_1_7_label" tabindex="0">
-          Developer
-          <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_7_label" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_1_7">
-<span class="md-nav__icon md-icon"></span>
-          Developer
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedDevelopers/">
-        Getting Started as a Developer
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedGoDevelopers/">
-        Getting Started - Go Developers
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedCDevelopers/">
-        Getting Started - C Developers
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedHybrid/">
-        Working in a Hybrid Environment
-      </a>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_7_5" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_7_5" id="__nav_1_7_5_label" tabindex="0">
-          Native Build and Run Guides
-          <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_7_5_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_7_5">
-<span class="md-nav__icon md-icon"></span>
-          Native Build and Run Guides
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunNative/">
-        Native Build and Run
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunOnLinuxDistro/">
-        Build and Run on Linux on x86/x64
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunOnArm32/">
-        Build and Run on Linux on ARM 32
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunOnWindows/">
-        Build and Run on Windows on x86/x64
-      </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../getting-started/ApplicationFunctionsSDK/">
-        Application Functions SDK
-      </a>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_7_7" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_7_7" id="__nav_1_7_7_label" tabindex="0">
-          Device Services
-          <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_7_7_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_7_7">
-<span class="md-nav__icon md-icon"></span>
-          Device Services
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedSDK/">
-        Device Service SDK
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedSDK-C/">
-        C SDK
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedSDK-Go/">
-        Golang SDK
-      </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedUsersNexus/">
-        Getting Docker Images from EdgeX Nexus Repository
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedDTOValidation/">
-        DTO Validation
-      </a>
 </li>
 </ul>
 </nav>
@@ -1804,8 +1819,8 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../api/applications/Ch-APIAppFunctionsSDK/">
-        Application Services
+<a class="md-nav__link" href="../ApiReference/">
+        App Services
       </a>
 </li>
 <li class="md-nav__item">
@@ -2069,14 +2084,14 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="v3-application-service-migration-guide">V3 Application Service Migration Guide</h1>
+<h1 id="application-services-v3-migration-guide">Application Services - V3 Migration Guide</h1>
 <h2 id="configuration">Configuration</h2>
 <p>The migration of any Application Service's configuration starts with migrating configuration common to all EdgeX services. See the <a href="../../configuration/V3MigrationCommonConfig">V3 Migration of Common Configuration</a> section for details including the change from <strong>TOML</strong> format to <strong>YAML</strong> format for the configuration file. The remainder of this section focuses on configuration specific to Application Services.</p>
 <h3 id="common-configuration-removed">Common Configuration Removed</h3>
 <p>Any configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom application service's private configuration. </p>
 <ul>
 <li>See <a href="../../configuration/CommonConfiguration/">Common Service Configuration</a> section for details about configuration that is common to all Edgex services. </li>
-<li>See <a href="../GeneralAppServiceConfig">Application Service Configuration</a> section for details about configuration that is common to all EdgeX Application Services.</li>
+<li>See <a href="../Configuration/">Application Service Configuration</a> section for details about configuration that is common to all EdgeX Application Services.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2098,7 +2113,7 @@
 </code></pre></div>
 <h3 id="trigger">Trigger</h3>
 <h4 id="edgex-messagebus-changes">edgex-messagebus changes</h4>
-<p>As noted above the EdgeX MessageBus configuration has been removed from the <strong>Trigger</strong> configuration. In addition the <code>SubscribeTopics</code> and <code>PublishTopic</code> settings have been move to the top level of the <strong>Trigger</strong> configuration. Most application services can simply use the default trigger configuration from application service common configuration.</p>
+<p>As noted above the EdgeX MessageBus configuration has been removed from the <strong>Trigger</strong> configuration. In addition, the <code>SubscribeTopics</code> and <code>PublishTopic</code> settings have been move to the top level of the <strong>Trigger</strong> configuration. Most application services can simply use the default trigger configuration from application service common configuration.</p>
 <div class="admonition example -">
 <p class="admonition-title">Example application service Trigger configuration - From Common Configuration </p>
 <div class="highlight"><pre><span></span><code><span class="nt">Trigger</span><span class="p">:</span>
@@ -2115,7 +2130,7 @@
 <div class="admonition example -">
 <p class="admonition-title">Example local application service Trigger configuration - <strong>PublishTopic</strong></p>
 <div class="highlight"><pre><span></span><code><span class="nt">Trigger</span><span class="p">:</span>
-<span class="w">  </span><span class="c1"># Default value for SubscribeTopics is aslo set in common config</span>
+<span class="w">  </span><span class="c1"># Default value for SubscribeTopics is also set in common config</span>
 <span class="w">  </span><span class="nt">PublishTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;my-topic&gt;"</span><span class="w">  </span><span class="c1"># Base topic is prepended to this topic when using edgex-messagebus</span>
 </code></pre></div>
 </div>
@@ -2217,11 +2232,11 @@
 <li><code>LoadConfigurablePipeline</code> has been removed. Use <code>LoadConfigurableFunctionPipelines</code></li>
 <li><code>CommandClient</code> <code>Get</code> API's <code>dsPushEvent</code> and <code>dsReturnEvent</code> parameters changed to be type <code>bool</code></li>
 </ol>
-<p>See <a href="../ApplicationServiceAPI">Application Service API</a> section for completed details on this API, including some new capabilities.</p>
+<p>See <a href="../sdk/api/ApplicationServiceAPI/">Application Service API</a> section for completed details on this API, including some new capabilities.</p>
 <h5 id="appfunctioncontext-api">AppFunctionContext API</h5>
 <p>The <code>AppFunctionContext</code> API has the following changes:</p>
 <ol>
-<li>Deprecated <code>PushToCore</code> has been removed. Use <a href="..//BuiltIn/#wrap-into-event">WrapIntoEvent</a> function and publishing to the EdgeX MessageBus instead. See <a href="../Triggers/#publishtopic">Trigger.PublishTopic</a> or <a href="../ApplicationServiceAPI/#background-publisher-apis">Background Publisher</a> sections for more details on publishing data back to the EdgeX MessageBus.</li>
+<li>Deprecated <code>PushToCore</code> has been removed. Use <a href="../sdk/api/BuiltInPipelineFunctions/#wrap-into-event">WrapIntoEvent</a> function and publishing to the EdgeX MessageBus instead. See <a href="../sdk/details/Triggers/#publishtopic">Trigger.PublishTopic</a> or <a href="../sdk/api/ApplicationServiceAPI/#publish">Publish</a> sections for more details on publishing data back to the EdgeX MessageBus.</li>
 <li><code>GetSecret</code> has been removed. Use <code>SecretProvider().GetSecret</code></li>
 <li><code>StoreSecret</code> has been removed. Use <code>SecretProvider().StoreSecret</code></li>
 <li><code>SecretsLastUpdated</code> has been removed. Use <code>SecretProvider().SecretsLastUpdated</code></li>
@@ -2250,11 +2265,11 @@
 </ul>
 </li>
 <li><strong>CoreData</strong>- Removed<ul>
-<li>The deprecated <code>PushToCoreData</code> function has been removed. Use <a href="..//BuiltIn/#wrap-into-event">WrapIntoEvent</a> function and publishing to the EdgeX MessageBus instead. See <a href="../Triggers/#publishtopic">Trigger.PublishTopic</a> or <a href="../ApplicationServiceAPI/#background-publisher-apis">Background Publisher</a> sections for more details on publishing data back to the EdgeX MessageBus.</li>
+<li>The deprecated <code>PushToCoreData</code> function has been removed. Use <a href="../sdk/api/BuiltInPipelineFunctions/#wrap-into-event">WrapIntoEvent</a> function and publishing to the EdgeX MessageBus instead. See <a href="../sdk/details/Triggers/#publishtopic">Trigger.PublishTopic</a> or <a href="../sdk/api/ApplicationServiceAPI/#publish">Publish</a> sections for more details on publishing data back to the EdgeX MessageBus.</li>
 </ul>
 </li>
 <li><strong>Encryption</strong> - Removed<ul>
-<li>The deprecated <code>EncryptWithAES</code> function has been removed, use <code>AESProtection.Encrypt</code> instead. See <a href="../BuiltIn/#aesprotection">AES Protection</a> for more details</li>
+<li>The deprecated <code>EncryptWithAES</code> function has been removed, use <code>AESProtection.Encrypt</code> instead. See <a href="../sdk/api/BuiltInPipelineFunctions/#aesprotection">AES Protection</a> for more details</li>
 </ul>
 </li>
 <li><strong>Filter</strong><ul>
@@ -2296,10 +2311,10 @@
 <h2 id="app-service-configurable">App Service Configurable</h2>
 <h3 id="profiles">Profiles</h3>
 <ul>
-<li><code>PushToCore</code> profile has been removed. Use <a href="..//BuiltIn/#wrap-into-event">WrapIntoEvent</a> function and publishing to the EdgeX MessageBus instead. See <a href="../Triggers/#publishtopic">Trigger.PublishTopic</a> or <a href="../ApplicationServiceAPI/#background-publisher-apis">Background Publisher</a> sections for more details on publishing data back to the EdgeX MessageBus.</li>
+<li><code>PushToCore</code> profile has been removed. Use <a href="../sdk/api/BuiltInPipelineFunctions/#wrap-into-event">WrapIntoEvent</a> function and publishing to the EdgeX MessageBus instead. See <a href="../sdk/details/Triggers/#publishtopic">Trigger.PublishTopic</a> or <a href="../sdk/api/ApplicationServiceAPI/#publish">Publish</a> sections for more details on publishing data back to the EdgeX MessageBus.</li>
 </ul>
 <h3 id="custom-profiles">Custom Profiles</h3>
-<p>Custom profiles for App Service Configurable must be migrated in a similar fashion to the configuration for custom application services.  All configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom profiles. See <a href="../../configuration/CommonConfiguration/">Common Service Configuration</a> section for details about configuration that is common to all Edgex services. See <a href="../GeneralAppServiceConfig">Application Service Configuration</a> section for details about configuration that is common to all EdgeX Application Services. Use the App Service Configurable provided profiles as examples of what configuration is left after removing the common configuration.</p>
+<p>Custom profiles for App Service Configurable must be migrated in a similar fashion to the configuration for custom application services.  All configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom profiles. See <a href="../../configuration/CommonConfiguration/">Common Service Configuration</a> section for details about configuration that is common to all Edgex services. See <a href="../Configuration/">Application Service Configuration</a> section for details about configuration that is common to all EdgeX Application Services. Use the App Service Configurable provided profiles as examples of what configuration is left after removing the common configuration.</p>
 <h3 id="pipeline-configuration">Pipeline Configuration</h3>
 <ul>
 <li><strong>Writable.Pipeline.TargetType</strong> has change from a bool to a string with valid values or <code>raw</code>, <code>event</code> or <code>metric</code></li>
@@ -2336,13 +2351,13 @@
               </div>
 </div>
 </a>
-<a aria-label="Next: Getting Started as a Developer" class="md-footer__link md-footer__link--next" href="../../../getting-started/Ch-GettingStartedDevelopers/" rel="next">
+<a aria-label="Next: Using the Virtual Device Service" class="md-footer__link md-footer__link--next" href="../../../examples/Ch-ExamplesVirtualDeviceService/" rel="next">
 <div class="md-footer__title">
 <span class="md-footer__direction">
                 Next
               </span>
 <div class="md-ellipsis">
-                Getting Started as a Developer
+                Using the Virtual Device Service
               </div>
 </div>
 <div class="md-footer__button md-icon">
