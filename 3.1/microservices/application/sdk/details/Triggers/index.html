@@ -2172,7 +2172,18 @@ the external MQTT Broker on the topic specified by the <code>PublishTopic</code>
 <span class="w">    </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"external-mqtt"</span>
 <span class="w">    </span><span class="nt">RetryDuration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">600</span>
 <span class="w">    </span><span class="nt">RetryInterval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">Will</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">Enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># Enables Last Will capability</span>
+<span class="w">      </span><span class="nt">Topic</span><span class="p">:</span><span class="w"> </span><span class="s">"serviceX/last/will"</span><span class="w"> </span><span class="c1"># Topic to publish the Last Will Payload when service disconnects from MQTT Broker</span>
+<span class="w">      </span><span class="nt">Payload</span><span class="p">:</span><span class="w"> </span><span class="s">"serviceX</span><span class="nv"> </span><span class="s">has</span><span class="nv"> </span><span class="s">exited"</span><span class="w"> </span><span class="c1"># Will message to be sent to Will Topic</span>
+<span class="w">      </span><span class="nt">Qos</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"> </span><span class="c1"># QOS level for Will Topic</span>
+<span class="w">      </span><span class="nt">Retained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># Retained setting for Will Topic</span>
 </code></pre></div></p>
+<p>See for <a href="https://cedalo.com/blog/mqtt-last-will-explained-and-example">MQTT Last Will</a> for more details on MQTT Last Will capability.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.1</p>
+<p>Last Will capability is new in EdgeX 3.1</p>
+</div>
 <h2 id="http-trigger">HTTP Trigger</h2>
 <p>Designating an HTTP trigger will allow the pipeline to be triggered by a RESTful <code>POST</code> call to <code>http://[host]:[port]/api/v3/trigger/</code>. </p>
 <h3 id="type-configuration_2">Type Configuration</h3>

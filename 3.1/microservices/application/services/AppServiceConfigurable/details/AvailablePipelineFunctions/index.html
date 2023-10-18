@@ -2440,11 +2440,35 @@ Please refer to the <a href="../../GettingStarted">Getting Started</a> section f
 <td>SecretName</td>
 <td>Name of the  secret in the SecretStore where authentication secrets are stored</td>
 </tr>
+<tr>
+<td>WillEnabled</td>
+<td>Enables Last Will Capability. See for <a href="https://cedalo.com/blog/mqtt-last-will-explained-and-example">MQTT Last Will</a> more details.</td>
+</tr>
+<tr>
+<td>WillTopic</td>
+<td>Topic Last Will messages is publish</td>
+</tr>
+<tr>
+<td>WillPayload</td>
+<td>Last Will messages to be published when service disconnects from broker</td>
+</tr>
+<tr>
+<td>WillRetain</td>
+<td>Boolean  specifying if the MQTT Broker should save the last message published as the “Last Good Message” on the Will topic</td>
+</tr>
+<tr>
+<td>WillQos</td>
+<td>MQTT Quality of Service (QOS) setting to use (0, 1 or 2) for Last Will Message.</td>
+</tr>
 </tbody>
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code>Authmode=cacert</code> is only needed when client authentication (e.g. <code>usernamepassword</code>) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.</p>
+</div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.1</p>
+<p>Last Will capability is new in EdgeX 3.1</p>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -2468,6 +2492,24 @@ Please refer to the <a href="../../GettingStarted">Getting Started</a> section f
 <span class="w">    </span><span class="nt">PersistOnError</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">    </span><span class="nt">AuthMode</span><span class="p">:</span><span class="w"> </span><span class="s">"usernamepassword"</span>
 <span class="w">    </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="s">"mqtt"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># MQTT Export with Will Options</span>
+<span class="nt">MQTTExport</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">BrokerAddress</span><span class="p">:</span><span class="w"> </span><span class="s">"tcps://my-broker-host.com:8883"</span>
+<span class="w">    </span><span class="nt">Topic</span><span class="p">:</span><span class="w"> </span><span class="s">"mytopic"</span>
+<span class="w">    </span><span class="nt">ClientId</span><span class="p">:</span><span class="w"> </span><span class="s">"myclientid"</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Qos="2"</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">AutoReconnect="true"</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Retain="true"</span>
+<span class="w">    </span><span class="nt">SkipVerify</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
+<span class="w">    </span><span class="nt">PersistOnError</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">    </span><span class="nt">AuthMode</span><span class="p">:</span><span class="w"> </span><span class="s">"none"</span>
+<span class="w">    </span><span class="nt">WillEnabled</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">    </span><span class="nt">WillPayload</span><span class="p">:</span><span class="w"> </span><span class="s">"serviceX</span><span class="nv"> </span><span class="s">has</span><span class="nv"> </span><span class="s">exited"</span>
+<span class="w">    </span><span class="nt">WillQos</span><span class="p">:</span><span class="w"> </span><span class="s">"2"</span>
+<span class="w">    </span><span class="nt">WillRetained</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">    </span><span class="nt">WillTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"serviceX/last/will"</span>
 </code></pre></div></p>
 </div>
 <h2 id="setresponsedata"><a href="../../../../BuiltIn/#set-response-data">SetResponseData</a></h2>

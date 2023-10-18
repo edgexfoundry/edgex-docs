@@ -2636,7 +2636,7 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">type</span><span class="w"> </span><span class="nx">MQTTSecretConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">MQTTSecretConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// BrokerAddress should be set to the complete broker address i.e. mqtts://mosquitto:8883/mybroker</span>
 <span class="w">    </span><span class="nx">BrokerAddress</span><span class="w"> </span><span class="kt">string</span>
 <span class="w">    </span><span class="c1">// ClientId to connect with the broker with.</span>
@@ -2662,8 +2662,28 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <span class="w">    </span><span class="c1">// If a CA Cert exists in the SecretName data then it will be used for </span>
 <span class="w">    </span><span class="c1">// all modes except "none". </span>
 <span class="w">    </span><span class="nx">AuthMode</span><span class="w"> </span><span class="kt">string</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// Will contains the Last Will configuration for the MQTT Client</span>
+<span class="w">    </span><span class="nx">Will</span><span class="w"> </span><span class="nx">WillConfig</span>
+<span class="p">}</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">WillConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Enabled enables Last Will capability on the client connection</span>
+<span class="w">    </span><span class="nx">Enabled</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">    </span><span class="c1">// Payload is the Last Will Message sent to other clients that are subscribed to the Will Topic</span>
+<span class="w">    </span><span class="nx">Payload</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="c1">// Qos is the Quality of Service for the Will Topic</span>
+<span class="w">    </span><span class="nx">Qos</span><span class="w"> </span><span class="kt">byte</span>
+<span class="w">    </span><span class="c1">// Retained is the "retain" setting for the Will Topic</span>
+<span class="w">    </span><span class="nx">Retained</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">    </span><span class="c1">// Topic is the topic the Last Will message is published when service disconnects from MQTT Broker</span>
+<span class="w">    </span><span class="nx">Topic</span><span class="w"> </span><span class="kt">string</span>
+<span class="p">}</span>
 </code></pre></div>
+<p>See for <a href="https://cedalo.com/blog/mqtt-last-will-explained-and-example">MQTT Last Will</a> for more details on MQTT Last Will capability.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.1</p>
+<p>Last Will capability is new in EdgeX 3.1</p>
+</div>
 <p>Secrets in the Secret Store may be located at any SecretName however they must have some or all the follow keys at the specified in the secret data: </p>
 <ul>
 <li><code>username</code> - username to connect to the broker</li>
