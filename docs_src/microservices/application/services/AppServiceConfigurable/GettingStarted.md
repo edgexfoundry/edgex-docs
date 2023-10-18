@@ -1,5 +1,8 @@
-# App Service Configurable
-## Getting Started
+---
+title: App Service Configurable - Getting Started
+---
+
+# App Service Configurable - Getting Started
 
 To get started with App Service Configurable, you'll want to start by determining which functions are required in your pipeline. Using a simple example, let's assume you wish to use the following functions from the SDK:
 

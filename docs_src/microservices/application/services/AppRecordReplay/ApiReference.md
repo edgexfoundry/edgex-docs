@@ -1,6 +1,8 @@
-# App Record and Replay
+---
+title: App Record Replay - API Reference
+---
 
-## API Reference
+# App Record and Replay - API Reference
 
 Control of this service is accomplished via the following REST API. In addition, 
 this service does inherit the [common APIs](../../../../api/Ch-APIIntroduction.md/) and 

@@ -1,6 +1,8 @@
-# Core Data
+---
+title: Core Data - Events and Readings
+---
 
-## Events and Readings
+# Core Data - Events and Readings
 
 Data collected from sensors is marshalled into EdgeX event and reading objects (delivered as JSON objects or a binary object encoded as [CBOR](../../../../general/Definitions.md#cbor) to core data).
 An event represents a collection of one or more sensor readings.  

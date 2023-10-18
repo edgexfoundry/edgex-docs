@@ -1,6 +1,8 @@
-# App Service Configurable
+---
+title: App Service Configurable - Configuration
+---
 
-## Configuration
+# App Service Configurable - Configuration
 
 App Service Configurable is all about configuration rather than code. 
 The service configuration section that makes this possible is `Writable.Pipeline`. 
@@ -8,7 +10,7 @@ Understanding this configuration section is of utmost importance when using App 
 The remaining service configuration is common to all application services. 
 See [Application Service Configuration](../../Configuration.md) section for more details.
 
-### Writable Pipeline
+## Writable Pipeline
 
 The `Writable.Pipeline` section of configuration has the following elements:
 

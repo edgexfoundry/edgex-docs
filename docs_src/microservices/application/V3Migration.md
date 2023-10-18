@@ -116,9 +116,7 @@ See [Pipeline Configuration](#pipeline-configuration) section below for changes 
 
 ## Custom Application Service 
 
-### Code
-
-#### Dependencies
+### Dependencies
 
 You first need to update the `go.mod` file to specify `go 1.20` and the v3 versions of the App Functions SDK and any EdgeX go-mods directly used by your service. 
 
@@ -148,9 +146,9 @@ Once that is complete then the import statements for these dependencies must be 
     )
     ```
 
-#### API Changes
+### API Changes
 
-##### ApplicationService API
+#### ApplicationService API
 
 The `ApplicationService` API has the following changes:
 
@@ -164,7 +162,7 @@ The `ApplicationService` API has the following changes:
 
 See [Application Service API](sdk/api/ApplicationServiceAPI.md) section for completed details on this API, including some new capabilities.
 
-##### AppFunctionContext API
+#### AppFunctionContext API
 
 The `AppFunctionContext ` API has the following changes:
 
@@ -174,7 +172,7 @@ The `AppFunctionContext ` API has the following changes:
 4. `SecretsLastUpdated` has been removed. Use `SecretProvider().SecretsLastUpdated`
 5. `CommandClient` `Get` API's `dsPushEvent` and `dsReturnEvent` parameters changed to be type `bool`
 
-#### Pipeline Functions
+### Pipeline Functions
 
 - **AESProtection**
     - `NewAESProtection` signature has changes. 
