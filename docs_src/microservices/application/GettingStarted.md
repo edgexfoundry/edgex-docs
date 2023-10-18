@@ -1,4 +1,8 @@
-# Getting Started with Application Services
+---
+title: App Services - Getting Started
+---
+
+# Application Services - Getting Started
 
 ## Types of Application Services
 
@@ -6,21 +10,28 @@ There are two flavors of Applications Service which are `configurable` and `cust
 
 ### Configurable
 
-The `App Functions SDK` has a full suite of built-in features that are accessible via configuration when using the `App Service Configurable` service. This service is built using the `App Functions SDK` and uses  configuration profiles to define separate distinct instances of the service. The service comes with a few built in profiles for common use cases, but custom profiles can also be used. If your use case needs can be meet with the built-in functionality then the `App Service Configurable` service is right for you. See the [App Service Configurable](services/AppServiceConfigurable/Purpose.md) section for more details.
+The `App Functions SDK` has a full suite of built-in pipeline functions that are accessible via configuration when using the `App Service Configurable` service. This service is built using the `App Functions SDK` and uses  configuration profiles to define separate distinct instances of the service. The service comes with a few built in profiles for common use cases, but custom profiles can also be used. If your use case needs can be met with the built-in functionality then the `App Service Configurable` service is right for you. See the [App Service Configurable](services/AppServiceConfigurable/Purpose.md) section for more details.
 
 ### Custom
 
-Custom Application Services are needed when use case needs can not be meet with just the built-in functionality. This is when you must develop you own custom Application Service use the `App Functions SDK`. Typically this is triggered by the use case needing an custom `Pipeline Function` . See the [App Functions SDK](./ApplicationFunctionsSDK.md) section for all the details on the features you custom Application Service can take advantage of.
+Custom Application Services are needed when use case needs can not be met with just the built-in functionality. This is when you must develop you own custom Application Service using the **App Functions SDK**. Typically, this is triggered by the use case needing a custom pipeline function to process the data in a way not provided by the **App Functions SDK**. See the [App Functions SDK](sdk/Purpose.md) section for all the details on the features your custom Application Service can take advantage of.
 
-### Template
+## Template
 
-To help accelerate the creation of your custom Application Service the `App Functions SDK` contains a template for new custom Application Services. This template has TODO's in the code and a README that walk you through the creation of your new custom Application Service. See the template [README](https://github.com/edgexfoundry/app-functions-sdk-go/tree/{{edgexversion}}/app-service-template#readme) for more details.
+To help accelerate the creation of your new custom Application Service the **App Functions SDK** contains a template for new custom Application Services. This template has TODOs in the code and a README that walk you through the creation of your new custom Application Service. See the template [README](https://github.com/edgexfoundry/app-functions-sdk-go/tree/{{edgexversion}}/app-service-template#readme) for more details.
 
 ## Triggers
 
-`Triggers` are common to both `Configurable` and `Custom` Application Services. The are the next logical area to get familiar with. See the [Triggers](./Triggers.md) section for more details.
+`Triggers` are common to both `Configurable` and `Custom` Application Services. They are the next logical area to get familiar with. See the [Triggers](sdk/details/Triggers.md) section for more details.
 
 ## Configuration
 
-Finally service configuration is very important to understand for both `Configurable` and `Custom` Application Services. The service configuration documentation is broken into two parts. First is the configuration that is common to all EdgeX services and the second is the configuration that is specific to Application Services. See the [Common Configuration](../configuration/CommonConfiguration.md) and [Application Service Configuration](./GeneralAppServiceConfig.md) sections for more details.
+Service configuration is very important to understand for both **Configurable** and **Custom** Application Services. The application service configuration documentation is broken into three parts. First is the configuration that is common to all EdgeX services, second is the configuration that is common to all Application Services and third is the configuration for **App Service Configurable**. See the following sections for more details on each: 
 
+- [EdgeX Common Configuration](../configuration/CommonConfiguration.md) 
+- [Application Service Common Configuration](Configuration.md)
+- [App Service Configurable Configuration](services/AppServiceConfigurable/Configuration.md)
+
+## Examples
+
+There are many example custom application services that are a great place to start getting familiar with Application Services. See [Application Service Examples](../../examples/AppServiceExamples.md) for the complete list a links. They include an example profile for App Service Configurable.

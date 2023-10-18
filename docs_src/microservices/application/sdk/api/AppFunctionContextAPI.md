@@ -1,4 +1,9 @@
-# App Function Context API
+---
+title: App SDK - App Function Context API
+---
+
+# App Functions SDK - App Function Context API
+
 The context parameter passed to each function/transform provides operations and data associated with each execution of the pipeline. 
 
 Let's take a look at its API:
@@ -64,7 +69,7 @@ This API returns the content type that will be returned to the trigger when pipe
 
 `LoggingClient() logger.LoggingClient`
 
-Returns a `LoggingClient` to leverage logging libraries/service utilized throughout the EdgeX framework. The SDK has initialized everything so it can be used to log `Trace`, `Debug`, `Warn`, `Info`, and `Error` messages as appropriate. 
+Returns a `LoggingClient` to leverage logging libraries/service utilized throughout the EdgeX framework. The SDK has initialized everything, so it can be used to log `Trace`, `Debug`, `Warn`, `Info`, and `Error` messages as appropriate. 
 
 !!! example "Example - LoggingClient"
     ```go
@@ -184,7 +189,7 @@ This API returns a read-only copy of all data stored in the context
 ### ApplyValues
 `ApplyValues(format string) (string, error)` 
 
-This API will replace placeholders of the form `{context-key-name}` with the value found in the context at `context-key-name`.  Note that key matching is case insensitive.  An error will be returned if any placeholders in the provided string do NOT have a corresponding entry in the context storage map.
+This API will replace placeholders of the form `{context-key-name}` with the value found in the context at `context-key-name`.  Note that key matching is case-insensitive.  An error will be returned if any placeholders in the provided string do NOT have a corresponding entry in the context storage map.
 
 ## Secrets
 
@@ -228,7 +233,7 @@ This API retrieves the DeviceResource for the given profile / resource name. Res
 This method can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on `Store and Forward` configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The `Context` will also be restored to the state when the function called this API. See [Store and Forward](../AdvancedTopics/#store-and-forward) for more details.
 
 !!! note
-    `Store and Forward` be must enabled when calling this API, otherwise the data is ignored.
+    `Store and Forward` be must be enabled when calling this API, otherwise the data is ignored.
 
 ### MetricsManager
 
@@ -253,4 +258,4 @@ This API pushes data to the EdgeX MessageBus using configured topic and returns 
 
 `PublishWithTopic(topic string, data any) error`
 
-This API pushes data to the EdgeX MessageBus using a given topic and returns an error if the EdgeX MessageBus is diasbled in configuration
+This API pushes data to the EdgeX MessageBus using a given topic and returns an error if the EdgeX MessageBus is disabled in configuration

@@ -1,8 +1,10 @@
-# Getting Started
+---
+title: App SDK - Getting Started
+---
 
-## The Application Functions SDK
+# App Functions SDK - Getting Started
 
-The SDK is built around the idea of a "Functions Pipeline". A functions pipeline is a collection of various functions that process the data in the order that you've specified. The functions pipeline is executed by the specified [trigger](../microservices/application/Triggers.md) in the `configuration.yaml` . The first function in the pipeline is called with the event that triggered the pipeline (ex. `dtos.Event`). Each successive call in the pipeline is called with the return result of the previous function. Let's take a look at a simple example that creates a pipeline to filter particular device ids and subsequently transform the data to XML:
+The SDK is built around the idea of a "Functions Pipeline". A functions pipeline is a collection of various functions that process the data in the order that you've specified. The functions pipeline is executed by the specified [trigger](details/Triggers.md) in the `configuration.yaml` . The first function in the pipeline is called with the event that triggered the pipeline (ex. `dtos.Event`). Each successive call in the pipeline is called with the return result of the previous function. Let's take a look at a simple example that creates a pipeline to filter particular device ids and subsequently transform the data to XML:
 ```go
 package main
 
@@ -11,9 +13,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/edgexfoundry/app-functions-sdk-go/v2/pkg"
-	"github.com/edgexfoundry/app-functions-sdk-go/v2/pkg/interfaces"
-	"github.com/edgexfoundry/app-functions-sdk-go/v2/pkg/transforms"
+	"github.com/edgexfoundry/app-functions-sdk-go/v3/pkg"
+	"github.com/edgexfoundry/app-functions-sdk-go/v3/pkg/interfaces"
+	"github.com/edgexfoundry/app-functions-sdk-go/v3/pkg/transforms"
 )
 
 const (
@@ -24,13 +26,13 @@ func main() {
 	// turn off secure mode for examples. Not recommended for production
 	_ = os.Setenv("EDGEX_SECURITY_SECRET_STORE", "false")
 
-	// 1) First thing to do is to create an new instance of an EdgeX Application Service.
+	// 1) First thing to do is to create a new instance of an EdgeX Application Service.
 	service, ok := pkg.NewAppService(serviceKey)
 	if !ok {
 		os.Exit(-1)
 	}
     
-	// Leverage the built in logging service in EdgeX
+	// Leverage the built-in logging service in EdgeX
 	lc := service.LoggingClient()
 
 	// 2) shows how to access the application's specific configuration settings.
@@ -70,7 +72,7 @@ The above example is meant to merely demonstrate the structure of your applicati
 
 ```go
 func printXMLToConsole(ctx interfaces.AppFunctionContext, data interface{}) (bool, interface{}) {
-	// Leverage the built in logging service in EdgeX
+	// Leverage the built-in logging service in EdgeX
 	lc := ctx.LoggingClient()
 
 	if data == nil {
@@ -97,11 +99,11 @@ if err := service.SetDefaultFunctionsPipeline(
     ...
 }
 ```
-Set the Trigger type to `http` in configuration file found here: [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{edgexversion}}/application-services/custom/simple-filter-xml/res)
+Set the Trigger type to `http` in configuration file found here: [res/configuration.yaml](https://github.com/edgexfoundry/edgex-examples/blob/{{edgexversion}}/application-services/custom/simple-filter-xml/res/configuration.yaml)
 
-```toml
-[Trigger]
-Type="http"
+```yaml 
+Trigger:
+  Type: http
 ```
 
 Using PostMan or curl send the following JSON to `localhost:<port>/api/{{api_version}}/trigger`
@@ -136,6 +138,10 @@ Using PostMan or curl send the following JSON to `localhost:<port>/api/{{api_ver
 After making the above modifications, you should now see data printing out to the console in XML when an event is triggered.
 
 !!! note
-    You can find this complete example "[Simple Filter XML](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/application-services/custom/simple-filter-xml)" and more examples located in the [examples](../examples/AppServiceExamples.md) section.
+    You can find this complete example "[Simple Filter XML](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/application-services/custom/simple-filter-xml)" and more examples located in the [examples](../../../examples/AppServiceExamples.md) section.
 
-Up until this point, the pipeline has been [triggered](../microservices/application/Triggers.md) by an event over HTTP and the data at the end of that pipeline lands in the last function specified. In the example, data ends up printed to the console. Perhaps we'd like to send the data back to where it came from. In the case of an HTTP trigger, this would be the HTTP response. In the case of  EdgeX MessageBus, this could be a new topic to send the data back to the MessageBus for other applications that wish to receive it. To do this, simply call `ctx.SetResponseData(data []byte)` passing in the data you wish to "respond" with. In the above `printXMLToConsole(...)` function, replace `println(xml)` with `ctx.SetResponseData([]byte(xml))`. You should now see the response in your postman window when testing the pipeline.
+Up until this point, the pipeline has been [triggered](details/Triggers.md) by an event over HTTP and the data at the end of that pipeline lands in the last function specified. In the example, data ends up printed to the console. Perhaps we'd like to send the data back to where it came from. In the case of an HTTP trigger, this would be the HTTP response. In the case of  EdgeX MessageBus, this could be a new topic to send the data back to the MessageBus for other applications that wish to receive it. To do this, simply call `ctx.SetResponseData(data []byte)` passing in the data you wish to "respond" with. In the above `printXMLToConsole(...)` function, replace `println(xml)` with `ctx.SetResponseData([]byte(xml))`. You should now see the response in your postman window when testing the pipeline.
+
+!!! note
+    The App Functions SDK contains a quick start template for creating new custom application services. See [https://github.com/edgexfoundry/app-functions-sdk-go/blob/v3.0/app-service-template/README.md](https://github.com/edgexfoundry/app-functions-sdk-go/blob/v3.0/app-service-template/README.md) 
+

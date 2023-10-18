@@ -20,18 +20,19 @@ Please refer to the general [Common Configuration documentation](../microservice
     |support-notifications	|[Support Notifications Configuration](../microservices/support/notifications/Ch-AlertsNotifications.md#configuration-properties)|
     |support-scheduler|	[Support Scheduler Configuration](../microservices/support/scheduler/Ch-Scheduler.md#configuration-properties)|
 === "Application & Analytics"
-    |Services Name|	Configuration Reference|
+    |Service Name|	Configuration Reference|
     |---|---|
-    |app-service|[General Application Service Configuration](../microservices/application/GeneralAppServiceConfig.md)|
+    |app-service|[General Application Service Configuration](../microservices/application/Configuration.md)|
     |app-service-configurable|[Configurable Application Service Configuration](../microservices/application/services/AppServiceConfigurable/Configuration.md)|
+    |app-record-replay|[App Record Replay Configuration](../microservices/application/services/AppRecordReplay/Configuration.md)|
     |eKuiper rules engine/eKuiper|[Basic eKuiper Configuration](https://github.com/lf-edge/ekuiper/blob/7ef3a19366ee1f4537747fdc2e574389225f5d51/docs/en_US/operation/config/configuration_file.md)|
 === "Device"
-    |Services Name|	Configuration Reference|
+    |Service Name|	Configuration Reference|
     |---|---|
     |device-service	|[General Device Service Configuration](../microservices/device/Ch-DeviceServices.md#configuration-properties)|
     |device-virtual	|[Virtual Device Service Configuration](../microservices/device/services/device-virtual/Ch-VirtualDevice.md#configuration-properties)|
 === "Security"
-    |Services Name|	Configuration Reference|
+    |Service Name|	Configuration Reference|
     |---|---|
     |API Gateway|[API Gateway Configuration](../security/Ch-APIGateway.md#configuring-api-gateway)|
     |Add-on Services |[Configuring Add-on Service](../security/Ch-Configuring-Add-On-Services.md)|

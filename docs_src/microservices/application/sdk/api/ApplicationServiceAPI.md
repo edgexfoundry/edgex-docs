@@ -1,4 +1,8 @@
-# Application Service API
+---
+title: App SDK - Application Service API
+---
+
+# App Functions SDK - Application Service API
 
 The `ApplicationService` API is the central API for creating an EdgeX Application Service.
 
@@ -84,7 +88,7 @@ See the [Target Type](../AdvancedTopics/#target-type) advanced topic for more de
 
 !!! example "Example - NewAppServiceWithTargetType"
     ``` go
-    const serviceKey = "app-myservice"
+    const serviceKey = "app-my-service"
     ...
     
     service, ok := pkg.NewAppServiceWithTargetType(serviceKey, &[]byte{})
@@ -379,7 +383,7 @@ This API removes all existing functions pipelines previously added via `SetDefau
 
 `Run() error`
 
-This API starts the configured trigger to allow the Functions Pipeline to execute when the trigger receives data. The internal webserver is also started. This is a long running API which does not return until the service is stopped or Stop() is called. An error is returned if the trigger can not be create or initialized or if the internal webserver encounters an error.
+This API starts the configured trigger to allow the Functions Pipeline to execute when the trigger receives data. The internal webserver is also started. This is a long-running API which does not return until the service is stopped or Stop() is called. An error is returned if the trigger can not be created or initialized or if the internal webserver encounters an error.
 
 !!! example "Example - Run"
 
@@ -438,7 +442,7 @@ This API returns the LoggingClient instance which the service uses to log messag
 
 `RegistryClient() registry.Client`
 
-This API returns the Registry Client. Note the registry must been enabled, otherwise this will return nil.
+This API returns the Registry Client. Note the registry must have been enabled, otherwise this will return nil.
 See the [Registry Client interface](https://github.com/edgexfoundry/go-mod-registry/blob/{{edgexversion}}/registry/interface.go#L23-L44) for more details. Useful if service needs to add additional health checks or needs to get endpoint of another registered service.
 
 ### EventClient
@@ -509,7 +513,7 @@ This API adds and returns a BackgroundPublisher which is used to publish asynchr
 
 `BuildContext(correlationId string, contentType string) AppFunctionContext`
 
-This API allows external callers that may need a context (eg background publishers) to easily create one.
+This API allows external callers that may need a context (e.g. background publishers) to easily create one.
 
 ## Other APIs
 
@@ -529,7 +533,7 @@ This API adds a custom REST route to the application service's internal webserve
 
 `AppContext() context.Context`
 
-This API returns the application service context used to detect cancelled context when the service is terminating. Used by custom app service to appropriately exit any long running functions.
+This API returns the application service context used to detect cancelled context when the service is terminating. Used by custom app service to appropriately exit any long-running functions.
 
 ### RequestTimeout
 
@@ -559,7 +563,7 @@ This API registers a trigger factory for a custom trigger to be used. See the [C
 
 `RegisterCustomStoreFactory(name string, factory func(cfg DatabaseInfo, cred config.Credentials) (StoreClient, error)) error`
 
-This API registers a factory to construct a custom store client for the [store & forward](AdvancedTopics.md#store-and-forward) loop.
+This API registers a factory to construct a custom store client for the [store & forward](../details/AdvancedTopics.md#store-and-forward) loop.
 
 ### MetricsManager
 
