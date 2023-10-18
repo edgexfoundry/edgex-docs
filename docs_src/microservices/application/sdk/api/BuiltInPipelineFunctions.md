@@ -294,7 +294,7 @@ The `URLFormatter` option allows you to override the default formatter with your
 | NewMQTTSecretSenderWithTopicFormatter(mqttConfig MQTTSecretConfig, persistOnError bool, topicFormatter StringValuesFormatter) | This factory function returns a `MQTTSecretSender` instance initialized with the options specified in the `MQTTSecretConfig`, `persistOnError ` and `topicFormatter `. See [Topic Formatting](#topic-formatting) below for more details. |
 
 ```go
-  type MQTTSecretConfig struct {
+type MQTTSecretConfig struct {
     // BrokerAddress should be set to the complete broker address i.e. mqtts://mosquitto:8883/mybroker
     BrokerAddress string
     // ClientId to connect with the broker with.
@@ -303,10 +303,10 @@ The `URLFormatter` option allows you to override the default formatter with your
     SecretName string
     // AutoReconnect indicated whether or not to retry connection if disconnected
     AutoReconnect bool
-	// KeepAlive is the interval duration between client sending keepalive ping to broker
-	KeepAlive string
-	// ConnectTimeout is the duration for timing out on connecting to the broker
-	ConnectTimeout string
+    // KeepAlive is the interval duration between client sending keepalive ping to broker
+    KeepAlive string
+    // ConnectTimeout is the duration for timing out on connecting to the broker
+    ConnectTimeout string
     // Topic that you wish to publish to
     Topic string
     // QoS for MQTT Connection
@@ -320,7 +320,22 @@ The `URLFormatter` option allows you to override the default formatter with your
     // If a CA Cert exists in the SecretName data then it will be used for 
     // all modes except "none". 
     AuthMode string
-  }
+    // Will contains the Last Will configuration for the MQTT Client
+    Will WillConfig
+}
+
+type WillConfig struct {
+	// Enabled enables Last Will capability on the client connection
+	Enabled bool
+	// Payload is the Last Will Message sent to other clients that are subscribed to the Will Topic
+	Payload string
+	// Qos is the Quality of Service for the Will Topic
+	Qos byte
+	// Retained is the "retain" setting for the Will Topic
+	Retained bool
+	// Topic is the topic the Last Will message is published when service disconnects from MQTT Broker
+	Topic string
+}
 ```
 
 Secrets in the Secret Store may be located at any SecretName however they must have some or all the follow keys at the specified in the secret data: 
