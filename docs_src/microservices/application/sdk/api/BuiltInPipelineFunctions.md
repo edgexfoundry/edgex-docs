@@ -338,6 +338,8 @@ type WillConfig struct {
 }
 ```
 
+See for [MQTT Last Will](https://cedalo.com/blog/mqtt-last-will-explained-and-example) for more details on MQTT Last Will capability.
+
 !!! edgey "EdgeX 3.1"
     Last Will capability is new in EdgeX 3.1
 
