@@ -152,7 +152,18 @@ Trigger:
     SecretName: "external-mqtt"
     RetryDuration: 600
     RetryInterval: 5
+    Will:
+      Enabled: true # Enables Last Will capability
+      Topic: "serviceX/last/will" # Topic to publish the Last Will Payload when service disconnects from MQTT Broker
+      Payload: "serviceX has exited" # Will message to be sent to Will Topic
+      Qos: 2 # QOS level for Will Topic
+      Retained: true # Retained setting for Will Topic
 ```
+
+See for [MQTT Last Will](https://cedalo.com/blog/mqtt-last-will-explained-and-example) for more details on MQTT Last Will capability.
+
+!!! edgey "EdgeX 3.1"
+    Last Will capability is new in EdgeX 3.1
 
 ## HTTP Trigger
 
