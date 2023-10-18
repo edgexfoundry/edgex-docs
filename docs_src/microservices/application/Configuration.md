@@ -8,7 +8,7 @@ Similar to other EdgeX services, application service configuration is first dete
 
 This section describes the configuration elements provided by the SDK that are unique to Application Services
 
-Please first refer to the general [Configuration documentation](../../configuration/CommonConfiguration) for configuration properties common across all EdgeX services.
+Please first refer to the general [Configuration documentation](../configuration/CommonConfiguration.md) for configuration properties common across all EdgeX services.
 
 !!! note
     `*`indicates the configuration value can be changed on the fly if using a configuration provider (like Consul).
@@ -19,7 +19,7 @@ The tabs below provide additional entries in the **Writable** section which are 
 
 === "Writable.StoreAndForward"
 
-    The section configures the **Store and Forward** capability. Please refer to [Store and Forward](sdk/details/AdvancedTopics.md#store-and-forward) documentation for more details.
+    The section configures the **Store and Forward** capability. Please refer to [Store and Forward](sdk/details/StoreAndForward.md) documentation for more details.
     
     | Configuration | Default Value |                                                              |
     | :------------ | ------------- | ------------------------------------------------------------ |
@@ -45,7 +45,7 @@ The tabs below provide additional entries in the **Writable** section which are 
 === "Writable.Telemetry"
     |Property|<Default Value|Description|
     |---|---|---|
-    |||See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration.md/#configuration-properties) for the Telemetry configuration common to all services |
+    |||See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration.md#common-configuration-properties) for the Telemetry configuration common to all services |
     |Metrics|     |Service metrics that the application service collects. Boolean value indicates if reporting of the metric is enabled. Custom metrics are also included here for custom application services that define custom metrics|
     |Metrics.MessagesReceived |  false |Enable/disable reporting of the built-in **MessagesReceived** metric|
     |Metrics.InvalidMessagesReceived | false |Enable/disable reporting of the built-in **InvalidMessagesReceived** metric|
@@ -56,7 +56,7 @@ The tabs below provide additional entries in the **Writable** section which are 
     |Metrics.PipelineMessagesProcessed | false |Enable/disable reporting of the built-in **PipelineMessagesProcessed** metric|
     |Metrics.PipelineProcessingErrors | false | Enable/disable reporting of the built-in **PipelineProcessingErrors** metric|
     |Metrics.PipelineMessageProcessingTime | false |Enable/disable reporting of the built-in **PipelineMessageProcessingTime** metric|
-    |Metrics.`<CustomMetric>`| false | (Service Specific) Enable/disable reporting of custom application service's custom metric. See [Custom Application Service Metrics](sdk/details/AdvancedTopics.md/#custom-application-service-metrics) for more detail|
+    |Metrics.`<CustomMetric>`| false | (Service Specific) Enable/disable reporting of custom application service's custom metric. See [Custom Application Service Metrics](sdk/details/CustomServiceMetrics.md) for more detail|
     |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
 
 ### Not Writable
@@ -82,13 +82,13 @@ The tabs below provide additional configuration which are applicable to Applicat
         Clients that are used from code must be present in the configuration, otherwise a nil reference will occur. `core-metadata` is already present in the common configuration, so it is not needed in the local private configuration.
 === "Trigger"
 
-    This section defines the `Trigger` for incoming data. See the [Triggers](sdk/details/Triggers.md) documentation for more details on the inner working of triggers. 
+    This section defines the `Trigger` for incoming data. See the [Triggers](details/Triggers.md) documentation for more details on the inner working of triggers. 
      
     |Configuration  |     Default Value     | Description |
     | --- | --- | -- |
     | Type | edgex-messagebus** | Indicates the `Trigger` binding type. valid values are `edgex-messagebus`, `external-mqtt`, `http`, or `<custom>` |
-    | SubscribeTopics | events/#** | Topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](sdk/details/Triggers.md#edgex-message-bus) Trigger for more details. |
-    | PublishTopic | blank** | Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](sdk/details/Triggers.md#edgex-message-bus) Trigger for more details. |
+    | SubscribeTopics | events/#** | Topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](details/Triggers.md#edgex-message-bus) Trigger for more details. |
+    | PublishTopic | blank** | Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](details/Triggers.md#edgex-message-bus) Trigger for more details. |
 
 === "Trigger ExternalMqtt"
 
@@ -110,11 +110,18 @@ The tabs below provide additional configuration which are applicable to Applicat
     | SkipCertVerify | false**       | Indicates if the certificate verification should be skipped  |
     | SecretPath | blank**       | Name of the path in secret provider to retrieve your secrets. Must be non-blank. |
     | AuthMode | blank**       | Indicates what to use when connecting to the broker. Must be one of "none", "cacert" , "usernamepassword", "clientcert". <br />If a CA Cert exists in the SecretPath then it will be used for all modes except "none". |
-    | RetryDuration | 600 | Indicates how long (in seconds) to wait timing out on the MQTT client creation |
-    | RetryInterval | 5 | Indicates the time (in seconds) that will be waited between attempts to create MQTT client |
+    | RetryDuration | 600** | Indicates how long (in seconds) to wait timing out on the MQTT client creation |
+    | RetryInterval | 5** | Indicates the time (in seconds) that will be waited between attempts to create MQTT client |
+    | Will: Enabled | false** | Enables Last Will capability |
+    | Will: Topic | blank** | Topic to publish the Last Will Payload when service disconnects from MQTT Broker |
+    | Will: Payload | blank** | Will message to be sent to the Will Topic |
+    | Will: Qos | blank** | QOS level for Will Topic |
+    | Will: Retained | false** | Retained setting for Will Topic |
+
+
 
 !!! note
-        `Authmode=cacert` is only needed when client authentication (e.g. `usernamepassword`) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.
+    `Authmode=cacert` is only needed when client authentication (e.g. `usernamepassword`) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.
 
 === "Application Settings"
 

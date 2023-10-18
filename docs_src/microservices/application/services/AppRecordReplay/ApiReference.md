@@ -5,11 +5,11 @@ title: App Record Replay - API Reference
 # App Record and Replay - API Reference
 
 Control of this service is accomplished via the following REST API. In addition, 
-this service does inherit the [common APIs](../../../../api/Ch-APIIntroduction.md/) and 
-the [Trigger API](../../Triggers.md/#http-trigger) from the SDK.
+this service does inherit the [common APIs](../../../../api/Ch-APIIntroduction.md) and 
+the [Trigger API](../../details/Triggers.md#http-trigger) from the SDK.
 
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/app-record-replay/{{edgexversion}}/openapi/{{api_version}}/app-record-replay.yaml"/>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/app-record-replay/{{edgexversion}}/openapi/{{api_version}}/app-record-replay.yaml"></swagger-ui>
 
 ## Postman Collection
 

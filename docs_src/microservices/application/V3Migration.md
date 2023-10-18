@@ -6,17 +6,17 @@ title: App Services - V3 Migration Guide
 
 ## Configuration
 
-The migration of any Application Service's configuration starts with migrating configuration common to all EdgeX services. See the [V3 Migration of Common Configuration](../../configuration/V3MigrationCommonConfig) section for details including the change from **TOML** format to **YAML** format for the configuration file. The remainder of this section focuses on configuration specific to Application Services.
+The migration of any Application Service's configuration starts with migrating configuration common to all EdgeX services. See the [V3 Migration of Common Configuration](../configuration/V3MigrationCommonConfig.md) section for details including the change from **TOML** format to **YAML** format for the configuration file. The remainder of this section focuses on configuration specific to Application Services.
 
 ### Common Configuration Removed
 
 Any configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom application service's private configuration. 
 
-- See [Common Service Configuration](../../configuration/CommonConfiguration/) section for details about configuration that is common to all Edgex services. 
+- See [Common Service Configuration](../configuration/CommonConfiguration.md) section for details about configuration that is common to all Edgex services. 
 - See [Application Service Configuration](Configuration.md) section for details about configuration that is common to all EdgeX Application Services.
 
 !!! note
-    With this change, any custom application service must be run with either the `-cp/--configProvider` flag or the `-cc/--commonConfig` flag in order for the service to receive the common configuration that has been removed from its private configuration. See [Config Provider](../../configuration/CommonCommandLineOptions/#config-provider) and [Common Config](../../configuration/CommonCommandLineOptions/#common-config) sections for more details on these flags.
+    With this change, any custom application service must be run with either the `-cp/--configProvider` flag or the `-cc/--commonConfig` flag in order for the service to receive the common configuration that has been removed from its private configuration. See [Config Provider](../configuration/CommonCommandLineOptions.md#config-provider) and [Common Config](../configuration/CommonCommandLineOptions.md#common-config) sections for more details on these flags.
 
 ### MessageBus
 
@@ -76,7 +76,7 @@ Some application services may need to publish results back to the EdgeX MessageB
 - If your service uses filter by topic
     1. Move `SubscribeTopics` to top level in your **Trigger** configuration
     2. Remove `edgex/` prefix from each topic if used
-    3. Replace `#` between levels with `+` . See [Multi-level topics and wildcards](../../general/messagebus/#multi-level-topics-and-wildcards) section for more details
+    3. Replace `#` between levels with `+` . See [Multi-level topics and wildcards](../general/messagebus.md#multi-level-topics-and-wildcards) section for more details
     4. Remove remaining **Trigger** configuration
 
 #### External MQTT changes
@@ -166,7 +166,7 @@ See [Application Service API](sdk/api/ApplicationServiceAPI.md) section for comp
 
 The `AppFunctionContext ` API has the following changes:
 
-1. Deprecated `PushToCore` has been removed. Use [WrapIntoEvent](sdk/api/BuiltInPipelineFunctions.md#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](sdk/details/Triggers.md#publishtopic) or [Publish](sdk/api/ApplicationServiceAPI.md#publish) sections for more details on publishing data back to the EdgeX MessageBus.
+1. Deprecated `PushToCore` has been removed. Use [WrapIntoEvent](sdk/api/BuiltInPipelineFunctions.md#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](details/Triggers.md#publishtopic) or [Publish](sdk/api/ApplicationServiceAPI.md#publish) sections for more details on publishing data back to the EdgeX MessageBus.
 2. `GetSecret` has been removed. Use `SecretProvider().GetSecret`
 3. `StoreSecret` has been removed. Use `SecretProvider().StoreSecret`
 4. `SecretsLastUpdated` has been removed. Use `SecretProvider().SecretsLastUpdated`
@@ -187,7 +187,7 @@ The `AppFunctionContext ` API has the following changes:
     - All `Conversion` pipeline functions now require a `*Conversion` for the receiver
     - `NewConversion` now returns a `*Conversion`
 - **CoreData**- Removed
-    - The deprecated `PushToCoreData ` function has been removed. Use [WrapIntoEvent](sdk/api/BuiltInPipelineFunctions.md#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](sdk/details/Triggers.md#publishtopic) or [Publish](sdk/api/ApplicationServiceAPI.md#publish) sections for more details on publishing data back to the EdgeX MessageBus.
+    - The deprecated `PushToCoreData ` function has been removed. Use [WrapIntoEvent](sdk/api/BuiltInPipelineFunctions.md#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](details/Triggers.md#publishtopic) or [Publish](sdk/api/ApplicationServiceAPI.md#publish) sections for more details on publishing data back to the EdgeX MessageBus.
 - **Encryption** - Removed
     - The deprecated `EncryptWithAES` function has been removed, use `AESProtection.Encrypt` instead. See [AES Protection](sdk/api/BuiltInPipelineFunctions.md#aesprotection) for more details
 - **Filter**
@@ -214,16 +214,16 @@ The `AppFunctionContext ` API has the following changes:
 
 ### Profiles
 
-- `PushToCore` profile has been removed. Use [WrapIntoEvent](sdk/api/BuiltInPipelineFunctions.md#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](sdk/details/Triggers.md#publishtopic) or [Publish](sdk/api/ApplicationServiceAPI.md#publish) sections for more details on publishing data back to the EdgeX MessageBus.
+- `PushToCore` profile has been removed. Use [WrapIntoEvent](sdk/api/BuiltInPipelineFunctions.md#wrap-into-event) function and publishing to the EdgeX MessageBus instead. See [Trigger.PublishTopic](details/Triggers.md#publishtopic) or [Publish](sdk/api/ApplicationServiceAPI.md#publish) sections for more details on publishing data back to the EdgeX MessageBus.
 
 ### Custom Profiles
 
-Custom profiles for App Service Configurable must be migrated in a similar fashion to the configuration for custom application services.  All configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom profiles. See [Common Service Configuration](../../configuration/CommonConfiguration/) section for details about configuration that is common to all Edgex services. See [Application Service Configuration](Configuration.md) section for details about configuration that is common to all EdgeX Application Services. Use the App Service Configurable provided profiles as examples of what configuration is left after removing the common configuration.
+Custom profiles for App Service Configurable must be migrated in a similar fashion to the configuration for custom application services.  All configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom profiles. See [Common Service Configuration](../configuration/CommonConfiguration.md) section for details about configuration that is common to all Edgex services. See [Application Service Configuration](Configuration.md) section for details about configuration that is common to all EdgeX Application Services. Use the App Service Configurable provided profiles as examples of what configuration is left after removing the common configuration.
 
 ### Pipeline Configuration
 
 - **Writable.Pipeline.TargetType** has change from a bool to a string with valid values or `raw`, `event` or `metric`
-- Topic wild cards have changed to conform 100% with MQTT scheme. The `#` between level has be replaced with `+` . See [Multi-level topics and wildcards](../../general/messagebus/#multi-level-topics-and-wildcards) for more details.
+- Topic wild cards have changed to conform 100% with MQTT scheme. The `#` between level has be replaced with `+` . See [Multi-level topics and wildcards](../general/messagebus.md#multi-level-topics-and-wildcards) for more details.
 - **HTTPExport** function configuration
     - Parameter `SecretName`  renamed to be  `SecretValueKey`  
     - Parameter `SecretPath` renamed to be `SecretName` 

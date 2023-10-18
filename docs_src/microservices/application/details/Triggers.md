@@ -1,15 +1,12 @@
 ---
-title: App SDK - Triggers
+title: App Services - Triggers
 ---
 
-# App Functions SDK - Triggers
+# App Services - Triggers
 
 ## Introduction
 
-Triggers determine how the App Functions Pipeline begins execution. The trigger is determined by the `[Trigger]` configuration section in the  `configuration.yaml` file.   
-
-!!! edgey "Edgex 2.0"
-    For Edgex 2.0 the `[Binding]` configuration section has been renamed to `[Trigger]`. The  `[MessageBus]` section has been renamed to `EdgexMessageBus` and moved under the `[Trigger]` section. The `[MqttBroker]` section has been renamed to `ExternalMqtt` and moved under the `[Trigger]` section.
+Triggers determine how and Application Service's  functions pipeline begins execution. The trigger is determined by the `[Trigger]` configuration section in the  `configuration.yaml` file.
 
 There are 4 types of `Triggers` supported in the App Functions SDK which are discussed in this document
 
@@ -24,7 +21,7 @@ An EdgeX MessageBus trigger will execute the pipeline every time data is receive
 
 There currently are four implementations of the EdgeX MessageBus available to be used. Two of these are available out of the box: `Redis Pub/Sub`(default) and `MQTT`. Additionally NATS (both core and JetStream) options can be made available with the build flag mentioned above.  The implementation type is selected via the `[Trigger.EdgexMessageBus]` configuration described below.
 
-### Type Configuration 
+### Type Configuration
 
 !!! example - "Example Trigger Configuration"
     ```yaml
@@ -40,21 +37,21 @@ and may be Published to the EdgeX MessageBus, if configured.
 The SubscribeTopics configuration specifies the comma separated list of topics the service will subscribe to.
 
 !!! note
-    The default `SubscribeTopics` configuration is set in the [App Services Common Trigger Configuration](..GeneralAppServiceConfig/#not-writable).
+    The default `SubscribeTopics` configuration is set in the [App Services Common Trigger Configuration](../Configuration.md#not-writable).
 
 #### PublishTopic
 The PublishTopic configuration specifies the topic published to when the `ResponseData` is set via the `ctx.SetResponseData([]byte outputData)` API.
 Nothing will be published if the PublishTopic is not set or the `ResponseData` is never set
 
 !!! note
-    The default `PublishTopic` configuration is set in the [App Services Common Trigger Configuration](../GeneralAppServiceConfig/#not-writable).
+    The default `PublishTopic` configuration is set in the [App Services Common Trigger Configuration](../Configuration.md#not-writable).
 
 ### MessageBus Connection Configuration
 
-See the [EdgeX MessageBus section](../../general/messagebus) for complete details.
+See the [EdgeX MessageBus section](../../general/messagebus.md) for complete details.
 
 !!! edgey "Edgex 3.0"
-    For Edgex 3.0 the MessageBus configuration settings are set in the [Common MessageBus Configuration](../../configuration/CommonConfiguration/#configuration-properties).
+    For Edgex 3.0 the MessageBus configuration settings are set in the [Common MessageBus Configuration](../../configuration/CommonConfiguration.md#common-configuration-properties).
 
 ### Filter By Topics
 
@@ -115,7 +112,7 @@ An External MQTT trigger will execute the pipeline every time data is received f
     The data received from the external MQTT broker is not wrapped with any metadata known to EdgeX. The data is handled as JSON or CBOR. The data is assumed to be JSON unless the first byte in the data is **not** a `{`  or a `[`, in which case it is then assumed to be CBOR.
 
 !!! note
-    The data received, encoded as JSON or CBOR, must match the `TargetType` defined by your application service. The default  `TargetType` is an `Edgex Event`. See [TargetType](../AdvancedTopics/#target-type) for more details.
+    The data received, encoded as JSON or CBOR, must match the `TargetType` defined by your application service. The default  `TargetType` is an `Edgex Event`. See [TargetType](../sdk/details/TargetType.md) for more details.
 
 ### Type Configuration
 !!! example - "Example Trigger Configuration"
@@ -183,7 +180,7 @@ The `Type=` is set to `http`. This will enable listening to the `api/{{api_versi
     The HTTP trigger uses the `content-type` from the HTTP Header to determine if the data is JSON or CBOR encoded and the optional `X-Correlation-ID` to set the correlation ID for the request.
 
 !!! note
-    The data received, encoded as JSON or CBOR, must match the `TargetType` defined by your application service. The default  `TargetType` is an `Edgex Event`. See [TargetType](../AdvancedTopics/#target-type) for more details.
+    The data received, encoded as JSON or CBOR, must match the `TargetType` defined by your application service. The default  `TargetType` is an `Edgex Event`. See [TargetType](../sdk/details/TargetType.md) for more details.
 
 ## Custom Triggers
 
@@ -315,7 +312,7 @@ A complete working example can be found [**here**](https://github.com/edgexfound
 
 ## Publish Topic Placeholders
 
-Both the `EdgeX MessageBus`and the `External MQTT` triggers support the new **Publish Topic Placeholders** capability. The configured `PublishTopic` for either of these triggers can contain placeholders for runtime replacements. The placeholders are replaced with values from the new `Context Storage` whose key match the placeholder name. Function pipelines can add values to the `Context Storage` which can then be used as replacement values in the publish topic. If an EdgeX Event is received by the configured trigger the Event's `profilename`, `devicename` and `sourcename` as well as they will be seeded into the `Context Storage`. See the [Context Storage](../api/AppFunctionContextAPI.md#context-storage) documentation for more details.
+Both the `EdgeX MessageBus`and the `External MQTT` triggers support the new **Publish Topic Placeholders** capability. The configured `PublishTopic` for either of these triggers can contain placeholders for runtime replacements. The placeholders are replaced with values from the new `Context Storage` whose key match the placeholder name. Function pipelines can add values to the `Context Storage` which can then be used as replacement values in the publish topic. If an EdgeX Event is received by the configured trigger the Event's `profilename`, `devicename` and `sourcename` as well as they will be seeded into the `Context Storage`. See the [Context Storage](../sdk/api/AppFunctionContextAPI.md#context-storage) documentation for more details.
 
 The **Publish Topic Placeholders** format is a simple `{<key-name>}` that can appear anywhere in the topic multiple times. An error will occur if a specified placeholder does not exist in the  `Context Storage`. 
 
