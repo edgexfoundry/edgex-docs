@@ -263,7 +263,7 @@ Use these links to access maufacturer documentation
 - [Tapo C200](https://www.tapo.com/us/product/smart-camera/tapo-c200/)
 - [BOSCH DINION IP starlight 6000 HD](https://commerce.boschsecurity.com/tw/en/DINION-IP-starlight-6000-HD/p/20827877387/)
 - [GeoVision GV-BX8700](https://www.geovision.com.tw/product/GV-BX8700-FD)
-- [Hikvision DS-2DE2A404IW-DE3](https://us.hikvision.com/en/products/cameras/network-ptz-camera/value-series/ir/outdoor/4-mp-4x-ir-outdoor-network-ptz-camera-ds)
+- [Hikvision DS-2DE2A404IW-DE3](https://www.hikvision.com/us-en/products/professional-ip-and-analog-cameras/value-plus-series/value-ip-ptz/ds-2de2a404iw-de3)
 
 ### User Authentication
 | Onvif Web Service | Onvif Function   | Hikvision DFI6256TE | Tapo C200 | BOSCH DINION IP starlight 6000 HD | GeoVision GV-BX8700 | Hikvision DS-2DE2A404IW-DE3|
