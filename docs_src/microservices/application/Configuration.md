@@ -1,3 +1,7 @@
+---
+title: App Services - Configuration
+---
+
 # Application Services - Configuration
 
 Similar to other EdgeX services, application service configuration is first determined by the `configuration.yaml` file in the `/res` folder. Once loaded any environment overrides are applied. If `-cp` is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e. Consul) to push the configuration into the provider and monitor `Writable` configuration from there. Any environment overrides are applied prior to the values being pushed. You will find the configuration under the `edgex/{{api_version}}/` key in the provider (i.e. Consul). On re-restart the service will pull the configuration from the provider.

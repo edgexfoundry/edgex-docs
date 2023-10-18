@@ -1,4 +1,9 @@
+---
+title: App SDK - App Function Context API
+---
+
 # App Functions SDK - App Function Context API
+
 The context parameter passed to each function/transform provides operations and data associated with each execution of the pipeline. 
 
 Let's take a look at its API:

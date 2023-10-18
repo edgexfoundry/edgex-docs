@@ -1,3 +1,7 @@
+---
+title: App SDK - Advanced Topics
+---
+
 # App Functions SDK - Advanced Topics
 
 The following items discuss topics that are a bit beyond the basic use cases of the Application Functions SDK when interacting with EdgeX.

@@ -1,3 +1,7 @@
+---
+title: App SDK - Getting Started
+---
+
 # App Functions SDK - Getting Started
 
 The SDK is built around the idea of a "Functions Pipeline". A functions pipeline is a collection of various functions that process the data in the order that you've specified. The functions pipeline is executed by the specified [trigger](details/Triggers.md) in the `configuration.yaml` . The first function in the pipeline is called with the event that triggered the pipeline (ex. `dtos.Event`). Each successive call in the pipeline is called with the return result of the previous function. Let's take a look at a simple example that creates a pipeline to filter particular device ids and subsequently transform the data to XML:

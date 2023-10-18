@@ -1,3 +1,7 @@
+---
+title: App SDK - Purpose
+---
+
 # App Functions SDK - Purpose
 
 Welcome the App Functions SDK for EdgeX. This SDK is meant to provide all the plumbing necessary for developers to get started in processing/transforming/exporting edge data. 

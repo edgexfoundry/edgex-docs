@@ -1,3 +1,7 @@
+---
+title: App Services - API Reference
+---
+
 # Application Services - API Reference
 
 The following REST APIs are provided by the App SDK and are inherited by all Application Services.

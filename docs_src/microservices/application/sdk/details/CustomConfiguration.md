@@ -1,3 +1,7 @@
+---
+title: App SDK - Custom Configuration
+---
+
 # App Functions SDK - Custom Configuration
 
 Applications can specify custom configuration in the service's configuration file in two ways.

@@ -1,3 +1,7 @@
+---
+title: App SDK - Triggers
+---
+
 # App Functions SDK - Triggers
 
 ## Introduction

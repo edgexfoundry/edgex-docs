@@ -1,4 +1,8 @@
-# App Functions SDK - Built-In Pipeline Functions APIs
+---
+title: App SDK - Pipeline Function APIs
+---
+
+# App Functions SDK - Pipeline Function APIs
 
 All pipeline functions define a type and a factory function which is used to initialize an instance of the type with the  required options. The instances returned by these factory functions give access to their appropriate pipeline function pointers when setting up the function pipeline.
 
