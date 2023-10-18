@@ -1,6 +1,8 @@
-# Core Data
+---
+title: Core Data - Purpose
+---
 
-## Purpose
+# Core Data - Purpose
 
 The Core Data microservice provides a centralized persistence for data collected by [devices](../../../general/Definitions.md#device).
 Device services that collect sensor data call on the core data service to

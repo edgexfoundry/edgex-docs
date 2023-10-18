@@ -1,8 +1,10 @@
-# App Record and Replay
+---
+title: App Record Replay - Getting Started
+---
 
-## Getting Started
+# App Record and Replay - Getting Started
 
-### Overview
+## Overview
 
 When using the  App Record and Replay service the following EdgeX services are required to be running:
 
@@ -12,7 +14,7 @@ When using the  App Record and Replay service the following EdgeX services are r
 3. Application or Supporting service that will process the Events
     - This guide uses the standard App Rules Engine as the app service which is processing the events.
 
-### Running Services
+## Running Services
 
 The simplest way to run all the required services is to use the [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder) tool from a terminal window 
 
@@ -27,11 +29,11 @@ The simplest way to run all the required services is to use the [Compose Builder
 
 This runs, in non-secure mode, all the standard EdgeX services along with the Device Virtual and App Record Replay services.  App Rules Engine is part of the standard services and is used in this guide for processing the events.
 
-### Postman
+## Postman
 
 A sample Postman collection is provided to simplify controlling this service via its REST API. See the [Postman Collection](../ApiReference/#postman-collection) section for more details.
 
-### Debug Logging
+## Debug Logging
 
 Optionally, the debug logging can be enabled on the **App Record Replay** service. This is accomplished by setting `LogLevel` value via the Consul UI at [http://localhost:8500/ui/dc1/kv/edgex/v3/app-record-replay/Writable/LogLevel/edit](http://localhost:8500/ui/dc1/kv/edgex/v3/app-record-replay/Writable/LogLevel/edit) to `DEBUG`
 
@@ -41,9 +43,9 @@ To see that the replayed events are being "processed" we also need to enable deb
 
 For **App Rules Engine** we want to filter for messages showing the events received. Filtering the log messages for "match the incoming topic" text will accomplish this.
 
-### Recording a Session
+## Recording a Session
 
-#### Start a Recording
+### Start a Recording
 
 Before starting a recording session first review the **Start Recording** POST API in the [API Reference](ApiReference.md) section. Be sure to view both examples.
 
@@ -74,7 +76,7 @@ After above is completed simply press `Send` in Postman to start the recording s
 !!! warning
     Since the storage model is simple in-memory storage, restarting the service will result in loss of recorded data. See [Export a Recorded Session](#export-a-recorded-session) section below for details on how to save recoded data for later usage.
 
-#### Check Recording Status
+### Check Recording Status
 
 The status of a recording session can be checked while it is running or after is has completed. Review the **Recording Status** GET API in the [API Reference](ApiReference.md) section and use the **Recording Status** request from the Postman collection referenced above. Press `Send` in Postman to get the recording status.
 
@@ -96,16 +98,16 @@ The status of a recording session can be checked while it is running or after is
     }
     ```
 
-#### Cancel Recording 
+### Cancel Recording 
 
 A recording session can be canceled while it is running. Review the **Cancel Recording** DELETE API in the [API Reference](ApiReference.md) section and use the **Cancel Recording** request from the Postman collection referenced above. Press `Send` in Postman to cancel the recording session.
 
 !!! note
     This API will return a **202 - Accepted** response if the recording can be canceled, otherwise it will return an error such as "***failed to cancel recording: no recording currently running***"
 
-### Replaying a Session
+## Replaying a Session
 
-#### Start Replay
+### Start Replay
 
 To start a replay session first review the **Start Replay** POST API in the [API Reference](ApiReference.md) section and then use the `Start Replay` request from the Postman collection referenced above. 
 
@@ -125,7 +127,7 @@ The source device services should be stopped from producing any new events prior
 
 After above is completed simply press `Send` in Postman to start the replay session .
 
-#### Check Replay Status
+### Check Replay Status
 
 The status of a replay session can be checked while it is running or after is has completed. Review the **Replay Status** GET API in the [API Reference.md](ApiReference) section and use the **Replay Status** request from the Postman collection referenced above. Press `Send` in Postman to get the replay status.
 
@@ -173,14 +175,14 @@ The status of a replay session can be checked while it is running or after is ha
     }
     ```
 
-#### Cancel Replay
+### Cancel Replay
 
 A replay session can be canceled while it is running. Review the **Cancel Replay** DELETE API in the [API Reference](ApiReference.md) section and use the **Cancel Replay** request from the Postman collection referenced above. Press `Send` in Postman to cancel the replay session.
 
 !!! note
     This API will return a **202 - Accepted** response if the replay can be canceled, otherwise it will return an error such as "***failed to cancel replay: no replay currently running***"
 
-### Export a Recorded Session
+## Export a Recorded Session
 
 The current recorded session can be exported so that data can be saved to the file system. Review the **Export** GET API in the [API Reference](ApiReference.md) section and use the **Export Recording** requests from the Postman collection referenced above.
 
@@ -197,7 +199,7 @@ This API exports all the events, related devices and device profiles. It has an 
     curl localhost:59712/api/{{api_version}}/data?compression=zlib -o recording.zlib
     ```
 
-### Import a Record Session
+## Import a Record Session
 
 This API allows a previously exported recording to be imported back into the service. Review the **Import** POST API in the [API Reference](ApiReference.md) section and use the **Import Recording** requests from the Postman collection referenced above.
 

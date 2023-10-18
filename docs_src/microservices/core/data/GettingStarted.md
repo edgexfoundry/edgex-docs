@@ -1,13 +1,15 @@
-# Core Data
+---
+title: Core Data - Getting Started
+---
 
-## Getting Started
+# Core Data - Getting Started
 
-### Overview
+## Overview
 
 Core Data is one of the core EdgeX Services. It is needed for applications that require Events/Readings to be persisted.
 For solutions that do not require storage and access to Events and Readings, it is possible to use the EdgeX framework without Core Data.
 
-### Running Services with Core Data
+## Running Services with Core Data
 
 The simplest way to run all the required services is to use the [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder) tool from a terminal window.
 
@@ -22,7 +24,7 @@ The simplest way to run all the required services is to use the [Compose Builder
 This runs, in non-secure mode, all the standard EdgeX services, including core-data, along with the Device Virtual.
 Core Data will use the Redis database as its datastore.
 
-### Running Services without Core Data
+## Running Services without Core Data
 
 The simplest way to run all the required services is to use the [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder) tool from a terminal window.
 

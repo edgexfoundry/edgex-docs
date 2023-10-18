@@ -1,6 +1,8 @@
-# Core Data
+---
+title: Core Data - Configuration
+---
 
-## Configuration Properties
+# Core Data - Configuration
 
 Please refer to the general [Common Configuration documentation](../../configuration/CommonConfiguration.md) for configuration settings common to all services.
 Below are only the additional settings and sections that are specific to Core Data.

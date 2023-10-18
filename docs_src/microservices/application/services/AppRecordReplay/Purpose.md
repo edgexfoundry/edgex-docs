@@ -1,6 +1,8 @@
-# App Record and Replay
+---
+title: App Record Replay - Purpose
+---
 
-## Purpose
+# App Record and Replay - Purpose
 
 This service is a developer testing tool which will record Events from the EdgeX MessageBus and replay them back to the EdgeX MessageBus at a later time. The value of this is a session with devices present can be recorded for later replay on a system which doesn't have the required devices. This allows for testing of services that receive and process the Events without requiring the devices to be present.
 

@@ -1,6 +1,8 @@
-# App Service Configurable
+---
+title: App Service Configurable - Available Profiles
+---
 
-## Available Profiles
+# App Service Configurable - Available Profiles
 
 App Service Configurable was designed to be deployed as multiple instances for different purposes. 
 Since the function pipeline is specified in the `configuration.yaml` file, we can use this as a way to run each instance
@@ -31,7 +33,7 @@ One can optionally add Filter function via environment overrides
 
 There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/{{edgexversion}}/res/rules-engine/configuration.yaml) for more details
 
-### http-export
+## http-export
 
 Starter profile used for exporting data via HTTP.  Requires further configuration which can easily be accomplished using environment variable overrides
 
@@ -41,7 +43,7 @@ Required:
 
   There are many more optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/{{edgexversion}}/res/http-export/configuration.yaml) for more details.
 
-### metrics-influxdb
+## metrics-influxdb
 
 Starter profile used for exporting telemetry data from other EdgeX services to InfluxDB via HTTP export. This profile configures the service to receive telemetry data from other services, transform it to Line Protocol syntax, batch the data and then export it to an InfluxDB service via HTTP. Requires further configuration which can easily be accomplished using environment variable overrides.
 
@@ -87,7 +89,7 @@ Optional Batching parameters (see [Batch function](../AvailablePipelineFunctions
 - `WRITABLE_PIPELINE_FUNCTIONS_BATCH_PARAMETERS_TIMEINTERVAL: <your batch time interval>`
   - Currently set to `"60s"`
 
-### mqtt-export
+## mqtt-export
 
 Starter profile used for exporting data via MQTT. Requires further configuration which can easily be accomplished using environment variable overrides
 
@@ -98,14 +100,14 @@ Required:
 
     There are many optional functions and parameters provided in this profile. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/{{edgexversion}}/res/mqtt-export/configuration.yaml) for more details
 
-### sample
+## sample
 
 Sample profile with all available functions declared and a sample pipeline. Provided as a sample that can be copied and modified to create new custom profiles. See the [complete profile](https://github.com/edgexfoundry/app-service-configurable/blob/{{edgexversion}}/res/sample/configuration.yaml) for more details
 
-### functional-tests
+## functional-tests
 
 Profile used for the TAF functional testing  
 
-### external-mqtt-trigger
+## external-mqtt-trigger
 
 Profile used for the TAF functional testing  of external MQTT Trigger

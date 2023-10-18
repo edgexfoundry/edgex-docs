@@ -1,6 +1,8 @@
-# App Service Configurable
+---
+title: App Service Configurable - Pipeline Per Topics
+---
 
-## Pipeline Per Topics
+# App Service Configurable - Pipeline Per Topics
 
 The pipeline configuration in [Getting Started](../../GettingStarted) section is the preferred way if your use case only 
 requires a single functions pipeline. For use cases that require multiple functions pipelines in order to process the data 

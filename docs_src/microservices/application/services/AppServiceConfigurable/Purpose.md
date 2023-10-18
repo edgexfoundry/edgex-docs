@@ -1,6 +1,8 @@
-# App Service Configurable
+---
+title: App Service Configurable - Purpose
+---
 
-## Purpose
+# App Service Configurable - Purpose
 
 The purpose of App Service Configurable is to provide an easy way to get started with processing data flowing through EdgeX.
 This service leverages the [App Functions SDK](https://github.com/edgexfoundry/app-functions-sdk-go) and provides a way for

@@ -1,6 +1,8 @@
-# App Service Configurable
+---
+title: App Service Configurable - Available Pipeline Functions
+---
 
-## Available Pipeline Functions
+# App Service Configurable - Available Pipeline Functions
 
 Below are the functions that are available to use in the `Writable.Pipeline` section of the configuration. 
 The function names below can be added to the `Writable.Pipeline.ExecutionOrder` setting (comma separated list) and 
@@ -13,7 +15,7 @@ Please refer to the [Getting Started](../../GettingStarted) section for an examp
 
 Please refer to the function's detailed documentation by clicking the function name below.
 
-### [AddTags](../../../../BuiltIn/#tags)
+## [AddTags](../../../../BuiltIn/#tags)
 
 **Parameters**
 
@@ -28,7 +30,7 @@ Please refer to the function's detailed documentation by clicking the function n
         tags: "GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603"
     ```
 
-### [Batch](../../../../BuiltIn/#batching)
+## [Batch](../../../../BuiltIn/#batching)
 
 **Parameters**
 
@@ -67,7 +69,7 @@ Please refer to the function's detailed documentation by clicking the function n
         MergeOnSend: "true"
     ```
 
-### [Compress](../../../../BuiltIn/#compression)
+## [Compress](../../../../BuiltIn/#compression)
 
 **Parameters**
 
@@ -82,7 +84,7 @@ Please refer to the function's detailed documentation by clicking the function n
         Algorithm: "gzip"
     ```
 
-### [Encrypt](../../../../BuiltIn/#dataprotection)
+## [Encrypt](../../../../BuiltIn/#dataprotection)
 
 **Parameters**
 
@@ -102,7 +104,7 @@ Please refer to the function's detailed documentation by clicking the function n
         SecretValueKey: "key"
     ```
 
-### [FilterByDeviceName](../../../../BuiltIn/#by-device-name)
+## [FilterByDeviceName](../../../../BuiltIn/#by-device-name)
 
 **Parameters**
 
@@ -124,7 +126,7 @@ Please refer to the function's detailed documentation by clicking the function n
         FilterOut: "true"
     ```
 
-### [FilterByProfileName](../../../../BuiltIn/#by-profile-name)
+## [FilterByProfileName](../../../../BuiltIn/#by-profile-name)
 
 **Parameters**
 
@@ -146,7 +148,7 @@ Please refer to the function's detailed documentation by clicking the function n
         FilterOut: "false"
     ```
 
-### [FilterByResourceName](../../../../BuiltIn/#by-resource-name)
+## [FilterByResourceName](../../../../BuiltIn/#by-resource-name)
 
 **Parameters**
 
@@ -168,7 +170,7 @@ Please refer to the function's detailed documentation by clicking the function n
         FilterOut: "false"
     ```
 
-### [FilterBySourceName](../../../../BuiltIn/#by-source-name)
+## [FilterBySourceName](../../../../BuiltIn/#by-source-name)
 
 **Parameters**
 
@@ -185,7 +187,7 @@ Please refer to the function's detailed documentation by clicking the function n
         FilterOut: "false"
     ```
 
-### [HTTPExport](../../../../BuiltIn/#http-export)
+## [HTTPExport](../../../../BuiltIn/#http-export)
 
 **Parameters**
 
@@ -251,7 +253,7 @@ Please refer to the function's detailed documentation by clicking the function n
               Url: "http://my.api2.net/edgexdata2"
     ```
 
-### [JSONLogic](../../../../BuiltIn/#json-logic)
+## [JSONLogic](../../../../BuiltIn/#json-logic)
 
 **Parameters**
 
@@ -266,7 +268,7 @@ Please refer to the function's detailed documentation by clicking the function n
         Rule: "{ \"and\" : [{\"<\" : [{ \"var\" : \"temp\" }, 110 ]}, {\"==\" : [{ \"var\" : \"sensor.type\" }, \"temperature\" ]} ] }"
     ```
 
-### [MQTTExport](../../../../BuiltIn/#mqtt-export)
+## [MQTTExport](../../../../BuiltIn/#mqtt-export)
 
 **Parameters**
 
@@ -315,7 +317,7 @@ Please refer to the function's detailed documentation by clicking the function n
         SecretName: "mqtt"
     ```
 
-### [SetResponseData](../../../../BuiltIn/#set-response-data)
+## [SetResponseData](../../../../BuiltIn/#set-response-data)
 
 **Parameters**
 
@@ -330,7 +332,7 @@ Please refer to the function's detailed documentation by clicking the function n
         ResponseContentType: "application/json"
     ```
 
-### [Transform](../../../../BuiltIn/#conversion)
+## [Transform](../../../../BuiltIn/#conversion)
 
 **Parameters**
 
@@ -345,7 +347,7 @@ Please refer to the function's detailed documentation by clicking the function n
         Type: "xml"
     ```
 
-### [ToLineProtocol](../../../../BuiltIn/#tolineprotocol)
+## [ToLineProtocol](../../../../BuiltIn/#tolineprotocol)
 
 **Parameters**
 
@@ -363,7 +365,7 @@ Please refer to the function's detailed documentation by clicking the function n
 !!! note
     The new `TargetType` setting must be set to "metric" when using this function. See the [Metric TargetType](../TargetType/#metric-targettype) section above for more details.
 
-### [WrapIntoEvent](../../../../BuiltIn/#wrap-into-event)
+## [WrapIntoEvent](../../../../BuiltIn/#wrap-into-event)
 
 **Parameters**
 

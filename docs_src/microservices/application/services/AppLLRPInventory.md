@@ -1,6 +1,8 @@
-# App RFID LLRP Inventory
+---
+title: App RFID LLRP Inventory - Introduction
+---
 
-## Introduction
+# App RFID LLRP Inventory - Introduction
 
 Edgex application service for processing raw LLRP tag reads, producing events [Arrived, Moved, Departed], configure and manage LLRP readers via commands
 
