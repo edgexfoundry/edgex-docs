@@ -1,0 +1,27 @@
+# App Service Configurable
+
+## Configuration
+
+App Service Configurable is all about configuration rather than code. 
+The service configuration section that makes this possible is `Writable.Pipeline`. 
+Understanding this configuration section is of utmost importance when using App Service Configurable.
+The remaining service configuration is common to all application services. 
+See [Application Service Configuration](../../../GeneralAppServiceConfig) section for more details.
+
+### Writable Pipeline
+
+The `Writable.Pipeline` section of configuration has the following elements:
+
+
+
+| Element                       | Value(s)       | Description                                                  |
+| ----------------------------- | -------------- | ------------------------------------------------------------ |
+| TargetType                    |                | This is the object type that all configurable pipelines will receive. Valid values are `event`, `raw`,  and `metric` |
+|                               | event          | The configured trigger is expected to receive either a [dtos.Event](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{edgexversion}}/dtos/event.go) or a [requests.AddEventRequest](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{edgexversion}}/dtos/requests/event.go) type (dtos.Event is extracted from the request by the Trigger). The first pipeline function must expect a `dtos.Event` type. |
+|                               | raw            | The configured trigger is expected to receive raw bytes (**[]byte]**) and not marshal them into any specific type. See [Raw TargetType](../details/TargetType#raw-targettype) section below for more details and example. |
+|                               | metric         | The configured trigger is expected to receive a [dtos.Metric](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{edgexversion}}/dtos/metric.go) type. See [Metric TargetType](../details/TargetType#metric-targettype) below for more details and example. |
+| ExecutionOrder                | function names | This is a comma separated list of pipeline function names to execute in order as the default functions pipeline. The default functions pipeline is executed on all data received no matter which **topic** it was received on. The function names **must** exist in the `Functions` section below. |
+| PerTopicPipelines             | Collection     | This section defines and configures the collection of function pipelines that are triggered based on the topic the data is received on. Note that this section is only valid to use when the [Trigger](../../../Triggers) is configured to be `edgex-messagebus` or `external-mqtt` since these have topics. See the [Pipeline Per Topics](../details/PipelinePerTopics) section below for more details and examples. |
+| Functions                     | Collection     | This section defines and configures the collection of available pipeline functions to be used in the above functions pipelines. The names used must be unique and a partial match (start-with) the name of one of the built-in pipeline functions listed in the [Available Configurable Pipeline Functions](../details/AvailablePipelineFunctions) section below. This partial match allows the definition and configuration of multiple instances of the same built-in pipeline function. See [Multiple Instances of a Function](../details/DeployMultipleInstances) section below for more details. |
+| Functions.`<name>`            | Unique name    | Unique name of the function that starts with the name of one of the built-in pipeline functions. |
+| Functions.`<name>`.Parameters | Collection     | Collection of key/value parameters that are unique to the matching built-in pipeline function. All values are of type string. See  [Available Configurable Pipeline Functions](../details/AvailablePipelineFunctions) section below for specifics on the required and option parameters for each function. |
