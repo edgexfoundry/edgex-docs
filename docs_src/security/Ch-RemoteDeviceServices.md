@@ -101,7 +101,7 @@ level=INFO ts=2022-05-05T14:28:30.005673094Z app=device-virtual source=config.go
 level=INFO ts=2022-05-05T14:28:30.006211643Z app=device-virtual source=variables.go:352 msg="Variables override of 'SecretStore.RuntimeTokenProvider.Port' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_PORT=59841"
 level=INFO ts=2022-05-05T14:28:30.006286584Z app=device-virtual source=variables.go:352 msg="Variables override of 'SecretStore.RuntimeTokenProvider.Protocol' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_PROTOCOL=https"
 level=INFO ts=2022-05-05T14:28:30.006341968Z app=device-virtual source=variables.go:352 msg="Variables override of 'Clients.core-metadata.Host' by environment variable: CLIENTS_CORE_METADATA_HOST=edgex-core-metadata"
-level=INFO ts=2022-05-05T14:28:30.006382102Z app=device-virtual source=variables.go:352 msg="Variables override of 'MessageQueue.Host' by environment variable: MESSAGEQUEUE_HOST=edgex-redis"
+level=INFO ts=2022-05-05T14:28:30.006382102Z app=device-virtual source=variables.go:352 msg="Variables override of 'MessageBus.Host' by environment variable: MESSAGEBUS_HOST=edgex-redis"
 level=INFO ts=2022-05-05T14:28:30.006416098Z app=device-virtual source=variables.go:352 msg="Variables override of 'SecretStore.RuntimeTokenProvider.EndpointSocket' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_ENDPOINTSOCKET=/tmp/edgex/secrets/spiffe/public/api.sock"
 level=INFO ts=2022-05-05T14:28:30.006457406Z app=device-virtual source=variables.go:352 msg="Variables override of 'SecretStore.RuntimeTokenProvider.RequiredSecrets' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_REQUIREDSECRETS=redisdb"
 level=INFO ts=2022-05-05T14:28:30.006495791Z app=device-virtual source=variables.go:352 msg="Variables override of 'SecretStore.RuntimeTokenProvider.Enabled' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_ENABLED=true"
@@ -260,7 +260,7 @@ Extending the previous example:
     -o UserKnownHostsFile=/dev/null \
     -L *:$SERVICE_PORT:$SERVICE_HOST:$SERVICE_PORT \
     -R 0.0.0.0:$SECRETSTORE_PORT:$SECRETSTORE_HOST:$SECRETSTORE_PORT \
-    -R 0.0.0.0:6379:$MESSAGEQUEUE_HOST:6379 \
+    -R 0.0.0.0:6379:$MESSAGEBUS_HOST:6379 \
     -R 0.0.0.0:8500:$REGISTRY_HOST:8500 \
     -R 0.0.0.0:5563:$CLIENTS_CORE_DATA_HOST:5563 \
     -R 0.0.0.0:59880:$CLIENTS_CORE_DATA_HOST:59880 \
@@ -481,7 +481,7 @@ $ curl -s http://127.0.0.1:59900/api/{{api_version}}/config | jq
         "RequiredSecrets": "redisdb"
       }
     },
-    "MessageQueue": {
+    "MessageBus": {
       "Type": "redis",
       "Protocol": "redis",
       "Host": "edgex-redis",

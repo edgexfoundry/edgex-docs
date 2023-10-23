@@ -155,7 +155,7 @@ Each of core and supporting EdgeX services are located in `edgex-go\cmd` under a
 
 Modify the host location for Redis in the `Database` section of `configuration.yaml` files for notifications (`edgex-go\cmd\support-notifications\res`) and scheduler (`edgex-go\cmd\support-scheduler\res`) services in the same way.
 
-In core-data, you need to modify two host settings.  You need to change the location for Redis in the `Database` section as well as the host location for Redis in the `MessageQueue` section of `configuration.yaml`.  The latter setting is for accessing the Redis Pub/Sub message bus.
+In core-data, you need to modify two host settings.  You need to change the location for Redis in the `Database` section as well as the host location for Redis in the `MessageBus` section of `configuration.yaml`.  The latter setting is for accessing the Redis Pub/Sub message bus.
 
 ![image](Windows-ChangeRedisHost.png)
 
@@ -165,7 +165,7 @@ The Configurable App Service uses both the Redis database and message bus like c
 
 ### Modify the configuration of the EdgeX Virtual Device Service
 
-The Virtual Device Service uses the Redis message bus like core-data does.  Locate the `configuration.yaml` file in `device-virtual-go\cmd\res` folder.  Open the file with an editor and change the Redis `MessageQueue` host address from `localhost` to the IP address of your Redis hosting machine.
+The Virtual Device Service uses the Redis message bus like core-data does.  Locate the `configuration.yaml` file in `device-virtual-go\cmd\res` folder.  Open the file with an editor and change the Redis `MessageBus` host address from `localhost` to the IP address of your Redis hosting machine.
 
 ### Start Consul
 

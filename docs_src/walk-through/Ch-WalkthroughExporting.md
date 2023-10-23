@@ -9,35 +9,39 @@ that data be used by an edge analytics system (like a rules engine) to actuate o
 By default, data is already passed from the core data service to application services (app services) via Redis Pub/Sub messaging.  Alternately, the data can be supplied between the two via MQTT.  A preconfigured application service is provided with the EdgeX default Docker Compose files that gets this data and routes it to the [eKuiper rules engine](../microservices/support/eKuiper/Ch-eKuiper.md).  The application service is called `app-service-rules` (see below).  More specifically, it is an [app service configurable](../microservices/application/services/AppServiceConfigurable/Purpose.md).
 
 ``` yaml
-  app-service-rules:
+  app-rules-engine:
     container_name: edgex-app-rules-engine
     depends_on:
-    - consul
-    - data
+      consul:
+        condition: service_started
+      core-data:
+        condition: service_started
     environment:
-      CLIENTS_CORE_COMMAND_HOST: edgex-core-command
-      CLIENTS_CORE_DATA_HOST: edgex-core-data
-      CLIENTS_CORE_METADATA_HOST: edgex-core-metadata
-      CLIENTS_SUPPORT_NOTIFICATIONS_HOST: edgex-support-notifications
-      CLIENTS_SUPPORT_SCHEDULER_HOST: edgex-support-scheduler
-      DATABASE_HOST: edgex-redis
       EDGEX_PROFILE: rules-engine
       EDGEX_SECURITY_SECRET_STORE: "false"
-      MESSAGEQUEUE_HOST: edgex-redis
-      REGISTRY_HOST: edgex-core-consul
       SERVICE_HOST: edgex-app-rules-engine
-      TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST: edgex-redis
-      TRIGGER_EDGEXMESSAGEBUS_SUBSCRIBEHOST_HOST: edgex-redis
     hostname: edgex-app-rules-engine
-    image: edgexfoundry/app-service-configurable:2.0.1
+    image: nexus3.edgexfoundry.org:10004/app-service-configurable:latest
     networks:
-      edgex-network: {}
+      edgex-network: null
     ports:
-    - 127.0.0.1:59701:59701/tcp
+    - mode: ingress
+      host_ip: 127.0.0.1
+      target: 59701
+      published: "59701"
+      protocol: tcp
     read_only: true
+    restart: always
     security_opt:
     - no-new-privileges:true
     user: 2002:2001
+    volumes:
+    - type: bind
+      source: /etc/localtime
+      target: /etc/localtime
+      read_only: true
+      bind:
+        create_host_path: true
 ```
 
 ### Seeing the data export

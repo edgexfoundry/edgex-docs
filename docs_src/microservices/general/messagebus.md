@@ -214,7 +214,7 @@ All EdgeX services are capable of using MQTT 3.1 by simply making changes to eac
 #### Configuration Changes
 
 !!! edgey "Edgex 3.0"
-    For EdgeX 3.0 `MessageQueue` configuration has been renamed to MessageBus and is now in common configuration.
+    For EdgeX 3.0 `MessageQueue` configuration has been renamed to `MessageBus` and is now in common configuration.
 
 The MessageBus configuration is in common configuration where the following changes only need to be made once and apply to all services. See the **MessageBus** tab in [Common Configuration](../../configuration/CommonConfiguration/#common-configuration-properties) for more details.
 
@@ -271,7 +271,7 @@ The EdgeX Go based services are not capable of using the NATS implementation wit
 #### Configuration Changes
 
 !!! edgey - "Edgex 3.0"
-    For EdgeX 3.0 `MessageQueue` configuration has been renamed to MessageBus and is now in common configuration.
+    For EdgeX 3.0 `MessageQueue` configuration has been renamed to `MessageBus` and is now in common configuration.
 
 The MessageBus configuration is in common configuration where the following changes only need to be made once and apply to all services. See the **MessageBus** tab in [Common Configuration](../../configuration/CommonConfiguration/#common-configuration-properties) for more details.
 

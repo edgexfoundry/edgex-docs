@@ -110,7 +110,7 @@ The tables in each of the tabs below document configuration properties that are 
     |AuthMode | usernamepassword| Auth Mode to connect to EdgeX MessageBus.|
     |SecretName | redisdb | Name of the secret in the Secret Store to find the MessageBus credentials.|
     |BaseTopicPrefix | edgex| Indicates the base topic prefix which is prepended to all internal MessageBus topics. |
-=== "MessageQueue.Optional"
+=== "MessageBus.Optional"
     |Property|Default Value|Description|
     |---|---|---|
     ||Configuration and connection parameters for use with MQTT or NATS message bus - in place of Redis|
