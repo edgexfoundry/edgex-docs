@@ -1,12 +1,16 @@
-# Device Profile
+---
+title: Core Metadata - Device Profile
+---
+
+# Core Metadata - Device Profile
 
 The device profile describes a type of [device](../../../general/Definitions.md#device) within the EdgeX system. Each
 device managed by a device service has an association with a device profile,
 which defines that device type in terms of the operations which it supports.
 
-For a full list of device profile fields and their required values see the [device profile reference](./Ch-DeviceProfileRef.md).
+For a full list of device profile fields and their required values see the [device profile reference](./DeviceProfileRef.md).
 
-For a detailed look at the device profile model and all its properties, see the [metadata device profile data model](../../core/metadata/Ch-Metadata.md#data-models).
+For a detailed look at the device profile model and all its properties, see the [metadata device profile data model](../../metadata/GettingStarted.md#data-models).
 
 Identification
 --------------
