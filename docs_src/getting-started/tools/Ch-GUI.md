@@ -321,10 +321,10 @@ When the application service is a configurable app service and is known to the G
 
 There are four tabs in the Configurable Setting editor:
 
-- [Trigger](../../microservices/application/sdk/details/Triggers.md) which defines how the configurable app service begins execution
+- [Trigger](../../microservices/application/details/Triggers.md) which defines how the configurable app service begins execution
 - [Pipeline Functions](../../microservices/application/sdk/api/BuiltInPipelineFunctions.md) defining which functions are part of the configurable app service pipeline and in which order should they be executed 
-- [Insecure Secrets](../../microservices/application/sdk/details/AdvancedTopics.md#secrets) - setting up secrets used by the configurable app service when running in non-secure mode (meaning Vault is not used to provide the secrets)
-- [Store and Forward](../../microservices/application/sdk/details/AdvancedTopics.md#store-and-forward) which enables and configures the batch store and forward export capability
+- [Insecure Secrets](../../microservices/application/sdk/details/Secrets.md) - setting up secrets used by the configurable app service when running in non-secure mode (meaning Vault is not used to provide the secrets)
+- [Store and Forward](../../microservices/application/sdk/details/StoreAndForward.md) which enables and configures the batch store and forward export capability
 
 !!! Note
     When the Trigger is changed, the service must be restarted for the change to take effect.

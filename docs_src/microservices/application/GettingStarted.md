@@ -22,7 +22,7 @@ To help accelerate the creation of your new custom Application Service the **App
 
 ## Triggers
 
-`Triggers` are common to both `Configurable` and `Custom` Application Services. They are the next logical area to get familiar with. See the [Triggers](sdk/details/Triggers.md) section for more details.
+`Triggers` are common to both `Configurable` and `Custom` Application Services. They are the next logical area to get familiar with. See the [Triggers](details/Triggers.md) section for more details.
 
 ## Configuration
 

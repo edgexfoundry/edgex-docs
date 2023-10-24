@@ -16,7 +16,7 @@ but custom endpoints can be implemented alongside the existing functionality.
 Application Services are based on the idea of "Functions Pipelines". A functions pipeline is a collection of functions 
 that processes messages (EdgeX event/reading messages by default) in the specified order. Triggers seed the 
 first function(s) in the defined pipeline(s) with the data received by the Application Service. A trigger is something like a message 
-landing in a watched message queue. The most commonly used Trigger is the MessageBus Trigger. See the [Triggers](sdk/details/Triggers.md) section for more details
+landing in a watched message queue. The most commonly used Trigger is the MessageBus Trigger. See the [Triggers](details/Triggers.md) section for more details
 
 ![image](TriggersFunctions.png)
 
@@ -59,7 +59,7 @@ There are three primary triggers that have been included in the SDK that initiat
 2. EdgeX MessageBus Trigger with connection details as specified in the configuration. 
 3. External MQTT Trigger with connection details as specified in the configuration. 
 
-See the [Triggers](sdk/details/Triggers.md) section for full details on the available triggers.
+See the [Triggers](details/Triggers.md) section for full details on the available triggers.
 
 Finally, data may be sent back to the Trigger response by calling `.SetResponseData()` on the context. 
 

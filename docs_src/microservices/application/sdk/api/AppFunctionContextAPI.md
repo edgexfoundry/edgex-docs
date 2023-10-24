@@ -157,9 +157,9 @@ The context API exposes a map-like interface that can be used to store custom da
 There following values are seeded into the Context Storage when an Event is received:
 
 - Profile Name (key to retrieve value is `interfaces.PROFILENAME`)
-- Device Name  (key to retrieve value is `interfaces.DEVICENAME `)
-- Source Name  (key to retrieve value is `interfaces.SOURCENAME  `)
-- Received Topic  (key to retrieve value is `interfaces.RECEIVEDTOPIC   `)
+- Device Name  (key to retrieve value is `interfaces.DEVICENAME`)
+- Source Name  (key to retrieve value is `interfaces.SOURCENAME`)
+- Received Topic  (key to retrieve value is `interfaces.RECEIVEDTOPIC`)
 
 !!! note
     Received Topic only available when the message was received from the Edgex MessageBus or External MQTT triggers.

@@ -8,19 +8,19 @@ Below are the functions that are available to use in the `Writable.Pipeline` sec
 The function names below can be added to the `Writable.Pipeline.ExecutionOrder` setting (comma separated list) and 
 must also be present or added to the `Writable.Pipeline.Functions` section as `{FunctionName}`. 
 The functions will also have the `{FunctionName}.Parameters:` section where the function's parameters are configured. 
-Please refer to the [Getting Started](../../GettingStarted) section for an example.
+Please refer to the [Getting Started](../../../GettingStarted.md) section for an example.
 
 !!! note
     The `Parameters` section for each function is a key/value map of `string` values. So even tough the parameter is referred to as an Integer or Boolean, it has to be specified as a valid string representation, e.g. "20" or "true".
 
 Please refer to the function's detailed documentation by clicking the function name below.
 
-## [AddTags](../../../../BuiltIn/#tags)
+## [AddTags](../../../sdk/api/BuiltInPipelineFunctions.md#tags)
 
 **Parameters**
 
-| Name | Description                                                  |
-| ---- | ------------------------------------------------------------ |
+| Name | Description                                                                                                |
+|------|------------------------------------------------------------------------------------------------------------|
 | tags | String containing comma separated list of tag key/value pairs. The tag key/value pairs are colon separated |
 
 !!! example
@@ -30,17 +30,17 @@ Please refer to the function's detailed documentation by clicking the function n
         tags: "GatewayId:HoustonStore000123,Latitude:29.630771,Longitude:-95.377603"
     ```
 
-## [Batch](../../../../BuiltIn/#batching)
+## [Batch](../../../sdk/api/BuiltInPipelineFunctions.md#batching)
 
 **Parameters**
 
-| Name           | Description                                                  |
-| -------------- | ------------------------------------------------------------ |
-| Mode           | The batch mode to use. can be 'bycount', 'bytime' or 'bytimecount' |
-| BatchThreshold | Number of items to batch before sending batched items to the next function in the pipeline. Used with  'bycount' and 'bytimecount' modes |
-| TimeInterval   | Amount of time to batch before sending batched items to the next function in the pipeline. Used with  'bytime' and 'bytimecount' modes |
+| Name           | Description                                                                                                                                                                                        |
+|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Mode           | The batch mode to use. can be 'bycount', 'bytime' or 'bytimecount'                                                                                                                                 |
+| BatchThreshold | Number of items to batch before sending batched items to the next function in the pipeline. Used with  'bycount' and 'bytimecount' modes                                                           |
+| TimeInterval   | Amount of time to batch before sending batched items to the next function in the pipeline. Used with  'bytime' and 'bytimecount' modes                                                             |
 | IsEventData    | If true, specifies that the data being batched is `Events` and to un-marshal the batched data to `[]Event` prior to returning the batched data. By default the batched data returned is `[][]byte` |
-| MergeOnSend    | If true, specifies that the data being batched is to be merged to a single `[]byte` prior to returning the batched data. By default the batched data returned is `[][]byte` |
+| MergeOnSend    | If true, specifies that the data being batched is to be merged to a single `[]byte` prior to returning the batched data. By default the batched data returned is `[][]byte`                        |
 
 !!! example
     ```yaml
@@ -69,12 +69,12 @@ Please refer to the function's detailed documentation by clicking the function n
         MergeOnSend: "true"
     ```
 
-## [Compress](../../../../BuiltIn/#compression)
+## [Compress](../../../sdk/api/BuiltInPipelineFunctions.md#compression)
 
 **Parameters**
 
 | Name      | Description                                            |
-| --------- | ------------------------------------------------------ |
+|-----------|--------------------------------------------------------|
 | Algorithm | Compression algorithm to use.  Can be 'gzip' or 'zlib' |
 
 !!! example
@@ -84,15 +84,15 @@ Please refer to the function's detailed documentation by clicking the function n
         Algorithm: "gzip"
     ```
 
-## [Encrypt](../../../../BuiltIn/#dataprotection)
+## [Encrypt](../../../sdk/api/BuiltInPipelineFunctions.md#data-protection)
 
 **Parameters**
 
-| Name           | Description                                                  |
-| -------------- | ------------------------------------------------------------ |
-| Algorithm      | Always set to `AES256`                                       |
+| Name           | Description                                                                  |
+|----------------|------------------------------------------------------------------------------|
+| Algorithm      | Always set to `AES256`                                                       |
 | SecretName     | Name of the secret in the `Secret Store` where the encryption key is located |
-| SecretValueKey | Key of the secret data for the encryption key in the secret's data |
+| SecretValueKey | Key of the secret data for the encryption key in the secret's data           |
 
 !!! example
     ```yaml
@@ -104,13 +104,13 @@ Please refer to the function's detailed documentation by clicking the function n
         SecretValueKey: "key"
     ```
 
-## [FilterByDeviceName](../../../../BuiltIn/#by-device-name)
+## [FilterByDeviceName](../../../sdk/api/BuiltInPipelineFunctions.md#by-device-name)
 
 **Parameters**
 
-| Name        | Description                                                  |
-| ----------- | ------------------------------------------------------------ |
-| DeviceNames | Comma separated list of device names or regular expressions for filtering |
+| Name        | Description                                                                                     |
+|-------------|-------------------------------------------------------------------------------------------------|
+| DeviceNames | Comma separated list of device names or regular expressions for filtering                       |
 | FilterOut   | Boolean indicating if the data matching the device names should be filtered out or filtered for |
 
 !!! example
@@ -126,13 +126,13 @@ Please refer to the function's detailed documentation by clicking the function n
         FilterOut: "true"
     ```
 
-## [FilterByProfileName](../../../../BuiltIn/#by-profile-name)
+## [FilterByProfileName](../../../sdk/api/BuiltInPipelineFunctions.md#by-profile-name)
 
 **Parameters**
 
-| Name         | Description                                                  |
-| ------------ | ------------------------------------------------------------ |
-| ProfileNames | Comma separated list of profile names or regular expressions for filtering |
+| Name         | Description                                                                                      |
+|--------------|--------------------------------------------------------------------------------------------------|
+| ProfileNames | Comma separated list of profile names or regular expressions for filtering                       |
 | FilterOut    | Boolean indicating if the data matching the profile names should be filtered out or filtered for |
 
 !!! example
@@ -148,13 +148,13 @@ Please refer to the function's detailed documentation by clicking the function n
         FilterOut: "false"
     ```
 
-## [FilterByResourceName](../../../../BuiltIn/#by-resource-name)
+## [FilterByResourceName](../../../sdk/api/BuiltInPipelineFunctions.md#by-resource-name)
 
 **Parameters**
 
-| Name          | Description                                                  |
-| ------------- | ------------------------------------------------------------ |
-| ResourceNames | Comma separated list of resource names or regular expressions for filtering |
+| Name          | Description                                                                                        |
+|---------------|----------------------------------------------------------------------------------------------------|
+| ResourceNames | Comma separated list of resource names or regular expressions for filtering                        |
 | FilterOut     | Boolean indicating if the data matching the resource  names should be filtered out or filtered for |
 
 !!! example
@@ -170,14 +170,14 @@ Please refer to the function's detailed documentation by clicking the function n
         FilterOut: "false"
     ```
 
-## [FilterBySourceName](../../../../BuiltIn/#by-source-name)
+## [FilterBySourceName](../../../sdk/api/BuiltInPipelineFunctions.md#by-source-name)
 
 **Parameters**
 
-| Name        | Description                                                  |
-| ----------- | ------------------------------------------------------------ |
+| Name        | Description                                                                                                                                                          |
+|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | SourceNames | Comma separated list of source names or regular expressions for filtering. Source name is either the device command name or the resource name that created the Event |
-| FilterOut   | Boolean indicating if the data matching the source names should be filtered out or filtered for |
+| FilterOut   | Boolean indicating if the data matching the source names should be filtered out or filtered for                                                                      |
 
 !!! example
     ```yaml
@@ -187,22 +187,22 @@ Please refer to the function's detailed documentation by clicking the function n
         FilterOut: "false"
     ```
 
-## [HTTPExport](../../../../BuiltIn/#http-export)
+## [HTTPExport](../../../sdk/api/BuiltInPipelineFunctions.md#http-export)
 
 **Parameters**
 
-| Name                | Description                                                  |
-| ------------------- | ------------------------------------------------------------ |
-| Method              | HTTP Method to use. Can be `post` or `put`                   |
-| Url                 | HTTP endpoint to POST/PUT the data                           |
+| Name                | Description                                                                                                      |
+|---------------------|------------------------------------------------------------------------------------------------------------------|
+| Method              | HTTP Method to use. Can be `post` or `put`                                                                       |
+| Url                 | HTTP endpoint to POST/PUT the data                                                                               |
 | PersistOnError      | Indicates to persist the data if the POST fails. Store and Forward must also be enabled if this is set to "true" |
-| ContinueOnSendError | For chained multi destination exports. If true continues after send error so next export function executes |
-| ReturnInputData     | For chained multi destination exports. If true, passes the input data to next export function |
-| MimeType            | (**Optional**) mime type for the data. Defaults to `application/json` if not set |
-| HeaderName          | (**Optional**) Name of the header key to add to the HTTP he  |
-| SecretName          | (**Optional**) Name of the secret in the `Secret Store` where the header value is stored |
-| SecretValueKey      | (**Optional**) Key for the header value in the secret data   |
-| HttpRequestHeaders  | (**Optional**) HTTP Request header parameters in json format |
+| ContinueOnSendError | For chained multi destination exports. If true continues after send error so next export function executes       |
+| ReturnInputData     | For chained multi destination exports. If true, passes the input data to next export function                    |
+| MimeType            | (**Optional**) mime type for the data. Defaults to `application/json` if not set                                 |
+| HeaderName          | (**Optional**) Name of the header key to add to the HTTP he                                                      |
+| SecretName          | (**Optional**) Name of the secret in the `Secret Store` where the header value is stored                         |
+| SecretValueKey      | (**Optional**) Key for the header value in the secret data                                                       |
+| HttpRequestHeaders  | (**Optional**) HTTP Request header parameters in json format                                                     |
 
 !!! example
     ```yaml
@@ -253,12 +253,12 @@ Please refer to the function's detailed documentation by clicking the function n
               Url: "http://my.api2.net/edgexdata2"
     ```
 
-## [JSONLogic](../../../../BuiltIn/#json-logic)
+## [JSONLogic](../../../sdk/api/BuiltInPipelineFunctions.md#json-logic)
 
 **Parameters**
 
-| Name | Description                                                  |
-| ---- | ------------------------------------------------------------ |
+| Name | Description                                                            |
+|------|------------------------------------------------------------------------|
 | Rule | The JSON formatted rule that with be executed on the data by JSONLogic |
 
 !!! example
@@ -268,31 +268,31 @@ Please refer to the function's detailed documentation by clicking the function n
         Rule: "{ \"and\" : [{\"<\" : [{ \"var\" : \"temp\" }, 110 ]}, {\"==\" : [{ \"var\" : \"sensor.type\" }, \"temperature\" ]} ] }"
     ```
 
-## [MQTTExport](../../../../BuiltIn/#mqtt-export)
+## [MQTTExport](../../../sdk/api/BuiltInPipelineFunctions.md#mqtt-export)
 
 **Parameters**
 
-| Name           | Description                                                                                                                                                                                                      |
-|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| BrokerAddress  | URL specify the address of the MQTT Broker                                                                                                                                                                       |
-| Topic          | Topic to publish the data                                                                                                                                                                                        |
-| ClientId       | Id to use when connecting to the MQTT Broker                                                                                                                                                                     |
-| Qos            | MQTT Quality of Service (QOS) setting to use (0, 1 or 2). Please refer [**here**](https://www.eclipse.org/paho/files/mqttdoc/MQTTClient/html/qos.html) for more details on QOS values                            |
-| AutoReconnect  | Boolean specifying if reconnect should be automatic if connection to MQTT broker is lost                                                                                                                         |
-| Retain         | Boolean  specifying if the MQTT Broker should save the last message published as the “Last Good Message” on that topic                                                                                           |
-| SkipVerify     | Boolean indicating if the certificate verification should be skipped                                                                                                                                             |
-| PersistOnError | Indicates to persist the data if the POST fails. Store and Forward must also be enabled if this is set to "true"                                                                                                 |
-| AuthMode       | Mode of authentication to use when connecting to the MQTT Broker. Valid values are:                                                                                                                              |
-|                | **none** - No authentication required                                                                                                                                                                            |
-|                | **usernamepassword** - Use username and password authentication. The Secret Store (Vault or [InsecureSecrets](../../../../GeneralAppServiceConfig/#writable)) must contain the `username` and `password` secrets |
-|                | **clientcert** - Use Client Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../../../../GeneralAppServiceConfig/#writable)) must contain the `clientkey` and `clientcert` secrets       |
-|                | **cacert** - Use CA Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../../../../GeneralAppServiceConfig/#writable)) must contain the `cacert` secret                                    |
-| SecretName     | Name of the  secret in the SecretStore where authentication secrets are stored                                                                                                                                   |
-| WillEnabled    | Enables Last Will Capability. See for [MQTT Last Will](https://cedalo.com/blog/mqtt-last-will-explained-and-example) more details.                                                                               |
-| WillTopic      | Topic Last Will messages is publish                                                                                                                                                                              |
-| WillPayload    | Last Will messages to be published when service disconnects from broker                                                                                                                                          |
-| WillRetain     | Boolean  specifying if the MQTT Broker should save the last message published as the “Last Good Message” on the Will topic                                                                                       |
-| WillQos        | MQTT Quality of Service (QOS) setting to use (0, 1 or 2) for Last Will Message.                                                                                                                                  |
+| Name           | Description                                                                                                                                                                                           |
+|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| BrokerAddress  | URL specify the address of the MQTT Broker                                                                                                                                                            |
+| Topic          | Topic to publish the data                                                                                                                                                                             |
+| ClientId       | Id to use when connecting to the MQTT Broker                                                                                                                                                          |
+| Qos            | MQTT Quality of Service (QOS) setting to use (0, 1 or 2). Please refer [**here**](https://www.eclipse.org/paho/files/mqttdoc/MQTTClient/html/qos.html) for more details on QOS values                 |
+| AutoReconnect  | Boolean specifying if reconnect should be automatic if connection to MQTT broker is lost                                                                                                              |
+| Retain         | Boolean  specifying if the MQTT Broker should save the last message published as the “Last Good Message” on that topic                                                                                |
+| SkipVerify     | Boolean indicating if the certificate verification should be skipped                                                                                                                                  |
+| PersistOnError | Indicates to persist the data if the POST fails. Store and Forward must also be enabled if this is set to "true"                                                                                      |
+| AuthMode       | Mode of authentication to use when connecting to the MQTT Broker. Valid values are:                                                                                                                   |
+|                | **none** - No authentication required                                                                                                                                                                 |
+|                | **usernamepassword** - Use username and password authentication. The Secret Store (Vault or [InsecureSecrets](../../../Configuration.md#writable)) must contain the `username` and `password` secrets |
+|                | **clientcert** - Use Client Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../../../Configuration.md#writable)) must contain the `clientkey` and `clientcert` secrets       |
+|                | **cacert** - Use CA Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../../../Configuration.md#writable)) must contain the `cacert` secret                                    |
+| SecretName     | Name of the  secret in the SecretStore where authentication secrets are stored                                                                                                                        |
+| WillEnabled    | Enables Last Will Capability. See for [MQTT Last Will](https://cedalo.com/blog/mqtt-last-will-explained-and-example) more details.                                                                    |
+| WillTopic      | Topic Last Will messages is publish                                                                                                                                                                   |
+| WillPayload    | Last Will messages to be published when service disconnects from broker                                                                                                                               |
+| WillRetain     | Boolean  specifying if the MQTT Broker should save the last message published as the “Last Good Message” on the Will topic                                                                            |
+| WillQos        | MQTT Quality of Service (QOS) setting to use (0, 1 or 2) for Last Will Message.                                                                                                                       |
 
 !!! note
     `Authmode=cacert` is only needed when client authentication (e.g. `usernamepassword`) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.
@@ -343,12 +343,12 @@ Please refer to the function's detailed documentation by clicking the function n
         WillRetained: "true"
         WillTopic: "serviceX/last/will"
     ```
-## [SetResponseData](../../../../BuiltIn/#set-response-data)
+## [SetResponseData](../../../sdk/api/BuiltInPipelineFunctions.md#set-response-data)
 
 **Parameters**
 
-| Name                | Description                                                  |
-| ------------------- | ------------------------------------------------------------ |
+| Name                | Description                                                                                       |
+|---------------------|---------------------------------------------------------------------------------------------------|
 | ResponseContentType | (**Optional**) Used to specify content-type header for response. Default to JSON if not specified |
 
 !!! example
@@ -358,12 +358,12 @@ Please refer to the function's detailed documentation by clicking the function n
         ResponseContentType: "application/json"
     ```
 
-## [Transform](../../../../BuiltIn/#conversion)
+## [Transform](../../../sdk/api/BuiltInPipelineFunctions.md#conversion)
 
 **Parameters**
 
 | Name | Description                                               |
-| ---- | --------------------------------------------------------- |
+|------|-----------------------------------------------------------|
 | Type | Type of transformation to perform. Can be 'xml' or 'json' |
 
 !!! example
@@ -373,12 +373,12 @@ Please refer to the function's detailed documentation by clicking the function n
         Type: "xml"
     ```
 
-## [ToLineProtocol](../../../../BuiltIn/#tolineprotocol)
+## [ToLineProtocol](../../../sdk/api/BuiltInPipelineFunctions.md#tolineprotocol)
 
 **Parameters**
 
-| Name | Description                                                  |
-| ---- | ------------------------------------------------------------ |
+| Name | Description                                                                                            |
+|------|--------------------------------------------------------------------------------------------------------|
 | Tags | (**Optional**) Comma separated list of additional tags to add to the metric in to form "tag:value,..." |
 
 !!! example
@@ -389,18 +389,18 @@ Please refer to the function's detailed documentation by clicking the function n
     ```
 
 !!! note
-    The new `TargetType` setting must be set to "metric" when using this function. See the [Metric TargetType](../TargetType/#metric-targettype) section above for more details.
+    The new `TargetType` setting must be set to "metric" when using this function. See the [Metric TargetType](../../../sdk/details/TargetType.md#metric-targettype) section above for more details.
 
-## [WrapIntoEvent](../../../../BuiltIn/#wrap-into-event)
+## [WrapIntoEvent](../../../sdk/api/BuiltInPipelineFunctions.md#wrap-into-event)
 
 **Parameters**
 
-| Name         | Description                                                  |
-| ------------ | ------------------------------------------------------------ |
-| ProfileName  | Profile name to use for the new Event                        |
-| DeviceName   | Device name to use for  the new Event                        |
-| ResourceName | Resource name name to use for  the new Event's `SourceName` and Reading's `ResourceName` |
-| ValueType    | Value type to use  the new Event Reading's value             |
+| Name         | Description                                                                                    |
+|--------------|------------------------------------------------------------------------------------------------|
+| ProfileName  | Profile name to use for the new Event                                                          |
+| DeviceName   | Device name to use for  the new Event                                                          |
+| ResourceName | Resource name name to use for  the new Event's `SourceName` and Reading's `ResourceName`       |
+| ValueType    | Value type to use  the new Event Reading's value                                               |
 | MediaType    | Media type to use the new Event Reading's value type. Required when the value type is `Binary` |
 
 !!! example

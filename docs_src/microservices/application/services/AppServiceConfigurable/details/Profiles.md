@@ -15,7 +15,7 @@ The profile name selected is used in the service key (`app-[profile name]`) to m
 e.g. `AppService-sample` when specifying `sample` as the profile.
 
 !!! note
-    If you need to run multiple instances with the same profile, e.g. `http-export`, but configured differently, you will need to override the service key with a custom name for one or more of the services. This is done with the `-sk/-serviceKey` command-line option or the `EDGEX_SERVICE_KEY` environment variable. See the [Command-line Options](../../../../AdvancedTopics/#service-key) and [Environment Overrides](../../../../AdvancedTopics/#edgex_service_key) sections for more detail.
+    If you need to run multiple instances with the same profile, e.g. `http-export`, but configured differently, you will need to override the service key with a custom name for one or more of the services. This is done with the `-sk/-serviceKey` command-line option or the `EDGEX_SERVICE_KEY` environment variable. See the [Command-line Options](../../../details/CommandLine.md#service-key) and [Environment Overrides](../../../details/EnvironmentVariables#edgexservicekey) sections for more detail.
 
 !!! note
     Functions can be declared in a profile but not used in the pipeline `ExecutionOrder`  allowing them to be added to the pipeline `ExecutionOrder` later at runtime if needed.
@@ -79,7 +79,7 @@ Optional Additional Tags:
   - Currently set to empty string
   - Example value: `"tag1:value1, tag2:value2"
 
-Optional Batching parameters (see [Batch function](../AvailablePipelineFunctions/#batch) for more details):
+Optional Batching parameters (see [Batch function](AvailablePipelineFunctions.md#batch) for more details):
 
 - `WRITABLE_PIPELINE_FUNCTIONS_BATCH_PARAMETERS_MODE: <your batch mode>`
   - Currently set to `"bytimecount"`

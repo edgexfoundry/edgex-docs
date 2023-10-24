@@ -31,7 +31,7 @@ This runs, in non-secure mode, all the standard EdgeX services along with the De
 
 ## Postman
 
-A sample Postman collection is provided to simplify controlling this service via its REST API. See the [Postman Collection](../ApiReference/#postman-collection) section for more details.
+A sample Postman collection is provided to simplify controlling this service via its REST API. See the [Postman Collection](ApiReference.md#postman-collection) section for more details.
 
 ## Debug Logging
 
@@ -203,10 +203,10 @@ This API exports all the events, related devices and device profiles. It has an 
 
 This API allows a previously exported recording to be imported back into the service. Review the **Import** POST API in the [API Reference](ApiReference.md) section and use the **Import Recording** requests from the Postman collection referenced above.
 
-This API has a the optional `overwrite` query parameter, which specifies to overwrite existing Devices and Device Profiles or not. Defaults to true if not set.
+This API has the optional `overwrite` query parameter, which specifies to overwrite existing Devices and Device Profiles or not. Defaults to true if not set.
 
 !!! note
-    Only one recording is save in memory at a time. Importing will overwrite the current recoding if one exists.
+    Only one recording is saved in memory at a time. Importing will overwrite the current recoding if one exists.
 
 !!! warning
-    The source device service(s) must be running will importing and the `overwite` parameter above is `true`. This is because the device service(s) are sent messages when the devices and profiles in the imported data are added to the system.
+    The source device service(s) must be running while importing and the `overwite` parameter above is `true`. This is because the device service(s) are sent messages when the devices and profiles in the imported data are added to the system.
