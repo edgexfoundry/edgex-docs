@@ -83,8 +83,6 @@ Open your browser [http://localhost:4000](http://localhost:4000/)
 
 Please log in to EdgeX with the JWT token we generated above.
 
-For more details please refer to [edgex-ui Snap](https://github.com/edgexfoundry/edgex-ui-go/blob/{{edgexversion}}/snap/README.md)
-
 ### Native
 If you are running EdgeX natively (outside of Docker Compose or a Snap), you will find instructions on how to build and run the GUI on your platform in the [GUI repository README](https://github.com/edgexfoundry/edgex-ui-go/blob/{{edgexversion}}/README.md)
 
