@@ -33,10 +33,12 @@ If you have not already done so, proceed to [Getting Started using Docker](../ge
 
 ### Add the SNMP Device Service to your docker-compose.yml
 
-The EdgeX docker-compose.yml file used to run EdgeX must include the SNMP device service for this example.  You can either:
+The EdgeX docker-compose.yml file used to run EdgeX must include the SNMP device service for this example.
 
-- download and use the [docker-compose.yml](./docker-compose.yml) file provided with this example 
-- or use the [EdgeX Compose Builder tool](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder) to create your own custom docker-compose.yml file adding device-snmp.
+Use the [EdgeX Compose Builder tool](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder) to create your own custom docker-compose.yml file adding device-snmp.
+
+!!! example - "Example Compose Builder command"
+    make gen no-secty ds-snmp
 
 See [Getting Started using Docker](../getting-started/Ch-GettingStartedDockerUsers.md#run-edgex-foundry) if you need assistance running EdgeX once you have your Docker Compose file.
 
