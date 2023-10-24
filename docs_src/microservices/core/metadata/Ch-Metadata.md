@@ -438,7 +438,7 @@ The System Event DTO has the following properties:
 
 ### Publish Topic
 
-The System Event DTO for Device System Events is published to the topic specified by the `MessageQueue.PublishTopicPrefix` configuration setting  above, which has a default of `edgex/system-events`, plus the following data items, which are added to allow receivers to filter by subscription.
+The System Event DTO for Device System Events are published to the `edgex/system-events` base topic with the following data items, which are added to allow receivers to filter by subscription.
 
 - source = core-metadata
 - type = device

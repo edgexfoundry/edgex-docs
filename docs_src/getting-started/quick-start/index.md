@@ -178,37 +178,42 @@ EdgeX provides exporters (called application services) for a variety of cloud se
 First add the following application service to your docker-compose.yml file right after the 'app-service-rules' service (the first service in the file).  Spacing is important in YAML, so make sure to copy and paste it correctly.
 
 ``` yaml
-  app-service-mqtt:
-    container_name: edgex-app-mqtt
+  app-mqtt-export:
+    container_name: edgex-app-mqtt-export
     depends_on:
-    - consul
-    - data
+      consul:
+        condition: service_started
+      core-data:
+        condition: service_started
     environment:
-      CLIENTS_CORE_COMMAND_HOST: edgex-core-command
-      CLIENTS_CORE_DATA_HOST: edgex-core-data
-      CLIENTS_CORE_METADATA_HOST: edgex-core-metadata
-      CLIENTS_SUPPORT_NOTIFICATIONS_HOST: edgex-support-notifications
-      CLIENTS_SUPPORT_SCHEDULER_HOST: edgex-support-scheduler
-      DATABASE_HOST: edgex-redis
       EDGEX_PROFILE: mqtt-export
       EDGEX_SECURITY_SECRET_STORE: "false"
-      MESSAGEQUEUE_HOST: edgex-redis
-      REGISTRY_HOST: edgex-core-consul
-      SERVICE_HOST: edgex-app-mqtt
-      TRIGGER_EDGEXMESSAGEBUS_PUBLISHHOST_HOST: edgex-redis
-      TRIGGER_EDGEXMESSAGEBUS_SUBSCRIBEHOST_HOST: edgex-redis
-      WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_BROKERADDRESS: tcp://broker.mqttdashboard.com:1883
-      WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_TOPIC: EdgeXEvents
-    hostname: edgex-app-mqtt
-    image: edgexfoundry/app-service-configurable:2.0.0
+      SERVICE_HOST: edgex-app-mqtt-export
+      WRITABLE_LOGLEVEL: INFO
+      WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_BROKERADDRESS: MQTT_BROKER_ADDRESS_PLACE_HOLDER
+      WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_TOPIC: edgex-events
+    hostname: edgex-app-mqtt-export
+    image: nexus3.edgexfoundry.org:10004/app-service-configurable:latest
     networks:
-      edgex-network: {}
+      edgex-network: null
     ports:
-    - 127.0.0.1:59702:59702/tcp
+    - mode: ingress
+      host_ip: 127.0.0.1
+      target: 59703
+      published: "59703"
+      protocol: tcp
     read_only: true
+    restart: always
     security_opt:
     - no-new-privileges:true
     user: 2002:2001
+    volumes:
+    - type: bind
+      source: /etc/localtime
+      target: /etc/localtime
+      read_only: true
+      bind:
+        create_host_path: true
 ```
 
 !!! Note

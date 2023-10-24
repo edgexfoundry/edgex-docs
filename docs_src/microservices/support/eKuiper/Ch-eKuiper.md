@@ -47,4 +47,4 @@ An extension mechanism allows eKuiper to be customized to analyze and process da
 For more information on the LF Edge eKuiper project, please refer to the following resources.
 
 - [eKuiper Github Code library](https://github.com/lf-edge/ekuiper/)
-- [eKuiper Reference](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/README.md)
+- [eKuiper Reference](https://github.com/lf-edge/ekuiper/blob/master/docs/en_US/index.md)
