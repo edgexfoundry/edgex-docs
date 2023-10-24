@@ -1,11 +1,15 @@
-# C SDK
+---
+title: Device Service SDK - Getting Started C Device Services SDK
+---
+
+#  Device Service SDK - C SDK
 
 In this guide, you create a simple device service that generates a
 random number as a means to simulate getting data from an actual device. In this way, you explore some of the SDK framework and work necessary to complete a device service without actually having a device to talk to.
 
 ## Install dependencies
 
-See the [Getting Started - C Developers](./Ch-GettingStartedCDevelopers.md) guide to install the necessary tools and infrastructure needed to develop a C service.
+See the [Getting Started - C Developers](../../../../getting-started/Ch-GettingStartedCDevelopers.md) guide to install the necessary tools and infrastructure needed to develop a C service.
 
 ## Get the EdgeX Device SDK for C
 
@@ -139,8 +143,7 @@ Follow these steps to create a pre-defined device for the simple random number g
 
 1. A pre-created device for the random number device is provided in this documentation.  Download **[random-generator-devices.json](random-generator-devices.json)** and save the file to the `./res/devices` folder.
 
-2. Open the random-generator-devices.json file in a text editor. Note how the file contents represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).  In this example, the device described has a profileName:  `RandNum-Device`.  In this case, the device informs EdgeX that it will be using the device profile we created in [Creating your Device Profile](./GettingStartedSDK-C.md#creating-your-device-profile)
-
+2. Open the random-generator-devices.json file in a text editor. Note how the file contents represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).  In this example, the device described has a profileName:  `RandNum-Device`.  In this case, the device informs EdgeX that it will be using the device profile we created in [Creating your Device Profile](../../../../getting-started/Ch-GettingStartedSDK-C.md#creating-your-device-profile)
 
 ## Configuring your Device Service
 
@@ -191,7 +194,7 @@ Allow your newly created Device Service, which was formed out of the
 Device Service C SDK, to create sensor mimicking data which it then
 sends to EdgeX.
 
-1.  Follow the [Getting Started using Docker](../getting-started/Ch-GettingStartedDockerUsers.md) guide to start all of EdgeX. From
+1.  Follow the [Getting Started using Docker](./Ch-GettingStartedDockerUsers.md) guide to start all of EdgeX. From
     the folder containing the docker-compose file, start EdgeX with the
     following call:
 
