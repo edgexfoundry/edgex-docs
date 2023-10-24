@@ -42,7 +42,7 @@ All pipeline function capabilities such as Store and Forward, Batching, etc. can
         }
         
         err = app.service.AddFunctionsPipelineForTopics(
-    			"Int32-Pipleine", 
+    			"Int32-Pipleline", 
     			[]string{"edgex/events/+/+/+/Int32", "edgex/events/+/+/+/Int64"},
     		    transforms.NewFilterFor(deviceNames).FilterByDeviceName,
     		    sample.LogEventDetails,

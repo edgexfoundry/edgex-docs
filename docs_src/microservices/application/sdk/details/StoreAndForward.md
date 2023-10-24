@@ -11,7 +11,7 @@ The Store and Forward capability allows for export functions to persist data on 
 
 ## Configuration
 
-`Writable.StoreAndForward` allows enabling, setting the interval between retries and the max number of retries. If running with Configuration Provider, these setting can be changed on the fly via Consul without having to restart the service.
+`Writable.StoreAndForward` allows enabling, setting the interval between retries and the max number of retries. If running with Configuration Provider, these settings can be changed on the fly via Consul without having to restart the service.
 
 !!! example "Example - Store and Forward configuration"
     ```yaml
@@ -25,7 +25,7 @@ The Store and Forward capability allows for export functions to persist data on 
 !!! note
     RetryInterval should be at least 1 second (e.g. '1s') or greater. If a value less than 1 second is specified, 1 second will be used. Endless retries will occur when MaxRetryCount is set to 0. If MaxRetryCount is set to less than 0, a default of 1 retry will be used.
 
-Database configuration section describes which database type to use and the information required to connect to the database. This section is required if Store and Forward is enabled. It is optional if **not** using `Redis` for the EdgeX MessageBus which is now the default. 
+Database configuration section describes which database type to use and the information required to connect to the database. This section is required if Store and Forward is enabled and is provided in [Common Configuration](../../../configuration/CommonConfiguration.md#common-configuration-properties). 
 
 !!! example "Example - Database configuration"
     ```yaml

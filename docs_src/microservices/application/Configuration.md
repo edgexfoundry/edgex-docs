@@ -118,10 +118,11 @@ The tabs below provide additional configuration which are applicable to Applicat
     | Will: Qos | blank** | QOS level for Will Topic |
     | Will: Retained | false** | Retained setting for Will Topic |
 
+    !!! edgey "EdgeX 3.1"
+        Last Will capability is new in EdgeX 3.1
 
-
-!!! note
-    `Authmode=cacert` is only needed when client authentication (e.g. `usernamepassword`) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.
+    !!! note
+        `Authmode=cacert` is only needed when client authentication (e.g. `usernamepassword`) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.
 
 === "Application Settings"
 

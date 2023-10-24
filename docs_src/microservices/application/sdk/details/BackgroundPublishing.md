@@ -5,7 +5,7 @@ title: App SDK - Background Publishing
 # App Functions SDK - Background Publishing
 
 !!! note
-    The Background Publishing capability has been deprecated in EdgeX 3.1 and will be removed in the next major release. Use the [Service Publsh/PublishWithTopic](../api/ApplicationServiceAPI.md#publish) or [Context Publsh/PublishWithTopic](../api/AppFunctionContextAPI.md#publish) APIs instead.
+    The Background Publishing capability has been deprecated in EdgeX 3.1 and will be removed in the next major release. Use the [Service Publish/PublishWithTopic](../api/ApplicationServiceAPI.md#publish) or [Context Publish/PublishWithTopic](../api/AppFunctionContextAPI.md#publish) APIs instead.
 
 Application Services using the MessageBus trigger can request a background publisher using the AddBackgroundPublisher API in the SDK.  This method takes an int representing the background channel's capacity as the only parameter and returns a reference to a BackgroundPublisher.  This reference can then be used by background processes to publish to the configured MessageBus output.  A custom topic can be provided to use instead of the configured message bus output as well.
 

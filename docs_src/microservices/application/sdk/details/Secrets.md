@@ -7,7 +7,7 @@ title: App SDK - Secrets
 All App Service instances running in secure mode require a SecretStore to be configured. With the use of `Redis Pub/Sub` as the default EdgeX MessageBus all App Services need the `redisdb` known secret added to their SecretStore, so they can connect to the Secure EdgeX MessageBus. See the [Secure MessageBus](../../../../security/Ch-Secure-MessageBus.md) documentation for more details.
 
 !!! edgey "Edgex 3.0"
-    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It now has default values which can be overridden with environment variables. See the [SecretStore Overrides](../../../configuration/CommonEnvironmentVariables.md#secretstore-configuration-overrides) section for more details.
+    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It now has default values in the code which can be overridden with environment variables. See the [SecretStore Overrides](../../../configuration/CommonEnvironmentVariables.md#secretstore-configuration-overrides) section for more details.
 
 ## Storing Secrets
 
