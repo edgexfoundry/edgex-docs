@@ -8,6 +8,9 @@ title: App Services - V3 Migration Guide
 
 The migration of any Application Service's configuration starts with migrating configuration common to all EdgeX services. See the [V3 Migration of Common Configuration](../configuration/V3MigrationCommonConfig.md) section for details including the change from **TOML** format to **YAML** format for the configuration file. The remainder of this section focuses on configuration specific to Application Services.
 
+!!! edgey "EdgeX 3.1"
+    New in EdgeX 3.1 is URI for files which allows the private configuration file to be pulled from a remote location via a URI rather than from the local file system. See [Config File Command-line](../configuration/CommonCommandLineOptions.md#config-file) section for more details.
+
 ### Common Configuration Removed
 
 Any configuration that is common to all EdgeX services or all EdgeX Application Services needs to be removed from custom application service's private configuration. 

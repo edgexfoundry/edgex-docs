@@ -10,6 +10,9 @@ This section describes the configuration elements provided by the SDK that are u
 
 Please first refer to the general [Configuration documentation](../configuration/CommonConfiguration.md) for configuration properties common across all EdgeX services.
 
+!!! edgey "EdgeX 3.1"
+    New in EdgeX 3.1 is URI for files which allows the private configuration file to be pulled from a remote location via a URI rather than from the local file system. See [Config File Command-line](../configuration/CommonCommandLineOptions.md#config-file) section for more details.
+
 !!! note
     `*`indicates the configuration value can be changed on the fly if using a configuration provider (like Consul).
     `**`indicates the configuration value can be changed but the service must be restarted.

@@ -36,6 +36,6 @@ The first line of note is `ExecutionOrder: "FilterByDeviceName, Transform, HTTPE
 Next, each function and its required information is listed. Each function typically has associated Parameters that must be configured to properly execute the function as designated by `Parameters:` under `{FunctionName}`. Knowing which parameters are required for each function, can be referenced by taking a look at the [Available Pipeline Functions](details/AvailablePipelineFunctions.md) section.
 
 !!! note
-    By default, the configuration provided is set to use `EdgexMessageBus` as a trigger. This means you must have EdgeX Running with devices sending data in order to trigger the pipeline. You can also change the trigger to be HTTP. For more details on triggers, view the `Triggers`documentation located in the [Triggers](../../details/Triggers.md) section.
+    By default, the configuration provided is set to use `EdgexMessageBus` as a trigger. This means you must have EdgeX Running with devices sending data in order to trigger the pipeline. You can also change the trigger to be HTTP. For more details on triggers, view the `Triggers` documentation located in the [Triggers](../../details/Triggers.md) section.
 
 That's it! Now we can run/deploy this service and the functions pipeline will process the data with functions we've defined.
