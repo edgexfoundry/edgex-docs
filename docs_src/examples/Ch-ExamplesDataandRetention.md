@@ -26,7 +26,7 @@ For detailed information on the data retention see [Use Case for capping reading
 
 - For detailed information on the data retention see [Core Data Configuration Properties](../microservices/core/data/Configuration.md) and browse to **retention** tab.
 
-- For detailed information on the data retention see [Notifications Configuration Properties](../microservices/support/notifications/Ch-AlertsNotifications.md#configuration-properties) and browse to **retention** tab.
+- For detailed information on the data retention see [Notifications Configuration Properties](../microservices/support/notifications/Configuration.md#configuration-properties) and browse to **retention** tab.
 
 ## Enable Data Retention
 Two ways to enable data retention mechanism:
