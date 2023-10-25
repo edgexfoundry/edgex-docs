@@ -82,7 +82,7 @@ Application Services currently have the ability to configure `SecretStores` for 
   
   - These currently are Core Data, Core Metadata, Support Notifications, Support Scheduler and Application Service (class)
   
-- **Unknown Services** are those not known in the static configuration that become known when added to the Docker compose file or Snap. 
+- **Unknown Services** are those not known in the static configuration that become known when added to the Docker compose file. 
 
   - Application Service (instance) are examples of these services. 
 
@@ -404,4 +404,3 @@ The C Device SDK will implement the same `SecretProvider` abstraction, InsecureS
 - app-service-configurable's configuration profiles as well as all the Application Service examples configurations will be updated to remove the `SecretStoreExclusive` configuration and just use the existing `SecretStore` configuration
 - security-secretstore-setup will be enhanced as described in the [Only Exclusive Secret Stores](#only-exclusive-secret-stores) section above
 - Adding new services that need static secrets added to their `SecretStore` requires stopping and restarting all the services. The is because security-secretstore-setup has completed but not stopped. If it is rerun without stopping the other services, there tokens and static secrets will have changed. The planned refactor of `security-secretstore-setup` will attempt to resolve this.
-- Snaps do not yet support setting the environment variable for adding SecretStore. It is planned for Ireland release.

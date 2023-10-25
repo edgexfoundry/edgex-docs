@@ -32,7 +32,6 @@ The current solution has some problematic aspects:
   In the Docker implementation,
   this shared file system is constructed by bind-mounting a host-based directory
   to multiple containers.
-  The snap implementation is similar, utilizing a content-interface between snaps.
   In a Kubernetes implementation limited to a single worker node,
   a CSI storage driver that provided RWO volumes would suffice.
 
@@ -151,8 +150,8 @@ utility to simplify the process of registering new services
 that uses the registration socket above.
 
 The agent uses a workload attesation Unix domain socket that
-is open to the world.  This socket is shared via a snap content-interface
-of via a shared host bind mount for Docker.  There is one agent per node.
+is open to the world.  This socket is shared via a shared host bind mount for Docker.  
+There is one agent per node.
 
 
 #### Trust Bundle
@@ -188,7 +187,7 @@ The process ID is fed into one of following workload attesters,
 which gather additional metadata about the caller:
 
 * The Unix workload attester gathers UID, GID, path, and SHA-256 hash of the executable.
-  The Unix workload attester would be used native services and snaps.
+  The Unix workload attester would be used native services.
 * The Docker workload attester gathers container labels
   that are added by docker-compose when the container is launched.
   The Docker workload attester would be used for Docker-based EdgeX deployments.
@@ -219,8 +218,6 @@ spire-server entry create -parentID "${local_agent_svid}" -dns edgex-spiffe-toke
 The above command associates a SPIFFE ID with a _selector_,
 in this case, a container label, and configures a DNS
 subjectAltName in the X.509 certificate for server-side TLS.
-
-A snap-based installation of EdgeX would use a `unix:path` or `unix:sha256` selector instead.
 
 There are two extension mechanims for authorization additional workloads:
 

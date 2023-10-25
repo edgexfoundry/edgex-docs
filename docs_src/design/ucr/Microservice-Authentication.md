@@ -111,7 +111,7 @@ Microservice authentication is currently implemented around two primary vectors:
   the outbound request shall be authenticated.
 
 - Authentication shall work in the context of bare-metal deployments,
-  snap-based deployments, docker-based deployments, and Kubernetes-based deployments.
+  docker-based deployments, and Kubernetes-based deployments.
 
 This UCR does not prescribe what layer in the software stack performs authentication.
 

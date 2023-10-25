@@ -15,7 +15,6 @@ and not the EdgeX project as a whole.
 The EdgeX Framework is a API-based software framework that strives to be platform and architecture-independent. The threat model considers only the following two deployment scenarios:
 
 * A containerized implementation based on Docker.
-* A confined implementation based on Snaps.
 
 The threat model presented in this document analyzes the secret management subsystem of EdgeX, and has considerations for both of the above runtime environments, both of which implement protections beyond a stock user/process runtime environment.  In generic terms, the secret management threat model assumes:
 
@@ -47,7 +46,7 @@ Footnotes:
 
 ## Protections afforded by modeled runtime environments
 
-The threat model considers Docker-based and Snap-based deployments.  Each of these deployment environments offer sandboxing protections that go beyond a standard Unix user and process model.  As mentioned earlier, the threat model assumes the sandboxing protections:
+The threat model considers Docker-based deployments.  Each of these deployment environments offer sandboxing protections that go beyond a standard Unix user and process model.  As mentioned earlier, the threat model assumes the sandboxing protections:
 
 * Prevent one service from accessing the protected files of the host or another service.
 * Prevent one service from inspecting the protected memory of another service or processes on the host.
@@ -78,30 +77,6 @@ Docker-based runtimes are expected to provide the following properties:
 * Docker containers do not share the host's network interface by default and instead is based on virtual ethernet adapters and bridges.  Network connectivity is strictly controlled via the docker-compose definition.
 * There are networking differences when running Docker on Windows or MacOS machines, due to the use of a hidden Linux virtual machine to actually run Docker.
 * There are few if any IPC restrictions between processes running in the same container due to lack of mandatory access controls.  Each service must run in its own container to ensure maximum service isolation.
-
-### Snap-based runtimes
-
-All services running within a single snap are assumed to be within the same trust boundary.  However, even in a snap, due to the use of mandatory access control, there are stronger-than-normal process isolation policies in place, as documented below.
-
-#### General protections
-
-* The `root` user in a snap is subject to namespace constraints and MAC rules enforced by Linux Security Modules (LSMs) configured as part of the snap.
-
-#### File system protections
-
-* Snaps run inside their own mount namespace, which is a [confined](https://github.com/snapcore/snapd/wiki/Snap-Execution-Environment) view of the host's file system where access to most paths is restricted. This includes sysfs and procfs.  Note: File system paths inside of the snap are homomorphic with the host's view of the file system - any files written in the snap are visible on the host.
-* All of the files in the snap are read-only with the exception of the below noted paths.  The contents of the snap itself are mounted read-only from a squashfs file system.
-* Snaps can write small temporary files to a tmpfs pointed to by `$XDG_RUNTIME_DIR` which is a [user-private user-writable-directory](https://www.freedesktop.org/software/systemd/man/pam_systemd.html) that is also per-snap. Snaps can write persistent data local to the snap to the `$SNAP_DATA` folder.
-* Snaps do not have the [CAP_SYS_ADMIN](http://man7.org/linux/man-pages/man7/capabilities.7.html), `mount(2)`, capability.
-* [Content interface snaps](https://docs.snapcraft.io/the-content-interface/1074) can be used to allow one snap to share code or data with another snap.
-
-#### Interprocess communication protections
-
-* Snaps can send signals only to processes running inside of the snap.
-* Snaps share the host's network interface rather than having a virtual network interface card.
-* Snaps may have multiple processes running in them and they are allowed to communicate with each other.
-* Snaps may connect to IP sockets opened by processes running outside of the snap.
-* Snaps are not allowed to access `/proc/mem` or to `ptrace(2)` other processes.
 
 ## High-level Security Objectives
 
@@ -230,7 +205,7 @@ Format:
 
 #### (b3) Loss of confidentiality of Vault service token at-rest by file system inspection/monitoring.
 
-* Container/Snap protections prevent services from reading other services' tokens off of disk.
+* Container protections prevent services from reading other services' tokens off of disk.
 * Revoke previously generated tokens on every reboot.
 
 #### (d1) Loss of availability of Vault service token token via intentional Vault service crash.
@@ -249,7 +224,7 @@ Format:
 
 #### (e2) Loss of confidentiality of token-issuing-token at-rest by file system inspection/monitoring.
 
-* Container/Snap provided file system protections.
+* Container provided file system protections.
 * Token-issuing token in stored in private tmpfs area in execution environments that support it.
 * Token-issuing token is passed via private channel inside of security service.
 * Token-issuing token for file-based token provider is revoked after use.
@@ -272,13 +247,13 @@ Format:
 
 #### (g2) Loss of confidentiality of Vault master key at-rest by file system inspection/monitoring.
 
-* Container/Snap provided file system protections.
+* Container provided file system protections.
 * Vault master key is encrypted with AES-256-GCM using a HMAC-KDF derived-key with KDF input coming from a configurable source.
 * Threat model recommends use of hardware secure storage for the input key material.
 
 #### (g3) Loss of availability of Vault master key by malicious deletion.
 
-* Container/Snap provided file system protections.
+* Container provided file system protections.
 * Hardware-based solutions are out of scope for the reference design, but may offer additional protections.
 
 #### (h) Lost of confidentiality of Vault data store at-rest by file system inspection/monitoring.
@@ -296,7 +271,7 @@ Format:
 
 #### (j2) Loss of integrity or availability of Consul data store at-rest by file system tampering or malicious deletion.
 
-* Container/Snap provided file system protections.
+* Container provided file system protections.
 
 #### (j3) Loss of availability of Consul data store at runtime due to intentional service crash.
 
@@ -305,20 +280,20 @@ Format:
 
 #### (k1) Loss of confidentiality of PKI CA at-rest by file system inspection/monitoring.
 
-* Container/Snap provided file system protections.
+* Container provided file system protections.
 * Secure deletion of CA private key after PKI generation.
 
 #### (k2) Loss of integrity of PKI CA by malicious replacement.
 
-* Container/Snap provided file system protections.
+* Container provided file system protections.
 
 #### (k3) Loss of availability of PKI CA (public certificate) by malicious deletion.
 
-* Container/Snap provided file system protections.
+* Container provided file system protections.
 
 #### (l1) Loss of confidentiality of PKI intermediate at-rest by file system inspection/monitoring.
 
-* Container/Snap provided file system protections.
+* Container provided file system protections.
 * Secure deletion of CA intermediate private key after PKI generation.
 
 #### (l2) Loss of integrity of PKI intermediate by malicious replacement.
@@ -327,11 +302,11 @@ Format:
 
 #### (l3) Loss of availability of PKI intermediate (public certificate) by malicious deletion.
 
-* Container/Snap provided file system protections.
+* Container provided file system protections.
 
 #### (m1) Loss of confidentiality of PKI leaf at-rest by file system inspection/monitoring.
 
-* Container/Snap provided file system protections.
+* Container provided file system protections.
 * Note that server TLS private keys must be delivered to services unencrypted due to limitations of dependent services.
 
 #### (m2) Loss of integrity of PKI leaf by malicious replacement.
@@ -340,11 +315,11 @@ Format:
 
 #### (m3) Loss of availability of PKI leaf by malicious deletion.
 
-* Container/Snap provided file system protections.
+* Container provided file system protections.
 
 #### (p) Disclosure, tampering, or deletion of secrets through /proc/mem or ptrace() by malicous or compromised microservice
 
-- Container/Snap provided memory protections.
+- Container provided memory protections.
 
 #### (q) Lost of confidentiality of input key material (IKM)
 

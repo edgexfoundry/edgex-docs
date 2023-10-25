@@ -36,7 +36,7 @@ until the service was "healthy".
 Unfortunately, this feature was removed in 3.x docker-compose.
 (This feature is also unsuppported in swarm mode as well.)
 
-Snaps have an explicit install phase and Kubernetes PODs have optional init containers.
+Kubernetes PODs have optional init containers.
 In other frameworks, initialization is allowed to run to completion
 prior to application components being started in production mode.
 This functionality does not exist in Docker nor docker-compose.
@@ -278,8 +278,7 @@ and it might take the greater part of a day.
 In contrast,
 EdgeX up to this point has been a "turnkey" middleware framework:
 it can be deployed with the same ease as an application,
-such as via a docker-compose file,
-or via a snap install.
+such as via a docker-compose file.
 This means that most of the secret provisioning must be automated
 and the provisioning logic must be built into the framework in some way.
 The proposals presented in this ADR are compatibile with

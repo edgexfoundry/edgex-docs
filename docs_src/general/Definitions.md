@@ -94,8 +94,5 @@ of the network that communicates with the cloud, is referred to as the
 EdgeX enables data to be sent "north, " "south, " or laterally as
 needed and as directed.
 
-## "Snappy" / Ubuntu Core & Snaps
-A Linux-based Operating System provided by Ubuntu - formally called [Ubuntu Core](https://ubuntu.com/core) but often referred to as "Snappy". The packages are called 'snaps' and the tool for using them 'snapd', and works for phone, cloud, internet of things, and desktop computers. The "Snap" packages are self-contained and have no dependency on external stores. "Snaps" can be used to create command line tools, background services, and desktop applications.
-
 ## User
 If you want to get the EdgeX platform and run it (but do not intend to change or add to the existing code base now) then you are considered a "User".

@@ -2,7 +2,7 @@
 ## Specifically - build and run EdgeX natively on a Raspberry Pi 
 
 !!! Warning
-    This build and run guide offers some assistance to seasoned developers or administrators to help build and run EdgeX on Linux OS with ARM 32 hardware natively (not using Docker and not running with snaps).   Running on ARM 32 is **not supported by the project**.  EdgeX was built to be platform independent.  As such, we believe most of EdgeX can run on almost any environment (on any hardware architecture and almost any operating system).
+    This build and run guide offers some assistance to seasoned developers or administrators to help build and run EdgeX on Linux OS with ARM 32 hardware natively (not using Docker).   Running on ARM 32 is **not supported by the project**.  EdgeX was built to be platform independent.  As such, we believe most of EdgeX can run on almost any environment (on any hardware architecture and almost any operating system).
     
     Existence of this guide **does not imply current or future support**.  Use of this guide should be used with care and with an understanding that it is the community's best effort to provide advanced developers with the means to begin their own custom EdgeX development and execution on Linux distributions running on ARM 32 hardware.
 
