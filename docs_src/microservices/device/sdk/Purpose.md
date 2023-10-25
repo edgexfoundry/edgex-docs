@@ -10,13 +10,8 @@ EdgeX provides two software development kits (SDKs) to help developers create ne
 
 EdgeX is mostly written in Go and C.  There is a device service SDK written in both Go and C to support the more popular languages used in EdgeX today.  In the future, alternate language SDKs may be provided by the community or made available by the larger ecosystem.
 
-The SDKs are really libraries to be incorporated into a new micro service.  They make writing a new device service much easier.  By importing the SDK library of choice into your new device service project, you can focus on the details associated with getting and manipulating sensor data from your device via the specific protocol of your device.  Other details, such as initialization of the device service, getting the service configured, sending sensor data to core data, managing communications with core metadata, and much more are handled by the code in the SDK library.  The code in the SDK also helps to ensure your device service adheres to rules and standards of EdgeX – such as making sure the service registers with the EdgeX registry service when it starts up.
+The SDKs are really libraries to be incorporated into a new micro service.  They make writing a new device service much easier.  By importing the SDK library of choice into your new device service project, you can focus on the details associated with getting and manipulating sensor data from your device via the specific protocol of your device.  Other details, such as initialization of the device service, getting the service configured, sending sensor data to the EdgeX MessageBus, managing communications with core metadata, and much more are handled by the code in the SDK library.  The code in the SDK also helps to ensure your device service adheres to rules and standards of EdgeX – such as making sure the service registers with the EdgeX registry service when it starts up.
 
-The EdgeX Foundry Device Service Software Development Kit (SDK) takes
-the developer through the step-by-step process to create an EdgeX
-Foundry device service micro service. Then setup the SDK and execute the
-code to generate the device service scaffolding to get you started using
-EdgeX.
 
 The Device Service SDK supports:
 

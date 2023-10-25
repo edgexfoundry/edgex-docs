@@ -12,6 +12,10 @@ Please refer to the general [Common Configuration documentation](../configuratio
 !!! edgey "Edgex 3.0"
     For EdgeX 3.0 the `MessageQueue` configuration has been move to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
 
+
+!!! edgey "EdgeX 3.1"
+    New in EdgeX 3.1 is URI for files which allows the private configuration file to be pulled from a remote location via a URI rather than from the local file system. See [Config File Command-line](../configuration/CommonCommandLineOptions.md#config-file) section for more details.
+
 !!! note
     The `*` on the configuration section names below denoted that these sections are pulled from the device service common configuration thus are not in the individual device service's private configuration file.
 
@@ -59,7 +63,7 @@ Please refer to the general [Common Configuration documentation](../configuratio
 |---|---|---|
 |MaxEventSize|0|maximum event size in kilobytes sent to Core Data or MessageBus. 0 represents default to system max.|
 
-### URIs for Device Service Files
+## URIs for Device Service Files
 
 !!! edgey "EdgeX 3.1"
     Support for URIs for Devices, Profiles, and Provision Watchers is new in EdgeX 3.1.
@@ -105,7 +109,7 @@ The name is mapped so that the resources are only loaded from a URI if a device 
     http://example.com/profiles/Simple-Driver2.yml
     ```
 
-### Custom Configuration
+## Custom Configuration
 
 Device services can have custom configuration in one of two ways. See the table below for details.
 

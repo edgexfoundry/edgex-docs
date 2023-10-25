@@ -1,8 +1,8 @@
 ---
-title: Device Service SDK - C Device SDK API
+title: Device Service SDK - Getting Started C Device Services SDK
 ---
 
-# Device Service SDK - C Device SDK API
+# Device Service SDK - Getting Started C Device Services SDK
 
 ## Introduction
 

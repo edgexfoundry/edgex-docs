@@ -2,7 +2,7 @@
 title: Device Service - V3 Migration Guide
 ---
 
-# V3 Device Service Migration Guide
+# Device Service - V3 Migration Guide
 
 ## All Device Services
 
