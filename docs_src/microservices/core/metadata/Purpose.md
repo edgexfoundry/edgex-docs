@@ -4,7 +4,7 @@ title: Core Metadata - Purpose
 
 # Core Metadata - Purpose
 
-The core metadata micro service has manages the knowledge about [devices](../../../general/Definitions.md#device) and sensors. This information is used by other services (Device, Command, etc) to communicate with them.
+The core metadata micro service manages the knowledge about [devices](../../../general/Definitions.md#device) and sensors. This information is used by other services (Device, Command, etc) to communicate with the devices.
 
 Specifically, metadata has the following abilities:
 

@@ -148,7 +148,7 @@ Once that is complete then the import statements for these dependencies must be 
     - Remove the `Service` function that returns the device service SDK instance.
     - Remove the `RunningService` function that returns the Device Service instance.
 6. Add additional level in event publish topic for device service name. The topic is now `<PublishTopicPrefix>/<device-service-name>/<device-profile-name>/<device-name>/<source-name>`
-7. The following REST callback endpoints are removed and replaced by the [System Events](../core/metadata/Ch-Metadata.md#device-system-events) mechanism:
+7. The following REST callback endpoints are removed and replaced by the [System Events](../core/metadata/details/DeviceSystemEvents.md) mechanism:
     - `/validate/device`
     - `/callback/service`
     - `/callback/watcher`
@@ -188,7 +188,7 @@ allocating an array of uint8, the `iot_data_alloc_binary` function is available.
 
 6. Add additional level in event publish topic for device service name. The topic is now `<PublishTopicPrefix>/<device-service-name>/<device-profile-name>/<device-name>/<source-name>`
 
-7. The following REST callback endpoints are removed and replaced by the [System Events](../core/metadata/Ch-Metadata.md#device-system-events) mechanism:
+7. The following REST callback endpoints are removed and replaced by the [System Events](../core/metadata/details/DeviceSystemEvents.md) mechanism:
     - `/validate/device`
     - `/callback/service`
     - `/callback/watcher`
