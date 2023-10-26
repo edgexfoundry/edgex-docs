@@ -23,6 +23,6 @@ EdgeX Foundry is an operating system (OS)-agnostic and hardware (HW)-agnostic Io
 !!! Info
     EdgeX Foundry runs on various distributions and / or versions of Linux, Unix, MacOS, Windows, etc. However, the community only supports the platform on `amd64` (x86-64) and `arm64` architectures.
 
-    EdgeX Foundry releases pre-built artifacts as Docker images and Snaps. Please refer to [Getting Started](../../getting-started) for details.
+    EdgeX Foundry releases pre-built artifacts as Docker images. Please refer to [Getting Started](../../getting-started) for details.
     
     EdgeX can run on `armhf` architecture but that requires users to build their own executables from source. EdgeX does not officially support `armhf`.

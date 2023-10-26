@@ -1,8 +1,6 @@
 # Quick Start
 This guide will get EdgeX up and running on your machine in as little as 5 minutes using pre-built Docker containers. We will skip over lengthy descriptions for now. The goal here is to get you a working IoT Edge stack, from device to cloud, as simply as possible.
 
-For a quick start with Snaps, refer to [Getting Started with Snaps](../Ch-GettingStartedSnapUsers).
-
 When you need more detailed instructions or a breakdown of some of the commands you see in this quick start, see either the [Getting Started using Docker](../Ch-GettingStartedDockerUsers) or [Getting Started as a Developer](../Ch-GettingStartedDevelopers) guides.
 
 ## Setup Docker

@@ -99,7 +99,7 @@ For optional configurations, see [here.](#additional-configuration)
       ```
       <details>
       <summary>[Optional] Build with NATS Messaging</summary>
-            Currently, the NATS Messaging capability (NATS MessageBus) is opt-in at build time. This means that the published Docker image and Snaps do not include the NATS messaging capability. To build the docker image using NATS, run make docker-nats:
+            Currently, the NATS Messaging capability (NATS MessageBus) is opt-in at build time. This means that the published Docker image does not include the NATS messaging capability. To build the docker image using NATS, run make docker-nats:
             ```bash
             make docker-nats
             ```

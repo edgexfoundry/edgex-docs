@@ -90,7 +90,6 @@ the username is fixed by the script,
 and the password is reset every time the script is run.
 
 The example will be done in the Docker environment.
-For snaps, refer [here](../../getting-started/Ch-GettingStartedSnapUsers/#adding-api-gateway-users).
 
 The long form of `make get-token` is below:
 

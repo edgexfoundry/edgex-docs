@@ -195,13 +195,9 @@ docker volume rm $(docker volume ls -q | grep db-data)
 
 Now when the V3 EdgeX services are started the database will be cleared of the old v2 data.
 
-#### Snaps
-
-Because there are no tools to migrate EdgeX configuration and database, it's not possible to update the edgexfoundry snap from a V2 version to a V3 version. You must remove the V2 snap first, and then install a V3 version of the snap (available from the 3.0 track in the Snap Store). This will result in starting fresh with EdgeX V3 and all V2 data removed.
-
 #### Local
 
-If you are running EdgeX locally, i.e. not in Docker or snaps and in **non-secure** mode you can use the Redis CLI to clear the database. The CLI would have been installed when you installed Redis locally. Run the following command to clear the database:
+If you are running EdgeX locally, i.e. not in Docker and in **non-secure** mode you can use the Redis CLI to clear the database. The CLI would have been installed when you installed Redis locally. Run the following command to clear the database:
 
 ```
 redis-cli FLUSHDB

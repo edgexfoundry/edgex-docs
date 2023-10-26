@@ -202,7 +202,7 @@ The NATS implementations convert the NATS multi-level topic scheme to match that
 
 ### Redis Pub/Sub (default)
 
-All EdgeX services are capable of using the Redis Pub/Sub without any changes to configuration. The released compose files and snaps use Redis Pub/Sub.
+All EdgeX services are capable of using the Redis Pub/Sub without any changes to configuration. The released compose files use Redis Pub/Sub.
 
 ### MQTT 3.1
 
@@ -250,10 +250,6 @@ The EdgeX Compose Builder utility provides an option to easily generate a compos
 
 !!! note
     The `run` command can be used to generate and run the compose file in one command, but any changes made to the generated compose file will be overridden the next time `run` is used. An alternative is to use the `up` command, which runs the latest generated compose file with any modifications that may have been made.
-
-#### Snaps
-
-For Snap deployment, each services' configuration has to modified manually or via environment overrides after install. For more details see the [Configuration](../../../getting-started/Ch-GettingStartedSnapUsers/#configuration) section in the Snaps getting started guide.
 
 ### NATS
 
@@ -304,6 +300,3 @@ The EdgeX Compose Builder utility provides an option to easily generate a compos
     make gen no-secty ds-virtual ds-rest nats-bus
     ```
 
-#### Snaps
-
-The published Snaps are built without NATS included, so the use of NATS in those Snaps is not possible. One could modify the Makefiles as described above and then build and install local snap packages. In this case it would be easier to modify each service's configuration as describe above so that the locally built and installed snaps are already configured for NATS.

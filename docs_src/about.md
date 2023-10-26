@@ -41,7 +41,7 @@ overall architecture:
     - Operating system (Linux, Windows, MacOS, ...)
     - Distribution
  (allowing for the distribution of functionality through micro services at the edge, on a gateway, in the fog, on cloud, etc.)
-    - Deployment/orchestration (Docker, Snaps, K8s, roll-your-own, ... )
+    - Deployment/orchestration (Docker, K8s, roll-your-own, ... )
     - Protocols ([north or south](./general/Definitions.md#South-and-North-Side) side protocols)
 
 - **EdgeX Foundry must be extremely flexible**

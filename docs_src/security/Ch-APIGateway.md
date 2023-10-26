@@ -53,9 +53,7 @@ for user and JWT authentication.
 
 ## Start the API Gateway
 
-The API gateway is started by default in either
-the snap-based EdgeX deployment
-or the Docker-based EdgeX deployment
+The API gateway is started by default in the Docker-based EdgeX deployment
 using the Docker Compose files found at
 <https://github.com/edgexfoundry/edgex-compose/>.
 
@@ -177,7 +175,7 @@ the Core Data microservice with curl command like this:
 
 Where `<core-data-microservice-ip>` is the Docker IP address of
 the container running the core-data microservice (if using Docker),
-or additionally `localhost` in the default configuration for snaps and Docker.
+or additionally `localhost` in the default configuration for Docker.
 This means that in the default configuration,
 EdgeX microservices are only accessible to local host processes.
 
