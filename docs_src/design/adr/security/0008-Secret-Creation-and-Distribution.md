@@ -272,7 +272,7 @@ Specific cases where this is likely to come up are:
      Manual configuration of a _SECRETSLOC_ should utilize either
      a host file file system path or
      a Docker volume.
-    
+
    * Snaps also do not have a built-in secrets mechanism.
      The options for _SECRETSLOC_ are limited
      to designated snap-writable directories.

@@ -46,7 +46,7 @@ Footnotes:
 
 ## Protections afforded by modeled runtime environments
 
-The threat model considers Docker-based deployments.  Each of these deployment environments offer sandboxing protections that go beyond a standard Unix user and process model.  As mentioned earlier, the threat model assumes the sandboxing protections:
+The threat model considers Docker-based deployments. Each of these deployment environments offer sandboxing protections that go beyond a standard Unix user and process model.  As mentioned earlier, the threat model assumes the sandboxing protections:
 
 * Prevent one service from accessing the protected files of the host or another service.
 * Prevent one service from inspecting the protected memory of another service or processes on the host.

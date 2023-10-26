@@ -3,7 +3,7 @@
 EdgeX's graphical user interface (GUI) is provided for demonstration and development use to manage and monitor a single instance of EdgeX Foundry.
 
 ## Setup
-You can quickly run the GUI in a Docker container.  You can also download, build and run the GUI natively on your host.
+You can quickly run the GUI in a Docker container. You can also download, build and run the GUI natively on your host.
 
 ### Docker Compose
 The EdgeX GUI is now incorporated into all the secure and non-sure Docker Compose files provided by the project.  Locate and download the Docker Compose file that best suits your needs from https://github.com/edgexfoundry/edgex-compose.  For example, in the Jakarta branch of `edgex-compose` the `*-with-app-sample*` compose files include the Sample App Service allowing the configurable pipeline to be manipulated from the UI. See the four Docker Compose files that include the Sample App Service circled below.
