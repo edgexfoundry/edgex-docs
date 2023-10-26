@@ -8,7 +8,7 @@
 <meta content="Documentation for use of EdgeX Foundry" name="description"/>
 <meta content="Michael Johanson" name="author"/>
 <link href="https://docs.edgexfoundry.org/3.1/getting-started/tools/Ch-GUI/" rel="canonical"/>
-<link href="../../Ch-GettingStartedSnapUsers/" rel="prev"/>
+<link href="../../Ch-GettingStartedDockerUsers/" rel="prev"/>
 <link href="../../Ch-GettingStartedDevelopers/" rel="next"/>
 <link href="../../../assets/logo_edgex.png" rel="icon"/>
 <meta content="mkdocs-1.5.3, mkdocs-material-9.1.19" name="generator"/>
@@ -216,11 +216,6 @@
         Getting Started using Docker
       </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../Ch-GettingStartedSnapUsers/">
-        Getting Started using Snaps
-      </a>
-</li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
@@ -251,30 +246,6 @@
 <a class="md-nav__link" href="#secure-mode-with-api-gateway-token">
     Secure mode with API Gateway token
   </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#snaps">
-    Snaps
-  </a>
-<nav aria-label="Snaps" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#installing-edgex-ui-as-a-snap">
-    Installing EdgeX UI as a snap
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#generate-token-for-entering-ui-secure-mode">
-    Generate token for entering UI secure mode
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#using-the-edgex-ui-snap">
-    Using the edgex-ui snap
-  </a>
-</li>
-</ul>
-</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#native">
@@ -1806,23 +1777,18 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../examples/Ch-OSImageWithEdgeX/">
-        Creating an EdgeX Ubuntu Core Image
-      </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="../../../examples/Ch-ExamplesDataandRetention/">
         Data Retention and Persistent Caps
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_9_7" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_9_7" id="__nav_1_9_7_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_9_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_9_6" id="__nav_1_9_6_label" tabindex="0">
           Adding a Device
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_9_7_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_9_7">
+<nav aria-expanded="false" aria-labelledby="__nav_1_9_6_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_9_6">
 <span class="md-nav__icon md-icon"></span>
           Adding a Device
         </label>
@@ -1846,13 +1812,13 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_9_8" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_9_8" id="__nav_1_9_8_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_9_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_9_7" id="__nav_1_9_7_label" tabindex="0">
           Walkthrough
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_9_8_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_9_8">
+<nav aria-expanded="false" aria-labelledby="__nav_1_9_7_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_9_7">
 <span class="md-nav__icon md-icon"></span>
           Walkthrough
         </label>
@@ -2082,30 +2048,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#snaps">
-    Snaps
-  </a>
-<nav aria-label="Snaps" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#installing-edgex-ui-as-a-snap">
-    Installing EdgeX UI as a snap
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#generate-token-for-entering-ui-secure-mode">
-    Generate token for entering UI secure mode
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#using-the-edgex-ui-snap">
-    Using the edgex-ui snap
-  </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#native">
     Native
   </a>
@@ -2266,7 +2208,7 @@
 <h1 id="graphical-user-interface-gui">Graphical User Interface (GUI)</h1>
 <p>EdgeX's graphical user interface (GUI) is provided for demonstration and development use to manage and monitor a single instance of EdgeX Foundry.</p>
 <h2 id="setup">Setup</h2>
-<p>You can quickly run the GUI in a Docker container or as a Snap.  You can also download, build and run the GUI natively on your host.</p>
+<p>You can quickly run the GUI in a Docker container. You can also download, build and run the GUI natively on your host.</p>
 <h3 id="docker-compose">Docker Compose</h3>
 <p>The EdgeX GUI is now incorporated into all the secure and non-sure Docker Compose files provided by the project.  Locate and download the Docker Compose file that best suits your needs from https://github.com/edgexfoundry/edgex-compose.  For example, in the Jakarta branch of <code>edgex-compose</code> the <code>*-with-app-sample*</code> compose files include the Sample App Service allowing the configurable pipeline to be manipulated from the UI. See the four Docker Compose files that include the Sample App Service circled below.</p>
 <p><img alt="image" src="../EdgeX_Compose_With_app_sample.png"/></p>
@@ -2283,44 +2225,8 @@
 <p class="admonition-title">Note</p>
 <p>The UI is no longer restricted to access from <code>localhost</code>. It can now be accessed from any IP address that can access the host system. This is allowed because the UI is secured via API Gateway token when running in secure mode.</p>
 </div>
-<h3 id="snaps">Snaps</h3>
-<h4 id="installing-edgex-ui-as-a-snap">Installing EdgeX UI as a snap</h4>
-<p>The latest stable version of the snap can be installed using:</p>
-<div class="highlight"><pre><span></span><code>$ sudo snap install edgex-ui
-</code></pre></div>
-<p>A specific release of the snap can be installed from a dedicated channel. For example, to install the 2.1 (Jakarta) release:</p>
-<div class="highlight"><pre><span></span><code>$ sudo snap install edgex-ui --channel=2.1
-</code></pre></div>
-<p>The latest development version of the edgex-ui snap can be installed using:</p>
-<div class="highlight"><pre><span></span><code>$ sudo snap install edgex-ui --edge
-</code></pre></div>
-<h4 id="generate-token-for-entering-ui-secure-mode">Generate token for entering UI secure mode</h4>
-<p>A JWT access token is required to access the UI securely through the API Gateway. To do so:</p>
-<ol>
-<li>Generate a public/private keypair</li>
-</ol>
-<div class="highlight"><pre><span></span><code>$ openssl ecparam -genkey -name prime256v1 -noout -out private.pem
-$ openssl ec -in private.pem -pubout -out public.pem
-</code></pre></div>
-<ol>
-<li>Configure user and public-key</li>
-</ol>
-<div class="highlight"><pre><span></span><code>$ sudo snap set edgexfoundry env.security-proxy.user=user01,USER_ID,ES256
-$ sudo snap set edgexfoundry env.security-proxy.public-key="$(cat public.pem)"
-</code></pre></div>
-<ol>
-<li>Generate a token</li>
-</ol>
-<div class="highlight"><pre><span></span><code>$ edgexfoundry.secrets-config proxy jwt --algorithm ES256 \
---private_key private.pem --id USER_ID --expiration=1h
-</code></pre></div>
-<p>This output is the JWT token for UI login in secure mode. Please keep the token in a safe place for future re-use as the same token cannot be regenerated or recovered from EdgeX's secret-config CLI. The token is required each time you reopen the web page.</p>
-<h4 id="using-the-edgex-ui-snap">Using the edgex-ui snap</h4>
-<p>Open your browser <a href="http://localhost:4000/">http://localhost:4000</a></p>
-<p><img alt="" src="../EdgeX_GUI_Login.jpg"/></p>
-<p>Please log in to EdgeX with the JWT token we generated above.</p>
 <h3 id="native">Native</h3>
-<p>If you are running EdgeX natively (outside of Docker Compose or a Snap), you will find instructions on how to build and run the GUI on your platform in the <a href="https://github.com/edgexfoundry/edgex-ui-go/blob/main/README.md">GUI repository README</a></p>
+<p>If you are running EdgeX natively (outside of Docker Compose), you will find instructions on how to build and run the GUI on your platform in the <a href="https://github.com/edgexfoundry/edgex-ui-go/blob/main/README.md">GUI repository README</a></p>
 <h2 id="general">General</h2>
 <h3 id="gui-address">GUI Address</h3>
 <p>Once the GUI is up and running, simply visit port 4000 on the GUI's host machine (ex:  http://localhost:4000) to enter the GUI Dashboard (see below).  The GUI does not require any login.</p>
@@ -2497,7 +2403,7 @@ $ sudo snap set edgexfoundry env.security-proxy.public-key="$(cat public.pem)"
 </main>
 <footer class="md-footer">
 <nav aria-label="Footer" class="md-footer__inner md-grid">
-<a aria-label="Previous: Getting Started using Snaps" class="md-footer__link md-footer__link--prev" href="../../Ch-GettingStartedSnapUsers/" rel="prev">
+<a aria-label="Previous: Getting Started using Docker" class="md-footer__link md-footer__link--prev" href="../../Ch-GettingStartedDockerUsers/" rel="prev">
 <div class="md-footer__button md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
 </div>
@@ -2506,7 +2412,7 @@ $ sudo snap set edgexfoundry env.security-proxy.public-key="$(cat public.pem)"
                 Previous
               </span>
 <div class="md-ellipsis">
-                Getting Started using Snaps
+                Getting Started using Docker
               </div>
 </div>
 </a>

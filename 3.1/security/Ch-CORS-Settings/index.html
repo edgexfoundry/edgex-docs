@@ -217,11 +217,6 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/Ch-GettingStartedSnapUsers/">
-        Getting Started using Snaps
-      </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="../../getting-started/tools/Ch-GUI/">
         Graphical User Interface (GUI)
       </a>
@@ -1492,11 +1487,6 @@
     Enabling CORS for API Gateway
   </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#enabling-cors-for-the-edgex-snap-via-api-gateway">
-    Enabling CORS for the EdgeX Snap (via API gateway)
-  </a>
-</li>
 </ul>
 </nav>
 </li>
@@ -1639,23 +1629,18 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../examples/Ch-OSImageWithEdgeX/">
-        Creating an EdgeX Ubuntu Core Image
-      </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="../../examples/Ch-ExamplesDataandRetention/">
         Data Retention and Persistent Caps
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_9_7" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_9_7" id="__nav_1_9_7_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_9_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_9_6" id="__nav_1_9_6_label" tabindex="0">
           Adding a Device
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_9_7_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_9_7">
+<nav aria-expanded="false" aria-labelledby="__nav_1_9_6_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_9_6">
 <span class="md-nav__icon md-icon"></span>
           Adding a Device
         </label>
@@ -1679,13 +1664,13 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_9_8" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_9_8" id="__nav_1_9_8_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_9_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_9_7" id="__nav_1_9_7_label" tabindex="0">
           Walkthrough
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_9_8_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_9_8">
+<nav aria-expanded="false" aria-labelledby="__nav_1_9_7_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_9_7">
 <span class="md-nav__icon md-icon"></span>
           Walkthrough
         </label>
@@ -1914,11 +1899,6 @@
     Enabling CORS for API Gateway
   </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#enabling-cors-for-the-edgex-snap-via-api-gateway">
-    Enabling CORS for the EdgeX Snap (via API gateway)
-  </a>
-</li>
 </ul>
 </nav>
 </li>
@@ -1993,39 +1973,6 @@ There is not a way, when using the API gateway, to turn CORS on for one microser
 <p class="admonition-title">Note</p>
 <p>The name of the configuration sections and environment variable overrides are intentionally different than the API gateway section, in alignment with the guidance that CORS should be enabled at the microservice level or the API gateway level, but not both.  Thus, the security-enabled overrides are accomplished with <code>EDGEX_SERVICE_CORSCONFIGURATION_*</code> overrides, and the no-security overrides with <code>SERVICE_CORSCONFIGURATION_*</code>.</p>
 </div>
-<h3 id="enabling-cors-for-the-edgex-snap-via-api-gateway">Enabling CORS for the EdgeX Snap (via API gateway)</h3>
-<p>To enable CORS support in the API gateway in the EdgeX Snap, a slightly different procedure is required.</p>
-<p>First, we need to override the <code>EDGEX_SERVICE_CORSCONFIGURATION_*</code> environment variables like was done in Docker.
-However, we need to override this in the <code>security-bootstrapper-nginx</code> service.
-This service runs before <code>nginx.service</code> to write the NGINX configuration file.
-If started prior to this configuration, restart the <code>security-bootstrapper-nginx</code> service to generate a new configuration,
-and also restart <code>nginx</code> to put the new configuration into effect.
-Otherwise, start the services as usual.
-Lastly, we send a sample CORS preflight request at the API gateway to make sure everything is working.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Setting <code>CORSAllowedOrigin="*"</code> is not a security best practice for an authenticated API;
-rather, it should be set to the domain that is hosting your user interface.
-The example provided is for illustrative purposes only.</p>
-</div>
-<p>Example, assuming the services are running:
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.security-bootstrapper-nginx.config.edgex-service-corsconfiguration-corsallowedorigin<span class="o">=</span><span class="s2">"*"</span>
-$<span class="w"> </span>sudo<span class="w"> </span>snap<span class="w"> </span><span class="nb">set</span><span class="w"> </span>edgexfoundry<span class="w"> </span>apps.security-bootstrapper-nginx.config.edgex-service-corsconfiguration-enablecors<span class="o">=</span><span class="nb">true</span>
-$<span class="w"> </span>sudo<span class="w"> </span>snap<span class="w"> </span>restart<span class="w"> </span>edgexfoundry.security-bootstrapper-nginx
-$<span class="w"> </span>sudo<span class="w"> </span>snap<span class="w"> </span>restart<span class="w"> </span>edgexfoundry.nginx
-$<span class="w"> </span>curl<span class="w"> </span>-ki<span class="w"> </span>-X<span class="w"> </span>OPTIONS<span class="w"> </span>-H<span class="s2">"Origin: http://localhost"</span><span class="w"> </span><span class="s2">"https://localhost:8443/core-data/api/v2/ping"</span>
-HTTP/1.1<span class="w"> </span><span class="m">204</span><span class="w"> </span>No<span class="w"> </span>Content
-Server:<span class="w"> </span>nginx
-Date:<span class="w"> </span>Wed,<span class="w"> </span><span class="m">23</span><span class="w"> </span>Aug<span class="w"> </span><span class="m">2023</span><span class="w"> </span><span class="m">03</span>:08:18<span class="w"> </span>GMT
-Connection:<span class="w"> </span>keep-alive
-Access-Control-Allow-Origin:<span class="w"> </span>*
-Access-Control-Allow-Methods:<span class="w"> </span>GET,<span class="w"> </span>POST,<span class="w"> </span>PUT,<span class="w"> </span>PATCH,<span class="w"> </span>DELETE
-Access-Control-Allow-Headers:<span class="w"> </span>Authorization,<span class="w"> </span>Accept,<span class="w"> </span>Accept-Language,<span class="w"> </span>Content-Language,<span class="w"> </span>Content-Type,<span class="w"> </span>X-Correlation-ID
-Access-Control-Max-Age:<span class="w"> </span><span class="m">3600</span>
-Vary:<span class="w"> </span>origin
-Content-Type:<span class="w"> </span>text/plain<span class="p">;</span><span class="w"> </span><span class="nv">charset</span><span class="o">=</span>utf-8
-Content-Length:<span class="w"> </span><span class="m">0</span>
-</code></pre></div></p>
 </article>
 </div>
 </div>

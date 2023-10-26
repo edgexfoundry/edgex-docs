@@ -217,11 +217,6 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../getting-started/Ch-GettingStartedSnapUsers/">
-        Getting Started using Snaps
-      </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="../getting-started/tools/Ch-GUI/">
         Graphical User Interface (GUI)
       </a>
@@ -1690,11 +1685,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#snaps">
-    Snaps
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#local">
     Local
   </a>
@@ -1843,23 +1833,18 @@
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../examples/Ch-OSImageWithEdgeX/">
-        Creating an EdgeX Ubuntu Core Image
-      </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="../examples/Ch-ExamplesDataandRetention/">
         Data Retention and Persistent Caps
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_9_7" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_9_7" id="__nav_1_9_7_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_9_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_9_6" id="__nav_1_9_6_label" tabindex="0">
           Adding a Device
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_9_7_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_9_7">
+<nav aria-expanded="false" aria-labelledby="__nav_1_9_6_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_9_6">
 <span class="md-nav__icon md-icon"></span>
           Adding a Device
         </label>
@@ -1883,13 +1868,13 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_9_8" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_9_8" id="__nav_1_9_8_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_9_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_9_7" id="__nav_1_9_7_label" tabindex="0">
           Walkthrough
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_9_8_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_9_8">
+<nav aria-expanded="false" aria-labelledby="__nav_1_9_7_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_9_7">
 <span class="md-nav__icon md-icon"></span>
           Walkthrough
         </label>
@@ -2239,11 +2224,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#snaps">
-    Snaps
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#local">
     Local
   </a>
@@ -2519,10 +2499,8 @@
 <span class="go">docker volume rm $(docker volume ls -q | grep db-data)</span>
 </code></pre></div>
 <p>Now when the V3 EdgeX services are started the database will be cleared of the old v2 data.</p>
-<h4 id="snaps">Snaps</h4>
-<p>Because there are no tools to migrate EdgeX configuration and database, it's not possible to update the edgexfoundry snap from a V2 version to a V3 version. You must remove the V2 snap first, and then install a V3 version of the snap (available from the 3.0 track in the Snap Store). This will result in starting fresh with EdgeX V3 and all V2 data removed.</p>
 <h4 id="local">Local</h4>
-<p>If you are running EdgeX locally, i.e. not in Docker or snaps and in <strong>non-secure</strong> mode you can use the Redis CLI to clear the database. The CLI would have been installed when you installed Redis locally. Run the following command to clear the database:</p>
+<p>If you are running EdgeX locally, i.e. not in Docker and in <strong>non-secure</strong> mode you can use the Redis CLI to clear the database. The CLI would have been installed when you installed Redis locally. Run the following command to clear the database:</p>
 <div class="highlight"><pre><span></span><code>redis-cli FLUSHDB
 </code></pre></div>
 <p>This will not work if running EdgeX in running in secure mode since you will not have the random generated Redis password unless you created an Admin password when you installed Redis.</p>
