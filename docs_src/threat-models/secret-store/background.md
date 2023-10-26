@@ -1,6 +1,6 @@
 # Background
 
-The secret management components comprise a very small portion of the EdgeX framework.  Many components of an actual system are out-of-scope including the underlying hardware platform, the operating system on which the framework is running, the applications that are using it, and even the existence of workload isolation technologies, although the reference code does support deployment as Docker containers or Snaps.
+The secret management components comprise a very small portion of the EdgeX framework.  Many components of an actual system are out-of-scope including the underlying hardware platform, the operating system on which the framework is running, the applications that are using it, and even the existence of workload isolation technologies, although the reference code does support deployment as Docker containers.
 
 The goal of the EdgeX secret store is to provide general-purpose secret management to EdgeX core services and applications.
 

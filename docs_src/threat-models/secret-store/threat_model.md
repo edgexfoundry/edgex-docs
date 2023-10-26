@@ -12,11 +12,11 @@ and not the EdgeX project as a whole.
 
 ## Assumptions
 
-The EdgeX Framework is a API-based software framework that strives to be platform and architecture-independent. The threat model considers only the following two deployment scenarios:
+The EdgeX Framework is a API-based software framework that strives to be platform and architecture-independent. The threat model considers only the following deployment scenario:
 
 * A containerized implementation based on Docker.
 
-The threat model presented in this document analyzes the secret management subsystem of EdgeX, and has considerations for both of the above runtime environments, both of which implement protections beyond a stock user/process runtime environment.  In generic terms, the secret management threat model assumes:
+The threat model presented in this document analyzes the secret management subsystem of EdgeX, and has considerations for the above runtime environments, which implements protections beyond a stock user/process runtime environment.  In generic terms, the secret management threat model assumes:
 
 * Services do not have unfettered access to the host file system.
 * Services are protected from each other and communicate only through defined IPC mechanisms.
@@ -46,7 +46,7 @@ Footnotes:
 
 ## Protections afforded by modeled runtime environments
 
-The threat model considers Docker-based deployments. Each of these deployment environments offer sandboxing protections that go beyond a standard Unix user and process model.  As mentioned earlier, the threat model assumes the sandboxing protections:
+The threat model considers Docker-based deployment. The deployment environment offers sandboxing protections that go beyond a standard Unix user and process model.  As mentioned earlier, the threat model assumes the sandboxing protections:
 
 * Prevent one service from accessing the protected files of the host or another service.
 * Prevent one service from inspecting the protected memory of another service or processes on the host.

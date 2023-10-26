@@ -2,6 +2,13 @@
 
 EdgeX Foundry is a vendor-neutral open source project hosted by The Linux Foundation. EdgeX Foundry builds a common open framework for IoT edge computing.  At the heart of the project is an interoperability framework hosted within a full hardware- and OS-agnostic reference software platform to enable an ecosystem of plug-and-play components that unifies the marketplace and accelerates the deployment of IoT solutions.
 
+<style>
+  .home-nav-row {
+    display: flex;
+    justify-content: center;
+  }
+</style>
+
 <div class="home-nav-row">
   <div class="home-nav-column">
     <div class="home-nav-card">

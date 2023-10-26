@@ -8,7 +8,7 @@ There are instances, in both development as well as production, where you need t
 The following guides will assist you in building and running EdgeX natively.
 
 !!! Alert
-    Please note that the rest of the EdgeX documentation, outside of these native build and run guides, focuses on running EdgeX in Docker containers.  Using containers are usually the easiest and preferred way to run EdgeX - especially when you are not a developer and not familiar with operating system commands, compiling code, building program artifacts, and running programs in an operating system.  
+    Please note that the rest of the EdgeX documentation, outside of these native build and run guides, focuses on running EdgeX in Docker containers.  Using containers is usually the easiest and preferred way to run EdgeX - especially when you are not a developer and not familiar with operating system commands, compiling code, building program artifacts, and running programs in an operating system.  
     
     Therefore, these native build and run guides do not contain every aspect or option for running EdgeX in native environments.  They are meant as a quick start for more seasoned developers or administrators comfortable with running a system by setting up build tools/environments, pulling source code, building from source and running the program outputs (executable artifacts) of the build without the benefits and ease that container platforms and similar technology bring.
 
