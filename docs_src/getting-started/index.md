@@ -44,10 +44,10 @@ may also want to obtain the Device Service Software Development Kit (DS
 SDK) and create new device services. The DS SDK creates all the
 scaffolding code for a new EdgeX Foundry device service; allowing you to
 focus on the details of interfacing with the device in its native
-protocol. See [Getting Started with Device SDK](./Ch-GettingStartedSDK.md)
+protocol. See [Getting Started with Device SDK](../microservices/device/sdk/Purpose.md)
 for help on using the DS SDK to create a new device service. Learn more
 about Device Services and the Device Service SDK at
-[Device Services](../microservices/device/Ch-DeviceServices.md).
+[Device Services](../microservices/device/DeviceService.md).
 
 ## Application Service Developer
 

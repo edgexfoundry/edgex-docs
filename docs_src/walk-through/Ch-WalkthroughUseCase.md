@@ -27,7 +27,7 @@ the user to set based on use case needs.
 ## EdgeX Device Representation
 
 In EdgeX, the camera must be represented by a `Device`. Each `Device` is
-managed by a [device service](../microservices/device/Ch-DeviceServices.md). The device service
+managed by a [device service](../microservices/device/DeviceService.md). The device service
 communicates with the underlying hardware - in this case the camera - in
 the protocol of choice for that `Device`. The device service collects the
 data from the devices it manages and passes that data into the rest of EdgeX.

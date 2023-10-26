@@ -4,6 +4,8 @@ title: Device Service SDK - Purpose
 
 # Device Service SDK - Purpose
 
+The EdgeX device service [software development kits](../../../general/Definitions.md#software-development-kit) (SDKs) help developers create new [device](../../../general/Definitions.md#Device) connectors for EdgeX.  An SDK provides the common scaffolding that each device service needs.  This allows developers to create new device/sensor connectors more quickly.
+
 ![image](EdgeX_SDKs.png)
 
 EdgeX provides two software development kits (SDKs) to help developers create new device services.  While the EdgeX community and the larger EdgeX ecosystem provide a number of open source and commercially available device services for use with EdgeX, there is no way that every protocol and every sensor can be accommodated and connected to EdgeX with a pre-existing device service.  Even if all the device service connectivity were provided, your use case, sensor or security infrastructure may require customization.  Therefore, the device service SDKs provide the means to extend or customize EdgeX’s device connectivity.

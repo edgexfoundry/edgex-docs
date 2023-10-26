@@ -1,5 +1,5 @@
 # Dynamic Discovery
-The device service supports [dynamic discovery](../../../Ch-DeviceServices.md#dynamic-provisioning).
+The device service supports [dynamic discovery](../../../details/DeviceDiscovery.md).
 During dynamic discovery, the device service scans all connected USB devices and sends the discovered cameras to Core Metadata.
 The device name of the camera discovered by the device service is comprised of Card Name and Serial Number, and the characters colon, space and dot will be replaced with underscores as they are invalid characters for device names in EdgeX.
 Take the camera Logitech C270 as an example, it's Card Name is "C270 HD WEBCAM" and the Serial Number is "B1CF0E50" hence the device name - "C270_HD_WEBCAM-B1CF0E50".

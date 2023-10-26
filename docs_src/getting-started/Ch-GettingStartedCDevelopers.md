@@ -96,4 +96,4 @@ apk add iotech-iot-1.5-dev
 Note: If not using Alpine 3.16, replace v3.16 in the above commands with the correct version.
 
 ## Next Steps
-To explore how to create and build EdgeX device services in C, head to the [Device Services, C SDK guide](Ch-GettingStartedSDK-C.md).
+To explore how to create and build EdgeX device services in C, head to the [Device Services, C SDK guide](../microservices/device/sdk/devicesdk-getting-started/GettingStartedSDK-C.md).

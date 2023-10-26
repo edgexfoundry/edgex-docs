@@ -143,7 +143,7 @@ Follow these steps to create a pre-defined device for the simple random number g
 
 1. A pre-created device for the random number device is provided in this documentation.  Download **[random-generator-devices.json](random-generator-devices.json)** and save the file to the `./res/devices` folder.
 
-2. Open the random-generator-devices.json file in a text editor. Note how the file contents represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).  In this example, the device described has a profileName:  `RandNum-Device`.  In this case, the device informs EdgeX that it will be using the device profile we created in [Creating your Device Profile](../../../../getting-started/Ch-GettingStartedSDK-C.md#creating-your-device-profile)
+2. Open the random-generator-devices.json file in a text editor. Note how the file contents represent an actual device with its properties (properties like Name, ProfileName, AutoEvents).  In this example, the device described has a profileName:  `RandNum-Device`.  In this case, the device informs EdgeX that it will be using the device profile we created in [Creating your Device Profile](#creating-your-device-profile)
 
 ## Configuring your Device Service
 
@@ -194,7 +194,7 @@ Allow your newly created Device Service, which was formed out of the
 Device Service C SDK, to create sensor mimicking data which it then
 sends to EdgeX.
 
-1.  Follow the [Getting Started using Docker](./Ch-GettingStartedDockerUsers.md) guide to start all of EdgeX. From
+1.  Follow the [Getting Started using Docker](../../../../getting-started/Ch-GettingStartedDockerUsers.md) guide to start all of EdgeX. From
     the folder containing the docker-compose file, start EdgeX with the
     following call:
 

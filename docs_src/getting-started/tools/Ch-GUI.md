@@ -59,7 +59,7 @@ The GUI allows you to
 ### Dashboard
 The Dashboard page (the main page of the GUI) presents you with a set of clickable "tiles" that provide a quick view of the status of your EdgeX instance.  That is, it provides some quick data points about the EdgeX instance and what the GUI is tracking.  Specifically, the tiles in the Dashboard show you:
 
-- the number of [device services](../../microservices/device/Ch-DeviceServices.md) that it is aware of and their status (locked vs unlocked)
+- the number of [device services](../../microservices/device/DeviceService.md) that it is aware of and their status (locked vs unlocked)
 - the number of devices being managed by EdgeX (through the associated device services)
 - the number of [device profiles](../../microservices/core/metadata/details/DeviceProfile.md) registered with core metadata
 - the number of [schedules](../../microservices/support/scheduler/Purpose.md) (or intervals) EdgeX is managing

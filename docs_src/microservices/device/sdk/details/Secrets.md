@@ -17,7 +17,7 @@ Each Device Service also has detailed configuration to enable connection to it's
 
 ### Secure Mode
 
-When running an Device Service in secure mode, secrets can be stored in the SecretStore by making an HTTP `POST` call to the `/api/{{api_version}}/secret` API route on the Device Service. The secret data POSTed is stored to the service's secure`SecretStore` . Once a secret is stored, only the service that added the secret will be able to retrieve it.  See the [Secret API Reference](../../api/devices/Ch-APIDeviceSDK.md#swagger) for more details and example.
+When running an Device Service in secure mode, secrets can be stored in the SecretStore by making an HTTP `POST` call to the `/api/{{api_version}}/secret` API route on the Device Service. The secret data POSTed is stored to the service's secure`SecretStore` . Once a secret is stored, only the service that added the secret will be able to retrieve it.  See the [Secret API Reference](../../sdk/details/Secrets.md) for more details and example.
 
 ### Insecure Mode
 
@@ -41,6 +41,4 @@ When running in insecure mode, the secrets are stored and retrieved from the *Wr
 
 ## Retrieving Secrets
 
-Device Services retrieve secrets from their `SecretStore` using the SDK API.  See [Retrieving Secrets](../../../getting-started/Ch-GettingStartedSDK-Go/#retrieving-secrets) for more details using the Go SDK. 
-
-
+The Go Device SDK provides the `SecretProvider.GetSecret()` API to retrieve the Device Services secrets.  See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/blob/{{edgexversion}}/internal/driver/config.go#L118) for an example of using the `SecretProvider.GetSecret()` API. Note that this code implements a retry loop allowing time for the secret(s) to be push into the service's `SecretStore` via the /secret endpoint. See [Storing Secrets](../../microservices/device/Ch-DeviceServices/#storing-secrets) section for more details.
