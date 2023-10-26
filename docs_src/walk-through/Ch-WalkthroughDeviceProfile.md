@@ -1,11 +1,11 @@
 # Defining your device
 
-A [device profile](../microservices/device/profile/Ch-DeviceProfile.md) can be thought of as a template or as a type or
+A [device profile](../microservices/core/metadata/details/DeviceProfile.md) can be thought of as a template or as a type or
 classification of device. General characteristics about the type of
 device, the data theses devices provide, and how to command them is all
 provided in a device profile. Other pages within this document set provide more
 details about a device profile and its purpose (see
-[core metadata](../microservices/core/metadata/Ch-Metadata.md)
+[core metadata](../microservices/core/metadata/Purpose.md)
  to start). It is typical that as part of the reference information setup sequence, the device
 service provides the device profiles for the types of devices it
 manages.
@@ -37,11 +37,11 @@ profiles. These are relatively straightforward attributes of a profile.
 
 ### Resources and Commands
 
-The device profile defines how to communicate with any device that abides by the profile. In particular, it defines the `deviceResources` and `deviceCommands` used to send requests to the device (via the device service).  See the [Device Profile documentation](../microservices/device/profile/Ch-DeviceProfile.md) for more background on each of these.
+The device profile defines how to communicate with any device that abides by the profile. In particular, it defines the `deviceResources` and `deviceCommands` used to send requests to the device (via the device service).  See the [Device Profile documentation](../microservices/core/metadata/details/DeviceProfile.md) for more background on each of these.
 
 #### Understanding Device Resources
 
-The device profile describes the elements of data that can be obtained from the device or sensor and how to change a setting on a device or sensor.  The data that can be obtained or the setting that can be changed are called **resources** or more precisely they are referred to as device [resources](../general/Definitions.md#Resource) in Edgex.  Learn more about `deviceReources` in the [Device Profile documentation](../microservices/device/profile/Ch-DeviceProfile.md#DeviceResources).
+The device profile describes the elements of data that can be obtained from the device or sensor and how to change a setting on a device or sensor.  The data that can be obtained or the setting that can be changed are called **resources** or more precisely they are referred to as device [resources](../general/Definitions.md#Resource) in Edgex.  Learn more about `deviceReources` in the [Device Profile documentation](../microservices/core/metadata/details/DeviceProfile.md#deviceresources).
 
 In this walkthrough example, there are two pieces of data we want to be able to get or read from the camera:  dog and human counts.  Therefore, both are represented as device resources in the device profile.  Additionally, we want to be able to set two settings on the camera:  the scan depth and snapshot duration.  These are also represented as device resources in the device profile.
 
@@ -84,7 +84,7 @@ In this walkthrough example, there are two pieces of data we want to be able to 
 
 #### Understanding Device Commands
 
-**Command** or more precisely device commands specify access to reads and writes for multiple simultaneous device resources.  In other words, device commands allow you to ask for multiple pieces of data from a sensor at one time (or set multiple settings at one time).  In this example, we can request both human and dog counts in one request by establishing a device command that specifies the request for both.  Get more details on `deviceCommands` in the [Device Profile documentation](../microservices/device/profile/Ch-DeviceProfile.md#DeviceCommands).
+**Command** or more precisely device commands specify access to reads and writes for multiple simultaneous device resources.  In other words, device commands allow you to ask for multiple pieces of data from a sensor at one time (or set multiple settings at one time).  In this example, we can request both human and dog counts in one request by establishing a device command that specifies the request for both.  Get more details on `deviceCommands` in the [Device Profile documentation](../microservices/core/metadata/details/DeviceProfile.md#devicecommands).
 
 ``` yaml
   deviceCommands:
