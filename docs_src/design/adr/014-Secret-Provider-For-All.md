@@ -82,7 +82,7 @@ Application Services currently have the ability to configure `SecretStores` for 
   
   - These currently are Core Data, Core Metadata, Support Notifications, Support Scheduler and Application Service (class)
   
-- **Unknown Services** are those not known in the static configuration that become known when added to the Docker compose file or Snap.
+- **Unknown Services** are those not known in the static configuration that become known when added to the Docker compose file or Snap. 
 
   - Application Service (instance) are examples of these services. 
 

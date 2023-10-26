@@ -58,6 +58,7 @@ The following terms will be helpful for understading the subsequent discussion:
   * _$SNAP_DATA_`/secrets` (a snap-specific persistent data area)
   * _TBD_ (a content interface that allows for sharing of secrets from the core snap)
 
+
 ### Current practices survey
 
 A survey on the existing EdgeX secrets reveals the following appoaches.
@@ -85,7 +86,7 @@ to bring the implementation into conformance with the recommended practices.
 
 - Postgres superuser password
   * Docker: Hard-coded into docker-compose file, checked in to source control. (Non-compliant.)
-  * Snaps: Generated at snap install time via "apg" ("automatic password generator") tool, installed into Postgres, cached to `$SNAP_DATA/config/postgres/kongpw` (non-compliant), and passed to Kong via `$KONG_PG_PASSWORD`.
+  * Snaps: Generated at snap install time via "apg" ("automatic password generator") tool, installed into Postgres, cached to `$SNAP_DATA/config/postgres/kongpw` (non-compliant), and passed to Kong via `$KONG_PG_PASSWORD`. 
 
 - MongoDB service account passwords
   * Docker: Direct consumption from secret store. (Compliant.)
@@ -272,7 +273,7 @@ Specific cases where this is likely to come up are:
      Manual configuration of a _SECRETSLOC_ should utilize either
      a host file file system path or
      a Docker volume.
-
+   
    * Snaps also do not have a built-in secrets mechanism.
      The options for _SECRETSLOC_ are limited
      to designated snap-writable directories.
