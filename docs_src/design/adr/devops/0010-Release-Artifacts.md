@@ -68,6 +68,32 @@ EdgeX Foundry releases a set of documentation for our project at [http://docs.ed
 
 Github tags are used to track the releases of EdgeX Foundry. During development the tags are incremented automatically for each commit using a development suffix (ie: `v1.1.1-dev.1` -> `v1.1.1-dev.2`). At the time of release we release a tag with the final semantic version (ie: `v1.1.1`).
 
+### Snaps
+
+*Tied to Code Release?* Yes
+
+The building of snaps was removed from community scope in September 2020 but are still available on the [snapcraft store](https://snapcraft.io/edgexfoundry).
+
+Canonical publishes daily arm64 and amd64 releases of the following snaps to latest/edge in the Snap Store. These builds take place on the Canonical Launchpad platform and use the latest code from the master branch of each EdgeX repository, versioned using the latest git tag.
+
+edgexfoundry
+edgex-app-service-configurable
+edgex-device-camera
+edgex-device-rest
+edgex-device-modbus
+edgex-device-mqtt
+edgex-device-grove
+edgex-cli (work-in-progress)
+Note - this list may expand over time.
+
+At code freeze the edgexfoundry snap revision in the edge channel is promoted to latest/beta and $TRACK/beta. Publishing to beta will trigger the Canonical checkbox automated tests, which include tests on a variety of hardware hosted by Canonical.
+
+When the project tags a release of any of the snaps listed above, the resulting snap revision is first promoted from the edge channel to latest/candidate and $TRACK/candidate. Canonical tests this revision, and if all looks good, releases to latest/stable and $TRACK/stable.
+
+Canonical may also publish updates to the EdgeX snaps after release to address high/critical bugs and CVEs (common vulnerabilities and exposures).
+
+Note - in the above descriptions, $TRACK corresponds to the named release tracks (e.g. fuji, geneva, hanoi, ...) which are created for every major/minor release of EdgeX Foundry.
+
 ### SwaggerHub API Docs
 
 *Tied to Code Release?* No

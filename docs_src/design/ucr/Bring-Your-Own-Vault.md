@@ -24,7 +24,7 @@ Any segments using EdgeX in secure mode (using Vault to secure EdgeX secrets) an
 
 Vault provides a unified interface to any secret, while providing tight access control and multiple authentication mechanisms (token, LDAP, etc.). Additionally, Vault supports pluggable "secrets engines". EdgeX uses three secrets engines today:  key-value secrets engine, Consul secrets engine, and identity secrets engine.  EdgeX uses the Consul secrets engine to allow Vault to issue Consul access tokens to EdgeX microservices. See [EdgeX Secret Store](https://docs.edgexfoundry.org/3.0/security/Ch-SecretStore/) for more details.
 
-Today, when the secret store is in place and used as the EdgeX secret store, EdgeX requires adopters to use a new instance of Vault provided by the deployment options offered by the EdgeX community (i.e. Docker Compose files, Kubernetes examples, etc.).  In other words, EdgeX must totally own the Vault install.
+Today, when the secret store is in place and used as the EdgeX secret store, EdgeX requires adopters to use a new instance of Vault provided by the deployment options offered by the EdgeX community (i.e. Docker Compose files, Kubernetes examples, Snaps, etc.). In other words, EdgeX must totally own the Vault install.
 
 In some edge environments where EdgeX may run, Vault is already in place and could be shared by EdgeX.  Additionally, adopters may find several applications running at the edge and want these applications to share a single instance of Vault.  However, having an existing or new instance of Vault that EdgeX uses but does not instantiate and run (a concept the community has called “bringing your own Vault”) is not straightforward.
 

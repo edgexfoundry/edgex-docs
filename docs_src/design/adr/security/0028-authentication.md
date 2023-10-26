@@ -182,7 +182,7 @@ block on availability of Postgres before issuing the ready-to-run signal.
 The following list of changes is derived from the proof of concept implementation
 to actually effect the change (besides the prerequisite changes above):
 
-- Kong and Postgres is removed from compose files.
+- Kong and Postgres is removed from compose files and snaps.
 
 - Add an NGINX reverse proxy with using the proxy auth module.
 

@@ -104,7 +104,8 @@ Add it back and use value as if it was EDGEX_CONFIGURATION_PROVIDER and enable u
  
 ## Consequences 
 
-- Docker compose files will need to be changed to remove config seed. 
+- Docker compose files will need to be changed to remove config seed.
+- The main Snap will need to be changed to remove config seed. 
 - Config seed code (currently in edgex-go repo) is to be removed.
 - Any service specific environmental overrides currently on config seed need to be moved to the specific service(s).
 - The Docker configuration files and directory (example:  https://github.com/edgexfoundry/edgex-go/blob/master/cmd/core-data/res/docker/configuration.toml) that are used to populate the config seed for Docker containers can be eliminated from all the services.  
