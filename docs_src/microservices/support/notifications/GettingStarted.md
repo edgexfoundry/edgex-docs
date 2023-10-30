@@ -4,7 +4,7 @@ title: Support Notification - Getting Started
 
 # Support Notification - Getting Started
 
-Support Notifications is one of the core EdgeX Services. It is needed for applications that require notifications or alerts to be sent to the users.
+Support Notifications is one of the EdgeX Support Services. It is needed for applications that require notifications or alerts to be sent to the users.
 For solutions that do not require notifications, it is possible to use the EdgeX framework without support notifications.
 
 ## Running Services with Support Notifications
@@ -21,14 +21,14 @@ The simplest way to run all the required services is to use the [Compose Builder
     ```
 This runs, in non-secure mode, all the standard EdgeX services, including support notifications, along with the Device Virtual.
 
-## Running Services without Core Data
+## Running Services without Support Notifications
 The simplest way to run all the required services is to use the [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder) tool from a terminal window.
 
 1. Clone [https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}})
 2. Change to the **compose-builder** folder
 3. Generate a compose file
     ```
-    make gen no-secty
+    make gen no-secty ds-virtual
     ```
 4. Remove support-notifications from the compose file and resolve any depends on for support notifications.
 5. Run the compose file.
