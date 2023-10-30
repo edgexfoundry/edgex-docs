@@ -1,4 +1,8 @@
-# Using iot_data_t
+---
+title: Device Service SDK - C Utilities
+---
+
+# Device Service SDK - Using iot_data_t
 
 ## Introduction
 
