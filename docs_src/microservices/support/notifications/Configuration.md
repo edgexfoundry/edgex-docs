@@ -66,12 +66,11 @@ No configuration updated
 
 See [Common Configuration Reference](../../../configuration/V3MigrationCommonConfig/) for complete details on common configuration changes.
 
-#### Writable
+### Writable
 
 The `Writable.InsecureSecrets.SMTP` section has been added.
 
 !!! example "Example Writable.InsecureSecrets.SMTP section"
-
     ```yaml
         Writable:
           InsecureSecrets:
