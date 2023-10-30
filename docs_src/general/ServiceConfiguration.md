@@ -17,7 +17,7 @@ Please refer to the general [Common Configuration documentation](../microservice
 === "Supporting"
     |Service Name|Configuration Reference|
     |---|---|
-    |support-notifications	|[Support Notifications Configuration](../microservices/support/notifications/Ch-AlertsNotifications.md#configuration-properties)|
+    |support-notifications	|[Support Notifications Configuration](../microservices/support/notifications/Configuration.md#configuration-properties)|
     |support-scheduler|	[Support Scheduler Configuration](../microservices/support/scheduler/Configuration.md)|
 === "Application & Analytics"
     |Service Name|	Configuration Reference|

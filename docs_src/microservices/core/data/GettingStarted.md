@@ -37,7 +37,7 @@ The simplest way to run all the required services is to use the [Compose Builder
     make gen no-secty
     ```
 4. Remove core-data from the compose file and resolve any depends on for core-data.
-5. Run the compsoe file.
+5. Run the compose file.
     ```
    make up
    ```
