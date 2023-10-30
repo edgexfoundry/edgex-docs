@@ -1991,11 +1991,14 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code>*</code>indicates the configuration value can be changed on the fly if using a configuration provider (like Consul).
-<code>**</code>indicates the configuration value can be changed but the service must be restarted.</p>
+<p>The <code>*</code> on the configuration values names below denoted that these are pulled from the application service common configuration thus are not in the individual application service's private configuration file, unless overriding the common value.</p>
 </div>
 <h3 id="writable">Writable</h3>
 <p>The tabs below provide additional entries in the <strong>Writable</strong> section which are applicable to Application Services.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Changes to these settings are processed by the running service. They <strong>Do Not</strong> require the service to be restarted after value(s) are changed.</p>
+</div>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><input id="__tabbed_1_4" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Writable.StoreAndForward</label><label for="__tabbed_1_2">Writable.Pipeline</label><label for="__tabbed_1_3">Writable.InsecureSecrets</label><label for="__tabbed_1_4">Writable.Telemetry</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2048,7 +2051,7 @@
 </tr>
 <tr>
 <td>SecretName</td>
-<td><code>&lt;name&gt;</code></td>
+<td><code>&lt;name&gt;</code>*</td>
 <td>Indicates the location in the simulated Secret Store where the secret resides.</td>
 </tr>
 <tr>
@@ -2058,7 +2061,7 @@
 </tr>
 <tr>
 <td><code>key</code></td>
-<td><code>value</code></td>
+<td><code>value</code>*</td>
 <td>Secret data key value pairs</td>
 </tr>
 </tbody>
@@ -2086,47 +2089,47 @@
 </tr>
 <tr>
 <td>Metrics.MessagesReceived</td>
-<td>false</td>
+<td>false*</td>
 <td>Enable/disable reporting of the built-in <strong>MessagesReceived</strong> metric</td>
 </tr>
 <tr>
 <td>Metrics.InvalidMessagesReceived</td>
-<td>false</td>
+<td>false*</td>
 <td>Enable/disable reporting of the built-in <strong>InvalidMessagesReceived</strong> metric</td>
 </tr>
 <tr>
 <td>Metrics.HttpExportSize</td>
-<td>false</td>
+<td>false*</td>
 <td>Enable/disable reporting of the built-in <strong>HttpExportSize</strong> metric</td>
 </tr>
 <tr>
 <td>Metrics.HttpExportErrors</td>
-<td>false</td>
+<td>false*</td>
 <td>Enable/disable reporting of the built-in <strong>HttpExportErrors</strong> metric</td>
 </tr>
 <tr>
 <td>Metrics.MqttExportSize</td>
-<td>false</td>
+<td>false*</td>
 <td>Enable/disable reporting of the built-in <strong>MqttExportSize</strong> metric</td>
 </tr>
 <tr>
 <td>Metrics.MqttExportErrors</td>
-<td>false</td>
+<td>false*</td>
 <td>Enable/disable reporting of the built-in <strong>MqttExportErrors</strong> metric</td>
 </tr>
 <tr>
 <td>Metrics.PipelineMessagesProcessed</td>
-<td>false</td>
+<td>false*</td>
 <td>Enable/disable reporting of the built-in <strong>PipelineMessagesProcessed</strong> metric</td>
 </tr>
 <tr>
 <td>Metrics.PipelineProcessingErrors</td>
-<td>false</td>
+<td>false*</td>
 <td>Enable/disable reporting of the built-in <strong>PipelineProcessingErrors</strong> metric</td>
 </tr>
 <tr>
 <td>Metrics.PipelineMessageProcessingTime</td>
-<td>false</td>
+<td>false*</td>
 <td>Enable/disable reporting of the built-in <strong>PipelineMessageProcessingTime</strong> metric</td>
 </tr>
 <tr>
@@ -2145,7 +2148,11 @@
 </div>
 </input></input></input></input></div>
 <h3 id="not-writable">Not Writable</h3>
-<p>The tabs below provide additional configuration which are applicable to Application Services that require the service to be restarted after value(s) are changed.</p>
+<p>The tabs below provide additional configuration which are applicable to Application Services.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Changes to these settings require the service <strong>to be</strong> restarted after value(s) are changed.</p>
+</div>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:6"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><input id="__tabbed_2_4" name="__tabbed_2" type="radio"><input id="__tabbed_2_5" name="__tabbed_2" type="radio"><input id="__tabbed_2_6" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">HttpServer</label><label for="__tabbed_2_2">Clients</label><label for="__tabbed_2_3">Trigger</label><label for="__tabbed_2_4">Trigger ExternalMqtt</label><label for="__tabbed_2_5">Application Settings</label><label for="__tabbed_2_6">Custom Structured Configuration</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2161,22 +2168,22 @@
 <tbody>
 <tr>
 <td>Protocol</td>
-<td>http**</td>
+<td>http</td>
 <td>Indicates the protocol for the webserver to use</td>
 </tr>
 <tr>
 <td>SecretName</td>
-<td>blank**</td>
+<td>blank</td>
 <td>Indicates the name of the secret in the Secret Store where the HTTPS secret data resides</td>
 </tr>
 <tr>
 <td>HTTPSCertName</td>
-<td>blank**</td>
+<td>blank</td>
 <td>Indicates the key name in the HTTPS secret data that contains the <code>certificate data</code> to use for HTTPS</td>
 </tr>
 <tr>
 <td>HTTPSKeyName</td>
-<td>blank**</td>
+<td>blank</td>
 <td>Indicates the key name in the HTTPS secret data that contains the <code>key data</code> to use for HTTPS</td>
 </tr>
 </tbody>
@@ -2202,17 +2209,17 @@
 <tbody>
 <tr>
 <td>Type</td>
-<td>edgex-messagebus**</td>
+<td>edgex-messagebus*</td>
 <td>Indicates the <code>Trigger</code> binding type. valid values are <code>edgex-messagebus</code>, <code>external-mqtt</code>, <code>http</code>, or <code>&lt;custom&gt;</code></td>
 </tr>
 <tr>
 <td>SubscribeTopics</td>
-<td>events/#**</td>
+<td>events/#*</td>
 <td>Topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. Only set when using <code>edgex-messagebus</code> or <code>external-mqtt</code>. See <a href="../details/Triggers/#edgex-message-bus">EdgeXMessageBus</a> Trigger for more details.</td>
 </tr>
 <tr>
 <td>PublishTopic</td>
-<td>blank**</td>
+<td>blank*</td>
 <td>Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. Only set when using <code>edgex-messagebus</code> or <code>external-mqtt</code>. See <a href="../details/Triggers/#edgex-message-bus">EdgeXMessageBus</a> Trigger for more details.</td>
 </tr>
 </tbody>
@@ -2236,87 +2243,87 @@ Only used for <code>external-mqtt</code> trigger binding type</p>
 <tbody>
 <tr>
 <td>Url</td>
-<td>blank**</td>
+<td>blank</td>
 <td>Fully qualified URL to connect to the MQTT broker, i.e. <code>tcp://localhost:1883</code></td>
 </tr>
 <tr>
 <td>ClientId</td>
-<td>blank**</td>
+<td>blank</td>
 <td>ClientId to connect to the broker with</td>
 </tr>
 <tr>
 <td>ConnectTimeout</td>
-<td>blank**</td>
+<td>blank</td>
 <td>Time duration indicating how long to wait before timing out                                                        broker connection, i.e "30s"</td>
 </tr>
 <tr>
 <td>AutoReconnect</td>
-<td>false**</td>
+<td>false</td>
 <td>Indicates whether or not to retry connection if disconnected</td>
 </tr>
 <tr>
 <td>KeepAlive</td>
-<td>0**</td>
+<td>0</td>
 <td>Seconds between client ping when no active data flowing to avoid client being disconnected. Must be greater then 2</td>
 </tr>
 <tr>
 <td>QOS</td>
-<td>0**</td>
+<td>0</td>
 <td>Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once)</td>
 </tr>
 <tr>
 <td>Retain</td>
-<td>false**</td>
+<td>false</td>
 <td>Retain setting for MQTT Connection</td>
 </tr>
 <tr>
 <td>SkipCertVerify</td>
-<td>false**</td>
+<td>false</td>
 <td>Indicates if the certificate verification should be skipped</td>
 </tr>
 <tr>
 <td>SecretPath</td>
-<td>blank**</td>
+<td>blank</td>
 <td>Name of the path in secret provider to retrieve your secrets. Must be non-blank.</td>
 </tr>
 <tr>
 <td>AuthMode</td>
-<td>blank**</td>
+<td>blank</td>
 <td>Indicates what to use when connecting to the broker. Must be one of "none", "cacert" , "usernamepassword", "clientcert". <br/>If a CA Cert exists in the SecretPath then it will be used for all modes except "none".</td>
 </tr>
 <tr>
 <td>RetryDuration</td>
-<td>600**</td>
+<td>600</td>
 <td>Indicates how long (in seconds) to wait timing out on the MQTT client creation</td>
 </tr>
 <tr>
 <td>RetryInterval</td>
-<td>5**</td>
+<td>5</td>
 <td>Indicates the time (in seconds) that will be waited between attempts to create MQTT client</td>
 </tr>
 <tr>
 <td>Will: Enabled</td>
-<td>false**</td>
+<td>false</td>
 <td>Enables Last Will capability</td>
 </tr>
 <tr>
 <td>Will: Topic</td>
-<td>blank**</td>
+<td>blank</td>
 <td>Topic to publish the Last Will Payload when service disconnects from MQTT Broker</td>
 </tr>
 <tr>
 <td>Will: Payload</td>
-<td>blank**</td>
+<td>blank</td>
 <td>Will message to be sent to the Will Topic</td>
 </tr>
 <tr>
 <td>Will: Qos</td>
-<td>blank**</td>
+<td>blank</td>
 <td>QOS level for Will Topic</td>
 </tr>
 <tr>
 <td>Will: Retained</td>
-<td>false**</td>
+<td>false</td>
 <td>Retained setting for Will Topic</td>
 </tr>
 </tbody>
