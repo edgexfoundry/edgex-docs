@@ -14,11 +14,13 @@ Please first refer to the general [Configuration documentation](../configuration
     New in EdgeX 3.1 is URI for files which allows the private configuration file to be pulled from a remote location via a URI rather than from the local file system. See [Config File Command-line](../configuration/CommonCommandLineOptions.md#config-file) section for more details.
 
 !!! note
-    `*`indicates the configuration value can be changed on the fly if using a configuration provider (like Consul).
-    `**`indicates the configuration value can be changed but the service must be restarted.
+    The `*` on the configuration values names below denoted that these are pulled from the application service common configuration thus are not in the individual application service's private configuration file, unless overriding the common value.
 
 ### Writable
 The tabs below provide additional entries in the **Writable** section which are applicable to Application Services.
+
+!!! note
+    Changes to these settings are processed by the running service. They **Do Not** require the service to be restarted after value(s) are changed.
 
 === "Writable.StoreAndForward"
 
@@ -41,30 +43,33 @@ The tabs below provide additional entries in the **Writable** section which are 
     |Configuration  |     Default Value     | Description |
     | --- | --- | -- |
     | `<name>' | --- | This section defines a block of insecure secrets for some service specific need |
-    | SecretName | `<name>` | Indicates the location in the simulated Secret Store where the secret resides. |
+    | SecretName | `<name>`* | Indicates the location in the simulated Secret Store where the secret resides. |
     | SecretData | --- | This section is the collection of secret data.  |
-    | `key` | `value` | Secret data key value pairs |
+    | `key` | `value`* | Secret data key value pairs |
 
 === "Writable.Telemetry"
     |Property|<Default Value|Description|
     |---|---|---|
     |||See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration.md#common-configuration-properties) for the Telemetry configuration common to all services |
     |Metrics|     |Service metrics that the application service collects. Boolean value indicates if reporting of the metric is enabled. Custom metrics are also included here for custom application services that define custom metrics|
-    |Metrics.MessagesReceived |  false |Enable/disable reporting of the built-in **MessagesReceived** metric|
-    |Metrics.InvalidMessagesReceived | false |Enable/disable reporting of the built-in **InvalidMessagesReceived** metric|
-    |Metrics.HttpExportSize   |  false| Enable/disable reporting of the built-in **HttpExportSize** metric|
-    |Metrics.HttpExportErrors   |  false| Enable/disable reporting of the built-in **HttpExportErrors** metric|
-    |Metrics.MqttExportSize   | false |Enable/disable reporting of the built-in **MqttExportSize** metric|
-    |Metrics.MqttExportErrors   | false |Enable/disable reporting of the built-in **MqttExportErrors** metric|
-    |Metrics.PipelineMessagesProcessed | false |Enable/disable reporting of the built-in **PipelineMessagesProcessed** metric|
-    |Metrics.PipelineProcessingErrors | false | Enable/disable reporting of the built-in **PipelineProcessingErrors** metric|
-    |Metrics.PipelineMessageProcessingTime | false |Enable/disable reporting of the built-in **PipelineMessageProcessingTime** metric|
+    |Metrics.MessagesReceived |  false* |Enable/disable reporting of the built-in **MessagesReceived** metric|
+    |Metrics.InvalidMessagesReceived | false* |Enable/disable reporting of the built-in **InvalidMessagesReceived** metric|
+    |Metrics.HttpExportSize   |  false* | Enable/disable reporting of the built-in **HttpExportSize** metric|
+    |Metrics.HttpExportErrors   |  false* | Enable/disable reporting of the built-in **HttpExportErrors** metric|
+    |Metrics.MqttExportSize   | false* |Enable/disable reporting of the built-in **MqttExportSize** metric|
+    |Metrics.MqttExportErrors   | false* |Enable/disable reporting of the built-in **MqttExportErrors** metric|
+    |Metrics.PipelineMessagesProcessed | false* |Enable/disable reporting of the built-in **PipelineMessagesProcessed** metric|
+    |Metrics.PipelineProcessingErrors | false* | Enable/disable reporting of the built-in **PipelineProcessingErrors** metric|
+    |Metrics.PipelineMessageProcessingTime | false* |Enable/disable reporting of the built-in **PipelineMessageProcessingTime** metric|
     |Metrics.`<CustomMetric>`| false | (Service Specific) Enable/disable reporting of custom application service's custom metric. See [Custom Application Service Metrics](sdk/details/CustomServiceMetrics.md) for more detail|
     |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
 
 ### Not Writable
 
-The tabs below provide additional configuration which are applicable to Application Services that require the service to be restarted after value(s) are changed.
+The tabs below provide additional configuration which are applicable to Application Services.
+
+!!! note
+    Changes to these settings require the service **to be** restarted after value(s) are changed.
 
 === "HttpServer"
 
@@ -72,10 +77,10 @@ The tabs below provide additional configuration which are applicable to Applicat
     
     | Configuration | Default Value | Description                                                  |
     | ------------- | ------------- | ------------------------------------------------------------ |
-    | Protocol      | http**        | Indicates the protocol for the webserver to use              |
-    | SecretName    | blank**       | Indicates the name of the secret in the Secret Store where the HTTPS secret data resides |
-    | HTTPSCertName | blank**       | Indicates the key name in the HTTPS secret data that contains the `certificate data` to use for HTTPS |
-    | HTTPSKeyName  | blank**       | Indicates the key name in the HTTPS secret data that contains the `key data` to use for HTTPS |
+    | Protocol      | http          | Indicates the protocol for the webserver to use              |
+    | SecretName    | blank         | Indicates the name of the secret in the Secret Store where the HTTPS secret data resides |
+    | HTTPSCertName | blank         | Indicates the key name in the HTTPS secret data that contains the `certificate data` to use for HTTPS |
+    | HTTPSKeyName  | blank         | Indicates the key name in the HTTPS secret data that contains the `key data` to use for HTTPS |
 
 === "Clients"
 
@@ -89,9 +94,9 @@ The tabs below provide additional configuration which are applicable to Applicat
      
     |Configuration  |     Default Value     | Description |
     | --- | --- | -- |
-    | Type | edgex-messagebus** | Indicates the `Trigger` binding type. valid values are `edgex-messagebus`, `external-mqtt`, `http`, or `<custom>` |
-    | SubscribeTopics | events/#** | Topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](details/Triggers.md#edgex-message-bus) Trigger for more details. |
-    | PublishTopic | blank** | Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](details/Triggers.md#edgex-message-bus) Trigger for more details. |
+    | Type | edgex-messagebus*   | Indicates the `Trigger` binding type. valid values are `edgex-messagebus`, `external-mqtt`, `http`, or `<custom>` |
+    | SubscribeTopics | events/#*   | Topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](details/Triggers.md#edgex-message-bus) Trigger for more details. |
+    | PublishTopic | blank*   | Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](details/Triggers.md#edgex-message-bus) Trigger for more details. |
 
 === "Trigger ExternalMqtt"
 
@@ -103,23 +108,23 @@ The tabs below provide additional configuration which are applicable to Applicat
     
     | Configuration   | Default Value | Description                                                  |
     | --------------------------------- | ------------- | ------------------------------------------------------------ |
-    | Url | blank**       | Fully qualified URL to connect to the MQTT broker, i.e. `tcp://localhost:1883` |
-    | ClientId | blank**       | ClientId to connect to the broker with |
-    | ConnectTimeout | blank**       | Time duration indicating how long to wait before timing out                                                        broker connection, i.e "30s" |
-    | AutoReconnect | false**       | Indicates whether or not to retry connection if disconnected |
-    | KeepAlive | 0**           | Seconds between client ping when no active data flowing to avoid client being disconnected. Must be greater then 2 |
-    | QOS | 0**           | Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once) |
-    | Retain | false**       | Retain setting for MQTT Connection                           |
-    | SkipCertVerify | false**       | Indicates if the certificate verification should be skipped  |
-    | SecretPath | blank**       | Name of the path in secret provider to retrieve your secrets. Must be non-blank. |
-    | AuthMode | blank**       | Indicates what to use when connecting to the broker. Must be one of "none", "cacert" , "usernamepassword", "clientcert". <br />If a CA Cert exists in the SecretPath then it will be used for all modes except "none". |
-    | RetryDuration | 600** | Indicates how long (in seconds) to wait timing out on the MQTT client creation |
-    | RetryInterval | 5** | Indicates the time (in seconds) that will be waited between attempts to create MQTT client |
-    | Will: Enabled | false** | Enables Last Will capability |
-    | Will: Topic | blank** | Topic to publish the Last Will Payload when service disconnects from MQTT Broker |
-    | Will: Payload | blank** | Will message to be sent to the Will Topic |
-    | Will: Qos | blank** | QOS level for Will Topic |
-    | Will: Retained | false** | Retained setting for Will Topic |
+    | Url | blank         | Fully qualified URL to connect to the MQTT broker, i.e. `tcp://localhost:1883` |
+    | ClientId | blank         | ClientId to connect to the broker with |
+    | ConnectTimeout | blank         | Time duration indicating how long to wait before timing out                                                        broker connection, i.e "30s" |
+    | AutoReconnect | false         | Indicates whether or not to retry connection if disconnected |
+    | KeepAlive | 0             | Seconds between client ping when no active data flowing to avoid client being disconnected. Must be greater then 2 |
+    | QOS | 0             | Quality of Service 0 (At most once), 1 (At least once) or 2 (Exactly once) |
+    | Retain | false         | Retain setting for MQTT Connection                           |
+    | SkipCertVerify | false         | Indicates if the certificate verification should be skipped  |
+    | SecretPath | blank         | Name of the path in secret provider to retrieve your secrets. Must be non-blank. |
+    | AuthMode | blank         | Indicates what to use when connecting to the broker. Must be one of "none", "cacert" , "usernamepassword", "clientcert". <br />If a CA Cert exists in the SecretPath then it will be used for all modes except "none". |
+    | RetryDuration | 600   | Indicates how long (in seconds) to wait timing out on the MQTT client creation |
+    | RetryInterval | 5   | Indicates the time (in seconds) that will be waited between attempts to create MQTT client |
+    | Will: Enabled | false   | Enables Last Will capability |
+    | Will: Topic | blank   | Topic to publish the Last Will Payload when service disconnects from MQTT Broker |
+    | Will: Payload | blank   | Will message to be sent to the Will Topic |
+    | Will: Qos | blank   | QOS level for Will Topic |
+    | Will: Retained | false   | Retained setting for Will Topic |
 
     !!! edgey "EdgeX 3.1"
         Last Will capability is new in EdgeX 3.1
