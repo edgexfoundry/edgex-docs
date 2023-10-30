@@ -34,7 +34,7 @@ The simplest way to run all the required services is to use the [Compose Builder
 
 3. Generate a compose file
     ```
-    make gen no-secty
+    make gen no-secty ds-virtual
     ```
 4. Remove core-data from the compose file and resolve any depends on for core-data.
 5. Run the compsoe file.

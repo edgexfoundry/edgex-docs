@@ -28,7 +28,7 @@ The simplest way to run all the required services is to use the [Compose Builder
 2. Change to the **compose-builder** folder
 3. Generate a compose file
     ```
-    make gen no-secty
+    make gen no-secty ds-virtual
     ```
 4. Remove support-scheduler from the compose file and resolve any depends on for support scheduler.
 5. Run the compose file.
