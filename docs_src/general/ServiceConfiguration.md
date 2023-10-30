@@ -1,6 +1,6 @@
 # Service Configuration
 
-Each EdgeX micro service requires configuration (i.e. - a repository of initialization and operating values).  The configuration is initially provided by a [YAML](https://en.wikipedia.org/wiki/YAML) file but a service can utilize the centralized configuration management provided by EdgeX for its configuration. 
+Each EdgeX microservice requires configuration (i.e. - a repository of initialization and operating values).  The configuration is initially provided by a [YAML](https://en.wikipedia.org/wiki/YAML) file but a service can utilize the centralized configuration management provided by EdgeX for its configuration. 
 
 See the [Configuration and Registry documentation](../microservices/configuration/ConfigurationAndRegistry.md) for more details about initialization of services and the use of the configuration service.  
 
@@ -18,7 +18,7 @@ Please refer to the general [Common Configuration documentation](../microservice
     |Service Name|Configuration Reference|
     |---|---|
     |support-notifications	|[Support Notifications Configuration](../microservices/support/notifications/Ch-AlertsNotifications.md#configuration-properties)|
-    |support-scheduler|	[Support Scheduler Configuration](../microservices/support/scheduler/Ch-Scheduler.md#configuration-properties)|
+    |support-scheduler|	[Support Scheduler Configuration](../microservices/support/scheduler/Configuration.md)|
 === "Application & Analytics"
     |Service Name|	Configuration Reference|
     |---|---|
