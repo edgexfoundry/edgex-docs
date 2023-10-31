@@ -2,7 +2,7 @@
 title: Device Service SDK - C Utilities
 ---
 
-# Device Service SDK - Using iot_data_t
+# Device Service SDK - C Utilities
 
 ## Introduction
 
