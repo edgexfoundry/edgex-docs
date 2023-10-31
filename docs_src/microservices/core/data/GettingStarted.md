@@ -19,7 +19,7 @@ The simplest way to run all the required services is to use the [Compose Builder
 
 3. Run the services
     ```
-    make run no-secty
+    make run no-secty ds-virtual
     ```
 This runs, in non-secure mode, all the standard EdgeX services, including core-data, along with the Device Virtual.
 Core Data will use the Redis database as its datastore.
@@ -34,7 +34,7 @@ The simplest way to run all the required services is to use the [Compose Builder
 
 3. Generate a compose file
     ```
-    make gen no-secty
+    make gen no-secty ds-virtual
     ```
 4. Remove core-data from the compose file and resolve any depends on for core-data.
 5. Run the compose file.
