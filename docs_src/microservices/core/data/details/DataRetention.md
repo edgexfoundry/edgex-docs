@@ -1,4 +1,8 @@
-# Data Retention and Persistent Caps
+---
+title: Core Data - Data Retention and Persistent Caps
+---
+
+# Core Data - Data Retention and Persistent Caps
 
 !!! edgey "EdgeX 3.1"
     New in EdgeX 3.1
@@ -15,18 +19,15 @@ Under this mechanism, the maximum readings capacity is called <code>MaxCap</code
 
 For example, the <code>MaxCap</code> is set to 10, the <code>MinCap</code> is set to 2 and the <code>Interval</code> is set to 3s. Now, core data will check how many readings are in the local database every 3 seconds. When the number of readings reach 10, core data will check the 3rd reading to find the related event's origin timestamp and perform function <code>DeleteEventsByAge</code> to delete events by age. This way the related readings will also be deleted.
 
-### Support Notifications service
-As with core data, the number of notification can increase indefinitely, so the same retention mechanism can be also used to keep the latest notification and clean up the old ones. 
-
 ## Introduction
 
-For detailed information on the data retention see [Use Case for capping readings in Core Data](../design/ucr/Core-Data-Retention.md).
+For detailed information on the data retention see [Use Case for capping readings in Core Data](../../../../design/ucr/Core-Data-Retention.md).
 
 ## Prerequisite Knowledge
 
-- For detailed information on the data retention see [Core Data Configuration Properties](../microservices/core/data/Configuration.md) and browse to **retention** tab.
+- For detailed information on the data retention see [Core Data Configuration Properties](../Configuration.md) and browse to **retention** tab.
 
-- For detailed information on the data retention see [Notifications Configuration Properties](../microservices/support/notifications/Configuration.md#configuration-properties) and browse to **retention** tab.
+- For detailed information on the data retention see [Notifications Configuration Properties](../../../support/notifications/Configuration.md#configuration-properties) and browse to **retention** tab.
 
 ## Enable Data Retention
 Two ways to enable data retention mechanism:
@@ -39,9 +40,9 @@ RETENTION_MAXCAP: <maxcap>
 RETENTION_MINCAP: <mincap>  
 ```
 
-For detailed information about environment variables override see [Service Configuration Overrides](../microservices/configuration/CommonEnvironmentVariables.md#service-configuration-overrides).
+For detailed information about environment variables override see [Service Configuration Overrides](../../../configuration/CommonEnvironmentVariables.md#service-configuration-overrides).
 
 - Using <code>Consul</code> to override the default configuration
 Open Consul web user interface and go to *Retention* section of the core-data or support-notification service to customize the configuarion.
 
-For detailed information about Consul see [Configuration and Registry Provider](../microservices/configuration/ConfigurationAndRegistry.md#web-user-interface).
+For detailed information about Consul see [Configuration and Registry Provider](../../../configuration/ConfigurationAndRegistry.md#web-user-interface).
