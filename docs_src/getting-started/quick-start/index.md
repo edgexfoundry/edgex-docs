@@ -61,7 +61,7 @@ Reading data from devices is only part of what EdgeX is capable of.  You can als
 
 When our Virtual Device service registered the device `Random-Integer-Device`, it used a [profile](https://github.com/edgexfoundry/device-virtual-go/blob/{{edgexversion}}/cmd/res/profiles/device.virtual.int.yaml) to also define commands that allow you to tell the service not to generate random integers, but to always return a value you set.
 
-You won't call commands on devices directly, instead you use the EdgeX Foundry [Command Service](../../microservices/core/command/Ch-Command.md) to do that. The first step is to check what commands are available to call by asking the Command service about your device:
+You won't call commands on devices directly, instead you use the EdgeX Foundry [Command Service](../../microservices/core/command/Purpose.md) to do that. The first step is to check what commands are available to call by asking the Command service about your device:
 ``` bash
 curl http://localhost:59882/api/{{api_version}}/device/name/Random-Integer-Device
 ```

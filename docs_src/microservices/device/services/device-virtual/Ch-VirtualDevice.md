@@ -6,7 +6,7 @@
 
 The virtual device service simulates different kinds of [devices](../../../../general/Definitions.md#device) to
 generate events and readings to the [core data](../../../core/data/Purpose.md) micro service, and users
-send commands and get responses through the [command and control](../../../core/command/Ch-Command.md) micro service. These features of the virtual device services are useful
+send commands and get responses through the [command and control](../../../core/command/Purpose.md) micro service. These features of the virtual device services are useful
 when executing functional or performance tests without having any real devices.
 
 The virtual device service, built in Go and based on the device service Go SDK, can simulate sensors by generating data of the following data types:

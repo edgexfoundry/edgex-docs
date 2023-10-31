@@ -9,7 +9,7 @@ provisioned.
 See [core command API](../../api/core/Ch-APICoreCommand) for more details.
 
 With the setup complete, you can ask the [core command micro
-service](../microservices/core/command/Ch-Command.md) for the list of commands associated to the device (the
+service](../microservices/core/command/Purpose.md) for the list of commands associated to the device (the
 `countcamera1`).  The command micro service exposes the commands in a common, normalized
 way that enables simplified communications with the devices for
 
