@@ -1,8 +1,8 @@
 ---
-title: App RFID LLRP Inventory - Tag Location Alogrithm
+title: App RFID LLRP Inventory - Tag Location Algorithm
 ---
 
-# App RFID LLRP Inventory - Tag Location Alogrithm
+# App RFID LLRP Inventory - Tag Location Algorithm
 
 Every tag is associated with a single `Location` which is the best estimation of the Reader and Antenna
 that this tag is closest to.

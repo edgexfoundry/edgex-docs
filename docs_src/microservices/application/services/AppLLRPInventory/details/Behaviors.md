@@ -90,7 +90,7 @@ The following example uses `jq` to generate the `JSON` Behavior structure,
 the details of which are explained below.
 This particular Behavior enables a `Fast` scan at `30 dBm`:
 
-    curl -o- localhost:59711/api/v3/behaviors/default -XPUT \
+    curl -o- localhost:59711/api/v3/behaviors/default -X PUT \
         --data @<(jq -n '{ScanType: "Fast", Power: {Max: 3000}}')
 
 
@@ -98,7 +98,7 @@ If you attempt to set the Behavior to something that can't be supported
 all the Readers to which it should apply,
 you'll receive an error response, and the Behavior won't change:
 
-    curl -o- -XPUT localhost:59711/api/v3/behaviors/default \
+    curl -o- -X PUT localhost:59711/api/v3/behaviors/default \
         --data @<(jq -n '{ScanType: "Fast"}')
     
     new behavior is invalid for "Speedway": target power (0.00 dBm)
@@ -117,7 +117,7 @@ you'll receive an error response, and the Behavior won't change:
       but allow that to "timeout" so you'll see it multiple times
       as long as it's still in the Reader's antenna's Field of View (FoV).
       This mode is better than `Fast` at finding weaker tags,
-      but as the popluation size grows,
+      but as the population size grows,
       it'll become more difficult for the Reader to outpace tag timeouts.
     - `Deep` mode, like `Normal`, suppresses responses to find weaker tags,
       but does so in a way that makes it more likely to find even the weakest tags.
