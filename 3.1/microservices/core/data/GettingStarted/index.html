@@ -2061,7 +2061,7 @@ For solutions that do not require storage and access to Events and Readings, it 
 </li>
 <li>
 <p>Run the services
-    <div class="highlight"><pre><span></span><code>make run no-secty
+    <div class="highlight"><pre><span></span><code>make run no-secty ds-virtual
 </code></pre></div>
 This runs, in non-secure mode, all the standard EdgeX services, including core-data, along with the Device Virtual.
 Core Data will use the Redis database as its datastore.</p>
@@ -2078,7 +2078,7 @@ Core Data will use the Redis database as its datastore.</p>
 </li>
 <li>
 <p>Generate a compose file
-    <div class="highlight"><pre><span></span><code>make gen no-secty
+    <div class="highlight"><pre><span></span><code>make gen no-secty ds-virtual
 </code></pre></div></p>
 </li>
 <li>Remove core-data from the compose file and resolve any depends on for core-data.</li>
