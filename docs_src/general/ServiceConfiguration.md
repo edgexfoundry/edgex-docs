@@ -13,7 +13,7 @@ Please refer to the general [Common Configuration documentation](../microservice
     |---|---|
     |core-data|	[Core Data Configuration](../microservices/core/data/Configuration.md)|
     |core-metadata	|[Core Metadata Configuration](../microservices/core/metadata/Configuration.md#core-metadata---configuration)|
-    |core-command	|[Core Command Configuration](../microservices/core/command/Ch-Command.md#configuration-properties)|
+    |core-command	|[Core Command Configuration](../microservices/core/command/Configuration.md#core-command---configuration)|
 === "Supporting"
     |Service Name|Configuration Reference|
     |---|---|
