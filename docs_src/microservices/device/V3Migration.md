@@ -134,7 +134,7 @@ Once that is complete then the import statements for these dependencies must be 
     - Add `Discover` method. The `Discover` method triggers protocol specific device discovery, asynchronously writes the results to the channel which is passed to the implementation via `ProtocolDriver.Initialize()`. The results may be added to the device service based on a set of acceptance criteria (i.e. Provision Watchers).
     - Add `ValidateDevice` method. The `ValidateDevice` method triggers device's protocol properties validation, returns error if validation failed and the incoming device will not be added into EdgeX.
     - Update the `Initialize` method signature to pass DeviceServiceSDK interface as parameter.
-4. Remove global variable `ds *DeviceService` in service package. Instead, the [DeviceServiceSDK interface](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md) introduced in Levski release is passed to ProtocolDriver as the only parameter in Initialize method so that developer can still access, mock and test with it.
+4. Remove global variable `ds *DeviceService` in service package. Instead, the [DeviceServiceSDK interface](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md) introduced in Levski release is passed to ProtocolDriver as the only parameter in the Initialize method so that developer can still access, mock and test with it.
 5. SDK API changes:
     - Add [`Run`](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md#run) method.
     - Add [`PatchDevice`](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md#patchdevice) method.

@@ -1,8 +1,8 @@
 ---
-title: Device Service - Custom REST APIs
+title: Device Service SDK - Custom REST APIs
 ---
 
-# Device Service - Custom REST APIs
+# Device Service SDK - Custom REST APIs
 
 You can customize your own REST APIs when building a Device Service but a few routes are reserved and cannot be used:
 
