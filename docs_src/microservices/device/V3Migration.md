@@ -1,4 +1,8 @@
-# V3 Device Service Migration Guide
+---
+title: Device Service - V3 Migration Guide
+---
+
+# Device Service - V3 Migration Guide
 
 ## All Device Services
 

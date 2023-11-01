@@ -1,11 +1,15 @@
-# Golang SDK
+---
+title: Device Service SDK - Getting Started Go Device Services SDK
+---
+
+# Device Service SDK - Golang SDK
 
 In this guide, you create a simple device service that generates a
 random number as a means to simulate getting data from an actual device. In this way, you explore some SDK framework and work necessary to complete a device service without actually having a device to talk to.
 
 ## Install dependencies
 
-See the [Getting Started - Go Developers](Ch-GettingStartedGoDevelopers.md) guide to install the necessary tools and infrastructure needed to develop a GoLang service.
+See the [Getting Started - Go Developers](../../../../getting-started/Ch-GettingStartedGoDevelopers.md) guide to install the necessary tools and infrastructure needed to develop a GoLang service.
 
 ## Get the EdgeX Device SDK for Go
 
@@ -206,7 +210,7 @@ Follow these steps to create a pre-defined device for the simple random number g
     
 2.  A pre-created device for the random number device is provided in this documentation.  Download **[random-generator-devices.yaml](random-generator-devices.yaml)** and save the file to the `~/edgexfoundry/device-simple/cmd/device-simple/res/devices` folder.
     
-3.  Open the random-generator-devices.yaml file in a text editor. In this example, the device described has a ProfileName:  `RandNum-Device`.  In this case, the device informs EdgeX that it will be using the device profile we created in [Creating your Device Profile](./Ch-GettingStartedSDK-Go.md#creating-your-device-profile)
+3.  Open the random-generator-devices.yaml file in a text editor. In this example, the device described has a ProfileName:  `RandNum-Device`.  In this case, the device informs EdgeX that it will be using the device profile we created in [Creating your Device Profile](#creating-your-device-profile)
 
 ### Validating your Device
 
@@ -261,81 +265,9 @@ See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/tre
 - [See here for custom section on the configuration.yaml file](https://github.com/edgexfoundry/device-mqtt-go/blob/{{edgexversion}}/cmd/res/configuration.yaml#L28-L50)
 - [See here for loading, validating and watching the configuration](https://github.com/edgexfoundry/device-mqtt-go/blob/{{edgexversion}}/internal/driver/driver.go#L53-L67)
 
-## Device Service Metrics
-
-### Built-In
-
-The following built-in device service metrics are collected by the Device SDK
-
-1. **EventSent** - Number of Events that have been sent from the Device Service
-2. **ReadingsSent** - Number of Reading that have been sent from the Device Service 
-3. **Common Metrics** - Set of service metrics common to all EdgeX Services. See [Common Service Metrics](../../microservices/general/#common-service-metrics) for list of all these metrics.
-
-See [Device Service Configuration Properties](../../microservices/device/Ch-DeviceServices/#configuration-properties) for detail on configuring device service metrics
-
-### Custom
-
-The Custom Device Service Metrics capability allows for device service developers to define, collect and report their own service metrics beyond the common built-in service metrics supplied by the Device SDK. 
-
-The following are the steps to collect and report service metrics:
-
-1. Determine the metric type that needs to be collected
-    - `counter` - Track the integer count of something
-    - `gauge` - Track the integer value of something  
-    - `gaugeFloat64` - Track the float64 value of something 
-    - `timer` - Track the time it takes to accomplish a task
-    - `histogram` - Track the integer value variance of something
-
-2. Create instance of the metric type from `github.com/rcrowley/go-metrics`
-    - `myCounter = gometrics.NewCounter()`
-    - `myGauge = gometrics.NewGauge()`
-    - `myGaugeFloat64 = gometrics.NewGaugeFloat64()`
-    - `myTimer = gometrics.NewTime()`
-    - `myHistogram = gometrics.NewHistogram(gometrics.NewUniformSample(<reservoir size))`
-
-3. Determine if there are any tags to report along with your metric. Not common so `nil` is typically passed for the `tags map[strings]string` parameter in the next step.
-
-4. Register your metric(s) with the MetricsManager from the `sdk`reference. See [Device SDK API](../../microservices/device/sdk/SDK-Go-API/#getmetricsmanager) for more details:
-
-   - `service.MetricsManager().Register("MyCounterName", myCounter, nil)`
-
-5. Collect the metric
-    - `myCounter.Inc(someIntvalue)`
-    - `myCounter.Dec(someIntvalue)`
-    - `myGauge.Update(someIntvalue)`
-    - `myGaugeFloat64.Update(someFloatvalue)`
-    - `myTimer.Update(someDuration)`
-    - `myTimer.Time(func { do sometime})`
-    - `myTimer.UpdateSince(someTimeValue)`
-    - `myHistogram.Update(someIntvalue)`
-
-6. Configure reporting of the service's metrics. See `Writable.Telemetry` configuration details in the [Common Configuration](../../microservices/configuration/CommonConfiguration/) section for more detail.
-
-!!! example "Example - Service Telemetry Configuration"
-    ```yaml
-    Writable:
-      Telemetry
-        Interval: "30s"
-        Metrics: # All service's metric names must be present in this list.
-          MyCounterName: true
-          MyGaugeName: true
-          MyGaugeFloat64Name: true
-          MyTimerName: true
-          MyHistogram: true
-       Tags: # Contains the service level tags to be attached to all the service's metrics
-         Gateway: "my-iot-gateway" # Tag must be added here or via Consul Env Override can only change existing value, not added new ones.
-    ```
-
-!!! note
-    The metric names used in the above configuration (to enable or disable reporting of a metric) must match the metric name used when the metric is registered. A partial match of starts with is acceptable, i.e. the metric name registered starts with the above configured name.
-
-## Retrieving Secrets
-
-The Go Device SDK provides the `SecretProvider.GetSecret()` API to retrieve the Device Services secrets.  See the [Device MQTT Service](https://github.com/edgexfoundry/device-mqtt-go/blob/{{edgexversion}}/internal/driver/config.go#L118) for an example of using the `SecretProvider.GetSecret()` API. Note that this code implements a retry loop allowing time for the secret(s) to be push into the service's `SecretStore` via the /secret endpoint. See [Storing Secrets](../../microservices/device/Ch-DeviceServices/#storing-secrets) section for more details.
-
 ## Rebuild your Device Service
 
-Just as you did in the [Build your Device Service](./Ch-GettingStartedSDK-Go.md#build-your-device-service) step above, build the device-simple service, which creates the executable program that is your device service.  In a terminal window, make sure you are in the device-simple folder (the folder containing the Makefile).  Build the service by issuing the following command:
+Just as you did in the [Build your Device Service](#build-your-device-service) step above, build the device-simple service, which creates the executable program that is your device service.  In a terminal window, make sure you are in the device-simple folder (the folder containing the Makefile).  Build the service by issuing the following command:
 
 ``` bash
 cd ~/edgexfoundry/device-simple
@@ -352,7 +284,7 @@ Allow the newly created device service, which was formed out of the
 Device Service Go SDK, to create sensor-mimicking data that it then
 sends to EdgeX:
 
-1.  Follow the [Getting Started using Docker](./Ch-GettingStartedDockerUsers.md) guide to start all of EdgeX. From
+1.  Follow the [Getting Started using Docker](../../../../getting-started/Ch-GettingStartedDockerUsers.md) guide to start all of EdgeX. From
     the folder containing the docker-compose file, start EdgeX with the
     following call (we're using non-security EdgeX in this example):
 

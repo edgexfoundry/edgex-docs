@@ -1,10 +1,14 @@
-# Device Services C SDK Reference
+---
+title: Device Service SDK - Getting Started C Device Services SDK
+---
+
+# Device Service SDK - Getting Started C Device Services SDK
 
 ## Introduction
 
 This page provides detail on the API provided by the C SDK. A device service implementation will define a number of callback functions, and a `main` function which registers these functions with the SDK and uses the SDK lifecycle methods to start the service and shut it down. The implementation may also use some of the helper functions which the SDK provides.
 
-In various places information is passed between the SDK and the DS implementation using the `iot_data_t` type. This is a holder for data of different types, and its use is described in its own page : [Use of iot_data_t](Ch-Using-iot-data-t.md)
+In various places information is passed between the SDK and the DS implementation using the `iot_data_t` type. This is a holder for data of different types, and its use is described in its own page : [Use of iot_data_t](./Dependencies/CUtilities.md)
 
 ## Types
 
@@ -102,6 +106,8 @@ resources | devsdk_device_resources* | Information on the device's resources
 next | devsdk_devices* | The next device in the list, or NULL if this is the last
 
 ## Callbacks
+
+Callback functions that a device service needs to execute which depends on its protocol.
 
 Note that each of the callback functions has as its first parameter a `void*` pointer. This pointer is specified by the implementation when the device service is created, and is passed to all callbacks. It may therefore be used to hold whatever state is required by the implementation.
 

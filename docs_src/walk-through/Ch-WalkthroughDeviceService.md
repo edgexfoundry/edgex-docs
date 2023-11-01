@@ -25,7 +25,7 @@ given an address that allows core command or any EdgeX service to communicate wi
 The name of the device service must be unique across all of EdgeX.  When registering a device service, the initial admin state can be provided. The administrative state (aka admin state) provides control of the device service by man or other systems.
 It can be set to `LOCKED` or `UNLOCKED`. When a device service is set to
 `LOCKED`, it is not suppose to respond to any command requests nor send
-data from the devices. See [Admin State documentation](../microservices/device/Ch-DeviceServices.md#admin-state) for more details.
+data from the devices. See [Admin State documentation](../microservices/device/details/DeviceDiscovery.md#admin-state) for more details.
 
 ### Walkthrough - Device Service
 

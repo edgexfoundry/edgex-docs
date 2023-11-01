@@ -1,6 +1,6 @@
 # Provision a device
 
-In the last act of setup, a device service often discovers and provisions devices (either [statically or dynamically](../microservices/device/Ch-DeviceServices.md#device-discovery-and-provision-watchers)) and that it is going to manage on the part of
+In the last act of setup, a device service often discovers and provisions devices (either [statically or dynamically](../microservices/device/details/DeviceDiscovery.md#dynamic-provisioning)) and that it is going to manage on the part of
 EdgeX. Note the word "often" in the last sentence. Not all device
 services will discover new devices or provision them right away.
 Depending on the type of device and how the devices communicate, it is

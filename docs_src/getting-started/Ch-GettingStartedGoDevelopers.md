@@ -181,7 +181,7 @@ See [EdgeX Default Service Ports](../../general/ServicePorts) for a list of the 
 Application services and some device services are also built in Go.  To explore how to create and build EdgeX application and devices services in Go, head to SDK documentation covering these EdgeX elements.
 
 - [Application Services and the Application Functions SDK](../microservices/application/sdk/GettingStarted.md)
-- [Device Services in Go](./Ch-GettingStartedSDK-Go.md)
+- [Device Services in Go](../microservices/device/sdk/devicesdk-getting-started/GettingStartedSDK-Go.md)
 
 ## EdgeX Foundry in GoLand
 
