@@ -1,5 +1,5 @@
 ---
-title: Device Service - Running multiple instances
+title: Device Service - Command-line Options
 ---
 
 # Device Service - Command-line Options

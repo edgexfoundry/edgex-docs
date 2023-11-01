@@ -1,8 +1,8 @@
 ---
-title: Device Service - Go Device Services SDK Metrics
+title: Device Service - Go Services Metrics
 ---
 
-# Device Service - Go Device Services SDK Metrics
+# Device Service - Go Services Metrics
 
 ### Built-In
 

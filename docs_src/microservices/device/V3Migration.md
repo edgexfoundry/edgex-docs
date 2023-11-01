@@ -134,19 +134,19 @@ Once that is complete then the import statements for these dependencies must be 
     - Add `Discover` method. The `Discover` method triggers protocol specific device discovery, asynchronously writes the results to the channel which is passed to the implementation via `ProtocolDriver.Initialize()`. The results may be added to the device service based on a set of acceptance criteria (i.e. Provision Watchers).
     - Add `ValidateDevice` method. The `ValidateDevice` method triggers device's protocol properties validation, returns error if validation failed and the incoming device will not be added into EdgeX.
     - Update the `Initialize` method signature to pass DeviceServiceSDK interface as parameter.
-4. Remove global variable `ds *DeviceService` in service package. Instead, the [DeviceServiceSDK interface](sdk/SDK-Go-API.md) introduced in Levski release is passed to ProtocolDriver as the only parameter in Initialize method so that developer can still access, mock and test with it.
+4. Remove global variable `ds *DeviceService` in service package. Instead, the [DeviceServiceSDK interface](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md) introduced in Levski release is passed to ProtocolDriver as the only parameter in Initialize method so that developer can still access, mock and test with it.
 5. SDK API changes:
-    - Add [`Run`](sdk/SDK-Go-API.md#run) method.
-    - Add [`PatchDevice`](sdk/SDK-Go-API.md#patchdevice) method.
-    - Add [`DeviceExistsForName`](sdk/SDK-Go-API.md#deviceexistsforname) method.
-    - Add [`AsyncValuesChannel`](sdk/SDK-Go-API.md#asyncvalueschannel) method.
-    - Add [`DiscoveredDeviceChannel`](sdk/SDK-Go-API.md#discovereddevicechannel) method.
-    - Refactor [`UpdateDeviceOperatingState`](sdk/SDK-Go-API.md#updatedeviceoperatingstate) method to accept a `OperatingState` value.
-    - Rename `AsyncReadings` to [`AsyncReadingsEnabled`](sdk/SDK-Go-API.md#asyncreadingsenabled).
-    - Rename `DeviceDiscovery` to [`DeviceDiscoveryEnabled`](sdk/SDK-Go-API.md#devicediscoveryenabled).
-    - Rename `GetLoggingClient` to [`LoggingClient`](sdk/SDK-Go-API.md#loggingclient).
-    - Rename `GetSecretProvider` to [`SecretProvider`](sdk/SDK-Go-API.md#secretprovider).
-    - Rename `GetMetricsManager` to [`MetricsManager`](sdk/SDK-Go-API.md#metricsmanager).
+    - Add [`Run`](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md#run) method.
+    - Add [`PatchDevice`](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md#patchdevice) method.
+    - Add [`DeviceExistsForName`](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md#deviceexistsforname) method.
+    - Add [`AsyncValuesChannel`](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md#asyncvalueschannel) method.
+    - Add [`DiscoveredDeviceChannel`](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md#discovereddevicechannel) method.
+    - Refactor [`UpdateDeviceOperatingState`](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md#updatedeviceoperatingstate) method to accept a `OperatingState` value.
+    - Rename `AsyncReadings` to [`AsyncReadingsEnabled`](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md#asyncreadingsenabled).
+    - Rename `DeviceDiscovery` to [`DeviceDiscoveryEnabled`](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md#devicediscoveryenabled).
+    - Rename `GetLoggingClient` to [`LoggingClient`](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md#loggingclient).
+    - Rename `GetSecretProvider` to [`SecretProvider`](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md#secretprovider).
+    - Rename `GetMetricsManager` to [`MetricsManager`](sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md#metricsmanager).
     - Remove `Stop` method as it should only be called by SDK.
     - Remove `SetDeviceOperatingState` method.
     - Remove the `Service` function that returns the device service SDK instance.
