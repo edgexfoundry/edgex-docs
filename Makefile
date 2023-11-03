@@ -24,7 +24,9 @@ build-docs: build-docker
 		build
 
 # Most common use case, serve docs on :8008
-serve: build-docker
+serve: build-docker serve-docs
+
+serve-docs:
 	docker run --rm \
 		-it \
 		-p 8008:8008 \
@@ -32,4 +34,3 @@ serve: build-docker
 		-w /docs \
 		-e ENABLED_HTMLPROOFER \
 		$(MKDOCS_IMAGE)
-

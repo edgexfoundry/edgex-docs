@@ -24,12 +24,12 @@ This runs, in non-secure mode, all the standard EdgeX services along with the De
 The service contains the following sample Device Profiles as examples. 
 This is where `Device Resources` and `Device Commands` are defined.
 
-| Name                                                         | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [sample-numeric-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/profiles/sample-numeric-device.yaml) | Example of device type which can POST values for numeric resources |
-| [sample-json-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/profiles/sample-json-device.yaml) | Example of device type which can POST values for object resources |
-| [sample-image-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/profiles/sample-image-device.yaml) | Example of device type which can POST values for image resources |
-| [sample-2way-rest-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{edgexversion}/cmd/res/profiles/sample-2way-rest-device.yaml) | Example of device type which supports commanding to read and set resources |
+| Name                                                                                                                                               | Description                                                  |
+|----------------------------------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------ |
+| [sample-numeric-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/profiles/sample-numeric-device.yaml)     | Example of device type which can POST values for numeric resources |
+| [sample-json-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/profiles/sample-json-device.yaml)           | Example of device type which can POST values for object resources |
+| [sample-image-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/profiles/sample-image-device.yaml)         | Example of device type which can POST values for image resources |
+| [sample-2way-rest-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/profiles/sample-2way-rest-device.yaml) | Example of device type which supports commanding to read and set resources |
 
 Use these samples to determine the best way to module your REST device with a new Device Profile. 
 Also see the [Device Profiles](../../details/DeviceProfiles.md) section for more details about Device Profiles.
@@ -58,12 +58,12 @@ The resulting value is then sent into EdgeX via the Device SDK's `async values` 
 !!! note
     All non-binary data is consumed as text. The text is cast to the specific type of the specified `device resource` once it passes type validation.
 
-See [Async Testing](howto/Testing.md#async) section for example on sending async data to this service
+See the [Async Testing](howto/Testing.md#async) section for example on sending async data to this service
 
 ### Device Commands
 
 Device Commands received by this service are forwarded to the end device for processing. 
-See [Device Commands](../../details/DeviceCommands.md) section for details on Device Commands.
+See then [Device Commands](../../details/DeviceCommands.md) section for details on Device Commands.
 
 This device service reads the end device protocol parameters from the device's protocol properties to construct the URI in which to call on the end device.
 
@@ -78,11 +78,11 @@ This device service reads the end device protocol parameters from the device's p
 
 The `commandName` is appended to the `Path` parameter (in example above) to construct the desired endpoint on the end device.
 
-A GET command sends a new http GET request to the end device. The response received from end device is type validated and sent as response to the GET command.
+A GET command sends a new http GET request to the end device. The response received from end device is type validated and sent as the response to the GET command.
 
 A SET command sends a new http PUT request to the end device containing the body from the received SET command. The end device response status code is sent in response to the SET command.
 
 ## AutoEvents
 
 Auto events are supported for  resources on end devices that support commanding.
-See [AutoEvents](../../details/AutoEvents.md) section for more details on enable and using AutoEvents.
+See [AutoEvents](../../details/AutoEvents.md) section for more details on enabling and using AutoEvents.

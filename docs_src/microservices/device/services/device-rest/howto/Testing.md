@@ -62,22 +62,22 @@ The best way to test this service with simulated data is to use **PostMan** to s
 
 This device service supports commanding functionality with a sample profile for the data types as shown in below table.
 
-| Data Type | GET                | PUT                |
-|---------	|------------------- |------------------- |
-| Binary	| :heavy_check_mark: | :X				  |
-| Object	| :heavy_check_mark: | :heavy_check_mark: |
-| Bool	   	| :heavy_check_mark: | :heavy_check_mark: |
-| String	| :heavy_check_mark: | :heavy_check_mark: |
-| Uint8		| :heavy_check_mark: | :heavy_check_mark: |
-| Uint16	| :heavy_check_mark: | :heavy_check_mark: |
-| Uint32	| :heavy_check_mark: | :heavy_check_mark: |
-| Uint64	| :heavy_check_mark: | :heavy_check_mark: |
-| Int8	    | :heavy_check_mark: | :heavy_check_mark: |
-| Int16	    | :heavy_check_mark: | :heavy_check_mark: |
-| Int32	    | :heavy_check_mark: | :heavy_check_mark: |
-| Int64	    | :heavy_check_mark: | :heavy_check_mark: |
-| Float32   | :heavy_check_mark: | :heavy_check_mark: |
-| Float64   | :heavy_check_mark: | :heavy_check_mark: |
+| Data Type | GET   | PUT   |
+|-----------|-------|-------|
+| Binary    | **Y** | **N** |
+| Object    | **Y** | **Y** |
+| Bool      | **Y** | **Y** |
+| String    | **Y** | **Y** |
+| Uint8     | **Y** | **Y** |
+| Uint16    | **Y** | **Y** |
+| Uint32    | **Y** | **Y** |
+| Uint64    | **Y** | **Y** |
+| Int8	     | **Y** | **Y** |
+| Int16     | **Y** | **Y** |
+| Int32     | **Y** | **Y** |
+| Int64     | **Y** | **Y** |
+| Float32   | **Y** | **Y** |
+| Float64   | **Y** | **Y** |
 
 Using `curl` command-line utility or `PostMan` we can send GET/PUT request to EdgeX. 
 These commands are explained in `GET Command` section below. End device can be anything, For example `nodejs based REST emulator` is used as end device for testing commanding functionaity of the REST device service. Example end device code is mentioned in `End Device` section below.
@@ -88,7 +88,7 @@ Example simulated end device code using `nodejs` is as shown below.
 This example code is has endpoint for `int8` resource. 
 To test GET/SET commands for other resources, this code needs to be expanded in the same way for other device resources also.
 
-```
+```js
 ///////////////////BUILD AND RUN INSTRUCTIONS/////////////////////
 // Install node, npm, express module in target machine
 // Run using "node end-device.js"
@@ -137,7 +137,7 @@ http://localhost:59882/api/v2/device/name/2way-rest-device/int8
 
 `2way-rest-device` is the device name as defined in the device file.
 !!! example - "Example expected success response from the end device"
-    ```
+    ```json
        {
        "apiVersion" : "v3",
        "event" : {
