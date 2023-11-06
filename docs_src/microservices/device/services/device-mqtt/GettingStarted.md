@@ -6,7 +6,7 @@ title: Device MQTT - Getting Started
 
 ## Overview
 
-Device MQTT is a device service for connecting a device or sensor feed to EdgeX using an MQTT topic.
+Device MQTT is a device service for connecting a device or sensor feed to EdgeX using the MQTT protocol.
 
 ## Running Services with Device MQTT
 
@@ -18,6 +18,6 @@ The simplest way to run all the required services is to use the [Compose Builder
 
 3. Run the services
     ```
-    make run ds-mqtt mqtt-broker no-secty ui
+    make run ds-mqtt mqtt-broker no-secty 
     ```
-This runs, in non-secure mode, all the standard EdgeX services, along with a mqtt message broker, device MQTT, and the EdgeX UI.
+This runs, in non-secure mode, all the standard EdgeX services, an mqtt message broker, and device MQTT.
