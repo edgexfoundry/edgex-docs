@@ -1,8 +1,8 @@
 ---
-title: Multi-Level Topics
+title: Device MQTT - Multi-Level Topics
 ---
 
-# Multi-Level Topics
+# Device MQTT - Multi-Level Topics
 
 In multi-level topics, the data in the published payload is the reading data. The names of the device and source are embedded into the topic. There are two ways multi-level topics are supported - async data and commands.
 
