@@ -63,7 +63,7 @@ See the [Async Testing](howto/Testing.md#async) section for example on sending a
 ### Device Commands
 
 Device Commands received by this service are forwarded to the end device for processing. 
-See then [Device Commands](../../details/DeviceCommands.md) section for details on Device Commands.
+See the [Device Commands](../../details/DeviceCommands.md) section for details on Device Commands.
 
 This device service reads the end device protocol parameters from the device's protocol properties to construct the URI in which to call on the end device.
 
