@@ -20,8 +20,6 @@ The security roadmap establishes the requirement for a secret storage engine at 
 * https://www.edgexfoundry.org/blog/2018/11/15/edgex-foundry-releases-delhi-and-plans-for-edinburgh/
 * https://wiki.edgexfoundry.org/display/FA/Edinburgh+Release
 
-The current state of secret storage is described in the [Hardware Secure Storage Draft](https://docs.google.com/document/d/1MsTNdwtZp3zA-nPhCC3COakL3e5mrhJuFByy6ja5OxU/edit).
-
 The AS-IS architecture resembles the following diagram:
 
 ![AS-IS](arch-as-is.jpg)
