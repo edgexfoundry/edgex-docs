@@ -6,9 +6,9 @@ title: Device UART - Getting Started
 
 ## Overview
 
-Device UART is a device service for connecting a UART serial device  EdgeX using the EdgeX Message Bus.
+Device UART is a device service for connecting a UART serial device to EdgeX using the EdgeX Message Bus.
 
-## Running Services with Device MQTT
+## Running Services with Device UART
 
 The simplest way to run all the required services is to use the [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder) tool from a terminal window.
 
