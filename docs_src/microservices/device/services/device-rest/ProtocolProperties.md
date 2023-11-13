@@ -25,7 +25,7 @@ This service defines the following Protocol Properties for each defined device t
             Path: api
     ```
 
-In the above example the resulting Command URL will be `http:\\127.0.0.1:5000/api/<resource-name>?<query-param>` where:
+In the above example the resulting Command URL will be `http://127.0.0.1:5000/api/<resource-name>?<query-param>` where:
 
 - `resource-name` is the name of the resource for the Command from the Device Profile.
 - `query-param` is the optional query parameter defined in the resource's `attributes` section as `urlRawQuery`.
