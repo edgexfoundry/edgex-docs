@@ -10,7 +10,7 @@ This service defines the following Protocol Properties for each defined device t
 |--------------|----------------------------------------------------|
 | CommandTopic | Base MQTT topic for sending commands to the device |
 
-!!! Note
+!!! note
     These Protocol Properties are not used/needed for MQTT devices if the data is sent asynchronously.
 
 !!! example - "Example MQTT Protocol Properties"
