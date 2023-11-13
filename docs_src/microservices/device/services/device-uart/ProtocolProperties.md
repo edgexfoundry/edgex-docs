@@ -9,7 +9,7 @@ This service defines the following Protocol Properties for each defined UART dev
 | Property       | Description                                                              |
 |----------------|--------------------------------------------------------------------------|
 | deviceLocation | Linux path to the device                                                 |
-| baudRate       | Rate information is transferred to a communication channel (bits/second) |
+| baudRate       | Rate information is transferred (bits/second) |
 
 !!! example - "Example UART Protocol Properties"
 
