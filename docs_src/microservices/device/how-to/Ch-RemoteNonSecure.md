@@ -1,4 +1,8 @@
-# Remote deployment of device services in non-secure mode
+---
+title: Device Service - Remote deployment non-secure mode
+---
+
+# Device Service - Remote deployment non-secure mode
 
 In some use cases, devices are connected to nodes where core EdgeX services are not running. In these cases the appropriate device service 
 needs to run on the remote nodes where it can connect to the device(s) and communicate to the host node where the rest of the EdgeX services are running.

@@ -1,8 +1,8 @@
 ---
-title: Device Service SDK - Getting Started C Device Services SDK
+title: Device Service SDK - Getting Started C SDK
 ---
 
-#  Device Service SDK - C SDK
+#  Device Service SDK - Getting Started C SDK
 
 In this guide, you create a simple device service that generates a
 random number as a means to simulate getting data from an actual device. In this way, you explore some of the SDK framework and work necessary to complete a device service without actually having a device to talk to.

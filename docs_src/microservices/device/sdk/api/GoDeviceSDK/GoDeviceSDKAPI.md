@@ -1,8 +1,8 @@
 ---
-title: Device Service SDK - Getting Started Go Device Services SDK
+title: Device Service SDK - Go SDK API
 ---
 
-# Device Service SDK - Getting Started Go Device Services SDK
+# Device Service SDK - Go SDK API
 
 The `DeviceServiceSDK` API provides the following APIs for the device service developer to use.
 

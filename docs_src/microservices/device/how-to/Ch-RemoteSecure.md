@@ -1,28 +1,32 @@
-# Remote deployment of multiple device service instances in secure mode
+---
+title: Device Service - Remote deployment secure mode
+---
+
+# Device Service - Remote deployment secure mode
 
 In some use cases, devices are connected to nodes where core EdgeX services are not running. In these cases the appropriate device service
 needs to run on the remote nodes where it can connect to the device(s) and communicate to the host node where the rest of the EdgeX services are running.
 
-This page provides an example of configuring and deploying multiple instances of [device-usb-camera](../services/device-usb-camera/General.md) 
+This page provides an example of configuring and deploying multiple instances of [device-usb-camera](../services/device-usb-camera/General.md)
 service using multiple nodes in EdgeX secure mode.
 
 ## Example
 This example uses 3 nodes for remote deployment. One of the nodes (host) is used to run all EdgeX core services in Docker and the other nodes (remote)
-for running the device-usb-camera service either in Docker. This example can be further extended to run multiple instances of device-usb-camera 
+for running the device-usb-camera service either in Docker. This example can be further extended to run multiple instances of device-usb-camera
 service in multiple nodes.
 
 ## Pre-requisites
 - 3 machines running Ubuntu 20.04 or newer OS, with docker installed.
-   - 1 "local" system for deploying all edgex core services in secure mode with docker
-   - 2 "remote" nodes for deploying USB service in secure mode with docker
+    - 1 "local" system for deploying all edgex core services in secure mode with docker
+    - 2 "remote" nodes for deploying USB service in secure mode with docker
 - All dependencies such as docker, go, git, curl etc. installed on all 3 systems to run
-   edgex and usb services
+  edgex and usb services
 - Local and remote nodes needs to be on the same network
 
-    !!! note
-        This document explains without any VPN and Proxy configuration, if there is
-        any proxy and/or VPN then that needs to be configured appropriately for secure
-        communication between local and remote nodes
+  !!! note
+  This document explains without any VPN and Proxy configuration, if there is
+  any proxy and/or VPN then that needs to be configured appropriately for secure
+  communication between local and remote nodes
 
 This example assumes the following values; replace them as needed with your own values:
 
@@ -62,9 +66,9 @@ This section will go over setting up the local node to run all the EdgeX Core se
 ### Edit docker-compose file
 1. Navigate to `edgex-examples/security/remote_devices/spiffe_and_ssh/local` and edit
    `docker-compose.yml` file
- 
-    !!! note
-        Below instructions explains to run 2 instances of usb service: instance 1 and instance 2)
+
+   !!! note
+   Below instructions explains to run 2 instances of usb service: instance 1 and instance 2)
 
 2. Change `host_ip` to ip address of local system for `consul`, `core-metadata`, `database` and `vault`
 
@@ -119,10 +123,10 @@ services:
 ```
 
 1. Add multiple `device-ssh-proxy` service and configure with remote node ips
-   - copy `device-ssh-proxy` service and paste it again below itself.
-   - rename services to `device-ssh-proxy-1` and `device-ssh-proxy-2` respectively
-   - Modify the existing environment variables and other fields for `device-ssh-proxy-1`
-   
+    - copy `device-ssh-proxy` service and paste it again below itself.
+    - rename services to `device-ssh-proxy-1` and `device-ssh-proxy-2` respectively
+    - Modify the existing environment variables and other fields for `device-ssh-proxy-1`
+
    ```yaml
      services:
        device-ssh-proxy-1:
@@ -139,9 +143,9 @@ services:
          ports:
            - 127.0.0.1:59983:59983/tcp
    ```
-   
-   - Edit environment variables and other fields for `device-ssh-proxy-2`
-   
+
+    - Edit environment variables and other fields for `device-ssh-proxy-2`
+
    ```yaml
      services:
        device-ssh-proxy-2:
@@ -184,34 +188,34 @@ Edit and run `add-server-entry.sh` script for each usb service
    and edit `add-server-entry.sh` script like below.
 
    !!! example - Example for first device service
-       ```bash
-       docker exec -ti edgex-security-spire-config spire-server entry create \
-           -socketPath /tmp/edgex/secrets/spiffe/private/api.sock  \
-           -parentID spiffe://edgexfoundry.org/spire/agent/x509pop/cn/  \
-           remote-agent -dns "edgex-device-usb-camera" \
-           -spiffeID  spiffe://edgexfoundry.org/service/device-usb-camera_1 \
-           -selector "docker:label:com.docker.compose.service:device-usb-camera_1"
-       ```
+   ```bash
+   docker exec -ti edgex-security-spire-config spire-server entry create \
+   -socketPath /tmp/edgex/secrets/spiffe/private/api.sock  \
+   -parentID spiffe://edgexfoundry.org/spire/agent/x509pop/cn/  \
+   remote-agent -dns "edgex-device-usb-camera" \
+   -spiffeID  spiffe://edgexfoundry.org/service/device-usb-camera_1 \
+   -selector "docker:label:com.docker.compose.service:device-usb-camera_1"
+   ```
 
 2. Save and then run `./add-server-entry.sh`
 
 3. Repeat previous steps for each additional device service
 
    !!! example - Example for second device service
-       ```bash
-       docker exec -ti edgex-security-spire-config spire-server entry create \
-           -socketPath /tmp/edgex/secrets/spiffe/private/api.sock  \
-           -parentID spiffe://edgexfoundry.org/spire/agent/x509pop/cn/  \
-           remote-agent -dns "edgex-device-usb-camera" \
-           -spiffeID  spiffe://edgexfoundry.org/service/device-usb-camera_2 \
-           -selector "docker:label:com.docker.compose.service:device-usb-camera_2"
-       ```
+   ```bash
+   docker exec -ti edgex-security-spire-config spire-server entry create \
+   -socketPath /tmp/edgex/secrets/spiffe/private/api.sock  \
+   -parentID spiffe://edgexfoundry.org/spire/agent/x509pop/cn/  \
+   remote-agent -dns "edgex-device-usb-camera" \
+   -spiffeID  spiffe://edgexfoundry.org/service/device-usb-camera_2 \
+   -selector "docker:label:com.docker.compose.service:device-usb-camera_2"
+   ```
 4. Save and then run `./add-server-entry.sh` again
 
 ## Remote Node Setup
 
 1. Navigate to `edgex-examples/security/remote_devices/spiffe_and_ssh/remote`
-   and update `docker-compose.yml`. 
+   and update `docker-compose.yml`.
 2. Remove `device-virtual` service and add 2 `device-usb-service` like below, one for each instance.
 
 === "First Remote Device Service"
@@ -305,10 +309,10 @@ Edit and run `add-server-entry.sh` script for each usb service
     ```
 
 3. Build and run service on remote node
-   - Navigate to `edgex-examples/security/remote_devices/spiffe_and_ssh/remote`
-   - `docker compose build`
-   - `docker compose up -d`
-   - Run `docker ps- a` to ensure all services started successfully
+    - Navigate to `edgex-examples/security/remote_devices/spiffe_and_ssh/remote`
+    - `docker compose build`
+    - `docker compose up -d`
+    - Run `docker ps- a` to ensure all services started successfully
 4) Wait for about 1 minute to establish ssh tunnel and to establish communication
    between edgex server system and remote node
 5. Run `docker logs edgex-device-usb-camera` to check usb service status. Ensure
@@ -336,7 +340,8 @@ restarted
         --header 'Authorization: Bearer <security token>' \
         --data-raw ''
    ```
-   
-    !!! note
-        You can download the usb postman collection from [device-usb-service repo](https://github.com/edgexfoundry/device-usb-camera/tree/main/docs) and run
-        other APIs
+
+   !!! note
+   You can download the usb postman collection from [device-usb-service repo](https://github.com/edgexfoundry/device-usb-camera/tree/main/docs) and run
+   other APIs
+
