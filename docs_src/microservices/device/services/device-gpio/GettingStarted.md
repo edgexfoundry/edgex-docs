@@ -5,7 +5,7 @@ title: Device GPIO - Getting Started
 # Device GPIO - Getting Started
 
 !!! note
-    Since GPIO `sysfs` interface is **deprecated after Linux version 4.8**, two ABI interfaces are provided: the `sysfs` version and the new `chardev` version. By default, the interface is set to `sysfs`. It can be changed inside `Driver` section of service's configuration. For the `chardev` interface, you need to specify a selected chip, this is also under `Driver` section. See the [Configuration](./Configuration.md) section for more details
+    Since GPIO `sysfs` interface is **deprecated after Linux version 4.8**, two ABI interfaces are provided: the `sysfs` version and the new `chardev` version. By default, the interface is set to `sysfs`. It can be changed inside the `Driver` section of the service's configuration. For the `chardev` interface, you need to specify a selected chip. This is also under `Driver` section. See the [Configuration](./Configuration.md) section for more details
 
 ## Running the Service
 
@@ -92,7 +92,7 @@ The following are step-by-step examples of using this device service. In these e
 Use the `curl` response to get the command URLs (with device and command ids) to issue commands to the GPIO device via the command service as shown above. You can also use a tool like `Postman` instead of `curl` to issue the same commands.
 
 ### Direction setting with sysfs
-When using sysfs, the operations to access and "read" or "write" the GPIO pins are to:
+When using sysfs, the operations to access (read or write) the GPIO pins are:
 
 1. Export the pin
 2. Set the direction (either IN or OUT)
@@ -116,7 +116,7 @@ The direction is set by an optional attribute in the device profile called `defa
     ```
 
 !!! note
-    The direction should not be confused with the device profile's read/write property.  If you set the defaultDirection to "in" but then set the readWrite property to "RW" or "W", any attempt to write to the pin will result in a "permission denied" error.  For consistency sake, when your defaultDirection is "in" set readWrite to "R" only.
+    The direction should not be confused with the device profile's read/write property.  If you set the defaultDirection to `in` but then set the readWrite property to `RW` or `W`, any attempt to write to the pin will result in a "permission denied" error.  For consistency, when your defaultDirection is `in` set readWrite to `R` only.
 
 ### Write value to GPIO
 Assume a GPIO device (used for power enable) connected to gpio17 on current system of raspberry pi 4b. When a value is written to GPIO, this GPIO will give a high voltage.
