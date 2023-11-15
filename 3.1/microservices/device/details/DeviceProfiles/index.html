@@ -852,9 +852,73 @@
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Device Profiles
+          <span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
         Device Profiles
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-profile">
+    Device Profile
+  </a>
+<nav aria-label="Device Profile" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-resources">
+    Device Resources
+  </a>
+<nav aria-label="Device Resources" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resource-attributes">
+    Resource Attributes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resource-properties">
+    Resource Properties
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-commands">
+    Device Commands
+  </a>
+<nav aria-label="Device Commands" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resource-operation">
+    Resource Operation
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rest-command-endpoints">
+    REST Command endpoints
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example-device-profiles">
+    Example Device Profiles
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../DeviceCommands/">
@@ -2577,6 +2641,64 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-profile">
+    Device Profile
+  </a>
+<nav aria-label="Device Profile" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-resources">
+    Device Resources
+  </a>
+<nav aria-label="Device Resources" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resource-attributes">
+    Resource Attributes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resource-properties">
+    Resource Properties
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-commands">
+    Device Commands
+  </a>
+<nav aria-label="Device Commands" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resource-operation">
+    Resource Operation
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rest-command-endpoints">
+    REST Command endpoints
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example-device-profiles">
+    Example Device Profiles
+  </a>
+</li>
+</ul>
 </nav>
 </div>
 </div>
@@ -2584,7 +2706,320 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="device-service-device-profiles">Device Service - Device Profiles</h1>
-<p>coming soon</p>
+<p>The device profile describes a type of <a href="../../../../general/Definitions/#device">device</a> within the EdgeX system. 
+Each device managed by a device service has an association with a device profile,
+which defines that device type in terms of the operations which it supports.</p>
+<p>Typically, device profiles are loaded from file by the Device Service and pushed to Core Metadata for storage on first start. 
+Once stored in Core Metadata, the device profiles are loaded from Core Metadata on subsequent starts.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Editing the local device profile after Device Service has started will not impact the actual device profile being used. The old version must first be removed from Core Metadata and then the Device Service must be restarted to push the new version to Core Metadata.</p>
+</div>
+<p>Device profiles can also be manually Added/Updated/Deleted using Core Metadata's Device Profile <a href="../../../core/metadata/ApiReference/">REST API</a></p>
+<h2 id="device-profile">Device Profile</h2>
+<p>A device profile consists of the following fields.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Field Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Required?</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">name</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Y</td>
+<td style="text-align: left;">Must be unique in the EdgeX deployment.</td>
+</tr>
+<tr>
+<td style="text-align: left;">description</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Description of the Device Profile</td>
+</tr>
+<tr>
+<td style="text-align: left;">manufacturer</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Manufacturer of the device described by the Device Profile</td>
+</tr>
+<tr>
+<td style="text-align: left;">model</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Model of the device(s) described by the Device Profile</td>
+</tr>
+<tr>
+<td style="text-align: left;">labels</td>
+<td style="text-align: left;">Array of String</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Free form labels for querying device profiles</td>
+</tr>
+<tr>
+<td style="text-align: left;">deviceResources</td>
+<td style="text-align: left;">Array of DeviceResource</td>
+<td style="text-align: left;">Y</td>
+<td style="text-align: left;">See <a href="#device-resources">Device Resources</a> below</td>
+</tr>
+<tr>
+<td style="text-align: left;">deviceCommands</td>
+<td style="text-align: left;">Array of DeviceCommand</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">See <a href="#device-commands">Device Commands</a> below</td>
+</tr>
+</tbody>
+</table>
+<h3 id="device-resources">Device Resources</h3>
+<p>A device resource specifies a sensor value within a device that may be read
+from or written to either individually or as part of a device command. It has a
+name for identification and a description for informational purposes.</p>
+<p>The device resource consists of the following fields:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Field Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Required?</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">name</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Y</td>
+<td style="text-align: left;">Must be unique in the EdgeX deployment.</td>
+</tr>
+<tr>
+<td style="text-align: left;">description</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Description of the device resource</td>
+</tr>
+<tr>
+<td style="text-align: left;">isHidden</td>
+<td style="text-align: left;">Bool</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Hide the device resource as command via the Command Service, default false</td>
+</tr>
+<tr>
+<td style="text-align: left;">tags</td>
+<td style="text-align: left;">String-Interface Map</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">User define collection of tags</td>
+</tr>
+<tr>
+<td style="text-align: left;">attributes</td>
+<td style="text-align: left;">String-Interface Map</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">See <a href="#resource-attributes">Resource Attributes</a> below</td>
+</tr>
+<tr>
+<td style="text-align: left;">properties</td>
+<td style="text-align: left;">ResourceProperties</td>
+<td style="text-align: left;">Y</td>
+<td style="text-align: left;">See <a href="#resource-properties">Resource Properties</a> below</td>
+</tr>
+</tbody>
+</table>
+<h4 id="resource-attributes">Resource Attributes</h4>
+<p>The <code>attributes</code> in a device resource are the device service specific parameters
+required to access the particular value on the device. Each device service implementation
+will have its own set of named values that are required here, for example a
+BACnet device service may need an object identifier and a property identifier
+whereas a Bluetooth device service could use a UUID to identify a value.</p>
+<div class="admonition example -">
+<p class="admonition-title">Example Resource Attributes from Device ONVIF Camera</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="s">"Device"</span>
+<span class="w">      </span><span class="nt">getFunction</span><span class="p">:</span><span class="w"> </span><span class="s">"GetDNS"</span>
+<span class="w">      </span><span class="nt">setFunction</span><span class="p">:</span><span class="w"> </span><span class="s">"SetDNS"</span>
+</code></pre></div>
+</div>
+<h4 id="resource-properties">Resource Properties</h4>
+<p>The <code>properties</code> of a device resource describe the value and optional simple processing to be performed on it. </p>
+<p>The resource properties consists of the following fields:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Field Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Required?</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">valueType</td>
+<td style="text-align: left;">Enum</td>
+<td style="text-align: left;">Y</td>
+<td style="text-align: left;">The data type of the value. Supported types are: <code>Uint8</code>, <code>Uint16</code>, <code>Uint32</code>, <code>Uint64</code>, <code>Int8</code>, <code>Int16</code>, <code>Int32</code>, <code>Int64</code>, <code>Float32</code>, <code>Float64</code>, <code>Bool</code>, <code>String</code>, <code>Binary</code>, <code>Object</code>, <code>Uint8Array</code>, <code>Uint16Array</code>, <code>Uint32Array</code>, <code>Uint64Array</code>, <code>Int8Array</code>, <code>Int16Array</code>, <code>Int32Array</code>, <code>Int64Array</code>, <code>Float32Array</code>, <code>Float64Array</code>, <code>BoolArray</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">readWrite</td>
+<td style="text-align: left;">Enum</td>
+<td style="text-align: left;">Y</td>
+<td style="text-align: left;">Indicates whether the value is readable or writable or both. <code>R</code> - Read only , <code>W</code> - Write only, <code>RW</code> - Read or Write</td>
+</tr>
+<tr>
+<td style="text-align: left;">units</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Developer defined units of value such as secs, mins, etc</td>
+</tr>
+<tr>
+<td style="text-align: left;">minimum</td>
+<td style="text-align: left;">Float64</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Minimum value the resource value can be set to. Error if SET command value out of minimum range</td>
+</tr>
+<tr>
+<td style="text-align: left;">maximum</td>
+<td style="text-align: left;">Float64</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Maximum value the resource value can be set to. Error if SET command value out of maximum range</td>
+</tr>
+<tr>
+<td style="text-align: left;">defaultValue</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Default value to use when no value is present for a set command. If present, should be compatible with the valueType field</td>
+</tr>
+<tr>
+<td style="text-align: left;">mask</td>
+<td style="text-align: left;">Uint64</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">A binary mask which will be applied to an integer reading. Only valid when valueType is one of the unsigned integer types</td>
+</tr>
+<tr>
+<td style="text-align: left;">shift</td>
+<td style="text-align: left;">Int64</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">A number of bits by which an integer reading will be shifted right. Only valid when valueType is one of the unsigned integer types</td>
+</tr>
+<tr>
+<td style="text-align: left;">scale</td>
+<td style="text-align: left;">Float64</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">A factor by which to multiply a reading before it is returned. Only valid when valueType is one of the integer or float types</td>
+</tr>
+<tr>
+<td style="text-align: left;">offset</td>
+<td style="text-align: left;">Float64</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">A value to be added to a reading before it is returned. Only valid when valueType is one of the integer or float types</td>
+</tr>
+<tr>
+<td style="text-align: left;">base</td>
+<td style="text-align: left;">Float64</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">A value to be raised to the power of the raw reading before it is returned. Only valid when valueType is one of the integer or float types</td>
+</tr>
+<tr>
+<td style="text-align: left;">assertion</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">A string value to which a reading (after processing) is compared. If the reading is not the same as the assertion value, the device's operating state will be set to disabled. This can be useful for health checks.</td>
+</tr>
+<tr>
+<td style="text-align: left;">mediaType</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">A string indicating the content type of the <code>Binary</code> value. Required when valueType is <code>Binary</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">optional</td>
+<td style="text-align: left;">String-Any Map</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Optional mapping for developer use</td>
+</tr>
+</tbody>
+</table>
+<p>The optional processing defined by base, scale, offset, mask and shift is applied in
+that order. This is done within the SDK. A reverse transformation is applied
+by the SDK to incoming data on set operations (NB mask transforms on set are NYI)</p>
+<h3 id="device-commands">Device Commands</h3>
+<p>Device Commands define access to multiple resources simultaneously. Each named device command should contain multiple <code>resource operations</code>. 
+A device command with a single resource operation adds no value over the implicit device command created by the SDK for the same device resource.</p>
+<p>Device commands may be useful when readings are logically related, for example with a 3-axis accelerometer it is helpful to read all axes together.</p>
+<p>Each device command consists of the following fields:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Field Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Required?</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">name</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Y</td>
+<td style="text-align: left;">Must be unique in this profile.</td>
+</tr>
+<tr>
+<td style="text-align: left;">isHidden</td>
+<td style="text-align: left;">Bool</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Hide the Device Command for use via Command Service, default false</td>
+</tr>
+<tr>
+<td style="text-align: left;">readWrite</td>
+<td style="text-align: left;">Enum</td>
+<td style="text-align: left;">Y</td>
+<td style="text-align: left;">Indicates whether the command is readable or writable or both. <code>R</code> - Read only , <code>W</code> - Write only, <code>RW</code> - Read or Write. Resources' readWrite included in the command must be consistent with the value chosen here.</td>
+</tr>
+<tr>
+<td style="text-align: left;">resourceOperations</td>
+<td style="text-align: left;">Array of ResourceOperation</td>
+<td style="text-align: left;">Y</td>
+<td style="text-align: left;">see <a href="#resource-operation">Resource Operation</a> below</td>
+</tr>
+</tbody>
+</table>
+<h4 id="resource-operation">Resource Operation</h4>
+<p>A resource operation consists of the following fields:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Field Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Required?</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">deviceResource</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Y</td>
+<td style="text-align: left;">Must name a Device Resource in this profile</td>
+</tr>
+<tr>
+<td style="text-align: left;">defaultValue</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">If present, should be compatible with the Type field of the named Device Resource</td>
+</tr>
+<tr>
+<td style="text-align: left;">mappings</td>
+<td style="text-align: left;">String-String Map</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Map the GET resourceOperation value to another string value</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rest-command-endpoints">REST Command endpoints</h2>
+<p>The commands endpoints are implicitly created on the service for each device resource and each device command specified in the device profile.
+See the GET and SET Device Command APIs in the <a href="../../ApiReference/">Device Service API Reference</a> for more details.</p>
+<h2 id="example-device-profiles">Example Device Profiles</h2>
+<p>A good starting point example device profile is the <a href="https://github.com/edgexfoundry/device-sdk-go/blob/main/example/cmd/device-simple/res/profiles/Simple-Driver.yaml">Simple Driver profile</a> from the Go Device SDK Device Simple example service.</p>
+<p>The Device Modbus device profile <a href="https://github.com/edgexfoundry/device-modbus-go/blob/main/cmd/res/profiles/modbus.test.device.profile.yml">here</a> is a good example of using <code>attributes</code> to define how to access the resource value on the device.</p>
 </article>
 </div>
 </div>
