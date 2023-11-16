@@ -10,7 +10,7 @@ The tabs below provide a listing (may be partial based on latest updates) for re
 === "Deployment"
     |Example|Location|
     |---|---|
-    |Helm (Kubernetes)|[Github - examples, deployment](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/deployment/helm)|
+    |Helm (Kubernetes)|[Github - examples, deployment](https://github.com/edgexfoundry/edgex-helm/tree/{{edgexversion}})|
     |Raspberry Pi 4|[Github - examples, raspberry-pi-4](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/deployment/raspberry-pi-4)|
 
 === "Device Services"
