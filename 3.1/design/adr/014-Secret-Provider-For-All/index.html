@@ -3034,22 +3034,22 @@
 <p>Core Data</p>
 <div class="highlight"><pre><span></span><code><span class="k">[Databases]</span>
 <span class="w">  </span><span class="k">[Databases.Primary]</span>
-<span class="w">  </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
-<span class="w">  </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"coredata"</span>
-<span class="w">  </span><span class="n">Username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
-<span class="w">  </span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
+<span class="w">  </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"localhost"</span>
+<span class="w">  </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"coredata"</span>
+<span class="w">  </span><span class="n">Username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span>
+<span class="w">  </span><span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span>
 <span class="w">  </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
 <span class="w">  </span><span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5000</span>
-<span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redisdb"</span>
+<span class="w">  </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"redisdb"</span>
 </code></pre></div>
 <p>Application Services</p>
 <div class="highlight"><pre><span></span><code><span class="k">[Database]</span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redisdb"</span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"redisdb"</span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"localhost"</span>
 <span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
-<span class="n">Username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
-<span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
-<span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"30s"</span>
+<span class="n">Username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span>
+<span class="n">Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span>
+<span class="n">Timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"30s"</span>
 </code></pre></div>
 <h5 id="insecuresecrets-configuration">InsecureSecrets Configuration</h5>
 <p>The App SDK defines a new <code>Writable</code> configuration section called <code>InsecureSecrets</code>. This structure mimics that of the secure <code>SecretStore</code> when <code>EDGEX_SECURITY_SECRET_STORE</code>environment variable is set to <code>false</code>. Having the <code>InsecureSecrets</code> in the <code>Writable</code>  section allows for the secrets to be updated without restarting the service. Some minor processing must occur when the <code>InsecureSecrets</code> section is updated. This is to call the <code>InsecureSecretsUpdated</code> API. This API simply sets the time the secrets were last updated. The <code>SecretsLastUpdated</code> API returns this timestamp so pipeline functions that use credentials for exporting know if their client needs to be recreated with new credentials, i.e MQTT export.</p>
@@ -3068,18 +3068,18 @@
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets]</span>
 <span class="w">    </span><span class="k">[Writable.InsecureSecrets.DB]</span>
-<span class="w">        </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redisdb"</span>
+<span class="w">        </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"redisdb"</span>
 <span class="w">        </span><span class="k">[Writable.InsecureSecrets.DB.Secrets]</span>
-<span class="w">            </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
-<span class="w">            </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
+<span class="w">            </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span>
+<span class="w">            </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span>
 <span class="w">    </span><span class="k">[Writable.InsecureSecrets.mqtt]</span>
-<span class="w">        </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"mqtt"</span>
+<span class="w">        </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"mqtt"</span>
 <span class="w">        </span><span class="k">[Writable.InsecureSecrets.mqtt.Secrets]</span>
-<span class="w">            </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
-<span class="w">            </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
-<span class="w">            </span><span class="n">cacert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
-<span class="w">            </span><span class="n">clientcert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
-<span class="w">            </span><span class="n">clientkey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
+<span class="w">            </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span>
+<span class="w">            </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span>
+<span class="w">            </span><span class="n">cacert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span>
+<span class="w">            </span><span class="n">clientcert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span>
+<span class="w">            </span><span class="n">clientkey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span>
 </code></pre></div>
 <h2 id="decision">Decision</h2>
 <p>The new <code>SecretProvider</code> abstraction defined by this ADR is a combination of the two implementations described above in the <a href="#existing-implementations">Existing Implementations</a> section.</p>
@@ -3128,10 +3128,10 @@
 <p>Insecure Secrets will be handled as they are currently in the Application Service implementation. <code>DatabaseInfo</code> configuration will no longer be an option for storing the insecure database credentials. They will be stored in the <code>InsecureSecrets</code> configuration only.</p>
 <div class="highlight"><pre><span></span><code><span class="k">[Writable.InsecureSecrets]</span>
 <span class="w">    </span><span class="k">[Writable.InsecureSecrets.DB]</span>
-<span class="w">        </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redisdb"</span>
+<span class="w">        </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"redisdb"</span>
 <span class="w">        </span><span class="k">[Writable.InsecureSecrets.DB.Secrets]</span>
-<span class="w">            </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
-<span class="w">            </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">""</span>
+<span class="w">            </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span>
+<span class="w">            </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span>
 </code></pre></div>
 <h5 id="handling-on-the-fly-changes-to-insecuresecrets">Handling on-the-fly changes to <code>InsecureSecrets</code></h5>
 <p>All services will need to handle the special processing when <code>InsecureSecrets</code> are changed on-the-fly via Consul. Since this will now be a common configuration item in <code>Writable</code> it can be handled in <code>go-mod-bootstrap</code> along with existing log level processing. This special processing will be taken from App SDK.</p>

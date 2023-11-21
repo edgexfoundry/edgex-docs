@@ -3084,22 +3084,22 @@
 <p>Example command service configuration is provided below.</p>
 <div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span>
 <span class="w">    </span><span class="k">[InternalMessageQueue]</span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redis"</span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"redis"</span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"localhost"</span>
 <span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
-<span class="w">    </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redis"</span>
-<span class="w">    </span><span class="n">RequestTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/command/request/"</span><span class="w">   </span><span class="c1"># for publishing requests to the device service; &lt;device-service&gt;/&lt;device-name&gt;/&lt;command-name&gt;/&lt;method&gt; will be added to this publish topic prefix</span>
-<span class="w">    </span><span class="n">ResponseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/command/response/#”      # for subscribing to device service responses</span>
-<span class="s">    AuthMode = "</span><span class="n">usernamepassword</span><span class="s">"                   # required for redis messagebus (secure or insecure).</span>
-<span class="s">    SecretName = "</span><span class="n">redisdb</span><span class="s">"</span>
-<span class="s">    [ExternalMQTT]</span>
-<span class="s">    Protocol = "</span><span class="n">tcp</span><span class="s">"</span>
-<span class="s">    Host = "</span><span class="n">localhost</span><span class="s">"</span>
-<span class="s">    Port = 1883</span>
-<span class="s">    RequestCommandTopic = "</span><span class="n">edgex</span><span class="err">/</span><span class="n">command</span><span class="err">/</span><span class="n">request</span><span class="err">/</span><span class="c1">#"           # for subscribing to 3rd party command requests</span>
-<span class="w">    </span><span class="n">ResponseCommandTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/command/response/"</span><span class="w">    </span><span class="c1"># for publishing responses back to 3rd party systems /&lt;device-name&gt;/&lt;command-name&gt;/&lt;method&gt; will be added to this publish topic prefix</span>
-<span class="w">    </span><span class="n">RequestQueryTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/commandquery/request"</span>
-<span class="w">    </span><span class="n">ResponseQueryTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/commandquery/response"</span>
+<span class="w">    </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"redis"</span>
+<span class="w">    </span><span class="n">RequestTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"edgex/command/request/"</span><span class="w">   </span><span class="c1"># for publishing requests to the device service; &lt;device-service&gt;/&lt;device-name&gt;/&lt;command-name&gt;/&lt;method&gt; will be added to this publish topic prefix</span>
+<span class="w">    </span><span class="n">ResponseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"edgex/command/response/#”      # for subscribing to device service responses</span>
+<span class="s2">    AuthMode = "</span><span class="n">usernamepassword</span><span class="s2">"                   # required for redis messagebus (secure or insecure).</span>
+<span class="s2">    SecretName = "</span><span class="n">redisdb</span><span class="s2">"</span>
+<span class="s2">    [ExternalMQTT]</span>
+<span class="s2">    Protocol = "</span><span class="n">tcp</span><span class="s2">"</span>
+<span class="s2">    Host = "</span><span class="n">localhost</span><span class="s2">"</span>
+<span class="s2">    Port = 1883</span>
+<span class="s2">    RequestCommandTopic = "</span><span class="n">edgex</span><span class="err">/</span><span class="n">command</span><span class="err">/</span><span class="n">request</span><span class="err">/</span><span class="c1">#"           # for subscribing to 3rd party command requests</span>
+<span class="w">    </span><span class="n">ResponseCommandTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"edgex/command/response/"</span><span class="w">    </span><span class="c1"># for publishing responses back to 3rd party systems /&lt;device-name&gt;/&lt;command-name&gt;/&lt;method&gt; will be added to this publish topic prefix</span>
+<span class="w">    </span><span class="n">RequestQueryTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"edgex/commandquery/request"</span>
+<span class="w">    </span><span class="n">ResponseQueryTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"edgex/commandquery/response"</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3110,28 +3110,28 @@
 <p>Example device service configuration is provided below.</p>
 <div class="highlight"><pre><span></span><code><span class="k">[MessageQueue]</span>
 <span class="c1">## already existing message queue configuration (for sending events/readings to the message bus)</span>
-<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redis"</span>
-<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
+<span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"redis"</span>
+<span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"localhost"</span>
 <span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
-<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redis"</span>
-<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"usernamepassword"</span><span class="w">                           </span><span class="c1"># required for redis messagebus (secure or insecure).</span>
-<span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redisdb"</span>
-<span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/events/device"</span><span class="w"> </span><span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt; will be added to this Publish Topic prefix</span>
+<span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"redis"</span>
+<span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"usernamepassword"</span><span class="w">                           </span><span class="c1"># required for redis messagebus (secure or insecure).</span>
+<span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"redisdb"</span>
+<span class="n">PublishTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"edgex/events/device"</span><span class="w"> </span><span class="c1"># /&lt;device-profile-name&gt;/&lt;device-name&gt;/&lt;source-name&gt; will be added to this Publish Topic prefix</span>
 <span class="w">  </span><span class="k">[MessageQueue.Optional]</span>
 <span class="w">  </span><span class="c1"># Default MQTT Specific options that need to be here to enable environment variable overrides of them</span>
 <span class="w">  </span><span class="c1"># Client Identifiers</span>
-<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"device-rest"</span>
+<span class="w">  </span><span class="n">ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"device-rest"</span>
 <span class="w">  </span><span class="c1"># Connection information</span>
-<span class="w">  </span><span class="n">Qos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"0"</span><span class="w"> </span><span class="c1"># Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
-<span class="w">  </span><span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"10"</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
-<span class="w">  </span><span class="n">Retained</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span>
-<span class="w">  </span><span class="n">AutoReconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"true"</span>
-<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"5"</span><span class="w"> </span><span class="c1"># Seconds</span>
-<span class="w">  </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span><span class="w"> </span><span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span>
+<span class="w">  </span><span class="n">Qos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"0"</span><span class="w"> </span><span class="c1"># Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
+<span class="w">  </span><span class="n">KeepAlive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"10"</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
+<span class="w">  </span><span class="n">Retained</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"false"</span>
+<span class="w">  </span><span class="n">AutoReconnect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"true"</span>
+<span class="w">  </span><span class="n">ConnectTimeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"5"</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="w">  </span><span class="n">SkipCertVerify</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"false"</span><span class="w"> </span><span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span>
 
 <span class="c1">## new configuration to allow device services to also communicate via message bus with core command</span>
-<span class="n">CommandRequestTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/command/request/#"</span><span class="w">         </span><span class="c1"># subscribing for inbound command requests</span>
-<span class="n">CommandResponseTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/command/response/"</span><span class="w">  </span><span class="c1"># publishing outbound command responses; &lt;device-service&gt;/&lt;device-name&gt;/&lt;command-name&gt;/&lt;method&gt; will be added to this publish topic prefix</span>
+<span class="n">CommandRequestTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"edgex/command/request/#"</span><span class="w">         </span><span class="c1"># subscribing for inbound command requests</span>
+<span class="n">CommandResponseTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"edgex/command/response/"</span><span class="w">  </span><span class="c1"># publishing outbound command responses; &lt;device-service&gt;/&lt;device-name&gt;/&lt;command-name&gt;/&lt;method&gt; will be added to this publish topic prefix</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3146,18 +3146,18 @@
 <p>The command service will also need an internal request topic and internal response topic prefix configuration to allow internal EdgeX services to make command requests (and query requests).</p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[MessageQueue]</span>
 <span class="w">        </span><span class="k">[InternalMessageQueue]</span>
-<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redis"</span>
-<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
+<span class="w">        </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"redis"</span>
+<span class="w">        </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"localhost"</span>
 <span class="w">        </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
-<span class="w">        </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redis"</span>
-<span class="w">        </span><span class="n">RequestTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/command/request/"</span><span class="w">   </span><span class="c1"># for publishing requests to the device service; &lt;device-service&gt;/&lt;device-name&gt;/&lt;command-name&gt;/&lt;method&gt; will be added to this publish topic prefix</span>
-<span class="w">        </span><span class="n">ResponseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"edgex/command/response/#”      # for subscribing to device service responses</span>
-<span class="s">        InternalRequestCommandTopic = "</span><span class="err">/</span><span class="n">command</span><span class="err">/</span><span class="n">request</span><span class="err">/</span><span class="c1">#"     # for subscribing to internal command requests</span>
-<span class="w">        </span><span class="n">InternalResponseCommandTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"/command/response/"</span><span class="w">    </span><span class="c1"># for publishing responses back to internal service /&lt;device-name&gt;/&lt;command-name&gt;/&lt;method&gt; will be added to this publish topic prefix</span>
-<span class="w">        </span><span class="n">InternalRequestQueryTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"/commandquery/request"</span>
-<span class="w">        </span><span class="n">InternalResponseQueryTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"/commandquery/response"</span>
-<span class="w">        </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"usernamepassword"</span><span class="w">                   </span><span class="c1"># required for redis messagebus (secure or insecure).</span>
-<span class="w">        </span><span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redisdb"</span>
+<span class="w">        </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"redis"</span>
+<span class="w">        </span><span class="n">RequestTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"edgex/command/request/"</span><span class="w">   </span><span class="c1"># for publishing requests to the device service; &lt;device-service&gt;/&lt;device-name&gt;/&lt;command-name&gt;/&lt;method&gt; will be added to this publish topic prefix</span>
+<span class="w">        </span><span class="n">ResponseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"edgex/command/response/#”      # for subscribing to device service responses</span>
+<span class="s2">        InternalRequestCommandTopic = "</span><span class="err">/</span><span class="n">command</span><span class="err">/</span><span class="n">request</span><span class="err">/</span><span class="c1">#"     # for subscribing to internal command requests</span>
+<span class="w">        </span><span class="n">InternalResponseCommandTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/command/response/"</span><span class="w">    </span><span class="c1"># for publishing responses back to internal service /&lt;device-name&gt;/&lt;command-name&gt;/&lt;method&gt; will be added to this publish topic prefix</span>
+<span class="w">        </span><span class="n">InternalRequestQueryTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/commandquery/request"</span>
+<span class="w">        </span><span class="n">InternalResponseQueryTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/commandquery/response"</span>
+<span class="w">        </span><span class="n">AuthMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"usernamepassword"</span><span class="w">                   </span><span class="c1"># required for redis messagebus (secure or insecure).</span>
+<span class="w">        </span><span class="n">SecretName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"redisdb"</span>
 </code></pre></div>
 </li>
 <li>
@@ -3165,13 +3165,13 @@
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">[Clients]</span>
 <span class="w">    </span><span class="k">[Clients.core-command]</span>
 <span class="w">    </span><span class="n">UseMessageBus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"redis"</span>
-<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"localhost"</span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"redis"</span>
+<span class="w">    </span><span class="n">Host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"localhost"</span>
 <span class="w">    </span><span class="n">Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6379</span>
-<span class="w">    </span><span class="n">CommandRequestTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"/command/request"</span><span class="w">  </span><span class="err">/&lt;</span><span class="n">device-name</span><span class="err">&gt;/&lt;</span><span class="n">command-name</span><span class="err">&gt;/&lt;</span><span class="n">method</span><span class="err">&gt;</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">added</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">publish</span><span class="w"> </span><span class="n">topic</span><span class="w"> </span><span class="n">prefix</span>
-<span class="w">    </span><span class="n">CommandResponseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"/command/response/#"</span>
-<span class="w">    </span><span class="n">CommandQueryRequestTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"/commandquery/request"</span>
-<span class="w">    </span><span class="n">CommandQueryResponseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"/commandquery/response"</span>
+<span class="w">    </span><span class="n">CommandRequestTopicPrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/command/request"</span><span class="w">  </span><span class="err">/&lt;</span><span class="n">device-name</span><span class="err">&gt;/&lt;</span><span class="n">command-name</span><span class="err">&gt;/&lt;</span><span class="n">method</span><span class="err">&gt;</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">added</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">publish</span><span class="w"> </span><span class="n">topic</span><span class="w"> </span><span class="n">prefix</span>
+<span class="w">    </span><span class="n">CommandResponseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/command/response/#"</span>
+<span class="w">    </span><span class="n">CommandQueryRequestTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/commandquery/request"</span>
+<span class="w">    </span><span class="n">CommandQueryResponseTopic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/commandquery/response"</span>
 </code></pre></div>
 </li>
 </ul>

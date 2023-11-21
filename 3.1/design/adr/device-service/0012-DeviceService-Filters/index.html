@@ -2815,26 +2815,26 @@
 <p>When filter functions are shared (or appear to be doing the same type of work) between SDKs, the configuration of the similar filter functions should also look similar.  The app functions SDK configuration model for filters should therefore be followed.</p>
 <p>While device services do not have pipelines, the inclusion and configuration of filters for device services should have a similar look (to provide symmetry with app services). The configuration has to provide the functions required and parameters to make the functions work - even though the association to a pipeline is not required.  Below is the common app service configuration as it relates to filters:</p>
 <div class="highlight"><pre><span></span><code><span class="k">[Writable.Pipeline]</span>
-<span class="w">    </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"FilterByDeviceName, TransformToXML, SetOutputData"</span>
+<span class="w">    </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"FilterByDeviceName, TransformToXML, SetOutputData"</span>
 <span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName]</span>
 <span class="w">    </span><span class="k">[Writable.Pipeline.Functions.FilterByDeviceName.Parameters]</span>
-<span class="w">        </span><span class="n">DeviceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Random-Float-Device,Random-Integer-Device"</span>
-<span class="w">        </span><span class="n">FilterOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"false"</span>
+<span class="w">        </span><span class="n">DeviceNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Random-Float-Device,Random-Integer-Device"</span>
+<span class="w">        </span><span class="n">FilterOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"false"</span>
 </code></pre></div>
 <p>Suggested and hypothetical configuration for the device service reading filters should look something like that below.</p>
 <div class="highlight"><pre><span></span><code><span class="k">[Writable.Filters]</span>
 <span class="w">    </span><span class="c1"># filter readings where resource name equals Int32 </span>
-<span class="w">    </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"FilterByResourceNamesMatch, FilterByValue"</span>
+<span class="w">    </span><span class="n">ExecutionOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"FilterByResourceNamesMatch, FilterByValue"</span>
 <span class="w">    </span><span class="k">[Writable.Filter.Functions.FilterByResourceNamesMatch]</span>
 <span class="w">        </span><span class="k">[Writable.Filter.Functions.FilterByResourceNamesMatch.Parameters]</span>
-<span class="w">            </span><span class="n">FilterValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Int32"</span>
-<span class="w">            </span><span class="n">FilterOps</span><span class="w"> </span><span class="o">=</span><span class="s">"eq"</span>
+<span class="w">            </span><span class="n">FilterValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Int32"</span>
+<span class="w">            </span><span class="n">FilterOps</span><span class="w"> </span><span class="o">=</span><span class="s2">"eq"</span>
 <span class="w">    </span><span class="c1"># filter readings where the Int64 readings (resource name) is Int64 and the values are between 10 and 20</span>
 <span class="w">    </span><span class="k">[Writable.Filter.Functions.FilterByValue]</span>
 <span class="w">        </span><span class="k">[Writable.Filter.Functions.FilterByValue.Parameters]</span>
-<span class="w">            </span><span class="n">TargetResourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Int64"</span>
-<span class="w">            </span><span class="n">FilterValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">}</span>
-<span class="w">            </span><span class="n">FilterOp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"in"</span>
+<span class="w">            </span><span class="n">TargetResourceName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Int64"</span>
+<span class="w">            </span><span class="n">FilterValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">10</span><span class="p">,</span><span class="n">20</span><span class="p">}</span>
+<span class="w">            </span><span class="n">FilterOp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"in"</span>
 </code></pre></div>
 <h2 id="decision">Decision</h2>
 <p><em>To be determined</em></p>
