@@ -1,0 +1,3386 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Documentation for use of EdgeX Foundry" name="description"/>
+<meta content="Michael Johanson" name="author"/>
+<link href="https://docs.edgexfoundry.org/3.2/getting-started/native/Ch-BuildRunOnLinuxDistro/" rel="canonical"/>
+<link href="../Ch-BuildRunNative/" rel="prev"/>
+<link href="../Ch-BuildRunOnArm32/" rel="next"/>
+<link href="../../../assets/logo_edgex.png" rel="icon"/>
+<meta content="mkdocs-1.5.3, mkdocs-material-9.1.19" name="generator"/>
+<title>Build and Run on Linux on x86/x64 - EdgeX Foundry Documentation</title>
+<link href="../../../assets/stylesheets/main.eebd395e.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ecc896b0.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../assets/stylesheets/version-select.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/branding.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/edgey.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/newexample.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-38531ZZHBN"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-38531ZZHBN",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-38531ZZHBN",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="custom" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#build-and-run-on-linux-on-x86x64">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="EdgeX Foundry Documentation" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="EdgeX Foundry Documentation">
+<img alt="logo" src="../../../assets/logo_edgex_white.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            EdgeX Foundry Documentation
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Build and Run on Linux on x86/x64
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="indigo" data-md-color-scheme="custom" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="indigo" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/edgexfoundry/edgex-go" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link md-tabs__link--active" href="../../..">
+        Home
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../general/Definitions/">
+        Reference
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../design/Process/">
+        Use Case &amp; Design
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="EdgeX Foundry Documentation" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="EdgeX Foundry Documentation">
+<img alt="logo" src="../../../assets/logo_edgex_white.png"/>
+</a>
+    EdgeX Foundry Documentation
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/edgexfoundry/edgex-go" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+          Home
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+        Overview
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../about/">
+        About
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_3">
+<span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../">
+        Guides
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../quick-start/">
+        Quick Start
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Ch-GettingStartedUsers/">
+        Getting Started as a User
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Ch-GettingStartedDockerUsers/">
+        Getting Started using Docker
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../tools/Ch-GUI/">
+        Graphical User Interface (GUI)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="0">
+          Developer
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_4">
+<span class="md-nav__icon md-icon"></span>
+          Developer
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Ch-GettingStartedDevelopers/">
+        Getting Started as a Developer
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Ch-GettingStartedGoDevelopers/">
+        Getting Started - Go Developers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Ch-GettingStartedCDevelopers/">
+        Getting Started - C Developers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Ch-GettingStartedHybrid/">
+        Working in a Hybrid Environment
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_4_5" id="__nav_1_4_5_label" tabindex="0">
+          Native Build and Run Guides
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_1_4_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_4_5">
+<span class="md-nav__icon md-icon"></span>
+          Native Build and Run Guides
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-BuildRunNative/">
+        Native Build and Run
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Build and Run on Linux on x86/x64
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Build and Run on Linux on x86/x64
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#environment">
+    Environment
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#required-software">
+    Required Software
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prepare-your-environment">
+    Prepare your environment
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#download-edgex-source">
+    Download EdgeX Source
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-edgex-services">
+    Build EdgeX Services
+  </a>
+<nav aria-label="Build EdgeX Services" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-core-and-supporting-services">
+    Build Core and Supporting Services
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-the-virtual-device-service">
+    Build the Virtual Device Service
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-the-configurable-application-service">
+    Build the Configurable Application Service
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-ekuiper">
+    Build eKuiper
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-the-gui">
+    Build the GUI
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#run-edgex">
+    Run EdgeX
+  </a>
+<nav aria-label="Run EdgeX" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-consul">
+    Start Consul
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-core-metadata">
+    Start Core Metadata
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-the-other-core-and-supporting-services">
+    Start the other Core and Supporting Services
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-configurable-application-service">
+    Start Configurable Application Service
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-the-virtual-device-service">
+    Start the Virtual Device Service
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-the-gui">
+    Start the GUI
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-ekuiper">
+    Start eKuiper
+  </a>
+<nav aria-label="Start eKuiper" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-ekuiper-environment-variables">
+    Set eKuiper Environment Variables
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#run-ekuiper">
+    Run eKuiper
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#test-and-explore-edgex">
+    Test and Explore EdgeX
+  </a>
+<nav aria-label="Test and Explore EdgeX" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#see-sensor-data-flowing-through-edgex">
+    See sensor data flowing through EdgeX
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#check-edgex-service-api">
+    Check EdgeX service API
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-up-an-ekuiper-stream-and-rule">
+    Set up an eKuiper Stream and Rule
+  </a>
+<nav aria-label="Set up an eKuiper Stream and Rule" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#establish-the-stream">
+    Establish the Stream
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#establish-the-rule">
+    Establish the Rule
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#check-the-rule-engine-is-firing">
+    Check the Rule Engine is firing
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debugging-and-troubleshooting">
+    Debugging and Troubleshooting
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-BuildRunOnArm32/">
+        Build and Run on Linux on ARM 32
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-BuildRunOnWindows/">
+        Build and Run on Windows on x86/x64
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/Purpose/">
+        Application Functions SDK
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_4_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_4_7" id="__nav_1_4_7_label" tabindex="0">
+          Device Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_7_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_4_7">
+<span class="md-nav__icon md-icon"></span>
+          Device Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/GettingStarted/">
+        None
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Ch-GettingStartedUsersNexus/">
+        Getting Docker Images from EdgeX Nexus Repository
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Ch-GettingStartedDTOValidation/">
+        DTO Validation
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5" id="__nav_1_5_label" tabindex="0">
+          APIs
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_5">
+<span class="md-nav__icon md-icon"></span>
+          APIs
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/Ch-APIIntroduction/">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/core/Ch-APICoreCommand/">
+        Core Command
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/ApiReference/">
+        Core Data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/core/Ch-APICoreMetadata/">
+        Core Metadata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/core/Ch-APICoreConfigurationAndRegistry/">
+        Configuration and Registry
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/support/Ch-APISupportNotifications/">
+        Support Notifications
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/support/Ch-APISupportScheduler/">
+        Support Scheduler
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/devices/Ch-APIDeviceSDK/">
+        Device Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/ApiReference/">
+        App Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/applications/Ch-APIRulesEngine/">
+        Rules Engine
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6" id="__nav_1_6_label" tabindex="0">
+          Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_6">
+<span class="md-nav__icon md-icon"></span>
+          Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_1" id="__nav_1_6_1_label" tabindex="0">
+          Core
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_6_1">
+<span class="md-nav__icon md-icon"></span>
+          Core
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/Ch-CoreServices/">
+        Core Services
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_1_2" id="__nav_1_6_1_2_label" tabindex="0">
+          Core Data
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_1_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_1_2">
+<span class="md-nav__icon md-icon"></span>
+          Core Data
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_1_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_1_2_6" id="__nav_1_6_1_2_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_1_2_6_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_1_2_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/details/EventsAndReadings/">
+        Events and Readings
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/details/DataRetention/">
+        Data Retention
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_1_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_1_3" id="__nav_1_6_1_3_label" tabindex="0">
+          Core Metadata
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_1_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_1_3">
+<span class="md-nav__icon md-icon"></span>
+          Core Metadata
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/metadata/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/metadata/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/metadata/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/metadata/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/metadata/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_1_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_1_3_6" id="__nav_1_6_1_3_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_1_3_6_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_1_3_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/metadata/details/DeviceProfile/">
+        Device Profile
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/metadata/details/DeviceSystemEvents/">
+        Device System Events
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_1_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_1_4" id="__nav_1_6_1_4_label" tabindex="0">
+          Core Command
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_1_4_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_1_4">
+<span class="md-nav__icon md-icon"></span>
+          Core Command
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/command/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/command/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/command/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/command/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/command/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_1_4_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_1_4_6" id="__nav_1_6_1_4_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_1_4_6_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_1_4_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/command/details/RegexGetCommand/">
+        Regex Get Command
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/database/Ch-Redis/">
+        Redis Database
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_2" id="__nav_1_6_2_label" tabindex="0">
+          Supporting
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_6_2">
+<span class="md-nav__icon md-icon"></span>
+          Supporting
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/Ch-SupportingServices/">
+        Supporting Services
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_2_2" id="__nav_1_6_2_2_label" tabindex="0">
+          Notifications
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_2_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_2_2">
+<span class="md-nav__icon md-icon"></span>
+          Notifications
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/notifications/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/notifications/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_2_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_2_2_3" id="__nav_1_6_2_2_3_label" tabindex="0">
+          How-To Guides
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_2_2_3_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_2_2_3">
+<span class="md-nav__icon md-icon"></span>
+          How-To Guides
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/notifications/HowTo_EmailNotifications/">
+        Configure Email Notifications
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/notifications/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/notifications/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/notifications/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_2_2_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_2_2_7" id="__nav_1_6_2_2_7_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_2_2_7_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_2_2_7">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/notifications/details/DataRetention/">
+        Data Retention
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_2_3" id="__nav_1_6_2_3_label" tabindex="0">
+          Scheduler
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_2_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_2_3">
+<span class="md-nav__icon md-icon"></span>
+          Scheduler
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/SourceCode/">
+        Source Code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/eKuiper/Ch-eKuiper/">
+        eKuiper Rules Engine
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3" id="__nav_1_6_3_label" tabindex="0">
+          Device
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_6_3">
+<span class="md-nav__icon md-icon"></span>
+          Device
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/DeviceService/">
+        Device Service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_3" id="__nav_1_6_3_3_label" tabindex="0">
+          How-To Guides
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_3_3">
+<span class="md-nav__icon md-icon"></span>
+          How-To Guides
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_3_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_3_1" id="__nav_1_6_3_3_1_label" tabindex="0">
+          Remote Deployment
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_3_1_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_3_1">
+<span class="md-nav__icon md-icon"></span>
+          Remote Deployment
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/how-to/Ch-RemoteNonSecure/">
+        Non-Secure Mode
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/how-to/Ch-RemoteSecure/">
+        Secure Mode
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_6" id="__nav_1_6_3_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_6_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_3_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/DeviceProfiles/">
+        Device Profiles
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/DeviceCommands/">
+        Device Commands
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/DeviceDefinitions/">
+        Device Definitions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/AutoEvents/">
+        Auto Events
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/DeviceDiscovery/">
+        Device Discovery
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/CommandLine/">
+        Command-line Options
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/EnvironmentVariables/">
+        Environment Variables
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/SeedingSecrets/">
+        Seeding Secrets
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/ServiceMetrics/">
+        Service Metrics
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_7" id="__nav_1_6_3_7_label" tabindex="0">
+          Device Service SDK
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_7_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_3_7">
+<span class="md-nav__icon md-icon"></span>
+          Device Service SDK
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_7_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_7_2" id="__nav_1_6_3_7_2_label" tabindex="0">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_7_2_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_7_2">
+<span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/devicesdk-getting-started/GettingStartedSDK-Go/">
+        Go SDK
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/devicesdk-getting-started/GettingStartedSDK-C/">
+        C SDK
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_7_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_7_3" id="__nav_1_6_3_7_3_label" tabindex="0">
+          APIs
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_7_3_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_7_3">
+<span class="md-nav__icon md-icon"></span>
+          APIs
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_7_3_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_7_3_1" id="__nav_1_6_3_7_3_1_label" tabindex="0">
+          Go SDK
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_7_3_1_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_7_3_1">
+<span class="md-nav__icon md-icon"></span>
+          Go SDK
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/api/GoDeviceSDK/GoDeviceSDKAPI/">
+        DeviceServiceSDK
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/api/GoDeviceSDK/GoProtocolDriverAPI/">
+        ProtocolDriver
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_7_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_7_3_2" id="__nav_1_6_3_7_3_2_label" tabindex="0">
+          C SDK
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_7_3_2_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_7_3_2">
+<span class="md-nav__icon md-icon"></span>
+          C SDK
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/api/CDeviceSDK/CDeviceSDKAPI/">
+        SDK
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/api/CDeviceSDK/CUtilities/">
+        C Utilities
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_7_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_7_5" id="__nav_1_6_3_7_5_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_7_5_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_7_5">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/details/CustomConfiguration/">
+        Custom Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/details/CustomRestApis/">
+        Custom Rest Apis
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/details/CustomServiceMetrics/">
+        Custom Service Metrics
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/details/Secrets/">
+        Secrets
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/V3Migration/">
+        V3 Migration
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9" id="__nav_1_6_3_9_label" tabindex="0">
+          Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_3_9">
+<span class="md-nav__icon md-icon"></span>
+          Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-bacnet/">
+        Device BacNet
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-coap/">
+        Device COAP
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_3" id="__nav_1_6_3_9_3_label" tabindex="0">
+          Device GPIO
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_3_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_3">
+<span class="md-nav__icon md-icon"></span>
+          Device GPIO
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/ProtocolProperties/">
+        Protocol Properties
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/SourceCode/">
+        Source Code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_4" id="__nav_1_6_3_9_4_label" tabindex="0">
+          Device Modbus
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_4_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_4">
+<span class="md-nav__icon md-icon"></span>
+          Device Modbus
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/ProtocolProperties/">
+        Protocol Properties
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/APIReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_4_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_4_7" id="__nav_1_6_3_9_4_7_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_4_7_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_4_7">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/details/DataTypeConversion/">
+        Data Type Conversion
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_5" id="__nav_1_6_3_9_5_label" tabindex="0">
+          Device MQTT
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_5_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_5">
+<span class="md-nav__icon md-icon"></span>
+          Device MQTT
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_5_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_5_3" id="__nav_1_6_3_9_5_3_label" tabindex="0">
+          How To Guides
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_5_3_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_5_3">
+<span class="md-nav__icon md-icon"></span>
+          How To Guides
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/Ch-ExamplesAddingMQTTDevice/">
+        How To Add an MQTT Device
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/ProtocolProperties/">
+        Protocol Properties
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/APIReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_5_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_5_8" id="__nav_1_6_3_9_5_8_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_5_8_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_5_8">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/details/MultiLevelTopics/">
+        Multi-Level Topics
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6" id="__nav_1_6_3_9_6_label" tabindex="0">
+          Device Onvif Camera
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_6">
+<span class="md-nav__icon md-icon"></span>
+          Device Onvif Camera
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/General/">
+        General
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/swagger/">
+        Device ONVIF Swagger API Documentation
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6_3" id="__nav_1_6_3_9_6_3_label" tabindex="0">
+          Walkthrough
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_3_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_6_3">
+<span class="md-nav__icon md-icon"></span>
+          Walkthrough
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/Walkthrough/setup/">
+        Setup
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/Walkthrough/deployment/">
+        Deployment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/Walkthrough/general-usage/">
+        General Usage
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/Walkthrough/custom-build/">
+        Custom Build
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6_4" id="__nav_1_6_3_9_6_4_label" tabindex="0">
+          Supplementary Information
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_4_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_6_4">
+<span class="md-nav__icon md-icon"></span>
+          Supplementary Information
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6_4_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6_4_1" id="__nav_1_6_3_9_6_4_1_label" tabindex="0">
+          ONVIF Protocol
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_4_1_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_6_3_9_6_4_1">
+<span class="md-nav__icon md-icon"></span>
+          ONVIF Protocol
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/ONVIF-protocol/">
+        Onvif Camera Device Service Specifications
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/onvif-user-authentication/">
+        Onvif User Authentication
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6_4_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6_4_2" id="__nav_1_6_3_9_6_4_2_label" tabindex="0">
+          Features
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_4_2_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_6_3_9_6_4_2">
+<span class="md-nav__icon md-icon"></span>
+          Features
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/custom-metadata-feature/">
+        Custom Metadata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/friendlyname-mac/">
+        Friendly Name and MAC Address
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/device-status/">
+        Device Status
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/auto-discovery/">
+        Auto Discovery
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/credentials/">
+        Credentials
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/reboot-needed/">
+        RebootNeeded
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6_4_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6_4_3" id="__nav_1_6_3_9_6_4_3_label" tabindex="0">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_4_3_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_6_3_9_6_4_3">
+<span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/api-analytic-support/">
+        Analytic Support
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/api-event-handling/">
+        Event Handling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/api-usage-user-handling/">
+        User Handling
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6_4_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6_4_4" id="__nav_1_6_3_9_6_4_4_label" tabindex="0">
+          Utility
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_4_4_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_6_3_9_6_4_4">
+<span class="md-nav__icon md-icon"></span>
+          Utility
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/test-with-postman/">
+        Test with Postman
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/utility-scripts/">
+        Utility Scripts
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6_4_5" id="__nav_1_6_3_9_6_4_5_label" tabindex="0">
+          Miscellaneous
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_4_5_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_6_3_9_6_4_5">
+<span class="md-nav__icon md-icon"></span>
+          Miscellaneous
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/control-plane-events/">
+        Control Plane Events
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/getting-started-with-docker-security/">
+        Getting Started With Docker (Security Mode)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/ws-discovery/">
+        How does WS-Discovery work?
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/onvif-footnotes/">
+        ONVIF Footnotes
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_7" id="__nav_1_6_3_9_7_label" tabindex="0">
+          Device REST
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_7_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_7">
+<span class="md-nav__icon md-icon"></span>
+          Device REST
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_7_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_7_3" id="__nav_1_6_3_9_7_3_label" tabindex="0">
+          How-To Guides
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_7_3_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_7_3">
+<span class="md-nav__icon md-icon"></span>
+          How-To Guides
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/howto/Testing/">
+        Testing
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/ProtocolProperties/">
+        Protocol Properties
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/SourceCode/">
+        Source Code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rfid-llrp/">
+        Device RFID LLRP
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-snmp/">
+        Device SNMP
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_10" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_10" id="__nav_1_6_3_9_10_label" tabindex="0">
+          Device UART
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_10_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_10">
+<span class="md-nav__icon md-icon"></span>
+          Device UART
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/ProtocolProperties/">
+        Protocol Properties
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/APIReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/SourceCode/">
+        Source Code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_11" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_11" id="__nav_1_6_3_9_11_label" tabindex="0">
+          Device USB Camera
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_11_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_11">
+<span class="md-nav__icon md-icon"></span>
+          Device USB Camera
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/General/">
+        General
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_11_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_11_2" id="__nav_1_6_3_9_11_2_label" tabindex="0">
+          Walkthrough
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_11_2_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_11_2">
+<span class="md-nav__icon md-icon"></span>
+          Walkthrough
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/walkthrough/setup/">
+        Setup
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/walkthrough/deployment/">
+        Deployment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/walkthrough/general-usage/">
+        General Usage
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/walkthrough/custom-build/">
+        Custom Build
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_11_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_11_3" id="__nav_1_6_3_9_11_3_label" tabindex="0">
+          Supplementary Information
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_11_3_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_11_3">
+<span class="md-nav__icon md-icon"></span>
+          Supplementary Information
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/supplementary-info/USB-protocol/">
+        USB Camera Device Service Specifications
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/supplementary-info/discovery/">
+        Dynamic Discovery
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/supplementary-info/advanced-options/">
+        Advanced Options
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-virtual/Ch-VirtualDevice/">
+        Device Virtual
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4" id="__nav_1_6_4_label" tabindex="0">
+          Application
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_6_4">
+<span class="md-nav__icon md-icon"></span>
+          Application
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/ApplicationServices/">
+        Application Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_5" id="__nav_1_6_4_5_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_5_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_4_5">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/details/CommandLine/">
+        Command-Line Options
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/details/EnvironmentVariables/">
+        Environment Variables
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/details/SeedingSecrets/">
+        Seeding Secrets
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/details/ServiceMetrics/">
+        Service Metrics
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/details/Triggers/">
+        Triggers
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_6" id="__nav_1_6_4_6_label" tabindex="0">
+          App Functions SDK
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_6_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_4_6">
+<span class="md-nav__icon md-icon"></span>
+          App Functions SDK
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_6_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_6_3" id="__nav_1_6_4_6_3_label" tabindex="0">
+          APIs
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_6_3_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_4_6_3">
+<span class="md-nav__icon md-icon"></span>
+          APIs
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/api/ApplicationServiceAPI/">
+        Application Service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/api/AppFunctionContextAPI/">
+        App Function Context
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/api/BuiltInPipelineFunctions/">
+        Pipeline Functions
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_6_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_6_5" id="__nav_1_6_4_6_5_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_6_5_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_4_6_5">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/BackgroundPublishing/">
+        Background Publishing
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/CustomConfiguration/">
+        Custom Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/CustomRestApis/">
+        Custom REST APIs
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/CustomServiceMetrics/">
+        Custom Service Metrics
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/PipelinesPerTopics/">
+        Pipelines Per Topic
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/Secrets/">
+        Secrets
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/StoreAndForward/">
+        Store and Forward
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/TargetType/">
+        Target Type
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/V3Migration/">
+        V3 Migration
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_8" id="__nav_1_6_4_8_label" tabindex="0">
+          Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_8_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_4_8">
+<span class="md-nav__icon md-icon"></span>
+          Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_8_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_8_1" id="__nav_1_6_4_8_1_label" tabindex="0">
+          App Service Configurable
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_8_1_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_4_8_1">
+<span class="md-nav__icon md-icon"></span>
+          App Service Configurable
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_8_1_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_8_1_6" id="__nav_1_6_4_8_1_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_8_1_6_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_4_8_1_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/details/PipelinePerTopics/">
+        Pipeline Per Topics
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/details/AvailablePipelineFunctions/">
+        Available Pipeline Functions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/details/Profiles/">
+        Available Profiles
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/details/TargetType/">
+        Target Type
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_8_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_8_2" id="__nav_1_6_4_8_2_label" tabindex="0">
+          App RFID LLRP Inventory
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_8_2_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_4_8_2">
+<span class="md-nav__icon md-icon"></span>
+          App RFID LLRP Inventory
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_8_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_8_2_6" id="__nav_1_6_4_8_2_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_8_2_6_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_4_8_2_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/InventoryEvents/">
+        Inventory Events
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/TagLocationAlgorithm/">
+        Tag Location Algorithm
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/LocationAliases/">
+        Location Aliases
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/Behaviors/">
+        Behaviors
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/MobilityProfile/">
+        Mobility Profile
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_8_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_8_3" id="__nav_1_6_4_8_3_label" tabindex="0">
+          App Record &amp; Replay
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_8_3_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_4_8_3">
+<span class="md-nav__icon md-icon"></span>
+          App Record &amp; Replay
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/SourceCode/">
+        Source Code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_5" id="__nav_1_6_5_label" tabindex="0">
+          Configuration &amp; Registry
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_6_5">
+<span class="md-nav__icon md-icon"></span>
+          Configuration &amp; Registry
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/configuration/ConfigurationAndRegistry/">
+        Configuration and Registry Providers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/configuration/CommonConfiguration/">
+        Service Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/configuration/CommonCommandLineOptions/">
+        Command Line Options
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/configuration/CommonEnvironmentVariables/">
+        Environment Variables
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/configuration/V3MigrationCommonConfig/">
+        V3 Migration
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/general/">
+        Cross Cutting Concerns
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/general/messagebus/">
+        EdgeX MessageBus
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_7" id="__nav_1_7_label" tabindex="0">
+          Security
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_7">
+<span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-Security/">
+        Security Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-SecretStore/">
+        Secret Store
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-Authenticating/">
+        Authenticating to EdgeX Microservices
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-SecretProviderApi/">
+        Secret Provider API
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-APIGateway/">
+        API Gateway
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-Secure-MessageBus/">
+        Secure MessageBus
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-Configuring-Add-On-Services/">
+        Configuring Add-on Service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-Secure-Consul/">
+        Secure Consul
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-SecurityIssues/">
+        Reporting Security Issues
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/secrets-config/">
+        Secrets config
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/secrets-config-proxy/">
+        Secrets config proxy
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/SeedingServiceSecrets/">
+        Seeding Service Secrets
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-CORS-Settings/">
+        CORS settings
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-DelayedStartServices/">
+        Delayed-Start Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-RemoteDeviceServices/">
+        Remote Device Services in Secure Mode
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/V3Migration/">
+        V3 Migration
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_7_17" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_7_17" id="__nav_1_7_17_label" tabindex="0">
+          Threat Models
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_7_17_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_7_17">
+<span class="md-nav__icon md-icon"></span>
+          Threat Models
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../threat-models/secret-store/">
+        EdgeX Foundry Secret Management Threat Model
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../threat-models/stride-model/EdgeX-STRIDE/">
+        EdgeX Foundry STRIDE Threat Model
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../threat-models/stride-model/EdgeXFoundryThreatReportV2.2/">
+        Threat Modeling Report
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_8" id="__nav_1_8_label" tabindex="0">
+          Migration
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_8">
+<span class="md-nav__icon md-icon"></span>
+          Migration
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_8_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_8_1" id="__nav_1_8_1_label" tabindex="0">
+          V3.0 Migration
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_8_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_8_1">
+<span class="md-nav__icon md-icon"></span>
+          V3.0 Migration
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../V3TopLevelMigration/">
+        General Migration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/V3Migration/">
+        Security Migration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/configuration/V3MigrationCommonConfig/">
+        Configuration Migration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/V3Migration/">
+        Device Service Migration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/V3Migration/">
+        Application Service Migration
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_9" id="__nav_1_9_label" tabindex="0">
+          Tutorials
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_9_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_9">
+<span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../examples/Ch-ExamplesVirtualDeviceService/">
+        Using the Virtual Device Service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../examples/Ch-ExamplesSendingAndConsumingBinary/">
+        Sending and Consuming Binary Data From EdgeX Device Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../examples/Ch-CommandingDeviceThroughRulesEngine/">
+        Command Devices with eKuiper Rules Engine
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_9_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_9_4" id="__nav_1_9_4_label" tabindex="0">
+          Adding a Device
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_9_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_9_4">
+<span class="md-nav__icon md-icon"></span>
+          Adding a Device
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../examples/Ch-ExamplesAddingSNMPDevice/">
+        SNMP
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/Ch-ExamplesAddingMQTTDevice/">
+        How To Add an MQTT Device
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_9_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_9_5" id="__nav_1_9_5_label" tabindex="0">
+          Walkthrough
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_9_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_9_5">
+<span class="md-nav__icon md-icon"></span>
+          Walkthrough
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-Walkthrough/">
+        EdgeX Demonstration API Walk Through
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughSetup/">
+        Setup up your environment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughUseCase/">
+        Example Use Case
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughDeviceProfile/">
+        Defining your device
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughDeviceService/">
+        Register your device service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughProvision/">
+        Provision a device
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughCommands/">
+        Calling commands
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughReading/">
+        Sending events and reading data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughExporting/">
+        Exporting your device data
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_10" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_10" id="__nav_1_10_label" tabindex="0">
+          Examples
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_10_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_10">
+<span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../examples/">
+        Code Examples
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_10_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_10_2" id="__nav_1_10_2_label" tabindex="0">
+          App Service Examples
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_10_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_10_2">
+<span class="md-nav__icon md-icon"></span>
+          App Service Examples
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../examples/AppServiceExamples/">
+        App Service Examples
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../examples/app-service-examples/camera-management/Ch-CameraManagement/">
+        Camera Management Example App Service
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../general/Definitions/">
+        Definitions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../general/PlatformRequirements/">
+        Platform Requirements
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../general/ServicePorts/">
+        Default Service Ports
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../general/ContainerNames/">
+        EdgeX Container Names
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../general/ServiceConfiguration/">
+        Service Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../general/EdgeX_CN/">
+        Is EdgeX Foundry Cloud Native?
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Use Case &amp; Design
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Use Case &amp; Design
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../design/Process/">
+        Process
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../design/TOC/">
+        Documents
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+          Legacy
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_3">
+<span class="md-nav__icon md-icon"></span>
+          Legacy
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../design/legacy-design/">
+        Designs
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../design/legacy-requirements/">
+        Requirements
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#environment">
+    Environment
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#required-software">
+    Required Software
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prepare-your-environment">
+    Prepare your environment
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#download-edgex-source">
+    Download EdgeX Source
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-edgex-services">
+    Build EdgeX Services
+  </a>
+<nav aria-label="Build EdgeX Services" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-core-and-supporting-services">
+    Build Core and Supporting Services
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-the-virtual-device-service">
+    Build the Virtual Device Service
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-the-configurable-application-service">
+    Build the Configurable Application Service
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-ekuiper">
+    Build eKuiper
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-the-gui">
+    Build the GUI
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#run-edgex">
+    Run EdgeX
+  </a>
+<nav aria-label="Run EdgeX" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-consul">
+    Start Consul
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-core-metadata">
+    Start Core Metadata
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-the-other-core-and-supporting-services">
+    Start the other Core and Supporting Services
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-configurable-application-service">
+    Start Configurable Application Service
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-the-virtual-device-service">
+    Start the Virtual Device Service
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-the-gui">
+    Start the GUI
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#start-ekuiper">
+    Start eKuiper
+  </a>
+<nav aria-label="Start eKuiper" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-ekuiper-environment-variables">
+    Set eKuiper Environment Variables
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#run-ekuiper">
+    Run eKuiper
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#test-and-explore-edgex">
+    Test and Explore EdgeX
+  </a>
+<nav aria-label="Test and Explore EdgeX" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#see-sensor-data-flowing-through-edgex">
+    See sensor data flowing through EdgeX
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#check-edgex-service-api">
+    Check EdgeX service API
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-up-an-ekuiper-stream-and-rule">
+    Set up an eKuiper Stream and Rule
+  </a>
+<nav aria-label="Set up an eKuiper Stream and Rule" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#establish-the-stream">
+    Establish the Stream
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#establish-the-rule">
+    Establish the Rule
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#check-the-rule-engine-is-firing">
+    Check the Rule Engine is firing
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debugging-and-troubleshooting">
+    Debugging and Troubleshooting
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="build-and-run-on-linux-on-x86x64">Build and Run on Linux on x86/x64</h1>
+<p>This build and run guide shows you how to get, compile/build, execute and test EdgeX (including the core and supporting services, the configurable application service, eKuiper rules engine and a virtual device service) in Linux on an x86 or x86_64 hardware.  Specifically, this guide was done using <a href="https://releases.ubuntu.com/20.04/">Ubuntu 20.04</a>.  For the most part, the guide should assist in building and running EdgeX in almost any Linux distribution, but some instructions will vary based on the nuances of the underlying distribution.</p>
+<h2 id="environment">Environment</h2>
+<p>Building and running EdgeX on Linux natively will require you have:</p>
+<ul>
+<li>A relatively modern Linux OS (this guide was written using Ubuntu 20.04)</li>
+<li><code>sudo</code> access</li>
+<li>Access from the host machine to the Internet in order to get tools and source code (e.g., to clone code from GitHub)</li>
+<li>x86/x64 hardware platform (multiple CPUs are not necessary, but performance will vary greatly depending on resources)</li>
+<li>Sufficient memory to build and run EdgeX micro services (<a href="../../../general/PlatformRequirements/">EdgeX suggests</a> 1GB minimum.)<ul>
+<li>1GB is sufficient memory to run all the required software as well as build/run EdgeX services listed below</li>
+</ul>
+</li>
+<li>Sufficient disk space to pull the required tools, libraries, code, etc. to build and run EdgeX (<a href="../../../general/PlatformRequirements/">EdgeX suggests</a> 10GB minimum )<ul>
+<li>10GB is inclusive of space needed to download and setup all the required software/tools as well as EdgeX</li>
+</ul>
+</li>
+</ul>
+<h2 id="required-software">Required Software</h2>
+<p>The following software is assumed to already be installed and available on the host platform.  Follow the referenced guides if you need to install or setup this software.</p>
+<ul>
+<li>
+<p>Go Lang, version 1.17 or later as of the Kamakura release</p>
+<ul>
+<li>See <a href="https://go.dev/doc/install">Go Download and install guide for help</a></li>
+<li>
+<p>How to check for existence and version on your machine</p>
+<p><img alt="image" src="../GoLangCheck.png"/></p>
+</li>
+</ul>
+</li>
+<li>
+<p>GCC Build Essentials (for C++)</p>
+<ul>
+<li>See <a href="https://linuxize.com/post/how-to-install-gcc-on-ubuntu-20-04/">How to Install GCC on Ubuntu 20.04</a></li>
+<li>
+<p>How to check for existence and version on your machine</p>
+<p><img alt="image" src="../BuildEssentialCheck.png"/></p>
+</li>
+<li>
+<p>Your installation process may vary based on Linux version/distribution</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Consul, version 1.10 or later as of the Kamakura release</p>
+<ul>
+<li>See <a href="https://www.consul.io/">Open Source Consul for help</a></li>
+<li>
+<p>How to check for existence and version on your machine</p>
+<p><img alt="image" src="../ConsulCheck.png"/></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Redis,version 6.2 or later as of the Kamakura release</p>
+<ul>
+<li>See <a href="https://linuxize.com/post/how-to-install-and-configure-redis-on-ubuntu-20-04/">How to install and configure Redis on Ubuntu 20.04</a></li>
+<li>
+<p>How to check for existence and version on your machine</p>
+<p><img alt="image" src="../RedisCheck.png"/></p>
+</li>
+<li>
+<p>Your installation process may vary based on Linux version/distribution</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Git</p>
+<ul>
+<li>Git is already installed with Ubuntu 20.04</li>
+<li>If not already provided with your OS, see <a href="https://www.atlassian.com/git/tutorials/install-git#linux">Install Git on Linux</a></li>
+<li>
+<p>How to check for existence and version on your machine</p>
+<p><img alt="image" src="../GitCheck.png"/></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="prepare-your-environment">Prepare your environment</h2>
+<p>In this guide, you will be building and running EdgeX in "non-secure" mode.  That is, you will be building and running the EdgeX platform without the security services and security configuration.  An environmental variable, <code>EDGEX_SECURITY_SECRET_STORE</code>,  is set to indicate whether the EdgeX services are expected to initialize and use the secure secret store.  By default, this variable is set to <code>true</code>.  Prior to building and running EdgeX, set this environment variable to false.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">EDGEX_SECURITY_SECRET_STORE</span><span class="o">=</span><span class="nb">false</span><span class="w"> </span>
+</code></pre></div>
+<p>This can be done in the terminal from which you build and run EdgeX or you can set it in your user's profile to make an environment persist across terminal sessions.  See <a href="https://www.serverlab.ca/tutorials/linux/administration-linux/how-to-set-environment-variables-in-linux/">How to Set Environment Variables in Linux</a> for assistance.</p>
+<h2 id="download-edgex-source">Download EdgeX Source</h2>
+<p>In order to build and run EdgeX micro services, you will first need to get the source code for the platform.  Using git, clone the EdgeX repositories with the following commands:</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You may wish to create a new folder and then issue these git commands from that folder so that all EdgeX code is neatly stored in a single folder.</p>
+</div>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/edgexfoundry/edgex-go.git
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/edgexfoundry/device-virtual-go.git
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/edgexfoundry/app-service-configurable.git
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/lf-edge/ekuiper.git
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/edgexfoundry/edgex-ui-go.git
+</code></pre></div>
+<p>Note that a new folder, named for the repository, gets created containing source code with each of the git clones above.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These git clone operations pull from the main branch of the EdgeX repositories.  This is the current working branch in EdgeX development.  See the <a href="https://git-scm.com/docs/git-clone">git clone documentation</a> for how to clone a specific named release branch or version tag.</p>
+</div>
+<h2 id="build-edgex-services">Build EdgeX Services</h2>
+<p>With the source code, you can now build the EdgeX services, GUI, as well as eKuiper rules engine.  </p>
+<h3 id="build-core-and-supporting-services">Build Core and Supporting Services</h3>
+<p>Most of the services are in the <code>edgex-go</code> folder.  This folder contains the code for the <a href="../../../microservices/core/Ch-CoreServices/">core</a> and <a href="../../../microservices/support/Ch-SupportingServices/">supporting</a> services.  A single command in this repository will build several of the services.</p>
+<p>Enter the <code>edgex-go</code> folder and issue the <code>make build</code> command as shown below.</p>
+<p><img alt="image" src="../BuildEdgeXGoServices.png"/></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Depending on the amount of memory your system has, building the services in <code>edgex-go</code> can take several minutes.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Building the services in edgex-go folder will actually build some of the services (such as the security services) not used in this guide, but issuing a single command is the easiest way to build the services needed without having to build services one by one.</p>
+</div>
+<h3 id="build-the-virtual-device-service">Build the Virtual Device Service</h3>
+<p>The <a href="../../../microservices/device/services/device-virtual/Ch-VirtualDevice/">virtual device service</a> simulates devices/sensors sending data to EdgeX as if it was a "thing".  This guide uses the virtual device service to exemplify how other devices services can be built and run.</p>
+<p>Enter the <code>device-virtual-go</code> folder and issue the <code>make build</code> command as shown below.</p>
+<p><img alt="image" src="../BuildDeviceVirtual.png"/></p>
+<h3 id="build-the-configurable-application-service">Build the Configurable Application Service</h3>
+<p>The <a href="../../../microservices/application/services/AppServiceConfigurable/Purpose/">configurable application service</a> helps prepare device/sensor data for enterprise or cloud systems.  It also prepares data for use by the rules engine - <a href="../../../microservices/support/eKuiper/Ch-eKuiper/">eKuiper</a></p>
+<p>Enter the <code>app-service-configurable</code> folder and issue the <code>make build</code> command as shown below.</p>
+<p><img alt="image" src="../BuildAppServiceConf.png"/></p>
+<h3 id="build-ekuiper">Build eKuiper</h3>
+<p>Sister Linux Foundation, LF Edge project <a href="https://www.lfedge.org/projects/ekuiper/">eKuiper</a> is the reference implementation rules engine for EdgeX.</p>
+<p>Enter the <code>ekuiper</code> folder and issue the <code>make build_with_edgex</code> command as shown below.</p>
+<p><img alt="image" src="../BuildeKuiper.png"/></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>eKuiper does also provide <a href="https://github.com/lf-edge/ekuiper/releases">binaries</a> which can be downloaded and used without the need for builds.  </p>
+</div>
+<h3 id="build-the-gui">Build the GUI</h3>
+<p>EdgeX provides a <a href="../../tools/Ch-GUI/">graphical user interface</a> for exploring a single instance of the EdgeX platform.  The GUI makes it easier to work with EdgeX and see sample data coming from sensors.  It provides a means to check that EdgeX is working correctly, monitor EdgeX and even make some configuration changes.</p>
+<p>Enter the <code>edgex-ui-go</code> folder and issue the <code>make build</code> command as shown below.</p>
+<p><img alt="image" src="../BuildGUI.png"/></p>
+<h2 id="run-edgex">Run EdgeX</h2>
+<p>Provided everything built correctly and without issue, you can now start your EdgeX services one at a time.  First make sure Redis Server is running.  If Redis is not running, start it before the other services.  If it is running, you can start each of the EdgeX services <strong>in order</strong> as listed below.</p>
+<h3 id="start-consul">Start Consul</h3>
+<p>Start Consul Agent with the following command.</p>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>consul<span class="w"> </span>agent<span class="w"> </span>-ui<span class="w"> </span>-bootstrap<span class="w"> </span>-server<span class="w"> </span>-client<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>-data-dir<span class="o">=</span>tmp/consul<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<p>The <code>nohup</code> is used to execute the command and ignore all SIGHUP (hangup) signals.  The <code>&amp;</code> says to execute the process in the background.  Both <code>nohup</code> and <code>&amp;</code> will be used to run each of the services so that the same terminal can be used and the output will be directed to local nohup.out log files.</p>
+<p>If Consul is running correctly, you should be able to reach the Consul UI through a browser at http://(host address):8500</p>
+<p><img alt="image" src="../RunConsulUI.png"/></p>
+<h3 id="start-core-metadata">Start Core Metadata</h3>
+<p>Each of core and supporting EdgeX services are located in <code>edgex-go/cmd</code> under a subfolder by the service name.  In the first case, core-metadate is located in <code>edgex-go/cmd/core-metadata</code>.  Change directories to the core-metadata service subfolder and then run the executable found in the subfolder with <code>-cp</code> and <code>-registry</code> command line options as shown below.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>edgex-go/cmd/core-metadata/
+nohup<span class="w"> </span>./core-metadata<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<p>The <code>-cp=consul.http://localhost:8500</code> command line parameter tells core-metadata to use Consul and where to find Consul running.  The <code>-registry</code> command line parameter tells core-metadata to use (and register with) the registry service.  Both of these command line parameters will be use when launching all EdgeX services.</p>
+<h3 id="start-the-other-core-and-supporting-services">Start the other Core and Supporting Services</h3>
+<p>In a similar fashion, enter each of the other core and supporting service folders in <code>edgex-go/cmd</code> and launch the services.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>../core-data
+nohup<span class="w"> </span>./core-data<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
+<span class="nb">cd</span><span class="w"> </span>../core-command
+nohup<span class="w"> </span>./core-command<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
+<span class="nb">cd</span><span class="w"> </span>../support-notifications/
+nohup<span class="w"> </span>./support-notifications<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
+<span class="nb">cd</span><span class="w"> </span>../support-scheduler/
+nohup<span class="w"> </span>./support-scheduler<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you still have the Consul UI up, you should see each of the EdgeX core and supporting services listed in Consul's <code>Services</code> page with green check marks next to them suggesting they are running.</p>
+<p><img alt="image" src="../CoreSupportingServicesRunning.png"/></p>
+</div>
+<h3 id="start-configurable-application-service">Start Configurable Application Service</h3>
+<p>The configurable application service is located in the root of <code>app-service-configurable</code> folder.</p>
+<p><img alt="image" src="../LocationConfigAppService.png"/></p>
+<p>The configurable application service is started in a similar way as the other EdgeX services.  The configurable application service is going to be used to route data to the rules engine.  Therefore, an additional command line parameter (<code>p</code>) is added to its launch command to tell the app service to use the rules engine configuration and profile.</p>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>./app-service-configurable<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span>-p<span class="o">=</span>rules-engine<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<h3 id="start-the-virtual-device-service">Start the Virtual Device Service</h3>
+<p>The virtual device service is also started in similar way as the other EdgeX services.  The virtual device service manufactures data as if it was to come from a sensor and sends that data into the rest of EdgeX.  By default, the virtual device service will generate random numbers (integers, unsigned integers, floats), booleans and even binary data as simulated sensor data.  The virtual device service is located in the <code>device-virtual-go/cmd</code> folder.  </p>
+<p><img alt="image" src="../LocationDeviceVirtualService.png"/></p>
+<p>Change directories to the virtual device service's <code>cmd</code> folder and then launch the service with the command shown below.</p>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>./device-virtual<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<h3 id="start-the-gui">Start the GUI</h3>
+<p>The EdgeX graphical user interface (GUI) provides an easy to use visual tool to monitor data passing through EdgeX services.  It also provides some capability to change an EdgeX instance's configuration or metadata.  The EdgeX GUI is located in the <code>edgex-ui-go/cmd/edgex-ui-server</code> folder.</p>
+<p><img alt="image" src="../LocationEdgeXGUI.png"/></p>
+<p>Change directories to the GUI's <code>cmd/edgex-ui-server</code> folder and then launch the GUI with the command shown below.</p>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>./edgex-ui-server<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<p>If the GUI is running correctly, you should be able to reach the GUI through a browser at http://(host address):4000.  It may take a few seconds for the GUI to initialize once you hit the URL.</p>
+<p><img alt="image" src="../RunGUI.png"/></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some elements of the GUI will not work as you do not have all available EdgeX services running.  Notably, the System Management service and its executor are not running so the System view of the GUI will display an error.  By default, the System Management service and its executor operate by checking on the other services memory, CPU, etc. via Docker Stats.  In this case, since you are not running Docker containers, the System Management service would not function.</p>
+</div>
+<h3 id="start-ekuiper">Start eKuiper</h3>
+<p><a href="https://ekuiper.org/">eKuiper</a> is the reference implementation rules engine that is typically run with EdgeX by default.  It is a lightweight, easy to use rules engine.  Rules can be established using SQL.  It is a sister project under the LF Edge umbrella project.</p>
+<p>eKuiper's executable (called <code>kuiperd</code>) is located in the <code>ekuiper/_build/kuiper-*version*-linux-amd64/bin</code> folder.  Note that the location is in a <code>_build</code> folder subfolder created when you built eKuiper.  The subfolder is named for the eKuiper version, OS, architecture.</p>
+<p><img alt="image" src="../LocationeKuiper.png"/></p>
+<p>Change directories to the <code>ekuiper/_build/kuiper-*version*-linux-amd64/bin</code> folder.</p>
+<h4 id="set-ekuiper-environment-variables">Set eKuiper Environment Variables</h4>
+<p>As a 3rd party component, eKuiper can be setup to work with many streams of data from various systems or engines.  It must be provided knowledge about where it is receiving data and how to handle/treat the incoming data.  Therefore, before launching eKuiper, execute the following export of environmental variables in order to tell eKuiper where to receive data coming from the EdgeX configurable application service (via the EdgeX message bus).</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CONNECTION__EDGEX__REDISMSGBUS__PORT</span><span class="o">=</span><span class="m">6379</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CONNECTION__EDGEX__REDISMSGBUS__PROTOCOL</span><span class="o">=</span>redis
+<span class="nb">export</span><span class="w"> </span><span class="nv">CONNECTION__EDGEX__REDISMSGBUS__SERVER</span><span class="o">=</span>localhost
+<span class="nb">export</span><span class="w"> </span><span class="nv">CONNECTION__EDGEX__REDISMSGBUS__TYPE</span><span class="o">=</span>redis
+<span class="nb">export</span><span class="w"> </span><span class="nv">EDGEX__DEFAULT__PORT</span><span class="o">=</span><span class="m">6379</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">EDGEX__DEFAULT__PROTOCOL</span><span class="o">=</span>redis
+<span class="nb">export</span><span class="w"> </span><span class="nv">EDGEX__DEFAULT__SERVER</span><span class="o">=</span>localhost
+<span class="nb">export</span><span class="w"> </span><span class="nv">EDGEX__DEFAULT__TOPIC</span><span class="o">=</span>rules-events
+<span class="nb">export</span><span class="w"> </span><span class="nv">EDGEX__DEFAULT__TYPE</span><span class="o">=</span>redis
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUIPER__BASIC__CONSOLELOG</span><span class="o">=</span><span class="s2">"true"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUIPER__BASIC__RESTPORT</span><span class="o">=</span><span class="m">59720</span>
+</code></pre></div>
+<p>Setting these environment variables must be done in the same terminal from which you plan to execute the eKuiper server.</p>
+<h4 id="run-ekuiper">Run eKuiper</h4>
+<p>From the <code>ekuiper/_build/kuiper-*version*-linux-amd64</code> folder, and with the environmental variables set, launch eKuiper's server with the command shown below.</p>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>./bin/kuiperd<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>There is both a <code>kuiper</code> and a <code>kuiperd</code> executable in the <code>bin</code> folder.  Make sure you are running <code>kuiperd</code>.</p>
+</div>
+<p>If eKuiper is running correctly, the RuleEngine tab in the EdgeX GUI should offer the ability to define eKuiper Streams and Rules as shown below.</p>
+<p><img alt="image" src="../CheckeKuiperRunning-OK.png"/></p>
+<p>If eKuiper is not running correctly or if the environmental variables where incorrectly set, then you will see an error screen like that shown below.</p>
+<p><img alt="image" src="../CheckeKuiperRunning-Oops.png"/></p>
+<h2 id="test-and-explore-edgex">Test and Explore EdgeX</h2>
+<p>With EdgeX up and running (inclusive of Consul, Redis, and eKuiper), you can try these quick tests to see that EdgeX is running correctly.</p>
+<h3 id="see-sensor-data-flowing-through-edgex">See sensor data flowing through EdgeX</h3>
+<p>You have already been using Consul and the EdgeX GUI to check on some items of EdgeX in this tutorial.  You can use the EdgeX GUI to further check that sensor data is flowing through the system.</p>
+<p>In a browser, go to http://(host address):4000.  Remember, it may take a few seconds for the GUI to initialize once you hit the URL.  Once the GUI displays, find and click on the <code>DataCenter</code> link on the left hand navigation bar (highlighted below).</p>
+<p><img alt="image" src="../DataCenterDisplayData.png"/></p>
+<p>The <code>DataCenter</code> display allows you to see the EdgeX event/readings as they are persisted by the core data service to Redis.  Simply press the <code>&gt;Start</code> button to see the "stream" of simulated sensor data that was generated by the virtual device service and sent to EdgeX. The simulated data may take a second or two to start to display in the <code>EventDataStream</code> area of the GUI.</p>
+<p><img alt="image" src="../StreamOfEventReadings.png"/></p>
+<p>Press the <code>Pause</code> button to stop this display of data.  Notice that you can see the EdgeX Events (and associated Readings) or just the Readings with the two tabs on this <code>DataCenter</code> display.</p>
+<h3 id="check-edgex-service-api">Check EdgeX service API</h3>
+<p>Each EdgeX micro service has a REST API associated with it.  You can use curl or a browser to test that the service is up using its <code>ping</code> API.  Below are curl commands to "ping" both core data and core metadata.</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>curl<span class="w"> </span>http://localhost:59880/api/v3/ping
+<span class="w">  </span>curl<span class="w"> </span>http://localhost:59881/api/v3/ping
+</code></pre></div>
+<p>Each service should respond with JSON data to indicate it is able to respond to requests.  Below is an example response from the core metadata "Ping" request.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v2"</span><span class="p">,</span><span class="nt">"timestamp"</span><span class="p">:</span><span class="s2">"Thu May 12 23:25:04 UTC 2022"</span><span class="p">,</span><span class="nt">"serviceName"</span><span class="p">:</span><span class="s2">"core-metadata"</span><span class="p">}</span>
+</code></pre></div>
+<p>See <a href="../../../general/ServicePorts/">the service port reference page</a> for a list of service ports to check the <code>ping</code> API of other services.</p>
+<p>As an added test, use curl to get the count of the number of events persisted by core data with the command below (you can also use a browser with the URL to get the same).</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59880/api/v3/event/count
+</code></pre></div>
+<p>The response will indicate a "count" of events stored (in this case 6270).</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v2"</span><span class="p">,</span><span class="nt">"statusCode"</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">"Count"</span><span class="p">:</span><span class="mi">6270</span><span class="p">}</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The full set of APIs for each service can be found in <a href="https://app.swaggerhub.com/search?owner=EdgeXFoundry1">SwaggerHub</a>.  You can use the documentation to test other APIs as well.</p>
+</div>
+<h3 id="set-up-an-ekuiper-stream-and-rule">Set up an eKuiper Stream and Rule</h3>
+<p>While eKuiper is running, it is currently sitting idle since it has no rules on which to watch for data and execute commands.  Set up a simple eKuiper rule to log any sensor data it sees.  Use the GUI tool to establish the eKuiper <code>stream</code> and <code>rule</code>.  Learn about Streams and Rules in the <a href="https://ekuiper.org/docs/en/latest/concepts/ekuiper.html">eKuiper documentation</a>.</p>
+<h4 id="establish-the-stream">Establish the Stream</h4>
+<p>In the GUI, click on the <code>Rules Engine</code> link in the navigation bar on the left.  Then, click on the <code>Add</code> button on the Stream tab.  Allow the default EdgeX stream be created by hitting the <code>Submit</code> button.</p>
+<p><img alt="image" src="../CreateeKuiperStream.png"/></p>
+<h4 id="establish-the-rule">Establish the Rule</h4>
+<p>Next, click on the <code>Rules</code> tab on the <code>Rules Engine</code> page.  Then click on the <code>Add</code> button on the <code>Rules</code> tab in order to create a new eKuiper rule.  In the form that appears, enter any name for the rule (<code>TestRule</code> is used below) in the Name field.  Enter <code>SELECT * FROM EdgeXStream</code> in the RuleSQL field and add a <code>log</code> action - all as shown below in the form.  Hit the <code>Submit</code> button when you have your rule established.</p>
+<p><img alt="image" src="../CreateeKuiperRule.png"/></p>
+<h4 id="check-the-rule-engine-is-firing">Check the Rule Engine is firing</h4>
+<p>With the stream and rule defined, you have asked eKuiper to fire a log entry each time it sees a new EdgeX event/reading come through it.  In the future, you could have eKuiper look for particular events/readings (e.g., thermostat readings above a specified temperature) produced by a particular sensor in order to issue commands to some device.  But for now, you can check the eKuiper log to see that the rule engine is working and publishing a message to the log with each event/reading.</p>
+<p>In the <code>ekuiper/_build/kuiper-*version*-linux-amd64/log</code> folder, you will find a <code>stream.log</code> file.  </p>
+<p><img alt="image" src="../LocationeKuiperStreamLog.png"/></p>
+<p>If you use Linux <code>tail</code>, you can see that the eKuiper rules engine is firing a log entry for each virtual device service record that flows through EdgeX.  Issue the following command to see the log entries occur in real time:</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>tail<span class="w"> </span>-f<span class="w"> </span>stream.log
+</code></pre></div>
+<p><img alt="image" src="../TaileKuiperLog.png"/></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+</div>
+<p>Seeing the eKuiper rules engine fire a log entry into a file for each EdgeX event/reading that comes through, has allowed you to confirm and see the entire EdgeX system is working properly.</p>
+<ul>
+<li>It started with the virtual device service creating an EdgeX event/reading to simulate a real sensor reading that was sent via message bus to both the core data and the configurable application services.<ul>
+<li>The GUI allowed you to see the EdgeX event/readings that were stored in the database by the core data service.</li>
+</ul>
+</li>
+<li>The application service had to pick up the EdgeX event/reading off the message bus and send it to the eKuiper rules engine.</li>
+<li>The rules engine then picked up the EdgeX event/reading and fire an entry into the log.</li>
+</ul>
+<h2 id="debugging-and-troubleshooting">Debugging and Troubleshooting</h2>
+<p>With the <code>nohup</code> command on each service, the log file contents are redirected to a file (<code>nohup.out</code>) in the directory where you started each service.  if you find that a service does not appear to be running or if it is running but not working correctly, check the <code>nohup.out</code> file for any errors or issues.  In the example below, the core data's <code>nohup.out</code> log file is explored.</p>
+<p><img alt="image" src="../NohupTailFile.png"/></p>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: Native Build and Run" class="md-footer__link md-footer__link--prev" href="../Ch-BuildRunNative/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Previous
+              </span>
+<div class="md-ellipsis">
+                Native Build and Run
+              </div>
+</div>
+</a>
+<a aria-label="Next: Build and Run on Linux on ARM 32" class="md-footer__link md-footer__link--next" href="../Ch-BuildRunOnArm32/" rel="next">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Next
+              </span>
+<div class="md-ellipsis">
+                Build and Run on Linux on ARM 32
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2023 EdgeX Foundry
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/edgexfoundry" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 480 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"></path></svg>
+</a>
+<a class="md-social__link" href="https://twitter.com/edgexfoundry" rel="noopener" target="_blank" title="twitter.com">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
+</a>
+<a class="md-social__link" href="https://www.linkedin.com/company/edgexfoundry" rel="noopener" target="_blank" title="www.linkedin.com">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.footer"], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+<script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
+<script>document$.subscribe(() => {
+            window.update_swagger_ui_iframe_height = function (id) {
+                var iFrameID = document.getElementById(id);
+                if (iFrameID) {
+                    full_height = (iFrameID.contentWindow.document.body.scrollHeight + 80) + "px";
+                    iFrameID.height = full_height;
+                    iFrameID.style.height = full_height;
+                }
+            }
+        
+            let iframe_id_list = []
+            var iframes = document.getElementsByClassName("swagger-ui-iframe");
+            for (var i = 0; i < iframes.length; i++) { 
+                iframe_id_list.push(iframes[i].getAttribute("id"))
+            }
+        
+            let ticking = true;
+            
+            document.addEventListener('scroll', function(e) {
+                if (!ticking) {
+                    window.requestAnimationFrame(()=> {
+                        let half_vh = window.innerHeight/2;
+                        for(var i = 0; i < iframe_id_list.length; i++) {
+                            let element = document.getElementById(iframe_id_list[i])
+                            if(element==null){
+                                return
+                            }
+                            let diff = element.getBoundingClientRect().top
+                            if(element.contentWindow.update_top_val){
+                                element.contentWindow.update_top_val(half_vh - diff)
+                            }
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        
+            const dark_scheme_name = "slate"
+            
+            window.scheme = document.body.getAttribute("data-md-color-scheme")
+            const options = {
+                attributeFilter: ['data-md-color-scheme'],
+            };
+            function color_scheme_callback(mutations) {
+                for (let mutation of mutations) {
+                    if (mutation.attributeName === "data-md-color-scheme") {
+                        scheme = document.body.getAttribute("data-md-color-scheme")
+                        var iframe_list = document.getElementsByClassName("swagger-ui-iframe")
+                        for(var i = 0; i < iframe_list.length; i++) {
+                            var ele = iframe_list.item(i);
+                            if (ele) {
+                                if (scheme === dark_scheme_name) {
+                                    ele.contentWindow.enable_dark_mode();
+                                } else {
+                                    ele.contentWindow.disable_dark_mode();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            observer = new MutationObserver(color_scheme_callback);
+            observer.observe(document.body, options);
+            })</script></body>
+</html>
