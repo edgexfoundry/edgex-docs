@@ -2790,7 +2790,7 @@ type:"unix"    value:"sha256:2c72b9f4a871ff98ba410c292ee97206df8ee584002b34a4d08
 </code></pre></div>
 <p>The agent communicates with the server/controller to authorize the workload.
 The server/controller consults an authorization database that is seeded with a script:
-<a href="https://github.com/edgexfoundry/edgex-go/blob/main/cmd/security-spire-config/seed_builtin_entries.sh">https://github.com/edgexfoundry/edgex-go/blob/main/cmd/security-spire-config/seed_builtin_entries.sh</a></p>
+<a href="https://github.com/edgexfoundry/edgex-go/blob/v3.1/cmd/security-spire-config/seed_builtin_entries.sh">https://github.com/edgexfoundry/edgex-go/blob/v3.1/cmd/security-spire-config/seed_builtin_entries.sh</a></p>
 <p>This authorization database can be dumped with the following command:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-ti<span class="w"> </span>edgex-security-spire-server<span class="w"> </span>spire-server<span class="w"> </span>entry<span class="w"> </span>show<span class="w"> </span>-socketPath<span class="w"> </span>/tmp/edgex/secrets/spiffe/private/api.sock
 

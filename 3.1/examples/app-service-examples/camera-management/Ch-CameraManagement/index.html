@@ -3060,8 +3060,8 @@ This<span class="w"> </span>message<span class="w"> </span>shows<span class="w">
 </code></pre></div></p>
 </li>
 <li>
-<p>Checkout the latest release (main):
-    <div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>main
+<p>Checkout the latest release (v3.1):
+    <div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>v3.1
 </code></pre></div></p>
 </li>
 <li>
@@ -3098,8 +3098,8 @@ This<span class="w"> </span>message<span class="w"> </span>shows<span class="w">
 </code></pre></div></p>
 </li>
 <li>
-<p>Checkout the latest release (main):
-    <div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>main
+<p>Checkout the latest release (v3.1):
+    <div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>v3.1
 </code></pre></div></p>
 </li>
 <li>
@@ -3109,8 +3109,8 @@ This<span class="w"> </span>message<span class="w"> </span>shows<span class="w">
 </li>
 <li>
 <p>Configure <a href="https://github.com/edgexfoundry/device-mqtt-go">device-mqtt</a> service to send <a href="https://www.intel.com/content/www/us/en/developer/articles/technical/video-analytics-service.html">Edge Video Analytics Microservice</a> inference results into Edgex via MQTT</p>
-<p>a. Copy the entire <a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/camera-management/edge-video-analytics/evam-mqtt-edgex">evam-mqtt-edgex</a> folder into <code>edgex-compose/compose-builder</code> directory.</p>
-<p>b. Add this information into the <a href="https://github.com/edgexfoundry/edgex-compose/blob/main/compose-builder/add-device-mqtt.yml">add-device-mqtt.yml</a> file in the <code>edgex-compose/compose-builder</code> directory.</p>
+<p>a. Copy the entire <a href="https://github.com/edgexfoundry/edgex-examples/tree/v3.1/application-services/custom/camera-management/edge-video-analytics/evam-mqtt-edgex">evam-mqtt-edgex</a> folder into <code>edgex-compose/compose-builder</code> directory.</p>
+<p>b. Add this information into the <a href="https://github.com/edgexfoundry/edgex-compose/blob/v3.1/compose-builder/add-device-mqtt.yml">add-device-mqtt.yml</a> file in the <code>edgex-compose/compose-builder</code> directory.</p>
 <div class="admonition example -">
 <p class="admonition-title">Snippet from add-device-mqtt.yml</p>
 <div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
@@ -3128,7 +3128,7 @@ This<span class="w"> </span>message<span class="w"> </span>shows<span class="w">
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;add-absolute-path-of-your-edgex-compose-builder-here-example-above&gt;/evam-mqtt-edgex:/evam-mqtt-edgex</span>
 </code></pre></div>
 </div>
-<p>c. Add this information into the <a href="https://github.com/edgexfoundry/edgex-compose/blob/main/compose-builder/add-mqtt-broker-mosquitto.yml">add-mqtt-broker-mosquitto.yml</a> file in the <code>edgex-compose/compose-builder</code> directory.</p>
+<p>c. Add this information into the <a href="https://github.com/edgexfoundry/edgex-compose/blob/v3.1/compose-builder/add-mqtt-broker-mosquitto.yml">add-mqtt-broker-mosquitto.yml</a> file in the <code>edgex-compose/compose-builder</code> directory.</p>
 <div class="admonition example -">
 <p class="admonition-title">Snippet from add-mqtt-broker-mosquitto.yml</p>
 <div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
@@ -3184,7 +3184,7 @@ This<span class="w"> </span>message<span class="w"> </span>shows<span class="w">
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">configuration.yaml</label><label for="__tabbed_1_2">env vars</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Modify the <a href="https://github.com/edgexfoundry/edgex-examples/blob/main/application-services/custom/camera-management/res/configuration.yaml">res/configuration.yaml</a> file</p>
+<p>Modify the <a href="https://github.com/edgexfoundry/edgex-examples/blob/v3.1/application-services/custom/camera-management/res/configuration.yaml">res/configuration.yaml</a> file</p>
 <div class="highlight"><pre><span></span><code><span class="nt">InsecureSecrets</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">onvifauth</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">onvifauth</span>
@@ -3213,7 +3213,7 @@ This<span class="w"> </span>message<span class="w"> </span>shows<span class="w">
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">configuration.yaml</label><label for="__tabbed_2_2">env vars</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Modify the <a href="https://github.com/edgexfoundry/edgex-examples/blob/main/application-services/custom/camera-management/res/configuration.yaml">res/configuration.yaml</a> file</p>
+<p>Modify the <a href="https://github.com/edgexfoundry/edgex-examples/blob/v3.1/application-services/custom/camera-management/res/configuration.yaml">res/configuration.yaml</a> file</p>
 <div class="highlight"><pre><span></span><code><span class="nt">InsecureSecrets</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">rtspauth</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">SecretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rtspauth</span>
@@ -3232,7 +3232,7 @@ This<span class="w"> </span>message<span class="w"> </span>shows<span class="w">
 </input></input></div>
 <h4 id="33-configure-default-pipeline">3.3 Configure Default Pipeline</h4>
 <p>Initially, all new cameras added to the system will start the default analytics pipeline as defined in the configuration file below. The desired pipeline can be changed or the feature can be disabled by setting the <code>DefaultPipelineName</code> and <code>DefaultPipelineVersion</code> to empty strings.   </p>
-<p>Modify the <a href="https://github.com/edgexfoundry/edgex-examples/blob/main/application-services/custom/camera-management/res/configuration.yaml">res/configuration.yaml</a> file with the name and version of the default pipeline to use when a new device is added to the system.</p>
+<p>Modify the <a href="https://github.com/edgexfoundry/edgex-examples/blob/v3.1/application-services/custom/camera-management/res/configuration.yaml">res/configuration.yaml</a> file with the name and version of the default pipeline to use when a new device is added to the system.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>These values can be left empty to disable the feature.</p>

@@ -2827,7 +2827,7 @@ when EdgeX is running in secure mode:</p>
 </li>
 </ol>
 <h2 id="running-the-example">Running the Example</h2>
-<p>First, clone the <code>edgex-examples repository</code>, checkout <code>main</code> and change to the
+<p>First, clone the <code>edgex-examples repository</code>, checkout <code>v3.1</code> and change to the
 <code>security/remote_devices/spiffe_and_ssh</code> directory.</p>
 <p>Next, run the <code>generate_keys.sh</code> script to generate an SSH
 keypair for the SSH tunnel.
@@ -2930,7 +2930,7 @@ for several minutes until the network tunnels are established.</p>
 <span class="nv">level</span><span class="o">=</span>INFO<span class="w"> </span><span class="nv">ts</span><span class="o">=</span><span class="m">2022</span>-05-05T14:29:25.252698155Z<span class="w"> </span><span class="nv">app</span><span class="o">=</span>device-virtual<span class="w"> </span><span class="nv">source</span><span class="o">=</span>autodiscovery.go:33<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">"AutoDiscovery stopped: disabled by configuration"</span>
 <span class="nv">level</span><span class="o">=</span>INFO<span class="w"> </span><span class="nv">ts</span><span class="o">=</span><span class="m">2022</span>-05-05T14:29:25.252726349Z<span class="w"> </span><span class="nv">app</span><span class="o">=</span>device-virtual<span class="w"> </span><span class="nv">source</span><span class="o">=</span>autodiscovery.go:42<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">"AutoDiscovery stopped: ProtocolDiscovery not implemented"</span>
 <span class="nv">level</span><span class="o">=</span>INFO<span class="w"> </span><span class="nv">ts</span><span class="o">=</span><span class="m">2022</span>-05-05T14:29:25.252736451Z<span class="w"> </span><span class="nv">app</span><span class="o">=</span>device-virtual<span class="w"> </span><span class="nv">source</span><span class="o">=</span>message.go:50<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">"Service dependencies resolved..."</span>
-<span class="nv">level</span><span class="o">=</span>INFO<span class="w"> </span><span class="nv">ts</span><span class="o">=</span><span class="m">2022</span>-05-05T14:29:25.252804946Z<span class="w"> </span><span class="nv">app</span><span class="o">=</span>device-virtual<span class="w"> </span><span class="nv">source</span><span class="o">=</span>message.go:51<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">"Starting device-virtual main "</span>
+<span class="nv">level</span><span class="o">=</span>INFO<span class="w"> </span><span class="nv">ts</span><span class="o">=</span><span class="m">2022</span>-05-05T14:29:25.252804946Z<span class="w"> </span><span class="nv">app</span><span class="o">=</span>device-virtual<span class="w"> </span><span class="nv">source</span><span class="o">=</span>message.go:51<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">"Starting device-virtual v3.1 "</span>
 <span class="nv">level</span><span class="o">=</span>INFO<span class="w"> </span><span class="nv">ts</span><span class="o">=</span><span class="m">2022</span>-05-05T14:29:25.252817404Z<span class="w"> </span><span class="nv">app</span><span class="o">=</span>device-virtual<span class="w"> </span><span class="nv">source</span><span class="o">=</span>message.go:55<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">"device virtual started"</span>
 <span class="nv">level</span><span class="o">=</span>INFO<span class="w"> </span><span class="nv">ts</span><span class="o">=</span><span class="m">2022</span>-05-05T14:29:25.252880346Z<span class="w"> </span><span class="nv">app</span><span class="o">=</span>device-virtual<span class="w"> </span><span class="nv">source</span><span class="o">=</span>message.go:58<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">"Service started in: 55.248960914s"</span>
 </code></pre></div>
@@ -2949,7 +2949,7 @@ using <code>docker exec</code>.
 In this use case, however,
 we are not using <code>sshd</code> for remote administration,
 but instead to set up a network tunnel.</p>
-<p>For an example of how to run a SSH server in Docker, checkout the <a href="https://github.com/edgexfoundry/edgex-examples/tree/main/security/remote_devices/spiffe_and_ssh">SPIFFE and SHH example</a> for detailed instructions.</p>
+<p>For an example of how to run a SSH server in Docker, checkout the <a href="https://github.com/edgexfoundry/edgex-examples/tree/v3.1/security/remote_devices/spiffe_and_ssh">SPIFFE and SHH example</a> for detailed instructions.</p>
 <p>The <code>generate-keys.sh</code> helper script generates an RSA keypair,
 and copies the <code>authorized_keys</code> file into the
 <code>remote/sshd-remote</code> folder.

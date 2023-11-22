@@ -3006,7 +3006,7 @@ the request if validation failed.</p>
 <ul>
 <li>changes the port the service operates on so as not to conflict with other device services</li>
 </ul>
-<p>Download  <strong><a href="https://github.com/edgexfoundry/device-sdk-go/blob/main/example/cmd/device-simple/res/configuration.yaml">configuration.yaml</a></strong> and save the file to the <code>~/edgexfoundry/device-simple/cmd/device-simple/res</code> folder (overwrite the existing configuration file).  Change the host address of the device service to your system's IP address.</p>
+<p>Download  <strong><a href="https://github.com/edgexfoundry/device-sdk-go/blob/v3.1/example/cmd/device-simple/res/configuration.yaml">configuration.yaml</a></strong> and save the file to the <code>~/edgexfoundry/device-simple/cmd/device-simple/res</code> folder (overwrite the existing configuration file).  Change the host address of the device service to your system's IP address.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>In the configuration.yaml, change the host address (around line 14) to the IP address of the system host.  This allows core metadata to callback to your new device service when a new device is created.  Because the rest of EdgeX, to include core metadata, will be running in Docker, the IP address of the host system on the Docker network must be provided to allow metadata in Docker to call out from Docker to the new device service running on your host system.</p>
@@ -3025,11 +3025,11 @@ the request if validation failed.</p>
 <p>Starts a listener on the Configuration Provider for changes to the specified section of the custom configuration. When changes are received from the Configuration Provider the UpdateWritableFromRaw interface will be called on the custom configuration to apply the updates and then signal that the changes occurred via changedCallback.</p>
 </li>
 </ul>
-<p>See the <a href="https://github.com/edgexfoundry/device-mqtt-go/tree/main">Device MQTT Service</a> for an example of using the new Structured Custom Configuration capability.</p>
+<p>See the <a href="https://github.com/edgexfoundry/device-mqtt-go/tree/v3.1">Device MQTT Service</a> for an example of using the new Structured Custom Configuration capability.</p>
 <ul>
-<li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/main/internal/driver/config.go#L21-L72">See here for defining the structured custom configuration</a></li>
-<li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/main/cmd/res/configuration.yaml#L28-L50">See here for custom section on the configuration.yaml file</a></li>
-<li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/main/internal/driver/driver.go#L53-L67">See here for loading, validating and watching the configuration</a></li>
+<li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v3.1/internal/driver/config.go#L21-L72">See here for defining the structured custom configuration</a></li>
+<li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v3.1/cmd/res/configuration.yaml#L28-L50">See here for custom section on the configuration.yaml file</a></li>
+<li><a href="https://github.com/edgexfoundry/device-mqtt-go/blob/v3.1/internal/driver/driver.go#L53-L67">See here for loading, validating and watching the configuration</a></li>
 </ul>
 <h2 id="rebuild-your-device-service">Rebuild your Device Service</h2>
 <p>Just as you did in the <a href="#build-your-device-service">Build your Device Service</a> step above, build the device-simple service, which creates the executable program that is your device service.  In a terminal window, make sure you are in the device-simple folder (the folder containing the Makefile).  Build the service by issuing the following command:</p>

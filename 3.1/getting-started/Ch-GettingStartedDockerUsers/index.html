@@ -2817,7 +2817,7 @@ and start the EdgeX micro service containers.  Also use Docker Compose to stop t
 <p class="admonition-title">Note</p>
 <p>The <code>main</code> branch contains the Docker Compose files that use artifacts created from the latest code submitted by contributors (from the night builds).  Most end users should avoid using these Docker Compose files.  They are work-in-progress.  Users should use the Docker Compose files for the latest version of EdgeX. </p>
 </div>
-<p>In each edgex-compose branch, you will find several Docker Compose files (all with a .yml extension).  The name of the file will suggest the type of EdgeX instance the Compose file will help setup.  The table below provides a list of the Docker Compose filenames for the <code>main</code> version.
+<p>In each edgex-compose branch, you will find several Docker Compose files (all with a .yml extension).  The name of the file will suggest the type of EdgeX instance the Compose file will help setup.  The table below provides a list of the Docker Compose filenames for the <code>v3.1</code> version.
 Find the Docker Compose file that matches:</p>
 <ul>
 <li>your hardware (x86 or ARM)</li>
@@ -2866,11 +2866,11 @@ Find the Docker Compose file that matches:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">x86</label><label for="__tabbed_1_2">ARM</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/main/docker-compose-no-secty.yml -O docker-compose.yml
+<div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/v3.1/docker-compose-no-secty.yml -O docker-compose.yml
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/main/docker-compose-no-secty-arm64.yml -O docker-compose.yml
+<div class="highlight"><pre><span></span><code>wget https://raw.githubusercontent.com/edgexfoundry/edgex-compose/v3.1/docker-compose-no-secty-arm64.yml -O docker-compose.yml
 </code></pre></div>
 </div>
 </div>
@@ -2902,7 +2902,7 @@ make gen no-secty ds-modbus
 make gen no-secty arm64 ds-grove 
   - Generates non-secure compose file for ARM64 with just the Device Grove device service.
 </code></pre></div>
-<p>See the README document in the compose-builder directory for details on all the available options.  The Compose Builder is different per release, so make sure to consult the README in the appropriate release branch.  See <a href="https://github.com/edgexfoundry/edgex-compose/blob/main/compose-builder/README.md">Ireland's Compose Builder README</a> for details on the lastest release Compose Builder options for <code>make gen</code>.</p>
+<p>See the README document in the compose-builder directory for details on all the available options.  The Compose Builder is different per release, so make sure to consult the README in the appropriate release branch.  See <a href="https://github.com/edgexfoundry/edgex-compose/blob/v3.1/compose-builder/README.md">Ireland's Compose Builder README</a> for details on the lastest release Compose Builder options for <code>make gen</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The generated Docker Compose file may require addition customizations for your specific needs, such as environment override(s) to set appropriate Host IP address, etc.</p>
