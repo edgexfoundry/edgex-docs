@@ -3193,7 +3193,7 @@
 <h4 id="nats-core">NATS Core</h4>
 <p>An ordinary NATS server uses interest, or existence of a client subscription, as the basis for subject availability on the server.  This makes Publish a fire and forget operation much like Redis, and gives the system an <code>at most once</code> quality of service.</p>
 <h4 id="nats-jetstream">NATS JetStream</h4>
-<p>The JetStream persistence layer binds NATS subjects to persistent streams which enables the server to collect messages for subjects that have no registered interest, and allows support for <code>at least once</code> quality of service.  Notably, services running in <code>core-nats</code> mode can still subscribe and publish to jetstream-enabled subjects without the additional overhead associated with publish acknowledgement.</p>
+<p>The JetStream persistence layer binds NATS subjects to persistent streams which enables the server to collect messages for subjects that have no registered interest, and allows support for <code>at least once</code> quality of service.  JetStream also supports <a href="https://docs.nats.io/using-nats/developer/develop_jetstream/model_deep_dive#exactly-once-semantics">exactly once QoS</a>.  This can be enabled using the <code>ExactlyOnce</code> option on both the publish and subscribe sides of a message bus connection.  The header used for deduplication will be a combination of the service key and message's correlation ID.  Notably, services running in <code>core-nats</code> mode can still subscribe and publish to jetstream-enabled subjects without the additional overhead associated with publish acknowledgement.</p>
 <h4 id="configuration_2">Configuration</h4>
 <p>See <a href="#common-messagebus-configuration">Common Configuration</a> section above for the common configuration elements for all implementations.</p>
 <h5 id="security-configuration_2">Security Configuration</h5>
@@ -3288,6 +3288,11 @@
 <td>DefaultPubRetryAttempts</td>
 <td><code>2</code></td>
 <td>Number of times to attempt to retry on failed publish (<strong>JetStream only</strong>)</td>
+</tr>
+<tr>
+<td>ExactlyOnce</td>
+<td><code>false</code></td>
+<td>Enables publish and subscribe side behavior for exactly once QoS (<strong>JetStream only</strong>)</td>
 </tr>
 </tbody>
 </table>
