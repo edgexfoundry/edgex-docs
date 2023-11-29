@@ -103,7 +103,8 @@ sudo apt install build-essential
         services:
           device-usb-camera:
             environment:
-              DRIVER_ENABLERTSPSERVER: "true"
+              DRIVER_RTSPSERVERMODE: "internal"
+              DRIVER_RTSPSERVEREXECUTABLE: "./rtsp-simple-server"
               DRIVER_RTSPSERVERHOSTNAME: "your-local-ip-address"
         ```
 
