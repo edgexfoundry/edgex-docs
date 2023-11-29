@@ -105,6 +105,7 @@ The default values can be used in this guide.
     ```yaml
     Driver:
         RtspServerMode: "internal"
+        RTSPServerExecutable: "./rtsp-simple-server"
         RtspServerHostName: "localhost"
         RtspTcpPort: "8554"
         RtspAuthenticationServer: "localhost:8000"
