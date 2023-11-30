@@ -17,6 +17,7 @@
 | [System Events for Devices](./ucr/System-Events-for-Devices.md)                     | Use Case for System Events for Device add/update/delete             |
 | [Microservice Authentication](./ucr/Microservice-Authentication.md)                 | Use Case for Microservice Authentication                            |
 | [URIs for files](.//ucr/URIs-for-Files.md)                                          | Use Case for loading service files from URIs                        |
+| [Performance Test Harness](./ucr/Performance-Test-Harness.md)                       | Use Case for Performance Test                                       |
 
 ## Architectural Design Records (ADRs)
 
