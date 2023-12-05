@@ -19,7 +19,7 @@ Building and running EdgeX on Linux natively will require you have:
 
 The following software is assumed to already be installed and available on the host platform.  Follow the referenced guides if you need to install or setup this software.
 
-- Go Lang, version 1.17 or later as of the Kamakura release
+- Go Lang, version 1.21 as of the Napa release
     - See [Go Download and install guide for help](https://go.dev/doc/install)
     - How to check for existence and version on your machine
 
@@ -33,13 +33,13 @@ The following software is assumed to already be installed and available on the h
 
     - Your installation process may vary based on Linux version/distribution
   
-- Consul, version 1.10 or later as of the Kamakura release
+- Consul, version 1.16 as of the Napa release
     - See [Open Source Consul for help](https://www.consul.io/)
     - How to check for existence and version on your machine
 
         ![image](ConsulCheck.png)
 
-- Redis,version 6.2 or later as of the Kamakura release
+- Redis,version 7.0 as of the Napa release
     - See [How to install and configure Redis on Ubuntu 20.04](https://linuxize.com/post/how-to-install-and-configure-redis-on-ubuntu-20-04/)
     - How to check for existence and version on your machine
 
@@ -155,16 +155,26 @@ If Consul is running correctly, you should be able to reach the Consul UI throug
 
 ![image](RunConsulUI.png)
 
-### Start Core Metadata
+### Start Core Common Config Bootstrapper
 
-Each of core and supporting EdgeX services are located in `edgex-go/cmd` under a subfolder by the service name.  In the first case, core-metadate is located in `edgex-go/cmd/core-metadata`.  Change directories to the core-metadata service subfolder and then run the executable found in the subfolder with `-cp` and `-registry` command line options as shown below.
+``` shell
+cd edgex-go/cmd/core-common-config-bootstrapper/
+nohup ./core-common-config-bootstrapper -cp=consul.http://localhost:8500 &
+```
+
+The `-cp=consul.http://localhost:8500` command line parameter tells core-common-config-bootstrapper to use Consul as the Configuration Provider and where to find Consul running.
+
+!!! note
+    This service will exit once it has seeded the Configuration Provider with the common config.
+
+### Start Core Metadata
 
 ``` shell
 cd edgex-go/cmd/core-metadata/
 nohup ./core-metadata -cp=consul.http://localhost:8500 -registry &
 ```
 
-The `-cp=consul.http://localhost:8500` command line parameter tells core-metadata to use Consul and where to find Consul running.  The `-registry` command line parameter tells core-metadata to use (and register with) the registry service.  Both of these command line parameters will be use when launching all EdgeX services.
+The `-cp=consul.http://localhost:8500` command line parameter tells core-metadata to use Consul and where to find Consul running.  The `-registry` command line parameter tells core-metadata to use (and register with) the registry service.  Both of these command line parameters will be use when launching all other EdgeX services.
 
 ### Start the other Core and Supporting Services
 
