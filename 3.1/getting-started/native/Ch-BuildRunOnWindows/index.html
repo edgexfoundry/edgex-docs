@@ -383,6 +383,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#start-core-common-config-bootstrapper">
+    Start Core Common Config Bootstrapper
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#start-core-metadata">
     Start Core Metadata
   </a>
@@ -2865,6 +2870,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#start-core-common-config-bootstrapper">
+    Start Core Common Config Bootstrapper
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#start-core-metadata">
     Start Core Metadata
   </a>
@@ -2949,7 +2959,7 @@
 <p>The following software is assumed to already be installed and available on the host platform.  Follow the referenced guides if you need to install or setup this software.</p>
 <ul>
 <li>
-<p>Go Lang, version 1.17 or later as of the Kamakura release</p>
+<p>Go Lang, version 1.21 as of the Napa release</p>
 <ul>
 <li>See <a href="https://go.dev/doc/install">Go Download and install guide for help</a></li>
 <li>
@@ -2959,7 +2969,7 @@
 </ul>
 </li>
 <li>
-<p>Consul, version 1.10 or later as of the Kamakura release</p>
+<p>Consul, version 1.16 as of the Napa release</p>
 <ul>
 <li>See <a href="https://www.consul.io/">Open Source Consul for help</a></li>
 <li>
@@ -2985,7 +2995,7 @@
 <li><a href="https://www.cygwin.com/">Cygwin</a></li>
 <li><a href="https://www.mingw-w64.org/downloads/">MinGW/MinGW-W64</a></li>
 </ul>
-<p>Redis will not run on Windows, but is required in order to run EdgeX.  Your Windows platform must be able to connect to a Redis instance on another platform via TCP/IP on port 6379 (by default). Redis,version 6.2 or later as of the Kamakura release.  As an example, see <a href="https://linuxize.com/post/how-to-install-and-configure-redis-on-ubuntu-20-04/">How to install and configure Redis on Ubuntu 20.04</a>.  </p>
+<p>Redis will not run on Windows, but is required in order to run EdgeX.  Your Windows platform must be able to connect to a Redis instance on another platform via TCP/IP on port 6379 (by default). Redis,version 7.0 as of the Napa release.  As an example, see <a href="https://linuxize.com/post/how-to-install-and-configure-redis-on-ubuntu-20-04/">How to install and configure Redis on Ubuntu 20.04</a>.  </p>
 <p>Because EdgeX on your Windows platform will access Redis on another host, Redis should be configured to allow for traffic from other machines, you'll need to allow access from other addresses (see <a href="https://stackoverflow.com/questions/19091087/open-redis-port-for-remote-connections">Open Redis port for remote connections</a>).  Additionally, you will need to configure EdgeX to use a username/password to access Redis, or set Redis into unprotected mode (see <a href="https://serverfault.com/questions/861519/how-to-turn-off-protected-mode-in-redis">Turn off 'protected-mode' in Redis</a>)</p>
 <h2 id="prepare-your-environment">Prepare your environment</h2>
 <div class="admonition info">
@@ -3064,13 +3074,21 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/edgex
 </code></pre></div>
 <p>If Consul is running correctly, you should be able to reach the Consul UI through a browser at http://localhost:8500 on your Windows machine.</p>
 <p><img alt="image" src="../RunConsulUI.png"/></p>
+<h3 id="start-core-common-config-bootstrapper">Start Core Common Config Bootstrapper</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>edgex-go/cmd/core-common-config-bootstrapper/
+nohup<span class="w"> </span>./core-common-config-bootstrapper<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<p>The <code>nohup</code> is used to execute the command and ignore all SIGHUP (hangup) signals.  The <code>&amp;</code> says to execute the process in the background.  Both <code>nohup</code> and <code>&amp;</code> will be used to run each of the services so that the same terminal can be used and the output will be directed to local nohup.out log files.</p>
+<p>The <code>-cp=consul.http://localhost:8500</code> command line parameter tells core-common-config-bootstrapper to use Consul as the Configuration Provider and where to find Consul running.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This service will exit once it has seeded the Configuration Provider with the common config.</p>
+</div>
 <h3 id="start-core-metadata">Start Core Metadata</h3>
-<p>Each of core and supporting EdgeX services are located in <code>edgex-go\cmd</code> under a subfolder by the service name.  In the first case, core-metadate is located in <code>edgex-go\cmd\core-metadata</code>.  In a Git BASH terminal, change directories to the core-metadata service subfolder and then run the executable found in the subfolder with <code>-cp</code> and <code>-registry</code> command line options as shown below.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>edgex-go/cmd/core-metadata/
 nohup<span class="w"> </span>./core-metadata<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
-<p>The <code>nohup</code> is used to execute the command and ignore all SIGHUP (hangup) signals.  The <code>&amp;</code> says to execute the process in the background.  Both <code>nohup</code> and <code>&amp;</code> will be used to run each of the services so that the same terminal can be used and the output will be directed to local nohup.out log files.</p>
-<p>The <code>-cp=consul.http://localhost:8500</code> command line parameter tells core-metadata to use Consul and where to find Consul running.  The <code>-registry</code> command line parameter tells core-metadata to use (and register with) the registry service.  Both of these command line parameters will be use when launching all EdgeX services.</p>
+<p>The <code>-cp=consul.http://localhost:8500</code> command line parameter tells core-metadata to use Consul and where to find Consul running.  The <code>-registry</code> command line parameter tells core-metadata to use (and register with) the registry service.  Both of these command line parameters will be use when launching all other EdgeX services.</p>
 <h3 id="start-the-other-core-and-supporting-services">Start the other Core and Supporting Services</h3>
 <p>In a similar fashion, enter each of the other core and supporting service folders in <code>edgex-go\cmd</code> and launch the services.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>../core-data
