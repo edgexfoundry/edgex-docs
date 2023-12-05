@@ -1,14 +1,12 @@
-# Modbus
+---
+title: Device Modbus - Getting Started
+---
 
-EdgeX - Ireland Release
-
+# Device Modbus - Getting Started
 This page describes how to connect Modbus devices to EdgeX. In this example, we simulate the [temperature sensor](https://www.audon.co.uk/ethernet_sensors/NANO_TEMP.html) instead of using a real device. This provides a straightforward way to test the device service features.
 
-- Temperature sensor: https://www.audon.co.uk/ethernet_sensors/NANO_TEMP.html
-- User manual: http://download.inveo.com.pl/manual/nano_t/user_manual_en.pdf
-
-## Important Notice
-To fulfill the [issue #61](https://github.com/edgexfoundry/device-modbus-go/issues/61), there is an important incompatible change after v2 (Ireland release). In the Device Profile attributes section, the `startingAddress` becomes an integer data type and zero-based value. In v1, `startingAddress` was a string data type and one-based value.
+- [Temperature sensor](https://www.audon.co.uk/ethernet_sensors/NANO_TEMP.html)
+- [User manual](http://download.inveo.com.pl/manual/nano_t/user_manual_en.pdf)
 
 ## Environment
 

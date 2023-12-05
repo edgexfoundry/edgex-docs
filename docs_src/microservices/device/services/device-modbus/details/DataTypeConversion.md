@@ -1,8 +1,12 @@
-# Modbus - Data Type Conversion
+---
+title: Device Modbus - Data Type Conversion
+---
+
+# Device Modbus - Data Type Conversion
 
 In use cases where the device resource uses an integer data type with a
 float scale, precision can be lost following transformation.
-
+  
 For example, a Modbus device stores the temperature and humidity in an
 Int16 data type with a float scale of 0.01. If the temperature is 26.53,
 the read value is 2653. However, following transformation, the value is 26.
