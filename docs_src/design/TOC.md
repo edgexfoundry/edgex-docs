@@ -10,7 +10,7 @@
 | [Bring Your Own Vault](./ucr/Bring-Your-Own-Vault.md)                               | Use Case for bringing your own Vault                                |
 | [Common Configuration](./ucr/Common Configuration.md)                               | Use Case for having Common configuration used by all EdgeX services |
 | [Core Data Retention and Persistent Cap](./ucr/Core-Data-Retention.md)              | Use Case for capping readings in Core Data                          |
-| [Device Functions](./ucr/device-functions.md)                                       | Use Case for Device Functions                                       |
+| [Device Functions](./ucr/Device-Functions.md)                                       | Use Case for Device Functions                                       |
 | [Device Parent-Child Relationships](./ucr/Device-Parent-Child-Relationships.md)     | Use Case for Device Parent-Child Relationships                      |
 | [Extending Device Data](./ucr/Extending-Device-Data.md)                             | Use Case for Extending of Device Data by Application Services       |
 | [Provision Watch via Device Metadata](./ucr/Provision-Watch-via-Device-Metadata.md) | Use Case for Provision Watching via Additional Device Metadata      |
