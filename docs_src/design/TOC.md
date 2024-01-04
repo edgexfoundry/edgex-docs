@@ -53,3 +53,4 @@
 | [0027 URIs for Files](./adr/0027-URIs for Files.md)                                          | Add capability to load service files from remote locations using URIs                   |
 | [0028 Microservice communication security (token)](./adr/security/0028-authentication.md)    | Microservice communication security / authentication (token-based)                      |
 | [0029 Microservice communication security (E2EE)](./adr/security/0029-authentication.md)     | Microservice communication security / authentication (end-to-end authentication)        |
+| [0030 Performance Test Harness](./adr/0030-Performance-Test-Harness.md)                      | Run Performance Test and generate report        |
