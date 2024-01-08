@@ -3237,7 +3237,11 @@ Please refer to the <a href="../../../../GettingStarted/">Getting Started</a> se
 </tr>
 <tr>
 <td>AutoReconnect</td>
-<td>Boolean specifying if reconnect should be automatic if connection to MQTT broker is lost</td>
+<td>Boolean specifying if reconnect should be automatic if connection to MQTT broker is lost.</td>
+</tr>
+<tr>
+<td>MaxReconnectInterval</td>
+<td>Time duration string that specifies the maximum duration to wait before trying to reconnect. Defaults to 60s if not specified.</td>
 </tr>
 <tr>
 <td>Retain</td>
@@ -3295,6 +3299,18 @@ Please refer to the <a href="../../../../GettingStarted/">Getting Started</a> se
 <td>WillQos</td>
 <td>MQTT Quality of Service (QOS) setting to use (0, 1 or 2) for Last Will Message.</td>
 </tr>
+<tr>
+<td>PreConnect</td>
+<td>Boolean that indicates if the MQTT Broker connection should be established on initialization. Default is false which results in lazy connection when first data needs to be exported.</td>
+</tr>
+<tr>
+<td>PreConnectRetryCount</td>
+<td>Specifies the number of times to attempt to pre-connect to the MQTT Broker. If connection is never made, MQTT export reverts to using lazy connect. Defaults to 6 if not specified.</td>
+</tr>
+<tr>
+<td>PreConnectRetryInterval</td>
+<td>Time duration string that specifies the amount of time to wait between pre-connect attempts. Defaults to 10s if not specified.</td>
+</tr>
 </tbody>
 </table>
 <div class="admonition note">
@@ -3320,9 +3336,9 @@ Please refer to the <a href="../../../../GettingStarted/">Getting Started</a> se
 <span class="w">    </span><span class="nt">BrokerAddress</span><span class="p">:</span><span class="w"> </span><span class="s">"tcps://my-broker-host.com:8883"</span>
 <span class="w">    </span><span class="nt">Topic</span><span class="p">:</span><span class="w"> </span><span class="s">"mytopic"</span>
 <span class="w">    </span><span class="nt">ClientId</span><span class="p">:</span><span class="w"> </span><span class="s">"myclientid"</span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Qos="2"</span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">AutoReconnect="true"</span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Retain="true"</span>
+<span class="w">    </span><span class="nt">Qos</span><span class="p">:</span><span class="w"> </span><span class="s">"2"</span>
+<span class="w">    </span><span class="nt">AutoReconnect</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">    </span><span class="nt">Retain</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">    </span><span class="nt">SkipVerify</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
 <span class="w">    </span><span class="nt">PersistOnError</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">    </span><span class="nt">AuthMode</span><span class="p">:</span><span class="w"> </span><span class="s">"usernamepassword"</span>
@@ -3334,9 +3350,9 @@ Please refer to the <a href="../../../../GettingStarted/">Getting Started</a> se
 <span class="w">    </span><span class="nt">BrokerAddress</span><span class="p">:</span><span class="w"> </span><span class="s">"tcps://my-broker-host.com:8883"</span>
 <span class="w">    </span><span class="nt">Topic</span><span class="p">:</span><span class="w"> </span><span class="s">"mytopic"</span>
 <span class="w">    </span><span class="nt">ClientId</span><span class="p">:</span><span class="w"> </span><span class="s">"myclientid"</span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Qos="2"</span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">AutoReconnect="true"</span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Retain="true"</span>
+<span class="w">    </span><span class="nt">Qos</span><span class="p">:</span><span class="w"> </span><span class="s">"2"</span>
+<span class="w">    </span><span class="nt">AutoReconnect</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">    </span><span class="nt">Retain</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">    </span><span class="nt">SkipVerify</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
 <span class="w">    </span><span class="nt">PersistOnError</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">    </span><span class="nt">AuthMode</span><span class="p">:</span><span class="w"> </span><span class="s">"none"</span>
@@ -3345,6 +3361,23 @@ Please refer to the <a href="../../../../GettingStarted/">Getting Started</a> se
 <span class="w">    </span><span class="nt">WillQos</span><span class="p">:</span><span class="w"> </span><span class="s">"2"</span>
 <span class="w">    </span><span class="nt">WillRetained</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
 <span class="w">    </span><span class="nt">WillTopic</span><span class="p">:</span><span class="w"> </span><span class="s">"serviceX/last/will"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># MQTT Export with pre-connect and MaxReconnectInterval</span>
+<span class="nt">MQTTExport</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">BrokerAddress</span><span class="p">:</span><span class="w"> </span><span class="s">"tcps://my-broker-host.com:8883"</span>
+<span class="w">    </span><span class="nt">Topic</span><span class="p">:</span><span class="w"> </span><span class="s">"mytopic"</span>
+<span class="w">    </span><span class="nt">ClientId</span><span class="p">:</span><span class="w"> </span><span class="s">"myclientid"</span>
+<span class="w">    </span><span class="nt">Qos</span><span class="p">:</span><span class="w"> </span><span class="s">"2"</span>
+<span class="w">    </span><span class="nt">AutoReconnect</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">    </span><span class="nt">MaxReconnectInterval</span><span class="p">:</span><span class="w"> </span><span class="s">"15s"</span>
+<span class="w">    </span><span class="nt">Retain</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">    </span><span class="nt">SkipVerify</span><span class="p">:</span><span class="w"> </span><span class="s">"false"</span>
+<span class="w">    </span><span class="nt">PersistOnError</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">    </span><span class="nt">AuthMode</span><span class="p">:</span><span class="w"> </span><span class="s">"none"</span>
+<span class="w">    </span><span class="nt">PreConnect</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">    </span><span class="nt">PreConnectRetryCount</span><span class="p">:</span><span class="w"> </span><span class="s">"10"</span>
+<span class="w">    </span><span class="nt">PreConnectRetryInterval</span><span class="p">:</span><span class="w"> </span><span class="s">"2s"</span>
 </code></pre></div></p>
 </div>
 <h2 id="setresponsedata"><a href="../../../../sdk/api/BuiltInPipelineFunctions/#set-response-data">SetResponseData</a></h2>

@@ -3471,6 +3471,33 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 </tr>
 </tbody>
 </table>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ConnectToBroker(lc logger.LoggingClient, sp bootstrapInterfaces.SecretProvider, retryCount int, retryInterval time.Duration)</td>
+<td>Pre-connects to the external MQTT Broker that data will be exported. If this function is not called, then lazy connection will be made when the first data needs to be exported.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example -">
+<p class="admonition-title">Pre-Connecting to MQTT Broker</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span><span class="w"> </span>
+<span class="nx">export</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">transforms</span><span class="p">.</span><span class="nx">NewMQTTSecretSender</span><span class="p">(</span><span class="nx">mqttConfig</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<span class="nx">export</span><span class="p">.</span><span class="nx">ConnectToBroker</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">LoggingClient</span><span class="p">(),</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">SecretProvider</span><span class="p">(),</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+<span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">SetDefaultFunctionsPipeline</span><span class="p">(</span><span class="nx">export</span><span class="p">.</span><span class="nx">MQTTSend</span><span class="p">)</span>
+<span class="o">...</span>
+</code></pre></div>
+</div>
+<div class="admonition edgey -">
+<p class="admonition-title">EdgeX 3.2</p>
+<p>ConnectToBroker is new in EdgeX 3.2</p>
+</div>
 <div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">MQTTSecretConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// BrokerAddress should be set to the complete broker address i.e. mqtts://mosquitto:8883/mybroker</span>
 <span class="w">    </span><span class="nx">BrokerAddress</span><span class="w"> </span><span class="kt">string</span>
@@ -3480,6 +3507,8 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <span class="w">    </span><span class="nx">SecretName</span><span class="w"> </span><span class="kt">string</span>
 <span class="w">    </span><span class="c1">// AutoReconnect indicated whether or not to retry connection if disconnected</span>
 <span class="w">    </span><span class="nx">AutoReconnect</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">    </span><span class="c1">// MaxReconnectInterval is the max duration for attempting to reconnect to the broker. Default to 60s if left blank.</span>
+<span class="w">    </span><span class="nx">MaxReconnectInterval</span><span class="w"> </span><span class="kt">string</span>
 <span class="w">    </span><span class="c1">// KeepAlive is the interval duration between client sending keepalive ping to broker</span>
 <span class="w">    </span><span class="nx">KeepAlive</span><span class="w"> </span><span class="kt">string</span>
 <span class="w">    </span><span class="c1">// ConnectTimeout is the duration for timing out on connecting to the broker</span>
@@ -3514,6 +3543,10 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <span class="w">    </span><span class="nx">Topic</span><span class="w"> </span><span class="kt">string</span>
 <span class="p">}</span>
 </code></pre></div>
+<div class="admonition edgey -">
+<p class="admonition-title">EdgeX 3.2</p>
+<p>MaxReconnectInterval setting is new in EdgeX 3.2</p>
+</div>
 <p>See <a href="https://cedalo.com/blog/mqtt-last-will-explained-and-example">MQTT Last Will</a> for more details on MQTT Last Will capability.</p>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 3.1</p>
