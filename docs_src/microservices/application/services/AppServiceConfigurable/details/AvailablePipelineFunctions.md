@@ -272,27 +272,31 @@ Please refer to the function's detailed documentation by clicking the function n
 
 **Parameters**
 
-| Name           | Description                                                                                                                                                                                           |
-|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| BrokerAddress  | URL specify the address of the MQTT Broker                                                                                                                                                            |
-| Topic          | Topic to publish the data                                                                                                                                                                             |
-| ClientId       | Id to use when connecting to the MQTT Broker                                                                                                                                                          |
-| Qos            | MQTT Quality of Service (QOS) setting to use (0, 1 or 2). Please refer [**here**](https://www.eclipse.org/paho/files/mqttdoc/MQTTClient/html/qos.html) for more details on QOS values                 |
-| AutoReconnect  | Boolean specifying if reconnect should be automatic if connection to MQTT broker is lost                                                                                                              |
-| Retain         | Boolean  specifying if the MQTT Broker should save the last message published as the “Last Good Message” on that topic                                                                                |
-| SkipVerify     | Boolean indicating if the certificate verification should be skipped                                                                                                                                  |
-| PersistOnError | Indicates to persist the data if the POST fails. Store and Forward must also be enabled if this is set to "true"                                                                                      |
-| AuthMode       | Mode of authentication to use when connecting to the MQTT Broker. Valid values are:                                                                                                                   |
-|                | **none** - No authentication required                                                                                                                                                                 |
-|                | **usernamepassword** - Use username and password authentication. The Secret Store (Vault or [InsecureSecrets](../../../Configuration.md#writable)) must contain the `username` and `password` secrets |
-|                | **clientcert** - Use Client Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../../../Configuration.md#writable)) must contain the `clientkey` and `clientcert` secrets       |
-|                | **cacert** - Use CA Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../../../Configuration.md#writable)) must contain the `cacert` secret                                    |
-| SecretName     | Name of the  secret in the SecretStore where authentication secrets are stored                                                                                                                        |
-| WillEnabled    | Enables Last Will Capability. See for [MQTT Last Will](https://cedalo.com/blog/mqtt-last-will-explained-and-example) more details.                                                                    |
-| WillTopic      | Topic Last Will messages is publish                                                                                                                                                                   |
-| WillPayload    | Last Will messages to be published when service disconnects from broker                                                                                                                               |
-| WillRetain     | Boolean  specifying if the MQTT Broker should save the last message published as the “Last Good Message” on the Will topic                                                                            |
-| WillQos        | MQTT Quality of Service (QOS) setting to use (0, 1 or 2) for Last Will Message.                                                                                                                       |
+| Name                    | Description                                                  |
+| ----------------------- | ------------------------------------------------------------ |
+| BrokerAddress           | URL specify the address of the MQTT Broker                   |
+| Topic                   | Topic to publish the data                                    |
+| ClientId                | Id to use when connecting to the MQTT Broker                 |
+| Qos                     | MQTT Quality of Service (QOS) setting to use (0, 1 or 2). Please refer [**here**](https://www.eclipse.org/paho/files/mqttdoc/MQTTClient/html/qos.html) for more details on QOS values |
+| AutoReconnect           | Boolean specifying if reconnect should be automatic if connection to MQTT broker is lost. |
+| MaxReconnectInterval    | Time duration string that specifies the maximum duration to wait before trying to reconnect. Defaults to 60s if not specified. |
+| Retain                  | Boolean  specifying if the MQTT Broker should save the last message published as the “Last Good Message” on that topic |
+| SkipVerify              | Boolean indicating if the certificate verification should be skipped |
+| PersistOnError          | Indicates to persist the data if the POST fails. Store and Forward must also be enabled if this is set to "true" |
+| AuthMode                | Mode of authentication to use when connecting to the MQTT Broker. Valid values are: |
+|                         | **none** - No authentication required                        |
+|                         | **usernamepassword** - Use username and password authentication. The Secret Store (Vault or [InsecureSecrets](../../../Configuration.md#writable)) must contain the `username` and `password` secrets |
+|                         | **clientcert** - Use Client Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../../../Configuration.md#writable)) must contain the `clientkey` and `clientcert` secrets |
+|                         | **cacert** - Use CA Certificate authentication. The Secret Store (Vault or [InsecureSecrets](../../../Configuration.md#writable)) must contain the `cacert` secret |
+| SecretName              | Name of the  secret in the SecretStore where authentication secrets are stored |
+| WillEnabled             | Enables Last Will Capability. See for [MQTT Last Will](https://cedalo.com/blog/mqtt-last-will-explained-and-example) more details. |
+| WillTopic               | Topic Last Will messages is publish                          |
+| WillPayload             | Last Will messages to be published when service disconnects from broker |
+| WillRetain              | Boolean  specifying if the MQTT Broker should save the last message published as the “Last Good Message” on the Will topic |
+| WillQos                 | MQTT Quality of Service (QOS) setting to use (0, 1 or 2) for Last Will Message. |
+| PreConnect              | Boolean that indicates if the MQTT Broker connection should be established on initialization. Default is false which results in lazy connection when first data needs to be exported. |
+| PreConnectRetryCount    | Specifies the number of times to attempt to pre-connect to the MQTT Broker. If connection is never made, MQTT export reverts to using lazy connect. Defaults to 6 if not specified. |
+| PreConnectRetryInterval | Time duration string that specifies the amount of time to wait between pre-connect attempts. Defaults to 10s if not specified. |
 
 !!! note
     `Authmode=cacert` is only needed when client authentication (e.g. `usernamepassword`) is not required, but a CA Cert is needed to validate the broker's SSL/TLS cert.
@@ -316,9 +320,9 @@ Please refer to the function's detailed documentation by clicking the function n
         BrokerAddress: "tcps://my-broker-host.com:8883"
         Topic: "mytopic"
         ClientId: "myclientid"
-        Qos="2"
-        AutoReconnect="true"
-        Retain="true"
+        Qos: "2"
+        AutoReconnect: "true"
+        Retain: "true"
         SkipVerify: "false"
         PersistOnError: "true"
         AuthMode: "usernamepassword"
@@ -331,9 +335,9 @@ Please refer to the function's detailed documentation by clicking the function n
         BrokerAddress: "tcps://my-broker-host.com:8883"
         Topic: "mytopic"
         ClientId: "myclientid"
-        Qos="2"
-        AutoReconnect="true"
-        Retain="true"
+        Qos: "2"
+        AutoReconnect: "true"
+        Retain: "true"
         SkipVerify: "false"
         PersistOnError: "true"
         AuthMode: "none"
@@ -343,6 +347,25 @@ Please refer to the function's detailed documentation by clicking the function n
         WillRetained: "true"
         WillTopic: "serviceX/last/will"
     ```
+    ```yaml
+    # MQTT Export with pre-connect and MaxReconnectInterval
+    MQTTExport:
+      Parameters:
+        BrokerAddress: "tcps://my-broker-host.com:8883"
+        Topic: "mytopic"
+        ClientId: "myclientid"
+        Qos: "2"
+        AutoReconnect: "true"
+        MaxReconnectInterval: "15s"
+        Retain: "true"
+        SkipVerify: "false"
+        PersistOnError: "true"
+        AuthMode: "none"
+        PreConnect: "true"
+        PreConnectRetryCount: "10"
+        PreConnectRetryInterval: "2s"
+    ```
+
 ## [SetResponseData](../../../sdk/api/BuiltInPipelineFunctions.md#set-response-data)
 
 **Parameters**

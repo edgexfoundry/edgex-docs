@@ -52,4 +52,4 @@
 | [0026 Common Configuration](./adr/0026-Common Configuration.md)                              | Separate out the common configuration setting into a single source for all the services |
 | [0027 URIs for Files](./adr/0027-URIs for Files.md)                                          | Add capability to load service files from remote locations using URIs                   |
 | [0028 Microservice communication security (token)](./adr/security/0028-authentication.md)    | Microservice communication security / authentication (token-based)                      |
-| [0029 Microservice communication security (E2EE)](./adr/security/0029-authentication.md)     | Microservice communication security / authentication (end-to-end authentication)        |
+| [0029 Microservice communication security (E2EE)](./adr/security/0029-authentication-e2ee.md)     | Microservice communication security / authentication (end-to-end authentication)        |
