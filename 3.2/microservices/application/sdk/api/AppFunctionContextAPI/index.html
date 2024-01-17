@@ -1984,6 +1984,25 @@
 </nav>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#store-and-forward">
+    Store and Forward
+  </a>
+<nav aria-label="Store and Forward" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#setretrydata">
+    SetRetryData()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#triggerretryfaileddata">
+    TriggerRetryFailedData()
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#miscellaneous">
     Miscellaneous
   </a>
@@ -2012,11 +2031,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#getdeviceresource">
     GetDeviceResource()
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#setretrydata">
-    SetRetryData()
   </a>
 </li>
 <li class="md-nav__item">
@@ -2971,6 +2985,25 @@
 </nav>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#store-and-forward">
+    Store and Forward
+  </a>
+<nav aria-label="Store and Forward" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#setretrydata">
+    SetRetryData()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#triggerretryfaileddata">
+    TriggerRetryFailedData()
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#miscellaneous">
     Miscellaneous
   </a>
@@ -2999,11 +3032,6 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#getdeviceresource">
     GetDeviceResource()
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#setretrydata">
-    SetRetryData()
   </a>
 </li>
 <li class="md-nav__item">
@@ -3042,6 +3070,7 @@
 <span class="w">    </span><span class="nx">SetResponseContentType</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span>
 <span class="w">    </span><span class="nx">ResponseContentType</span><span class="p">()</span><span class="w"> </span><span class="kt">string</span>
 <span class="w">    </span><span class="nx">SetRetryData</span><span class="p">(</span><span class="nx">data</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">TriggerRetryFailedData</span><span class="p">()</span>
 <span class="w">    </span><span class="nx">SecretProvider</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SecretProvider</span>
 <span class="w">    </span><span class="nx">LoggingClient</span><span class="p">()</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">LoggingClient</span>
 <span class="w">    </span><span class="nx">EventClient</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">EventClient</span>
@@ -3170,6 +3199,21 @@
 <h3 id="secretprovider">SecretProvider</h3>
 <p><code>SecretProvider() interfaces.SecretProvider</code></p>
 <p>This API returns reference to the SecretProvider instance. See <a href="../../../security/Ch-SecretProviderApi/">Secret Provider API</a> section for more details.</p>
+<h2 id="store-and-forward">Store and Forward</h2>
+<p>The APIs in this section are related to the Store and Forward capability. See the <a href="../../details/StoreAndForward/">Store and Forward</a> section for more details.</p>
+<h3 id="setretrydata">SetRetryData()</h3>
+<p><code>SetRetryData(data []byte)</code></p>
+<p>This method can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on <code>Store and Forward</code> configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The <code>Context</code> will also be restored to the state when the function called this API. See <a href="../AdvancedTopics/#store-and-forward">Store and Forward</a> for more details.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>Store and Forward</code> be must be enabled when calling this API, otherwise the data is ignored.</p>
+</div>
+<h3 id="triggerretryfaileddata">TriggerRetryFailedData()</h3>
+<p>This method sets the flag to trigger retry of failed data once the current pipeline execution has completed. This method should only be called when the export of data was successful, which indicates that the recipient is accepting data. This allows the failed data to be retried as soon as the recipient is back on-line rather than waiting for the configured retry interval to expire.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>Store and Forward</code> be must be enabled and failed data must be present, otherwise the call to this API is ignored.</p>
+</div>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <h3 id="clone">Clone()</h3>
 <p><code>Clone() AppFunctionContext</code></p>
@@ -3186,13 +3230,6 @@
 <h3 id="getdeviceresource">GetDeviceResource()</h3>
 <p><code>GetDeviceResource(profileName string, resourceName string) (dtos.DeviceResource, error)</code></p>
 <p>This API retrieves the DeviceResource for the given profile / resource name. Results are cached to minimize HTTP traffic to core-metadata.</p>
-<h3 id="setretrydata">SetRetryData()</h3>
-<p><code>SetRetryData(data []byte)</code></p>
-<p>This method can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on <code>Store and Forward</code> configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The <code>Context</code> will also be restored to the state when the function called this API. See <a href="../AdvancedTopics/#store-and-forward">Store and Forward</a> for more details.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code>Store and Forward</code> be must be enabled when calling this API, otherwise the data is ignored.</p>
-</div>
 <h3 id="metricsmanager">MetricsManager</h3>
 <p><code>MetricsManager() bootstrapInterfaces.MetricsManager</code></p>
 <p>This API returns the Metrics Manager used to register counter, gauge, gaugeFloat64 or timer metric types from github.com/rcrowley/go-metrics</p>
