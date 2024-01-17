@@ -3206,13 +3206,13 @@
 <p>This method can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on <code>Store and Forward</code> configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The <code>Context</code> will also be restored to the state when the function called this API. See <a href="../AdvancedTopics/#store-and-forward">Store and Forward</a> for more details.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code>Store and Forward</code> be must be enabled when calling this API, otherwise the data is ignored.</p>
+<p><code>Store and Forward</code> must be enabled when calling this API, otherwise the data is ignored.</p>
 </div>
 <h3 id="triggerretryfaileddata">TriggerRetryFailedData()</h3>
 <p>This method sets the flag to trigger retry of failed data once the current pipeline execution has completed. This method should only be called when the export of data was successful, which indicates that the recipient is accepting data. This allows the failed data to be retried as soon as the recipient is back on-line rather than waiting for the configured retry interval to expire.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code>Store and Forward</code> be must be enabled and failed data must be present, otherwise the call to this API is ignored.</p>
+<p><code>Store and Forward</code> must be enabled and failed data must be present, otherwise the call to this API is ignored.</p>
 </div>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <h3 id="clone">Clone()</h3>
