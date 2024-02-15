@@ -867,9 +867,31 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Auto Events
+          <span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
         Auto Events
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#concept">
+    Concept
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example-and-usage">
+    Example and Usage
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../DeviceDiscovery/">
@@ -2627,6 +2649,22 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#concept">
+    Concept
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example-and-usage">
+    Example and Usage
+  </a>
+</li>
+</ul>
 </nav>
 </div>
 </div>
@@ -2634,7 +2672,110 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="device-service-auto-events">Device Service - Auto Events</h1>
-<p>coming soon</p>
+<h2 id="concept">Concept</h2>
+<p><img alt="image" src="../Auto_Events.png">
+In the Operational Technology (OT) working field, there's a need to check/monitor the status of the actual device/sensor, for example, when the temperature reaches 30°C, the Air Conditioner will turn on itself. However, it is time-consuming to check sensor's status manually so edgex provides this functionality called <code>AutoEvents</code> to check their statuses automatically and periodically.</img></p>
+<p>From the diagram above, <code>Autoevents</code> is used to define how often events/readings are collected to be sent to core data from the device service. When the device service receives the information of devices being created, updated or deleted from core metadata, it will get reading from the real device automatically and send event/reading to MessageBus when App service/Core Data receive them.</p>
+<p><code>Autoevents</code> is an optional feature when creating a devices, each device may or may not have multiple autoevents associated with it. An AutoEvent has the following fields:</p>
+<ul>
+<li><strong>sourceName</strong>: the name of a deviceResource or deviceCommand indicating what to read.</li>
+<li><strong>interval</strong>: a string indicating the time to wait between reading, expressed as an integer followed by units of ms, s, m or h.</li>
+<li><strong>onChange</strong>: a boolean: if set to true, only generate new events if one or more of the contained readings has changed since the last event.</li>
+</ul>
+<h2 id="example-and-usage">Example and Usage</h2>
+<p>The AutoEvent is defined in the <code>autoEvents</code> section of the device definition file:</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="highlight"><pre><span></span><code><span class="nt">device</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device-demo</span>
+<span class="w">  </span><span class="nt">adminState</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UNLOCKED</span>
+<span class="w">  </span><span class="nt">operatingState</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UP</span>
+<span class="w">  </span><span class="nt">serviceName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">device-virtual</span>
+<span class="w">  </span><span class="nt">profileName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">virtual-profile</span>
+<span class="w">  </span><span class="nt">protocols</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">virtual</span>
+<span class="w">  </span><span class="nt">autoEvents</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">onChange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">sourceName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bool</span>
+</code></pre></div>
+</div>
+<p>After service startup, query core-data's API to query the number of events:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59880/api/v3/event/device/name/device-demo
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">   </span><span class="s2">"apiVersion"</span>:<span class="s2">"v3"</span>,
+<span class="w">   </span><span class="s2">"statusCode"</span>:200,
+<span class="w">   </span><span class="s2">"totalCount"</span>:1,
+<span class="w">   </span><span class="s2">"events"</span>:<span class="o">[</span>
+<span class="w">      </span><span class="o">{</span>
+<span class="w">         </span><span class="s2">"apiVersion"</span>:<span class="s2">"v3"</span>,
+<span class="w">         </span><span class="s2">"id"</span>:<span class="s2">"cbb9d4bd-50e3-4a99-bdf0-63ca2d4b4a37"</span>,
+<span class="w">         </span><span class="s2">"deviceName"</span>:<span class="s2">"device-demo"</span>,
+<span class="w">         </span><span class="s2">"profileName"</span>:<span class="s2">"virtual-profile"</span>,
+<span class="w">         </span><span class="s2">"sourceName"</span>:<span class="s2">"temperature"</span>,
+<span class="w">         </span><span class="s2">"origin"</span>:1705997198406508020,
+<span class="w">         </span><span class="s2">"readings"</span>:<span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">               </span><span class="s2">"id"</span>:<span class="s2">"81decf04-3e9f-48cc-a3ee-1aeaa6730c76"</span>,
+<span class="w">               </span><span class="s2">"origin"</span>:1705997198406508020,
+<span class="w">               </span><span class="s2">"deviceName"</span>:<span class="s2">"device-demo"</span>,
+<span class="w">               </span><span class="s2">"resourceName"</span>:<span class="s2">"Bool"</span>,
+<span class="w">               </span><span class="s2">"profileName"</span>:<span class="s2">"virtual-profile"</span>,
+<span class="w">               </span><span class="s2">"valueType"</span>:<span class="s2">"Bool"</span>,
+<span class="w">               </span><span class="s2">"value"</span>:<span class="s2">"false"</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">         </span><span class="o">]</span>
+<span class="w">      </span><span class="o">}</span>
+<span class="w">   </span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>After 10s, query core-data's API to query the number of events again. You can see that the totalCount of events will change to 2 after 10s.</p>
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">   </span><span class="s2">"apiVersion"</span>:<span class="s2">"v3"</span>,
+<span class="w">   </span><span class="s2">"statusCode"</span>:200,
+<span class="w">   </span><span class="s2">"totalCount"</span>:2,
+<span class="w">   </span><span class="s2">"events"</span>:<span class="o">[</span>
+<span class="w">      </span><span class="o">{</span>
+<span class="w">         </span><span class="s2">"apiVersion"</span>:<span class="s2">"v3"</span>,
+<span class="w">         </span><span class="s2">"id"</span>:<span class="s2">"1dead670-fc91-48db-8f6a-74f30bd3e0d6"</span>,
+<span class="w">         </span><span class="s2">"deviceName"</span>:<span class="s2">"device-demo"</span>,
+<span class="w">         </span><span class="s2">"profileName"</span>:<span class="s2">"virtual-profile"</span>,
+<span class="w">         </span><span class="s2">"sourceName"</span>:<span class="s2">"Bool"</span>,
+<span class="w">         </span><span class="s2">"origin"</span>:1707986208822384190,
+<span class="w">         </span><span class="s2">"readings"</span>:<span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">               </span><span class="s2">"id"</span>:<span class="s2">"c66db516-f27f-4663-b0a1-39d3693bf5fc"</span>,
+<span class="w">               </span><span class="s2">"origin"</span>:1707986208822384190,
+<span class="w">               </span><span class="s2">"deviceName"</span>:<span class="s2">"device-demo"</span>,
+<span class="w">               </span><span class="s2">"resourceName"</span>:<span class="s2">"Bool"</span>,
+<span class="w">               </span><span class="s2">"profileName"</span>:<span class="s2">"virtual-profile"</span>,
+<span class="w">               </span><span class="s2">"valueType"</span>:<span class="s2">"Bool"</span>,
+<span class="w">               </span><span class="s2">"value"</span>:<span class="s2">"true"</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">         </span><span class="o">]</span>
+<span class="w">      </span><span class="o">}</span>,
+<span class="w">      </span><span class="o">{</span>
+<span class="w">         </span><span class="s2">"apiVersion"</span>:<span class="s2">"v3"</span>,
+<span class="w">         </span><span class="s2">"id"</span>:<span class="s2">"2549332e-0dfb-4881-a305-a2044a7ae835"</span>,
+<span class="w">         </span><span class="s2">"deviceName"</span>:<span class="s2">"device-demo"</span>,
+<span class="w">         </span><span class="s2">"profileName"</span>:<span class="s2">"virtual-profile"</span>,
+<span class="w">         </span><span class="s2">"sourceName"</span>:<span class="s2">"Bool"</span>,
+<span class="w">         </span><span class="s2">"origin"</span>:1707986198816126412,
+<span class="w">         </span><span class="s2">"readings"</span>:<span class="o">[</span>
+<span class="w">            </span><span class="o">{</span>
+<span class="w">               </span><span class="s2">"id"</span>:<span class="s2">"a5dd24ba-bc41-4a10-a99d-082c0edc026c"</span>,
+<span class="w">               </span><span class="s2">"origin"</span>:1707986198816126412,
+<span class="w">               </span><span class="s2">"deviceName"</span>:<span class="s2">"device-demo"</span>,
+<span class="w">               </span><span class="s2">"resourceName"</span>:<span class="s2">"Bool"</span>,
+<span class="w">               </span><span class="s2">"profileName"</span>:<span class="s2">"virtual-profile"</span>,
+<span class="w">               </span><span class="s2">"valueType"</span>:<span class="s2">"Bool"</span>,
+<span class="w">               </span><span class="s2">"value"</span>:<span class="s2">"false"</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">         </span><span class="o">]</span>
+<span class="w">      </span><span class="o">}</span>
+<span class="w">   </span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div>
 </article>
 </div>
 </div>

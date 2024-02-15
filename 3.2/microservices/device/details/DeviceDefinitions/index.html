@@ -862,9 +862,45 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Device Definitions
+          <span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
         Device Definitions
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#concept">
+    Concept
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#usage">
+    Usage
+  </a>
+<nav aria-label="Usage" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-to-start">
+    How to start
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#provisioning">
+    Provisioning
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../AutoEvents/">
@@ -2627,6 +2663,36 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#concept">
+    Concept
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#usage">
+    Usage
+  </a>
+<nav aria-label="Usage" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-to-start">
+    How to start
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#provisioning">
+    Provisioning
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
 </nav>
 </div>
 </div>
@@ -2634,7 +2700,15 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="device-service-device-definitions">Device Service - Device Definitions</h1>
-<p>coming soon</p>
+<h2 id="concept">Concept</h2>
+<p><img alt="image" src="../Device.png"/></p>
+<p>In EdgeX parlance, "device" is used to refer to a sensor, actuator, or IoT "thing". A sensor generally collects information from the physical world - like a temperature or vibration sensor. Actuators are machines that can be told to do something. Actuators move or otherwise control a mechanism or system - like a value on a pump. While there may be some technical differences, for the purposes of EdgeX documentation, device will refer to a sensor, actuator or "thing".</p>
+<p>Data about actual devices is another type of information and each device must have a unique name associated to it. The <a href="../../../core/metadata/Purpose/">core metadata micro service</a> stores information about a device. This information is used by other services (Device, Command, etc) to communicate with the devices. Each device is also associated to a device profile. This association enables metadata to apply knowledge provided by the device profile to each device. For example, a thermostat profile would say that it reports temperature values in Celsius. Associating a particular thermostat (the thermostat in the lobby for example) to the thermostat profile allows metadata to know that the lobby thermostat reports temperature value in Celsius.</p>
+<h2 id="usage">Usage</h2>
+<h3 id="how-to-start">How to start</h3>
+<p>You can <a href="../../../../walk-through/Ch-WalkthroughDeviceProfile/">define your device</a> by creating device profile first and add your device based on the profile.</p>
+<h3 id="provisioning">Provisioning</h3>
+<p>Some device service have the ability to discover new devices, see <a href="../../../../walk-through/Ch-WalkthroughProvision/">Provision a device</a> and <a href="../DeviceDiscovery/">Device Discovery</a> for more detailed information.</p>
 </article>
 </div>
 </div>
