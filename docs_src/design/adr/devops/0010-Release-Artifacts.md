@@ -42,7 +42,7 @@ Contains: Officially released docker images for EdgeX.
 
 Docker Tags Used:•Version (ie: v1.x), Latest
 
-[Nexus Cleanup Policies Reference](https://help.sonatype.com/repomanager3/repository-management/cleanup-policies)
+[Nexus Cleanup Policies Reference](https://help.sonatype.com/en/cleanup-policies.html)
 
 ### Docker Compose Files
 
