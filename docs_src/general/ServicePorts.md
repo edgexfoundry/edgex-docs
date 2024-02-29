@@ -44,6 +44,7 @@ The following tables (organized by type of service) capture the default service 
     |device-grove   |59992|
     |device-snmp	|59993|
     |device-gpio    |59910|
+    |device-s7      |59994|
 === "Security"
     |Services Name|	Port Definition|
     |---|---|
