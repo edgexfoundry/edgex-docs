@@ -8,6 +8,7 @@
 ## Change Log
 
 - [proposed](https://github.com/edgexfoundry/edgex-docs/pull/935) (2023-01-28)
+- [approved](https://github.com/edgexfoundry/edgex-docs/pull/1316) (2023-12-09)
 
 ## Referenced Use Case(s)
 
@@ -20,7 +21,7 @@ The AS-IS Architecture figure below depicts the current state of
 microservice communication security as of EdgeX 3.0,
 when security is enabled:
 
-![AS-IS Architecture](tbd-as-is.jpg)
+![AS-IS Architecture](0029-as-is.jpg)
 
 As shown in the diagram,
 EdgeX 3.0 components are secured as follows:
@@ -104,7 +105,7 @@ API gateway traffic onto the zero-trust network on the backend.
 
 The new TO-BE architecture is diagrammed in the following figure:
 
-![TO-BE Architecture](tbd-to-be.jpg)
+![TO-BE Architecture](0029-to-be.jpg)
 
 This diagram conveys a lot of information in little space.
 A little exposition on what this diagram is intending to show:

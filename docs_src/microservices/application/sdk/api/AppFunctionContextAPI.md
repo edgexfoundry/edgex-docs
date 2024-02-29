@@ -17,6 +17,7 @@ type AppFunctionContext interface {
     SetResponseContentType(string)
     ResponseContentType() string
     SetRetryData(data []byte)
+    TriggerRetryFailedData()
     SecretProvider() interfaces.SecretProvider
     LoggingClient() logger.LoggingClient
     EventClient() interfaces.EventClient
@@ -199,6 +200,26 @@ This API will replace placeholders of the form `{context-key-name}` with the val
 
 This API returns reference to the SecretProvider instance. See [Secret Provider API](../../../security/Ch-SecretProviderApi/) section for more details.
 
+## Store and Forward
+
+The APIs in this section are related to the Store and Forward capability. See the [Store and Forward](../details/StoreAndForward.md) section for more details.
+
+### SetRetryData()
+
+`SetRetryData(data []byte)`
+
+This method can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on `Store and Forward` configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The `Context` will also be restored to the state when the function called this API. See [Store and Forward](../AdvancedTopics/#store-and-forward) for more details.
+
+!!! note
+    `Store and Forward` must be enabled when calling this API, otherwise the data is ignored.
+
+### TriggerRetryFailedData()
+
+This method sets the flag to trigger retry of failed data once the current pipeline execution has completed. This method should only be called when the export of data was successful, which indicates that the recipient is accepting data. This allows the failed data to be retried as soon as the recipient is back on-line rather than waiting for the configured retry interval to expire.
+
+!!! note
+    `Store and Forward` must be enabled and failed data must be present, otherwise the call to this API is ignored.
+
 ## Miscellaneous
 
 ### Clone()
@@ -226,14 +247,6 @@ This API returns the content type of the data that initiated the pipeline execut
 `GetDeviceResource(profileName string, resourceName string) (dtos.DeviceResource, error)`
 
 This API retrieves the DeviceResource for the given profile / resource name. Results are cached to minimize HTTP traffic to core-metadata.
-
-### SetRetryData()
-`SetRetryData(data []byte)`
-
-This method can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on `Store and Forward` configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The `Context` will also be restored to the state when the function called this API. See [Store and Forward](../AdvancedTopics/#store-and-forward) for more details.
-
-!!! note
-    `Store and Forward` be must be enabled when calling this API, otherwise the data is ignored.
 
 ### MetricsManager
 

@@ -17,6 +17,7 @@
 | [System Events for Devices](./ucr/System-Events-for-Devices.md)                     | Use Case for System Events for Device add/update/delete             |
 | [Microservice Authentication](./ucr/Microservice-Authentication.md)                 | Use Case for Microservice Authentication                            |
 | [URIs for files](.//ucr/URIs-for-Files.md)                                          | Use Case for loading service files from URIs                        |
+| [Performance Test Harness](./ucr/Performance-Test-Harness.md)                       | Use Case for Performance Test                                       |
 
 ## Architectural Design Records (ADRs)
 
@@ -51,4 +52,5 @@
 | [0025 Record and Replay](./adr/application/0025-Record-and-Replay.md)                        | Record data from various devices and play data back without devices present             |
 | [0026 Common Configuration](./adr/0026-Common Configuration.md)                              | Separate out the common configuration setting into a single source for all the services |
 | [0027 URIs for Files](./adr/0027-URIs for Files.md)                                          | Add capability to load service files from remote locations using URIs                   |
-| [0028 Microservice communication security](./adr/security/0028-authentication.md)            | Microservice communication security / authentication (token-based)                      |
+| [0028 Microservice communication security (token)](./adr/security/0028-authentication.md)    | Microservice communication security / authentication (token-based)                      |
+| [0029 Microservice communication security (E2EE)](./adr/security/0029-authentication-e2ee.md)     | Microservice communication security / authentication (end-to-end authentication)        |
