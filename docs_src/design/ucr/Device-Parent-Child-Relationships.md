@@ -7,7 +7,8 @@ This UCR describes Use Cases for new Device metadata for Parent to Child Relatio
 
 ## Change Log
 
-Removed some requirements (February 2024)
+- Removed some requirements (February 2024)
+- [Approved](https://github.com/edgexfoundry/edgex-docs/pull/1337) (March 2024)
 
 ### Market Segments
 Any that deploy EdgeX systems to manage multiple devices.
