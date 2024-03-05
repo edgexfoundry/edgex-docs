@@ -98,6 +98,6 @@ Then we can execute other ONVIF function via Postman REST client tool.
 
 ## Test device-onvif-camera API
 
-After adding the device according to the [Getting Started Guide](../deployment), then we can import the following Postman collections for testing the APIs:  
+After adding the device according to the [Getting Started Guide](./getting-started-with-docker-security.md), then we can import the following Postman collections for testing the APIs:  
 - [onvif_camera_with_edgex_postman_collection.json](https://raw.githubusercontent.com/edgexfoundry/device-onvif-camera/{{edgexversion}}/doc/postman/onvif_camera_with_edgex_postman_collection.json)  
 - [onvif_camera_with_edgex_postman_environment.json](https://raw.githubusercontent.com/edgexfoundry/device-onvif-camera/{{edgexversion}}/doc/postman/onvif_camera_with_edgex_postman_environment.json)  
