@@ -296,6 +296,7 @@ The `URLFormatter` option allows you to override the default formatter with your
 | Method                                                       | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | ConnectToBroker(lc logger.LoggingClient, sp bootstrapInterfaces.SecretProvider, retryCount int, retryInterval time.Duration) | Pre-connects to the external MQTT Broker that data will be exported. If this function is not called, then lazy connection will be made when the first data needs to be exported. |
+| SetOnConnectHandler(onConnect MQTT.OnConnectHandler) | SetOnConnect sets the OnConnect Handler before client is connected so client can be captured. |
 
 !!! example - "Pre-Connecting to MQTT Broker"
     ```go
@@ -308,6 +309,27 @@ The `URLFormatter` option allows you to override the default formatter with your
 
 !!! edgey - "EdgeX 3.2"
     ConnectToBroker is new in EdgeX 3.2
+
+!!! example - "Subscribe from MQTT Broker"
+    ```go
+    ...
+    sender.SetOnConnectHandler(onConnectHandler)
+    sender.ConnectToBroker(lc,sp,1,10)
+    ...	
+    func onConnectHandler(client mqtt.Client) {
+        // subscribe topic
+        incomingTopic := "your_topic"
+        token := client.Subscribe(incomingTopic, qos, onIncomingDataReceived)
+        ...
+    }
+    ...
+    func onIncomingDataReceived(_ mqtt.client, message mqtt.Message) {
+        ...
+    }
+    ```
+
+!!! edgey - "EdgeX 3.2"
+    SetOnConnectHandler is new in EdgeX 3.2
 
 ```go
 type MQTTSecretConfig struct {
