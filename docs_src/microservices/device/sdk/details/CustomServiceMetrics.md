@@ -10,7 +10,7 @@ The following built-in device service metrics are collected by the Device SDK
 
 1. **EventSent** - Number of Events that have been sent from the Device Service
 2. **ReadingsSent** - Number of Reading that have been sent from the Device Service 
-3. **Common Metrics** - Set of service metrics common to all EdgeX Services. See Common Service Metrics(Link TBD) for list of all these metrics.
+3. **Common Metrics** - Set of service metrics common to all EdgeX Services. See [Common Service Metrics](../../../general/index.md#common-service-metrics) for list of all these metrics.
 
 See [Device Service Configuration Properties](../../../device/Configuration.md) for detail on configuring device service metrics
 
