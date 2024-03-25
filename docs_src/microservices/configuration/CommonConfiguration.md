@@ -20,8 +20,8 @@ The common configuration is divided into 3 sections:
 
 - **All Services**- Configuration that is common to all EdgeX Services See below for details.
 
-- **App Services** - Configuration that is common to just application services. See [App Service Configuration](../../application/GeneralAppServiceConfig) section for more details.
-- **Device Services**- Configuration that is common to just devices services. See [Device Service Configuration](../../device/Ch-DeviceServices/#configuration-properties) section for more details.
+- **App Services** - Configuration that is common to just application services. See [App Service Configuration](../application/Configuration.md) section for more details.
+- **Device Services**- Configuration that is common to just devices services. See [Device Service Configuration](../device/Configuration.md#configuration) section for more details.
 
 When the Configuration Provider is used, the common configuration is seeded by the **core-common-config-bootstrapper** service, otherwise the common configuration comes from a file specified by the [`-cc/--commonConfig` command-line option](../CommonCommandLineOptions/#common-config).
 

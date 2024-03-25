@@ -69,4 +69,4 @@ Below are only the additional settings and sections that are specific to Core Co
 - Removed `RequireMessageBus` 
 - MessageQueue.External moved to ExternalMQTT
 
-See [Common Configuration Reference](../../configuration/V3MigrationCommonConfig/) for complete details on common configuration changes.
+See [Common Configuration Reference](../../configuration/V3MigrationCommonConfig.md) for complete details on common configuration changes.

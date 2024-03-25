@@ -402,6 +402,6 @@ third-party service integration.
 - [Microservice Authentication UCR](../../ucr/Microservice-Authentication.md)
 - [ADR 0015 Encryption between microservices](./0015-in-cluster-tls.md) 
 - [ADR 0020 Delay start services (SPIFFE/SPIRE)](./0020-spiffe.md)
-- [ADR 0028 Microservice authentication via tokens](./0028-authentication/)
+- [ADR 0028 Microservice authentication via tokens](./0028-authentication.md)
 - [OpenZiti zero-trust networking fabric](https://openziti.github.io/)
 - [SPIFFE](https://spiffe.io/)

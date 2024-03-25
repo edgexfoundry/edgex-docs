@@ -33,12 +33,12 @@ If the Event already has `Tags` when it arrives at the application service, then
 
 All services have the ability to collect [Common Service Metrics](#common-service-metrics), only **Core Data**, **Application Services** and **Device Services** are collecting additional service specific metrics. Additional service metrics will be added to all services in future releases.  See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for details on configuring the reporting of service metrics. 
 
-See [Custom Application Service Metrics](../application/AdvancedTopics/#custom-application-service-metrics) for more detail on Application Services capability to collect their own custom service metrics via use of the App SDK API. 
+See [Custom Application Service Metrics](../application/sdk/details/CustomServiceMetrics.md) for more detail on Application Services capability to collect their own custom service metrics via use of the App SDK API. 
 
-See [Custom Device Service Metrics](../device/sdk/Ch-DeviceSDK/#custom-device-service-metrics) for more detail on Go Device Services capability to collect their own custom service metrics via use of the Go Device SDK API. 
+See [Custom Device Service Metrics](../device/sdk/details/CustomServiceMetrics.md) for more detail on Go Device Services capability to collect their own custom service metrics via use of the Go Device SDK API. 
 
 Each service defines (in code) a set of service metrics that it collects and optionally reports if configured. 
-The names the service gives to its metrics are used in the service's `Telemetry` configuration to enable/disable the reporting of those metrics. See Core Data's `Writable.Telemetry` at [Core Data Configuration](../core/data/Ch-CoreData/#configuration-properties) as example of the names used for the service metrics that Core Data is currently collecting.
+The names the service gives to its metrics are used in the service's `Telemetry` configuration to enable/disable the reporting of those metrics. See Core Data's `Writable.Telemetry` at [Core Data Configuration](../core/data/Configuration.md#core-data---configuration) as example of the names used for the service metrics that Core Data is currently collecting.
 
 The following metric types are available to be used by the EdgeX services:
 
@@ -51,7 +51,7 @@ The following metric types are available to be used by the EdgeX services:
 Service metrics which are enabled for reporting are published to the EdgeX MessageBug every configured interval using the configured `Telemetry` base topic. See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for details on these configuration items. The `service name` and the `metric name` are added to the configured base topic. This allows subscribers to subscribe only for specific metrics or metrics from specific services. Each metric is published (reported) independently using the Metric DTO (Data Transfer Object) define in [go-mod-core-contracts](https://github.com/edgexfoundry/go-mod-core-contracts/blob/{{edgexversion}}/dtos/metric.go#L27).
 
 The aggregation of these service metrics is left to adopters to implement as best suits their deployment(s).
-This can be accomplished with a custom application service that sets the function pipeline `Target Type` to the `dtos.Metric` type. Then create a custom pipeline function which aggregates the metrics and provides them to the telemetry dashboard service of choice via push (export) or pull (custom GET endpoint). See [App Services](../application/AdvancedTopics/#target-type) here for more details on `Target Type`.
+This can be accomplished with a custom application service that sets the function pipeline `Target Type` to the `dtos.Metric` type. Then create a custom pipeline function which aggregates the metrics and provides them to the telemetry dashboard service of choice via push (export) or pull (custom GET endpoint). See [App Services](../application/details/Triggers.md) here for more details on `Target Type`.
 
 !!! example "Example - DTO from Core Data in JSON format for the `EventsPersisted` metric as publish to the EdgeX MessageBus"
     ```json

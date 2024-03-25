@@ -10,9 +10,9 @@ The following built-in device service metrics are collected by the Device SDK
 
 1. **EventSent** - Number of Events that have been sent from the Device Service
 2. **ReadingsSent** - Number of Reading that have been sent from the Device Service 
-3. **Common Metrics** - Set of service metrics common to all EdgeX Services. See [Common Service Metrics](../../microservices/general/#common-service-metrics) for list of all these metrics.
+3. **Common Metrics** - Set of service metrics common to all EdgeX Services. See [Common Service Metrics](../../../general/index.md#common-service-metrics) for list of all these metrics.
 
-See [Device Service Configuration Properties](../../microservices/device/Ch-DeviceServices/#configuration-properties) for detail on configuring device service metrics
+See [Device Service Configuration Properties](../../../device/Configuration.md) for detail on configuring device service metrics
 
 ### Custom
 
@@ -36,7 +36,7 @@ The following are the steps to collect and report service metrics:
 
 3. Determine if there are any tags to report along with your metric. Not common so `nil` is typically passed for the `tags map[strings]string` parameter in the next step.
 
-4. Register your metric(s) with the MetricsManager from the `sdk`reference. See [Device SDK API](../../microservices/device/sdk/SDK-Go-API/#getmetricsmanager) for more details:
+4. Register your metric(s) with the MetricsManager from the `sdk`reference. See [Device SDK API](../../sdk/api/GoDeviceSDK/GoDeviceSDKAPI.md) for more details:
 
    - `service.MetricsManager().Register("MyCounterName", myCounter, nil)`
 
@@ -50,7 +50,7 @@ The following are the steps to collect and report service metrics:
     - `myTimer.UpdateSince(someTimeValue)`
     - `myHistogram.Update(someIntvalue)`
 
-6. Configure reporting of the service's metrics. See `Writable.Telemetry` configuration details in the [Common Configuration](../../microservices/configuration/CommonConfiguration/) section for more detail.
+6. Configure reporting of the service's metrics. See `Writable.Telemetry` configuration details in the [Common Configuration](../../../configuration/CommonConfiguration.md) section for more detail.
 
 !!! example "Example - Service Telemetry Configuration"
     ```yaml

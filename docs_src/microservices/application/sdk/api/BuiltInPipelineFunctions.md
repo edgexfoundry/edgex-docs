@@ -555,7 +555,7 @@ There is one Tags transform included in the SDK that can be added to your pipeli
 `ToLineProtocol` - This pipeline function will transform the received `dtos.Metric` to a `Line Protocol` formatted string. See https://docs.influxdata.com/influxdb/v2.0/reference/syntax/line-protocol/ for details on the `Line Protocol` syntax.
 
 !!! note
-    When `ToLineProtocol` is the first function in the functions pipeline, the `TargetType` for the service must be set to `&dtos.Metric{}`. See [Target Type](../AdvancedTopics/#target-type) section for details on setting the service's `TargetType`. The Trigger configuration must also be set so  `SubscribeTopics="edgex/telemetry/#"` in order to receive the `dtos.Metric` data from other services. See the new App Service Configurable `metrics-influxdb` [profile](https://github.com/edgexfoundry/app-service-configurable/blob/{{edgexversion}}/res/metrics-influxdb/configuration.yaml) for an example.
+    When `ToLineProtocol` is the first function in the functions pipeline, the `TargetType` for the service must be set to `&dtos.Metric{}`. See [Target Type](../details/TargetType.md) section for details on setting the service's `TargetType`. The Trigger configuration must also be set so  `SubscribeTopics="edgex/telemetry/#"` in order to receive the `dtos.Metric` data from other services. See the new App Service Configurable `metrics-influxdb` [profile](https://github.com/edgexfoundry/app-service-configurable/blob/{{edgexversion}}/res/metrics-influxdb/configuration.yaml) for an example.
 
 !!! example
     ``` go
