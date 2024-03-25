@@ -3225,7 +3225,7 @@
 <h3 id="newappservicewithtargettype">NewAppServiceWithTargetType</h3>
 <p><code>NewAppServiceWithTargetType(serviceKey string, targetType interface{}) (interfaces.ApplicationService, bool)</code></p>
 <p>This factory function returns an <code>interfaces.ApplicationService</code> using the passed in Target Type and initializes the service. The second <code>bool</code> return parameter will be <code>true</code> if successfully initialized, otherwise it will be <code>false</code> when error(s) occurred during initialization. All error(s) are logged so the caller just needs to call <code>os.Exit(-1)</code> if <code>false</code> is returned.</p>
-<p>See the <a href="../AdvancedTopics/#target-type">Target Type</a> advanced topic for more details.</p>
+<p>See the <a href="../../details/TargetType/">Target Type</a> advanced topic for more details.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - NewAppServiceWithTargetType</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">serviceKey</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"app-my-service"</span>
@@ -3238,7 +3238,7 @@
 </code></pre></div>
 </div>
 <h2 id="custom-configuration-apis">Custom Configuration APIs</h2>
-<p>The following <code>ApplicationService</code> APIs allow your service to access their custom configuration from the configuration file and/or Configuration Provider. See the <a href="../AdvancedTopics/#custom-configuration">Custom Configuration</a> advanced topic for more details.</p>
+<p>The following <code>ApplicationService</code> APIs allow your service to access their custom configuration from the configuration file and/or Configuration Provider. See the <a href="../../details/CustomConfiguration/">Custom Configuration</a> advanced topic for more details.</p>
 <h3 id="applicationsettings">ApplicationSettings</h3>
 <p><code>ApplicationSettings() map[string]string</code></p>
 <p>This API returns the complete key/value map of custom settings</p>
@@ -3412,7 +3412,7 @@
 </div>
 <h3 id="addfunctionspipelinefortopics">AddFunctionsPipelineForTopics</h3>
 <p><code>AddFunctionsPipelineForTopics(id string, topics []string, transforms ...AppFunction) error</code></p>
-<p>This API adds a functions pipeline with the specified unique ID and list of functions (transforms) to be executed when the received topic matches one of the specified pipeline topics. See the <a href="../AdvancedTopics/#pipeline-per-topic">Pipeline Per Topic</a> section for more details.</p>
+<p>This API adds a functions pipeline with the specified unique ID and list of functions (transforms) to be executed when the received topic matches one of the specified pipeline topics. See the <a href="../../details/PipelinesPerTopics/">Pipeline Per Topic</a> section for more details.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - AddFunctionsPipelineForTopics</p>
 <div class="highlight"><pre><span></span><code><span class="nx">sample</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">functions</span><span class="p">.</span><span class="nx">NewSample</span><span class="p">()</span>
@@ -3481,7 +3481,8 @@
 </div>
 <h3 id="stop">Stop</h3>
 <p><code>Stop()</code></p>
-<p>This API  stops the configured trigger so that the functions pipeline no longer executes. The internal webserver continues to accept requests. See <a href="../AdvancedTopics/#stopping-the-service">Stopping the Service</a> advanced topic for more details</p>
+<p>This API  stops the configured trigger so that the functions pipeline no longer executes. The internal webserver continues to accept requests. 
+Application Services will listen for SIGTERM / SIGINT signals from the OS and stop the function pipeline in response. The pipeline can also be exited programmatically by calling sdk.Stop() on the running <code>ApplicationService</code> instance. This can be useful for cases where you want to stop a service in response to a runtime condition, e.g. receiving a "poison pill" message through its trigger.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Stop</p>
 <div class="highlight"><pre><span></span><code><span class="nx">service</span><span class="p">.</span><span class="nx">Stop</span><span class="p">()</span>
@@ -3489,10 +3490,10 @@
 </code></pre></div>
 </div>
 <h2 id="secrets-apis">Secrets APIs</h2>
-<p>The following <code>ApplicationService</code> APIs allow your service retrieve and store secrets from/to the service's SecretStore. See the <a href="../AdvancedTopics/#secrets">Secrets</a> advanced topic for more details about using secrets.</p>
+<p>The following <code>ApplicationService</code> APIs allow your service retrieve and store secrets from/to the service's SecretStore. See the <a href="../../details/Secrets/">Secrets</a> advanced topic for more details about using secrets.</p>
 <h3 id="secretprovider">SecretProvider</h3>
 <p><code>SecretProvider() interfaces.SecretProvider</code></p>
-<p>This API returns reference to the SecretProvider instance. See <a href="../../../security/Ch-SecretProviderApi/">Secret Provider API</a> section for more details.</p>
+<p>This API returns reference to the SecretProvider instance. See <a href="../../../../../security/Ch-SecretProviderApi/">Secret Provider API</a> section for more details.</p>
 <h2 id="client-apis">Client APIs</h2>
 <p>The following <code>ApplicationService</code> APIs allow your service access the various EdgeX clients and their APIs.</p>
 <h3 id="loggingclient">LoggingClient</h3>
@@ -3533,7 +3534,7 @@ See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/main/regis
 <p><code>DeviceClient() interfaces.DeviceClient</code></p>
 <p>This API returns the Device Client. Note if Core Metadata is not specified in the Clients configuration, this will return nil. See the <a href="https://github.com/edgexfoundry/go-mod-core-contracts/blob/main/clients/interfaces/device.go#L17-L44">Device Client interface</a> for more details. Useful for querying list of devices for a specific Device Service or Device Profile.</p>
 <h2 id="background-publisher-apis">Background Publisher APIs</h2>
-<p>The following <code>ApplicationService</code> APIs allow Application Services to have background publishers. See the <a href="../AdvancedTopics/#background-publishing">Background Publishing</a> advanced topic for more details and example.</p>
+<p>The following <code>ApplicationService</code> APIs allow Application Services to have background publishers. See the <a href="../../details/BackgroundPublishing/">Background Publishing</a> advanced topic for more details and example.</p>
 <h3 id="addbackgroundpublisher-deprecated">AddBackgroundPublisher <em>DEPRECATED</em></h3>
 <p><code>AddBackgroundPublisher(capacity int) (BackgroundPublisher, error)</code></p>
 <p>This API adds and returns a BackgroundPublisher which is used to publish asynchronously to the Edgex MessageBus. </p>
@@ -3549,7 +3550,7 @@ See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/main/regis
 <p>This API is deprecated in favor of <code>AddCustomRoute()</code> which has an explicit parameter to indicate whether the route should require authentication.</p>
 <h3 id="addcustomroute">AddCustomRoute</h3>
 <p><code>AddCustomRoute(route string, authentication Authentication, handler echo.HandlerFunc, methods ...string) error</code></p>
-<p>This API adds a custom REST route to the application service's internal webserver.  If the route is marked authenticated, it will require an EdgeX JWT when security is enabled.  A reference to the ApplicationService is added to the context that is passed to the handler, which can be retrieved using the <code>AppService</code> key. See <a href="../AdvancedTopics/#custom-rest-endpoints">Custom REST Endpoints</a> advanced topic for more details and example.</p>
+<p>This API adds a custom REST route to the application service's internal webserver.  If the route is marked authenticated, it will require an EdgeX JWT when security is enabled.  A reference to the ApplicationService is added to the context that is passed to the handler, which can be retrieved using the <code>AppService</code> key. See <a href="../../details/CustomRestApis/">Custom REST Endpoints</a> advanced topic for more details and example.</p>
 <h3 id="appcontext">AppContext</h3>
 <p><code>AppContext() context.Context</code></p>
 <p>This API returns the application service context used to detect cancelled context when the service is terminating. Used by custom app service to appropriately exit any long-running functions.</p>
@@ -3568,7 +3569,7 @@ See the <a href="https://github.com/edgexfoundry/go-mod-registry/blob/main/regis
 </div>
 <h3 id="registercustomtriggerfactory">RegisterCustomTriggerFactory</h3>
 <p><code>RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error</code></p>
-<p>This API registers a trigger factory for a custom trigger to be used. See the <a href="../Triggers/#custom-triggers">Custom Triggers</a> section for more details and example.</p>
+<p>This API registers a trigger factory for a custom trigger to be used. See the <a href="../../../details/Triggers/#custom-triggers">Custom Triggers</a> section for more details and example.</p>
 <h3 id="registercustomstorefactory">RegisterCustomStoreFactory</h3>
 <p><code>RegisterCustomStoreFactory(name string, factory func(cfg DatabaseInfo, cred config.Credentials) (StoreClient, error)) error</code></p>
 <p>This API registers a factory to construct a custom store client for the <a href="../../details/StoreAndForward/">store &amp; forward</a> loop.</p>

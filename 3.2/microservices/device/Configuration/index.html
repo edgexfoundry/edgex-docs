@@ -2783,7 +2783,7 @@
 </div>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 3.0</p>
-<p>For EdgeX 3.0 the <code>MessageQueue</code> configuration has been move to <code>MessageBus</code> in <a href="../../../configuration/CommonConfiguration/#configuration-properties">Common Configuration</a></p>
+<p>For EdgeX 3.0 the <code>MessageQueue</code> configuration has been move to <code>MessageBus</code> in <a href="../../configuration/CommonConfiguration/#common-configuration-properties">Common Configuration</a></p>
 </div>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 3.1</p>
@@ -2882,7 +2882,7 @@
 <tr>
 <td></td>
 <td><code>&lt;CustomMetric&gt;</code> = false</td>
-<td>Enable/disable reporting of custom device service's custom metric. See <a href="../../getting-started/Ch-GettingStartedSDK-Go/#built-in">Custom Device Service Metrics</a> for more details.</td>
+<td>Enable/disable reporting of custom device service's custom metric. See <a href="../sdk/details/CustomConfiguration/#device-service-sdk---custom-configuration">Custom Device Service Metrics</a> for more details.</td>
 </tr>
 <tr>
 <td>Tags</td>
@@ -3068,8 +3068,8 @@ The name is mapped so that the resources are only loaded from a URI if a device 
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>For Go Device Services see <a href="../../../getting-started/Ch-GettingStartedSDK-Go/#custom-structured-configuration">Go Custom Structured Configuration</a> for more details.</p>
-<p>For C Device Service see <a href="../../../getting-started/Ch-GettingStartedSDK-C/#custom-structured-configuration">C Custom Structured Configuration</a> for more details.</p>
+<p>For Go Device Services see <a href="../sdk/details/CustomConfiguration/#go-device-service-sdk---custom-structured-configuration">Go Custom Structured Configuration</a> for more details.</p>
+<p>For C Device Service see <a href="../sdk/details/CustomConfiguration/#c-device-service-sdk---custom-structured-configuration">C Custom Structured Configuration</a> for more details.</p>
 </div>
 </div>
 </input></input></div>
@@ -3077,7 +3077,7 @@ The name is mapped so that the resources are only loaded from a URI if a device 
 <h4 id="configuration">Configuration</h4>
 <div class="admonition edgey">
 <p class="admonition-title">Edgex 3.0</p>
-<p>For EdgeX 3.0 the <strong>SecretStore</strong> configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the <a href="../CommonEnvironmentVariables/#secretstore-overrides">SecretStore Overrides</a> section for more details.</p>
+<p>For EdgeX 3.0 the <strong>SecretStore</strong> configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the <a href="../../configuration/CommonEnvironmentVariables/#secretstore-configuration-overrides">SecretStore Overrides</a> section for more details.</p>
 </div>
 <p>All instances of Device Services running in secure mode require a <code>SecretStore</code> to be created for the service by the Security Services. See <a href="../../../security/Ch-Configuring-Add-On-Services">Configuring Add-on Service</a> for details on configuring a <code>SecretStore</code> to be created for the Device Service. With the use of <code>Redis Pub/Sub</code> as the default EdgeX MessageBus all Device Services need the <code>redisdb</code> known secret added to their <code>SecretStore</code> so they can connect to the Secure EdgeX MessageBus. See the <a href="../../../security/Ch-Secure-MessageBus">Secure MessageBus</a> documentation for more details.</p>
 <p>Each Device Service also has detailed configuration to enable connection to it's exclusive <code>SecretStore</code></p>
@@ -3103,7 +3103,7 @@ The name is mapped so that the resources are only loaded from a URI if a device 
 </code></pre></div>
 </div>
 <h4 id="retrieving-secrets">Retrieving Secrets</h4>
-<p>Device Services retrieve secrets from their <code>SecretStore</code> using the SDK API.  See <a href="../../../getting-started/Ch-GettingStartedSDK-Go/#retrieving-secrets">Retrieving Secrets</a> for more details using the Go SDK. </p>
+<p>Device Services retrieve secrets from their <code>SecretStore</code> using the SDK API.  See <a href="../sdk/details/Secrets/#retrieving-secrets">Retrieving Secrets</a> for more details using the Go SDK. </p>
 </article>
 </div>
 </div>

@@ -2677,9 +2677,9 @@
 <ol>
 <li><strong>EventSent</strong> - Number of Events that have been sent from the Device Service</li>
 <li><strong>ReadingsSent</strong> - Number of Reading that have been sent from the Device Service </li>
-<li><strong>Common Metrics</strong> - Set of service metrics common to all EdgeX Services. See <a href="../../microservices/general/#common-service-metrics">Common Service Metrics</a> for list of all these metrics.</li>
+<li><strong>Common Metrics</strong> - Set of service metrics common to all EdgeX Services. See <a href="../../../../general/#common-service-metrics">Common Service Metrics</a> for list of all these metrics.</li>
 </ol>
-<p>See <a href="../../microservices/device/Ch-DeviceServices/#configuration-properties">Device Service Configuration Properties</a> for detail on configuring device service metrics</p>
+<p>See <a href="../../../Configuration/">Device Service Configuration Properties</a> for detail on configuring device service metrics</p>
 <h3 id="custom">Custom</h3>
 <p>The Custom Device Service Metrics capability allows for device service developers to define, collect and report their own service metrics beyond the common built-in service metrics supplied by the Device SDK. </p>
 <p>The following are the steps to collect and report service metrics:</p>
@@ -2708,7 +2708,7 @@
 <p>Determine if there are any tags to report along with your metric. Not common so <code>nil</code> is typically passed for the <code>tags map[strings]string</code> parameter in the next step.</p>
 </li>
 <li>
-<p>Register your metric(s) with the MetricsManager from the <code>sdk</code>reference. See <a href="../../microservices/device/sdk/SDK-Go-API/#getmetricsmanager">Device SDK API</a> for more details:</p>
+<p>Register your metric(s) with the MetricsManager from the <code>sdk</code>reference. See <a href="../../api/GoDeviceSDK/GoDeviceSDKAPI/">Device SDK API</a> for more details:</p>
 </li>
 <li>
 <p><code>service.MetricsManager().Register("MyCounterName", myCounter, nil)</code></p>
@@ -2727,7 +2727,7 @@
 </ul>
 </li>
 <li>
-<p>Configure reporting of the service's metrics. See <code>Writable.Telemetry</code> configuration details in the <a href="../../microservices/configuration/CommonConfiguration/">Common Configuration</a> section for more detail.</p>
+<p>Configure reporting of the service's metrics. See <code>Writable.Telemetry</code> configuration details in the <a href="../../../../configuration/CommonConfiguration/">Common Configuration</a> section for more detail.</p>
 </li>
 </ol>
 <div class="admonition example">

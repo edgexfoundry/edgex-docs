@@ -3483,6 +3483,10 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <td>ConnectToBroker(lc logger.LoggingClient, sp bootstrapInterfaces.SecretProvider, retryCount int, retryInterval time.Duration)</td>
 <td>Pre-connects to the external MQTT Broker that data will be exported. If this function is not called, then lazy connection will be made when the first data needs to be exported.</td>
 </tr>
+<tr>
+<td>SetOnConnectHandler(onConnect MQTT.OnConnectHandler)</td>
+<td>SetOnConnect sets the OnConnect Handler before client is connected so client can be captured.</td>
+</tr>
 </tbody>
 </table>
 <div class="admonition example -">
@@ -3497,6 +3501,28 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <div class="admonition edgey -">
 <p class="admonition-title">EdgeX 3.2</p>
 <p>ConnectToBroker is new in EdgeX 3.2</p>
+</div>
+<div class="admonition example -">
+<p class="admonition-title">Subscribe from MQTT Broker</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="nx">sender</span><span class="p">.</span><span class="nx">SetOnConnectHandler</span><span class="p">(</span><span class="nx">onConnectHandler</span><span class="p">)</span>
+<span class="nx">sender</span><span class="p">.</span><span class="nx">ConnectToBroker</span><span class="p">(</span><span class="nx">lc</span><span class="p">,</span><span class="nx">sp</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="o">...</span><span class="w"> </span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">onConnectHandler</span><span class="p">(</span><span class="nx">client</span><span class="w"> </span><span class="nx">mqtt</span><span class="p">.</span><span class="nx">Client</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// subscribe topic</span>
+<span class="w">    </span><span class="nx">incomingTopic</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">"your_topic"</span>
+<span class="w">    </span><span class="nx">token</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Subscribe</span><span class="p">(</span><span class="nx">incomingTopic</span><span class="p">,</span><span class="w"> </span><span class="nx">qos</span><span class="p">,</span><span class="w"> </span><span class="nx">onIncomingDataReceived</span><span class="p">)</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="p">}</span>
+<span class="o">...</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">onIncomingDataReceived</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="nx">mqtt</span><span class="p">.</span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="nx">mqtt</span><span class="p">.</span><span class="nx">Message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="admonition edgey -">
+<p class="admonition-title">EdgeX 3.2</p>
+<p>SetOnConnectHandler is new in EdgeX 3.2</p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">MQTTSecretConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// BrokerAddress should be set to the complete broker address i.e. mqtts://mosquitto:8883/mybroker</span>
@@ -3744,7 +3770,7 @@ NewHTTPSenderWithSecretHeader("https://myendpoint.com","application/json",false,
 <p><code>ToLineProtocol</code> - This pipeline function will transform the received <code>dtos.Metric</code> to a <code>Line Protocol</code> formatted string. See https://docs.influxdata.com/influxdb/v2.0/reference/syntax/line-protocol/ for details on the <code>Line Protocol</code> syntax.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When <code>ToLineProtocol</code> is the first function in the functions pipeline, the <code>TargetType</code> for the service must be set to <code>&amp;dtos.Metric{}</code>. See <a href="../AdvancedTopics/#target-type">Target Type</a> section for details on setting the service's <code>TargetType</code>. The Trigger configuration must also be set so  <code>SubscribeTopics="edgex/telemetry/#"</code> in order to receive the <code>dtos.Metric</code> data from other services. See the new App Service Configurable <code>metrics-influxdb</code> <a href="https://github.com/edgexfoundry/app-service-configurable/blob/main/res/metrics-influxdb/configuration.yaml">profile</a> for an example.</p>
+<p>When <code>ToLineProtocol</code> is the first function in the functions pipeline, the <code>TargetType</code> for the service must be set to <code>&amp;dtos.Metric{}</code>. See <a href="../../details/TargetType/">Target Type</a> section for details on setting the service's <code>TargetType</code>. The Trigger configuration must also be set so  <code>SubscribeTopics="edgex/telemetry/#"</code> in order to receive the <code>dtos.Metric</code> data from other services. See the new App Service Configurable <code>metrics-influxdb</code> <a href="https://github.com/edgexfoundry/app-service-configurable/blob/main/res/metrics-influxdb/configuration.yaml">profile</a> for an example.</p>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
