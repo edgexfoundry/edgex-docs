@@ -2710,10 +2710,12 @@
 <h3 id="submitters">Submitters</h3>
 <ul>
 <li>Tom Brennan (Eaton)</li>
+<li>Corey Mutter (Eaton)</li>
 </ul>
 <h2 id="change-log">Change Log</h2>
 <ul>
-<li><a href="https://github.com/edgexfoundry/edgex-docs/pull/800">pending</a> (2022-08-22)</li>
+<li>Removed some requirements (February 2024)</li>
+<li><a href="https://github.com/edgexfoundry/edgex-docs/pull/1337">Approved</a> (March 2024)</li>
 </ul>
 <h3 id="market-segments">Market Segments</h3>
 <p>Any that deploy EdgeX systems to manage multiple devices.
@@ -2743,19 +2745,19 @@ be a common definition and usage of this metadata.</p>
 where it is necessary to know which devices are parents and which are their children.</p>
 <p>These considerations are most important for gateways that are implemented with the EdgeX framework,
 since there are potentially many south-bound devices connected to a system.</p>
-<p>Examples are
-* North-bound BACnet Service - where only one "main" device is present at the point of external connection (eg, UDP port 
-0xBAC0) and all other devices must be presented as "virtually routed devices" connected to that main "virtual router" device.
-* Azure IoT Hub - where the normal connection for IoT Plug and Play / Digital Twin is for a single device, and any other devices need to somehow fall under that device (eg, with Device Twin "Modules")
-* UI device presentation - where child devices can be shown grouped under their parent, often rolled up until they are expanded to show their data
-* Multi-tenant deployments of multi-point energy meters - where a main meter has up to 80 Branch Circuit Monitoring (BCM) points connected to it, each BCM modeled as a Device consisting of the same 6 or so energy channels (Device Resources), and each BCM is assigned to a particular tenant. Tenants will be given access to the data from their BCM point(s) but not those of other tenants. A gateway may connect more than one of these multi-point energy meters.</p>
+<p>Examples are:</p>
+<ul>
+<li>North-bound BACnet Service - where only one "main" device is present at the point of external connection (eg, UDP port 
+0xBAC0) and all other devices must be presented as "virtually routed devices" connected to that main "virtual router" device.</li>
+<li>Azure IoT Hub - where the normal connection for IoT Plug and Play / Digital Twin is for a single device, and any other devices need to somehow fall under that device (eg, with Device Twin "Modules")</li>
+<li>UI device presentation - where child devices can be shown grouped under their parent, often rolled up until they are expanded to show their data</li>
+<li>Multi-tenant deployments of multi-point energy meters - where a main meter has up to 80 Branch Circuit Monitoring (BCM) points connected to it, each BCM modeled as a Device consisting of the same 6 or so energy channels (Device Resources), and each BCM is assigned to a particular tenant. Tenants will be given access to the data from their BCM point(s) but not those of other tenants. A gateway may connect more than one of these multi-point energy meters.</li>
+</ul>
 <p>Since there are multiple similar uses for this relationship information on the north side, it is proposed to locate
 this relationship metadata in the Device object as accessed from core-metadata by all services, rather than to 
 locate it in each north-bound service (which would be particularly problematic for the UI, which gets its data through REST APIs).</p>
 <p>The south-bound Device Service that creates a Device is ideally the service which establishes this relationship data, though it is possible that it is unaware of the parent-child relationship. It should be permitted, therefore, for this relationship information to also be set by north-bound services (most likely the UI) and simply ignored by the south-bound Device Service.</p>
-<p>It is also necessary to indicate which device is the "main" or "publisher" device (ie, the gateway device), 
-as any devices without a configured relationship can be inferred to be children of that device.</p>
-<p>It is frequently a pattern in data servers to "walk the device tree", starting with the main device, then 
+<p>It is frequently a pattern in data servers to "walk the device tree", starting with some main device, then 
 recursively processing its direct child devices, and then the child devices (if any) of those devices, until
 all devices have been processed. This is normally part of the initialization of device data for a server,
 since the parent must be processed and initialized before its child devices. Consequently, there is a need
@@ -2781,27 +2783,22 @@ In this situation, the parent property of a lower-level gateway will indicate th
 <li>Each device instance should have an optional "relationship" metadata property which can be used to indicate which other device is its parent device. </li>
 <li>This relationship property is a "convenience feature" provided by EdgeX, which is <em>informative</em> to application services,
 but does not require core EdgeX services to respond to it, or act on it, in any way, 
-other than storing it and making it available.</li>
+other than storing it, making it available, and sanity checking.</li>
 <li>This property will be kept in the Device structure in core-metadata.</li>
 <li>Though it is preferred that the owning Device Service set a device's parent property, this property can also be set
 by users via the core-metadata PATCH devices API. The owning Device Service can ignore this update if it does
 not use the parent property.</li>
-<li>The same relationship property, or a similar addition, shall be used to indicate the one "main" device in a system.</li>
-<li>It is required that the "main" device be indicated in any multi-device system.</li>
-<li>If a device does not indicate which is its parent device, then it shall be inferred that its parent is the main device. (This helps with backwards compatability.)</li>
-<li>The same relationship property, or a similar addition, shall be used to indicate when a Device is a "system" Device,
-that is, one without an external physical presence, such as a container for a service's Resources.</li>
-<li>These parent-child requirements do not apply for the case of a single device configuration.</li>
 <li>Some means shall be provided to answer the question, "What are the child devices (if any) of device x.y.z?".</li>
 <li>There can be multiple levels (eg, child devices of a child device).</li>
 <li>Each child device can have only have one parent device.</li>
-<li>The core-metadata service must remove all of the child devices if a parent device is removed.</li>
+<li>The core-metadata service must not allow a device to be removed if it has children.
+The children would need to be un-linked first.</li>
 </ol>
 <p>Not a requirement: inheritance of device status via the parent-child relationship. Apparently this was a point
 over which past consideration of parent-child relationships in EdgeX foundered, but it seems complicated
 for independent services, and can generally be inferred by other services anyway.</p>
 <h3 id="other-related-issues">Other Related Issues</h3>
-<p>Use Case for Application Services Extending Device Data <a href="https://github.com/edgexfoundry/edgex-docs/pull/845">Extending Device Data</a> <em>later (./Extending-Device-Data.md)</em> may be related, 
+<p>Use Case for Application Services <a href="../Extending-Device-Data/">Extending Device Data</a> may be related, 
 as, depending on its solution, it may have to indicate a different Device Relationship ("Extends").</p>
 <h3 id="references">References</h3>
 <ul>
