@@ -307,7 +307,7 @@ The payload is the base64-encoding json struct:
 ### Configuring for secure MQTT connection
 
 In real word, users usually need to provide credentials or certificates to connect to external MQTT broker.
-To seed such secrets to Secret Store for Command service, you can follow the instructions from the [Seeding Service Secrets](../../security/SeedingServiceSecrets) document.
+To seed such secrets to Secret Store for Command service, you can follow the instructions from the [Seeding Service Secrets](../../../security/SeedingServiceSecrets.md) document.
 
 The following example shows how to set up Command service to connect to external MQTT broker with `usernamepassword` authentication.
 

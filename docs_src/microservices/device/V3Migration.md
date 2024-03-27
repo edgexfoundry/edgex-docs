@@ -310,11 +310,11 @@ See [Top Level V3 Migration Guide](../../../V3TopLevelMigration) for details app
 #### Configuration
 
 - Helper scripts have been deprecated in favor of using the REST APIs. 
-See [here for camera credential management](../supported/device-onvif-camera/Walkthrough/deployment#manage-devices), and see [here for configuring `DiscoverySubnets`](../supported/device-onvif-camera/supplementary-info/auto-discovery#discoverysubnets).
+See [here for camera credential management](../device/services/device-onvif-camera/Walkthrough/deployment.md#manage-devices), and see [here for configuring `DiscoverySubnets`](../device/services/device-onvif-camera/supplementary-info/auto-discovery.md#discoverysubnets).
 
 #### Device Profile
 
-Some commands have been renamed for clarity. See the latest [Swagger API Documentation](../supported/device-onvif-camera/swagger) for full details.
+Some commands have been renamed for clarity. See the latest [Swagger API Documentation](../device/services/device-onvif-camera/swagger.md) for full details.
 
 | EdgeX v2 Command Name         | EdgeX v3 Command Name         |
 |-------------------------------|-------------------------------|

@@ -9,7 +9,7 @@
   - Revised for Configuration Provider as System of Record  when used.
 
 ## Referenced Use Case(s)
-- [Common Configuration UCR](URL of use case link TBD)
+- [Common Configuration UCR] - URL of use case link TBD
 
 ## Context
 This ADR describes the architecture of the new common configuration capability which impacts all services. Requirements for this new capability are described in the above referenced UCR. This is deemed architecturally significant due to the cross-cutting impacts.

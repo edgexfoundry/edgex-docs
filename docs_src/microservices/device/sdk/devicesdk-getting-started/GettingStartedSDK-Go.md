@@ -14,7 +14,7 @@ See the [Getting Started - Go Developers](../../../../getting-started/Ch-Getting
 ## Get the EdgeX Device SDK for Go
 
 Follow these steps to create a folder on your file system,
-download the [Device SDK](../../microservices/device/sdk/Ch-DeviceSDK), and get the GoLang device service SDK on your system.
+download the [Device SDK](../devicesdk-getting-started/GettingStartedSDK-Go.md), and get the GoLang device service SDK on your system.
 
 1.  Create a collection of nested folders, `~/edgexfoundry` on your file system. This folder will hold your new Device Service. In Linux, create a directory with a single mkdir command
     ``` bash
@@ -309,7 +309,7 @@ sends to EdgeX:
         Alternatively the `-cc/--commonConfig` flag can be used to specify a file that contains the common configuration.
         In addition, when running in hybrid mode the `-d/--dev` flag tells the service that it is running in hybrid mode and to override
         the `Host` names for dependencies with `localhost`.
-        See [Command Line Options](../../microservices/configuration/CommonCommandLineOptions/) for more details.
+        See [Command Line Options](../../../configuration/CommonCommandLineOptions.md) for more details.
 
 
 3.  Using a browser, enter the following URL to see the event/reading
