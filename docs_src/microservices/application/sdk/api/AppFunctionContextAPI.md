@@ -197,7 +197,7 @@ This API will replace placeholders of the form `{context-key-name}` with the val
 
 `SecretProvider() interfaces.SecretProvider`
 
-This API returns reference to the SecretProvider instance. See [Secret Provider API](../../../security/Ch-SecretProviderApi/) section for more details.
+This API returns reference to the SecretProvider instance. See [Secret Provider API](../../../../security/Ch-SecretProviderApi.md) section for more details.
 
 ## Miscellaneous
 
@@ -230,7 +230,7 @@ This API retrieves the DeviceResource for the given profile / resource name. Res
 ### SetRetryData()
 `SetRetryData(data []byte)`
 
-This method can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on `Store and Forward` configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The `Context` will also be restored to the state when the function called this API. See [Store and Forward](../AdvancedTopics/#store-and-forward) for more details.
+This method can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on `Store and Forward` configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The `Context` will also be restored to the state when the function called this API. See [Store and Forward](../details/StoreAndForward.md) for more details.
 
 !!! note
     `Store and Forward` be must be enabled when calling this API, otherwise the data is ignored.

@@ -84,7 +84,7 @@ This factory function returns an `interfaces.ApplicationService` using the defau
 
 This factory function returns an `interfaces.ApplicationService` using the passed in Target Type and initializes the service. The second `bool` return parameter will be `true` if successfully initialized, otherwise it will be `false` when error(s) occurred during initialization. All error(s) are logged so the caller just needs to call `os.Exit(-1)` if `false` is returned.
 
-See the [Target Type](../AdvancedTopics/#target-type) advanced topic for more details.
+See the [Target Type](../details/TargetType.md) advanced topic for more details.
 
 !!! example "Example - NewAppServiceWithTargetType"
     ``` go
@@ -99,7 +99,7 @@ See the [Target Type](../AdvancedTopics/#target-type) advanced topic for more de
 
 ## Custom Configuration APIs
 
-The following `ApplicationService` APIs allow your service to access their custom configuration from the configuration file and/or Configuration Provider. See the [Custom Configuration](../AdvancedTopics/#custom-configuration) advanced topic for more details.
+The following `ApplicationService` APIs allow your service to access their custom configuration from the configuration file and/or Configuration Provider. See the [Custom Configuration](../details/CustomConfiguration.md) advanced topic for more details.
 
 ### ApplicationSettings
 
@@ -321,7 +321,7 @@ This API sets the default functions pipeline with the specified list of Applicat
 
 `AddFunctionsPipelineForTopics(id string, topics []string, transforms ...AppFunction) error`
 
-This API adds a functions pipeline with the specified unique ID and list of functions (transforms) to be executed when the received topic matches one of the specified pipeline topics. See the [Pipeline Per Topic](../AdvancedTopics/#pipeline-per-topic) section for more details.
+This API adds a functions pipeline with the specified unique ID and list of functions (transforms) to be executed when the received topic matches one of the specified pipeline topics. See the [Pipeline Per Topic](../details/PipelinesPerTopics.md) section for more details.
 
 !!! example "Example - AddFunctionsPipelineForTopics"
     ```go
@@ -402,7 +402,9 @@ This API starts the configured trigger to allow the Functions Pipeline to execut
 
 `Stop()`
 
-This API  stops the configured trigger so that the functions pipeline no longer executes. The internal webserver continues to accept requests. See [Stopping the Service](../AdvancedTopics/#stopping-the-service) advanced topic for more details
+This API  stops the configured trigger so that the functions pipeline no longer executes. The internal webserver continues to accept requests. 
+
+Application Services will listen for SIGTERM / SIGINT signals from the OS and stop the function pipeline in response. The pipeline can also be exited programmatically by calling sdk.Stop() on the running `ApplicationService` instance. This can be useful for cases where you want to stop a service in response to a runtime condition, e.g. receiving a "poison pill" message through its trigger.
 
 !!! example "Example - Stop"
 
@@ -413,13 +415,13 @@ This API  stops the configured trigger so that the functions pipeline no longer 
 
 ## Secrets APIs
 
-The following `ApplicationService` APIs allow your service retrieve and store secrets from/to the service's SecretStore. See the [Secrets](../AdvancedTopics/#secrets) advanced topic for more details about using secrets.
+The following `ApplicationService` APIs allow your service retrieve and store secrets from/to the service's SecretStore. See the [Secrets](../details/Secrets.md) advanced topic for more details about using secrets.
 
 ### SecretProvider
 
 `SecretProvider() interfaces.SecretProvider`
 
-This API returns reference to the SecretProvider instance. See [Secret Provider API](../../../security/Ch-SecretProviderApi/) section for more details.
+This API returns reference to the SecretProvider instance. See [Secret Provider API](../../../../security/Ch-SecretProviderApi.md) section for more details.
 
 ## Client APIs
 
@@ -495,7 +497,7 @@ This API returns the Device Client. Note if Core Metadata is not specified in th
 
 ## Background Publisher APIs
 
-The following `ApplicationService` APIs allow Application Services to have background publishers. See the [Background Publishing](../AdvancedTopics/#background-publishing) advanced topic for more details and example.
+The following `ApplicationService` APIs allow Application Services to have background publishers. See the [Background Publishing](../details/BackgroundPublishing.md) advanced topic for more details and example.
 
 ### AddBackgroundPublisher *DEPRECATED*
 
@@ -527,7 +529,7 @@ This API is deprecated in favor of `AddCustomRoute()` which has an explicit para
 
 `AddCustomRoute(route string, authentication Authentication, handler echo.HandlerFunc, methods ...string) error`
 
-This API adds a custom REST route to the application service's internal webserver.  If the route is marked authenticated, it will require an EdgeX JWT when security is enabled.  A reference to the ApplicationService is added to the context that is passed to the handler, which can be retrieved using the `AppService` key. See [Custom REST Endpoints](../AdvancedTopics/#custom-rest-endpoints) advanced topic for more details and example.
+This API adds a custom REST route to the application service's internal webserver.  If the route is marked authenticated, it will require an EdgeX JWT when security is enabled.  A reference to the ApplicationService is added to the context that is passed to the handler, which can be retrieved using the `AppService` key. See [Custom REST Endpoints](../details/CustomRestApis.md) advanced topic for more details and example.
 
 ### AppContext
 
@@ -557,7 +559,7 @@ This API returns the parsed value for the `Service.RequestTimeout` configuration
 
 `RegisterCustomTriggerFactory(name string, factory func(TriggerConfig) (Trigger, error)) error`
 
-This API registers a trigger factory for a custom trigger to be used. See the [Custom Triggers](../Triggers/#custom-triggers) section for more details and example.
+This API registers a trigger factory for a custom trigger to be used. See the [Custom Triggers](../../details/Triggers.md#custom-triggers) section for more details and example.
 
 ### RegisterCustomStoreFactory
 

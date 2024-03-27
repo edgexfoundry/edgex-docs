@@ -425,12 +425,18 @@ plugins:
         - template_macros.yaml
       on_error_fail: true
   - htmlproofer:
-      enabled: !ENV [ENABLED_HTMLPROOFER, false]
-      raise_error: true
+      enabled: !ENV [ENABLED_HTMLPROOFER, true]
+      raise_error_after_finish: true
       raise_error_excludes:
+        403: ['https://www.collinsdictionary.com/us/dictionary/english/unit-of-measurement',
+              'https://www.raspberrypi.com/software/', 'https://www.raspberrypi.com/products/raspberry-pi-3-model-b/',
+              'https://www.pcmag.com/encyclopedia/term/run-native', 'https://www.vmware.com/topics/glossary/content/kubernetes-cluster.html',
+              'https://app.getpostman.com/']
         404: ['https://support.google.com/accounts/answer/185833?hl=en',
               'https://support.google.com/accounts/answer/6010255?hl=en']
         429: ['*']
         -1: ['https://www.rfc-editor.org/rfc/rfc7519',
-             'https://tools.ietf.org/html/rfc5869','https://docs.iotaap.io/docs-rest/']
+             'https://tools.ietf.org/html/rfc5869','https://docs.iotaap.io/docs-rest/',
+             'https://ekuiper.org/', 'https://ekuiper.org/docs/en/latest/concepts/ekuiper.html',
+             'https://www.mingw-w64.org/downloads/']
         500: [https://packages.ubuntu.com/bionic/build-essential]

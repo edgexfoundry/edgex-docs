@@ -55,12 +55,12 @@ The [tool here](https://www.convertsimple.com/convert-toml-to-yaml/) can be used
 
 The following are where you can find the configuration migration specifics for individual EdgeX services
 
-- [Core Data](../microservices/core/data/Ch-CoreData/#v3-configuration-migration-guide) 
-- [Core Metadata](../microservices/core/metadata/Ch-Metadata/#v3-configuration-migration-guide) 
-- [Core Command](../microservices/core/command/Ch-Command/#v3-configuration-migration-guide)
-- [Support Notifications](../microservices/support/notifications/Ch-AlertsNotifications/#v3-configuration-migration-guide)
-- [Support Scheduler](../microservices/support/scheduler/Ch-Scheduler/#v3-configuration-migration-guide)
-- [Application Services](../microservices/application/V3Migration/#configuration)
+- [Core Data](#core-data) 
+- [Core Metadata](#core-metadata) 
+- [Core Command](#core-command)
+- [Support Notifications](#support-notifications)
+- [Support Scheduler](#support-scheduler)
+- [Application Services](#application-services)
 - [Device Services (common)](../microservices/device/V3Migration/#configuration)
 - [Device MQTT](../microservices/device/V3Migration/#device-mqtt)
 - [Device ONVIF Camera](../microservices/device/V3Migration/#device-onvif-camera)
@@ -115,7 +115,7 @@ The Event/Reading data stored by Core Data is considered transient and of little
 - Add Event
     To identify which device service generating the new event, POST endpoint is now changed from `/event/{profileName}/{deviceName}/{sourceName}` to `/event/{serviceName}/{profileName}/{deviceName}/{sourceName}`
 
-See [Core Data API Reference](../api/core/Ch-APICoreData) for complete details.
+See [Core Data API Reference](./microservices/core/data/ApiReference.md) for complete details.
 #### Reading
 
 - Added `tags` field in reading.
@@ -150,14 +150,14 @@ Most of the data stored by Core Metadata will be recreated when the V3 versions 
     - Removed the boolean field `notify` which is never used
     - Added the new field `tags` and `properties`
 
-See [Core Metadata API Reference](../api/core/Ch-APICoreMetadata) for complete details.
+See [Core Metadata API Reference](./microservices/core/metadata/ApiReference.md) for complete details.
 
 ### Core Command
 #### API Change
 - Get Command
     - Updated `ds-pushevent` and `ds-returnevent` to use bool value, `true` or `false`, instead of `yes` or `no`
 
-See [Core Command API Reference](../api/core/Ch-APICoreCommand) for complete details.
+See [Core Command API Reference](./microservices/core/command/ApiReference.md) for complete details.
 
 ### Support Notifications
 
@@ -167,20 +167,20 @@ Any `Subscriptions` created via the V2 REST API will have to be recreated using 
 #### API Change
 - Added `authmethod` to support-scheduler actions DTO, which indicates how to authenticate the outbound URL. Use `NONE` when running in non-secure mode and `JWT` when running in secure mode.
 
-See [Support Scheduler API Reference](../api/support/Ch-APISupportScheduler) for complete details.
+See [Support Scheduler API Reference](./microservices/support/scheduler/ApiReference.md) for complete details.
 
 The statically declared `Interval` and `IntervalAction` will be created automatically. Any `Interval` and/or `IntervalAction` created via the V2 REST API will have to be recreated using the V3 REST API. If you have created a custom configuration with additional statically declared `Interval`s and `IntervalActions` see the [Configuration File](#configuration-file) section under [Customized Configuration](#customized-configuration) below.
 
 ### Application Services
 
-Application services use the database only when the [Store and Forward](../microservices/application/AdvancedTopics/#store-and-forward) capability is enabled. If you do not use this capability you can skip this section. This data collection only has data when that data could not be exported. It is recommended not to upgrade to V3 while the Store and Forward data collection is not empty or you are certain the data is no longer needed. You can determine if the Store and Forward data collection is empty by setting the Application Service's log level to `DEBUG`  and look for the following message which is logged every `RetryInterval`:
+Application services use the database only when the [Store and Forward](./microservices/application/sdk/details/StoreAndForward.md) capability is enabled. If you do not use this capability you can skip this section. This data collection only has data when that data could not be exported. It is recommended not to upgrade to V3 while the Store and Forward data collection is not empty or you are certain the data is no longer needed. You can determine if the Store and Forward data collection is empty by setting the Application Service's log level to `DEBUG`  and look for the following message which is logged every `RetryInterval`:
 
 !!! example
     ```
     msg=" 0 stored data items found for retrying"
     ```
 !!! note
-    The `RetryInterval` is in the `app-services` section of [common configuration](../microservices/configuration/CommonConfiguration). Changing it there will apply to all Application Services that have the [Store and Forward](../microservices/application/AdvancedTopics/#store-and-forward) capability enabled.
+    The `RetryInterval` is in the `app-services` section of [common configuration](../microservices/configuration/CommonConfiguration). Changing it there will apply to all Application Services that have the [Store and Forward](./microservices/application/sdk/details/StoreAndForward.md) capability enabled.
 
 ### Clearing Redis Database
 
@@ -207,31 +207,31 @@ This will not work if running EdgeX in running in secure mode since you will not
 
 ## Custom Device Service
 
-If you have custom Device Services they will need to be migrated to the V3 version of the Device SDK.  See [Device Service V3 Migration Guide](../microservices/device/V3Migration) for complete details.
+If you have custom Device Services they will need to be migrated to the V3 version of the Device SDK.  See [Device Service V3 Migration Guide](./microservices/device/V3Migration.md) for complete details.
 
 ## Custom Device Profile
 
-If you have custom V2 Device Profile(s) for one of the EdgeX Device Services they will need to be migrated to the V3 version of Device Profiles.  See [Device Service V3 Migration Guide](../microservices/device/V3Migration#device-profiles) for complete details.
+If you have custom V2 Device Profile(s) for one of the EdgeX Device Services they will need to be migrated to the V3 version of Device Profiles.  See [Device Service V3 Migration Guide](./microservices/device/V3Migration.md#device-profile) for complete details.
 
 ## Custom Pre-Defined Device
 
-If you have custom V2 Pre-Defined Device(s) for one of the EdgeX Device Services they will need to be migrated to the V3 version of Pre-Defined Devices.  See [Device Service V3 Migration Guide](../microservices/device/V3Migration/#device-files) for complete details.
+If you have custom V2 Pre-Defined Device(s) for one of the EdgeX Device Services they will need to be migrated to the V3 version of Pre-Defined Devices.  See [Device Service V3 Migration Guide](./microservices/device/V3Migration.md#device-files) for complete details.
 
 ## Custom Applications Service
 
- If you have custom Application Services they will need to be migrated to the V3 version of the App Functions SDK. See [Application Services V3 Migration Guide](../microservices/application/V3Migration) for complete details.
+ If you have custom Application Services they will need to be migrated to the V3 version of the App Functions SDK. See [Application Services V3 Migration Guide](./microservices/application/V3Migration.md) for complete details.
 
 ## Security
 
-If you have an add-on services running in secure mode you will need to use the new names of the environment variables in EdgeX V3. See [Security Services V3 Migration Guide](../security/V3Migration) for more details.
+If you have an add-on services running in secure mode you will need to use the new names of the environment variables in EdgeX V3. See [Security Services V3 Migration Guide](./security/V3Migration.md) for more details.
 
 ### API Gateway configuration
 
-The API gateway has changed in EdgeX V3. See [Security Services V3 Migration Guide](../security/V3Migration) for more details.
+The API gateway has changed in EdgeX V3. See [Security Services V3 Migration Guide](./security/V3Migration.md) for more details.
 
 ### Authenticated REST APIs
 
-When security is enable,  all V3 EdgeX services REST APIs require a JWT authorization token. See [Security Services V3 Migration Guide](../security/V3Migration) for more details.
+When security is enable,  all V3 EdgeX services REST APIs require a JWT authorization token. See [Security Services V3 Migration Guide](./security/V3Migration.md) for more details.
 
 ## eKuiper
 

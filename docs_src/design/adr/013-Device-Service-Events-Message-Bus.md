@@ -33,7 +33,7 @@ Currently EdgeX Events are sent from Device Services via HTTP to Core Data, whic
 
 > *Note: Though this design is centered on device services, it does have cross cutting impacts with other EdgeX services and modules*
 
-> *Note: This ADR is dependent on the [**Secret Provider for All**](TBD) to provide the secrets for secure Message Bus connections.*
+> *Note: This ADR is dependent on the **Secret Provider for All**(Link TBD) to provide the secrets for secure Message Bus connections.*
 
 ## Decision
 
@@ -231,14 +231,14 @@ SubscribeTopics="edgex/events/#"
 
 ### Secure Connections
 
-As stated earlier,  this ADR is dependent on the  [**Secret Provider for All**](TBD) ADR to provide a common Secret Provider for all Edgex Services to access their secrets. Once this is available, the MessageBus connection can be secured via the following configurable client authentications modes which follows similar implementation for secure MQTT Export and secure MQTT Trigger used in Application Services.
+As stated earlier,  this ADR is dependent on the **Secret Provider for All**(Link TBD) ADR to provide a common Secret Provider for all Edgex Services to access their secrets. Once this is available, the MessageBus connection can be secured via the following configurable client authentications modes which follows similar implementation for secure MQTT Export and secure MQTT Trigger used in Application Services.
 
 - **none** - No authentication 
 - **usernamepassword** - Username & password authentication. 
 - **clientcert** - Client certificate and key for authentication. 
 - The secrets specified for the above options are pulled from the `Secret Provider` using the configured `SecretPath`.
 
-How the secrets are injected into the `Secret Provider` is out of scope for this ADR and covered in the [**Secret Provider for All**](TBD) ADR. 
+How the secrets are injected into the `Secret Provider` is out of scope for this ADR and covered in the **Secret Provider for All** (Link TBD) ADR. 
 
 ## Consequences
 

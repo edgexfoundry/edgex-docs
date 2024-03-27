@@ -14,11 +14,11 @@ The EdgeX services intended as external entry points are:
 
 - **REST API on all the EdgeX services** - Accessed directly in non-secure mode or via the [API Gateway](../../../security/Ch-APIGateway) when running in secure mode
 
-- **App Service using External MQTT Trigger** - An App Service configured to use the [External MQTT Trigger](../../application/Triggers/#external-mqtt-trigger) will accept data from external services on an "external" MQTT connection
+- **App Service using External MQTT Trigger** - An App Service configured to use the [External MQTT Trigger](../application/details/Triggers.md#external-mqtt-trigger) will accept data from external services on an "external" MQTT connection
   
-- **App Service using HTTP Trigger** - An App Service configured to use the [HTTP Trigger](../../application/Triggers/#http-trigger) will accept data from external services on an "external" REST connection. Accessed in the same manner as other EdgeX REST APIs.
+- **App Service using HTTP Trigger** - An App Service configured to use the [HTTP Trigger](../application/details/Triggers.md#http-trigger) will accept data from external services on an "external" REST connection. Accessed in the same manner as other EdgeX REST APIs.
 
-- **App Service using Custom Trigger** - An App Service configured to use a [Custom Trigger](../../application/Triggers/#custom-trigger) can accept data from external services or over additional protocols with few limitations. See [Custom Trigger Example](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/application-services/custom/custom-trigger) for an example.
+- **App Service using Custom Trigger** - An App Service configured to use a [Custom Trigger](../application/details/Triggers.md#custom-triggers) can accept data from external services or over additional protocols with few limitations. See [Custom Trigger Example](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/application-services/custom/custom-trigger) for an example.
 
 - **Core Command External MQTT Connection** - Core Command now receives command requests and publishes responses via an external MQTT connection that is separate from the EdgeX MessageBus. The requests are forwarded to the EdgeX MessageBus and the corresponding responses are forwarded back to the external MQTT connection. 
 
@@ -26,7 +26,7 @@ Originally, the EdgeX MessageBus was only used to send *Event/Readings* from Cor
 
 - Device Services publish *Event/Readings* directly to the EdgeX MessageBus rather than sending them via REST to Core Data. 
 - [Service Metrics](../#service-metrics) are published to the EdgeX MessageBus
-- [System Events](../../core/metadata/Ch-Metadata/#device-system-events) are published to the EdgeX MessageBus. 
+- [System Events](../core/metadata/details/DeviceSystemEvents.md) are published to the EdgeX MessageBus. 
 - [Command Request/Reponses](../../../design/adr/0023-North-South-Messaging) are now published to the EdgeX MessageBus by Core Command and Devices Services.  
 - Device validation requests from Core Metadata to Device Services via the EdgeX MessageBus.
 
