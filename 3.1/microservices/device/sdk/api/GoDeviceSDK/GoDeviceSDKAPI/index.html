@@ -3302,10 +3302,10 @@ must be sent, as it is applied as an overwrite operation.</p>
 <h4 id="loadcustomconfig">LoadCustomConfig</h4>
 <p><code>LoadCustomConfig(customConfig service.UpdatableConfig, sectionName string) error</code></p>
 <p>This API attempts to load service's custom configuration. It uses the same command line flags to process the custom config in the same manner
- as the standard configuration. Returns an error is custom configuration can not be loaded. See <a href="../../../getting-started/Ch-GettingStartedSDK-Go/#custom-structured-configuration">Custom Structured Configuration</a> section for more details.</p>
+ as the standard configuration. Returns an error is custom configuration can not be loaded. See <a href="../../../details/CustomConfiguration/#go-device-service-sdk---custom-structured-configuration">Custom Structured Configuration</a> section for more details.</p>
 <h4 id="listenforcustomconfigchanges">ListenForCustomConfigChanges</h4>
 <p><code>ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error</code></p>
-<p>This API attempts to start listening for changes to the specified custom configuration section. LoadCustomConfig API must be called before this API. See <a href="../../../getting-started/Ch-GettingStartedSDK-Go/#custom-structured-configuration">Custom Structured Configuration</a> section for more details.</p>
+<p>This API attempts to start listening for changes to the specified custom configuration section. LoadCustomConfig API must be called before this API. See <a href="../../../details/CustomConfiguration/#go-device-service-sdk---custom-structured-configuration">Custom Structured Configuration</a> section for more details.</p>
 <h3 id="miscellaneous">Miscellaneous</h3>
 <h4 id="name">Name</h4>
 <p><code>Name() string</code></p>
@@ -3337,10 +3337,10 @@ must be sent, as it is applied as an overwrite operation.</p>
 <p>This API returns the <code>LoggingClient</code> used to log messages.</p>
 <h4 id="secretprovider">SecretProvider</h4>
 <p><code>SecretProvider() interfaces.SecretProvider</code></p>
-<p>This API returns the SecretProvider used to get/save the service secrets. See <a href="../../../../security/Ch-SecretProviderApi/">Secret Provider API</a> section for more details.</p>
+<p>This API returns the SecretProvider used to get/save the service secrets. See <a href="../../../../../../security/Ch-SecretProviderApi/">Secret Provider API</a> section for more details.</p>
 <h4 id="metricsmanager">MetricsManager</h4>
 <p><code>MetricsManager () interfaces.MetricsManager</code></p>
-<p>This API returns the MetricsManager used to register custom service metrics. See <a href="../../../general/#service-metrics">Service Metrics</a> for more details</p>
+<p>This API returns the MetricsManager used to register custom service metrics. See <a href="../../../details/CustomServiceMetrics/">Service Metrics</a> for more details</p>
 <h4 id="asyncvalueschannel">AsyncValuesChannel</h4>
 <p><code>AsyncValuesChannel() chan *sdkModels.AsyncValues</code></p>
 <p>This API returns a channel to allow developer send asynchronous reading back to SDK.</p>

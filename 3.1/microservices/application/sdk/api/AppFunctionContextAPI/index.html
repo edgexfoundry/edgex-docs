@@ -3154,7 +3154,7 @@
 <h2 id="secrets">Secrets</h2>
 <h3 id="secretprovider">SecretProvider</h3>
 <p><code>SecretProvider() interfaces.SecretProvider</code></p>
-<p>This API returns reference to the SecretProvider instance. See <a href="../../../security/Ch-SecretProviderApi/">Secret Provider API</a> section for more details.</p>
+<p>This API returns reference to the SecretProvider instance. See <a href="../../../../../security/Ch-SecretProviderApi/">Secret Provider API</a> section for more details.</p>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <h3 id="clone">Clone()</h3>
 <p><code>Clone() AppFunctionContext</code></p>
@@ -3173,7 +3173,7 @@
 <p>This API retrieves the DeviceResource for the given profile / resource name. Results are cached to minimize HTTP traffic to core-metadata.</p>
 <h3 id="setretrydata">SetRetryData()</h3>
 <p><code>SetRetryData(data []byte)</code></p>
-<p>This method can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on <code>Store and Forward</code> configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The <code>Context</code> will also be restored to the state when the function called this API. See <a href="../AdvancedTopics/#store-and-forward">Store and Forward</a> for more details.</p>
+<p>This method can be used to store data for later retry. This is useful when creating a custom export function that needs to retry on failure. The payload data will be stored for later retry based on <code>Store and Forward</code> configuration. When the retry is triggered, the function pipeline will be re-executed starting with the function that called this API. That function will be passed the stored data, so it is important that all transformations occur in functions prior to the export function. The <code>Context</code> will also be restored to the state when the function called this API. See <a href="../../details/StoreAndForward/">Store and Forward</a> for more details.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code>Store and Forward</code> be must be enabled when calling this API, otherwise the data is ignored.</p>

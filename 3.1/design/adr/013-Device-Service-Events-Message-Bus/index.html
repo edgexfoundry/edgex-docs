@@ -2790,7 +2790,7 @@
 <p>Currently EdgeX Events are sent from Device Services via HTTP to Core Data, which then puts the Events on the MessageBus after optionally persisting them to the database. This ADR details how Device Services will send EdgeX Events to other services via the EdgeX MessageBus. </p>
 <blockquote>
 <p><em>Note: Though this design is centered on device services, it does have cross cutting impacts with other EdgeX services and modules</em></p>
-<p><em>Note: This ADR is dependent on the <a href="TBD"><strong>Secret Provider for All</strong></a> to provide the secrets for secure Message Bus connections.</em></p>
+<p><em>Note: This ADR is dependent on the </em><em>Secret Provider for All</em><em>(Link TBD) to provide the secrets for secure Message Bus connections.</em></p>
 </blockquote>
 <h2 id="decision">Decision</h2>
 <h3 id="which-message-bus-implementations">Which Message Bus implementations?</h3>
@@ -2931,14 +2931,14 @@ Receive only Events from the  <code>Random-Integer-Device1</code> from the <code
 <span class="n">SubscribeTopics</span><span class="o">=</span><span class="s2">"edgex/events/#"</span>
 </code></pre></div>
 <h3 id="secure-connections">Secure Connections</h3>
-<p>As stated earlier,  this ADR is dependent on the  <a href="TBD"><strong>Secret Provider for All</strong></a> ADR to provide a common Secret Provider for all Edgex Services to access their secrets. Once this is available, the MessageBus connection can be secured via the following configurable client authentications modes which follows similar implementation for secure MQTT Export and secure MQTT Trigger used in Application Services.</p>
+<p>As stated earlier,  this ADR is dependent on the <strong>Secret Provider for All</strong>(Link TBD) ADR to provide a common Secret Provider for all Edgex Services to access their secrets. Once this is available, the MessageBus connection can be secured via the following configurable client authentications modes which follows similar implementation for secure MQTT Export and secure MQTT Trigger used in Application Services.</p>
 <ul>
 <li><strong>none</strong> - No authentication </li>
 <li><strong>usernamepassword</strong> - Username &amp; password authentication. </li>
 <li><strong>clientcert</strong> - Client certificate and key for authentication. </li>
 <li>The secrets specified for the above options are pulled from the <code>Secret Provider</code> using the configured <code>SecretPath</code>.</li>
 </ul>
-<p>How the secrets are injected into the <code>Secret Provider</code> is out of scope for this ADR and covered in the <a href="TBD"><strong>Secret Provider for All</strong></a> ADR. </p>
+<p>How the secrets are injected into the <code>Secret Provider</code> is out of scope for this ADR and covered in the <strong>Secret Provider for All</strong> (Link TBD) ADR. </p>
 <h2 id="consequences">Consequences</h2>
 <ul>
 <li>If C SDK doesn't support <code>ZMQ</code> or <code>Redis Streams</code> then there must be a MQTT Broker running when a C Device service is in use and configured to publish to MessageBus.</li>

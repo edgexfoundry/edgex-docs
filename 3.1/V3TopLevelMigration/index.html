@@ -3130,12 +3130,12 @@
 <p>The <a href="https://www.convertsimple.com/convert-toml-to-yaml/">tool here</a> can be used to convert your customized service configuration file from TOML to YAML. This should be done once all the common configuration has been removed.</p>
 <p>The following are where you can find the configuration migration specifics for individual EdgeX services</p>
 <ul>
-<li><a href="../microservices/core/data/Ch-CoreData/#v3-configuration-migration-guide">Core Data</a> </li>
-<li><a href="../microservices/core/metadata/Ch-Metadata/#v3-configuration-migration-guide">Core Metadata</a> </li>
-<li><a href="../microservices/core/command/Ch-Command/#v3-configuration-migration-guide">Core Command</a></li>
-<li><a href="../microservices/support/notifications/Ch-AlertsNotifications/#v3-configuration-migration-guide">Support Notifications</a></li>
-<li><a href="../microservices/support/scheduler/Ch-Scheduler/#v3-configuration-migration-guide">Support Scheduler</a></li>
-<li><a href="../microservices/application/V3Migration/#configuration">Application Services</a></li>
+<li><a href="#core-data">Core Data</a> </li>
+<li><a href="#core-metadata">Core Metadata</a> </li>
+<li><a href="#core-command">Core Command</a></li>
+<li><a href="#support-notifications">Support Notifications</a></li>
+<li><a href="#support-scheduler">Support Scheduler</a></li>
+<li><a href="#application-services">Application Services</a></li>
 <li><a href="../microservices/device/V3Migration/#configuration">Device Services (common)</a></li>
 <li><a href="../microservices/device/V3Migration/#device-mqtt">Device MQTT</a></li>
 <li><a href="../microservices/device/V3Migration/#device-onvif-camera">Device ONVIF Camera</a></li>
@@ -3179,7 +3179,7 @@
 <li>Add Event
     To identify which device service generating the new event, POST endpoint is now changed from <code>/event/{profileName}/{deviceName}/{sourceName}</code> to <code>/event/{serviceName}/{profileName}/{deviceName}/{sourceName}</code></li>
 </ul>
-<p>See <a href="../api/core/Ch-APICoreData">Core Data API Reference</a> for complete details.</p>
+<p>See <a href="../microservices/core/data/ApiReference/">Core Data API Reference</a> for complete details.</p>
 <h4 id="reading">Reading</h4>
 <ul>
 <li>Added <code>tags</code> field in reading.</li>
@@ -3227,7 +3227,7 @@
 </ul>
 </li>
 </ul>
-<p>See <a href="../api/core/Ch-APICoreMetadata">Core Metadata API Reference</a> for complete details.</p>
+<p>See <a href="../microservices/core/metadata/ApiReference/">Core Metadata API Reference</a> for complete details.</p>
 <h3 id="core-command">Core Command</h3>
 <h4 id="api-change_2">API Change</h4>
 <ul>
@@ -3236,7 +3236,7 @@
 </ul>
 </li>
 </ul>
-<p>See <a href="../api/core/Ch-APICoreCommand">Core Command API Reference</a> for complete details.</p>
+<p>See <a href="../microservices/core/command/ApiReference/">Core Command API Reference</a> for complete details.</p>
 <h3 id="support-notifications">Support Notifications</h3>
 <p>Any <code>Subscriptions</code> created via the V2 REST API will have to be recreated using the V3 REST API. The <code>Notification</code> and <code>Transmission</code>collections will be empty until new notifications are sent using EdgeX V3 </p>
 <h3 id="support-scheduler">Support Scheduler</h3>
@@ -3244,10 +3244,10 @@
 <ul>
 <li>Added <code>authmethod</code> to support-scheduler actions DTO, which indicates how to authenticate the outbound URL. Use <code>NONE</code> when running in non-secure mode and <code>JWT</code> when running in secure mode.</li>
 </ul>
-<p>See <a href="../api/support/Ch-APISupportScheduler">Support Scheduler API Reference</a> for complete details.</p>
+<p>See <a href="../microservices/support/scheduler/ApiReference/">Support Scheduler API Reference</a> for complete details.</p>
 <p>The statically declared <code>Interval</code> and <code>IntervalAction</code> will be created automatically. Any <code>Interval</code> and/or <code>IntervalAction</code> created via the V2 REST API will have to be recreated using the V3 REST API. If you have created a custom configuration with additional statically declared <code>Interval</code>s and <code>IntervalActions</code> see the <a href="#configuration-file">Configuration File</a> section under <a href="#customized-configuration">Customized Configuration</a> below.</p>
 <h3 id="application-services">Application Services</h3>
-<p>Application services use the database only when the <a href="../microservices/application/AdvancedTopics/#store-and-forward">Store and Forward</a> capability is enabled. If you do not use this capability you can skip this section. This data collection only has data when that data could not be exported. It is recommended not to upgrade to V3 while the Store and Forward data collection is not empty or you are certain the data is no longer needed. You can determine if the Store and Forward data collection is empty by setting the Application Service's log level to <code>DEBUG</code>  and look for the following message which is logged every <code>RetryInterval</code>:</p>
+<p>Application services use the database only when the <a href="../microservices/application/sdk/details/StoreAndForward/">Store and Forward</a> capability is enabled. If you do not use this capability you can skip this section. This data collection only has data when that data could not be exported. It is recommended not to upgrade to V3 while the Store and Forward data collection is not empty or you are certain the data is no longer needed. You can determine if the Store and Forward data collection is empty by setting the Application Service's log level to <code>DEBUG</code>  and look for the following message which is logged every <code>RetryInterval</code>:</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <div class="highlight"><pre><span></span><code>msg=" 0 stored data items found for retrying"
@@ -3255,7 +3255,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code>RetryInterval</code> is in the <code>app-services</code> section of <a href="../microservices/configuration/CommonConfiguration">common configuration</a>. Changing it there will apply to all Application Services that have the <a href="../microservices/application/AdvancedTopics/#store-and-forward">Store and Forward</a> capability enabled.</p>
+<p>The <code>RetryInterval</code> is in the <code>app-services</code> section of <a href="../microservices/configuration/CommonConfiguration">common configuration</a>. Changing it there will apply to all Application Services that have the <a href="../microservices/application/sdk/details/StoreAndForward/">Store and Forward</a> capability enabled.</p>
 </div>
 <h3 id="clearing-redis-database">Clearing Redis Database</h3>
 <h4 id="docker">Docker</h4>
@@ -3270,19 +3270,19 @@
 </code></pre></div>
 <p>This will not work if running EdgeX in running in secure mode since you will not have the random generated Redis password unless you created an Admin password when you installed Redis.</p>
 <h2 id="custom-device-service">Custom Device Service</h2>
-<p>If you have custom Device Services they will need to be migrated to the V3 version of the Device SDK.  See <a href="../microservices/device/V3Migration">Device Service V3 Migration Guide</a> for complete details.</p>
+<p>If you have custom Device Services they will need to be migrated to the V3 version of the Device SDK.  See <a href="../microservices/device/V3Migration/">Device Service V3 Migration Guide</a> for complete details.</p>
 <h2 id="custom-device-profile">Custom Device Profile</h2>
-<p>If you have custom V2 Device Profile(s) for one of the EdgeX Device Services they will need to be migrated to the V3 version of Device Profiles.  See <a href="../microservices/device/V3Migration#device-profiles">Device Service V3 Migration Guide</a> for complete details.</p>
+<p>If you have custom V2 Device Profile(s) for one of the EdgeX Device Services they will need to be migrated to the V3 version of Device Profiles.  See <a href="../microservices/device/V3Migration/#device-profile">Device Service V3 Migration Guide</a> for complete details.</p>
 <h2 id="custom-pre-defined-device">Custom Pre-Defined Device</h2>
 <p>If you have custom V2 Pre-Defined Device(s) for one of the EdgeX Device Services they will need to be migrated to the V3 version of Pre-Defined Devices.  See <a href="../microservices/device/V3Migration/#device-files">Device Service V3 Migration Guide</a> for complete details.</p>
 <h2 id="custom-applications-service">Custom Applications Service</h2>
-<p>If you have custom Application Services they will need to be migrated to the V3 version of the App Functions SDK. See <a href="../microservices/application/V3Migration">Application Services V3 Migration Guide</a> for complete details.</p>
+<p>If you have custom Application Services they will need to be migrated to the V3 version of the App Functions SDK. See <a href="../microservices/application/V3Migration/">Application Services V3 Migration Guide</a> for complete details.</p>
 <h2 id="security">Security</h2>
-<p>If you have an add-on services running in secure mode you will need to use the new names of the environment variables in EdgeX V3. See <a href="../security/V3Migration">Security Services V3 Migration Guide</a> for more details.</p>
+<p>If you have an add-on services running in secure mode you will need to use the new names of the environment variables in EdgeX V3. See <a href="../security/V3Migration/">Security Services V3 Migration Guide</a> for more details.</p>
 <h3 id="api-gateway-configuration">API Gateway configuration</h3>
-<p>The API gateway has changed in EdgeX V3. See <a href="../security/V3Migration">Security Services V3 Migration Guide</a> for more details.</p>
+<p>The API gateway has changed in EdgeX V3. See <a href="../security/V3Migration/">Security Services V3 Migration Guide</a> for more details.</p>
 <h3 id="authenticated-rest-apis">Authenticated REST APIs</h3>
-<p>When security is enable,  all V3 EdgeX services REST APIs require a JWT authorization token. See <a href="../security/V3Migration">Security Services V3 Migration Guide</a> for more details.</p>
+<p>When security is enable,  all V3 EdgeX services REST APIs require a JWT authorization token. See <a href="../security/V3Migration/">Security Services V3 Migration Guide</a> for more details.</p>
 <h2 id="ekuiper">eKuiper</h2>
 <h3 id="rules">Rules</h3>
 <h4 id="rest-action">Rest Action</h4>
