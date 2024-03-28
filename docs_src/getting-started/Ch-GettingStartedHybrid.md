@@ -94,4 +94,4 @@ http://localhost:59880/api/{{api_version}}/event/count
 *For this example, you can check that the virtual device service is sending data into Core Data by checking the event count.*
 
 !!! Note
-    If you choose, you can also import the service into GoLand and then code and run the service from GoLand.  Follow the instructions in the [Getting Started - Go Developers ](Ch-GettingStartedGoDevelopers#edgex-foundry-in-goland) to learn how to import, build and run a service in GoLand.
+    If you choose, you can also import the service into GoLand and then code and run the service from GoLand.  Follow the instructions in the [Getting Started - Go Developers ](./Ch-GettingStartedGoDevelopers.md#edgex-foundry-in-goland) to learn how to import, build and run a service in GoLand.

@@ -10,7 +10,7 @@ Please refer to the general [Common Configuration documentation](../configuratio
     **UpdateLastConnected** is removed in EdgeX 3.0.
 
 !!! edgey "Edgex 3.0"
-    For EdgeX 3.0 the `MessageQueue` configuration has been move to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties)
+    For EdgeX 3.0 the `MessageQueue` configuration has been move to `MessageBus` in [Common Configuration](../configuration/CommonConfiguration.md#common-configuration-properties)
 
 
 !!! edgey "EdgeX 3.1"
@@ -36,7 +36,7 @@ Please refer to the general [Common Configuration documentation](../configuratio
 ||`EventsSent` = false     |Enable/disable reporting of the built-in **EventsSent** metric|
 ||`ReadingsSent` = false     |Enable/disable reporting of the built-in **ReadingsSent** metric|
 ||`LastConnected` = false     |Enable/disable reporting of the built-in **LastConnected** metric|
-||`<CustomMetric>` = false    |Enable/disable reporting of custom device service's custom metric. See [Custom Device Service Metrics](../../getting-started/Ch-GettingStartedSDK-Go/#built-in) for more details.|
+||`<CustomMetric>` = false    |Enable/disable reporting of custom device service's custom metric. See [Custom Device Service Metrics](../device/sdk/details/CustomConfiguration.md#device-service-sdk---custom-configuration) for more details.|
 |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported.  |
 === "Clients.core-metadata*"
 |Property|Default Value|Description|
@@ -121,17 +121,17 @@ Device services can have custom configuration in one of two ways. See the table 
       MySetting: "My Value"
     ```
 === "Custom Structured Configuration"
-    For Go Device Services see [Go Custom Structured Configuration](../../../getting-started/Ch-GettingStartedSDK-Go/#custom-structured-configuration) for more details.
+    For Go Device Services see [Go Custom Structured Configuration](../device/sdk/details/CustomConfiguration.md#go-device-service-sdk---custom-structured-configuration) for more details.
     
 
-    For C Device Service see [C Custom Structured Configuration](../../../getting-started/Ch-GettingStartedSDK-C/#custom-structured-configuration) for more details.
+    For C Device Service see [C Custom Structured Configuration](../device/sdk/details/CustomConfiguration.md#c-device-service-sdk---custom-structured-configuration) for more details.
 
 ## Secrets
 
 #### Configuration
 
 !!! edgey "Edgex 3.0"
-    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the [SecretStore Overrides](../CommonEnvironmentVariables/#secretstore-overrides) section for more details.
+    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the [SecretStore Overrides](../configuration/CommonEnvironmentVariables.md#secretstore-configuration-overrides) section for more details.
 
 All instances of Device Services running in secure mode require a `SecretStore` to be created for the service by the Security Services. See [Configuring Add-on Service](../../../security/Ch-Configuring-Add-On-Services) for details on configuring a `SecretStore` to be created for the Device Service. With the use of `Redis Pub/Sub` as the default EdgeX MessageBus all Device Services need the `redisdb` known secret added to their `SecretStore` so they can connect to the Secure EdgeX MessageBus. See the [Secure MessageBus](../../../security/Ch-Secure-MessageBus) documentation for more details.
 
@@ -165,4 +165,4 @@ When running in insecure mode, the secrets are stored and retrieved from the *Wr
 
 #### Retrieving Secrets
 
-Device Services retrieve secrets from their `SecretStore` using the SDK API.  See [Retrieving Secrets](../../../getting-started/Ch-GettingStartedSDK-Go/#retrieving-secrets) for more details using the Go SDK. 
+Device Services retrieve secrets from their `SecretStore` using the SDK API.  See [Retrieving Secrets](../device/sdk/details/Secrets.md#retrieving-secrets) for more details using the Go SDK. 
