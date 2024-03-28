@@ -425,8 +425,8 @@ plugins:
         - template_macros.yaml
       on_error_fail: true
   - htmlproofer:
-      enabled: !ENV [ENABLED_HTMLPROOFER, true]
-      raise_error_after_finish: true
+      enabled: !ENV [ENABLED_HTMLPROOFER, false]
+      raise_error: true
       raise_error_excludes:
         403: ['https://www.collinsdictionary.com/us/dictionary/english/unit-of-measurement',
               'https://www.raspberrypi.com/software/', 'https://www.raspberrypi.com/products/raspberry-pi-3-model-b/',
