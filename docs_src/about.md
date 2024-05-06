@@ -153,11 +153,6 @@ There are two major EdgeX security components.
 - A security store, which is used to provide a safe place to keep the EdgeX secrets.  Examples of EdgeX secrets are the database access passwords used by the other services and tokens to connect to cloud systems. 
 - An API gateway serves as the reverse proxy to restrict access to EdgeX REST resources and perform access control related works. 
 
-**System Management**
-![image](./general/EdgeX_SystemManagementLayer.png)
-
-System Management facilities provide the central point of contact for external management systems to start/stop/restart EdgeX services, get the status/health of a service, or get metrics on the EdgeX services (such as memory usage) so that the EdgeX services can be monitored.
-
 ### Software Development Kits (SDKs)
 
 Two types of SDKs are provided by EdgeX to assist in creating north and south side services – specifically to create application services and device services.  SDKs for both the north and south side services make connecting new things or new cloud/enterprise systems easier by providing developers all the scaffolding code that takes care of the basic operations of the service.  Thereby allowing developers to focus on specifics of their connectivity to the south or north side object without worrying about all the raw plumbing of a micro service.
