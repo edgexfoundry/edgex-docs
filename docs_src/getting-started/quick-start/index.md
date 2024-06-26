@@ -215,7 +215,7 @@ First add the following application service to your docker-compose.yml file righ
 ```
 
 !!! Note
-    This adds the application service configurable to your EdgeX system.  The application service configurable allows you to configure (versus program) new exports - in this case exporting the EdgeX sensor data to the HiveMQ broker at `tcp://broker.mqttdashboard.com:1883`.  You will be publishing to the EdgeXEvents topic.
+    This adds the application service configurable to your EdgeX system.  The application service configurable allows you to configure (versus program) new exports - in this case exporting the EdgeX sensor data to the HiveMQ broker at `tcp://broker.hivemq.com:1883`.  You will be publishing to the edgex-events topic.
 
     For convenience, see documentation on the [EdgeX Compose Builder](../Ch-GettingStartedDockerUsers/#generate-a-custom-docker-compose-file) to create custom Docker Compose files.
 
@@ -229,10 +229,10 @@ You can connect to this broker with any MQTT client to watch the sent data. Hive
 ![image](./EdgeX_ConnectToHiveMQ.png)
 *Using the HiveMQ provided client tool, connect to the same public HiveMQ broker your configurable application service is sending EdgeX data to.*
 
-Then, use the Subscriptions area to subscribe to the "EdgeXEvents" topic.
+Then, use the Subscriptions area to subscribe to the "edgex-events" topic.
 
 ![image](./EdgeX_HiveMQTTWebClient.png)
-*You must subscribe to the same topic - EdgeXEvents - to see the EdgeX data sent by the configurable application service.*
+*You must subscribe to the same topic - edgex-events - to see the EdgeX data sent by the configurable application service.*
 
 You will begin seeing your random number readings appear in the Messages area on the screen.
 
