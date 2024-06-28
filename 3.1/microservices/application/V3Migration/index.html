@@ -11,7 +11,7 @@
 <link href="../../device/V3Migration/" rel="prev"/>
 <link href="../../../examples/Ch-ExamplesVirtualDeviceService/" rel="next"/>
 <link href="../../../assets/logo_edgex.png" rel="icon"/>
-<meta content="mkdocs-1.5.3, mkdocs-material-9.1.19" name="generator"/>
+<meta content="mkdocs-1.6.0, mkdocs-material-9.1.19" name="generator"/>
 <title>App Services - V3 Migration Guide - EdgeX Foundry Documentation</title>
 <link href="../../../assets/stylesheets/main.eebd395e.min.css" rel="stylesheet"/>
 <link href="../../../assets/stylesheets/palette.ecc896b0.min.css" rel="stylesheet"/>
@@ -437,7 +437,7 @@
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../core/data/ApiReference/">
-        API Reference
+        Core Data
       </a>
 </li>
 <li class="md-nav__item">
@@ -770,7 +770,7 @@
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../device/GettingStarted/">
-        Getting Started
+        Device Services
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
@@ -1735,7 +1735,7 @@
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../ApiReference/">
-        API Reference
+        App Services
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
@@ -1792,7 +1792,7 @@
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="../sdk/Purpose/">
-        Purpose
+        Application Functions SDK
       </a>
 </li>
 <li class="md-nav__item">
@@ -1893,10 +1893,148 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="./">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          V3 Migration
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
         V3 Migration
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration">
+    Configuration
+  </a>
+<nav aria-label="Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-configuration-removed">
+    Common Configuration Removed
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#messagebus">
+    MessageBus
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#trigger">
+    Trigger
+  </a>
+<nav aria-label="Trigger" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex-messagebus-changes">
+    edgex-messagebus changes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex-messagebus-trigger-migration">
+    edgex-messagebus Trigger Migration
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#external-mqtt-changes">
+    External MQTT changes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#external-mqtt-trigger-migration">
+    external-mqtt Trigger Migration
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#http-changes">
+    HTTP Changes
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#writable-pipeline">
+    Writable Pipeline
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#custom-application-service">
+    Custom Application Service
+  </a>
+<nav aria-label="Custom Application Service" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dependencies">
+    Dependencies
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#api-changes">
+    API Changes
+  </a>
+<nav aria-label="API Changes" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#applicationservice-api">
+    ApplicationService API
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appfunctioncontext-api">
+    AppFunctionContext API
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pipeline-functions">
+    Pipeline Functions
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#app-service-configurable">
+    App Service Configurable
+  </a>
+<nav aria-label="App Service Configurable" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#profiles">
+    Profiles
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#custom-profiles">
+    Custom Profiles
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pipeline-configuration">
+    Pipeline Configuration
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#environment-variable-overrides">
+    Environment Variable Overrides
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
 <input class="md-nav__toggle md-toggle" id="__nav_1_6_4_8" type="checkbox"/>
@@ -2320,27 +2458,27 @@
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../../security/V3Migration/">
-        Security Migration
+        V3 Migration
       </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../configuration/V3MigrationCommonConfig/">
-        Configuration Migration
+        V3 Migration
       </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../../device/V3Migration/">
-        Device Service Migration
+        V3 Migration
       </a>
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
-          Application Service Migration
+          V3 Migration
           <span class="md-nav__icon md-icon"></span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./">
-        Application Service Migration
+        V3 Migration
       </a>
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">
@@ -3143,7 +3281,7 @@
 </main>
 <footer class="md-footer">
 <nav aria-label="Footer" class="md-footer__inner md-grid">
-<a aria-label="Previous: Device Service Migration" class="md-footer__link md-footer__link--prev" href="../../device/V3Migration/" rel="prev">
+<a aria-label="Previous: V3 Migration" class="md-footer__link md-footer__link--prev" href="../../device/V3Migration/" rel="prev">
 <div class="md-footer__button md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
 </div>
@@ -3152,7 +3290,7 @@
                 Previous
               </span>
 <div class="md-ellipsis">
-                Device Service Migration
+                V3 Migration
               </div>
 </div>
 </a>
