@@ -38,6 +38,9 @@ Describe:
 ## Proposed Design
 
 A flag should be passed to let the system know that the user wants to use Caddy as a reverse-proxy instead of Nginx (like NATS). If flag is used, a new Caddy container will be created instead of the Nginx coantainer.
+Ex: make gen ds-virtual ds-rest caddy_reverse_proxy
+With that flag edgex will load Caddy config file. Caddy also supports Nginx config so current file can be use.
+No other service will need to be modified since Caddy will use the same address and port as Nginx.
 <!--
 Details of the design (without getting into implementation where possible).
 Outline:
@@ -52,9 +55,29 @@ Outline:
 ## Considerations
 
 Full Caddy features can found [here](https://caddyserver.com/features)
-<!--
-Document alternatives, concerns, ancillary or related issues, questions that arose in debate of the ADR. Indicate if/how they were resolved or mollified.
--->
+
+Advantages of Caddy:
+ -Using Automatic HTTPS
+  This is probably the most well-known thing about Caddy. It will switch all HTTP traffic to HTTPS and acquire and renew SSL/TLS certificates for your site automatically through Let's Encrypt.
+
+ -The Easy Configuration:
+  The Caddyfile is an easy-to-understand and-write configuration file used by Caddy. Because of this, configuring your server might be easier and faster.
+
+ -Wide applicability:
+  Plugins allow you to extend Caddy's capabilities as needed. Apart from the numerous pre-made plugins, you also have the choice to make your own.
+
+ -Coded in the Go language:
+  The speed and efficiency of Go are passed on to Caddy because it is written in Go. Additionally, there are no dependencies to be concerned about because it is statically linked.
+
+Disadvantages of Caddy:
+ -Less Mature
+  Although Caddy offers numerous unique capabilities, it is still a relatively young project that lacks the experience and thorough testing of more established web servers.
+
+ -The Limited Module Ecosystem
+  Although Caddy's extensibility is a strong point, the module ecosystem is not as developed or extensive as it is for other servers, such as Apache or Nginx. The responsability fall on the user.
+
+ -A Lesser Community Support
+  Because of its smaller user base, obtaining community support and finding solutions to issues may be a bit more complicated than with more established web servers such as Apache or Nginx.
 
 ## Decision
 <!--
