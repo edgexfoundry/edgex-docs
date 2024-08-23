@@ -112,10 +112,10 @@ See the README document in the compose-builder directory for details on all the 
 
 Now that you have the EdgeX Docker Compose file, you are ready to run EdgeX. Follow these steps to get the container images and start EdgeX!
 
-In a command terminal, change directories to the location of your docker-compose.yml.  Run the following command in the terminal to pull (fetch) and then start the EdgeX containers.
+In a command terminal, change directories root edgex-compose directory containing the file docker-compose.yml.  Run the following command in the terminal to pull (fetch) and then start the EdgeX containers.
 
 ``` bash
-docker-compose up -d
+make run
 ```
 !!! Warning
     If you are using Docker Compose Version 2, please replace `docker-compose` with `docker compose` before proceeding. This change should be applied to all the `docker-compose` in this tutorial. See:  <https://www.docker.com/blog/announcing-compose-v2-general-availability/> for more information.
@@ -124,11 +124,8 @@ docker-compose up -d
 
     ``` bash
     docker-compose pull
-    docker-compose up -d
+    make run
     ```
-
-!!! Note
-    The -d option indicates you want Docker Compose to run the EdgeX containers in detached mode - that is to run the containers in the background. Without -d, the containers will all start in the terminal and in order to use the terminal further you have to stop the containers.
 
 ### Verify EdgeX Foundry Running 
 
