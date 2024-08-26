@@ -202,6 +202,19 @@ This environment variable overrides the [`-rsh/--remoteServiceHosts` command-lin
       EDGEX_REMOTE_SERVICE_HOSTS: "172.26.113.174,172.26.113.150,localhost"
     ```
 
+#### EDGEX_OVERWRITE_CONFIG
+
+This environment variable overrides the [`-o/--overwrite` command-line option](../CommonCommandLineOptions#overwrite).
+
+!!! example "Example - Using docker-compose to override the overwrite configuration flag"
+    ```yaml
+    environment: 
+      EDGEX_OVERWRITE_CONFIG: "true"
+    ```
+
+!!! edgey "EdgeX 3.2"
+    The `EDGEX_OVERWRITE_CONFIG` variable is new to EdgeX 3.2.
+
 ## Configuration Overrides
 
 !!! edgex - "EdgeX 3.0"
@@ -209,6 +222,9 @@ This environment variable overrides the [`-rsh/--remoteServiceHosts` command-lin
 
 !!! important - "Configuration Provider is the **System of Record** for all configurations"
     When using the Configuration Provider,  it is the **System of Record** for all configurations. Environment variables are only applied when the configuration is first read from file. These overridden values are used to seed the services' configuration into the Configuration Provider. Once the Configuration Provider has been seeded, services always get their configuration from the Configuration Provider on start up. Any subsequent changes to configuration must be done via the Configuration Provider. Changing an environment variable override for configuration and restating the service will not impact the service's configuration. The services configuration must first be removed from the Configuration Provider for any new/updated environment variable override(s) to impact the service's configuration.
+
+!!! edgex - "EdgeX 3.2"
+    New in EdgeX 3.2. When overwrite configuration flag is used, either add the command line flag -o/--overwrite or the environment variable `EDGEX_OVERWRITE_CONFIG` is set to true, the local configuration file and the environment variable overrides will be pushed to the Configuration Provider. The environment variables for configuration overrides become the highest precedence again.
 
 ### Service Configuration Overrides
 
