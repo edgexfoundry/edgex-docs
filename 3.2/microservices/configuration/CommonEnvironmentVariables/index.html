@@ -2282,6 +2282,11 @@
     EDGEX_REMOTE_SERVICE_HOSTS
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex_overwrite_config">
+    EDGEX_OVERWRITE_CONFIG
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -2898,6 +2903,11 @@
     EDGEX_REMOTE_SERVICE_HOSTS
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#edgex_overwrite_config">
+    EDGEX_OVERWRITE_CONFIG
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -3106,6 +3116,18 @@ $<span class="w"> </span>./core-data
 <span class="w">  </span><span class="nt">EDGEX_REMOTE_SERVICE_HOSTS</span><span class="p">:</span><span class="w"> </span><span class="s">"172.26.113.174,172.26.113.150,localhost"</span>
 </code></pre></div>
 </div>
+<h4 id="edgex_overwrite_config">EDGEX_OVERWRITE_CONFIG</h4>
+<p>This environment variable overrides the <a href="../CommonCommandLineOptions#overwrite"><code>-o/--overwrite</code> command-line option</a>.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - Using docker-compose to override the overwrite configuration flag</p>
+<div class="highlight"><pre><span></span><code><span class="nt">environment</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">EDGEX_OVERWRITE_CONFIG</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+</code></pre></div>
+</div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 3.2</p>
+<p>The <code>EDGEX_OVERWRITE_CONFIG</code> variable is new to EdgeX 3.2.</p>
+</div>
 <h2 id="configuration-overrides">Configuration Overrides</h2>
 <div class="admonition edgex -">
 <p class="admonition-title">EdgeX 3.0</p>
@@ -3114,6 +3136,10 @@ $<span class="w"> </span>./core-data
 <div class="admonition important -">
 <p class="admonition-title">Configuration Provider is the <strong>System of Record</strong> for all configurations</p>
 <p>When using the Configuration Provider,  it is the <strong>System of Record</strong> for all configurations. Environment variables are only applied when the configuration is first read from file. These overridden values are used to seed the services' configuration into the Configuration Provider. Once the Configuration Provider has been seeded, services always get their configuration from the Configuration Provider on start up. Any subsequent changes to configuration must be done via the Configuration Provider. Changing an environment variable override for configuration and restating the service will not impact the service's configuration. The services configuration must first be removed from the Configuration Provider for any new/updated environment variable override(s) to impact the service's configuration.</p>
+</div>
+<div class="admonition edgex -">
+<p class="admonition-title">EdgeX 3.2</p>
+<p>New in EdgeX 3.2. When overwrite configuration flag is used, either add the command line flag -o/--overwrite or the environment variable <code>EDGEX_OVERWRITE_CONFIG</code> is set to true, the local configuration file and the environment variable overrides will be pushed to the Configuration Provider. The environment variables for configuration overrides become the highest precedence again.</p>
 </div>
 <h3 id="service-configuration-overrides">Service Configuration Overrides</h3>
 <p>Any configuration setting from a service's <code>configuration.yaml</code> file can be overridden by environment variables. The environment variable names have the following format:</p>
