@@ -14,6 +14,7 @@ The following tables (organized by type of service) capture the default service 
     |---|---|
     |support-notifications	|59860|
     |support-scheduler|	59861|
+    |support-cron-scheduler|59863|
     |rules engine / eKuiper|59720|
     |system management agent (deprecated)|58890|
 === "Application"
