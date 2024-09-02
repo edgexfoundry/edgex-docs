@@ -40,13 +40,9 @@ Examples of schedule action include:
     Above is an example of leveraging EdgeX message bus to trigger an app service at a specific time.
     Here is the corresponding app service configuration may look like:
     ```
-    [Trigger.EdgexMessageBus]
-    Type = "redis" # message bus type (i.e "redis`, `mqtt` or `zero` for ZeroMQ)
-    [Trigger.EdgexMessageBus.SubscribeHost]
-        Host = "localhost"
-        Port = 1883
-        Protocol = "mqtt"
-        SubscribeTopics="edgex/trigger_app_service/#"
+    Trigger:
+        Type: "edgex-messagebus"
+        SubscribeTopics: "edgex/trigger_app_service/#"
     ```
     For more configuration details, please refer to the [App Service Configuration](../../application/details/Triggers.md#messagebus-connection-configuration).
 3. **DEVICECONTROL**: Issues a command of a specific device and resouce.
