@@ -45,11 +45,14 @@ Below are only the additional settings and sections that are specific to Support
 === "Database"
     |Property|Default Value|Description|
     |---|---|---|
-    |||Unique settings for Support Cron Scheduler which only supports postgres as persistence layer for this release. The common settings can be found at [Common Configuration](../../configuration/CommonConfiguration.md#commonconfigurationproperties)
+    |||Unique settings for Support Cron Scheduler. The common settings can be found at [Common Configuration](../../configuration/CommonConfiguration.md#commonconfigurationproperties)
     |Host|localhost|The host name or IP address where the database is hosted|
     |Port|5432|The port exposed by the database|
     |Timeout|5s|DB connection timeout|
     |Type|postgres|Indicates the type of database to use, only postgres is supported for this release|
+
+    !!! edgey "EdgeX 3.2"
+        For EdgeX 3.2 the Support Cron Scheduler service only supports `postgres` as persistence layer.
 
 ## V3 Configuration Migration Guide
 No configuration updated
