@@ -4,6 +4,13 @@ title: Support Scheduler - Getting Started
 
 # Support Scheduler - Getting Started
 
+!!! Warning
+    Support Scheduler service has been deprecated in EdgeX 3.2.  The service will not be immediately removed, but adopters should note that it has been tagged for eventual replacement.
+    
+    Use the new EdgeX Support Cron Scheduler service instead.  The Support Cron Scheduler service is a more flexible and powerful service that provides the same functionality as the Support Scheduler service, but with additional features and improvements.
+
+    For more information on the Support Cron Scheduler service, see the [Support Cron Scheduler documentation](../cronScheduler/Purpose.md).
+
 Support Scheduler is one of the core EdgeX Services. It is needed for applications that require actions to occur on specific intervals.
 For solutions that do not require regular actions, it is possible to use the EdgeX framework without support scheduler.
 
