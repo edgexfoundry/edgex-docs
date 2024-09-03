@@ -2289,6 +2289,11 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#timestamp-precision">
+    Timestamp Precision
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -2818,6 +2823,11 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#timestamp-precision">
+    Timestamp Precision
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -2935,6 +2945,23 @@ For a request header set as:
 &lt;name&gt;: &lt;contents&gt;
 </code></pre></div></p>
 </div>
+<h3 id="timestamp-precision">Timestamp Precision</h3>
+<p>We have several data models with a timestamp field, but the precision varies, please refer to the following measurements and examples:</p>
+<ul>
+<li>
+<p><code>created</code> and <code>modified</code> field cross different data models are in <b>milliseconds</b>, see <a href="../core/metadata/ApiReference/">Core Metadata API documentation</a> for more information.</p>
+<p>For example, the <code>created</code> and <code>modified</code> fields in the device object of the Core Metadata Service.</p>
+</li>
+<li>
+<p><code>start</code> and <code>end</code> timestamp in the Cron Scheduler Service are in <b>milliseconds</b>, see <a href="../support/cronScheduler/ApiReference/">Cron Scheduler Service API documentation</a> for more information.</p>
+</li>
+<li>
+<p><code>timestamp</code> in Metrics and System Events are in <b>nanoseconds</b>, see <a href="#service-metrics">Service Metrics</a> and <a href="../core/metadata/details/DeviceSystemEvents/#system-event-dto">System Events DTO</a> for more information.</p>
+</li>
+<li>
+<p><code>origin</code> in Event and Readings is in <b>nanoseconds</b>, see <a href="../../walk-through/Ch-WalkthroughReading/#origin-timestamp">Origin Timestamp</a> for more information.</p>
+</li>
+</ul>
 </article>
 </div>
 </div>
