@@ -21,7 +21,7 @@ The System Event DTO has the following properties:
 | Owner     | Owner of the data in the System Event         | In this case it is the name of the device service that owns the device or `core-metadata` |
 | Tags      | Key value map of additional data              | empty in this case                                           |
 | Details   | The data object that trigger the System Event | the added, updated, or deleted Device/Device Profile/Device Service/Provision Watcher in this case           |
-| Timestamp | Date and time of the System Event             | timestamp                                                    |
+| Timestamp | Date and time of the System Event             | timestamp in nanoseconds                                     |
 
 ## Publish Topic
 
