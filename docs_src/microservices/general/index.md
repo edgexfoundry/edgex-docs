@@ -132,3 +132,25 @@ Only `httpheader` is currently supported. The `headername` specifies the authent
     GET https://example.com/uom.yaml HTTP/1.1
     <name>: <contents>
     ```
+
+
+### Timestamp Precision
+
+We have several data models with a timestamp field, but the precision varies, please refer to the following measurements and examples:
+
+- `created` and `modified` field cross different data models are in <b>milliseconds</b>, see [Core Metadata API documentation][1] for more information.
+
+    For example, the `created` and `modified` fields in the device object of the Core Metadata Service.
+
+- `start` and `end` timestamp in the Cron Scheduler Service are in <b>milliseconds</b>, see [Cron Scheduler Service API documentation][2] for more information.
+
+- `timestamp` in Metrics and System Events are in <b>nanoseconds</b>, see [Service Metrics][3] and [System Events DTO][4] for more information.
+
+- `origin` in Event and Readings is in <b>nanoseconds</b>, see [Origin Timestamp][5] for more information.
+
+
+[1]: ../core/metadata/ApiReference.md
+[2]: ../support/cronScheduler/ApiReference.md
+[3]: #service-metrics
+[4]: ../core/metadata/details/DeviceSystemEvents.md#system-event-dto
+[5]: ../../walk-through/Ch-WalkthroughReading.md#origin-timestamp
