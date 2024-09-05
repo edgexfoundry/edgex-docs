@@ -55,7 +55,7 @@ This part of the documentation assumes you wish to get and work with the key Edg
 
 To work with the key services, you will need to download the source code from the [EdgeX Go repository](https://github.com/edgexfoundry/edgex-go). The EdgeX Go-based micro services are
 all available in a single GitHub repository download.  Once the code is pulled, the Go micro services are built and packaged as
-platform dependent executables.  If Docker is installed, the executable can also be [containerized](../general/Definitions.md#Containerized) for end user deployment/use.
+platform dependent executables.  If Docker is installed, the executable can also be [containerized](../general/Definitions.md#containerized) for end user deployment/use.
 
 To download the EdgeX Go code, first change directories to the location where you want to download the code (to edgex in the image below).  Then use your **git**
 tool and request to clone this repository with the following command:

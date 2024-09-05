@@ -36,7 +36,7 @@ Please refer to the general [Common Configuration documentation](../configuratio
 ||`EventsSent` = false     |Enable/disable reporting of the built-in **EventsSent** metric|
 ||`ReadingsSent` = false     |Enable/disable reporting of the built-in **ReadingsSent** metric|
 ||`LastConnected` = false     |Enable/disable reporting of the built-in **LastConnected** metric|
-||`<CustomMetric>` = false    |Enable/disable reporting of custom device service's custom metric. See [Custom Device Service Metrics](../device/sdk/details/CustomConfiguration.md#device-service-sdk---custom-configuration) for more details.|
+||`<CustomMetric>` = false    |Enable/disable reporting of custom device service's custom metric. See [Custom Device Service Metrics](../device/sdk/details/CustomConfiguration.md) for more details.|
 |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported.  |
 === "Clients.core-metadata*"
 |Property|Default Value|Description|
@@ -121,10 +121,10 @@ Device services can have custom configuration in one of two ways. See the table 
       MySetting: "My Value"
     ```
 === "Custom Structured Configuration"
-    For Go Device Services see [Go Custom Structured Configuration](../device/sdk/details/CustomConfiguration.md#go-device-service-sdk---custom-structured-configuration) for more details.
+    For Go Device Services see [Go Custom Structured Configuration](../device/sdk/details/CustomConfiguration.md#go-device-service-sdk-custom-structured-configuration) for more details.
     
 
-    For C Device Service see [C Custom Structured Configuration](../device/sdk/details/CustomConfiguration.md#c-device-service-sdk---custom-structured-configuration) for more details.
+    For C Device Service see [C Custom Structured Configuration](../device/sdk/details/CustomConfiguration.md#c-device-service-sdk-custom-structured-configuration) for more details.
 
 ## Secrets
 

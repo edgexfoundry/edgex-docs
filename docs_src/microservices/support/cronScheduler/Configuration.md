@@ -8,7 +8,7 @@ Please refer to the general [Common Configuration documentation](../../configura
 Below are only the additional settings and sections that are specific to Support Cron Scheduler.
 
 !!! edgey "Edgex 3.0"
-    For EdgeX 3.0 the `MessageQueue` configuration has been moved to `MessageBus` in [Common Configuration](../../configuration/CommonConfiguration.md#commonconfigurationproperties)
+    For EdgeX 3.0 the `MessageQueue` configuration has been moved to `MessageBus` in [Common Configuration](../../configuration/CommonConfiguration.md#common-configuration-properties)
 
 === "Writable"
     |Property|Default Value|Description|
@@ -22,13 +22,13 @@ Below are only the additional settings and sections that are specific to Support
 === "Writable.Telemetry"
     |Property|Default Value|Description|
     |---|---|---|
-    |||See `Writable.Telemetry` at [Common Configuration](../../configuration/CommonConfiguration.md#commonconfigurationproperties) for the Telemetry configuration common to all services |
+    |||See `Writable.Telemetry` at [Common Configuration](../../configuration/CommonConfiguration.md#common-configuration-properties) for the Telemetry configuration common to all services |
     |Metrics| `TBD` |Service metrics that Support Cron Scheduler collects. Boolean value indicates if reporting of the metric is enabled.|
     |Tags|`<empty>`|List of arbitrary service level tags to included with every metric that is reported. i.e. `Gateway="my-iot-gateway"` |
 === "Service"
     |Property|Default Value|Description|
     |---|---|---|
-    ||| Unique settings for Support Cron Scheduler. The common settings can be found at [Common Configuration](../../configuration/CommonConfiguration.md#commonconfigurationproperties)
+    ||| Unique settings for Support Cron Scheduler. The common settings can be found at [Common Configuration](../../configuration/CommonConfiguration.md#common-configuration-properties)
     |Port|59863|Micro service port number|
     |StartupMsg |This is the Support Cron Scheduler Microservice|Message logged when service completes bootstrap start-up|
 === "Clients.core-command"
@@ -40,12 +40,12 @@ Below are only the additional settings and sections that are specific to Support
 === "MessageBus.Optional"
     |Property|Default Value|Description|
     |---|---|---|
-    ||| Unique settings for Support Cron Scheduler. The common settings can be found at [Common Configuration](../../configuration/CommonConfiguration.md#commonconfigurationproperties)
+    ||| Unique settings for Support Cron Scheduler. The common settings can be found at [Common Configuration](../../configuration/CommonConfiguration.md#common-configuration-properties)
     |ClientId|"support-cron-scheduler|Id used when connecting to MQTT or NATS base MessageBus|
 === "Database"
     |Property|Default Value|Description|
     |---|---|---|
-    |||Unique settings for Support Cron Scheduler. The common settings can be found at [Common Configuration](../../configuration/CommonConfiguration.md#commonconfigurationproperties)
+    |||Unique settings for Support Cron Scheduler. The common settings can be found at [Common Configuration](../../configuration/CommonConfiguration.md#common-configuration-properties)
     |Host|localhost|The host name or IP address where the database is hosted|
     |Port|5432|The port exposed by the database|
     |Timeout|5s|DB connection timeout|

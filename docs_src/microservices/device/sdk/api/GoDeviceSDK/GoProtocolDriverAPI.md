@@ -122,3 +122,46 @@ This interface processes the collection of write requests passed in`reqs` for th
 It writes the data found in `params` to the device's resources specified in `reqs`.
 
 An example implementation can be found in the Device SDK's example [Simple Driver](https://github.com/edgexfoundry/device-sdk-go/blob/{{edgexversion}}/example/driver/simpledriver.go)
+
+## ExtendedProtocolDriver Interface
+
+This interface builds upon the existing `ProtocolDriver` interface to provide enhanced features and capabilities without disrupting or breaking existing implementations.
+
+```go
+type ExtendedProtocolDriver interface {
+	ProfileScan(req requests.ProfileScanRequest) (model.DeviceProfile, error)
+	StopDeviceDiscovery(options map[string]any)
+	StopProfileScan(deviceName string, options map[string]any)
+}
+```
+
+### Device
+
+The interfaces in this section deal with devices that the devices service manages
+
+#### ProfileScan
+
+`ProfileScan(req requests.ProfileScanRequest) (model.DeviceProfile, error)`
+
+This interface triggers protocol specific device to discover device profile.
+The resulting device profile will be added to the core-metadata and associated with the device.
+
+An example implementation can be found in the Device SDK's example [Simple Driver](https://github.com/edgexfoundry/device-sdk-go/blob/{{edgexversion}}/example/driver/simpledriver.go)
+
+#### StopDeviceDiscovery
+
+`StopDeviceDiscovery(options map[string]any)`
+
+This interface is called when there is a desire to stop the ongoing device discovery process.
+It accepts a `map[string]any` as options, which can be used to provide additional parameters for stopping the process.
+
+An example implementation can be found in the Device SDK's example [Simple Driver](https://github.com/edgexfoundry/device-sdk-go/blob/{{edgexversion}}/example/driver/simpledriver.go)
+
+#### StopProfileScan
+
+`StopProfileScan(deviceName string, options map[string]any)`
+
+This interface is called when there is a desire to stop the ongoing device profile scan process for a specific device.
+It accepts a `map[string]any` as options, which can be used to provide additional parameters for stopping the process.
+
+An example implementation can be found in the Device SDK's example [Simple Driver](https://github.com/edgexfoundry/device-sdk-go/blob/{{edgexversion}}/example/driver/simpledriver.go)

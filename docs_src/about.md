@@ -1,7 +1,7 @@
 # About
 
 EdgeX Foundry is an open source, vendor neutral, flexible, interoperable, software platform at the
-edge of the network, that interacts with the physical world of [devices](./general/Definitions.md#Device), sensors, actuators, and other IoT objects. In simple terms, EdgeX is edge middleware - serving  between physical sensing and actuating "things" and our information technology (IT) systems.
+edge of the network, that interacts with the physical world of [devices](./general/Definitions.md#device), sensors, actuators, and other IoT objects. In simple terms, EdgeX is edge middleware - serving  between physical sensing and actuating "things" and our information technology (IT) systems.
 ![image](./general/EdgeX_middleware.png)
 
 The EdgeX platform enables and encourages the rapidly growing community of
@@ -42,13 +42,13 @@ overall architecture:
     - Distribution
  (allowing for the distribution of functionality through micro services at the edge, on a gateway, in the fog, on cloud, etc.)
     - Deployment/orchestration (Docker, K8s, roll-your-own, ... )
-    - Protocols ([north or south](./general/Definitions.md#South-and-North-Side) side protocols)
+    - Protocols ([north or south](./general/Definitions.md#south-and-north-side) side protocols)
 
 - **EdgeX Foundry must be extremely flexible**
-    - Any part of the platform may be upgraded, replaced or augmented by other [micro services](./general/Definitions.md#Micro-service) or software components
+    - Any part of the platform may be upgraded, replaced or augmented by other [micro services](./general/Definitions.md#micro-service) or software components
     - Allow services to scale up and down based on device capability and use case 
 
-- **EdgeX Foundry should provide "[reference implementation](./general/Definitions.md#Reference-Implementation)" services but encourages best of breed solutions**
+- **EdgeX Foundry should provide "[reference implementation](./general/Definitions.md#reference-implementation)" services but encourages best of breed solutions**
 
 - **EdgeX Foundry must provide for store and forward capability**
     - To support disconnected/remote edge systems
@@ -59,12 +59,12 @@ overall architecture:
     - Bandwidth and storage concerns 
     - Operating remotely concerns
 
-- **EdgeX Foundry must support [brown and green](./general/Definitions.md#Brownfield-and-Greenfield) device/sensor field deployments**
+- **EdgeX Foundry must support [brown and green](./general/Definitions.md#brownfield-and-greenfield) device/sensor field deployments**
 
 - **EdgeX Foundry must be secure and easily managed**
 
 ## Deployments
-EdgeX was originally built by Dell to run on its IoT [gateways](./general/Definitions.md#Gateway). While EdgeX can and does run on gateways, its platform agnostic nature and micro service architecture enables tiered distributed deployments.  In other words, a single instance of EdgeX’s micro services can be distributed across several host platforms.  The host platform for one or many EdgeX micro services is called a node.  This allows EdgeX to leverage compute, storage, and network resources wherever they live on the edge.
+EdgeX was originally built by Dell to run on its IoT [gateways](./general/Definitions.md#gateway). While EdgeX can and does run on gateways, its platform agnostic nature and micro service architecture enables tiered distributed deployments.  In other words, a single instance of EdgeX’s micro services can be distributed across several host platforms.  The host platform for one or many EdgeX micro services is called a node.  This allows EdgeX to leverage compute, storage, and network resources wherever they live on the edge.
 
 Its loosely-coupled architecture enables distribution across nodes to enable tiered edge computing.  For example, thing communicating services could run on a programmable logic controller (PLC), a gateway, or be embedded in smarter sensors while other EdgeX services are deployed on networked servers. The scope of a deployment could therefore include embedded sensors, controllers, edge gateways, servers and cloud systems.
 
@@ -196,7 +196,7 @@ In edge computing, simply collecting sensor data is only part of the job of an e
 - Act quickly on that analysis
 Edge or local analytics is the processing that performs an assessment of the sensor data collected at the edge (“locally”) and triggers actuations or actions based on what it sees.
 
-Why [edge analytics](./general/Definitions.md#Edge-Analytics)?  Local analytics are important for two reasons:
+Why [edge analytics](./general/Definitions.md#edge-analytics)?  Local analytics are important for two reasons:
 
 - Some decisions cannot afford to wait for sensor collected data to be fed back to an enterprise or cloud system and have a response returned.
 - Additionally, some edge systems are not always connected to the enterprise or cloud – they have intermittent periods of connectivity.
@@ -224,8 +224,7 @@ The device service receives the request for actuation, translates that into a pr
 ## Project Release Cadence
 Typically, EdgeX releases twice a year; once in the spring and once in the fall.  Bug fix releases may occur more often.  Each EdgeX release has a code name.  The code name follows an alphabetic pattern similar to Android (code names sequentially follow the alphabet).
 
-The code name of each release is named after some geographical location in the world.  The honor of naming an EdgeX release is given to a community member deemed to have contributed significantly to the project.  A release also has a version number.  The release version follows sematic versioning to indicate the release is major or minor in scope.  Major releases typically contain significant new features and functionality and are not always backward compatible with prior releases.  Minor releases are backward compatible and usually contain bug fixes and fewer new features.  See the project Wiki for more information on [releases, versions and patches](https://wiki.edgexfoundry.org/pages/viewpage.action?pageId=21823969).
-
+The code name of each release is named after some geographical location in the world.  The honor of naming an EdgeX release is given to a community member deemed to have contributed significantly to the project.  A release also has a version number.  The release version follows sematic versioning to indicate the release is major or minor in scope.  Major releases typically contain significant new features and functionality and are not always backward compatible with prior releases.  Minor releases are backward compatible and usually contain bug fixes and fewer new features.  See the project Wiki for more information on [releases, versions and patches](https://lf-edgexfoundry.atlassian.net/wiki/spaces/FA/pages/11670494/Releases+Versions+Patches).
 | Release | Schedule | Version |
 | :------------- | :----------: | -----------: |
 |Barcelona |Oct 2017 | 0.5.0 |

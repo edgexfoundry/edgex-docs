@@ -45,6 +45,9 @@ type DeviceServiceSDK interface {
     LoggingClient() logger.LoggingClient
     SecretProvider() interfaces.SecretProvider
     MetricsManager() interfaces.MetricsManager
+    PublishDeviceDiscoveryProgressSystemEvent(progress, discoveredDeviceCount int, message string)
+    PublishProfileScanProgressSystemEvent(reqId string, progress int, message string)
+    PublishGenericSystemEvent(eventType, action string, details any)
 }
 ```
 
@@ -214,13 +217,13 @@ This API retrieves the specific DeviceCommand instance from device service's cac
 `LoadCustomConfig(customConfig service.UpdatableConfig, sectionName string) error`
 
 This API attempts to load service's custom configuration. It uses the same command line flags to process the custom config in the same manner
- as the standard configuration. Returns an error is custom configuration can not be loaded. See [Custom Structured Configuration](../../details/CustomConfiguration.md#go-device-service-sdk---custom-structured-configuration) section for more details.
+ as the standard configuration. Returns an error is custom configuration can not be loaded. See [Custom Structured Configuration](../../details/CustomConfiguration.md#go-device-service-sdk-custom-structured-configuration) section for more details.
 
 #### ListenForCustomConfigChanges
 
 `ListenForCustomConfigChanges(configToWatch interface{}, sectionName string, changedCallback func(interface{})) error`
 
-This API attempts to start listening for changes to the specified custom configuration section. LoadCustomConfig API must be called before this API. See [Custom Structured Configuration](../../details/CustomConfiguration.md#go-device-service-sdk---custom-structured-configuration) section for more details.
+This API attempts to start listening for changes to the specified custom configuration section. LoadCustomConfig API must be called before this API. See [Custom Structured Configuration](../../details/CustomConfiguration.md#go-device-service-sdk-custom-structured-configuration) section for more details.
 
 ### Miscellaneous
 
@@ -299,6 +302,24 @@ This API returns a channel to allow developer send asynchronous reading back to 
 `DiscoveredDeviceChannel() chan []sdkModels.DiscoveredDevice`
 
 This API returns a channel to allow developer send discovered devices back to SDK.
+
+#### PublishDeviceDiscoveryProgressSystemEvent
+
+`PublishDeviceDiscoveryProgressSystemEvent(progress, discoveredDeviceCount int, message string)`
+
+This API publishes a device discovery progress system event through the EdgeX message bus.
+
+#### PublishProfileScanProgressSystemEvent
+
+`PublishProfileScanProgressSystemEvent(reqId string, progress int, message string)`
+
+This API publishes a profile scan progress system event through the EdgeX message bus.
+
+#### PublishGenericSystemEvent
+
+`PublishGenericSystemEvent(eventType, action string, details any)`
+
+This API publishes a generic system event through the EdgeX message bus
 
 ### Internal
 

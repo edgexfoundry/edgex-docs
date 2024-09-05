@@ -25,7 +25,7 @@ When the Event gets to the [Application Service Configurable](../application/ser
 ### Custom Application Service 
 
 In the case, of a custom [application service](../application/ApplicationServices.md), an AddTags function can be used to 
-add a collection of specified tags to the Event's Tags collection (see [Built in Transforms/Functions](../application/sdk/api/BuiltInPipelineFunctions.md#addtags))
+add a collection of specified tags to the Event's Tags collection (see [Built in Transforms/Functions](../application/sdk/api/BuiltInPipelineFunctions.md#add-tags))
 
 If the Event already has `Tags` when it arrives at the application service, then configured tags will be added to the `Tags` map.  If the configured tags have the same key as an existing key in the `Tags` map, then the configured key/value will override what is already in the Event `Tags` map.
 
@@ -38,7 +38,7 @@ See [Custom Application Service Metrics](../application/sdk/details/CustomServic
 See [Custom Device Service Metrics](../device/sdk/details/CustomServiceMetrics.md) for more detail on Go Device Services capability to collect their own custom service metrics via use of the Go Device SDK API. 
 
 Each service defines (in code) a set of service metrics that it collects and optionally reports if configured. 
-The names the service gives to its metrics are used in the service's `Telemetry` configuration to enable/disable the reporting of those metrics. See Core Data's `Writable.Telemetry` at [Core Data Configuration](../core/data/Configuration.md#core-data---configuration) as example of the names used for the service metrics that Core Data is currently collecting.
+The names the service gives to its metrics are used in the service's `Telemetry` configuration to enable/disable the reporting of those metrics. See Core Data's `Writable.Telemetry` at [Core Data Configuration](../core/data/Configuration.md) as example of the names used for the service metrics that Core Data is currently collecting.
 
 The following metric types are available to be used by the EdgeX services:
 

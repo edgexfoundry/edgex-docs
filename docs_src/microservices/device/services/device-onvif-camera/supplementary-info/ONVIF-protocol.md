@@ -308,21 +308,21 @@ Use these links to access maufacturer documentation
 |                   | SetNetworkDefaultGateway | ✔                   | ❌         | ✔                                 | ✔                   |      ✔                |
 
 ### System Function
-| Onvif Web Service | Onvif Function          | Hikvision DFI6256TE | Tapo C200                                                  | BOSCH DINION IP starlight 6000 HD | GeoVision GV-BX8700 | Hikvision DS-2DE2A404IW-DE3 |
-|-------------------|-------------------------|---------------------|------------------------------------------------------------|-----------------------------------|---------------------|---------------------|
-| **Device**        | GetDeviceInformation    | ✔                   | ✔                                                          | ✔                                 | ✔                   |    ✔                  |
-|                   | GetSystemDateAndTime    | ✔                   | ✔                                                          | ✔                                 | ✔                   |    ✔                  |
-|                   | SetSystemDateAndTime    | ✔                   | ✔ [ⓘ](onvif-footnotes.md#tapo-c200---setsystemdateandtime) | ✔                                 | ✔                   |        ✔             |
-|                   | SetSystemFactoryDefault | ✔                   | ✔                                                          | ✔                                 | ✔                   |              ✔        |
-|                   | SystemReboot            | ✔                   | ✔                                                          | ✔                                 | ✔                   |           ✔           |
+| Onvif Web Service | Onvif Function          | Hikvision DFI6256TE | Tapo C200                                                | BOSCH DINION IP starlight 6000 HD | GeoVision GV-BX8700 | Hikvision DS-2DE2A404IW-DE3 |
+|-------------------|-------------------------|---------------------|----------------------------------------------------------|-----------------------------------|---------------------|---------------------|
+| **Device**        | GetDeviceInformation    | ✔                   | ✔                                                        | ✔                                 | ✔                   |    ✔                  |
+|                   | GetSystemDateAndTime    | ✔                   | ✔                                                        | ✔                                 | ✔                   |    ✔                  |
+|                   | SetSystemDateAndTime    | ✔                   | ✔ [ⓘ](onvif-footnotes.md#tapo-c200-setsystemdateandtime) | ✔                                 | ✔                   |        ✔             |
+|                   | SetSystemFactoryDefault | ✔                   | ✔                                                        | ✔                                 | ✔                   |              ✔        |
+|                   | SystemReboot            | ✔                   | ✔                                                        | ✔                                 | ✔                   |           ✔           |
 
 ### User Handling
-| Onvif Web Service | Onvif Function | Hikvision DFI6256TE | Tapo C200                                             | BOSCH DINION IP starlight 6000 HD | GeoVision GV-BX8700 | Hikvision DS-2DE2A404IW-DE3 |
-|-------------------|----------------|---------------------|-------------------------------------------------------|-----------------------------------|---------------------|---------------------|
-| **Device**        | GetUsers       | ✔                   | ❌ [ⓘ](onvif-footnotes.md#tapo-c200---user-management) | ✔                                 | ✔                   |    ✔                  |
-|                   | CreateUsers    | ✔                   | ❌ [ⓘ](onvif-footnotes.md#tapo-c200---user-management) | ✔                                 | ✔                   |      ✔                |
-|                   | DeleteUsers    | ✔                   | ❌ [ⓘ](onvif-footnotes.md#tapo-c200---user-management) | ✔                                 | ✔                   |       ✔               |
-|                   | SetUser        | ✔                   | ❌ [ⓘ](onvif-footnotes.md#tapo-c200---user-management) | ✔                                 | ✔                   |    ✔                  |
+| Onvif Web Service | Onvif Function | Hikvision DFI6256TE | Tapo C200                                           | BOSCH DINION IP starlight 6000 HD | GeoVision GV-BX8700 | Hikvision DS-2DE2A404IW-DE3 |
+|-------------------|----------------|---------------------|-----------------------------------------------------|-----------------------------------|---------------------|---------------------|
+| **Device**        | GetUsers       | ✔                   | ❌ [ⓘ](onvif-footnotes.md#tapo-c200-user-management) | ✔                                 | ✔                   |    ✔                  |
+|                   | CreateUsers    | ✔                   | ❌ [ⓘ](onvif-footnotes.md#tapo-c200-user-management) | ✔                                 | ✔                   |      ✔                |
+|                   | DeleteUsers    | ✔                   | ❌ [ⓘ](onvif-footnotes.md#tapo-c200-user-management) | ✔                                 | ✔                   |       ✔               |
+|                   | SetUser        | ✔                   | ❌ [ⓘ](onvif-footnotes.md#tapo-c200-user-management) | ✔                                 | ✔                   |    ✔                  |
 
 ### Metadata Configuration
 | Onvif Web Service | Onvif Function                      | Hikvision DFI6256TE | Tapo C200 | BOSCH DINION IP starlight 6000 HD | GeoVision GV-BX8700 | Hikvision DS-2DE2A404IW-DE3 |
@@ -437,4 +437,4 @@ Use these links to access maufacturer documentation
 ### Custom EdgeX
 | Onvif Web Service | Onvif Function | Hikvision DFI6256TE | Tapo C200 | BOSCH DINION IP starlight 6000 HD             | GeoVision GV-BX8700 |Hikvision DS-2DE2A404IW-DE3 |
 |-------------------|----------------|---------------------|-----------|-----------------------------------------------|---------------------|---------------------|
-| **EdgeX**         | GetSnapshot    | ✔                   | ❌         | ✔ [ⓘ](onvif-footnotes.md#bosch---getsnapshot) | ❌                   |       ✔               |
+| **EdgeX**         | GetSnapshot    | ✔                   | ❌         | ✔ [ⓘ](onvif-footnotes.md#bosch-getsnapshot) | ❌                   |       ✔               |

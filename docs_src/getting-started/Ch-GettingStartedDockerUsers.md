@@ -153,7 +153,7 @@ docker-compose logs -f [compose-service-name]
 docker-compose logs -f data
 ```
 
-See [EdgeX Container Names](./quick-start/index.md#REFERENCE-EdgeX-Container-Names) for a list of the EdgeX Docker Compose service names.
+See [EdgeX Container Names](../general/ContainerNames.md) for a list of the EdgeX Docker Compose service names.
 
 ![image](EdgeX_GettingStartedUsrLogs.png)
 *A check of an EdgeX service log usually indicates if the service is running normally or has errors.* 
