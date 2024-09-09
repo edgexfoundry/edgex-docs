@@ -37,7 +37,7 @@ With the EdgeX containers running, you can now download, build and run natively 
 
 ### Get the service code
 
-Per [Getting Started Go Developers](./Ch-GettingStartedGoDevelopers.md#Get-the-code), pull the micro service code you want to work on from GitHub. In this example, we use the latest released tag for device-virtual-go as the micro service that is going to be worked on. The main branch is the development branch for the next release. The latest release tag should always be used so you are worked with the most recent stable code. The release tags can be found [here](https://github.com/edgexfoundry/device-virtual-go/tags). Release tags are those tags to do not have `-dev` in the name.
+Per [Getting Started Go Developers](./Ch-GettingStartedGoDevelopers.md#get-the-code), pull the micro service code you want to work on from GitHub. In this example, we use the latest released tag for device-virtual-go as the micro service that is going to be worked on. The main branch is the development branch for the next release. The latest release tag should always be used so you are worked with the most recent stable code. The release tags can be found [here](https://github.com/edgexfoundry/device-virtual-go/tags). Release tags are those tags to do not have `-dev` in the name.
 
 ``` bash
 git clone --branch <latest-release-tag> https://github.com/edgexfoundry/device-virtual-go.git

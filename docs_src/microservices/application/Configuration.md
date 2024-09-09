@@ -95,8 +95,8 @@ The tabs below provide additional configuration which are applicable to Applicat
     |Configuration  |     Default Value     | Description |
     | --- | --- | -- |
     | Type | edgex-messagebus*   | Indicates the `Trigger` binding type. valid values are `edgex-messagebus`, `external-mqtt`, `http`, or `<custom>` |
-    | SubscribeTopics | events/#*   | Topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](details/Triggers.md#edgex-message-bus) Trigger for more details. |
-    | PublishTopic | blank*   | Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](details/Triggers.md#edgex-message-bus) Trigger for more details. |
+    | SubscribeTopics | events/#*   | Topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](details/Triggers.md#edgex-messagebus-trigger) Trigger for more details. |
+    | PublishTopic | blank*   | Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](details/Triggers.md#external-mqtt-trigger) Trigger for more details. |
 
 === "Trigger ExternalMqtt"
 

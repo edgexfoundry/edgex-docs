@@ -126,7 +126,7 @@ Set the username and password
                 password: "<set-password>"
     ```
 
-For more information on rtsp authentication, including how to disable it, see [here](../supplementary-info/advanced-options.md#rtsp-auth)
+For more information on rtsp authentication, including how to disable it, see [here](../supplementary-info/advanced-options.md#rtsp-authentication)
 
 ## Building the docker image
 1. Change into newly created directory:

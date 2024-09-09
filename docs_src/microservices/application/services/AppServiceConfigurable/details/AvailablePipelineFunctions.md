@@ -412,7 +412,7 @@ Please refer to the function's detailed documentation by clicking the function n
     ```
 
 !!! note
-    The new `TargetType` setting must be set to "metric" when using this function. See the [Metric TargetType](../../../sdk/details/TargetType.md#metric-targettype) section above for more details.
+    The new `TargetType` setting must be set to "metric" when using this function. See the [Pipeline Function APIs](../../../sdk/api/BuiltInPipelineFunctions.md#tolineprotocol) for more details.
 
 ## [WrapIntoEvent](../../../sdk/api/BuiltInPipelineFunctions.md#wrap-into-event)
 

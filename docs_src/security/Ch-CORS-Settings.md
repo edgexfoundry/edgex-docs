@@ -38,7 +38,7 @@ Please refer to the following example:
     1. Add `Service.CORSConfiguration.EnableCORS` via Consul for the targeted service and restart the service.
     2. Add `Service.CORSConfiguration.EnableCORS` to each services private configuration file.
 
-Please refer to the [Common Configuration](../microservices/configuration/CommonConfiguration.md/#configuration-properties) page to learn the details.
+Please refer to the [Common Configuration](../microservices/configuration/CommonConfiguration.md/#common-configuration-properties) page to learn the details.
 
 ### Enabling CORS for API Gateway
 
@@ -62,7 +62,7 @@ the CORS configuration will be applied to **all** microservices (`EDGEX_SERVICE_
 There is not a way, when using the API gateway, to turn CORS on for one microservice but not another without writing a custom `security-proxy-setup` microservice.
 
 !!! note
-    The settings under the CORSConfiguration configuration section are the same as those under the Service.CORSConfiguration so please refer to the [Common Configuration](../microservices/configuration/CommonConfiguration.md/#configuration-properties) page to learn the details.  Note that these overrides are prefixed with `EDGEX_`.
+    The settings under the CORSConfiguration configuration section are the same as those under the Service.CORSConfiguration so please refer to the [Common Configuration](../microservices/configuration/CommonConfiguration.md/#common-configuration-properties) page to learn the details.  Note that these overrides are prefixed with `EDGEX_`.
 
 !!! note
     The name of the configuration sections and environment variable overrides are intentionally different than the API gateway section, in alignment with the guidance that CORS should be enabled at the microservice level or the API gateway level, but not both.  Thus, the security-enabled overrides are accomplished with `EDGEX_SERVICE_CORSCONFIGURATION_*` overrides, and the no-security overrides with `SERVICE_CORSCONFIGURATION_*`.

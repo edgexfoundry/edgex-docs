@@ -12,12 +12,12 @@ Please refer to the general [Common Configuration documentation](../microservice
     |Service Name|Configuration Reference|
     |---|---|
     |core-data|	[Core Data Configuration](../microservices/core/data/Configuration.md)|
-    |core-metadata	|[Core Metadata Configuration](../microservices/core/metadata/Configuration.md#core-metadata---configuration)|
-    |core-command	|[Core Command Configuration](../microservices/core/command/Configuration.md#core-command---configuration)|
+    |core-metadata	|[Core Metadata Configuration](../microservices/core/metadata/Configuration.md)|
+    |core-command	|[Core Command Configuration](../microservices/core/command/Configuration.md)|
 === "Supporting"
     |Service Name|Configuration Reference|
     |---|---|
-    |support-notifications	|[Support Notifications Configuration](../microservices/support/notifications/Configuration.md#configuration-properties)|
+    |support-notifications	|[Support Notifications Configuration](../microservices/support/notifications/Configuration.md)|
     |support-scheduler|	[Support Scheduler Configuration](../microservices/support/scheduler/Configuration.md)|
 === "Application & Analytics"
     |Service Name|	Configuration Reference|

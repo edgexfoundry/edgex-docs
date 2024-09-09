@@ -38,7 +38,7 @@ docker compose ps
 *If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.*
 
 ## Connected Devices
-EdgeX Foundry provides a [Virtual device service](https://github.com/edgexfoundry/device-virtual-go/tree/{{edgexversion}}) which is useful for testing and development.  It simulates a number of [devices](../../general/Definitions.md#Device), each randomly generating data of various types and within configurable parameters.  For example, the Random-Integer-Device will generate random integers.
+EdgeX Foundry provides a [Virtual device service](https://github.com/edgexfoundry/device-virtual-go/tree/{{edgexversion}}) which is useful for testing and development.  It simulates a number of [devices](../../general/Definitions.md#device), each randomly generating data of various types and within configurable parameters.  For example, the Random-Integer-Device will generate random integers.
 
 The Virtual Device (also known as Device Virtual) service is already a service pulled and running as part of the default EdgeX configuration.
 
@@ -57,7 +57,7 @@ curl http://localhost:59880/api/{{api_version}}/event/device/name/Random-Integer
 
 ## Controlling the Device
 
-Reading data from devices is only part of what EdgeX is capable of.  You can also use it to control your devices - this is termed ['actuating'](../../general/Definitions.md#Actuate) the device. When a device registers with the EdgeX services, it provides a [Device Profile](../../microservices/core/metadata/details/DeviceProfile.md) that describes both the data readings available from that device, and also the commands that control it. 
+Reading data from devices is only part of what EdgeX is capable of.  You can also use it to control your devices - this is termed ['actuating'](../../general/Definitions.md#actuate) the device. When a device registers with the EdgeX services, it provides a [Device Profile](../../microservices/core/metadata/details/DeviceProfile.md) that describes both the data readings available from that device, and also the commands that control it. 
 
 When our Virtual Device service registered the device `Random-Integer-Device`, it used a [profile](https://github.com/edgexfoundry/device-virtual-go/blob/{{edgexversion}}/cmd/res/profiles/device.virtual.int.yaml) to also define commands that allow you to tell the service not to generate random integers, but to always return a value you set.
 

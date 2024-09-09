@@ -68,7 +68,7 @@ The following are where you can find the configuration migration specifics for i
 
 ### Customized Environment Overrides
 
-If you have custom [environment overrides](../microservices/configuration/CommonEnvironmentVariables/#environment-overrides) for configuration impacted by the V3 changes you will also need to migrate your overrides to use the new name or value depending on what has changed. Refer to the links above and/or below for details for migration of common and/or the service specific configuration to determine if your overrides require migrating.
+If you have custom [environment overrides](./microservices/configuration/CommonEnvironmentVariables.md) for configuration impacted by the V3 changes you will also need to migrate your overrides to use the new name or value depending on what has changed. Refer to the links above and/or below for details for migration of common and/or the service specific configuration to determine if your overrides require migrating.
 
 !!! note
     When using the Configuration Provider, the environment overrides for common configuration are applied to the **core-common-config-bootstrapper** service. They no longer work when applied to the individual services as the common configuration setting no longer exist in the private configuration.
