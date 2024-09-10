@@ -92,6 +92,8 @@ A schedule action record records the information of a [ScheduleAction](#schedule
 
 !!! note
     The "MISSED" records will be calculated and created by the cron scheduler service when the service is restarted.
+    
+    An optional field autoTriggerMissedRecords is available for each scheduled job, allowing actions to be triggered once automatically when the service restarts and there are any missed records. Default is false.
 
 ## Running Services with Support Cron Scheduler
 
