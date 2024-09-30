@@ -560,7 +560,7 @@ Parameter | Type | Description
 ----------|------|------------
 svc | devsdk_service_t* | The device service
 request_id | const char* | The discovery request ID
-progress | const int8 | Progress value
+progress | const int8 | Progress value (percent complete)
 discovered_devices | uint64 | The number of discovered devices
 
 ### devsdk_publish_system_event
