@@ -1214,6 +1214,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#devsdk_discovery_delete">
+    devsdk_discovery_delete
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#devsdk_describe">
     devsdk_describe
   </a>
@@ -1221,6 +1226,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#devsdk_callbacks_set_discovery">
     devsdk_callbacks_set_discovery
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#devsdk_callbacks_set_discovery_delete">
+    devsdk_callbacks_set_discovery_delete
   </a>
 </li>
 <li class="md-nav__item">
@@ -1354,6 +1364,16 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#devsdk_free_devices">
     devsdk_free_devices
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#devsdk_publish_discovery_event">
+    devsdk_publish_discovery_event
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#devsdk_publish_system_event">
+    devsdk_publish_system_event
   </a>
 </li>
 </ul>
@@ -3159,6 +3179,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#devsdk_discovery_delete">
+    devsdk_discovery_delete
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#devsdk_describe">
     devsdk_describe
   </a>
@@ -3166,6 +3191,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#devsdk_callbacks_set_discovery">
     devsdk_callbacks_set_discovery
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#devsdk_callbacks_set_discovery_delete">
+    devsdk_callbacks_set_discovery_delete
   </a>
 </li>
 <li class="md-nav__item">
@@ -3299,6 +3329,16 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#devsdk_free_devices">
     devsdk_free_devices
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#devsdk_publish_discovery_event">
+    devsdk_publish_discovery_event
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#devsdk_publish_system_event">
+    devsdk_publish_system_event
   </a>
 </li>
 </ul>
@@ -3891,6 +3931,35 @@
 <td>void*</td>
 <td>The context data passed in when the service was created</td>
 </tr>
+<tr>
+<td>request_id</td>
+<td>const char*</td>
+<td>The discovery request ID</td>
+</tr>
+</tbody>
+</table>
+<h3 id="devsdk_discovery_delete">devsdk_discovery_delete</h3>
+<p>This function is called when a delete request for discovery is made.</p>
+<p>Implementations should perform logic for stopping a discovery request that is in progress. The implementation should return True on success or False for unsuccessful.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>impl</td>
+<td>void*</td>
+<td>The context data passed in when the service was created</td>
+</tr>
+<tr>
+<td>request_id</td>
+<td>const char*</td>
+<td>The discovery request ID</td>
+</tr>
 </tbody>
 </table>
 <h3 id="devsdk_describe">devsdk_describe</h3>
@@ -3957,6 +4026,29 @@
 <td>describe</td>
 <td>devsdk_describe</td>
 <td>device description function, may be NULL (currently unused)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="devsdk_callbacks_set_discovery_delete">devsdk_callbacks_set_discovery_delete</h3>
+<p>Call this to add your discovery delete function to the callbacks structure</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cb</td>
+<td>devsdk_callbacks*</td>
+<td>structure to be modified</td>
+</tr>
+<tr>
+<td>discover</td>
+<td>devsdk_discovery_delete</td>
+<td>device discovery delete function</td>
 </tr>
 </tbody>
 </table>
@@ -4570,6 +4662,67 @@
 <td>d</td>
 <td>devsdk_devices*</td>
 <td>The device or device list</td>
+</tr>
+</tbody>
+</table>
+<h3 id="devsdk_publish_discovery_event">devsdk_publish_discovery_event</h3>
+<p>Publish a system event for discovery. Events will be published to "edgex.system-event.(service-name).device.discovery".</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>svc</td>
+<td>devsdk_service_t*</td>
+<td>The device service</td>
+</tr>
+<tr>
+<td>request_id</td>
+<td>const char*</td>
+<td>The discovery request ID</td>
+</tr>
+<tr>
+<td>progress</td>
+<td>const int8</td>
+<td>Progress value (percent complete)</td>
+</tr>
+<tr>
+<td>discovered_devices</td>
+<td>uint64</td>
+<td>The number of discovered devices</td>
+</tr>
+</tbody>
+</table>
+<h3 id="devsdk_publish_system_event">devsdk_publish_system_event</h3>
+<p>Publish a generic system event. Events will be published to "edgex.system-event.(service-name).device.(action)".</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>svc</td>
+<td>devsdk_service_t*</td>
+<td>The device service</td>
+</tr>
+<tr>
+<td>action</td>
+<td>const char*</td>
+<td>The action that triggered the event to be used in the topic name</td>
+</tr>
+<tr>
+<td>details</td>
+<td>iot_data_t*</td>
+<td>A map of parameters to be published in the event details</td>
 </tr>
 </tbody>
 </table>
