@@ -264,6 +264,18 @@ Implementations should perform a scan for devices, and use the `devsdk_add_disco
 Parameter | Type | Description
 ----------|------|------------
 impl | void* | The context data passed in when the service was created
+request_id | const char* | The discovery request ID
+
+### devsdk_discovery_delete
+
+This function is called when a delete request for discovery is made.
+
+Implementations should perform logic for stopping a discovery request that is in progress. The implementation should return True on success or False for unsuccessful.
+
+Parameter | Type | Description
+----------|------|------------
+impl | void* | The context data passed in when the service was created
+request_id | const char* | The discovery request ID
 
 ### devsdk_describe
 
@@ -288,6 +300,15 @@ Parameter | Type | Description
 cb | devsdk_callbacks* | structure to be modified
 discover | devsdk_discover | device discovery function
 describe | devsdk_describe | device description function, may be NULL (currently unused)
+
+### devsdk_callbacks_set_discovery_delete
+
+Call this to add your discovery delete function to the callbacks structure
+
+Parameter | Type | Description
+----------|------|------------
+cb | devsdk_callbacks* | structure to be modified
+discover | devsdk_discovery_delete | device discovery delete function
 
 ### devsdk_add_device_callback
 
@@ -530,3 +551,24 @@ Parameter | Type | Description
 ----------|------|------------
 svc | devsdk_service_t* | The device service
 d | devsdk_devices* | The device or device list
+
+### devsdk_publish_discovery_event
+
+Publish a system event for discovery. Events will be published to "edgex.system-event.(service-name).device.discovery".
+
+Parameter | Type | Description
+----------|------|------------
+svc | devsdk_service_t* | The device service
+request_id | const char* | The discovery request ID
+progress | const int8 | Progress value
+discovered_devices | uint64 | The number of discovered devices
+
+### devsdk_publish_system_event
+
+Publish a generic system event. Events will be published to "edgex.system-event.(service-name).device.(action)".
+
+Parameter | Type | Description
+----------|------|------------
+svc | devsdk_service_t* | The device service
+action | const char* | The action that triggered the event to be used in the topic name
+details | iot_data_t* | A map of parameters to be published in the event details
