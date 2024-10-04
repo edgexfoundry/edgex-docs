@@ -97,31 +97,8 @@ A schedule action record records the information of a [ScheduleAction](#schedule
 
 ## Running Services with Support Cron Scheduler
 
-The simplest way to run all the required services with support cron scheduler is to use the [Predefined Compose File](https://github.com/edgexfoundry/edgex-compose/) from a terminal window.
-
-1. Clone [https://github.com/edgexfoundry/edgex-compose/](https://github.com/edgexfoundry/edgex-compose/)
-
-2. Run the services
-    ```
-    docker compose -f docker-compose-postgres-no-secty.yml up -d
-    ```
-    Or run the services on ARM64 system
-    ```
-    docker compose -f docker-compose-postgres-no-secty-arm64.yml up -d
-    ```
-This runs, in non-secure mode, all the standard EdgeX services, including Support Cron Scheduler, along with the Device Virtual.
-
-To stop the services
-
-```
-docker compose -f docker-compose-postgres-no-secty.yml down
-```
-
-Or stop the services on ARM64 system
-
-```
-docker compose -f docker-compose-postgres-no-secty-arm64.yml down
-```
+Please refer to [Using PostgreSQL Database](../../general/database/Ch-Postgres/#using-postgresql-database) for instructions on how to get EdgeX services up and running with PostgreSQL database.
+Following the steps in this guide, the Support Cron Scheduler service will be included among the services that are started.
 
 <!-- TODO -->
 <!-- ## Running Services without Support Cron Scheduler -->

@@ -1,4 +1,4 @@
-# Redis Database
+# Redis
 
 EdgeX Foundry's reference implementation database (for sensor data, metadata and all things that need to be persisted in a database) is Redis.
 
