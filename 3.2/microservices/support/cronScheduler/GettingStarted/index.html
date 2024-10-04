@@ -623,11 +623,6 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../core/database/Ch-Redis/">
-        Redis Database
-      </a>
-</li>
 </ul>
 </nav>
 </li>
@@ -2278,6 +2273,31 @@
         EdgeX MessageBus
       </a>
 </li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_8" id="__nav_1_6_8_label" tabindex="0">
+          Database
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_8_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_6_8">
+<span class="md-nav__icon md-icon"></span>
+          Database
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../general/database/Ch-Redis/">
+        Redis
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../general/database/Ch-Postgres/">
+        PostgreSQL
+      </a>
+</li>
+</ul>
+</nav>
+</li>
 </ul>
 </nav>
 </li>
@@ -2863,27 +2883,8 @@
 <p>An optional field autoTriggerMissedRecords is available for each scheduled job, allowing actions to be triggered once automatically when the service restarts and there are any missed records. Default is false.</p>
 </div>
 <h2 id="running-services-with-support-cron-scheduler">Running Services with Support Cron Scheduler</h2>
-<p>The simplest way to run all the required services with support cron scheduler is to use the <a href="https://github.com/edgexfoundry/edgex-compose/">Predefined Compose File</a> from a terminal window.</p>
-<ol>
-<li>
-<p>Clone <a href="https://github.com/edgexfoundry/edgex-compose/">https://github.com/edgexfoundry/edgex-compose/</a></p>
-</li>
-<li>
-<p>Run the services
-    <div class="highlight"><pre><span></span><code>docker compose -f docker-compose-postgres-no-secty.yml up -d
-</code></pre></div>
-    Or run the services on ARM64 system
-    <div class="highlight"><pre><span></span><code>docker compose -f docker-compose-postgres-no-secty-arm64.yml up -d
-</code></pre></div>
-This runs, in non-secure mode, all the standard EdgeX services, including Support Cron Scheduler, along with the Device Virtual.</p>
-</li>
-</ol>
-<p>To stop the services</p>
-<div class="highlight"><pre><span></span><code>docker compose -f docker-compose-postgres-no-secty.yml down
-</code></pre></div>
-<p>Or stop the services on ARM64 system</p>
-<div class="highlight"><pre><span></span><code>docker compose -f docker-compose-postgres-no-secty-arm64.yml down
-</code></pre></div>
+<p>Please refer to <a href="../../general/database/Ch-Postgres/#using-postgresql-database">Using PostgreSQL Database</a> for instructions on how to get EdgeX services up and running with PostgreSQL database.
+Following the steps in this guide, the Support Cron Scheduler service will be included among the services that are started.</p>
 <!-- TODO -->
 <!-- ## Running Services without Support Cron Scheduler -->
 </article>
