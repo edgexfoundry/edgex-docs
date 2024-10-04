@@ -25,20 +25,20 @@ The community can submit UCR. The use cases describe the use case, target users,
 ## Designs
 Issues and new requirements lead to design decisions. Design decisions are also made on a regular, if not daily, basis. Some of these decisions are big and impactful to all parts of the system. Other decisions are less significant but still important for everyone to know and understand.
 
-EdgeX has two places to record design decisions.
+EdgeX has two places to record design decisions:
 
-- Any and all design/architectural decisions regardless of size or impact shall be captured on the [EdgeX Foundry Design Decisions project board](https://github.com/orgs/edgexfoundry/projects/45).
+- All design/architectural decisions regardless of size or impact shall be captured on the [EdgeX Foundry Design Decisions project board](https://github.com/orgs/edgexfoundry/projects/45).
 - **Significant architectural decisions** should be documented in an [architectural design record](https://docs.edgexfoundry.org/2.0/design/adr/0018-Service-Registry/) (ADR). ADRs must be reviewed and approved per the process outlined in this documentation.
 
 *Note: ADRs should also be documented on the project board with a link to the ADR in edgex-docs in the project board card.*
 
 ### When to use an ADR
 
-"Significant architectural decisions" are deemed those that:
+**Significant architectural decisions** are deemed those that:
 
-    Impact more than one EdgeX service and often impact the entire system (such as the definition of a data transfer object used through the system, of a feature that must be supported by all services).
-    Require a lot of manpower (more than two people working over the course of a release or more) to implement the feature outlined in the ADR.
-    Requires implementation to be accomplished over multiple releases (either due to the complexity of the feature or dependencies).
+- Impact more than one EdgeX service and often impact the entire system (such as the definition of a data transfer object used through the system, of a feature that must be supported by all services).
+- Require a lot of manpower (more than two people working over the course of a release or more) to implement the feature outlined in the ADR.
+- Requires implementation to be accomplished over multiple releases (either due to the complexity of the feature or dependencies).
 
 ADRs must be proceeded by one or more approved UCRs in order to be approved by the TSC - allowing for the design to be implemented in the EdgeX software.
 
@@ -52,20 +52,22 @@ Designs are created to address one or more requirements across one or more use c
 
 ## Project Board Cards and Issues
 
-All project design/architectural design decisions captured on the Design Decisions project board will be created as either a:
+All project design/architectural design decisions captured on the Design Decisions project board will be created as either:
 
-    Issue: for any design decision that will require code and a PR will be submitted against the issue.
-    Card: for any design decision that is not itself going to result in code or may need to be broken down into multiple issues (which can be referenced on the card).
+- Issue: for any design decision that will require code and a PR will be submitted against the issue.
+- Card: for any design decision that is not itself going to result in code or may need to be broken down into multiple issues (which can be referenced on the card).
 
 The template for project board cards documenting each decision is:
 
-    When/Where: date of the decision and place where the decision was made (such as TSC meeting, working group meeting, etc.). This section is required.
-    Decision Summary: quick write-up on the decision. This section is required.
-    Notes/Considerations: any alternatives discussed, any impacts to other decisions or considerations to be considered in the future (which would negate the decision). This section is optional.
+> **When/Where:** date of the decision and place where the decision was made (such as TSC meeting, working group meeting, etc.). This section is required.
+> 
+> **Decision Summary:** quick write-up on the decision. This section is required.
+> 
+> **Notes/Considerations:** any alternatives discussed, any impacts to other decisions or considerations to be considered in the future (which would negate the decision). This section is optional.
+> 
+> **Relevant links:** link to the meeting recording (if available). Link to ADR if relevant. Link to PRs or Issues if relevant. Required if available.
 
-    Relevant links: link to the meeting recording (if available). Link to ADR if relevant. Link to PRs or Issues if relevant. Required if available.
-
-Note there is a Template column on the project board with a single card that specifies this same structure.
+Note: there is a Template column on the project board with a single card that specifies this same structure.
 
 ### Project Board Columns
 
