@@ -39,15 +39,15 @@ Note that the steps needed for connecting add-on services to the `Secure Message
 
 1. Utilizing the `security-bootstrapper` to ensure proper startup sequence
 2. Creating the `Secret Store` for the add-on service
-3. Adding the `postgres`'s known secret to the add-on service's `Secret Store`
+3. Adding the `postgres` known secret to the add-on service's `Secret Store`
 
 and if the add-on service is not connecting to the PostgreSQL database, then this step can be skipped.
 
-So given an example for service `app-http-export` to use the PostgreSQL database in secure mode,
-we need to tell `secretstore-setup` to add the `postgres` known secret to `Secret Store` for `app-http-export`.
-This can be done through the configuration of adding `postgres[app-http-export]` into the environment variable
+So given an example for service `my-service` to use the PostgreSQL database in secure mode,
+we need to tell `secretstore-setup` to add the `postgres` known secret to `Secret Store` for `my-service`.
+This can be done through the configuration of adding `postgres[my-service]` into the environment variable
 `EDGEX_ADD_KNOWN_SECRETS` in `secretstore-setup` service's environment section, in which `postgres` is the name of
-the `known secret` and `app-http-export` is the service key of the add-on service.
+the `known secret` and `my-service` is the service key of the add-on service.
 
 ```yaml
 ...
@@ -57,18 +57,19 @@ the `known secret` and `app-http-export` is the service key of the add-on servic
     - security-bootstrapper
     - vault
     environment:
-      EDGEX_ADD_KNOWN_SECRETS: postgres[app-http-export],message-bus[app-http-export],message-bus[device-virtual]
+      EDGEX_ADD_SECRETSTORE_TOKENS: my-service
+      EDGEX_ADD_KNOWN_SECRETS: postgres[my-service],message-bus[my-service],message-bus[device-virtual]
 ...
 
 ```
 
 In the above `docker-compose` section of `secretstore-setup`, we specify the known secret of
-`postgres` to add/copy the PostgreSQL database credentials to the `Secret Store` for the `app-http-export` service.
+`postgres` to add/copy the PostgreSQL database credentials to the `Secret Store` for the `my-service` service.
 
 We can also use the alternative or simpler form of `EDGEX_ADD_KNOWN_SECRETS` environment variable's value like
 
 ```yaml
-    EDGEX_ADD_KNOWN_SECRETS: postgres[app-http-export]
+    EDGEX_ADD_KNOWN_SECRETS: postgres[my-service],message-bus[my-service],message-bus[device-virtual]
 ```
 
 in which all add-on services are put together in a comma separated list associated with the
