@@ -2763,8 +2763,19 @@
 <li><a href="http://antirez.com/news/128">http://antirez.com/news/128</a></li>
 </ul>
 <h2 id="on-disk-persistence">On-disk Persistence</h2>
-<p>Redis supports a number of different levels of on-disk persistence. By default, snapshots of the data are persisted every 60 seconds or after 1000 keys have changed. Beyond increasing the frequency of snapshots, append only files that log every database write are also supported. See https://redis.io/topics/persistence for a detailed discussion on how to balance the options.</p>
-<p>Redis supports setting a memory usage limit and a policy on what to do if memory cannot be allocated for a write. See the MEMORY MANAGEMENT section of https://raw.githubusercontent.com/antirez/redis/5.0/redis.conf for the configuration options. Since EdgeX and Redis do not currently communicate on data evictions, you will need to use the EdgeX scheduler to control memory usage rather than a Redis eviction policy.</p>
+<p>Redis supports a number of different levels of on-disk persistence. By default, the configuration includes multiple save intervals: </p>
+<ul>
+<li>After 1 hour, if at least 1 key has changed.</li>
+<li>After 5 minutes, if at least 100 keys have changed.</li>
+<li>After 1 minute, if at least 10,000 keys have changed.</li>
+</ul>
+<p>This can be checked by running the command:
+<div class="highlight"><pre><span></span><code><span class="m">127</span>.0.0.1:6379&gt;<span class="w"> </span>CONFIG<span class="w"> </span>GET<span class="w"> </span>save
+<span class="m">1</span><span class="o">)</span><span class="w"> </span><span class="s2">"save"</span>
+<span class="m">2</span><span class="o">)</span><span class="w"> </span><span class="s2">"3600 1 300 100 60 10000"</span>
+</code></pre></div></p>
+<p>Beyond increasing the frequency of snapshots, append-only files that log every database write are also supported. See <a href="https://redis.io/topics/persistence">Redis Persistence</a> for a detailed discussion on how to balance the options.</p>
+<p>Redis supports setting a memory usage limit and a policy on what to do if memory cannot be allocated for a write. See the MEMORY MANAGEMENT section of <a href="https://raw.githubusercontent.com/antirez/redis/7.0/redis.conf">the Redis configuration file</a> for the latest configuration options. Since EdgeX and Redis do not currently communicate on data evictions, you will need to use the EdgeX scheduler to control memory usage rather than a Redis eviction policy.</p>
 </article>
 </div>
 </div>
