@@ -56,8 +56,8 @@ Below are only the additional settings and sections that are specific to Support
 === "Retention"
     |Property|Default Value|Description|    
     |---|---|---|
-    |Enabled|false|Enable or disable data retention.|
-    |Interval|30s|Purging interval defines when the database should be rid of schedule action records above the MaxCap.|
+    |Enabled|true|Enable or disable data retention.|
+    |Interval|24h|Purging interval defines when the database should be rid of schedule action records above the MaxCap.|
     |MaxCap|10000|The maximum capacity defines where the high watermark of schedule action records should be detected for purging the amount of the record to the minimum capacity.|
     |MinCap|8000|The minimum capacity defines where the total count of schedule action records should be returned to during purging.|
 
