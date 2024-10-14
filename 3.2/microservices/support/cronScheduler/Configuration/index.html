@@ -818,6 +818,26 @@
         Source Code
       </a>
 </li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_2_4_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_2_4_6" id="__nav_1_6_2_4_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_2_4_6_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_2_4_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../details/DataRetention/">
+        Data Retention
+      </a>
+</li>
+</ul>
+</nav>
+</li>
 </ul>
 </nav>
 </li>
@@ -2748,7 +2768,7 @@ Below are only the additional settings and sections that are specific to Support
 <p class="admonition-title">Edgex 3.0</p>
 <p>For EdgeX 3.0 the <code>MessageQueue</code> configuration has been moved to <code>MessageBus</code> in <a href="../../../configuration/CommonConfiguration/#common-configuration-properties">Common Configuration</a></p>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:7"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><input id="__tabbed_1_4" name="__tabbed_1" type="radio"><input id="__tabbed_1_5" name="__tabbed_1" type="radio"><input id="__tabbed_1_6" name="__tabbed_1" type="radio"><input id="__tabbed_1_7" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Writable</label><label for="__tabbed_1_2">Writable.InsecureSecrets</label><label for="__tabbed_1_3">Writable.Telemetry</label><label for="__tabbed_1_4">Service</label><label for="__tabbed_1_5">Clients.core-command</label><label for="__tabbed_1_6">MessageBus.Optional</label><label for="__tabbed_1_7">Database</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:8"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><input id="__tabbed_1_3" name="__tabbed_1" type="radio"><input id="__tabbed_1_4" name="__tabbed_1" type="radio"><input id="__tabbed_1_5" name="__tabbed_1" type="radio"><input id="__tabbed_1_6" name="__tabbed_1" type="radio"><input id="__tabbed_1_7" name="__tabbed_1" type="radio"><input id="__tabbed_1_8" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Writable</label><label for="__tabbed_1_2">Writable.InsecureSecrets</label><label for="__tabbed_1_3">Writable.Telemetry</label><label for="__tabbed_1_4">Service</label><label for="__tabbed_1_5">Clients.core-command</label><label for="__tabbed_1_6">MessageBus.Optional</label><label for="__tabbed_1_7">Database</label><label for="__tabbed_1_8">Retention</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -2940,8 +2960,41 @@ Below are only the additional settings and sections that are specific to Support
 <p>For EdgeX 3.2 the Support Cron Scheduler service only supports <code>postgres</code> as persistence layer.</p>
 </div>
 </div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enabled</td>
+<td>true</td>
+<td>Enable or disable data retention.</td>
+</tr>
+<tr>
+<td>Interval</td>
+<td>24h</td>
+<td>Purging interval defines when the database should be rid of schedule action records above the MaxCap.</td>
+</tr>
+<tr>
+<td>MaxCap</td>
+<td>10000</td>
+<td>The maximum capacity defines where the high watermark of schedule action records should be detected for purging the amount of the record to the minimum capacity.</td>
+</tr>
+<tr>
+<td>MinCap</td>
+<td>8000</td>
+<td>The minimum capacity defines where the total count of schedule action records should be returned to during purging.</td>
+</tr>
+</tbody>
+</table>
 </div>
-</input></input></input></input></input></input></input></div>
+</div>
+</input></input></input></input></input></input></input></input></div>
 <h2 id="v3-configuration-migration-guide">V3 Configuration Migration Guide</h2>
 <p>No configuration updated</p>
 <p>See <a href="../../../configuration/V3MigrationCommonConfig/">Common Configuration Reference</a> for complete details on common configuration changes.</p>
