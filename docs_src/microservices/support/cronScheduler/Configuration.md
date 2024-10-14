@@ -53,6 +53,13 @@ Below are only the additional settings and sections that are specific to Support
 
     !!! edgey "EdgeX 3.2"
         For EdgeX 3.2 the Support Cron Scheduler service only supports `postgres` as persistence layer.
+=== "Retention"
+    |Property|Default Value|Description|    
+    |---|---|---|
+    |Enabled|true|Enable or disable data retention.|
+    |Interval|24h|Purging interval defines when the database should be rid of schedule action records above the MaxCap.|
+    |MaxCap|10000|The maximum capacity defines where the high watermark of schedule action records should be detected for purging the amount of the record to the minimum capacity.|
+    |MinCap|8000|The minimum capacity defines where the total count of schedule action records should be returned to during purging.|
 
 ## V3 Configuration Migration Guide
 No configuration updated
