@@ -29,6 +29,8 @@ data from the devices. See [Admin State documentation](../microservices/device/d
 
 ### Walkthrough - Device Service
 
+> **Note**: The `camera-control-device-service` mentioned below is used for demonstration purposes. In a real-world scenario, make sure that this device service is running or replace it with an appropriate device service from your environment.
+
 Use either the Postman or Curl tab below to walkthrough creating the `DeviceService`.
 
 === "Postman"
@@ -51,7 +53,7 @@ Use either the Postman or Curl tab below to walkthrough creating the `DeviceServ
     }
     ```
 
-    Be sure that you are POSTing **raw** data, not form-encoded data.  If your API call is successful, you will get a generated ID for your new `DeviceService` in the response area.
+    > **Important**: If the `camera-control-device-service` is not available, you can replace it with a service running in your environment (e.g., `example-device-service`).
 
 === "Curl"
 
@@ -63,10 +65,4 @@ Use either the Postman or Curl tab below to walkthrough creating the `DeviceServ
 
     ```
 
-    If your API call is successful, you will get a generated ID for your new `DeviceService`.
-
-#### Test the GET API
-If you make a GET call to the `http://localhost:59881/api/{{api_version}}/deviceservice/all` URL (with Postman or curl) you will get a listing (in JSON) of all the device services currently defined
-in your instance of EdgeX, including the one you just added.
-
-[<Back](Ch-WalkthroughDeviceProfile.md){: .md-button } [Next>](Ch-WalkthroughProvision.md){: .md-button }
+    > **Tip**: Replace `camera-control-device-service` with the appropriate service that is available in your environment.
