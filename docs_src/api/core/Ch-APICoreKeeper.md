@@ -4,4 +4,4 @@ EdgeX Foundry's Core Keeper microservice is used for Configuration and Registry.
 
 ## Swagger
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{edgexversion}}/openapi/{{api_version}}/core-keeper.yaml"/>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{edgexversion}}/openapi/core-keeper.yaml"/>

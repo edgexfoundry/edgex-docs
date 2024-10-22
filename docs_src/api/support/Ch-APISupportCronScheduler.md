@@ -4,4 +4,4 @@ EdgeX Foundry's Support Cron Scheduler microservice to schedule actions to occur
 
 ## Swagger
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{edgexversion}}/openapi/{{api_version}}/support-cron-scheduler.yaml"/>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{edgexversion}}/openapi/support-cron-scheduler.yaml"/>
