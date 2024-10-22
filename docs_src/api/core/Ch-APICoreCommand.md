@@ -19,4 +19,4 @@ into two groups for each device:
 
 ## Swagger
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{edgexversion}}/openapi/{{api_version}}/core-command.yaml"/>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{edgexversion}}/openapi/core-command.yaml"/>

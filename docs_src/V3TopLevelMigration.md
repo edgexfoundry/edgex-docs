@@ -167,8 +167,6 @@ Any `Subscriptions` created via the V2 REST API will have to be recreated using 
 #### API Change
 - Added `authmethod` to support-scheduler actions DTO, which indicates how to authenticate the outbound URL. Use `NONE` when running in non-secure mode and `JWT` when running in secure mode.
 
-See [Support Scheduler API Reference](./microservices/support/scheduler/ApiReference.md) for complete details.
-
 The statically declared `Interval` and `IntervalAction` will be created automatically. Any `Interval` and/or `IntervalAction` created via the V2 REST API will have to be recreated using the V3 REST API. If you have created a custom configuration with additional statically declared `Interval`s and `IntervalActions` see the [Configuration File](#configuration-file) section under [Customized Configuration](#customized-configuration) below.
 
 ### Application Services

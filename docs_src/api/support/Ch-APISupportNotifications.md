@@ -4,4 +4,4 @@ When a person or a system needs to be informed of something discovered on the no
 
 ## Swagger
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{edgexversion}}/openapi/{{api_version}}/support-notifications.yaml"/>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{edgexversion}}/openapi/support-notifications.yaml"/>
