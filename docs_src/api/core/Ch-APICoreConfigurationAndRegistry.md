@@ -2,8 +2,8 @@
 
 EdgeX uses the 3rd party Consul microservice as the implementations for Configuration and Registry. The RESTful APIs are provided by Consul directly, and several communities supply Consul client libraries for different programming languages, including Go (official), Python, Java, PHP, Scala, Erlang/OTP, Ruby, Node.js, and C\#.
 
-!!! edgey - "EdgeX 3.2"
-    After v3.2, we added a new Configuration and Registry Service, Core Keeper, and the APIs is under [Core Keeper API documents](Ch-APICoreKeeper.md)
+!!! edgey - "EdgeX 4.0"
+    After v4.0, we added a new Configuration and Registry Service, Core Keeper, and the APIs is under [Core Keeper API documents](Ch-APICoreKeeper.md)
 
 For the client libraries of different languages, please refer to the
 list on this page:

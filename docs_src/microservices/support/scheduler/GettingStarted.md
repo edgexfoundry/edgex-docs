@@ -5,7 +5,7 @@ title: Support Scheduler - Getting Started
 # Support Scheduler - Getting Started
 
 !!! Warning
-    Support Scheduler service has been deprecated in EdgeX 3.2.  The service will not be immediately removed, but adopters should note that it has been tagged for eventual replacement.
+    Support Scheduler service has been deprecated in EdgeX 4.0.  The service will not be immediately removed, but adopters should note that it has been tagged for eventual replacement.
     
     Use the new EdgeX Support Cron Scheduler service instead.  The Support Cron Scheduler service is a more flexible and powerful service that provides the same functionality as the Support Scheduler service, but with additional features and improvements.
 

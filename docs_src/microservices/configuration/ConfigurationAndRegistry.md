@@ -8,8 +8,8 @@
 
  The EdgeX registry and configuration service provides other EdgeX Foundry micro services with information about associated services within EdgeX Foundry (such as location and status) and  configuration properties (i.e. - a repository of initialization and operating values).  Today, EdgeX Foundry uses [Consul by Hashicorp](https://www.consul.io/) as its reference implementation configuration and registry providers.  However, abstractions are in place so that these functions could be provided by an alternate implementation.  In fact, registration and configuration could be provided by different services under the covers.  For more, see the [Configuration Provider](ConfigurationAndRegistry.md#configuration-provider) and [Registry Provider](ConfigurationAndRegistry.md#registry-provider) sections in this page.
 
-!!! edgey - "EdgeX 3.2"
-    After v3.2, we added a new Configuration and Registry Service, Core Keeper.
+!!! edgey - "EdgeX 4.0"
+    After v4.0, we added a new Configuration and Registry Service, Core Keeper.
 
 ## Configuration
 
