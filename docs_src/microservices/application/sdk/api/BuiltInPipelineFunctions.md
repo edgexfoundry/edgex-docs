@@ -307,8 +307,8 @@ The `URLFormatter` option allows you to override the default formatter with your
     ...
     ```
 
-!!! edgey - "EdgeX 3.2"
-    ConnectToBroker is new in EdgeX 3.2
+!!! edgey - "EdgeX 4.0"
+    ConnectToBroker is new in EdgeX 4.0
 
 !!! example - "Subscribe from MQTT Broker"
     ```go
@@ -328,8 +328,8 @@ The `URLFormatter` option allows you to override the default formatter with your
     }
     ```
 
-!!! edgey - "EdgeX 3.2"
-    SetOnConnectHandler is new in EdgeX 3.2
+!!! edgey - "EdgeX 4.0"
+    SetOnConnectHandler is new in EdgeX 4.0
 
 ```go
 type MQTTSecretConfig struct {
@@ -378,8 +378,8 @@ type WillConfig struct {
 }
 ```
 
-!!! edgey - "EdgeX 3.2"
-    MaxReconnectInterval setting is new in EdgeX 3.2
+!!! edgey - "EdgeX 4.0"
+    MaxReconnectInterval setting is new in EdgeX 4.0
 
 See [MQTT Last Will](https://cedalo.com/blog/mqtt-last-will-explained-and-example) for more details on MQTT Last Will capability.
 

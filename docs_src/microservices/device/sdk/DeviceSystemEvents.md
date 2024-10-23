@@ -16,8 +16,8 @@ If an error occurs, the SDK reports a system event with a status of -1 to show f
 
 ## System Event DTO
 
-!!! edgey - "EdgeX 3.2"
-    System Event actions `discovery`, and `profilescan` are new in EdgeX 3.2
+!!! edgey - "EdgeX 4.0"
+    System Event actions `discovery`, and `profilescan` are new in EdgeX 4.0
 
 The System Event DTO for the Device Service SDK APIs has the following properties:
 
