@@ -7,23 +7,23 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="Documentation for use of EdgeX Foundry" name="description"/>
 <meta content="Michael Johanson" name="author"/>
-<link href="https://docs.edgexfoundry.org/4.0/examples/AppServiceExamples/" rel="canonical"/>
-<link href="../" rel="prev"/>
-<link href="../../general/Definitions/" rel="next"/>
-<link href="../../assets/logo_edgex.png" rel="icon"/>
+<link href="https://docs.edgexfoundry.org/4.0/api/core/Ch-APICoredata/" rel="canonical"/>
+<link href="../Ch-APICoreCommand/" rel="prev"/>
+<link href="../Ch-APICoreMetadata/" rel="next"/>
+<link href="../../../assets/logo_edgex.png" rel="icon"/>
 <meta content="mkdocs-1.6.1, mkdocs-material-9.1.19" name="generator"/>
-<title>App Service Examples - EdgeX Foundry Documentation</title>
-<link href="../../assets/stylesheets/main.eebd395e.min.css" rel="stylesheet"/>
-<link href="../../assets/stylesheets/palette.ecc896b0.min.css" rel="stylesheet"/>
+<title>Core Data - EdgeX Foundry Documentation</title>
+<link href="../../../assets/stylesheets/main.eebd395e.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ecc896b0.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
 <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-<link href="../../assets/stylesheets/version-select.css" rel="stylesheet"/>
-<link href="../../assets/stylesheets/branding.css" rel="stylesheet"/>
-<link href="../../assets/stylesheets/edgey.css" rel="stylesheet"/>
-<link href="../../assets/stylesheets/newexample.css" rel="stylesheet"/>
-<link href="../../assets/stylesheets/extra.css" rel="stylesheet"/>
-<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<link href="../../../assets/stylesheets/version-select.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/branding.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/edgey.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/newexample.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
 <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-38531ZZHBN"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-38531ZZHBN",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-38531ZZHBN",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
 <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
 </head>
@@ -33,7 +33,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#app-service-examples">
+<a class="md-skip" href="#core-data">
           Skip to content
         </a>
 </div>
@@ -43,8 +43,8 @@
 </div>
 <header class="md-header" data-md-component="header">
 <nav aria-label="Header" class="md-header__inner md-grid">
-<a aria-label="EdgeX Foundry Documentation" class="md-header__button md-logo" data-md-component="logo" href="../.." title="EdgeX Foundry Documentation">
-<img alt="logo" src="../../assets/logo_edgex_white.png"/>
+<a aria-label="EdgeX Foundry Documentation" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="EdgeX Foundry Documentation">
+<img alt="logo" src="../../../assets/logo_edgex_white.png"/>
 </a>
 <label class="md-header__button md-icon" for="__drawer">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
@@ -59,7 +59,7 @@
 <div class="md-header__topic" data-md-component="header-topic">
 <span class="md-ellipsis">
             
-              App Service Examples
+              Core Data
             
           </span>
 </div>
@@ -122,17 +122,17 @@
 <div class="md-grid">
 <ul class="md-tabs__list">
 <li class="md-tabs__item">
-<a class="md-tabs__link md-tabs__link--active" href="../..">
+<a class="md-tabs__link md-tabs__link--active" href="../../..">
         Home
       </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="../../general/Definitions/">
+<a class="md-tabs__link" href="../../../general/Definitions/">
         Reference
       </a>
 </li>
 <li class="md-tabs__item">
-<a class="md-tabs__link" href="../../design/Process/">
+<a class="md-tabs__link" href="../../../design/Process/">
         Use Case &amp; Design
       </a>
 </li>
@@ -146,8 +146,8 @@
 <div class="md-sidebar__inner">
 <nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
-<a aria-label="EdgeX Foundry Documentation" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="EdgeX Foundry Documentation">
-<img alt="logo" src="../../assets/logo_edgex_white.png"/>
+<a aria-label="EdgeX Foundry Documentation" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="EdgeX Foundry Documentation">
+<img alt="logo" src="../../../assets/logo_edgex_white.png"/>
 </a>
     EdgeX Foundry Documentation
   </label>
@@ -175,12 +175,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../..">
+<a class="md-nav__link" href="../../..">
         Overview
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../about/">
+<a class="md-nav__link" href="../../../about/">
         About
       </a>
 </li>
@@ -197,27 +197,27 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/">
+<a class="md-nav__link" href="../../../getting-started/">
         Guides
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/quick-start/">
+<a class="md-nav__link" href="../../../getting-started/quick-start/">
         Quick Start
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/Ch-GettingStartedUsers/">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedUsers/">
         Getting Started as a User
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/Ch-GettingStartedDockerUsers/">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedDockerUsers/">
         Getting Started using Docker
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/tools/Ch-GUI/">
+<a class="md-nav__link" href="../../../getting-started/tools/Ch-GUI/">
         Graphical User Interface (GUI)
       </a>
 </li>
@@ -237,22 +237,22 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/Ch-GettingStartedDevelopers/">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedDevelopers/">
         Getting Started as a Developer
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/Ch-GettingStartedGoDevelopers/">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedGoDevelopers/">
         Getting Started - Go Developers
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/Ch-GettingStartedCDevelopers/">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedCDevelopers/">
         Getting Started - C Developers
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/Ch-GettingStartedHybrid/">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedHybrid/">
         Working in a Hybrid Environment
       </a>
 </li>
@@ -269,22 +269,22 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/native/Ch-BuildRunNative/">
+<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunNative/">
         Native Build and Run
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/native/Ch-BuildRunOnLinuxDistro/">
+<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunOnLinuxDistro/">
         Build and Run on Linux on x86/x64
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/native/Ch-BuildRunOnArm32/">
+<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunOnArm32/">
         Build and Run on Linux on ARM 32
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/native/Ch-BuildRunOnWindows/">
+<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunOnWindows/">
         Build and Run on Windows on x86/x64
       </a>
 </li>
@@ -292,7 +292,7 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/Purpose/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/Purpose/">
         Application Functions SDK
       </a>
 </li>
@@ -309,7 +309,7 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/device/GettingStarted/">
         Device Service - Getting Started
       </a>
 </li>
@@ -317,82 +317,100 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/Ch-GettingStartedUsersNexus/">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedUsersNexus/">
         Getting Docker Images from EdgeX Nexus Repository
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../getting-started/Ch-GettingStartedDTOValidation/">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedDTOValidation/">
         DTO Validation
       </a>
 </li>
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_5" type="checkbox"/>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_5" type="checkbox"/>
 <label class="md-nav__link" for="__nav_1_5" id="__nav_1_5_label" tabindex="0">
           APIs
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_5_label" class="md-nav" data-md-level="2">
+<nav aria-expanded="true" aria-labelledby="__nav_1_5_label" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_1_5">
 <span class="md-nav__icon md-icon"></span>
           APIs
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../api/Ch-APIIntroduction/">
+<a class="md-nav__link" href="../../Ch-APIIntroduction/">
         Introduction
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../api/core/Ch-APICoreCommand/">
+<a class="md-nav__link" href="../Ch-APICoreCommand/">
         Core Command
       </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../api/core/Ch-APICoredata/">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          Core Data
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
         Core Data
       </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#swagger">
+    Swagger
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../api/core/Ch-APICoreMetadata/">
+<a class="md-nav__link" href="../Ch-APICoreMetadata/">
         Core Metadata
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../api/core/Ch-APICoreKeeper/">
+<a class="md-nav__link" href="../Ch-APICoreKeeper/">
         Core Keeper
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../api/core/Ch-APICoreConfigurationAndRegistry/">
+<a class="md-nav__link" href="../Ch-APICoreConfigurationAndRegistry/">
         Configuration and Registry
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../api/support/Ch-APISupportNotifications/">
+<a class="md-nav__link" href="../../support/Ch-APISupportNotifications/">
         Support Notifications
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../api/support/Ch-APISupportCronScheduler/">
+<a class="md-nav__link" href="../../support/Ch-APISupportCronScheduler/">
         Support Cron Scheduler
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../api/devices/Ch-APIDeviceSDK/">
+<a class="md-nav__link" href="../../devices/Ch-APIDeviceSDK/">
         Device Services
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/ApiReference/">
+<a class="md-nav__link" href="../../../microservices/application/ApiReference/">
         App Services
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../api/applications/Ch-APIRulesEngine/">
+<a class="md-nav__link" href="../../applications/Ch-APIRulesEngine/">
         Rules Engine
       </a>
 </li>
@@ -424,7 +442,7 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/Ch-CoreServices/">
+<a class="md-nav__link" href="../../../microservices/core/Ch-CoreServices/">
         Core Services
       </a>
 </li>
@@ -441,27 +459,27 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/data/Purpose/">
+<a class="md-nav__link" href="../../../microservices/core/data/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/data/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/core/data/GettingStarted/">
         Getting Started
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/data/Configuration/">
+<a class="md-nav__link" href="../../../microservices/core/data/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/data/ApiReference/">
+<a class="md-nav__link" href="../../../microservices/core/data/ApiReference/">
         API Reference
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/data/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/core/data/SourceCode/">
         Source Code
       </a>
 </li>
@@ -478,12 +496,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/data/details/EventsAndReadings/">
+<a class="md-nav__link" href="../../../microservices/core/data/details/EventsAndReadings/">
         Events and Readings
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/data/details/DataRetention/">
+<a class="md-nav__link" href="../../../microservices/core/data/details/DataRetention/">
         Data Retention
       </a>
 </li>
@@ -506,27 +524,27 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/metadata/Purpose/">
+<a class="md-nav__link" href="../../../microservices/core/metadata/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/metadata/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/core/metadata/GettingStarted/">
         Getting Started
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/metadata/Configuration/">
+<a class="md-nav__link" href="../../../microservices/core/metadata/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/metadata/ApiReference/">
+<a class="md-nav__link" href="../../../microservices/core/metadata/ApiReference/">
         API Reference
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/metadata/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/core/metadata/SourceCode/">
         Source Code
       </a>
 </li>
@@ -543,12 +561,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/metadata/details/DeviceProfile/">
+<a class="md-nav__link" href="../../../microservices/core/metadata/details/DeviceProfile/">
         Device Profile
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/metadata/details/DeviceSystemEvents/">
+<a class="md-nav__link" href="../../../microservices/core/metadata/details/DeviceSystemEvents/">
         Device System Events
       </a>
 </li>
@@ -571,27 +589,27 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/command/Purpose/">
+<a class="md-nav__link" href="../../../microservices/core/command/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/command/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/core/command/GettingStarted/">
         Getting Started
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/command/Configuration/">
+<a class="md-nav__link" href="../../../microservices/core/command/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/command/ApiReference/">
+<a class="md-nav__link" href="../../../microservices/core/command/ApiReference/">
         API Reference
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/command/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/core/command/SourceCode/">
         Source Code
       </a>
 </li>
@@ -608,7 +626,7 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/core/command/details/RegexGetCommand/">
+<a class="md-nav__link" href="../../../microservices/core/command/details/RegexGetCommand/">
         Regex Get Command
       </a>
 </li>
@@ -634,7 +652,7 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/Ch-SupportingServices/">
+<a class="md-nav__link" href="../../../microservices/support/Ch-SupportingServices/">
         Supporting Services
       </a>
 </li>
@@ -651,12 +669,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/notifications/Purpose/">
+<a class="md-nav__link" href="../../../microservices/support/notifications/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/notifications/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/support/notifications/GettingStarted/">
         Getting Started
       </a>
 </li>
@@ -673,7 +691,7 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/notifications/HowTo_EmailNotifications/">
+<a class="md-nav__link" href="../../../microservices/support/notifications/HowTo_EmailNotifications/">
         Configure Email Notifications
       </a>
 </li>
@@ -681,17 +699,17 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/notifications/Configuration/">
+<a class="md-nav__link" href="../../../microservices/support/notifications/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/notifications/ApiReference/">
+<a class="md-nav__link" href="../../../microservices/support/notifications/ApiReference/">
         API Reference
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/notifications/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/support/notifications/SourceCode/">
         Source Code
       </a>
 </li>
@@ -708,7 +726,7 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/notifications/details/DataRetention/">
+<a class="md-nav__link" href="../../../microservices/support/notifications/details/DataRetention/">
         Data Retention
       </a>
 </li>
@@ -731,22 +749,22 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/scheduler/Purpose/">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/scheduler/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/GettingStarted/">
         Getting Started
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/scheduler/Configuration/">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/scheduler/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/SourceCode/">
         Source Code
       </a>
 </li>
@@ -766,27 +784,27 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/cronScheduler/Purpose/">
+<a class="md-nav__link" href="../../../microservices/support/cronScheduler/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/cronScheduler/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/support/cronScheduler/GettingStarted/">
         Getting Started
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/cronScheduler/Configuration/">
+<a class="md-nav__link" href="../../../microservices/support/cronScheduler/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/cronScheduler/ApiReference/">
+<a class="md-nav__link" href="../../../microservices/support/cronScheduler/ApiReference/">
         API Reference
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/cronScheduler/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/support/cronScheduler/SourceCode/">
         Source Code
       </a>
 </li>
@@ -803,7 +821,7 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/cronScheduler/details/DataRetention/">
+<a class="md-nav__link" href="../../../microservices/support/cronScheduler/details/DataRetention/">
         Data Retention
       </a>
 </li>
@@ -814,7 +832,7 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/support/eKuiper/Ch-eKuiper/">
+<a class="md-nav__link" href="../../../microservices/support/eKuiper/Ch-eKuiper/">
         eKuiper Rules Engine
       </a>
 </li>
@@ -834,12 +852,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/DeviceService/">
+<a class="md-nav__link" href="../../../microservices/device/DeviceService/">
         Device Service
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/device/GettingStarted/">
         Device Service - Getting Started
       </a>
 </li>
@@ -868,12 +886,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/how-to/Ch-RemoteNonSecure/">
+<a class="md-nav__link" href="../../../microservices/device/how-to/Ch-RemoteNonSecure/">
         Non-Secure Mode
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/how-to/Ch-RemoteSecure/">
+<a class="md-nav__link" href="../../../microservices/device/how-to/Ch-RemoteSecure/">
         Secure Mode
       </a>
 </li>
@@ -884,12 +902,12 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/Configuration/">
+<a class="md-nav__link" href="../../../microservices/device/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/ApiReference/">
+<a class="md-nav__link" href="../../../microservices/device/ApiReference/">
         API Reference
       </a>
 </li>
@@ -906,47 +924,47 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/details/DeviceProfiles/">
+<a class="md-nav__link" href="../../../microservices/device/details/DeviceProfiles/">
         Device Profiles
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/details/DeviceCommands/">
+<a class="md-nav__link" href="../../../microservices/device/details/DeviceCommands/">
         Device Commands
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/details/DeviceDefinitions/">
+<a class="md-nav__link" href="../../../microservices/device/details/DeviceDefinitions/">
         Device Definitions
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/details/AutoEvents/">
+<a class="md-nav__link" href="../../../microservices/device/details/AutoEvents/">
         Auto Events
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/details/DeviceDiscovery/">
+<a class="md-nav__link" href="../../../microservices/device/details/DeviceDiscovery/">
         Device Discovery
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/details/CommandLine/">
+<a class="md-nav__link" href="../../../microservices/device/details/CommandLine/">
         Command-line Options
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/details/EnvironmentVariables/">
+<a class="md-nav__link" href="../../../microservices/device/details/EnvironmentVariables/">
         Environment Variables
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/details/SeedingSecrets/">
+<a class="md-nav__link" href="../../../microservices/device/details/SeedingSecrets/">
         Seeding Secrets
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/details/ServiceMetrics/">
+<a class="md-nav__link" href="../../../microservices/device/details/ServiceMetrics/">
         Service Metrics
       </a>
 </li>
@@ -966,12 +984,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/sdk/Purpose/">
+<a class="md-nav__link" href="../../../microservices/device/sdk/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/sdk/DeviceSystemEvents/">
+<a class="md-nav__link" href="../../../microservices/device/sdk/DeviceSystemEvents/">
         Device System Events
       </a>
 </li>
@@ -988,12 +1006,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/sdk/devicesdk-getting-started/GettingStartedSDK-Go/">
+<a class="md-nav__link" href="../../../microservices/device/sdk/devicesdk-getting-started/GettingStartedSDK-Go/">
         Go SDK
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/sdk/devicesdk-getting-started/GettingStartedSDK-C/">
+<a class="md-nav__link" href="../../../microservices/device/sdk/devicesdk-getting-started/GettingStartedSDK-C/">
         C SDK
       </a>
 </li>
@@ -1025,12 +1043,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/sdk/api/GoDeviceSDK/GoDeviceSDKAPI/">
+<a class="md-nav__link" href="../../../microservices/device/sdk/api/GoDeviceSDK/GoDeviceSDKAPI/">
         DeviceServiceSDK
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/sdk/api/GoDeviceSDK/GoProtocolDriverAPI/">
+<a class="md-nav__link" href="../../../microservices/device/sdk/api/GoDeviceSDK/GoProtocolDriverAPI/">
         ProtocolDriver
       </a>
 </li>
@@ -1050,12 +1068,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/sdk/api/CDeviceSDK/CDeviceSDKAPI/">
+<a class="md-nav__link" href="../../../microservices/device/sdk/api/CDeviceSDK/CDeviceSDKAPI/">
         SDK
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/sdk/api/CDeviceSDK/CUtilities/">
+<a class="md-nav__link" href="../../../microservices/device/sdk/api/CDeviceSDK/CUtilities/">
         C Utilities
       </a>
 </li>
@@ -1066,7 +1084,7 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/sdk/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/device/sdk/SourceCode/">
         Source Code
       </a>
 </li>
@@ -1083,22 +1101,22 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/sdk/details/CustomConfiguration/">
+<a class="md-nav__link" href="../../../microservices/device/sdk/details/CustomConfiguration/">
         Custom Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/sdk/details/CustomRestApis/">
+<a class="md-nav__link" href="../../../microservices/device/sdk/details/CustomRestApis/">
         Custom Rest Apis
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/sdk/details/CustomServiceMetrics/">
+<a class="md-nav__link" href="../../../microservices/device/sdk/details/CustomServiceMetrics/">
         Custom Service Metrics
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/sdk/details/Secrets/">
+<a class="md-nav__link" href="../../../microservices/device/sdk/details/Secrets/">
         Secrets
       </a>
 </li>
@@ -1109,7 +1127,7 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/V3Migration/">
+<a class="md-nav__link" href="../../../microservices/device/V3Migration/">
         V3 Migration
       </a>
 </li>
@@ -1126,12 +1144,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-bacnet/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-bacnet/">
         Device BacNet
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-coap/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-coap/">
         Device COAP
       </a>
 </li>
@@ -1148,32 +1166,32 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-gpio/Purpose/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-gpio/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/GettingStarted/">
         Getting Started
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-gpio/Configuration/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-gpio/ProtocolProperties/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/ProtocolProperties/">
         Protocol Properties
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-gpio/ApiReference/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/ApiReference/">
         API Reference
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-gpio/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/SourceCode/">
         Source Code
       </a>
 </li>
@@ -1193,32 +1211,32 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-modbus/Purpose/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-modbus/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/GettingStarted/">
         Getting Started
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-modbus/Configuration/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-modbus/ProtocolProperties/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/ProtocolProperties/">
         Protocol Properties
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-modbus/APIReference/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/APIReference/">
         API Reference
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-modbus/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/SourceCode/">
         Source Code
       </a>
 </li>
@@ -1235,7 +1253,7 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-modbus/details/DataTypeConversion/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/details/DataTypeConversion/">
         Data Type Conversion
       </a>
 </li>
@@ -1258,12 +1276,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-mqtt/Purpose/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-mqtt/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/GettingStarted/">
         Getting Started
       </a>
 </li>
@@ -1280,7 +1298,7 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-mqtt/Ch-ExamplesAddingMQTTDevice/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/Ch-ExamplesAddingMQTTDevice/">
         How To Add an MQTT Device
       </a>
 </li>
@@ -1288,22 +1306,22 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-mqtt/Configuration/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-mqtt/ProtocolProperties/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/ProtocolProperties/">
         Protocol Properties
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-mqtt/APIReference/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/APIReference/">
         API Reference
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-mqtt/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/SourceCode/">
         Source Code
       </a>
 </li>
@@ -1320,7 +1338,7 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-mqtt/details/MultiLevelTopics/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/details/MultiLevelTopics/">
         Multi-Level Topics
       </a>
 </li>
@@ -1343,12 +1361,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/General/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/General/">
         General
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/swagger/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/swagger/">
         Device ONVIF Swagger API Documentation
       </a>
 </li>
@@ -1365,22 +1383,22 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/Walkthrough/setup/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/Walkthrough/setup/">
         Setup
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/Walkthrough/deployment/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/Walkthrough/deployment/">
         Deployment
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/Walkthrough/general-usage/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/Walkthrough/general-usage/">
         General Usage
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/Walkthrough/custom-build/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/Walkthrough/custom-build/">
         Custom Build
       </a>
 </li>
@@ -1412,12 +1430,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/ONVIF-protocol/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/ONVIF-protocol/">
         Onvif Camera Device Service Specifications
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/onvif-user-authentication/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/onvif-user-authentication/">
         Onvif User Authentication
       </a>
 </li>
@@ -1437,32 +1455,32 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/custom-metadata-feature/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/custom-metadata-feature/">
         Custom Metadata
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/friendlyname-mac/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/friendlyname-mac/">
         Friendly Name and MAC Address
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/device-status/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/device-status/">
         Device Status
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/auto-discovery/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/auto-discovery/">
         Auto Discovery
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/credentials/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/credentials/">
         Credentials
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/reboot-needed/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/reboot-needed/">
         RebootNeeded
       </a>
 </li>
@@ -1482,17 +1500,17 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/api-analytic-support/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/api-analytic-support/">
         Analytic Support
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/api-event-handling/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/api-event-handling/">
         Event Handling
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/api-usage-user-handling/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/api-usage-user-handling/">
         User Handling
       </a>
 </li>
@@ -1512,12 +1530,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/test-with-postman/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/test-with-postman/">
         Test with Postman
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/utility-scripts/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/utility-scripts/">
         Utility Scripts
       </a>
 </li>
@@ -1537,22 +1555,22 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/control-plane-events/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/control-plane-events/">
         Control Plane Events
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/getting-started-with-docker-security/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/getting-started-with-docker-security/">
         Getting Started With Docker (Security Mode)
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/ws-discovery/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/ws-discovery/">
         How does WS-Discovery work?
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-onvif-camera/supplementary-info/onvif-footnotes/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/onvif-footnotes/">
         ONVIF Footnotes
       </a>
 </li>
@@ -1578,12 +1596,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-rest/Purpose/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-rest/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/GettingStarted/">
         Getting Started
       </a>
 </li>
@@ -1600,7 +1618,7 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-rest/howto/Testing/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/howto/Testing/">
         Testing
       </a>
 </li>
@@ -1608,22 +1626,22 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-rest/Configuration/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-rest/ProtocolProperties/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/ProtocolProperties/">
         Protocol Properties
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-rest/ApiReference/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/ApiReference/">
         API Reference
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-rest/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/SourceCode/">
         Source Code
       </a>
 </li>
@@ -1631,12 +1649,12 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-rfid-llrp/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rfid-llrp/">
         Device RFID LLRP
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-snmp/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-snmp/">
         Device SNMP
       </a>
 </li>
@@ -1653,32 +1671,32 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-uart/Purpose/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-uart/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/GettingStarted/">
         Getting Started
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-uart/Configuration/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-uart/ProtocolProperties/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/ProtocolProperties/">
         Protocol Properties
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-uart/APIReference/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/APIReference/">
         API Reference
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-uart/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/SourceCode/">
         Source Code
       </a>
 </li>
@@ -1698,7 +1716,7 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-usb-camera/General/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/General/">
         General
       </a>
 </li>
@@ -1715,22 +1733,22 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-usb-camera/walkthrough/setup/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/walkthrough/setup/">
         Setup
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-usb-camera/walkthrough/deployment/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/walkthrough/deployment/">
         Deployment
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-usb-camera/walkthrough/general-usage/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/walkthrough/general-usage/">
         General Usage
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-usb-camera/walkthrough/custom-build/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/walkthrough/custom-build/">
         Custom Build
       </a>
 </li>
@@ -1750,17 +1768,17 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-usb-camera/supplementary-info/USB-protocol/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/supplementary-info/USB-protocol/">
         USB Camera Device Service Specifications
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-usb-camera/supplementary-info/discovery/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/supplementary-info/discovery/">
         Dynamic Discovery
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-usb-camera/supplementary-info/advanced-options/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/supplementary-info/advanced-options/">
         Advanced Options
       </a>
 </li>
@@ -1771,7 +1789,7 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-virtual/Ch-VirtualDevice/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-virtual/Ch-VirtualDevice/">
         Device Virtual
       </a>
 </li>
@@ -1794,22 +1812,22 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/ApplicationServices/">
+<a class="md-nav__link" href="../../../microservices/application/ApplicationServices/">
         Application Services
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/application/GettingStarted/">
         Getting Started
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/Configuration/">
+<a class="md-nav__link" href="../../../microservices/application/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/ApiReference/">
+<a class="md-nav__link" href="../../../microservices/application/ApiReference/">
         App Services
       </a>
 </li>
@@ -1826,27 +1844,27 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/details/CommandLine/">
+<a class="md-nav__link" href="../../../microservices/application/details/CommandLine/">
         Command-Line Options
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/details/EnvironmentVariables/">
+<a class="md-nav__link" href="../../../microservices/application/details/EnvironmentVariables/">
         Environment Variables
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/details/SeedingSecrets/">
+<a class="md-nav__link" href="../../../microservices/application/details/SeedingSecrets/">
         Seeding Secrets
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/details/ServiceMetrics/">
+<a class="md-nav__link" href="../../../microservices/application/details/ServiceMetrics/">
         Service Metrics
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/details/Triggers/">
+<a class="md-nav__link" href="../../../microservices/application/details/Triggers/">
         Triggers
       </a>
 </li>
@@ -1866,12 +1884,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/Purpose/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/Purpose/">
         Application Functions SDK
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/GettingStarted/">
         Getting Started
       </a>
 </li>
@@ -1888,17 +1906,17 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/api/ApplicationServiceAPI/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/api/ApplicationServiceAPI/">
         Application Service
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/api/AppFunctionContextAPI/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/api/AppFunctionContextAPI/">
         App Function Context
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/api/BuiltInPipelineFunctions/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/api/BuiltInPipelineFunctions/">
         Pipeline Functions
       </a>
 </li>
@@ -1906,7 +1924,7 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/SourceCode/">
         Source Code
       </a>
 </li>
@@ -1923,42 +1941,42 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/details/BackgroundPublishing/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/BackgroundPublishing/">
         Background Publishing
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/details/CustomConfiguration/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/CustomConfiguration/">
         Custom Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/details/CustomRestApis/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/CustomRestApis/">
         Custom REST APIs
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/details/CustomServiceMetrics/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/CustomServiceMetrics/">
         Custom Service Metrics
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/details/PipelinesPerTopics/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/PipelinesPerTopics/">
         Pipelines Per Topic
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/details/Secrets/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/Secrets/">
         Secrets
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/details/StoreAndForward/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/StoreAndForward/">
         Store and Forward
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/sdk/details/TargetType/">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/TargetType/">
         Target Type
       </a>
 </li>
@@ -1969,7 +1987,7 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/V3Migration/">
+<a class="md-nav__link" href="../../../microservices/application/V3Migration/">
         V3 Migration
       </a>
 </li>
@@ -1998,27 +2016,27 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppServiceConfigurable/Purpose/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppServiceConfigurable/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/GettingStarted/">
         Getting Started
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppServiceConfigurable/Configuration/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppServiceConfigurable/ApiReference/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/ApiReference/">
         API Reference
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppServiceConfigurable/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/SourceCode/">
         Source Code
       </a>
 </li>
@@ -2035,22 +2053,22 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppServiceConfigurable/details/PipelinePerTopics/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/details/PipelinePerTopics/">
         Pipeline Per Topics
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppServiceConfigurable/details/AvailablePipelineFunctions/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/details/AvailablePipelineFunctions/">
         Available Pipeline Functions
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppServiceConfigurable/details/Profiles/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/details/Profiles/">
         Available Profiles
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppServiceConfigurable/details/TargetType/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/details/TargetType/">
         Target Type
       </a>
 </li>
@@ -2073,27 +2091,27 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppLLRPInventory/Purpose/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppLLRPInventory/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/GettingStarted/">
         Getting Started
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppLLRPInventory/Configuration/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppLLRPInventory/ApiReference/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/ApiReference/">
         API Reference
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppLLRPInventory/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/SourceCode/">
         Source Code
       </a>
 </li>
@@ -2110,27 +2128,27 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppLLRPInventory/details/InventoryEvents/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/InventoryEvents/">
         Inventory Events
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppLLRPInventory/details/TagLocationAlgorithm/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/TagLocationAlgorithm/">
         Tag Location Algorithm
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppLLRPInventory/details/LocationAliases/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/LocationAliases/">
         Location Aliases
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppLLRPInventory/details/Behaviors/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/Behaviors/">
         Behaviors
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppLLRPInventory/details/MobilityProfile/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/MobilityProfile/">
         Mobility Profile
       </a>
 </li>
@@ -2153,27 +2171,27 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppRecordReplay/Purpose/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/Purpose/">
         Purpose
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppRecordReplay/GettingStarted/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/GettingStarted/">
         Getting Started
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppRecordReplay/Configuration/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/Configuration/">
         Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppRecordReplay/ApiReference/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/ApiReference/">
         API Reference
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/services/AppRecordReplay/SourceCode/">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/SourceCode/">
         Source Code
       </a>
 </li>
@@ -2199,27 +2217,27 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/configuration/ConfigurationAndRegistry/">
+<a class="md-nav__link" href="../../../microservices/configuration/ConfigurationAndRegistry/">
         Configuration and Registry Providers
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/configuration/CommonConfiguration/">
+<a class="md-nav__link" href="../../../microservices/configuration/CommonConfiguration/">
         Service Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/configuration/CommonCommandLineOptions/">
+<a class="md-nav__link" href="../../../microservices/configuration/CommonCommandLineOptions/">
         Command Line Options
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/configuration/CommonEnvironmentVariables/">
+<a class="md-nav__link" href="../../../microservices/configuration/CommonEnvironmentVariables/">
         Environment Variables
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/configuration/V3MigrationCommonConfig/">
+<a class="md-nav__link" href="../../../microservices/configuration/V3MigrationCommonConfig/">
         V3 Migration
       </a>
 </li>
@@ -2227,12 +2245,12 @@
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/general/">
+<a class="md-nav__link" href="../../../microservices/general/">
         Cross Cutting Concerns
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/general/messagebus/">
+<a class="md-nav__link" href="../../../microservices/general/messagebus/">
         EdgeX MessageBus
       </a>
 </li>
@@ -2249,12 +2267,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/general/database/Ch-Redis/">
+<a class="md-nav__link" href="../../../microservices/general/database/Ch-Redis/">
         Redis
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/general/database/Ch-Postgres/">
+<a class="md-nav__link" href="../../../microservices/general/database/Ch-Postgres/">
         PostgreSQL
       </a>
 </li>
@@ -2277,87 +2295,87 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/Ch-Security/">
+<a class="md-nav__link" href="../../../security/Ch-Security/">
         Security Services
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/Ch-SecretStore/">
+<a class="md-nav__link" href="../../../security/Ch-SecretStore/">
         Secret Store
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/Ch-Authenticating/">
+<a class="md-nav__link" href="../../../security/Ch-Authenticating/">
         Authenticating to EdgeX Microservices
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/Ch-SecretProviderApi/">
+<a class="md-nav__link" href="../../../security/Ch-SecretProviderApi/">
         Secret Provider API
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/Ch-APIGateway/">
+<a class="md-nav__link" href="../../../security/Ch-APIGateway/">
         API Gateway
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/Ch-Secure-MessageBus/">
+<a class="md-nav__link" href="../../../security/Ch-Secure-MessageBus/">
         Secure MessageBus
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/Ch-Configuring-Add-On-Services/">
+<a class="md-nav__link" href="../../../security/Ch-Configuring-Add-On-Services/">
         Configuring Add-on Service
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/Ch-Secure-Consul/">
+<a class="md-nav__link" href="../../../security/Ch-Secure-Consul/">
         Secure Consul
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/Ch-SecurityIssues/">
+<a class="md-nav__link" href="../../../security/Ch-SecurityIssues/">
         Reporting Security Issues
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/secrets-config/">
+<a class="md-nav__link" href="../../../security/secrets-config/">
         Secrets config
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/secrets-config-proxy/">
+<a class="md-nav__link" href="../../../security/secrets-config-proxy/">
         Secrets config proxy
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/SeedingServiceSecrets/">
+<a class="md-nav__link" href="../../../security/SeedingServiceSecrets/">
         Seeding Service Secrets
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/Ch-CORS-Settings/">
+<a class="md-nav__link" href="../../../security/Ch-CORS-Settings/">
         CORS settings
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/Ch-DelayedStartServices/">
+<a class="md-nav__link" href="../../../security/Ch-DelayedStartServices/">
         Delayed-Start Services
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/Ch-RemoteDeviceServices/">
+<a class="md-nav__link" href="../../../security/Ch-RemoteDeviceServices/">
         Remote Device Services in Secure Mode
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/Rootless-Docker/">
+<a class="md-nav__link" href="../../../security/Rootless-Docker/">
         Rootless Docker Environment
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/V3Migration/">
+<a class="md-nav__link" href="../../../security/V3Migration/">
         V3 Migration
       </a>
 </li>
@@ -2374,17 +2392,17 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../threat-models/secret-store/">
+<a class="md-nav__link" href="../../../threat-models/secret-store/">
         EdgeX Foundry Secret Management Threat Model
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../threat-models/stride-model/EdgeX-STRIDE/">
+<a class="md-nav__link" href="../../../threat-models/stride-model/EdgeX-STRIDE/">
         EdgeX Foundry STRIDE Threat Model
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../threat-models/stride-model/EdgeXFoundryThreatReportV2.2/">
+<a class="md-nav__link" href="../../../threat-models/stride-model/EdgeXFoundryThreatReportV2.2/">
         Threat Modeling Report
       </a>
 </li>
@@ -2419,27 +2437,27 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../V3TopLevelMigration/">
+<a class="md-nav__link" href="../../../V3TopLevelMigration/">
         General Migration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../security/V3Migration/">
+<a class="md-nav__link" href="../../../security/V3Migration/">
         V3 Migration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/configuration/V3MigrationCommonConfig/">
+<a class="md-nav__link" href="../../../microservices/configuration/V3MigrationCommonConfig/">
         V3 Migration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/V3Migration/">
+<a class="md-nav__link" href="../../../microservices/device/V3Migration/">
         V3 Migration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/application/V3Migration/">
+<a class="md-nav__link" href="../../../microservices/application/V3Migration/">
         V3 Migration
       </a>
 </li>
@@ -2462,17 +2480,17 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../Ch-ExamplesVirtualDeviceService/">
+<a class="md-nav__link" href="../../../examples/Ch-ExamplesVirtualDeviceService/">
         Using the Virtual Device Service
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../Ch-ExamplesSendingAndConsumingBinary/">
+<a class="md-nav__link" href="../../../examples/Ch-ExamplesSendingAndConsumingBinary/">
         Sending and Consuming Binary Data From EdgeX Device Services
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../Ch-CommandingDeviceThroughRulesEngine/">
+<a class="md-nav__link" href="../../../examples/Ch-CommandingDeviceThroughRulesEngine/">
         Command Devices with eKuiper Rules Engine
       </a>
 </li>
@@ -2489,12 +2507,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../Ch-ExamplesAddingSNMPDevice/">
+<a class="md-nav__link" href="../../../examples/Ch-ExamplesAddingSNMPDevice/">
         SNMP
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../microservices/device/services/device-mqtt/Ch-ExamplesAddingMQTTDevice/">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/Ch-ExamplesAddingMQTTDevice/">
         How To Add an MQTT Device
       </a>
 </li>
@@ -2514,47 +2532,47 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../walk-through/Ch-Walkthrough/">
+<a class="md-nav__link" href="../../../walk-through/Ch-Walkthrough/">
         EdgeX Demonstration API Walk Through
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughSetup/">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughSetup/">
         Setup up your environment
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughUseCase/">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughUseCase/">
         Example Use Case
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughDeviceProfile/">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughDeviceProfile/">
         Defining your device
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughDeviceService/">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughDeviceService/">
         Register your device service
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughProvision/">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughProvision/">
         Provision a device
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughCommands/">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughCommands/">
         Calling commands
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughReading/">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughReading/">
         Sending events and reading data
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../walk-through/Ch-WalkthroughExporting/">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughExporting/">
         Exporting your device data
       </a>
 </li>
@@ -2564,38 +2582,37 @@
 </ul>
 </nav>
 </li>
-<li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_10" type="checkbox"/>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_10" type="checkbox"/>
 <label class="md-nav__link" for="__nav_1_10" id="__nav_1_10_label" tabindex="0">
           Examples
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="true" aria-labelledby="__nav_1_10_label" class="md-nav" data-md-level="2">
+<nav aria-expanded="false" aria-labelledby="__nav_1_10_label" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="__nav_1_10">
 <span class="md-nav__icon md-icon"></span>
           Examples
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../">
+<a class="md-nav__link" href="../../../examples/">
         Code Examples
       </a>
 </li>
-<li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" id="__nav_1_10_2" type="checkbox"/>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_10_2" type="checkbox"/>
 <label class="md-nav__link" for="__nav_1_10_2" id="__nav_1_10_2_label" tabindex="0">
           App Service Examples
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="true" aria-labelledby="__nav_1_10_2_label" class="md-nav" data-md-level="3">
+<nav aria-expanded="false" aria-labelledby="__nav_1_10_2_label" class="md-nav" data-md-level="3">
 <label class="md-nav__title" for="__nav_1_10_2">
 <span class="md-nav__icon md-icon"></span>
           App Service Examples
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item md-nav__item--active">
-<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
-<a class="md-nav__link md-nav__link--active" href="./">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../examples/AppServiceExamples/">
         App Service Examples
       </a>
 </li>
@@ -2621,32 +2638,32 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../general/Definitions/">
+<a class="md-nav__link" href="../../../general/Definitions/">
         Definitions
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../general/PlatformRequirements/">
+<a class="md-nav__link" href="../../../general/PlatformRequirements/">
         Platform Requirements
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../general/ServicePorts/">
+<a class="md-nav__link" href="../../../general/ServicePorts/">
         Default Service Ports
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../general/ContainerNames/">
+<a class="md-nav__link" href="../../../general/ContainerNames/">
         EdgeX Container Names
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../general/ServiceConfiguration/">
+<a class="md-nav__link" href="../../../general/ServiceConfiguration/">
         Service Configuration
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../general/EdgeX_CN/">
+<a class="md-nav__link" href="../../../general/EdgeX_CN/">
         Is EdgeX Foundry Cloud Native?
       </a>
 </li>
@@ -2666,12 +2683,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../design/Process/">
+<a class="md-nav__link" href="../../../design/Process/">
         Process
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../design/TOC/">
+<a class="md-nav__link" href="../../../design/TOC/">
         Documents
       </a>
 </li>
@@ -2688,12 +2705,12 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../design/legacy-design/">
+<a class="md-nav__link" href="../../../design/legacy-design/">
         Designs
       </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../design/legacy-requirements/">
+<a class="md-nav__link" href="../../../design/legacy-requirements/">
         Requirements
       </a>
 </li>
@@ -2712,96 +2729,35 @@
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#swagger">
+    Swagger
+  </a>
+</li>
+</ul>
 </nav>
 </div>
 </div>
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
-<h1 id="app-service-examples">App Service Examples</h1>
-<p>The following is a list of examples we currently have available that demonstrate various ways that the <strong>Application Functions SDK</strong> or <strong>App Service Configurable</strong> can be used. All of the examples
-can be found here in the <a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services">edgex-examples</a> repo. They focus on how to leverage various built in provided functions as mentioned above as well as how to write your own in the case that the SDK does not provide what is needed.</p>
-<table>
-<thead>
-<tr>
-<th><div style="width:250px">Example Name</div></th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/simple-filter-xml">Simple Filter XML</a></td>
-<td>Demonstrates Filtering of Events by Device names and transforming data to XML</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/simple-filter-xml-http">Simple Filter XML HTTP</a></td>
-<td>Same example as #1, but result published to HTTP Endpoint</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/simple-filter-xml-mqtt">Simple Filter XML MQTT</a></td>
-<td>Same example as #1, but result published to MQTT Broker</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/simple-cbor-filter">Simple CBOR Filter</a></td>
-<td>Demonstrates Filtering of Events by Resource names for Event that is CBOR encoded containing a binary reading</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/advanced-filter-convert-publish">Advanced Filter Convert Publish</a></td>
-<td>Demonstrates Filtering of Events by Resource names, custom function to convert the reading and them publish the modified Event back to the MessageBus under a different topic.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/advanced-target-type">Advanced Target Type</a></td>
-<td>Demonstrates use of custom Target Type and use of HTTP Trigger</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/cloud-export-mqtt">Cloud Export MQTT</a></td>
-<td>Demonstrates simple custom Cloud transform and exporting to Cloud MQTT Broker.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/cloud-event">Cloud Event Transform</a></td>
-<td>Demonstrates custom transforms that convert Event/Readings to and from Cloud Events</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/send-command">Send Command</a></td>
-<td>Demonstrates sending commands to a Device via the Command Client.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/secrets">Secrets</a></td>
-<td>Demonstrates how to retrieve secrets from the service SecretStore</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/custom-trigger">Custom Trigger</a></td>
-<td>Demonstrates how to create and use a custom trigger</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/custom-trigger-nats-rpc">NATS RPC</a></td>
-<td>Demonstrates how to create a synchronous request/reply trigger using NATS messaging</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/fledge-export">Fledge Export</a></td>
-<td>Demonstrates custom conversion of Event/Reading to Fledge format and then exporting to Fledge service REST endpoint</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/influxdb-export">Influxdb Export</a></td>
-<td>Demonstrates custom conversion of Event/Reading to InfluxDB timeseries format and then exporting to InFluxDB via MQTT</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/json-logic">Json Logic</a></td>
-<td>Demonstrates using the built in JSONLogic Evaluate pipeline function</td>
-</tr>
-<tr>
-<td><a href="https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/configurable/app-service-configurable-ibm">IBM Export Profile</a></td>
-<td>Demonstrates a custom App Service Configurable profile for exporting to IBM Cloud</td>
-</tr>
-</tbody>
-</table>
+<h1 id="core-data">Core Data</h1>
+<p>EdgeX Foundry Core Data microservice communicates with the database to store Events/Readings collected from devices and sensors.
+It has APIs to expose this database to other services to allow these services to Add, Query and Delete Events/Readings. See <a href="../../../microservices/core/data/Purpose/">Core Data</a> for more details about this service.</p>
+<h2 id="swagger">Swagger</h2>
+<p><iframe class="swagger-ui-iframe" frameborder="0" id="c1c73dfc" src="swagger-c1c73dfc.html" style="overflow:hidden;width:100%;" width="100%"></iframe></p>
 </article>
 </div>
 </div>
 </main>
 <footer class="md-footer">
 <nav aria-label="Footer" class="md-footer__inner md-grid">
-<a aria-label="Previous: Code Examples" class="md-footer__link md-footer__link--prev" href="../" rel="prev">
+<a aria-label="Previous: Core Command" class="md-footer__link md-footer__link--prev" href="../Ch-APICoreCommand/" rel="prev">
 <div class="md-footer__button md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
 </div>
@@ -2810,17 +2766,17 @@ can be found here in the <a href="https://github.com/edgexfoundry/edgex-examples
                 Previous
               </span>
 <div class="md-ellipsis">
-                Code Examples
+                Core Command
               </div>
 </div>
 </a>
-<a aria-label="Next: Definitions" class="md-footer__link md-footer__link--next" href="../../general/Definitions/" rel="next">
+<a aria-label="Next: Core Metadata" class="md-footer__link md-footer__link--next" href="../Ch-APICoreMetadata/" rel="next">
 <div class="md-footer__title">
 <span class="md-footer__direction">
                 Next
               </span>
 <div class="md-ellipsis">
-                Definitions
+                Core Metadata
               </div>
 </div>
 <div class="md-footer__button md-icon">
@@ -2859,8 +2815,8 @@ can be found here in the <a href="https://github.com/edgexfoundry/edgex-examples
 <div class="md-dialog" data-md-component="dialog">
 <div class="md-dialog__inner md-typeset"></div>
 </div>
-<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.footer"], "search": "../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
-<script src="../../assets/javascripts/bundle.220ee61c.min.js"></script>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.footer"], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+<script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
 <script>document$.subscribe(() => {
             window.update_swagger_ui_iframe_height = function (id) {
                 var iFrameID = document.getElementById(id);
@@ -2877,7 +2833,7 @@ can be found here in the <a href="https://github.com/edgexfoundry/edgex-examples
                 iframe_id_list.push(iframes[i].getAttribute("id"))
             }
         
-            let ticking = true;
+            let ticking = false;
             
             document.addEventListener('scroll', function(e) {
                 if (!ticking) {
