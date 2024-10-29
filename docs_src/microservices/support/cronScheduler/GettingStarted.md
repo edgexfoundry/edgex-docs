@@ -97,7 +97,7 @@ A schedule action record records the information of a [ScheduleAction](#schedule
 
 ## Running Services with Support Cron Scheduler
 
-Please refer to [Using PostgreSQL Database](../../general/database/Ch-Postgres/#using-postgresql-database) for instructions on how to get EdgeX services up and running with PostgreSQL database.
+Please refer to [Using PostgreSQL Database](../../general/database/Ch-Postgres.md#using-postgresql-database) for instructions on how to get EdgeX services up and running with PostgreSQL database.
 Following the steps in this guide, the Support Cron Scheduler service will be included among the services that are started.
 
 <!-- TODO -->
