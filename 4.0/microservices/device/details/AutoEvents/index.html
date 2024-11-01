@@ -2766,6 +2766,7 @@ In the Operational Technology (OT) working field, there's a need to check/monito
 <li><strong>sourceName</strong>: the name of a deviceResource or deviceCommand indicating what to read.</li>
 <li><strong>interval</strong>: a string indicating the time to wait between reading, expressed as an integer followed by units of ms, s, m or h.</li>
 <li><strong>onChange</strong>: a boolean: if set to true, only generate new events if one or more of the contained readings has changed since the last event.</li>
+<li><strong>onChangeThreshold</strong>: a float64 indicating any changed value that exceeds the threshold shall be generated new event if <code>onChange</code> is true, this feature only applies to the numeric reading. Available value types are <code>Uint8</code>, <code>Uint16</code>, <code>Uint32</code>, <code>Uint64</code>, <code>Int8</code>, <code>Int16</code>, <code>Int32</code>, <code>Int64</code>, <code>Float32</code>, <code>Float64</code>. For example, if the current value is 0.03, the previous value is 0.05, and the threshold is 0.01, then | 0.03 - 0.05 | &gt; 0.01, the device service should generate a new event.</li>
 </ul>
 <h2 id="example-and-usage">Example and Usage</h2>
 <p>The AutoEvent is defined in the <code>autoEvents</code> section of the device definition file:</p>
