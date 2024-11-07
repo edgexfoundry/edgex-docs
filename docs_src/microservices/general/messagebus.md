@@ -48,41 +48,20 @@ Each service that uses the EdgeX MessageBus has a configuration section which de
 The common MessageBus configuration elements for each implementation are:
 
 - Type - Specifies which of the following implementations to use. 
-    - **Redis Pub/Sub** (**default**) - `Type=redis`
-    - **MQTT 3.1** - `Type=mqtt`
+    - **MQTT 3.1**(**default**) - `Type=mqtt`
     - **NATS Core** - `Type=nats-core` 
     - **NATS JetStream** - `Type=nats-jetstream` 
 - Host - Specifies the name or IP for the message broker 
 - Port - Specifies the port number for the message broker 
 - Protocol - Specifies portocol used by the message broker
-    - `redis` for **Redis Pub/Sub**
-    - `tcp` for **MQTT 3.1**
+    - `tcp` for **MQTT 3.1 (default)**
     - `tcp` for **NATS Core**
     - `tcp` for **NATS JetStream**
 
 !!! note
     In general all EdgeX Services running in a deployment must be configured to use the same EdgeX MessageBus implementation. By default all services that use the EdgeX MessageBus are configured to use the Redis Pub/Sub implementation. NATS does support a compatibility mode with MQTT. See the [NATS MQTT Mode](#nats-mqtt-mode) section below for details.
 
-### Redis Pub/Sub
-
-As stated above this is the default implementation that all EdgeX Services are configured to use. It takes advantage of the existing Redis DB instance for the broker. Redis Pub/Sub is a fire and forget protocol, so delivery is not guaranteed. If more robustness is required, use the MQTT or NATS implementations.
-
-#### Configuration
-
-See [Common Configuration](#common-messagebus-configuration) section above for the common configuration elements for all implementations.
-
-##### Security Configuration 
-
-| Option     | Default Value      | Description                                                  |
-| ---------- | ------------------ | ------------------------------------------------------------ |
-| AuthMode   | `usernamepassword` | Mode of authentication to use. Values are `none`, `usernamepassword`<br />, `clientcert`, or `cacert`. In secure mode Redis Pub/Sub uses `usernamepassword` |
-| SecretName | `redisb`           | Secret name used to look up credentials in the service's SecretStore |
-
-##### Additional Configuration
-
-This implementation does not have any additional configuration.
-
-### MQTT 3.1
+### MQTT 3.1 (default)
 
 Robust message bus protocol, which has additional configuration options for robustness and requires an additional MQTT Broker to be running. See [MQTT Spec](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html) for more details on this protocol.
 
@@ -201,11 +180,7 @@ The NATS implementations convert the NATS multi-level topic scheme to match that
 
 ## Deployment
 
-### Redis Pub/Sub (default)
-
-All EdgeX services are capable of using the Redis Pub/Sub without any changes to configuration. The released compose files use Redis Pub/Sub.
-
-### MQTT 3.1
+### MQTT 3.1 (default)
 
 All EdgeX services are capable of using MQTT 3.1 by simply making changes to each service's configuration. 
 
