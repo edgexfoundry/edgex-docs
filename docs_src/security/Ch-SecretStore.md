@@ -2,6 +2,9 @@
 
 ## Introduction
 
+!!! Note
+    Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.
+
 There are all kinds of secrets used within EdgeX Foundry micro services,
 such as tokens, passwords, certificates etc. The secret store serves as
 the central repository to keep these secrets. The developers of other
@@ -49,6 +52,9 @@ with respect to all of the other EdgeX services is covered in the
 
 ## Using the Secret Store
 
+!!! Note
+    Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.
+
 ### Preferred Approach
 
 The preferred approach for interacting with the EdgeX secret store is to use the
@@ -61,6 +67,9 @@ If manual "super-user" to the EdgeX secret store is required,
 it is necesary to obtain a privileged access token, called the Vault root token.
 
 ### Obtaining the Vault Root Token
+
+!!! Note
+    Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.
 
 For security reasons (the 
 [Vault production hardening guide](https://learn.hashicorp.com/tutorials/vault/production-hardening)
@@ -111,6 +120,9 @@ are revoked every time the framework is started if `SECRETSTORE_REVOKEROOTTOKENS
 
 
 ### Using the Vault CLI
+
+!!! Note
+    Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.
 
 Execute a shell session in the running Vault container:
 
@@ -206,6 +218,9 @@ See the [Vault manual](https://developer.hashicorp.com/vault/docs/commands) for 
 
 ### Use the Vault REST API
 
+!!! Note
+    Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.
+
 Vault also supports a REST API with functionality equivalent to the command line interface:
 
 The equivalent of the
@@ -240,6 +255,9 @@ See HashiCorp Vault API documentation for further details on syntax and
 usage (<https://developer.hashicorp.com/vault/api-docs>).
 
 ### Using the Vault Web UI
+
+!!! Note
+    Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.
 
 The Vault Web UI is not exposed via the API gateway.
 It must therefore be accessed via `localhost` or a network tunnel of some kind.

@@ -2,6 +2,9 @@
 
 ## Introduction
 
+!!! Note
+    Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.
+
 The SecretProvider API is available to custom Application and Device Services to access the service's Secret Store. This API is available in both secure and non-secure modes. When in secure mode, it provides access to the service's Secret Store in Vault, otherwise it uses the service's `[InsecureSecrets]` configuration section as the Secret Store. See [InsecureSecrets](../../microservices/configuration/CommonConfiguration/#configuration-properties) section here for more details.
 
 ## API

@@ -2,6 +2,9 @@
 
 ## Introduction
 
+!!! Note
+    Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.
+
 In the current EdgeX architecture, `Consul` is pre-wired as the default agent service for
 `Service Configuration`, `Service Registry`, and `Service Health Check` purposes. Prior to EdgeX's
 Ireland release, the communication to `Consul` uses plain HTTP calls without any access control (ACL)

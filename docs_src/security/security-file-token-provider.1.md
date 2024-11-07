@@ -122,6 +122,9 @@ Note that `display_name` is set by vault to be "token-" + the
 specified display name. This is hard-coded in Vault from versions 0.6 to
 1.2.3 and cannot be changed.
 
+!!! Note
+    Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.
+
 Additionally, a meta property, `edgex-service-name` is set to
 `service-name`. The edgex-service-name property may be used by clients
 to infer the location in the secret store where service-specific secrets
