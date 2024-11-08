@@ -11,7 +11,7 @@
 <link href="../Ch-Security/" rel="prev"/>
 <link href="../Ch-Authenticating/" rel="next"/>
 <link href="../../assets/logo_edgex.png" rel="icon"/>
-<meta content="mkdocs-1.6.0, mkdocs-material-9.1.19" name="generator"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.1.19" name="generator"/>
 <title>Secret Store - EdgeX Foundry Documentation</title>
 <link href="../../assets/stylesheets/main.eebd395e.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.ecc896b0.min.css" rel="stylesheet"/>
@@ -2736,6 +2736,10 @@
 <article class="md-content__inner md-typeset">
 <h1 id="secret-store">Secret Store</h1>
 <h2 id="introduction">Introduction</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.</p>
+</div>
 <p>There are all kinds of secrets used within EdgeX Foundry micro services,
 such as tokens, passwords, certificates etc. The secret store serves as
 the central repository to keep these secrets. The developers of other
@@ -2772,6 +2776,10 @@ This disables <strong>all</strong> EdgeX security features, not just the API gat
 with respect to all of the other EdgeX services is covered in the
 <a href="../../design/adr/security/0009-Secure-Bootstrapping">Secure Bootstrapping of EdgeX Architecture Decision Record(ADR)</a>.</p>
 <h2 id="using-the-secret-store">Using the Secret Store</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.</p>
+</div>
 <h3 id="preferred-approach">Preferred Approach</h3>
 <p>The preferred approach for interacting with the EdgeX secret store is to use the
 <code>SecretClient</code> interface in <a href="https://github.com/edgexfoundry/go-mod-secrets/blob/v3.1/secrets/interfaces.go">go-mod-secrets</a>.</p>
@@ -2780,6 +2788,10 @@ setting of per-microservice secrets, and a <code>GetSecrets()</code> method to r
 <p>If manual "super-user" to the EdgeX secret store is required,
 it is necesary to obtain a privileged access token, called the Vault root token.</p>
 <h3 id="obtaining-the-vault-root-token">Obtaining the Vault Root Token</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.</p>
+</div>
 <p>For security reasons (the 
 <a href="https://learn.hashicorp.com/tutorials/vault/production-hardening">Vault production hardening guide</a>
 recommends revokation of the root token), the Vault root token is revoked by default.
@@ -2829,6 +2841,10 @@ Note that a token created in this manner will again be revoked the next time Edg
 if <code>SECRETSTORE_REVOKEROOTTOKENS</code> remains set to its default value: all root tokens
 are revoked every time the framework is started if <code>SECRETSTORE_REVOKEROOTTOKENS</code> is <code>true</code>.</p>
 <h3 id="using-the-vault-cli">Using the Vault CLI</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.</p>
+</div>
 <p>Execute a shell session in the running Vault container:</p>
 <div class="highlight"><pre><span></span><code><span class="w">  </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>edgex-vault<span class="w"> </span>sh<span class="w"> </span>-l
 </code></pre></div>
@@ -2906,6 +2922,10 @@ username            redis5
 <p>With the root token, it is possible to modify any Vault setting.
 See the <a href="https://developer.hashicorp.com/vault/docs/commands">Vault manual</a> for available commands.</p>
 <h3 id="use-the-vault-rest-api">Use the Vault REST API</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.</p>
+</div>
 <p>Vault also supports a REST API with functionality equivalent to the command line interface:</p>
 <p>The equivalent of the</p>
 <div class="highlight"><pre><span></span><code>vault read secret/edgex/core-data/redisdb
@@ -2930,6 +2950,10 @@ See the <a href="https://developer.hashicorp.com/vault/docs/commands">Vault manu
 <p>See HashiCorp Vault API documentation for further details on syntax and
 usage (<a href="https://developer.hashicorp.com/vault/api-docs">https://developer.hashicorp.com/vault/api-docs</a>).</p>
 <h3 id="using-the-vault-web-ui">Using the Vault Web UI</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.</p>
+</div>
 <p>The Vault Web UI is not exposed via the API gateway.
 It must therefore be accessed via <code>localhost</code> or a network tunnel of some kind.</p>
 <p>Open a browser session on <code>http://localhost:8200</code>

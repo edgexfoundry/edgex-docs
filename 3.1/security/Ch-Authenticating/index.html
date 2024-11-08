@@ -11,7 +11,7 @@
 <link href="../Ch-SecretStore/" rel="prev"/>
 <link href="../Ch-SecretProviderApi/" rel="next"/>
 <link href="../../assets/logo_edgex.png" rel="icon"/>
-<meta content="mkdocs-1.6.0, mkdocs-material-9.1.19" name="generator"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.1.19" name="generator"/>
 <title>Authenticating to EdgeX Microservices - EdgeX Foundry Documentation</title>
 <link href="../../assets/stylesheets/main.eebd395e.min.css" rel="stylesheet"/>
 <link href="../../assets/stylesheets/palette.ecc896b0.min.css" rel="stylesheet"/>
@@ -2880,6 +2880,10 @@ and the password is reset every time the script is run.</p>
 <p>The example will be done in the Docker environment.</p>
 <p>The long form of <code>make get-token</code> is below:</p>
 <h4 id="1-creating-a-user-identity">1. Creating a User Identity</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.</p>
+</div>
 <p>Internally, a user identity is a paring of a Vault identity
 and an associated <code>userpass</code> login method bound to that identity.
 Vault supports <a href="https://developer.hashicorp.com/vault/docs/auth">many other authentication backends</a>
@@ -3003,6 +3007,10 @@ to an outgoing HTTP request, req.</p>
 <span class="w">  </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">jwtSecretProvider</span><span class="p">.</span><span class="nx">AddAuthenticationData</span><span class="p">(</span><span class="nx">req</span><span class="p">);</span>
 </code></pre></div>
 <h2 id="implementation-notes">Implementation Notes</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.</p>
+</div>
 <p>Internally, the receiving microservice will call the secret store's
 <a href="https://developer.hashicorp.com/vault/api-docs/secret/identity/tokens#introspect-a-signed-id-token">token introspection endpoint</a>
 to validate incoming JWT's.
