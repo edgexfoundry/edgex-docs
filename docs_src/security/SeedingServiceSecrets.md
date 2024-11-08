@@ -8,6 +8,9 @@ All EdgeX services now have the capability to specify a JSON file that contains 
 !!! edgey "Edgex 3.0"
     For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the [SecretStore Overrides](../../microservices/configuration/CommonEnvironmentVariables/#secretstore-overrides) section for more details.
 
+!!! Note
+    Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.
+
 ## Secrets File
 
 The new `SecretsFile` setting on the `SecretStore` configuration allows the service to specify the fully-qualified path to the location of the service's secrets file. Normally this setting is left blank when a service has no secrets to be seeded.

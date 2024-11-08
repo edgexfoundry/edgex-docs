@@ -9,6 +9,9 @@
     The new solution means that EdgeX 3.0 will be
     able to run in security enabled mode on more resource-constrained devices.
 
+!!! Note
+    Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.
+
 API gateways are used in microservice architectures
 that expose HTTP-accessible APIs to create a
 security layer that separates internal and external callers.

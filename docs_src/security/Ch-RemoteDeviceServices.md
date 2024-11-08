@@ -245,6 +245,9 @@ The port-forwarding is transparent to the EdgeX services running on the local ma
 
 ### Remote Port Forwarding
 
+!!! Note
+    Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.
+    
 This step is to show the reverse direction of SSH tunneling: from the remote back to the local machine.
 
 The reverse SSH tunneling is also needed because the device services depends on the core services like `core-data`, `core-metadata`, Redis (for message queuing), Vault (for the secret store), and Consul (for registry and configuration).

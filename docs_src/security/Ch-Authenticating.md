@@ -95,6 +95,9 @@ The long form of `make get-token` is below:
 
 #### 1. Creating a User Identity
 
+!!! Note
+    Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.
+
 Internally, a user identity is a paring of a Vault identity
 and an associated `userpass` login method bound to that identity.
 Vault supports [many other authentication backends](https://developer.hashicorp.com/vault/docs/auth)
@@ -275,6 +278,9 @@ import (
 ```
 
 ## Implementation Notes
+
+!!! Note
+    Vault will be deprecated in EdgeX 4.0. OpenBao will be the default secret store for new implementations.
 
 Internally, the receiving microservice will call the secret store's
 [token introspection endpoint](https://developer.hashicorp.com/vault/api-docs/secret/identity/tokens#introspect-a-signed-id-token)
