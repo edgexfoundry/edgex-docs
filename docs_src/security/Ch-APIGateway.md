@@ -266,8 +266,8 @@ registering a public key with the API gateway,
 and allowing clients to self-generate their JWT
 for API gateway authentication.
 Regrettably, this "raw key JWT" authentication method is no longer supported.
-As consolation, the EdgeX secret store backend, Hashicorp Vault,
-supports [many other authentication backends](https://developer.hashicorp.com/vault/docs/auth).
+As consolation, the EdgeX secret store backend, OpenBao,
+supports [many other authentication backends](https://openbao.org/docs/commands/auth/).
 EdgeX only enables the `userpass` auth engine by default,
 and only passes the `userpass` auth endpoints through the API gateway by default.
 Customizing an EdgeX implementation to use alternative authentication methods

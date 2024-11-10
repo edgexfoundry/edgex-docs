@@ -24,7 +24,7 @@ There are four requirements to run Edgex in a rootless Docker environment:
     Vault locks memory by default to disable swapping to disk. While this is a more secure, it requires
     access to the mlock() sys call which requires root privileges.
     In order for us to run Vault in a rootless environment, we need to disable this feature.
-    This is done by setting memory limits in the compose file and by adding `disable_mlock = true` to the local vault config.
+    This is done by setting memory limits in the compose file and by adding `disable_mlock = true` to the local secret store config.
     More can be found at the [Vault documentation](https://www.vaultproject.io/docs/configuration/storage/file).
 
 3. Docker socket volume mappings must be mapped to non-root user docker installation location:

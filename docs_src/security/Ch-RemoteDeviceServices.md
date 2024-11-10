@@ -287,7 +287,6 @@ device services:
         - edgex-redis
         - edgex-security-spire-server
         - edgex-security-spiffe-token-provider
-        - edgex-vault
 ```
 
 

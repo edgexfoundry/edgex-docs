@@ -97,7 +97,7 @@ The long form of `make get-token` is below:
 
 Internally, a user identity is a paring of a Vault identity
 and an associated `userpass` login method bound to that identity.
-Vault supports [many other authentication backends](https://developer.hashicorp.com/vault/docs/auth)
+Vault supports [many other authentication backends](https://openbao.org/docs/commands/auth/)
 besides `userpass`,
 making it possible to federate with enterprise single sign-on, for example,
 but `userpass` is the only authentication method enabled by default.
@@ -136,7 +136,7 @@ to obtain a temporary secret store token.
 This token must be exchanged for a JWT within the `tokenTTL` liveness period.
 
 ```shell
-vault_token=$(curl -ks "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq -r '.auth.client_token')
+secret_store_token=$(curl -ks "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq -r '.auth.client_token')
 ```
 
 This temporary token can be discarded after the next step.
@@ -152,19 +152,19 @@ The token created in the previous step is passed as an authenticator to Vault's 
 The output is a JWT that expires after `jwtTTL` (see above) has passed.
 
 ```shell
-id_token=$(curl -ks -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq -r '.data.token')
+id_token=$(curl -ks -H "Authorization: Bearer ${secret-store_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq -r '.data.token')
 
 echo "${id_token}"
 ```
 
-Optionally, if the secret store token (vault_token) isn't expired yet,
+Optionally, if the secret store token (secret-store_token) isn't expired yet,
 it can be used to check the validity of an arbitrary JWT.
 This example checks the validity of the JWT that was issued above.
 Any JWT that passes this check should suffice
 for making an authenticated EdgeX microservice call.
 
 ```shell
-introspect_result=$(curl -ks -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/introspect" -d "{\"token\":\"${id_token}\"}" | jq -r '.active')
+introspect_result=$(curl -ks -H "Authorization: Bearer ${secret-store_token}" "http://localhost:8200/v1/identity/oidc/introspect" -d "{\"token\":\"${id_token}\"}" | jq -r '.active')
 echo "${introspect_result}"
 ```
 
@@ -277,7 +277,7 @@ import (
 ## Implementation Notes
 
 Internally, the receiving microservice will call the secret store's
-[token introspection endpoint](https://developer.hashicorp.com/vault/api-docs/secret/identity/tokens#introspect-a-signed-id-token)
+[token introspection endpoint](https://openbao.org/api-docs/secret/identity/tokens/#introspect-a-signed-id-token)
 to validate incoming JWT's.
 Note that as in all things dealing with the EdgeX secret store,
 calling the introspection endpoint is also an authenticated call,
@@ -286,10 +286,10 @@ and a service must have explicit authorization to invoke this API.
 Similarly, explicit authorization is required for a calling microservice
 to obtain a JWT to pass as an authentication token.
 In the EdgeX implementation, microservices use the
-[userpass login](https://developer.hashicorp.com/vault/api-docs/auth/userpass#login)
+[userpass login](https://openbao.org/docs/auth/userpass/)
 authentication method to obtain an initial secret store token.
 This token is explicitly granted the ability to
-[generate a JWT](https://developer.hashicorp.com/vault/api-docs/secret/identity/tokens#generate-a-signed-id-token).
+[generate a JWT](https://openbao.org/docs/auth/jwt/#jwt-authentication).
 
 In the external user scenario of the API gateway,
 clients must manually log in to the secret store,

@@ -63,14 +63,14 @@ Proxy configuration commands (listed below) require access to the secret store m
 
     * **--jwtTTL** _duration_ (optional)
 
-    	JWT created by vault identity provider lasts this long (_s, _m, _h, or _d, seconds if no unit) (default "1h")
+    	JWT created by secret store identity provider lasts this long (_s, _m, _h, or _d, seconds if no unit) (default "1h")
 
       Clients have up to `tokenTTL` time available to exchange the secret store token for a signed JWT.
       The validity period of that JWT is governed by `jwtTTL`.
 
     * **--tokenTTL** _duration_ (optional)
 
-    	Vault token created as a result of vault login lasts this long  (_s, _m, _h, or _d, seconds if no unit) (default "1h")
+    	OpenBao token created as a result of openbao login lasts this long  (_s, _m, _h, or _d, seconds if no unit) (default "1h")
 
       The `adduser` command creates a credential that enables a use to request a token for the secret store.
       The intended purpose of this token is to exchange it for a signed JWT.
@@ -97,9 +97,9 @@ Proxy configuration commands (listed below) require access to the secret store m
     username=example
     password=password-from-above
 
-    vault_token=$(curl -ks "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq -r '.auth.client_token')
+    edgex-secret-store_token=$(curl -ks "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq -r '.auth.client_token')
 
-    id_token=$(curl -ks -H "Authorization: Bearer ${vault_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq -r '.data.token')
+    id_token=$(curl -ks -H "Authorization: Bearer ${edgex-secret-store_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq -r '.data.token')
 
     echo "${id_token}"
     ```

@@ -112,13 +112,13 @@ default policy) plus the `custom_policy` defined above.
 When edgex-use-default is true (the default), the following is inserted
 (if not overridden) to the token parameters for the generated token.
 (See
-<https://developer.hashicorp.com/vault/api-docs/auth/token#create-token>.)
+<https://openbao.org/api-docs/auth/token/#create-token>.)
 
     "display_name": token-service-name
     "no_parent":    true
     "policies":     [ "edgex-service-service-name" ]
 
-Note that `display_name` is set by vault to be "token-" + the
+Note that `display_name` is set by edgex secret store to be "token-" + the
 specified display name. This is hard-coded in Vault from versions 0.6 to
 1.2.3 and cannot be changed.
 
