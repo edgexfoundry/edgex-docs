@@ -3028,8 +3028,17 @@ sends to EdgeX.</p>
 </li>
 <li>
 <p>Run your device service:</p>
-<div class="highlight"><pre><span></span><code>./device-example-c
+<p><div class="highlight"><pre><span></span><code>./device-example-c<span class="w"> </span>-cp<span class="o">=</span>keeper.http://localhost:59890
 </code></pre></div>
+The <code>-cp</code> flag tells the device service where to find the <a href="../../../../configuration/ConfigurationAndRegistry/#configuration-provider">Configuration Provider</a>. In this case, the configuration provider is the <code>Core Keeper</code> service running on port 59890.
+If not using the Configuration Provider, you must specify the location of the common configuration file using the <code>-cc\--commonConfig</code> flag. For example:</p>
+<p><div class="highlight"><pre><span></span><code>./device-example-c<span class="w"> </span>-cc<span class="w"> </span>/path/to/configuration.yaml
+</code></pre></div>
+See the <a href="../../../../configuration/CommonConfiguration/">Common Configuration</a> for list of all the common configuration settings.</p>
+<p>See the <a href="https://github.com/edgexfoundry/edgex-go/blob/main/cmd/core-common-config-bootstrapper/res/configuration.yaml">edgex-go/cmd/core-common-config-bootstrapper/res/configuration.yaml</a> for an example of the common configuration file.</p>
+<p>Furthermore, if the device service is to be registered with the <a href="../../../../configuration/ConfigurationAndRegistry/#registry-provider">Registry Provider</a>, the <code>-r/--registry</code> flag must be used. For example:
+<div class="highlight"><pre><span></span><code>./device-example-c<span class="w"> </span>-cp<span class="o">=</span>keeper.http://localhost:59890<span class="w"> </span>-r
+</code></pre></div></p>
 </li>
 <li>
 <p>You should now see your device service having its /Random command
