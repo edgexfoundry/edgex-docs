@@ -212,7 +212,21 @@ sends to EdgeX.
 3.  Run your device service:
 
     ``` bash
-    ./device-example-c
+    ./device-example-c -cp=keeper.http://localhost:59890
+    ```
+    The `-cp` flag tells the device service where to find the [Configuration Provider](../../../configuration/ConfigurationAndRegistry.md#configuration-provider). In this case, the configuration provider is the `Core Keeper` service running on port 59890.
+    If not using the Configuration Provider, you must specify the location of the common configuration file using the `-cc\--commonConfig` flag. For example:
+
+    ``` bash
+    ./device-example-c -cc /path/to/configuration.yaml
+    ```
+    See the [Common Configuration](../../../configuration/CommonConfiguration.md) for list of all the common configuration settings.
+    
+    See the [edgex-go/cmd/core-common-config-bootstrapper/res/configuration.yaml](https://github.com/edgexfoundry/edgex-go/blob/main/cmd/core-common-config-bootstrapper/res/configuration.yaml) for an example of the common configuration file.
+
+    Furthermore, if the device service is to be registered with the [Registry Provider](../../../configuration/ConfigurationAndRegistry.md#registry-provider), the `-r/--registry` flag must be used. For example:
+    ``` bash
+    ./device-example-c -cp=keeper.http://localhost:59890 -r
     ```
 
 4.  You should now see your device service having its /Random command
