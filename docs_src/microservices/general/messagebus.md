@@ -60,11 +60,17 @@ The common MessageBus configuration elements for each implementation are:
     - `tcp` for **NATS Core**
     - `tcp` for **NATS JetStream**
 
+!!! Note
+    Redis pub/sub will be deprecated in EdgeX 4.0 and MQTT will be the new default message bus.
+
 !!! note
     In general all EdgeX Services running in a deployment must be configured to use the same EdgeX MessageBus implementation. By default all services that use the EdgeX MessageBus are configured to use the Redis Pub/Sub implementation. NATS does support a compatibility mode with MQTT. See the [NATS MQTT Mode](#nats-mqtt-mode) section below for details.
 
 ### Redis Pub/Sub
 
+!!! Note
+    Redis pub/sub will be deprecated in EdgeX 4.0 and MQTT will be the new default message bus.
+    
 As stated above this is the default implementation that all EdgeX Services are configured to use. It takes advantage of the existing Redis DB instance for the broker. Redis Pub/Sub is a fire and forget protocol, so delivery is not guaranteed. If more robustness is required, use the MQTT or NATS implementations.
 
 #### Configuration
