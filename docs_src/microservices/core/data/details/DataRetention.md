@@ -42,6 +42,9 @@ RETENTION_MINCAP: <mincap>
 
 For detailed information about environment variables override see [Service Configuration Overrides](../../../configuration/CommonEnvironmentVariables.md#service-configuration-overrides).
 
+!!! Note
+    Consul will be deprecated in EdgeX 4.0, and core-keeper will become the new registry and configuration provider.
+    
 - Using <code>Consul</code> to override the default configuration
 Open Consul web user interface and go to *Retention* section of the core-data or support-notification service to customize the configuarion.
 

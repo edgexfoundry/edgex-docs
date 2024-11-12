@@ -4,6 +4,9 @@
       If running EdgeX in Secure Mode, you will need a [Consul ACL Token](../../../../../security/Ch-Secure-Consul.md#how-to-get-consul-acl-token) 
       and [JWT Token](../../../../../security/Ch-APIGateway.md#creating-access-token-for-api-gateway-authentication) in order to use these scripts.
 
+!!! Note
+    Consul will be deprecated in EdgeX 4.0, and core-keeper will become the new registry and configuration provider.
+    
 ## Use Cases
 ### Create new credentials and assign MAC Addresses
 1. Run `bin/map-credentials.sh`

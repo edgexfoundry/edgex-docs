@@ -125,7 +125,9 @@ This environment variable overrides the [`-cf/--configFile` command-line option]
     ```
 
 #### EDGEX_CONFIG_PROVIDER
-
+!!! Note
+    Consul will be deprecated in EdgeX 4.0, and core-keeper will become the new registry and configuration provider.
+    
 This environment variable overrides the [`-cp/--configProvider` command-line option](../CommonCommandLineOptions#config-provider). 
 
 Overriding with a value of `none` disables the use of the Configuration Provider.

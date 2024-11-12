@@ -16,6 +16,9 @@ Subsequent layers have higher precedence. As a result, the configuration values 
 !!! edgey - "EdgeX 3.0"
     Common configuration is new in Edgex 3.0 
 
+!!! Note
+    Consul will be deprecated in EdgeX 4.0, and core-keeper will become the new registry and configuration provider.
+    
 The common configuration is divided into 3 sections:
 
 - **All Services**- Configuration that is common to all EdgeX Services See below for details.

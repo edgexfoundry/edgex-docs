@@ -73,6 +73,10 @@ Example Output: `192.168.1.0/24`
 
 === "Curl Command"
     Enter the subnet into this command, and execute it to set the `DiscoverySubnets`
+
+    !!! Note
+        Consul will be deprecated in EdgeX 4.0, and core-keeper will become the new registry and configuration provider.
+
     !!! note
         If you are operating in secure mode, you must use the [Consul ACL Token](../Walkthrough/deployment.md#deploy-edgex-and-onvif-device-camera-microservice) generated previously. If not, you can omit the `-H "X-Consul-Token:<consul-token>"` portion of the command.
     ```bash

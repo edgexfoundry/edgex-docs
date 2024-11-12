@@ -21,6 +21,9 @@ make run ds-onvif-camera
 ```
 
 ### 3.1 Check whether the services are running from Consul
+!!! Note
+    Consul will be deprecated in EdgeX 4.0, and core-keeper will become the new registry and configuration provider.
+
 1. Get the consul token for Consul Login
 ```shell
 $ make get-consul-acl-token

@@ -33,6 +33,8 @@ Can be overridden with [EDGEX_CONFIG_FILE](./CommonEnvironmentVariables.md#edgex
     Support for loading private configuration via URI is new in EdgeX 3.1.
 
 ## Config Provider
+!!! Note
+    Consul will be deprecated in EdgeX 4.0, and core-keeper will become the new registry and configuration provider.
 
 `-cp/ --configProvider`
 
