@@ -97,9 +97,9 @@ Proxy configuration commands (listed below) require access to the secret store m
     username=example
     password=password-from-above
 
-    edgex-secret-store_token=$(curl -ks "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq -r '.auth.client_token')
+    edgex-secret_store_token=$(curl -ks "http://localhost:8200/v1/auth/userpass/login/${username}" -d "{\"password\":\"${password}\"}" | jq -r '.auth.client_token')
 
-    id_token=$(curl -ks -H "Authorization: Bearer ${edgex-secret-store_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq -r '.data.token')
+    id_token=$(curl -ks -H "Authorization: Bearer ${edgex-secret_store_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq -r '.data.token')
 
     echo "${id_token}"
     ```

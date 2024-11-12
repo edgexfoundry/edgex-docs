@@ -119,8 +119,7 @@ When edgex-use-default is true (the default), the following is inserted
     "policies":     [ "edgex-service-service-name" ]
 
 Note that `display_name` is set by edgex secret store to be "token-" + the
-specified display name. This is hard-coded in Vault from versions 0.6 to
-1.2.3 and cannot be changed.
+specified display name.
 
 Additionally, a meta property, `edgex-service-name` is set to
 `service-name`. The edgex-service-name property may be used by clients

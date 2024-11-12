@@ -152,19 +152,19 @@ The token created in the previous step is passed as an authenticator to Vault's 
 The output is a JWT that expires after `jwtTTL` (see above) has passed.
 
 ```shell
-id_token=$(curl -ks -H "Authorization: Bearer ${secret-store_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq -r '.data.token')
+id_token=$(curl -ks -H "Authorization: Bearer ${secret_store_token}" "http://localhost:8200/v1/identity/oidc/token/${username}" | jq -r '.data.token')
 
 echo "${id_token}"
 ```
 
-Optionally, if the secret store token (secret-store_token) isn't expired yet,
+Optionally, if the secret store token (secret_store_token) isn't expired yet,
 it can be used to check the validity of an arbitrary JWT.
 This example checks the validity of the JWT that was issued above.
 Any JWT that passes this check should suffice
 for making an authenticated EdgeX microservice call.
 
 ```shell
-introspect_result=$(curl -ks -H "Authorization: Bearer ${secret-store_token}" "http://localhost:8200/v1/identity/oidc/introspect" -d "{\"token\":\"${id_token}\"}" | jq -r '.active')
+introspect_result=$(curl -ks -H "Authorization: Bearer ${secret_store_token}" "http://localhost:8200/v1/identity/oidc/introspect" -d "{\"token\":\"${id_token}\"}" | jq -r '.active')
 echo "${introspect_result}"
 ```
 
