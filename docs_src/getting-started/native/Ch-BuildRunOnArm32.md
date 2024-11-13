@@ -148,6 +148,8 @@ Enter the `edgex-ui-go` folder and issue the `make build` command as shown below
 Provided everything built correctly and without issue, you can now start your EdgeX services one at a time.  First make sure Redis Server is running.  If Redis is not running, start it before the other services.  If it is running, you can start each of the EdgeX services **in order** as listed below.
 
 ### Start Consul
+!!! Note
+    Consul will be deprecated in EdgeX 4.0, and core-keeper will become the new registry and configuration provider.
 
 Start Consul Agent with the following command.
 

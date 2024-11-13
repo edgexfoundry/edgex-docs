@@ -73,6 +73,8 @@ The health checks should be established during service registration.
 Please see the paragraph on this page of Service Registration section.
 
 ## Consul UI
+!!! Note
+    Consul will be deprecated in EdgeX 4.0, and core-keeper will become the new registry and configuration provider.
 
 Consul has UI which allows you to view the health of registered services and view/edit services' individual configuration. Learn more about the UI on the following Consul page:
 

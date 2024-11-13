@@ -43,6 +43,9 @@ Follow this guide to deploy and run the service.
         !!! note
             The JWT token expires after 119 minutes, and you will need to generate a new one.
         
+        !!! Note
+            Consul will be deprecated in EdgeX 4.0, and core-keeper will become the new registry and configuration provider.
+
         Generate the Consul ACL Token. Use the token generated anywhere you see `<consul-token>` in the documentation.
         ```bash
         make get-consul-acl-token

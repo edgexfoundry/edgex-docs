@@ -168,7 +168,9 @@ The Configurable App Service uses both the Redis database and message bus like c
 The Virtual Device Service uses the Redis message bus like core-data does.  Locate the `configuration.yaml` file in `device-virtual-go\cmd\res` folder.  Open the file with an editor and change the Redis `MessageBus` host address from `localhost` to the IP address of your Redis hosting machine.
 
 ### Start Consul
-
+!!! Note
+    Consul will be deprecated in EdgeX 4.0, and core-keeper will become the new registry and configuration provider.
+    
 Wherever you installed Consul, start Consul Agent with the following command.
 
 ``` Shell
