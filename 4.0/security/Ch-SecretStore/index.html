@@ -2332,11 +2332,6 @@
     Use the Vault REST API
   </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#using-the-vault-web-ui">
-    Using the Vault Web UI
-  </a>
-</li>
 </ul>
 </nav>
 </li>
@@ -2814,11 +2809,6 @@
     Use the Vault REST API
   </a>
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#using-the-vault-web-ui">
-    Using the Vault Web UI
-  </a>
-</li>
 </ul>
 </nav>
 </li>
@@ -2842,17 +2832,10 @@ the central repository to keep these secrets. The developers of other
 EdgeX Foundry micro services utilize the secret store to create, store
 and retrieve secrets relevant to their corresponding micro services.</p>
 <p>Currently the EdgeX Foundry secret store is implemented with
-<a href="https://www.vaultproject.io/">Vault</a>, a HashiCorp open source software
+<a href="https://openbao.org/">OpenBao</a>, an open source software
 product.</p>
-<p>Vault is a tool for securely accessing secrets. A secret is anything
-that you want to tightly control access to, such as API keys, passwords,
-database credentials, service credentials, or certificates. Vault
-provides a unified interface to any secret, while providing tight access
-control and multiple authentication mechanisms (token, LDAP, etc.).
-Additionally, Vault supports pluggable "secrets engines".
-EdgeX uses the Consul secrets engine to allow Vault to
-issue Consul access tokens to EdgeX microservices.</p>
-<p>In EdgeX, Vault's storage backend is the host file system.</p>
+<p>OpenBao is a centralized tool for securely managing and accessing sensitive information, including API keys, passwords, and database credentials. OpenBao provides a robust access control system and supports various authentication methods, such as token-based and LDAP, to ensure that only authorized entities can retrieve secrets.</p>
+<p>In an EdgeX deployment, OpenBao can be configured to store and manage secrets, providing seamless and secure access for microservices. Its flexible architecture and compatibility with diverse authentication backends make it a suitable choice for environments requiring strong security and efficient secret management.</p>
 <h2 id="start-the-secret-store">Start the Secret Store</h2>
 <p>The EdgeX secret store is started by default when using 
 the secure version of the Docker Compose scripts found at
@@ -2881,8 +2864,8 @@ setting of per-microservice secrets, and a <code>GetSecrets()</code> method to r
 it is necesary to obtain a privileged access token, called the Vault root token.</p>
 <h3 id="obtaining-the-vault-root-token">Obtaining the Vault Root Token</h3>
 <p>For security reasons (the 
-<a href="https://learn.hashicorp.com/tutorials/vault/production-hardening">Vault production hardening guide</a>
-recommends revokation of the root token), the Vault root token is revoked by default.
+<a href="https://openbao.org/docs/concepts/tokens/#root-tokens">OpenBao production hardening guide</a>
+recommends revokation of the root token), the OpenBao root token is revoked by default.
 EdgeX automatically manages the secrets required by the framework,
 and provides a programmatic interface for individual microservices
 to interact with their partition of the secret store.</p>
@@ -2890,7 +2873,7 @@ to interact with their partition of the secret store.</p>
 it is necessary to obtain a copy of the Vault root token
 using the below recommended procedure.
 Note that following this procedure directly contradicts the
-<a href="https://learn.hashicorp.com/tutorials/vault/production-hardening">Vault production hardening guide</a>.
+<a href="https://openbao.org/docs/concepts/tokens/#root-tokens">OpenBao production hardening guide</a>.
 Since the root token cannot be un-revoked, the framework
 must be started for the first time with root token revokation disabled.</p>
 <ol>
@@ -2915,7 +2898,7 @@ must be started for the first time with root token revokation disabled.</p>
 <p>Reveal the contents of the <code>resp-init.json</code> file stored in a Docker volume.</p>
 </li>
 </ol>
-<div class="highlight"><pre><span></span><code>  docker run --rm -ti -v edgex_vault-config:/vault/config:ro alpine:latest cat /vault/config/assets/resp-init.json
+<div class="highlight"><pre><span></span><code>docker run --rm -ti -v edgex_secret-store-config:/openbao/config:ro alpine:latest cat /openbao/config/assets/resp-init.json
 </code></pre></div>
 <ol>
 <li>Extract the <code>root_token</code> field value from the resulting JSON output.</li>
@@ -2923,20 +2906,20 @@ must be started for the first time with root token revokation disabled.</p>
 <p>As an alternative to overriding <code>SECRETSTORE_REVOKEROOTTOKENS</code> from the beginning,
 it is possible to regenerate the root token from the Vault unseal keys
 in <code>resp-init.json</code> 
-using the <a href="https://learn.hashicorp.com/tutorials/vault/generate-root">Vault's documented procedure</a>.
+using the <a href="https://openbao.org/docs/concepts/tokens/#root-tokenst">OpenBao's documented procedure</a>.
 The EdgeX framework executes this process internally whenever it requires root token capability.
 Note that a token created in this manner will again be revoked the next time EdgeX is restarted
 if <code>SECRETSTORE_REVOKEROOTTOKENS</code> remains set to its default value: all root tokens
 are revoked every time the framework is started if <code>SECRETSTORE_REVOKEROOTTOKENS</code> is <code>true</code>.</p>
 <h3 id="using-the-vault-cli">Using the Vault CLI</h3>
 <p>Execute a shell session in the running Vault container:</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>edgex-vault<span class="w"> </span>sh<span class="w"> </span>-l
+<div class="highlight"><pre><span></span><code><span class="w">  </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>edgex-secret-store<span class="w"> </span>sh<span class="w"> </span>-l
 </code></pre></div>
 <p>Login to Vault using Vault CLI and the gathered Root Token:</p>
-<div class="highlight"><pre><span></span><code>edgex-vault:/# vault login s.ULr5bcjwy8S0I5g3h4xZ5uWa
-Success! You are now authenticated. The token information displayed below
-is already stored in the token helper. You do NOT need to run "vault login"
-again. Future Vault requests will automatically use this token.
+<div class="highlight"><pre><span></span><code>edgex-secret-store:/# bao login s.ULr5bcjwy8S0I5g3h4xZ5uWa
+Success! You are now authenticated. The token information displayed below is
+already stored in the token helper. You do NOT need to run "bao login" again.
+Future OpenBao requests will automatically use this token.
 
 Key                  Value
 ---                  -----
@@ -2950,7 +2933,7 @@ policies             ["root"]
 </code></pre></div>
 <p>Perform an introspection <code>lookup</code> on the current token login.
 This proves the token works and is valid.</p>
-<div class="highlight"><pre><span></span><code>edgex-vault:/# vault token lookup
+<div class="highlight"><pre><span></span><code>edgex-secret-store:/# bao token lookup
 Key                 Value
 ---                 -----
 accessor            Kv5FUhT2XgN2lLu8XbVxJI0o
@@ -2972,13 +2955,13 @@ type                service
 <p>!!! Note: The Root Token is the only token that has no expiration
     enforcement rules (Time to Live TTL counter).</p>
 <p>As an example, let's poke around and spy on the Redis database password:</p>
-<div class="highlight"><pre><span></span><code>edgex-vault:/# vault list secret 
+<div class="highlight"><pre><span></span><code>edgex-secret-store:/# bao list secret 
 
 Keys
 ----
 edgex/
 
-edgex-vault:/# vault list secret/edgex
+edgex-secret-store:/# bao list secret/edgex
 Keys
 ----
 app-rules-engine/
@@ -2991,12 +2974,12 @@ security-bootstrapper-redis/
 support-notifications/
 support-scheduler/
 
-edgex-vault:/# vault list secret/edgex/core-data
+edgex-secret-store:/# bao list secret/edgex/core-data
 Keys
 ----
 redisdb
 
-edgex-vault:/# vault read secret/edgex/core-data/redisdb
+edgex-secret-store:/# bao read secret/edgex/core-data/redisdb
 Key                 Value
 ---                 -----
 refresh_interval    168h
@@ -3004,11 +2987,11 @@ password            9/crBba5mZqAfAH8d90m7RlZfd7N8yF2IVul89+GEaG3
 username            redis5
 </code></pre></div>
 <p>With the root token, it is possible to modify any Vault setting.
-See the <a href="https://developer.hashicorp.com/vault/docs/commands">Vault manual</a> for available commands.</p>
+See the <a href="https://openbao.org/docs/commands/">Openbao manuals</a> for available commands.</p>
 <h3 id="use-the-vault-rest-api">Use the Vault REST API</h3>
 <p>Vault also supports a REST API with functionality equivalent to the command line interface:</p>
 <p>The equivalent of the</p>
-<div class="highlight"><pre><span></span><code>vault read secret/edgex/core-data/redisdb
+<div class="highlight"><pre><span></span><code>bao read secret/edgex/core-data/redisdb
 </code></pre></div>
 <p>command looks like the following using the REST API:</p>
 <p>Displaying (GET) the redis credentials from Core Data's secret store:</p>
@@ -3027,28 +3010,14 @@ See the <a href="https://developer.hashicorp.com/vault/docs/commands">Vault manu
     "auth": null
 }
 </code></pre></div>
-<p>See HashiCorp Vault API documentation for further details on syntax and
-usage (<a href="https://developer.hashicorp.com/vault/api-docs">https://developer.hashicorp.com/vault/api-docs</a>).</p>
-<h3 id="using-the-vault-web-ui">Using the Vault Web UI</h3>
-<p>The Vault Web UI is not exposed via the API gateway.
-It must therefore be accessed via <code>localhost</code> or a network tunnel of some kind.</p>
-<p>Open a browser session on <code>http://localhost:8200</code>
-and sign-in with the Root Token.</p>
-<p><img alt="image" src="../EdgeX-UI-Vault-01.png"/></p>
-<p>Upper left corner of the current Vault UI session, the sign-out menu
-displaying the current token name:</p>
-<p><img alt="image" src="../EdgeX-UI-Vault-02.png"/></p>
-<p>Select the Vault secret backend, and navigate to any secret that is of interest:</p>
-<p><img alt="image" src="../EdgeX-UI-Vault-03.png"/></p>
-<p>The Vault UI also allows entering Vault CLI commands (see above <strong>1st
-alternative</strong>) using an embedded console:</p>
-<p><img alt="image" src="../EdgeX-UI-Vault-05.png"/></p>
+<p>See OpenBao API documentation for further details on syntax and
+usage (<a href="https://openbao.org/docs/contributing/code-organization/#api">https://openbao.org/docs/contributing/code-organization/#api</a>).</p>
 <h2 id="see-also">See also</h2>
 <p>Some of the command used in implementing security services have
 man-style documentation:</p>
 <ul>
 <li><a href="../security-file-token-provider.1/">security-file-token-provider</a> -
-    Generate Vault tokens for EdgeX services</li>
+    Generate secret store tokens for EdgeX services</li>
 <li><a href="../secrets-config/">secrets-config</a> - Utility for secrets management.</li>
 <li><a href="../secrets-config-proxy/">secrets-config-proxy</a> - "proxy" subcommand for managing proxy secrets.</li>
 </ul>

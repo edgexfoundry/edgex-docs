@@ -2982,7 +2982,7 @@ and the password is reset every time the script is run.</p>
 <h4 id="1-creating-a-user-identity">1. Creating a User Identity</h4>
 <p>Internally, a user identity is a paring of a Vault identity
 and an associated <code>userpass</code> login method bound to that identity.
-Vault supports <a href="https://developer.hashicorp.com/vault/docs/auth">many other authentication backends</a>
+Vault supports <a href="https://openbao.org/docs/commands/auth/">many other authentication backends</a>
 besides <code>userpass</code>,
 making it possible to federate with enterprise single sign-on, for example,
 but <code>userpass</code> is the only authentication method enabled by default.</p>
@@ -3006,7 +3006,7 @@ they will be required in the future to obtain fresh JWT's.</p>
 <p>Authenticate to the EdgeX secret store using the username and password generated above
 to obtain a temporary secret store token.
 This token must be exchanged for a JWT within the <code>tokenTTL</code> liveness period.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">vault_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span><span class="s2">"http://localhost:8200/v1/auth/userpass/login/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"{\"password\":\"</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">\"}"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.auth.client_token'</span><span class="k">)</span>
+<div class="highlight"><pre><span></span><code><span class="nv">secret_store_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span><span class="s2">"http://localhost:8200/v1/auth/userpass/login/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"{\"password\":\"</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">\"}"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.auth.client_token'</span><span class="k">)</span>
 </code></pre></div>
 <p>This temporary token can be discarded after the next step.</p>
 <p>In the microservice-to-microservice authentication scenario,
@@ -3015,16 +3015,16 @@ Tokens associated with user identities, however, only be used to obtain a JWT.</
 <h4 id="3-obtaining-a-jwt-authentication-token">3. Obtaining a JWT authentication token</h4>
 <p>The token created in the previous step is passed as an authenticator to Vault's identity secrets engine.
 The output is a JWT that expires after <code>jwtTTL</code> (see above) has passed.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">id_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">vault_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:8200/v1/identity/oidc/token/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.data.token'</span><span class="k">)</span>
+<div class="highlight"><pre><span></span><code><span class="nv">id_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">secret_store_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:8200/v1/identity/oidc/token/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.data.token'</span><span class="k">)</span>
 
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">"</span>
 </code></pre></div>
-<p>Optionally, if the secret store token (vault_token) isn't expired yet,
+<p>Optionally, if the secret store token (secret_store_token) isn't expired yet,
 it can be used to check the validity of an arbitrary JWT.
 This example checks the validity of the JWT that was issued above.
 Any JWT that passes this check should suffice
 for making an authenticated EdgeX microservice call.</p>
-<div class="highlight"><pre><span></span><code><span class="nv">introspect_result</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">vault_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:8200/v1/identity/oidc/introspect"</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"{\"token\":\"</span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">\"}"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.active'</span><span class="k">)</span>
+<div class="highlight"><pre><span></span><code><span class="nv">introspect_result</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">secret_store_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:8200/v1/identity/oidc/introspect"</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"{\"token\":\"</span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">\"}"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.active'</span><span class="k">)</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">introspect_result</span><span class="si">}</span><span class="s2">"</span>
 </code></pre></div>
 <h4 id="4-using-the-jwt-to-call-an-edgex-api-or-edgex-ui">4. Using the JWT to Call an EdgeX API or EdgeX UI</h4>
@@ -3104,7 +3104,7 @@ to an outgoing HTTP request, req.</p>
 </code></pre></div>
 <h2 id="implementation-notes">Implementation Notes</h2>
 <p>Internally, the receiving microservice will call the secret store's
-<a href="https://developer.hashicorp.com/vault/api-docs/secret/identity/tokens#introspect-a-signed-id-token">token introspection endpoint</a>
+<a href="https://openbao.org/api-docs/secret/identity/tokens/#introspect-a-signed-id-token">token introspection endpoint</a>
 to validate incoming JWT's.
 Note that as in all things dealing with the EdgeX secret store,
 calling the introspection endpoint is also an authenticated call,
@@ -3112,10 +3112,10 @@ and a service must have explicit authorization to invoke this API.</p>
 <p>Similarly, explicit authorization is required for a calling microservice
 to obtain a JWT to pass as an authentication token.
 In the EdgeX implementation, microservices use the
-<a href="https://developer.hashicorp.com/vault/api-docs/auth/userpass#login">userpass login</a>
+<a href="https://openbao.org/docs/auth/userpass/">userpass login</a>
 authentication method to obtain an initial secret store token.
 This token is explicitly granted the ability to
-<a href="https://developer.hashicorp.com/vault/api-docs/secret/identity/tokens#generate-a-signed-id-token">generate a JWT</a>.</p>
+<a href="https://openbao.org/docs/auth/jwt/#jwt-authentication">generate a JWT</a>.</p>
 <p>In the external user scenario of the API gateway,
 clients must manually log in to the secret store,
 and exchange the resulting token for JWT.

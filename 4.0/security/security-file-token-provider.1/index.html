@@ -2810,14 +2810,13 @@ default policy) plus the <code>custom_policy</code> defined above.</p>
 <p>When edgex-use-default is true (the default), the following is inserted
 (if not overridden) to the token parameters for the generated token.
 (See
-<a href="https://developer.hashicorp.com/vault/api-docs/auth/token#create-token">https://developer.hashicorp.com/vault/api-docs/auth/token#create-token</a>.)</p>
+<a href="https://openbao.org/api-docs/auth/token/#create-token">https://openbao.org/api-docs/auth/token/#create-token</a>.)</p>
 <div class="codehilite"><pre><span></span><code>"display_name": token-service-name
 "no_parent":    true
 "policies":     [ "edgex-service-service-name" ]
 </code></pre></div>
-<p>Note that <code>display_name</code> is set by vault to be "token-" + the
-specified display name. This is hard-coded in Vault from versions 0.6 to
-1.2.3 and cannot be changed.</p>
+<p>Note that <code>display_name</code> is set by edgex secret store to be "token-" + the
+specified display name.</p>
 <p>Additionally, a meta property, <code>edgex-service-name</code> is set to
 <code>service-name</code>. The edgex-service-name property may be used by clients
 to infer the location in the secret store where service-specific secrets

@@ -2860,7 +2860,6 @@ as the example shown below:</p>
 <span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-secretstore-setup</span>
 <span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault</span>
 <span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">EDGEX_ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">'device-onvif-camera'</span>
 <span class="nn">...</span>
@@ -2894,7 +2893,7 @@ the <code>known secret</code> and <code>device-virtual</code> is the service key
 <span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-secretstore-setup</span>
 <span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secret-store</span><span class="w">    </span>
 <span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">EDGEX_ADD_SECRETSTORE_TOKENS</span><span class="p">:</span><span class="w"> </span><span class="s">'device-onvif-camera,</span><span class="nv"> </span><span class="s">my-service'</span>
 <span class="w">      </span><span class="nt">EDGEX_ADD_KNOWN_SECRETS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redisdb[app-rules-engine],redisdb[device-rest],redisdb[device-virtual]</span>
@@ -2920,7 +2919,7 @@ an ACL role for <code>Consul</code> to associate with its token.</p>
 <span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-core-consul</span>
 <span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">security-bootstrapper</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secret-store</span>
 <span class="w">    </span><span class="nt">entrypoint</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/edgex-init/consul_wait_install.sh</span>
 <span class="w">    </span><span class="nt">environment</span><span class="p">:</span>

@@ -2808,7 +2808,7 @@ and that the docker socket is now located in /run/user/{USERID}/docker.sock inst
 <p>Vault locks memory by default to disable swapping to disk. While this is a more secure, it requires
 access to the mlock() sys call which requires root privileges.
 In order for us to run Vault in a rootless environment, we need to disable this feature.
-This is done by setting memory limits in the compose file and by adding <code>disable_mlock = true</code> to the local vault config.
+This is done by setting memory limits in the compose file and by adding <code>disable_mlock = true</code> to the local secret store config.
 More can be found at the <a href="https://www.vaultproject.io/docs/configuration/storage/file">Vault documentation</a>.</p>
 </li>
 <li>

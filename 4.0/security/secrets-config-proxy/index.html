@@ -2778,7 +2778,7 @@ Requires additional arguments:</p>
 <ul>
 <li>
 <p><strong>--jwtTTL</strong> <em>duration</em> (optional)</p>
-<p>JWT created by vault identity provider lasts this long (_s, _m, _h, or _d, seconds if no unit) (default "1h")</p>
+<p>JWT created by secret store identity provider lasts this long (_s, _m, _h, or _d, seconds if no unit) (default "1h")</p>
 </li>
 </ul>
 <p>Clients have up to <code>tokenTTL</code> time available to exchange the secret store token for a signed JWT.
@@ -2786,7 +2786,7 @@ Requires additional arguments:</p>
 <ul>
 <li>
 <p><strong>--tokenTTL</strong> <em>duration</em> (optional)</p>
-<p>Vault token created as a result of vault login lasts this long  (_s, _m, _h, or _d, seconds if no unit) (default "1h")</p>
+<p>OpenBao token created as a result of openbao login lasts this long  (_s, _m, _h, or _d, seconds if no unit) (default "1h")</p>
 </li>
 </ul>
 <p>The <code>adduser</code> command creates a credential that enables a use to request a token for the secret store.
@@ -2809,9 +2809,9 @@ This password is generated from the kernel random source and overwrites any prev
 <div class="highlight"><pre><span></span><code><span class="nv">username</span><span class="o">=</span>example
 <span class="nv">password</span><span class="o">=</span>password-from-above
 
-<span class="nv">vault_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span><span class="s2">"http://localhost:8200/v1/auth/userpass/login/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"{\"password\":\"</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">\"}"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.auth.client_token'</span><span class="k">)</span>
+<span class="nv">secret_store_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span><span class="s2">"http://localhost:8200/v1/auth/userpass/login/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">"{\"password\":\"</span><span class="si">${</span><span class="nv">password</span><span class="si">}</span><span class="s2">\"}"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.auth.client_token'</span><span class="k">)</span>
 
-<span class="nv">id_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">vault_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:8200/v1/identity/oidc/token/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.data.token'</span><span class="k">)</span>
+<span class="nv">id_token</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-ks<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="si">${</span><span class="nv">secret_store_token</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"http://localhost:8200/v1/identity/oidc/token/</span><span class="si">${</span><span class="nv">username</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.data.token'</span><span class="k">)</span>
 
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">id_token</span><span class="si">}</span><span class="s2">"</span>
 </code></pre></div>
