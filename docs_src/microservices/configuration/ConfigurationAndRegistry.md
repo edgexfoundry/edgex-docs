@@ -6,10 +6,7 @@
 
 ## Introduction
 
- The EdgeX registry and configuration service provides other EdgeX Foundry micro services with information about associated services within EdgeX Foundry (such as location and status) and  configuration properties (i.e. - a repository of initialization and operating values).  Today, EdgeX Foundry uses [Consul by Hashicorp](https://www.consul.io/) as its reference implementation configuration and registry providers.  However, abstractions are in place so that these functions could be provided by an alternate implementation.  In fact, registration and configuration could be provided by different services under the covers.  For more, see the [Configuration Provider](ConfigurationAndRegistry.md#configuration-provider) and [Registry Provider](ConfigurationAndRegistry.md#registry-provider) sections in this page.
-
-!!! edgey - "EdgeX 4.0"
-    After v4.0, we added a new Configuration and Registry Service, Core Keeper.
+The EdgeX registry and configuration service provides other EdgeX Foundry microservices with information about associated services within EdgeX Foundry (such as location and status) and configuration properties (i.e., a repository of initialization and operating values). Today, EdgeX Foundry uses **Core Keeper** as its reference implementation configuration and registry provider. Core Keeper integrates Redis for data persistence and adopts EdgeX’s `go-mod-configuration` and `go-mod-registry` modules. However, abstractions are in place so that these functions could be provided by alternate implementations. Registration and configuration could be supported by different services if necessary. For more, see the [Configuration Provider](ConfigurationAndRegistry.md#configuration-provider) and [Registry Provider](ConfigurationAndRegistry.md#registry-provider) sections.
 
 ## Configuration
 
@@ -109,28 +106,21 @@ You can supply and manage configuration in a centralized manner by utilizing the
 
 ## Registry Provider
 
-The registry refers to any platform you may use for service discovery. For the EdgeX Foundry reference implementation, the default provider for this responsibility is Consul. Integration with the registry is handled through the [go-mod-registry](https://github.com/edgexfoundry/go-mod-registry) module referenced by all services.
+EdgeX Foundry’s default provider for the registry is Core Keeper, which facilitates service registration, discovery, and health checking. Integration with Core Keeper for registry functions is handled through the `go-mod-registry` module.
 
 ### Introduction to Registry
 
-The objective of the registry is to enable micro services to find and to communicate with each other. When each micro service starts up, it registers itself with the registry, and the registry continues checking
-its availability periodically via a specified health check endpoint. When one micro service needs to connect to another one, it connects to the registry to retrieve the available host name and port number of the
-target micro service and then invokes the target micro service. The following figure shows the basic flow.
+The registry enables microservices to locate and communicate with each other. Each service registers with Core Keeper on startup, and Core Keeper performs regular health checks. Other services can use the registry to discover available services, hosted at the registered endpoints.
 
 ![image](EdgeX_ConfigurationRegistry.png)
 
-Consul is the default registry implementation and provides native features for service registration, service discovery, and health checking. Please refer to the Consul official web site for more information:
-
-> <https://www.consul.io>
-
-Physically, the "registry" and "configuration" management services are combined and running on the same Consul server node.
+Core Keeper is the default registry implementation and provides native features for service registration, service discovery, and health checking. 
 
 ### Web User Interface
 
 A web user interface is also provided by Consul. Users can view the available service list and their health status through the web user interface. The web user interface is available at the /ui path on the same port as the HTTP API. By default this is <http://localhost:8500/ui>. For more detail, please see:
 
 > <https://developer.hashicorp.com/consul/tutorials/certification-associate-tutorials/get-started-explore-the-ui>
-
 ### Running on Docker
 
 For ease of use to install and update, the microservices of EdgeX Foundry are published as Docker images onto Docker Hub and compose files that allow you to run EdgeX and dependent service such as Consul. These compose files can be found here in the [edgex-compose repository](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}). See the [Getting Started using Docker](../../../getting-started/Ch-GettingStartedDockerUsers) for more details.

@@ -42,7 +42,10 @@ RETENTION_MINCAP: <mincap>
 
 For detailed information about environment variables override see [Service Configuration Overrides](../../../configuration/CommonEnvironmentVariables.md#service-configuration-overrides).
 
-- Using <code>Consul</code> to override the default configuration
-Open Consul web user interface and go to *Retention* section of the core-data or support-notification service to customize the configuarion.
+- Using Core Keeper to override the default configuration, for example, Update Retention's MinCap of core-data from `8000` to `10000`, refer to the [Core Keeper API documentation](../../../../api/core/Ch-APICoreKeeper.md) for more information.
 
-For detailed information about Consul see [Configuration and Registry Provider](../../../configuration/ConfigurationAndRegistry.md#web-user-interface).
+```shell
+curl -X PUT "http://localhost:59890/api/v3/kvs/key/edgex/v4/core-data/Retention/MinCap" \
+-H "Content-Type: application/json" \
+-d '{"value": "10000"}'
+```

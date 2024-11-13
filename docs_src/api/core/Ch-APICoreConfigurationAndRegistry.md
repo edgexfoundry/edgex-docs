@@ -1,83 +1,33 @@
 # Configuration and Registry
 
-EdgeX uses the 3rd party Consul microservice as the implementations for Configuration and Registry. The RESTful APIs are provided by Consul directly, and several communities supply Consul client libraries for different programming languages, including Go (official), Python, Java, PHP, Scala, Erlang/OTP, Ruby, Node.js, and C\#.
-
-!!! edgey - "EdgeX 4.0"
-    After v4.0, we added a new Configuration and Registry Service, Core Keeper, and the APIs is under [Core Keeper API documents](Ch-APICoreKeeper.md)
-
-For the client libraries of different languages, please refer to the
-list on this page:
-
-> <https://developer.hashicorp.com/consul/api-docs/libraries-and-sdks>
+EdgeX uses the Core Keeper microservice for Configuration and Registry functions. Core Keeper integrates Redis for data persistence and leverages EdgeX modules `go-mod-configuration` and `go-mod-registry` to implement these services within the EdgeX architecture.
 
 ## Configuration Management
 
-For the current API documentation, please refer to the official Consul
-web site:
-
-> <https://developer.hashicorp.com/consul/api-docs/kv>
+For current Configuration Management, refer to the [Core Keeper API documentation](./Ch-APICoreKeeper.md).
 
 ## Service Registry
 
-For the current API documentation, please refer to the official Consul
-web site:
-
-> <https://developer.hashicorp.com/consul/api-docs/catalog>
-> <https://developer.hashicorp.com/consul/api-docs/agent>
-> <https://developer.hashicorp.com/consul/api-docs/agent/check>
-> <https://developer.hashicorp.com/consul/api-docs/health>
+For detailed API documentation on Core Keeper's service registry, refer to the [Core Keeper API documentation](./Ch-APICoreKeeper.md).
 
 **Service Registration**
 
-While each microservice is starting up, it will connect to Consul to
-register its endpoint information, including microservice ID, address,
-port number, and health checking method. After that, other microservices
-can locate its URL from Consul, and Consul has the ability to monitor
-its health status. The RESTful API of registration is described on the
-following Consul page:
-
-> <https://developer.hashicorp.com/consul/api-docs/agent/service#register-service>
+When each microservice starts up, it connects to Core Keeper to register its endpoint details, including microservice ID, address, port, and health-check methods. Other microservices can then discover its URL through Core Keeper, which also monitors health status. API details for registration are provided in the [Core Keeper API documentation](./Ch-APICoreKeeper.md).
 
 **Service Deregistration**
 
-Before microservices shut down, they have to deregister themselves from
-Consul. The RESTful API of deregistration is described on the following
-Consul page:
-
-> <https://developer.hashicorp.com/consul/api-docs/agent/service#deregister-service>
+Before shutting down, microservices must deregister from Core Keeper. The deregistration API is described in the [Core Keeper API documentation](./Ch-APICoreKeeper.md).
 
 **Service Discovery**
 
-Service Discovery feature allows client micro services to query the
-endpoint information of a particular microservice by its microservice
-IDor list all available services registered in Consul. The RESTful API
-of querying service by microservice IDis described on the following
-Consul page:
-
-> <https://developer.hashicorp.com/consul/api-docs/agent/service#get-local-service-health-by-id>
-
-The RESTful API of listing all available services is described on the
-following Consul page:
-
-> <https://developer.hashicorp.com/consul/api-docs/agent/service#list-services>
+The Service Discovery feature enables client microservices to query endpoint information for specific microservices by their ID or to list all available services registered in Core Keeper. Refer to the [Core Keeper API documentation](./Ch-APICoreKeeper.md).
 
 **Health Checking**
 
-Health checking is a critical feature that prevents using services that
-are unhealthy. Consul provides a variety of methods to check the health
-of services, including Script + Interval, HTTP + Interval, TCP +
-Interval, Time to Live (TTL), and Docker + Interval. The detailed
-introduction and examples of each checking methods are described on the
-following Consul page:
+Health checking ensures only healthy services are used. Core Keeper offers various health check methods such as Script + Interval, HTTP + Interval, TCP + Interval, TTL, and Docker + Interval. For more information and examples of each method, see the [Core Keeper API documentation](./Ch-APICoreKeeper.md).
 
-> <https://developer.hashicorp.com/consul/api-docs/agent/check#list-checks>
+Health checks should be established during service registration, as detailed in the Service Registration section.
 
-The health checks should be established during service registration.
-Please see the paragraph on this page of Service Registration section.
+## Core Keeper UI
 
-## Consul UI
-
-Consul has UI which allows you to view the health of registered services and view/edit services' individual configuration. Learn more about the UI on the following Consul page:
-
-> [https://learn.hashicorp.com/tutorials/consul/get-started-explore-the-ui](https://learn.hashicorp.com/tutorials/consul/get-started-explore-the-ui)
-
+Core Keeper does not have a user interface. All interactions are handled programmatically via its API.
