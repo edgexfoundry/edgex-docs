@@ -285,9 +285,9 @@ device services:
         - edgex-core-data
         - edgex-core-metadata
         - edgex-redis
+        - edgex-secret-store        
         - edgex-security-spire-server
         - edgex-security-spiffe-token-provider
-        - edgex-vault
 ```
 
 
