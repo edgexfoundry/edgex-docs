@@ -2785,6 +2785,10 @@
 <h1 id="configuration-and-registry-providers">Configuration and Registry Providers</h1>
 <p><img alt="image" src="../EdgeX_CoreRegConfig.png"/></p>
 <h2 id="introduction">Introduction</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Consul will be deprecated in EdgeX 4.0, and core-keeper will become the new registry and configuration provider.</p>
+</div>
 <p>The EdgeX registry and configuration service provides other EdgeX Foundry micro services with information about associated services within EdgeX Foundry (such as location and status) and  configuration properties (i.e. - a repository of initialization and operating values).  Today, EdgeX Foundry uses <a href="https://www.consul.io/">Consul by Hashicorp</a> as its reference implementation configuration and registry providers.  However, abstractions are in place so that these functions could be provided by an alternate implementation.  In fact, registration and configuration could be provided by different services under the covers.  For more, see the <a href="./#configuration-provider">Configuration Provider</a> and <a href="./#registry-provider">Registry Provider</a> sections in this page.</p>
 <h2 id="configuration">Configuration</h2>
 <p>Please refer to the following EdgeX Foundry ADRs for details (and design decisions) behind the configuration in EdgeX</p>

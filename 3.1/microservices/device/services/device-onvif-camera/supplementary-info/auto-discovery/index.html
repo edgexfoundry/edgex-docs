@@ -2922,6 +2922,10 @@ Example Output: <code>192.168.1.0/24</code></li>
 <p>Enter the subnet into this command, and execute it to set the <code>DiscoverySubnets</code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p>Consul will be deprecated in EdgeX 4.0, and core-keeper will become the new registry and configuration provider.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>If you are operating in secure mode, you must use the <a href="../../Walkthrough/deployment/#deploy-edgex-and-onvif-device-camera-microservice">Consul ACL Token</a> generated previously. If not, you can omit the <code>-H "X-Consul-Token:&lt;consul-token&gt;"</code> portion of the command.</p>
 </div>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>--data<span class="w"> </span><span class="s1">'&lt;subnet&gt;'</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">"X-Consul-Token:&lt;consul-token&gt;"</span><span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">"http://localhost:8500/v1/kv/edgex/v3/device-onvif-camera/AppCustom/DiscoverySubnets"</span>

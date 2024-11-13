@@ -3104,6 +3104,10 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/edgex
 <h2 id="run-edgex">Run EdgeX</h2>
 <p>Provided everything built correctly and without issue, you can now start your EdgeX services one at a time.  First make sure Redis Server is running.  If Redis is not running, start it before the other services.  If it is running, you can start each of the EdgeX services <strong>in order</strong> as listed below.</p>
 <h3 id="start-consul">Start Consul</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Consul will be deprecated in EdgeX 4.0, and core-keeper will become the new registry and configuration provider.</p>
+</div>
 <p>Start Consul Agent with the following command.</p>
 <div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>consul<span class="w"> </span>agent<span class="w"> </span>-ui<span class="w"> </span>-bootstrap<span class="w"> </span>-server<span class="w"> </span>-client<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>-data-dir<span class="o">=</span>tmp/consul<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
