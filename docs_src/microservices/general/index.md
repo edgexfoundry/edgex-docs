@@ -150,7 +150,7 @@ We have several data models with a timestamp field, but the precision varies, pl
 
 
 [1]: ../core/metadata/ApiReference.md
-[2]: ../support/cronScheduler/ApiReference.md
+[2]: ../support/scheduler/ApiReference.md
 [3]: #service-metrics
 [4]: ../core/metadata/details/DeviceSystemEvents.md#system-event-dto
 [5]: ../../walk-through/Ch-WalkthroughReading.md#origin-timestamp
