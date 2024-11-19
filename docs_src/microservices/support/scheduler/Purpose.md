@@ -6,7 +6,7 @@ title: Support Scheduler - Purpose
 
 ![image](EdgeX_SupportingServicesScheduling.png)
 
-The support cron scheduler microservice provides a mechanism that can kick off operations in any EdgeX service.
+The Support Scheduler microservice provides a mechanism that can kick off operations in any EdgeX service.
 
 At a configuration specified time or a crontab expression scheduled time, the service calls on any EdgeX service via REST, EdgeX Message Bus, or Device Control to trigger an operation.
 

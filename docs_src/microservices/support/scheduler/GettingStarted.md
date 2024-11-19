@@ -4,7 +4,7 @@ title: Support Scheduler - Getting Started
 
 # Support Scheduler - Getting Started
 
-Support Scheduler is one of the EdgeX Support Services which aims to replace the old Support Scheduler serivce.
+The v4 Support Scheduler is a new EdgeX microservice designed to replace the legacy Support Scheduler from versions prior to v3. It supports both cron-based and interval-based scheduled jobs.
 
 It is needed for applications that require actions to occur on specific intervals or a scheduled time.
 
