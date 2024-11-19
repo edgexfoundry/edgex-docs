@@ -2721,8 +2721,9 @@
 </div>
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
+<hr/>
 <h1 id="application-services-configuration">Application Services - Configuration</h1>
-<p>Similar to other EdgeX services, application service configuration is first determined by the <code>configuration.yaml</code> file in the <code>/res</code> folder. Once loaded any environment overrides are applied. If <code>-cp</code> is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e. Consul) to push the configuration into the provider and monitor <code>Writable</code> configuration from there. Any environment overrides are applied prior to the values being pushed. You will find the configuration under the <code>edgex/v3/</code> key in the provider (i.e. Consul). On re-restart the service will pull the configuration from the provider.</p>
+<p>Similar to other EdgeX services, application service configuration is first determined by the <code>configuration.yaml</code> file in the <code>/res</code> folder. Once loaded, any environment overrides are applied. If <code>-cp</code> is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e. Core Keeper) to push the configuration into the provider and monitor <code>Writable</code> configuration from there. Any environment overrides are applied prior to the values being pushed. You will find the configuration under the <code>edgex/v3/</code> prefix in the provider (i.e. Core Keeper). Upon restart, the service will pull the configuration from the provider.</p>
 <p>This section describes the configuration elements provided by the SDK that are unique to Application Services</p>
 <p>Please first refer to the general <a href="../../configuration/CommonConfiguration/">Configuration documentation</a> for configuration properties common across all EdgeX services.</p>
 <div class="admonition edgey">

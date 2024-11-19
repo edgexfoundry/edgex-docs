@@ -2796,10 +2796,12 @@
 </ul>
 <p>For detailed information about environment variables override see <a href="../../../../configuration/CommonEnvironmentVariables/#service-configuration-overrides">Service Configuration Overrides</a>.</p>
 <ul>
-<li>Using <code>Consul</code> to override the default configuration
-Open Consul web user interface and go to <em>Retention</em> section of the core-data or support-notification service to customize the configuarion.</li>
+<li>Using Core Keeper to override the default configuration, for example, Update Retention's MinCap of core-data from <code>8000</code> to <code>10000</code>, refer to the <a href="../../../../../api/core/Ch-APICoreKeeper/">Core Keeper API documentation</a> for more information.</li>
 </ul>
-<p>For detailed information about Consul see <a href="../../../../configuration/ConfigurationAndRegistry/#web-user-interface">Configuration and Registry Provider</a>.</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span><span class="s2">"http://localhost:59890/api/v3/kvs/key/edgex/v4/core-data/Retention/MinCap"</span><span class="w"> </span><span class="se">\</span>
+-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
+-d<span class="w"> </span><span class="s1">'{"value": "10000"}'</span>
+</code></pre></div>
 </article>
 </div>
 </div>
