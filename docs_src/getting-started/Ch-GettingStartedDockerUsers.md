@@ -174,10 +174,7 @@ See [EdgeX Default Service Ports](../../general/ServicePorts) for a list of the 
 
 *"Pinging" an EdgeX micro service allows you to check on its availability.  If the service does not respond to ping, the service is down or having issues.*
 
-### Consul Registry Check
+### Core Keeper Registry Check
 
-EdgeX uses the open source [Consul](https://www.consul.io/) project as its registry
-service. All EdgeX micro services are expected to register with Consul as they start. Going to Consul's dashboard UI enables you to see which services are up. Find the Consul UI at
-<http://localhost:8500/ui>.
+For Registry Check, refer to the [Core Keeper API documentation](../api/core/Ch-APICoreKeeper.md).
 
-![image](EdgeX_GettingStartedUsrConsul.png)
