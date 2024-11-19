@@ -1,6 +1,6 @@
 # Configuration and Registry
 
-EdgeX uses the Core Keeper microservice for Configuration and Registry functions. Core Keeper integrates Redis for data persistence and leverages EdgeX modules `go-mod-configuration` and `go-mod-registry` to implement these services within the EdgeX architecture.
+EdgeX uses a new microservice, Core Keeper, for Configuration Provider and Service Registry functions. Core Keeper integrates PostgreSQL for data persistence and leverages EdgeX modules `go-mod-configuration` and `go-mod-registry` to implement these services within the EdgeX architecture.
 
 ## Configuration Management
 
@@ -24,10 +24,7 @@ The Service Discovery feature enables client microservices to query endpoint inf
 
 **Health Checking**
 
-Health checking ensures only healthy services are used. Core Keeper offers various health check methods such as Script + Interval, HTTP + Interval, TCP + Interval, TTL, and Docker + Interval. For more information and examples of each method, see the [Core Keeper API documentation](./Ch-APICoreKeeper.md).
+Health checking ensures only healthy services are used. Core Keeper offers HTTP + Interval as the health checking method, see the [Core Keeper API documentation](./Ch-APICoreKeeper.md).
 
 Health checks should be established during service registration, as detailed in the Service Registration section.
 
-## Core Keeper UI
-
-Core Keeper does not have a user interface. All interactions are handled programmatically via its API.

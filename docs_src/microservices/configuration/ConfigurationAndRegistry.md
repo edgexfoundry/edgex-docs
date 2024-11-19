@@ -6,7 +6,7 @@
 
 ## Introduction
 
-The EdgeX registry and configuration service provides other EdgeX Foundry microservices with information about associated services within EdgeX Foundry (such as location and status) and configuration properties (i.e., a repository of initialization and operating values). Today, EdgeX Foundry uses **Core Keeper** as its reference implementation configuration and registry provider. Core Keeper integrates Redis for data persistence and adopts EdgeX’s `go-mod-configuration` and `go-mod-registry` modules. However, abstractions are in place so that these functions could be provided by alternate implementations. Registration and configuration could be supported by different services if necessary. For more, see the [Configuration Provider](ConfigurationAndRegistry.md#configuration-provider) and [Registry Provider](ConfigurationAndRegistry.md#registry-provider) sections.
+The EdgeX registry and configuration service provides other EdgeX Foundry microservices with information about associated services within EdgeX Foundry (such as location and status) and configuration properties (i.e., a repository of initialization and operating values). Today, EdgeX Foundry uses **Core Keeper** as its reference implementation configuration and registry provider. Core Keeper integrates PostgreSQL for data persistence and adopts EdgeX’s `go-mod-configuration` and `go-mod-registry` modules. However, abstractions are in place so that these functions could be provided by alternate implementations. Registration and configuration could be supported by different services if necessary. For more, see the [Configuration Provider](ConfigurationAndRegistry.md#configuration-provider) and [Registry Provider](ConfigurationAndRegistry.md#registry-provider) sections.
 
 ## Configuration
 
@@ -110,7 +110,7 @@ EdgeX Foundry’s default provider for the registry is Core Keeper, which facili
 
 ### Introduction to Registry
 
-The registry enables microservices to locate and communicate with each other. Each service registers with Core Keeper on startup, and Core Keeper performs regular health checks. Other services can use the registry to discover available services, hosted at the registered endpoints.
+The objective of the registry is to enable micro services to find and to communicate with each other. When each micro service starts up, it registers itself with the registry, and the registry continues checking its availability periodically via a specified health check endpoint. When one micro service needs to connect to another one, it connects to the registry to retrieve the available host name and port number of the target micro service and then invokes the target micro service. The following figure shows the basic flow.
 
 ![image](EdgeX_ConfigurationRegistry.png)
 
@@ -144,4 +144,4 @@ To run Consul on the local machine, following these steps:
     # ${DATA_FOLDER} could be any folder to put the data files of Consul and it needs the read/write permission.
     ```
 
-4.  Verify the result: <http://localhost:8500/ui>
+4. Verify the result by calling its API, refer to the [Core Keeper API documentation](../../api/core/Ch-APICoreKeeper.md).

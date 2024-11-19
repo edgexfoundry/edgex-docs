@@ -3,7 +3,7 @@ title: App Services - Configuration
 
 # Application Services - Configuration
 
-Similar to other EdgeX services, application service configuration is first determined by the `configuration.yaml` file in the `/res` folder. Once loaded, any environment overrides are applied. If `-cp` is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e. Core Keeper) to push the configuration into the provider and monitor `Writable` configuration from there. Any environment overrides are applied prior to the values being pushed. You will find the configuration under the `edgex/{{api_version}}/` key in the provider (i.e. Core Keeper). Upon restart, the service will pull the configuration from the provider.
+Similar to other EdgeX services, application service configuration is first determined by the `configuration.yaml` file in the `/res` folder. Once loaded, any environment overrides are applied. If `-cp` is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e. Core Keeper) to push the configuration into the provider and monitor `Writable` configuration from there. Any environment overrides are applied prior to the values being pushed. You will find the configuration under the `edgex/{{api_version}}/` prefix in the provider (i.e. Core Keeper). Upon restart, the service will pull the configuration from the provider.
 
 This section describes the configuration elements provided by the SDK that are unique to Application Services
 

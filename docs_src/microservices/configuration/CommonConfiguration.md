@@ -89,7 +89,7 @@ The tables in each of the tabs below document configuration properties that are 
     ||| configuration that govern how to connect to the registry to register for service registration |
     |Host           |localhost                      |Registry host name|
     |Port           |59890                           |Registry port number|
-    |Type           |core-keeper                         |Registry implementation type|
+    |Type           |keeper                         |Registry implementation type|
 === "Database"
     |Property|Default Value|Description|
     |---|---|---|

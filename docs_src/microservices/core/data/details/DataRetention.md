@@ -45,7 +45,7 @@ For detailed information about environment variables override see [Service Confi
 - Using Core Keeper to override the default configuration, for example, Update Retention's MinCap of core-data from `8000` to `10000`, refer to the [Core Keeper API documentation](../../../../api/core/Ch-APICoreKeeper.md) for more information.
 
 ```shell
-curl -X PUT "http://localhost:59890/api/v3/kvs/key/edgex/v4/core-data/Retention/MinCap" \
+curl -X PUT "http://localhost:59890/api/v3/kvs/key/edgex/{{config_version}}/core-data/Retention/MinCap" \
 -H "Content-Type: application/json" \
 -d '{"value": "10000"}'
 ```
