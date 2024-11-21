@@ -59,7 +59,7 @@ The common MessageBus configuration elements for each implementation are:
     - `tcp` for **NATS JetStream**
 
 !!! note
-    In general all EdgeX Services running in a deployment must be configured to use the same EdgeX MessageBus implementation. By default all services that use the EdgeX MessageBus are configured to use the Redis Pub/Sub implementation. NATS does support a compatibility mode with MQTT. See the [NATS MQTT Mode](#nats-mqtt-mode) section below for details.
+    In general all EdgeX Services running in a deployment must be configured to use the same EdgeX MessageBus implementation. By default all services that use the EdgeX MessageBus are configured to use the MQTT implementation. NATS does support a compatibility mode with MQTT. See the [NATS MQTT Mode](#nats-mqtt-mode) section below for details.
 
 ### MQTT 3.1 (default)
 
@@ -150,8 +150,6 @@ A JetStream enabled server can support MQTT connections on the same set of under
 ## Multi-level topics and wildcards
 
 The EdgeX MessageBus uses multi-level topics and wildcards to allow filtering of data via subscriptions and has standardized on a MQTT like scheme. See [MQTT multi-level topics and wildcards](https://www.hivemq.com/blog/mqtt-essentials-part-5-mqtt-topics-best-practices) for more information.
-
-The Redis implementation converts the Redis Pub/Sub multi-level topic scheme to match that of MQTT. In Redis Pub/Sub the "**.**" is used as a level separator, "\*" followed by a level separator is used as the single level wildcard and "*" at the end is used as the multiple level wildcard. These are converted to "/" and "+" and "#" respectively, which are used by MQTT.
 
 
 The NATS implementations convert the NATS multi-level topic scheme to match that of MQTT. In NATS "**.**" is used as a level separator, "\*" is used as the single level wildcard and ">" is used for the multi-level wild card. These are converted to "/", "+" and "#" respectively, which are compliant with the MQTT scheme.

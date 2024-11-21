@@ -40,7 +40,7 @@ The following table provides the list of the default EdgeX Docker image names to
 === "Security"
     |Docker image name|Docker container name |Docker network hostname|Docker Compose service name|
     |---|---|---|---|
-    |vault|edgex-vault|edgex-vault|vault|
+    |openbao|edgex-secret-store|edgex-secret-store|secret-store|
     |nginx|edgex-nginx|edgex-nginx|nginx|
     |edgexfoundry/security-proxy-auth|edgex-proxy-auth|edgex-proxy-auth|security-proxy-auth|
     |edgexfoundry/security-proxy-setup|edgex-security-proxy-setup|edgex-security-proxy-setup|security-proxy-setup|
@@ -49,5 +49,4 @@ The following table provides the list of the default EdgeX Docker image names to
 === "Miscellaneous"
     |Docker image name|Docker container name |Docker network hostname|Docker Compose service name|
     |---|---|---|---|
-    |consul|edgex-core-consul|edgex-core-consul|consul|
-    |redis|edgex-redis|edgex-redis|database|
+    |postgres|edgex-postgres|edgex-postgres|database|

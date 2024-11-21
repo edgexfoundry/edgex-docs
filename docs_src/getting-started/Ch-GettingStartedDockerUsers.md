@@ -48,10 +48,10 @@ Find the Docker Compose file that matches:
 
 |filename|Docker Compose contents|
 |---|---|
-|docker-compose-arm64.yml|Specifies x86 containers, uses Redis database for persistence, and includes security services|
-|docker-compose-no-secty-arm64.yml|Specifies ARM 64 containers, uses Redis database for persistence, but does not include security services|
-|docker-compose-no-secty.yml|Specifies x86 containers, uses Redis database for persistence, but does not include security services|
-|docker-compose.yml|Specifies x86 containers, uses Redis database for persistence, and includes security services|
+|docker-compose-arm64.yml|Specifies x86 containers, uses PostgreSQL database for persistence, and includes security services|
+|docker-compose-no-secty-arm64.yml|Specifies ARM 64 containers, uses PostgreSQL database for persistence, but does not include security services|
+|docker-compose-no-secty.yml|Specifies x86 containers, uses PostgreSQL database for persistence, but does not include security services|
+|docker-compose.yml|Specifies x86 containers, uses PostgreSQL database for persistence, and includes security services|
 |docker-compose-no-secty-with-ui-arm64.|Same as docker-compose-no-secty-arm64.yml but also includes EdgeX user interface|
 |docker-compose-no-secty-with-ui.yml|Same as docker-compose-no-secty.yml but also includes EdgeX user interface|
 |docker-compose-portainer.yml|Specifies the Portainer user interface extension (to be used with the x86 or ARM EdgeX platform)|

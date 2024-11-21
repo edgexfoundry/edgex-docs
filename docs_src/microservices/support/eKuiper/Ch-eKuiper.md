@@ -10,7 +10,7 @@
 
 LF Edge eKuiper is a lightweight open source software (Apache 2.0 open source license agreement) package for IoT edge analytics and stream processing implemented in Go lang, which can run on various resource constrained edge devices. Users can realize fast data processing on the edge and write rules in SQL. The eKuiper rules engine is based on three components `Source`, `SQL` and `Sink`.
 
-- Source: Source of stream data, such as data from an MQTT server. For EdgeX, the data source is an EdgeX message bus, which can be implemented by Redis Pub/Sub, MQTT or NATS;
+- Source: Source of stream data, such as data from an MQTT server. For EdgeX, the data source is an EdgeX message bus, which can be implemented by MQTT or NATS;
 - SQL: SQL is where the specified business logic is processed. eKuiper provides SQL statements to extract, filter, and transform data;
 - Sink: Used to send the analysis result to a specific target, such as sending the analysis results to EdgeX's Command service, or an MQTT broker in the cloud;
 

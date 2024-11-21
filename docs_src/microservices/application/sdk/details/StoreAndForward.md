@@ -30,9 +30,9 @@ Database configuration section describes which database type to use and the info
 !!! example "Example - Database configuration"
     ```yaml
     Database:
-      Type: "redisdb"
+      Type: "postgres"
       Host: "localhost"
-      Port: 6379
+      Port: 5432
       Timeout: "5s"
     ```
 
@@ -66,7 +66,7 @@ One of three outcomes can occur after the export retried has completed.
     Changing Writable.Pipeline.ExecutionOrder will invalidate all currently stored data and result in it all being removed from the database on the next retry. This is because the position of the *export* function can no longer be guaranteed and no way to ensure it is properly executed on the retry.
 
 ## Custom Storage
-The default backing store is redis.  Custom implementations of the `StoreClient` interface can be provided if redis does not meet your requirements.
+The default backing store is PostgreSQL.  Custom implementations of the `StoreClient` interface can be provided if PostgreSQL does not meet your requirements.
 
 ```go
 type StoreClient interface {

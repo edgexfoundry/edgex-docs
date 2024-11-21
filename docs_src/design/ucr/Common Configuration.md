@@ -65,12 +65,12 @@ In the Levski release the additional common security metrics require all service
     #    Gateway="my-iot-gateway" # Tag must be added here or via Consul Env Override can only chnage existing value, not added new ones.
     ...
     [MessageQueue]
-    Protocol = "redis"
+    Protocol = "mqtt"
     Host = "localhost" <override in compose file same for every service>
     Port = 6379
-    Type = "redis"
-    AuthMode = "usernamepassword"  # required for redis messagebus (secure or insecure).
-    SecretName = "redisdb"
+    Type = "mqtt"
+    AuthMode = "usernamepassword"  # required for mqtt messagebus (secure or insecure).
+    SecretName = "mqtt-bus"
     PublishTopicPrefix = <Service Specific>
     SubscribeEnabled = <Service Specific>
     SubscribeTopic = <Service Specific>

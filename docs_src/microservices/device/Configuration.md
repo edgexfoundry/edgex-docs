@@ -133,7 +133,7 @@ Device services can have custom configuration in one of two ways. See the table 
 !!! edgey "Edgex 3.0"
     For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the [SecretStore Overrides](../configuration/CommonEnvironmentVariables.md#secretstore-configuration-overrides) section for more details.
 
-All instances of Device Services running in secure mode require a `SecretStore` to be created for the service by the Security Services. See [Configuring Add-on Service](../../../security/Ch-Configuring-Add-On-Services) for details on configuring a `SecretStore` to be created for the Device Service. With the use of `Redis Pub/Sub` as the default EdgeX MessageBus all Device Services need the `redisdb` known secret added to their `SecretStore` so they can connect to the Secure EdgeX MessageBus. See the [Secure MessageBus](../../../security/Ch-Secure-MessageBus) documentation for more details.
+All instances of Device Services running in secure mode require a `SecretStore` to be created for the service by the Security Services. See [Configuring Add-on Service](../../../security/Ch-Configuring-Add-On-Services) for details on configuring a `SecretStore` to be created for the Device Service. With the use of `MQTT` as the default EdgeX MessageBus all Device Services need the `postgres` known secret added to their `SecretStore` so they can connect to the Secure EdgeX MessageBus. See the [Secure MessageBus](../../../security/Ch-Secure-MessageBus) documentation for more details.
 
 Each Device Service also has detailed configuration to enable connection to it's exclusive `SecretStore`
 
@@ -152,10 +152,10 @@ When running in insecure mode, the secrets are stored and retrieved from the *Wr
     Writable:
       InsecureSecrets:    
         DB:
-         SecretName: "redisdb"
+         SecretName: "postgres"
          SecretData:
-           username: ""
-           password: ""
+           username: "postgres"
+           password: "postgres"
         MQTT:
           SecretName: "credentials"
         SecretData:

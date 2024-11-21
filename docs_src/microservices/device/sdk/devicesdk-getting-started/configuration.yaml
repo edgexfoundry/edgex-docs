@@ -17,12 +17,12 @@ Clients:
     Port: 59881
 
 MessageBus:
-  Protocol: redis
+  Protocol: mqtt
   Host: localhost
   Port: 6379
-  Type: redis
-  AuthMode: "usernamepassword"  # required for redis messagebus (secure or insecure)
-  SecretName: redisdb
+  Type: mqtt
+  AuthMode: "usernamepassword"  # required for mqtt messagebus (secure or insecure)
+  SecretName: mqtt-bus
   Optional:
     ClientId: device-example
 

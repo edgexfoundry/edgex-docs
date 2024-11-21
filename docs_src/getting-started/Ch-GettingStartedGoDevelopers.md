@@ -108,8 +108,7 @@ make build
 Several of the EdgeX Foundry micro services use a database.
 This includes core-data, core-metadata, support-scheduler, among others. Therefore, when
 working with EdgeX Foundry its a good idea to have the database up and
-running as a general rule. See the [Redis Quick Start Guide](https://redis.io/topics/quickstart)
-for how to run Redis in a Linux environment (or find similar documentation for other environments).
+running as a general rule. See the [PostgreSQL Quick Start Guide](https://www.postgresql.org/docs/current/tutorial-start.html)for how to run PostgreSQL in a Linux environment (or find similar documentation for other environments).
 
 ### Run EdgeX Services
 

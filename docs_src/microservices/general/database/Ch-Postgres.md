@@ -1,6 +1,6 @@
 # PostgreSQL
 
-EdgeX Foundry also supports PostgreSQL as the persistence database.
+EdgeX Foundry uses PostgreSQL as the persistence database by default.
 
 PostgreSQL is an open-source object-relational database system (licensed under the PostgreSQL License) that offers exceptional scalability and performance, with support for both relational and document (JSON) data models.
 

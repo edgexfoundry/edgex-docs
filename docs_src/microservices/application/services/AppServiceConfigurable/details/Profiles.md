@@ -24,7 +24,7 @@ The following profiles and their purposes are provided with App Service Configur
 
 ### rules-engine
 
-Profile used to push Event messages to the Rules Engine via the **Redis Pub/Sub** Message Bus. This is used in the default docker compose files for the `app-rules-engine` service
+Profile used to push Event messages to the Rules Engine via the **MQTT** Message Bus. This is used in the default docker compose files for the `app-rules-engine` service
 
 One can optionally add Filter function via environment overrides
 
