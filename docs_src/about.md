@@ -168,7 +168,7 @@ SDKs are language specific; meaning an SDK is written to create services in a pa
 ### Sensor Data Collection
 EdgeX’s primary job is to collect data from sensors and devices and make that data available to north side applications and systems.  Data is collected from a sensor by a device service that speaks the protocol of that device.  Example: a Modbus device service would communicate in Modbus to get a pressure reading from a Modbus pump.  The device service translates the sensor data into an EdgeX event object.  The device service can then either:
 
-1. put the event object on a message bus (which may be implemented via Redis Streams or MQTT).  Subscribers to the event message on the message bus can be application services or core data or both (see step 1.1 below).
+1. put the event object on a message bus (which may be implemented via MQTT).  Subscribers to the event message on the message bus can be application services or core data or both (see step 1.1 below).
 
     ![image](./general/EdgeX_step1-1.png)
 
@@ -176,12 +176,12 @@ EdgeX’s primary job is to collect data from sensors and devices and make that 
 
     ![image](./general/EdgeX_step1-2.png)
 
-When core data receives the event (either via message bus or REST), it persists the sensor data in the local edge database.  EdgeX uses Redis as our persistence store.  There is an abstraction in place to allow you to use another database (which has allowed other databases to be used in the past).  Persistence is not required and can be turned off.  Data is persisted in EdgeX at the edge for two basics reasons:
+When core data receives the event (either via message bus or REST), it persists the sensor data in the local edge database.  EdgeX uses PostgreSQL as our persistence store.  There is an abstraction in place to allow you to use another database (which has allowed other databases to be used in the past).  Persistence is not required and can be turned off.  Data is persisted in EdgeX at the edge for two basics reasons:
 
 - Edge nodes are not always connected.  During periods of disconnected operations, the sensor data must be saved so that it can be transmitted northbound when connectivity is restored.  This is referred to as store and forward capability.
 - In some cases, analytics of sensor data needs to look back in history in order to understand the trend and to make the right decision based on that history.  If a sensor reports that it is 72° F right now, you might want to know what the temperature was ten minutes ago before you make a decision to adjust a heating or cooling system.  If the temperature was 85° F, you may decide that adjustments to lower the room temperature you made ten minutes ago were sufficient to cool the room.  It is the context of historical data that are important to local analytic decisions.
 
-When core data receives event objects from the device service via REST, it will put sensor data events on a message topic destined for application services.  Redis Pub/Sub is used as the messaging infrastructure by default (step 2).  MQTT or NATS (opt-in during build) can also be used as the messaging infrastructure between core data and the application services.
+When core data receives event objects from the device service via REST, it will put sensor data events on a message topic destined for application services. MQTT is used as the messaging infrastructure by default (step 2). NATS (opt-in during build) can also be used as the messaging infrastructure between core data and the application services.
 
 ![image](./general/EdgeX_step2.png)
 

@@ -7,7 +7,7 @@ The following tables (organized by type of service) capture the default service 
     |core-data|	59880|
     |core-metadata	|59881|
     |core-command	|59882|
-    |redis|6379|
+    |postgres|5432|
     |consul|8500|
 === "Supporting"
     |Services Name|	Port Definition|

@@ -6,7 +6,7 @@ title: Core Metadata - Getting Started
 
 ## Data Models
 
-To understand metadata, its important to understand the EdgeX data objects it manages.  Metadata stores its knowledge in a local persistence database.  [Redis](https://redis.io/) is used by default, but a database abstraction layer allows for other databases to be used.
+To understand metadata, its important to understand the EdgeX data objects it manages.  Metadata stores its knowledge in a local persistence database. [PostgreSQL](https://www.postgresql.org/) is used by default, but a database abstraction layer allows for other databases to be used.
 
 ### Device Profile
 

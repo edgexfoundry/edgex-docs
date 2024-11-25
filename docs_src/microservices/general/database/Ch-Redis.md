@@ -15,7 +15,7 @@ Redis uses a number of techniques to optimize memory utilization. Antirez and [R
 
 ## On-disk Persistence
 
-Redis supports a number of different levels of on-disk persistence. By default, the configuration includes multiple save intervals: 
+Redis supports a number of different levels of on-disk persistence. By default, the configuration includes multiple save intervals:
 
 - After 1 hour, if at least 1 key has changed.
 - After 5 minutes, if at least 100 keys have changed.

@@ -4,11 +4,12 @@ EdgeX Foundry is an operating system (OS)-agnostic and hardware (HW)-agnostic Io
 
 === "Memory"
     Memory: minimum of 1 GB
-    When considering memory for your EdgeX platform consider your use of database - Redis is the current default.  Redis is an open source (BSD licensed), in-memory data structure store, used as a database and message broker in EdgeX.  Redis is durable and uses persistence only for recovering state; the only data Redis operates on is in-memory.  Redis uses a number of techniques to optimize memory utilization. Antirez and Redis Labs have written a number of articles on the underlying details (see list below).  Those strategies has continued to [evolve](http://antirez.com/news/128). When thinking about your system architecture, consider how long data will be living at the edge and consuming memory (physical or physical + virtual).
+    When considering memory for your EdgeX platform, take into account your database choice - PostgreSQL is the default in EdgeX 4.0. PostgreSQL is a powerful, open-source relational database management system that offers robust data storage, query capabilities, and performance optimization. PostgreSQL stores data on disk and leverages advanced caching strategies to enhance performance.
 
-    - [Antirez](http://antirez.com/news/92)
-    - [Redis RAM Ramifications](https://redislabs.com/blog/redis-ram-ramifications-part-i/)
-    - [Redis IO Memory Optimization](https://redis.io/topics/memory-optimization)
+    For more information about PostgreSQL's memory utilization and optimization techniques, refer to the following resources:
+
+    - [PostgreSQL Documentation: Resource Consumption](https://www.postgresql.org/docs/current/runtime-config-resource.html)
+    - [Tuning PostgreSQL Memory Parameters](https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server)
     
 === "Storage"
     Hard drive space: minimum of 3 GB of space to run the EdgeX Foundry containers, but you may want more depending on how long sensor and device data is to be retained.  Approximately 32GB of storage is minimally recommended to start.

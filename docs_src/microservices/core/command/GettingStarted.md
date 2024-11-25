@@ -12,7 +12,7 @@ The 3rd party system makes a REST call of the command service which then relays 
 There was no built-in means to make a message-based request of EdgeX or the devices/sensors it manages.
 
 From Levski release, core command service adds support for an external MQTT connection (in the same manner that app services provide an external MQTT connection),
-which will allow it to act as a bridge between the internal message bus (implemented via either MQTT or Redis Pub/Sub) and external MQTT message bus.
+which will allow it to act as a bridge between the internal message bus (implemented via MQTT) and external MQTT message bus.
 
 #### Core Command as Message Bus Bridge
 
