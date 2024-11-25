@@ -2251,11 +2251,6 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../general/database/Ch-Redis/">
-        Redis
-      </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="../../general/database/Ch-Postgres/">
         PostgreSQL
       </a>
@@ -2816,7 +2811,7 @@
 <tr>
 <td><strong>InsecureSecrets</strong></td>
 <td>---</td>
-<td>This section a map of secrets which simulates the SecretStore for accessing secrets when running in non-secure mode. All services have a default entry for Redis DB credentials called <code>redisdb</code></td>
+<td>This section a map of secrets which simulates the SecretStore for accessing secrets when running in non-secure mode. All services have a default entry for PostgreSQL DB credentials called <code>postgres</code></td>
 </tr>
 </tbody>
 </table>
@@ -3044,7 +3039,7 @@
 </tr>
 <tr>
 <td>Port</td>
-<td>6379</td>
+<td>5432</td>
 <td>DB port number</td>
 </tr>
 <tr>
@@ -3059,8 +3054,8 @@
 </tr>
 <tr>
 <td>Type</td>
-<td>redisdb</td>
-<td>DB type.  Redis is the only supported DB</td>
+<td>postgres</td>
+<td>DB type.</td>
 </tr>
 </tbody>
 </table>
@@ -3082,7 +3077,7 @@
 </tr>
 <tr>
 <td>Protocol</td>
-<td>redis</td>
+<td>mqtt</td>
 <td>Indicates the connectivity protocol to use when connecting to the bus.</td>
 </tr>
 <tr>
@@ -3092,13 +3087,13 @@
 </tr>
 <tr>
 <td>Port</td>
-<td>6379</td>
+<td>1883</td>
 <td>Indicates the port to use when publishing a message.</td>
 </tr>
 <tr>
 <td>Type</td>
-<td>redis</td>
-<td>Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the <a href="https://github.com/edgexfoundry/go-mod-messaging">go-mod-messaging</a> module for more information.</td>
+<td>mqtt</td>
+<td>Indicates the type of messaging library to use. Currently this is MQTT by default. Refer to the <a href="https://github.com/edgexfoundry/go-mod-messaging">go-mod-messaging</a> module for more information.</td>
 </tr>
 <tr>
 <td>AuthMode</td>
@@ -3107,7 +3102,7 @@
 </tr>
 <tr>
 <td>SecretName</td>
-<td>redisdb</td>
+<td>mqtt-bus</td>
 <td>Name of the secret in the Secret Store to find the MessageBus credentials.</td>
 </tr>
 <tr>
@@ -3130,7 +3125,7 @@
 <tbody>
 <tr>
 <td></td>
-<td>Configuration and connection parameters for use with MQTT or NATS message bus - in place of Redis</td>
+<td>Configuration and connection parameters for use with MQTT or NATS message bus</td>
 <td></td>
 </tr>
 <tr>

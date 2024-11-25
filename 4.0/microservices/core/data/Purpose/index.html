@@ -2215,11 +2215,6 @@
         </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="../../../general/database/Ch-Redis/">
-        Redis
-      </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="../../../general/database/Ch-Postgres/">
         PostgreSQL
       </a>
@@ -2688,7 +2683,7 @@
 Device services that collect sensor data call on the core data service to
 store the sensor data on the edge system (such as in a <a href="../../../../general/Definitions/#gateway">gateway</a>) until the data gets moved "north" and then exported to Enterprise and cloud systems. 
 Core data persists the data in a local database.<br/>
-<a href="https://redis.io/">Redis</a> is used by default, but a database abstraction layer allows for other database implementations to be added.</p>
+<a href="https://www.postgresql.org/">PosgreSQL</a> is used by default, but a database abstraction layer allows for other database implementations to be added.</p>
 <p><img alt="image" src="../EdgeX_CoreData.png"/></p>
 <p>Other services and systems, both EdgeX specific and external, access the sensor data through the core data service.
 Core data also provides a degree of security and protection of the data collected while the data is at the edge.</p>
@@ -2704,7 +2699,7 @@ Core data also provides a degree of security and protection of the data collecte
     This is the default means of getting data to core data.
     Any service (like an application service or rules engine service) or 3rd system could also subscribe to the same topic.
     If the sensor data does not need to persisted locally, core data does not have to subscribe to the message bus topic - making core data completely optional.
-    By default, the message bus is implemented using Redis Pub/Sub.<br/>
+    By default, the message bus is implemented using MQTT.<br/>
     MQTT can be used as an alternate message bus implementation.
         <img alt="image" src="../EdgeX_CoreDataSubscriber.png"/></p>
 </li>
@@ -2715,7 +2710,7 @@ Core data also provides a degree of security and protection of the data collecte
        <img alt="image" src="../EdgeX_CoreDataRESTEndpoint.png"/></p>
 </li>
 </ol>
-<p>Core data moves data to the application service (and <a href="../../../../general/Definitions/#edge-analytics">edge analytcs</a>) via Redis Pub/Sub by default. MQTT or NATS (opt-in at build time) can alternately be used. 
+<p>Core data moves data to the application service (and <a href="../../../../general/Definitions/#edge-analytics">edge analytcs</a>) via MQTT by default. MQTT or NATS (opt-in at build time) can alternately be used. 
 Use of MQTT requires the use of an MQTT broker like mosquitto.
 Use of NATS requires all service to be built with NATS enabled and the installation of NATS Server.<br/>
 A messaging infrastructure abstraction is in place that allows for other message bus (e.g., AMQP) implementations to be created and used.</p>
