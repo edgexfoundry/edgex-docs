@@ -56,6 +56,8 @@ Please refer to the general [Common Configuration documentation](../configuratio
 |ProvisionWatchersDir|''|If set, directory or index URI containing provision watcher definition files to upload to core-metadata (service specific when needed). See [URI for Device Service Files](#uris-for-device-service-files) for more information on URI index files.|
 |EnableAsyncReadings| true| Enables/Disables the Device Service ability to handle async readings |
 |AsyncBufferSize| 16| Size of the buffer for async readings|
+|AllowedFails|0|If set, number of consecutive failures to access a device after which the service will set the device's OperationalState to DOWN|
+|DeviceDownTimeout|0|If set, an interval in seconds after which a device which has been automatically set DOWN will be re-tried to see if it is accessible again|
 |Discovery/Enabled|false|Controls whether device discovery is enabled|
 |Discovery/Interval|30s|Interval between automatic discovery runs. Zero means do not run discovery automatically|
 === "MaxEventSize*"
