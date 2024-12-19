@@ -15,16 +15,14 @@ See the [Getting Started - C Developers](../../../../getting-started/Ch-GettingS
 
 The next step is to download and build the EdgeX device service SDK for C.
 
-1.  First, clone the device-sdk-c from Github:
+1.  First, clone the device-sdk-c from GitHub:
     ``` bash
-    git clone -b v3.0.1 https://github.com/edgexfoundry/device-sdk-c.git
+    git clone -b {{edgexversion}} https://github.com/edgexfoundry/device-sdk-c.git
     cd ./device-sdk-c
     ```
 
-    ![image](EdgeX_GettingStartedSDKCloneC.png)
-
     !!! Note
-        The clone command above has you pull v3.0.1 of the C SDK which is the version compatible with the Minnesota release.
+        The clone command above has you pull the {{ edgexversion if edgexversion != "main" else edgexversion+" branch" }} of the C SDK.
 
 2.  Then, build the device-sdk-c:
     ``` bash
@@ -55,11 +53,17 @@ compiled in an earlier step.
 
 1.  Tell the compiler where to find the C SDK files:
     ``` bash
-    export CSDK_DIR=../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-3.0.1
+    export CSDK_DIR=../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-0.0.0
     ```
 
     !!! Note
-        The exact path to your compiled CSDK_DIR may differ depending on the tagged version number on the SDK.  The version of the SDK can be found in the VERSION file located in the ./device-sdk-c/VERSION file.  In the example above, the Minnesota release of 3.0.1 is used.
+        The exact path to your compiled CSDK_DIR may differ depending on the version number set in the SDK's `CMakeLists.txt` file. 
+        By default, the version number is 0.0.0. If you require a specific version in the build output, 
+        you can modify the `CSDK_DOT_VERSION` variable in the `CMakeLists.txt` file before building the SDK.
+        For example, update this line in `CMakeLists.txt`:
+        ``` cmake
+        set (CSDK_DOT_VERSION "4.0.0")
+        ```
 
 2.  Now build your device service executable:
 
