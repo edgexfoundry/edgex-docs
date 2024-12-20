@@ -2823,14 +2823,13 @@ random number as a means to simulate getting data from an actual device. In this
 <p>The next step is to download and build the EdgeX device service SDK for C.</p>
 <ol>
 <li>
-<p>First, clone the device-sdk-c from Github:
-    <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>v3.0.1<span class="w"> </span>https://github.com/edgexfoundry/device-sdk-c.git
+<p>First, clone the device-sdk-c from GitHub:
+    <div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>main<span class="w"> </span>https://github.com/edgexfoundry/device-sdk-c.git
 <span class="nb">cd</span><span class="w"> </span>./device-sdk-c
 </code></pre></div></p>
-<p><img alt="image" src="../EdgeX_GettingStartedSDKCloneC.png"/></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The clone command above has you pull v3.0.1 of the C SDK which is the version compatible with the Minnesota release.</p>
+<p>The clone command above has you pull the main branch of the C SDK.</p>
 </div>
 </li>
 <li>
@@ -2857,11 +2856,16 @@ compiled in an earlier step.</p>
 <ol>
 <li>
 <p>Tell the compiler where to find the C SDK files:
-    <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CSDK_DIR</span><span class="o">=</span>../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-3.0.1
+    <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CSDK_DIR</span><span class="o">=</span>../device-sdk-c/build/release/_CPack_Packages/Linux/TGZ/csdk-0.0.0
 </code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The exact path to your compiled CSDK_DIR may differ depending on the tagged version number on the SDK.  The version of the SDK can be found in the VERSION file located in the ./device-sdk-c/VERSION file.  In the example above, the Minnesota release of 3.0.1 is used.</p>
+<p>The exact path to your compiled CSDK_DIR may differ depending on the version number set in the SDK's <code>CMakeLists.txt</code> file. 
+By default, the version number is 0.0.0. If you require a specific version in the build output, 
+you can modify the <code>CSDK_DOT_VERSION</code> variable in the <code>CMakeLists.txt</code> file before building the SDK.
+For example, update this line in <code>CMakeLists.txt</code>:
+<div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="w"> </span><span class="p">(</span><span class="s">CSDK_DOT_VERSION</span><span class="w"> </span><span class="s2">"4.0.0"</span><span class="p">)</span>
+</code></pre></div></p>
 </div>
 </li>
 <li>
