@@ -3362,7 +3362,7 @@ batch.Batch
 </ul>
 <div class="admonition example">
 <p class="admonition-title">Signing Hash Validation</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">hash</span><span class="p">(</span><span class="n">cipher_hex</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">hash</span><span class="p">(</span><span class="n">cipher_hex</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
     <span class="c1"># Extract the 32 bytes of the Hash signature from the end of the cipher_hex</span>
     <span class="n">extract_hash</span> <span class="o">=</span> <span class="n">cipher_hex</span><span class="p">[</span><span class="o">-</span><span class="mi">64</span><span class="p">:]</span>
 
@@ -3385,7 +3385,7 @@ batch.Batch
 <p>If the signing hash can be validated, the message is OK to decrypt</p>
 <div class="admonition example">
 <p class="admonition-title">Payload Decryption</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="n">cipher_hex</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">decrypt</span><span class="p">(</span><span class="n">cipher_hex</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
     <span class="c1"># first 32 bytes of the 64 byte key used by the encrypt function (2 hex digits per byte)</span>
     <span class="n">private_key</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">key</span><span class="p">[:</span><span class="mi">64</span><span class="p">])</span>
 
