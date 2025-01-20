@@ -15,7 +15,8 @@ Below are only the additional settings and sections that are specific to Core Da
 |---|---|---|
 ||Writable properties can be set and will dynamically take effect without service restart|
 |LogLevel|INFO|log entry [severity level](https://en.wikipedia.org/wiki/Syslog#Severity_level).  Log entries not of the default level or higher are ignored. |
-|PersistData|true|When true, core data persists all sensor data sent to it in its associated database|
+|PersistData|true|When true, Core Data persists all sensor data sent to it in its associated database|
+|EventPurge|false|When true, Core Data removes the related events and readings once received the device deletion system event|
 === "Writable.Telemetry"
 |Property|Default Value|Description|
 |---|---|---|
