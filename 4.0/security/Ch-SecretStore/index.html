@@ -2278,18 +2278,18 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#obtaining-the-vault-root-token">
-    Obtaining the Vault Root Token
+<a class="md-nav__link" href="#obtaining-the-openbao-root-token">
+    Obtaining the OpenBao Root Token
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#using-the-vault-cli">
-    Using the Vault CLI
+<a class="md-nav__link" href="#using-the-openbao-cli">
+    Using the OpenBao CLI
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#use-the-vault-rest-api">
-    Use the Vault REST API
+<a class="md-nav__link" href="#use-the-openbao-rest-api">
+    Use the OpenBao REST API
   </a>
 </li>
 </ul>
@@ -2321,6 +2321,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="../Ch-Secure-MessageBus/">
         Secure MessageBus
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-Secure-Postgres/">
+        Secure PostgreSQL
       </a>
 </li>
 <li class="md-nav__item">
@@ -2379,13 +2384,13 @@
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_7_18" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_7_18" id="__nav_1_7_18_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_7_19" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_7_19" id="__nav_1_7_19_label" tabindex="0">
           Threat Models
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_7_18_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_7_18">
+<nav aria-expanded="false" aria-labelledby="__nav_1_7_19_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_7_19">
 <span class="md-nav__icon md-icon"></span>
           Threat Models
         </label>
@@ -2755,18 +2760,18 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#obtaining-the-vault-root-token">
-    Obtaining the Vault Root Token
+<a class="md-nav__link" href="#obtaining-the-openbao-root-token">
+    Obtaining the OpenBao Root Token
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#using-the-vault-cli">
-    Using the Vault CLI
+<a class="md-nav__link" href="#using-the-openbao-cli">
+    Using the OpenBao CLI
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#use-the-vault-rest-api">
-    Use the Vault REST API
+<a class="md-nav__link" href="#use-the-openbao-rest-api">
+    Use the OpenBao REST API
   </a>
 </li>
 </ul>
@@ -2821,8 +2826,8 @@ with respect to all of the other EdgeX services is covered in the
 <p>Each EdgeX microservice has access to a <code>StoreSecrets()</code> method that allows
 setting of per-microservice secrets, and a <code>GetSecrets()</code> method to read them back.</p>
 <p>If manual "super-user" to the EdgeX secret store is required,
-it is necesary to obtain a privileged access token, called the Vault root token.</p>
-<h3 id="obtaining-the-vault-root-token">Obtaining the Vault Root Token</h3>
+it is necessary to obtain a privileged access token, called the OpenBao root token.</p>
+<h3 id="obtaining-the-openbao-root-token">Obtaining the OpenBao Root Token</h3>
 <p>For security reasons (the 
 <a href="https://openbao.org/docs/concepts/tokens/#root-tokens">OpenBao production hardening guide</a>
 recommends revokation of the root token), the OpenBao root token is revoked by default.
@@ -2830,7 +2835,7 @@ EdgeX automatically manages the secrets required by the framework,
 and provides a programmatic interface for individual microservices
 to interact with their partition of the secret store.</p>
 <p>If global access to the secret store is required,
-it is necessary to obtain a copy of the Vault root token
+it is necessary to obtain a copy of the OpenBao root token
 using the below recommended procedure.
 Note that following this procedure directly contradicts the
 <a href="https://openbao.org/docs/concepts/tokens/#root-tokens">OpenBao production hardening guide</a>.
@@ -2864,18 +2869,18 @@ must be started for the first time with root token revokation disabled.</p>
 <li>Extract the <code>root_token</code> field value from the resulting JSON output.</li>
 </ol>
 <p>As an alternative to overriding <code>SECRETSTORE_REVOKEROOTTOKENS</code> from the beginning,
-it is possible to regenerate the root token from the Vault unseal keys
+it is possible to regenerate the root token from the OpenBao unseal keys
 in <code>resp-init.json</code> 
 using the <a href="https://openbao.org/docs/concepts/tokens/#root-tokenst">OpenBao's documented procedure</a>.
 The EdgeX framework executes this process internally whenever it requires root token capability.
 Note that a token created in this manner will again be revoked the next time EdgeX is restarted
 if <code>SECRETSTORE_REVOKEROOTTOKENS</code> remains set to its default value: all root tokens
 are revoked every time the framework is started if <code>SECRETSTORE_REVOKEROOTTOKENS</code> is <code>true</code>.</p>
-<h3 id="using-the-vault-cli">Using the Vault CLI</h3>
-<p>Execute a shell session in the running Vault container:</p>
+<h3 id="using-the-openbao-cli">Using the OpenBao CLI</h3>
+<p>Execute a shell session in the running OpenBao container:</p>
 <div class="highlight"><pre><span></span><code><span class="w">  </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>edgex-secret-store<span class="w"> </span>sh<span class="w"> </span>-l
 </code></pre></div>
-<p>Login to Vault using Vault CLI and the gathered Root Token:</p>
+<p>Login to OpenBao using OpenBao CLI and the gathered Root Token:</p>
 <div class="highlight"><pre><span></span><code>edgex-secret-store:/# bao login s.ULr5bcjwy8S0I5g3h4xZ5uWa
 Success! You are now authenticated. The token information displayed below is
 already stored in the token helper. You do NOT need to run "bao login" again.
@@ -2946,10 +2951,10 @@ refresh_interval    168h
 password            9/crBba5mZqAfAH8d90m7RlZfd7N8yF2IVul89+GEaG3
 username            redis5
 </code></pre></div>
-<p>With the root token, it is possible to modify any Vault setting.
+<p>With the root token, it is possible to modify any OpenBao setting.
 See the <a href="https://openbao.org/docs/commands/">Openbao manuals</a> for available commands.</p>
-<h3 id="use-the-vault-rest-api">Use the Vault REST API</h3>
-<p>Vault also supports a REST API with functionality equivalent to the command line interface:</p>
+<h3 id="use-the-openbao-rest-api">Use the OpenBao REST API</h3>
+<p>OpenBao also supports a REST API with functionality equivalent to the command line interface:</p>
 <p>The equivalent of the</p>
 <div class="highlight"><pre><span></span><code>bao read secret/edgex/core-data/redisdb
 </code></pre></div>
