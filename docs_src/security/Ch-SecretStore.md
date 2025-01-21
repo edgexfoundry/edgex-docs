@@ -51,9 +51,9 @@ Each EdgeX microservice has access to a `StoreSecrets()` method that allows
 setting of per-microservice secrets, and a `GetSecrets()` method to read them back.
 
 If manual "super-user" to the EdgeX secret store is required,
-it is necesary to obtain a privileged access token, called the Vault root token.
+it is necessary to obtain a privileged access token, called the OpenBao root token.
 
-### Obtaining the Vault Root Token
+### Obtaining the OpenBao Root Token
 
 For security reasons (the 
 [OpenBao production hardening guide](https://openbao.org/docs/concepts/tokens/#root-tokens)
@@ -63,7 +63,7 @@ and provides a programmatic interface for individual microservices
 to interact with their partition of the secret store.
 
 If global access to the secret store is required,
-it is necessary to obtain a copy of the Vault root token
+it is necessary to obtain a copy of the OpenBao root token
 using the below recommended procedure.
 Note that following this procedure directly contradicts the
 [OpenBao production hardening guide](https://openbao.org/docs/concepts/tokens/#root-tokens).
@@ -94,7 +94,7 @@ docker run --rm -ti -v edgex_secret-store-config:/openbao/config:ro alpine:lates
 
 
 As an alternative to overriding `SECRETSTORE_REVOKEROOTTOKENS` from the beginning,
-it is possible to regenerate the root token from the Vault unseal keys
+it is possible to regenerate the root token from the OpenBao unseal keys
 in `resp-init.json` 
 using the [OpenBao's documented procedure](https://openbao.org/docs/concepts/tokens/#root-tokenst).
 The EdgeX framework executes this process internally whenever it requires root token capability.
@@ -103,15 +103,15 @@ if `SECRETSTORE_REVOKEROOTTOKENS` remains set to its default value: all root tok
 are revoked every time the framework is started if `SECRETSTORE_REVOKEROOTTOKENS` is `true`.
 
 
-### Using the Vault CLI
+### Using the OpenBao CLI
 
-Execute a shell session in the running Vault container:
+Execute a shell session in the running OpenBao container:
 
 ```bash
   docker exec -it edgex-secret-store sh -l
 ```
 
-Login to Vault using Vault CLI and the gathered Root Token:
+Login to OpenBao using OpenBao CLI and the gathered Root Token:
 
 ```
 edgex-secret-store:/# bao login s.ULr5bcjwy8S0I5g3h4xZ5uWa
@@ -193,13 +193,13 @@ password            9/crBba5mZqAfAH8d90m7RlZfd7N8yF2IVul89+GEaG3
 username            redis5
 ```
 
-With the root token, it is possible to modify any Vault setting.
+With the root token, it is possible to modify any OpenBao setting.
 See the [Openbao manuals](https://openbao.org/docs/commands/) for available commands.
 
 
-### Use the Vault REST API
+### Use the OpenBao REST API
 
-Vault also supports a REST API with functionality equivalent to the command line interface:
+OpenBao also supports a REST API with functionality equivalent to the command line interface:
 
 The equivalent of the
 
