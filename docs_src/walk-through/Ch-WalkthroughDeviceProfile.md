@@ -140,4 +140,4 @@ Click on the link below to download and save the device profile (YAML) to your s
 #### Test the GET API
 If you make a GET call to the `http://localhost:59881/api/{{api_version}}/deviceprofile/all` URL (with Postman or curl) you will get a listing (in JSON) of all the device profiles (and all of its associated `deviceResource` and `deviceCommand`) currently defined in your instance of EdgeX, including the one you just added.
 
-[<Back](Ch-WalkthroughUseCase.md){: .md-button } [Next>](Ch-WalkthroughDeviceService.md){: .md-button }
+[<Back](Ch-WalkthroughUseCase.md){: .md-button } [Next>](Ch-WalkthroughProvision.md){: .md-button }
