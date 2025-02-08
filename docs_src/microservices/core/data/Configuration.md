@@ -48,10 +48,10 @@ Below are only the additional settings and sections that are specific to Core Da
 === "Retention"
 |Property|Default Value|Description|    
 |---|---|---|
-| Enabled|false|Enable or disable data retention.|
-| Interval|30s|Purging interval defines when the database should be rid of readings above the MaxCap.|
-| MaxCap|10000|The maximum capacity defines where the high watermark of readings should be detected for purging the amount of the reading to the minimum capacity.|
-| MinCap|8000|The minimum capacity defines where the total count of readings should be returned to during purging.|
+| Interval|10m|Purging interval defines when the database should be rid of events above the MaxCap.|
+| DefaultMaxCap|-1|The default maximum capacity defines where the high watermark of events should be detected for purging the amount of the event to the minimum capacity. The default value is `-1` to disable this feature.|
+| DefaultMinCap|1|The default minimum capacity defines where the total count of event should be kept during purging. The default value is `1`. Be careful to use `minCap`, since the database uses offset to count the rows, the value becomes larger, and the database needs more time to count the rows.|
+| DefaultDuration|720h|The default duration to keep the event, the default value is `"720h"`.|
 
 ## V3 Configuration Migration Guide
 No configuration updated
