@@ -2759,6 +2759,16 @@ Below are only the additional settings and sections that are specific to Core Me
 <td>INFO</td>
 <td>log entry <a href="https://en.wikipedia.org/wiki/Syslog#Severity_level">severity level</a>.  Log entries not of the default level or higher are ignored.</td>
 </tr>
+<tr>
+<td>MaxDevices</td>
+<td>0</td>
+<td>Indicates the maximum capacity of devices. If <code>MaxDevices</code> exceeds 0, the Core Metadata service will check whether the capacity exceed the limitation when adding or updating the device.</td>
+</tr>
+<tr>
+<td>MaxResources</td>
+<td>0</td>
+<td>Indicates the maximum capacity of resources that can be used by devices. If <code>MaxResources</code> exceeds 0, the Core Metadata service will check whether the capacity exceeds the limitation when adding or updating the device.<br/> For example, the MaxResources is 5, and two devices use the same device profile which has 5 resources, when you post these two devices, the first device is successful to add, but the second device fails due to the resource limit.</td>
+</tr>
 </tbody>
 </table>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">Writable.Telemetry</label></div>
