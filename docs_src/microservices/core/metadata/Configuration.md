@@ -18,6 +18,8 @@ Below are only the additional settings and sections that are specific to Core Me
 |---|---|---|
 |||entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the `-cp/--configProvider` flag|
 |LogLevel|INFO|log entry [severity level](https://en.wikipedia.org/wiki/Syslog#Severity_level).  Log entries not of the default level or higher are ignored. |
+|MaxDevices|0|Indicates the maximum capacity of devices. If `MaxDevices` exceeds 0, the Core Metadata service will check whether the capacity exceed the limitation when adding or updating the device. |
+|MaxResources|0|Indicates the maximum capacity of resources that can be used by devices. If `MaxResources` exceeds 0, the Core Metadata service will check whether the capacity exceeds the limitation when adding or updating the device.<br/> For example, the MaxResources is 5, and two devices use the same device profile which has 5 resources, when you post these two devices, the first device is successful to add, but the second device fails due to the resource limit. |
 === "Writable.Telemetry"
 |Property|Default Value|Description|
 |---|---|---|
