@@ -19,6 +19,12 @@ PostgreSQL database can be started and used as the persistence store in the Dock
 
 Please refer to [Use PostgreSQL as the persistence layer in EdgeX](https://github.com/edgexfoundry/edgex-compose?tab=readme-ov-file#use-postgresql-as-the-persistence-layer-in-edgex) for the instructions to run the EdgeX services along with PostgreSQL database.
 
+## PostgreSQL Table Schema Migration
+
+The EdgeX services create and manage their own database schemas in PostgreSQL.
+The table schema migration is handled by the services themselves, which means that the services will automatically create and alter the necessary tables and indexes when they are started.
+If you are a Go developer/contributor who is interested in how table schema migration works in EdgeX services, please refer to `internal/<layer>/<service>/embed/schema.go` of each service to understand the table schema migration policy.
+
 ## (Optional) Configure add-on services to access PostgreSQL
 
 This section introduces how to configure add-on services to access PostgreSQL database in secure mode.
