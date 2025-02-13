@@ -42,13 +42,13 @@ Retention:
   Interval: "10m"
   DefaultMaxCap: -1
   DefaultMinCap: 1      
-  DefaultDuration: "720h"
+  DefaultDuration: "168h"
 ```
 
 * `Interval` default value is "10m", you can disable the event purging process by using "0s". Valid time units are "s", "m", "h", e.g., "1.5h" or "2h45m".
 * `DefaultMaxCap` is the default maximum events capacity, and the default value is -1.
 * `DefaultMinCap` is the default minimum events capacity, and the default value is 1. Be careful to use `minCap`, since the database uses offset to count the rows, the value becomes larger, and the database needs more time to count the rows.
-* `DefaultDuration` is the default duration to keep the event, the default value is "720h".
+* `DefaultDuration` is the default duration to keep the event, the default value is "168h".
 
 ## Usage
 
