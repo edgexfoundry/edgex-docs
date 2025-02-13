@@ -2847,13 +2847,13 @@
 <span class="w">  </span><span class="nt">Interval</span><span class="p">:</span><span class="w"> </span><span class="s">"10m"</span>
 <span class="w">  </span><span class="nt">DefaultMaxCap</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span>
 <span class="w">  </span><span class="nt">DefaultMinCap</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">      </span>
-<span class="w">  </span><span class="nt">DefaultDuration</span><span class="p">:</span><span class="w"> </span><span class="s">"720h"</span>
+<span class="w">  </span><span class="nt">DefaultDuration</span><span class="p">:</span><span class="w"> </span><span class="s">"168h"</span>
 </code></pre></div></p>
 <ul>
 <li><code>Interval</code> default value is "10m", you can disable the event purging process by using "0s". Valid time units are "s", "m", "h", e.g., "1.5h" or "2h45m".</li>
 <li><code>DefaultMaxCap</code> is the default maximum events capacity, and the default value is -1.</li>
 <li><code>DefaultMinCap</code> is the default minimum events capacity, and the default value is 1. Be careful to use <code>minCap</code>, since the database uses offset to count the rows, the value becomes larger, and the database needs more time to count the rows.</li>
-<li><code>DefaultDuration</code> is the default duration to keep the event, the default value is "720h".</li>
+<li><code>DefaultDuration</code> is the default duration to keep the event, the default value is "168h".</li>
 </ul>
 <h2 id="usage">Usage</h2>
 <h3 id="count-based-retention">Count-based Retention</h3>
