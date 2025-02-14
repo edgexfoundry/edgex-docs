@@ -1317,6 +1317,40 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-up-the-modbus-ascii-device">
+    Set up the Modbus ASCII Device
+  </a>
+<nav aria-label="Set up the Modbus ASCII Device" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connect-the-device_1">
+    Connect the device
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#change-the-owner-of-the-device_1">
+    Change the Owner of the Device
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mont-the-device-path-to-the-docker-container_1">
+    Mont the Device Path to the Docker Container
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deploy-the-edgex_1">
+    Deploy the EdgeX
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#add-device-to-edgex_1">
+    Add device to EdgeX
+  </a>
+</li>
+</ul>
+</nav>
+</li>
 </ul>
 </nav>
 </li>
@@ -3034,6 +3068,40 @@
 </ul>
 </nav>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-up-the-modbus-ascii-device">
+    Set up the Modbus ASCII Device
+  </a>
+<nav aria-label="Set up the Modbus ASCII Device" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connect-the-device_1">
+    Connect the device
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#change-the-owner-of-the-device_1">
+    Change the Owner of the Device
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mont-the-device-path-to-the-docker-container_1">
+    Mont the Device Path to the Docker Container
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deploy-the-edgex_1">
+    Deploy the EdgeX
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#add-device-to-edgex_1">
+    Add device to EdgeX
+  </a>
+</li>
+</ul>
+</nav>
+</li>
 </ul>
 </nav>
 </div>
@@ -3275,7 +3343,7 @@ Fill in the device.config.yaml file, as shown below:
 <p>The address <code>172.17.0.1</code> is point to the docker bridge network which means it can forward the request from docker network to the host.</p>
 </blockquote>
 <p>Use this configuration file to define devices and AutoEvent. Then the device-modbus will generate the relative instance on startup.</p>
-<p>The device-modbus offers two types of protocol, Modbus TCP and Modbus RTU, which can be defined as shown below:</p>
+<p>The device-modbus offers three types of protocol, Modbus TCP, Modbus RTU and Modbus ASCII, which can be defined as shown below:</p>
 <table>
 <thead>
 <tr>
@@ -3322,9 +3390,23 @@ Fill in the device.config.yaml file, as shown below:
 <td>5</td>
 <td>5</td>
 </tr>
+<tr>
+<td>Modbus ASCII</td>
+<td>Gateway address</td>
+<td>ASCII</td>
+<td>/tmp/slave</td>
+<td>502</td>
+<td>3</td>
+<td>19200</td>
+<td>8</td>
+<td>1</td>
+<td>N</td>
+<td>5</td>
+<td>5</td>
+</tr>
 </tbody>
 </table>
-<p>In the RTU protocol, Parity can be:</p>
+<p>In the RTU/ASCII protocol, Parity can be:</p>
 <ul>
 <li>N - None is 0</li>
 <li>O - Odd is 1 </li>
@@ -3752,7 +3834,172 @@ sudo<span class="w"> </span>chown<span class="w"> </span>:2001<span class="w"> <
 <span class="w">               </span><span class="nt">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"device-modbus"</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ethernet-Temperature-Sensor"</span><span class="p">,</span>
 <span class="w">               </span><span class="nt">"protocols"</span><span class="p">:{</span>
-<span class="w">                  </span><span class="nt">"modbus-tcp"</span><span class="p">:{</span>
+<span class="w">                  </span><span class="nt">"modbus-rtu"</span><span class="p">:{</span>
+<span class="w">                     </span><span class="nt">"Address"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/dev/ttyUSB0"</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"BaudRate"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"19200"</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"DataBits"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"StopBits"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"Parity"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"N"</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"UnitID"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"Timeout"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"IdleTimeout"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"5"</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">               </span><span class="p">},</span>
+<span class="w">               </span><span class="nt">"adminState"</span><span class="p">:</span><span class="s2">"UNLOCKED"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"operatingState"</span><span class="p">:</span><span class="s2">"UP"</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span><span class="err">'</span>
+</code></pre></div></p>
+</li>
+<li>Test the GET or SET command</li>
+</ol>
+<h2 id="set-up-the-modbus-ascii-device">Set up the Modbus ASCII Device</h2>
+<p>This section describes how to connect the Modbus ASCII device. We use Ubuntu OS and a Modbus ASCII device for this example.</p>
+<h3 id="connect-the-device_1">Connect the device</h3>
+<ol>
+<li>
+<p>Connect the device to your machine(laptop or gateway,etc.) via RS485/USB adaptor and power on.</p>
+</li>
+<li>
+<p>Execute a command on the machine, and you can find a message like the following:
+    <div class="highlight"><pre><span></span><code>$ dmesg | grep tty
+...
+...
+[18006.167625] usb 1-1: FTDI USB Serial Device converter now attached to ttyUSB0
+</code></pre></div></p>
+</li>
+<li>
+<p>It shows the USB attach to ttyUSB0, then you can check whether the device path exists:
+    <div class="highlight"><pre><span></span><code>$ ls /dev/ttyUSB0
+/dev/ttyUSB0
+</code></pre></div></p>
+</li>
+</ol>
+<h3 id="change-the-owner-of-the-device_1">Change the Owner of the Device</h3>
+<p>For security reason, the EdgeX set up the user permission as below:
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">device-modbus</span><span class="p">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">user</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2002:2001</span><span class="w">  </span><span class="c1"># UID:GID</span>
+</code></pre></div>
+So we need to change the owner for the specified group by the following command:
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chown<span class="w"> </span>:2001<span class="w"> </span>/dev/ttyUSB0
+
+<span class="c1"># Or change the permissions for multiple files</span>
+sudo<span class="w"> </span>chown<span class="w"> </span>:2001<span class="w"> </span>/dev/tty*
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>Since the owner will reset after the system reboot, we can add this script to the startup script. For Raspberry Pi as example, add script to <code>/etc/rc.local</code>, then the Pi will run this script at bootup.</p>
+<h3 id="mont-the-device-path-to-the-docker-container_1">Mont the Device Path to the Docker Container</h3>
+<p>Modify the docker-compose.yml file to mount the device path to the device-modbus, and here are two ways to mount the device path:</p>
+<ol>
+<li>
+<p>Using <code>devices</code>:
+    <div class="highlight"><pre><span></span><code><span class="nt">device-modbus</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">devices</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/ttyUSB0</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Or using <code>volumes</code> and <code>device_cgroup_rules</code>:
+    <div class="highlight"><pre><span></span><code><span class="nt">device-modbus</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">volumes</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">- /dev:/dev</span>
+<span class="w">  </span><span class="nt">device_cgroup_rules</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'c</span><span class="nv"> </span><span class="s">188:*</span><span class="nv"> </span><span class="s">rw'</span><span class="w"> </span>
+</code></pre></div></p>
+<ul>
+<li>c: character device</li>
+<li>188: device major number(188=USB)</li>
+<li>*: device minor number</li>
+<li>rw: read/write</li>
+</ul>
+</li>
+</ol>
+<h3 id="deploy-the-edgex_1">Deploy the EdgeX</h3>
+<div class="highlight"><pre><span></span><code>$ docker compose up -d
+</code></pre></div>
+<h3 id="add-device-to-edgex_1">Add device to EdgeX</h3>
+<ol>
+<li>Create the device profile according to the register table
+    <div class="highlight"><pre><span></span><code>$ nano modbus.ascii.demo.profile.yml
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"Modbus-ASCII-IO-Module"</span>
+<span class="nt">manufacturer</span><span class="p">:</span><span class="w"> </span><span class="s">"icpdas"</span>
+<span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="s">"M-7055"</span>
+<span class="nt">labels</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"Modbus</span><span class="nv"> </span><span class="s">ASCII"</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"IO</span><span class="nv"> </span><span class="s">Module"</span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"This</span><span class="nv"> </span><span class="s">IO</span><span class="nv"> </span><span class="s">module</span><span class="nv"> </span><span class="s">offers</span><span class="nv"> </span><span class="s">8</span><span class="nv"> </span><span class="s">isolated</span><span class="nv"> </span><span class="s">channels</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">digital</span><span class="nv"> </span><span class="s">input</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">8</span><span class="nv"> </span><span class="s">isolated</span><span class="nv"> </span><span class="s">channels</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">digital</span><span class="nv"> </span><span class="s">output."</span>
+
+<span class="nt">deviceResources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"DO0"</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"On/Off</span><span class="nv"> </span><span class="s">,</span><span class="nv"> </span><span class="s">0-OFF</span><span class="nv"> </span><span class="s">1-ON"</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">"COILS"</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">0</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">"Bool"</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">"RW"</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"DO1"</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"On/Off</span><span class="nv"> </span><span class="s">,</span><span class="nv"> </span><span class="s">0-OFF</span><span class="nv"> </span><span class="s">1-ON"</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">"COILS"</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">1</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">"Bool"</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">"RW"</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"DO2"</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"On/Off</span><span class="nv"> </span><span class="s">,</span><span class="nv"> </span><span class="s">0-OFF</span><span class="nv"> </span><span class="s">1-ON"</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">{</span><span class="nt"> primaryTable</span><span class="p">:</span><span class="w"> </span><span class="s">"COILS"</span><span class="p p-Indicator">,</span><span class="nt"> startingAddress</span><span class="p">:</span><span class="w"> </span><span class="nv">2</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">valueType</span><span class="p">:</span><span class="w"> </span><span class="s">"Bool"</span>
+<span class="w">      </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">"RW"</span>
+
+<span class="nt">deviceCommands</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"DO"</span>
+<span class="w">    </span><span class="nt">readWrite</span><span class="p">:</span><span class="w"> </span><span class="s">"RW"</span>
+<span class="w">    </span><span class="nt">isHidden</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">resourceOperations</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">"DO0"</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">"DO1"</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> deviceResource</span><span class="p">:</span><span class="w"> </span><span class="s">"DO2"</span><span class="w"> </span><span class="p p-Indicator">}</span>
+</code></pre></div></li>
+<li>
+<p>Upload the device profile
+    <div class="highlight"><pre><span></span><code>$ curl http://localhost:59881/api/v3/deviceprofile/uploadfile \
+  -F "file=@modbus.ascii.demo.profile.yml"
+</code></pre></div></p>
+</li>
+<li>
+<p>Create the device entity to the EdgeX.
+   You can find the Modbus ASCII setting on the device or the user manual.
+    <div class="highlight"><pre><span></span><code><span class="err">$</span><span class="w"> </span><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59881/api/v3/device -H "Content-Type:application/json" -X POST \</span>
+<span class="w">  </span><span class="mi">-</span><span class="err">d</span><span class="w"> </span><span class="err">'</span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"apiVersion"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"device"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">"name"</span><span class="w"> </span><span class="p">:</span><span class="s2">"Modbus-ASCII-IO-Module"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"description"</span><span class="p">:</span><span class="s2">"The device can be used to monitor the status of the digital input and digital output channels."</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"labels"</span><span class="p">:[</span><span class="w"> </span>
+<span class="w">                  </span><span class="s2">"IO Module"</span><span class="p">,</span>
+<span class="w">                  </span><span class="s2">"Modbus ASCII"</span>
+<span class="w">               </span><span class="p">],</span>
+<span class="w">               </span><span class="nt">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"device-modbus"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ethernet-Temperature-Sensor"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"protocols"</span><span class="p">:{</span>
+<span class="w">                  </span><span class="nt">"modbus-ascii"</span><span class="p">:{</span>
 <span class="w">                     </span><span class="nt">"Address"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"/dev/ttyUSB0"</span><span class="p">,</span>
 <span class="w">                     </span><span class="nt">"BaudRate"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"19200"</span><span class="p">,</span>
 <span class="w">                     </span><span class="nt">"DataBits"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span>

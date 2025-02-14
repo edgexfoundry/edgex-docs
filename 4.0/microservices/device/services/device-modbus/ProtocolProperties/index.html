@@ -2744,7 +2744,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="device-modbus-protocol-properties">Device Modbus - Protocol Properties</h1>
-<p>Device Modbus defines the following Protocol Properties for Modbus-TCP and Modbus-RTU.</p>
+<p>Device Modbus defines the following Protocol Properties for Modbus-TCP, Modbus-RTU and Modbus-ASCII.</p>
 <ul>
 <li>Modbus TCP Device<ul>
 <li>These properties reside under the <code>modbus-tcp</code> key in the <code>protocols</code> section of each device definition.</li>
@@ -2807,7 +2807,7 @@
 <tbody>
 <tr>
 <td>Address</td>
-<td>The IP address or host name of Modbus TCP</td>
+<td>The IP address or host name of Modbus RTU</td>
 </tr>
 <tr>
 <td>UnitID</td>
@@ -2843,6 +2843,65 @@
 <p class="admonition-title">Example Modbus RTU Protocol Properties</p>
 <div class="highlight"><pre><span></span><code><span class="nt">"protocols"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nt">"modbus-rtu"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"Address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/dev/virtualport"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"BaudRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"19200"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"DataBits"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"Parity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"N"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"StopBits"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"UnitID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span>
+<span class="p">}}</span>
+</code></pre></div>
+</div>
+<ul>
+<li>Modbus ASCII Device</li>
+<li>These properties reside under the <code>modbus-ascii</code> key in the <code>protocols</code> section of each device definition.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Address</td>
+<td>The IP address or host name of Modbus ASCII</td>
+</tr>
+<tr>
+<td>UnitID</td>
+<td>The Modbus station or slave identifier</td>
+</tr>
+<tr>
+<td>BaudRate</td>
+<td>The baud rate for a serial device, which must match for devices using the same address</td>
+</tr>
+<tr>
+<td>DataBits</td>
+<td>The number of bits of data</td>
+</tr>
+<tr>
+<td>StopBits</td>
+<td>The number of stop bits</td>
+</tr>
+<tr>
+<td>Parity</td>
+<td>The parity value: N for no parity /E for even parity/ O for odd parity</td>
+</tr>
+<tr>
+<td>Timeout</td>
+<td>The timeout when connecting or reading Device Modbus Service to device-modbus</td>
+</tr>
+<tr>
+<td>IdleTimeout</td>
+<td>Idle timeout(seconds) to close the connection</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example -">
+<p class="admonition-title">Example Modbus ASCII Protocol Properties</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"protocols"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"modbus-ascii"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"Address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/dev/virtualport"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"BaudRate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"19200"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"DataBits"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8"</span><span class="p">,</span>
