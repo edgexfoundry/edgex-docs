@@ -223,16 +223,17 @@ deviceList:
 Use this configuration file to define devices and AutoEvent. Then the device-modbus will generate the relative instance on startup.
 
 
-The device-modbus offers two types of protocol, Modbus TCP and Modbus RTU, which can be defined as shown below:
+The device-modbus offers three types of protocol, Modbus TCP, Modbus RTU and Modbus ASCII, which can be defined as shown below:
 
   
-  |protocol        | Name            | Protocol   | Address      | Port    | UnitID | BaudRate | DataBits | StopBits | Parity | Timeout | IdleTimeout |
-  |--------------- | --------------- | ---------- | -------------|---------| ------- | ------- |--------- | -------- | ------ | -------- | ------ |
-  |Modbus TCP      | Gateway address | TCP        | 10.211.55.6  | 502     | 1      |          |          |          |        | 5        | 5      |
-  |Modbus RTU      | Gateway address | RTU        | /tmp/slave   | 502     | 2      | 19200    | 8        | 1        | N      | 5        | 5      |
+  | protocol     | Name            | Protocol | Address     | Port | UnitID | BaudRate | DataBits | StopBits | Parity | Timeout | IdleTimeout |
+  |--------------|-----------------|----------|-------------|------|--------|----------|----------|----------|--------|---------|-------------|
+  | Modbus TCP   | Gateway address | TCP      | 10.211.55.6 | 502  | 1      |          |          |          |        | 5       | 5           |
+  | Modbus RTU   | Gateway address | RTU      | /tmp/slave  | 502  | 2      | 19200    | 8        | 1        | N      | 5       | 5           |
+  | Modbus ASCII | Gateway address | ASCII    | /tmp/slave  | 502  | 3      | 19200    | 8        | 1        | N      | 5       | 5           |
   
 
-In the RTU protocol, Parity can be:
+In the RTU/ASCII protocol, Parity can be:
 
 * N - None is 0
 * O - Odd is 1 
@@ -692,7 +693,173 @@ $ docker compose up -d
                    "serviceName": "device-modbus",
                    "profileName": "Ethernet-Temperature-Sensor",
                    "protocols":{
-                      "modbus-tcp":{
+                      "modbus-rtu":{
+                         "Address" : "/dev/ttyUSB0",
+                         "BaudRate" : "19200",
+                         "DataBits" : "8",
+                         "StopBits" : "1",
+                         "Parity" : "N",
+                         "UnitID" : "1",
+                         "Timeout" : "5",
+                         "IdleTimeout" : "5"
+                      }
+                   },
+                   "adminState":"UNLOCKED",
+                   "operatingState":"UP"
+                }
+            }
+        ]'
+    ```
+4. Test the GET or SET command
+
+## Set up the Modbus ASCII Device
+This section describes how to connect the Modbus ASCII device. We use Ubuntu OS and a Modbus ASCII device for this example.
+
+### Connect the device
+1. Connect the device to your machine(laptop or gateway,etc.) via RS485/USB adaptor and power on.
+
+2. Execute a command on the machine, and you can find a message like the following:
+    ```
+    $ dmesg | grep tty
+    ...
+    ...
+    [18006.167625] usb 1-1: FTDI USB Serial Device converter now attached to ttyUSB0
+    ```
+
+3. It shows the USB attach to ttyUSB0, then you can check whether the device path exists:
+    ```
+    $ ls /dev/ttyUSB0
+    /dev/ttyUSB0
+    ```
+
+### Change the Owner of the Device
+
+For security reason, the EdgeX set up the user permission as below:
+```yaml
+  device-modbus:
+    ...
+    user: 2002:2001  # UID:GID
+```
+So we need to change the owner for the specified group by the following command:
+```shell
+sudo chown :2001 /dev/ttyUSB0
+
+# Or change the permissions for multiple files
+sudo chown :2001 /dev/tty*
+```
+
+!!! Note
+Since the owner will reset after the system reboot, we can add this script to the startup script. For Raspberry Pi as example, add script to `/etc/rc.local`, then the Pi will run this script at bootup.
+
+### Mont the Device Path to the Docker Container
+Modify the docker-compose.yml file to mount the device path to the device-modbus, and here are two ways to mount the device path:
+
+1. Using `devices`:
+    ```yaml
+    device-modbus:
+      ...
+      devices:
+        - /dev/ttyUSB0
+    ```
+
+2. Or using `volumes` and `device_cgroup_rules`:
+    ```yaml
+    device-modbus:
+      ...
+      volumes:
+        ...
+        - /dev:/dev
+      device_cgroup_rules:
+        - 'c 188:* rw' 
+    ```
+    - c: character device
+    - 188: device major number(188=USB)
+    - *: device minor number
+    - rw: read/write
+
+### Deploy the EdgeX
+```
+$ docker compose up -d
+```
+
+### Add device to EdgeX
+
+1. Create the device profile according to the register table
+    ```
+    $ nano modbus.ascii.demo.profile.yml
+    ```
+    ```yaml
+    name: "Modbus-ASCII-IO-Module"
+    manufacturer: "icpdas"
+    model: "M-7055"
+    labels:
+      - "Modbus ASCII"
+      - "IO Module"
+    description: "This IO module offers 8 isolated channels for digital input and 8 isolated channels for digital output."
+    
+    deviceResources:
+      -
+        name: "DO0"
+        isHidden: true
+        description: "On/Off , 0-OFF 1-ON"
+        attributes:
+          { primaryTable: "COILS", startingAddress: 0 }
+        properties:
+          valueType: "Bool"
+          readWrite: "RW"
+      -
+        name: "DO1"
+        isHidden: true
+        description: "On/Off , 0-OFF 1-ON"
+        attributes:
+          { primaryTable: "COILS", startingAddress: 1 }
+        properties:
+          valueType: "Bool"
+          readWrite: "RW"
+      -
+        name: "DO2"
+        isHidden: true
+        description: "On/Off , 0-OFF 1-ON"
+        attributes:
+          { primaryTable: "COILS", startingAddress: 2 }
+        properties:
+          valueType: "Bool"
+          readWrite: "RW"
+    
+    deviceCommands:
+      -
+        name: "DO"
+        readWrite: "RW"
+        isHidden: false
+        resourceOperations:
+          - { deviceResource: "DO0" }
+          - { deviceResource: "DO1" }
+          - { deviceResource: "DO2" }
+    ```
+2. Upload the device profile
+    ```
+    $ curl http://localhost:59881/api/{{api_version}}/deviceprofile/uploadfile \
+      -F "file=@modbus.ascii.demo.profile.yml"
+    ```
+
+3. Create the device entity to the EdgeX.
+   You can find the Modbus ASCII setting on the device or the user manual.
+    ```json
+    $ curl http://localhost:59881/api/{{api_version}}/device -H "Content-Type:application/json" -X POST \
+      -d '[
+            {
+                "apiVersion" : "{{api_version}}",
+                "device": {
+                   "name" :"Modbus-ASCII-IO-Module",
+                   "description":"The device can be used to monitor the status of the digital input and digital output channels.",
+                   "labels":[ 
+                      "IO Module",
+                      "Modbus ASCII"
+                   ],
+                   "serviceName": "device-modbus",
+                   "profileName": "Ethernet-Temperature-Sensor",
+                   "protocols":{
+                      "modbus-ascii":{
                          "Address" : "/dev/ttyUSB0",
                          "BaudRate" : "19200",
                          "DataBits" : "8",
