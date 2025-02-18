@@ -5,7 +5,7 @@ title: Core Data - Data Retention and Persistent Caps
 # Core Data - Data Retention and Persistent Caps
 
 !!! edgey "EdgeX 4.0"
-    Enhance the original design in EdgeX 4.0, the Core Data service purge events by specified auto event source and retention policy.
+    Enhance the original design in EdgeX 4.0, the Core Data service purges events by specified auto event source and retention policy.
 
 ## Overview
 
@@ -13,9 +13,10 @@ In use cases, since core data persists data in the local database indefinitely, 
 
 ## Configure the Retention Policy
 
-### Define the Retention policy in the AutoEvent
-You can define the `retention policy` in the `auto event` when adding or updating the device data as below. The Core Data service will apply the default retention values if you didn't define it or set zero value, and do time-based or count-based event retention according to the retention policy.
-```
+### Define the Retention Policy in the AutoEvent
+You can define the `retention policy` in the `auto event` when adding or updating the device data as shown below. The Core Data service will apply the default retention values if you do not define them or set them to zero, and will perform time-based or count-based event retention according to the retention policy.
+
+```json
 "device": {
   "name": "testDevice",
   ...
@@ -53,8 +54,9 @@ Retention:
 ## Usage
 
 ### Count-based Retention 
-You can define the `maxCap` and `minCap` to purge events like the original design for count-based retention.
-```
+You can define `maxCap` and `minCap` for count-based retention.
+
+```json
  "device": {
      "name": "device_int_autoevents",
      ...
@@ -71,11 +73,12 @@ You can define the `maxCap` and `minCap` to purge events like the original desig
        ]
 }
 ```
-In this case, the Core Data service check whether the event count exceeds 2000, if count >= 2000, then purge events to meet the `minCap` 1000. If `minCap` is -1, the service removes all old data.
+In this case, the Core Data service checks whether the event count is greater than 2000. If the count is 2000 or more, it purges events to maintain the `minCap` of 1000. If `minCap` is -1, the service removes all old data.
 
 ### Time-based Retention Without MinCap
 You can define the `duration` to purge events for time-based retention.
-```
+
+```json
 "device": {
     "name": "device_int_autoevents",
     ...
@@ -95,8 +98,9 @@ You can define the `duration` to purge events for time-based retention.
 In this case, the `minCap` is -1 which means we don't keep old data, then the Core Data purge events that the age(current time - event origin) is greater than "24h".
 
 ### Time-based Retention With MinCap
-You can define the `duration` and `minCap` for time-based retention and also keep minimum expired events in DB. Note that the `minCap` is used to keep old data when purging events, even if the database contains new data, the process still keep old data. This is useful when the device unexpectedly shutdown, and we still want to keep some old data for tracing.
-```
+You can define the `duration` and `minCap` for time-based retention, while also ensuring a minimum number of expired events are kept in the database. Note that the minCap is used to retain old data when purging events. Even if the database contains new data, the process will still keep some old data. This is useful in cases where the device unexpectedly shuts down, and we want to preserve old data for tracing purposes.
+
+```json
 "device": {
     "name": "device_int_autoevents",
     ...
@@ -113,20 +117,47 @@ You can define the `duration` and `minCap` for time-based retention and also kee
     ]
 }
 ```
-In this case, the Core Data service purges events that the age(current time - event origin) is greater than "24h" and leaves 1000 old events in DB. 
+In this case, the Core Data service purges events that the age(current time - event origin) exceeds "24h" and leaves 1000 old events in DB. 
 
 The Core Data service identifies the most recent 1000th event. If the 1000th event does not exist, the service skips purging. Otherwise, it removes expired data older than the 1000th event.
 
+### The time-based retention with `maxCap` and `minCap`
+
+!!! Note
+    It is generally recommended not to configure both count-based and time-based retention policies at the same time, as this can lead to unnecessary complexity and potential confusion.
+
+The user can combine count-based and time-based retention by defining the `maxCap`, `minCap`, and `duration`.
+	
+```json
+"device": {
+"name": "device_int_autoevents",
+...
+"profileName": "profile_int_resources",
+"autoEvents": [
+    { 
+        "interval": "1s", "onChange": false, "sourceName": "INT16_1", 
+        "retention": {
+            "maxCap": 2000, 
+            "minCap": 1000, 
+            "duration": "24h"
+        }
+    }
+]
+}
+```
+In this case, the Core Data service checks whether the event count is greater than 2000. If the count is 2000 or more, it performs time-based retention as described in the previous section.
+
 ## Prerequisite Knowledge
 
-- For detailed information on the data retention see [Core Data Configuration Properties](../Configuration.md) and browse to **retention** tab.
-
-- For detailed information on the data retention see [Notifications Configuration Properties](../../../support/notifications/Configuration.md#configuration-properties) and browse to **retention** tab.
+- For detailed information on data retention, see [Core Data Configuration Properties](../Configuration.md) under the **retention** tab.
+- For additional details, see [Notifications Configuration Properties](../../../support/notifications/Configuration.md#configuration-properties) under the **retention** tab.
 
 ## Enable Data Retention
-The data retention mechanism is enabled by default, you can disable it by using `0s` as the retention interval.
 
-- Using environment variables to override the default configuration
+The data retention mechanism is enabled by default. You can disable it by setting the retention interval to `0s`.
+
+- Using environment variables to override the default configuration:
+
 ```yaml
 RETENTION_INTERVAL: <interval>  
 RETENTION_DEFAULTMAXCAP: <maxcap>
