@@ -510,7 +510,7 @@
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#define-the-retention-policy-in-the-autoevent">
-    Define the Retention policy in the AutoEvent
+    Define the Retention Policy in the AutoEvent
   </a>
 </li>
 <li class="md-nav__item">
@@ -540,6 +540,11 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#time-based-retention-with-mincap">
     Time-based Retention With MinCap
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#the-time-based-retention-with-maxcap-and-mincap">
+    The time-based retention with maxCap and minCap
   </a>
 </li>
 </ul>
@@ -2825,7 +2830,7 @@
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#define-the-retention-policy-in-the-autoevent">
-    Define the Retention policy in the AutoEvent
+    Define the Retention Policy in the AutoEvent
   </a>
 </li>
 <li class="md-nav__item">
@@ -2857,6 +2862,11 @@
     Time-based Retention With MinCap
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#the-time-based-retention-with-maxcap-and-mincap">
+    The time-based retention with maxCap and minCap
+  </a>
+</li>
 </ul>
 </nav>
 </li>
@@ -2880,26 +2890,26 @@
 <h1 id="core-data-data-retention-and-persistent-caps">Core Data - Data Retention and Persistent Caps</h1>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 4.0</p>
-<p>Enhance the original design in EdgeX 4.0, the Core Data service purge events by specified auto event source and retention policy.</p>
+<p>Enhance the original design in EdgeX 4.0, the Core Data service purges events by specified auto event source and retention policy.</p>
 </div>
 <h2 id="overview">Overview</h2>
 <p>In use cases, since core data persists data in the local database indefinitely, there is a need to persist the latest recent events/readings only and clean up the old ones, as keeping an infinite number of events/readings is considered computationally expensive and can lead to a lack of machine memory. Thus, a retention mechanism is placed on core data to keep events and readings.</p>
 <h2 id="configure-the-retention-policy">Configure the Retention Policy</h2>
-<h3 id="define-the-retention-policy-in-the-autoevent">Define the Retention policy in the AutoEvent</h3>
-<p>You can define the <code>retention policy</code> in the <code>auto event</code> when adding or updating the device data as below. The Core Data service will apply the default retention values if you didn't define it or set zero value, and do time-based or count-based event retention according to the retention policy.
-<div class="highlight"><pre><span></span><code>"device": {
-  "name": "testDevice",
-  ...
-  "profileName": "testProfile",
-  "autoEvents": [
-    { "interval": "10s", "onChange": false, "sourceName": "INT16_0" },  &lt;= apply the default maxCap, minCap, and duration from the configuration file
-    { "interval": "10s", "onChange": false, "sourceName": "INT16_1", "retention": {"maxCap": 0, "minCap": 1000, "duration": "30m"}},  &lt;= apply the default maxCap from the configuration file
-    { "interval": "10s", "onChange": false, "sourceName": "INT16_2", "retention": {"maxCap": 2000, "minCap": 0, "duration": "30m"}},  &lt;= apply the default minCap from the configuration file
-    { "interval": "10s", "onChange": false, "sourceName": "INT16_2", "retention": {"maxCap": 2000, "minCap": 1000, "duration": ""}},  &lt;= apply the default duration from the configuration file
-    { "interval": "10s", "onChange": false, "sourceName": "INT16_3", "retention": {"maxCap": 2000, "minCap": 1000, "duration": "30m"}}
-  ]
-}
-</code></pre></div></p>
+<h3 id="define-the-retention-policy-in-the-autoevent">Define the Retention Policy in the AutoEvent</h3>
+<p>You can define the <code>retention policy</code> in the <code>auto event</code> when adding or updating the device data as shown below. The Core Data service will apply the default retention values if you do not define them or set them to zero, and will perform time-based or count-based event retention according to the retention policy.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"device"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testDevice"</span><span class="p">,</span>
+<span class="w">  </span><span class="err">...</span>
+<span class="w">  </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"testProfile"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"autoEvents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10s"</span><span class="p">,</span><span class="w"> </span><span class="nt">"onChange"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"sourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INT16_0"</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="err">&lt;=</span><span class="w"> </span><span class="err">apply</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">de</span><span class="kc">fault</span><span class="w"> </span><span class="err">maxCap</span><span class="p">,</span><span class="w"> </span><span class="err">mi</span><span class="kc">n</span><span class="err">Cap</span><span class="p">,</span><span class="w"> </span><span class="err">a</span><span class="kc">n</span><span class="err">d</span><span class="w"> </span><span class="err">dura</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="kc">fr</span><span class="err">om</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">co</span><span class="kc">nf</span><span class="err">igura</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="kc">f</span><span class="err">ile</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10s"</span><span class="p">,</span><span class="w"> </span><span class="nt">"onChange"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"sourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INT16_1"</span><span class="p">,</span><span class="w"> </span><span class="nt">"retention"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"maxCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"minCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="nt">"duration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30m"</span><span class="p">}},</span><span class="w">  </span><span class="err">&lt;=</span><span class="w"> </span><span class="err">apply</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">de</span><span class="kc">fault</span><span class="w"> </span><span class="err">maxCap</span><span class="w"> </span><span class="kc">fr</span><span class="err">om</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">co</span><span class="kc">nf</span><span class="err">igura</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="kc">f</span><span class="err">ile</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10s"</span><span class="p">,</span><span class="w"> </span><span class="nt">"onChange"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"sourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INT16_2"</span><span class="p">,</span><span class="w"> </span><span class="nt">"retention"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"maxCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span><span class="w"> </span><span class="nt">"minCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"duration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30m"</span><span class="p">}},</span><span class="w">  </span><span class="err">&lt;=</span><span class="w"> </span><span class="err">apply</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">de</span><span class="kc">fault</span><span class="w"> </span><span class="err">mi</span><span class="kc">n</span><span class="err">Cap</span><span class="w"> </span><span class="kc">fr</span><span class="err">om</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">co</span><span class="kc">nf</span><span class="err">igura</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="kc">f</span><span class="err">ile</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10s"</span><span class="p">,</span><span class="w"> </span><span class="nt">"onChange"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"sourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INT16_2"</span><span class="p">,</span><span class="w"> </span><span class="nt">"retention"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"maxCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span><span class="w"> </span><span class="nt">"minCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="nt">"duration"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">}},</span><span class="w">  </span><span class="err">&lt;=</span><span class="w"> </span><span class="err">apply</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">de</span><span class="kc">fault</span><span class="w"> </span><span class="err">dura</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="kc">fr</span><span class="err">om</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">co</span><span class="kc">nf</span><span class="err">igura</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="kc">f</span><span class="err">ile</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10s"</span><span class="p">,</span><span class="w"> </span><span class="nt">"onChange"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"sourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INT16_3"</span><span class="p">,</span><span class="w"> </span><span class="nt">"retention"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"maxCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span><span class="w"> </span><span class="nt">"minCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="nt">"duration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30m"</span><span class="p">}}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <ul>
 <li>If Retention is not defined, the default values will be applied from the configuration.yaml. </li>
 <li><code>MaxCap</code> is the maximum events capacity, the high watermark of events should be detected for purging the amount of the event to the minimum capacity, you can disable the high watermark detection by setting <code>MaxCap</code> = <code>-1</code>. </li>
@@ -2922,82 +2932,101 @@
 </ul>
 <h2 id="usage">Usage</h2>
 <h3 id="count-based-retention">Count-based Retention</h3>
-<p>You can define the <code>maxCap</code> and <code>minCap</code> to purge events like the original design for count-based retention.
-<div class="highlight"><pre><span></span><code> "device": {
-     "name": "device_int_autoevents",
-     ...
-     "profileName": "profile_int_resources",
-     "autoEvents": [
-         { 
-             "interval": "1s", "onChange": false, "sourceName": "INT16_1", 
-             "retention": {
-                "maxCap": 2000, 
-                "minCap": 1000, 
-                "duration": "0s"
-             }
-          }
-       ]
-}
+<p>You can define <code>maxCap</code> and <code>minCap</code> for count-based retention.</p>
+<p><div class="highlight"><pre><span></span><code><span class="w"> </span><span class="nt">"device"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"device_int_autoevents"</span><span class="p">,</span>
+<span class="w">     </span><span class="err">...</span>
+<span class="w">     </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"profile_int_resources"</span><span class="p">,</span>
+<span class="w">     </span><span class="nt">"autoEvents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">         </span><span class="p">{</span><span class="w"> </span>
+<span class="w">             </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1s"</span><span class="p">,</span><span class="w"> </span><span class="nt">"onChange"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"sourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INT16_1"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">             </span><span class="nt">"retention"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"maxCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                </span><span class="nt">"minCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                </span><span class="nt">"duration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0s"</span>
+<span class="w">             </span><span class="p">}</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">       </span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre></div>
-In this case, the Core Data service check whether the event count exceeds 2000, if count &gt;= 2000, then purge events to meet the <code>minCap</code> 1000. If <code>minCap</code> is -1, the service removes all old data.</p>
+In this case, the Core Data service checks whether the event count is greater than 2000. If the count is 2000 or more, it purges events to maintain the <code>minCap</code> of 1000. If <code>minCap</code> is -1, the service removes all old data.</p>
 <h3 id="time-based-retention-without-mincap">Time-based Retention Without MinCap</h3>
-<p>You can define the <code>duration</code> to purge events for time-based retention.
-<div class="highlight"><pre><span></span><code>"device": {
-    "name": "device_int_autoevents",
-    ...
-    "profileName": "profile_int_resources",
-    "autoEvents": [
-        { 
-            "interval": "1s", "onChange": false, "sourceName": "INT16_1", 
-            "retention": {
-                "maxCap": -1, 
-                "minCap": -1, 
-                "duration": "24h"
-            }
-        }
-    ]
-}
+<p>You can define the <code>duration</code> to purge events for time-based retention.</p>
+<p><div class="highlight"><pre><span></span><code><span class="nt">"device"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"device_int_autoevents"</span><span class="p">,</span>
+<span class="w">    </span><span class="err">...</span>
+<span class="w">    </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"profile_int_resources"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"autoEvents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1s"</span><span class="p">,</span><span class="w"> </span><span class="nt">"onChange"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"sourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INT16_1"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">"retention"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"maxCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                </span><span class="nt">"minCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                </span><span class="nt">"duration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24h"</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre></div>
 In this case, the <code>minCap</code> is -1 which means we don't keep old data, then the Core Data purge events that the age(current time - event origin) is greater than "24h".</p>
 <h3 id="time-based-retention-with-mincap">Time-based Retention With MinCap</h3>
-<p>You can define the <code>duration</code> and <code>minCap</code> for time-based retention and also keep minimum expired events in DB. Note that the <code>minCap</code> is used to keep old data when purging events, even if the database contains new data, the process still keep old data. This is useful when the device unexpectedly shutdown, and we still want to keep some old data for tracing.
-<div class="highlight"><pre><span></span><code>"device": {
-    "name": "device_int_autoevents",
-    ...
-    "profileName": "profile_int_resources",
-    "autoEvents": [
-        { 
-            "interval": "1s", "onChange": false, "sourceName": "INT16_1", 
-            "retention": {
-                "maxCap": -1, 
-                "minCap": 1000, 
-                "duration": "24h"
-            }
-        }
-    ]
-}
+<p>You can define the <code>duration</code> and <code>minCap</code> for time-based retention, while also ensuring a minimum number of expired events are kept in the database. Note that the minCap is used to retain old data when purging events. Even if the database contains new data, the process will still keep some old data. This is useful in cases where the device unexpectedly shuts down, and we want to preserve old data for tracing purposes.</p>
+<p><div class="highlight"><pre><span></span><code><span class="nt">"device"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"device_int_autoevents"</span><span class="p">,</span>
+<span class="w">    </span><span class="err">...</span>
+<span class="w">    </span><span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"profile_int_resources"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"autoEvents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1s"</span><span class="p">,</span><span class="w"> </span><span class="nt">"onChange"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"sourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INT16_1"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">"retention"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"maxCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                </span><span class="nt">"minCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                </span><span class="nt">"duration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24h"</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre></div>
-In this case, the Core Data service purges events that the age(current time - event origin) is greater than "24h" and leaves 1000 old events in DB. </p>
+In this case, the Core Data service purges events that the age(current time - event origin) exceeds "24h" and leaves 1000 old events in DB. </p>
 <p>The Core Data service identifies the most recent 1000th event. If the 1000th event does not exist, the service skips purging. Otherwise, it removes expired data older than the 1000th event.</p>
+<h3 id="the-time-based-retention-with-maxcap-and-mincap">The time-based retention with <code>maxCap</code> and <code>minCap</code></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is generally recommended not to configure both count-based and time-based retention policies at the same time, as this can lead to unnecessary complexity and potential confusion.</p>
+</div>
+<p>The user can combine count-based and time-based retention by defining the <code>maxCap</code>, <code>minCap</code>, and <code>duration</code>.</p>
+<p><div class="highlight"><pre><span></span><code><span class="nt">"device"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"device_int_autoevents"</span><span class="p">,</span>
+<span class="err">...</span>
+<span class="nt">"profileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"profile_int_resources"</span><span class="p">,</span>
+<span class="nt">"autoEvents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1s"</span><span class="p">,</span><span class="w"> </span><span class="nt">"onChange"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"sourceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INT16_1"</span><span class="p">,</span><span class="w"> </span>
+<span class="w">        </span><span class="nt">"retention"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"maxCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">"minCap"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">"duration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"24h"</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+In this case, the Core Data service checks whether the event count is greater than 2000. If the count is 2000 or more, it performs time-based retention as described in the previous section.</p>
 <h2 id="prerequisite-knowledge">Prerequisite Knowledge</h2>
 <ul>
-<li>
-<p>For detailed information on the data retention see <a href="../../Configuration/">Core Data Configuration Properties</a> and browse to <strong>retention</strong> tab.</p>
-</li>
-<li>
-<p>For detailed information on the data retention see <a href="../../../../support/notifications/Configuration/#configuration-properties">Notifications Configuration Properties</a> and browse to <strong>retention</strong> tab.</p>
-</li>
+<li>For detailed information on data retention, see <a href="../../Configuration/">Core Data Configuration Properties</a> under the <strong>retention</strong> tab.</li>
+<li>For additional details, see <a href="../../../../support/notifications/Configuration/#configuration-properties">Notifications Configuration Properties</a> under the <strong>retention</strong> tab.</li>
 </ul>
 <h2 id="enable-data-retention">Enable Data Retention</h2>
-<p>The data retention mechanism is enabled by default, you can disable it by using <code>0s</code> as the retention interval.</p>
+<p>The data retention mechanism is enabled by default. You can disable it by setting the retention interval to <code>0s</code>.</p>
 <ul>
-<li>Using environment variables to override the default configuration
+<li>Using environment variables to override the default configuration:</li>
+</ul>
 <div class="highlight"><pre><span></span><code><span class="nt">RETENTION_INTERVAL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;interval&gt;</span><span class="w">  </span>
 <span class="nt">RETENTION_DEFAULTMAXCAP</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;maxcap&gt;</span>
 <span class="nt">RETENTION_DEFAULTMINCAP</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;mincap&gt;</span>
 <span class="nt">RETENTION_DEFAULTDURATION</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;duration&gt;</span><span class="w">  </span>
-</code></pre></div></li>
-</ul>
+</code></pre></div>
 <p>For detailed information about environment variables override see <a href="../../../../configuration/CommonEnvironmentVariables/#service-configuration-overrides">Service Configuration Overrides</a>.</p>
 <ul>
 <li>Using Core Keeper to override the default configuration, for example, Update Retention's MinCap of core-data from <code>8000</code> to <code>10000</code>, refer to the <a href="../../../../../api/core/Ch-APICoreKeeper/">Core Keeper API documentation</a> for more information.</li>
