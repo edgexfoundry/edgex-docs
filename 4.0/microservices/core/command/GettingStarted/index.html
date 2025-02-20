@@ -2953,7 +2953,7 @@ The message topic names act like the HTTP paths and methods in REST requests. Th
 </code></pre></div></p>
 <p>Below is an example of the <code>MessageEnvelope</code> of command query response:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"ApiVersion"</span><span class="p">:</span><span class="s2">"v2"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"ApiVersion"</span><span class="p">:</span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"RequestID"</span><span class="p">:</span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"CorrelationID"</span><span class="p">:</span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"ErrorCode"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
@@ -2963,7 +2963,7 @@ The message topic names act like the HTTP paths and methods in REST requests. Th
 </code></pre></div></p>
 <p>The messages for formatted requests and responses are sharing a common base structure.
 The outermost JSON object represents the message envelope, which is used to convey metadata about request/response including <code>ApiVersion</code>, <code>RequestID</code>, <code>CorrelationID</code>...etc.</p>
-<p>The <code>Payload</code> field contains the base64-encoded response body.<br/>
+<p>The <code>Payload</code> field contains the edgex event and reading.<br/>
 The <code>ErrorCode</code> field provides the indication of error.
 The <code>ErrorCode</code> will be 0 (no error) or 1 (indicating error) as the two enums for error conditions.
 When there is an error (with <code>ErrorCode</code> set to 1), then the payload contains a message string indicating more information about the error.
@@ -2992,73 +2992,91 @@ Below is the default topic naming used by Core Command:</p>
 </code></pre></div></p>
 </li>
 <li>
-<p>Receive query response message from external MQTT broker on topic <code>edgex/commandquery/response</code>:
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"ReceivedTopic"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"CorrelationID"</span><span class="p">:</span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"ApiVersion"</span><span class="p">:</span><span class="s2">"v2"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"RequestID"</span><span class="p">:</span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"ErrorCode"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"Payload"</span><span class="p">:</span><span class="s2">"eyJhcGlWZXJzaW9uIjoidjIiLCJyZXF1ZXN0SWQiOiJlNmU4YTJmNC1lYjE0LTQ2NDktOWUyYi0xNzUyNDc5MTEzNjkiLCJzdGF0dXNDb2RlIjoyMDAsImRldmljZUNvcmVDb21tYW5kIjp7ImRldmljZU5hbWUiOiJSYW5kb20tQm9vbGVhbi1EZXZpY2UiLCJwcm9maWxlTmFtZSI6IlJhbmRvbS1Cb29sZWFuLURldmljZSIsImNvcmVDb21tYW5kcyI6W3sibmFtZSI6IldyaXRlQm9vbFZhbHVlIiwic2V0Ijp0cnVlLCJwYXRoIjoiL2FwaS92Mi9kZXZpY2UvbmFtZS9SYW5kb20tQm9vbGVhbi1EZXZpY2UvV3JpdGVCb29sVmFsdWUiLCJ1cmwiOiJodHRwOi8vZWRnZXgtY29yZS1jb21tYW5kOjU5ODgyIiwicGFyYW1ldGVycyI6W3sicmVzb3VyY2VOYW1lIjoiQm9vbCIsInZhbHVlVHlwZSI6IkJvb2wifSx7InJlc291cmNlTmFtZSI6IkVuYWJsZVJhbmRvbWl6YXRpb25fQm9vbCIsInZhbHVlVHlwZSI6IkJvb2wifV19LHsibmFtZSI6IldyaXRlQm9vbEFycmF5VmFsdWUiLCJzZXQiOnRydWUsInBhdGgiOiIvYXBpL3YyL2RldmljZS9uYW1lL1JhbmRvbS1Cb29sZWFuLURldmljZS9Xcml0ZUJvb2xBcnJheVZhbHVlIiwidXJsIjoiaHR0cDovL2VkZ2V4LWNvcmUtY29tbWFuZDo1OTg4MiIsInBhcmFtZXRlcnMiOlt7InJlc291cmNlTmFtZSI6IkJvb2xBcnJheSIsInZhbHVlVHlwZSI6IkJvb2xBcnJheSJ9LHsicmVzb3VyY2VOYW1lIjoiRW5hYmxlUmFuZG9taXphdGlvbl9Cb29sQXJyYXkiLCJ2YWx1ZVR5cGUiOiJCb29sIn1dfSx7Im5hbWUiOiJCb29sIiwiZ2V0Ijp0cnVlLCJzZXQiOnRydWUsInBhdGgiOiIvYXBpL3YyL2RldmljZS9uYW1lL1JhbmRvbS1Cb29sZWFuLURldmljZS9Cb29sIiwidXJsIjoiaHR0cDovL2VkZ2V4LWNvcmUtY29tbWFuZDo1OTg4MiIsInBhcmFtZXRlcnMiOlt7InJlc291cmNlTmFtZSI6IkJvb2wiLCJ2YWx1ZVR5cGUiOiJCb29sIn1dfSx7Im5hbWUiOiJCb29sQXJyYXkiLCJnZXQiOnRydWUsInNldCI6dHJ1ZSwicGF0aCI6Ii9hcGkvdjIvZGV2aWNlL25hbWUvUmFuZG9tLUJvb2xlYW4tRGV2aWNlL0Jvb2xBcnJheSIsInVybCI6Imh0dHA6Ly9lZGdleC1jb3JlLWNvbW1hbmQ6NTk4ODIiLCJwYXJhbWV0ZXJzIjpbeyJyZXNvdXJjZU5hbWUiOiJCb29sQXJyYXkiLCJ2YWx1ZVR5cGUiOiJCb29sQXJyYXkifV19XX19"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"ContentType"</span><span class="p">:</span><span class="s2">"application/json"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"QueryParams"</span><span class="p">:{}</span>
-<span class="p">}</span>
-</code></pre></div></p>
+<p>Receive query response message from external MQTT broker on topic <code>edgex/commandquery/response</code>:</p>
 </li>
 </ol>
-<p>Base64-decoding the Payload:
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 4.0</p>
+<p>In EdgeX 4.0, base64 encoding is no longer applied by default to the payload. However, users can still enable base64 encoding by adding the environment variable to overwrite the default setting.</p>
+</div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v2"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"requestId"</span><span class="p">:</span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"deviceCoreCommand"</span><span class="p">:{</span>
-<span class="w">    </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"profileName"</span><span class="p">:</span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"coreCommands"</span><span class="p">:[</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"WriteBoolValue"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"set"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/WriteBoolValue"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"parameters"</span><span class="p">:[</span>
-<span class="w">          </span><span class="p">{</span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">,</span><span class="w"> </span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">},</span>
-<span class="w">          </span><span class="p">{</span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"EnableRandomization_Bool"</span><span class="p">,</span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">}</span>
-<span class="w">        </span><span class="p">]</span>
-<span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"WriteBoolArrayValue"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"set"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/WriteBoolArrayValue"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"parameters"</span><span class="p">:[</span>
-<span class="w">          </span><span class="p">{</span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">,</span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">},</span>
-<span class="w">          </span><span class="p">{</span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"EnableRandomization_BoolArray"</span><span class="p">,</span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">}</span>
-<span class="w">        </span><span class="p">]</span>
-<span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"get"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"set"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/Bool"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"parameters"</span><span class="p">:[</span>
-<span class="w">          </span><span class="p">{</span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">,</span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">}</span>
-<span class="w">        </span><span class="p">]</span>
-<span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"get"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"set"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/BoolArray"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"parameters"</span><span class="p">:[</span>
-<span class="w">          </span><span class="p">{</span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">,</span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">}</span>
-<span class="w">        </span><span class="p">]</span>
+<span class="w">   </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">"receivedTopic"</span><span class="p">:</span><span class="s2">"edgex/commandquery/response"</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">"correlationID"</span><span class="p">:</span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">"requestID"</span><span class="p">:</span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">"errorCode"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">"payload"</span><span class="p">:{</span>
+<span class="w">      </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"requestId"</span><span class="p">:</span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"deviceCoreCommand"</span><span class="p">:{</span>
+<span class="w">         </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">"profileName"</span><span class="p">:</span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
+<span class="w">         </span><span class="nt">"coreCommands"</span><span class="p">:[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"WriteBoolValue"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"set"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/WriteBoolValue"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"parameters"</span><span class="p">:[</span>
+<span class="w">                  </span><span class="p">{</span>
+<span class="w">                     </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"Bool"</span>
+<span class="w">                  </span><span class="p">},</span>
+<span class="w">                  </span><span class="p">{</span>
+<span class="w">                     </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"EnableRandomization_Bool"</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"Bool"</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">               </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"WriteBoolArrayValue"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"set"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/WriteBoolArrayValue"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"parameters"</span><span class="p">:[</span>
+<span class="w">                  </span><span class="p">{</span>
+<span class="w">                     </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"BoolArray"</span>
+<span class="w">                  </span><span class="p">},</span>
+<span class="w">                  </span><span class="p">{</span>
+<span class="w">                     </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"EnableRandomization_BoolArray"</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"Bool"</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">               </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"get"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"set"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/Bool"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"parameters"</span><span class="p">:[</span>
+<span class="w">                  </span><span class="p">{</span>
+<span class="w">                     </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"Bool"</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">               </span><span class="p">]</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">               </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"get"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"set"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/BoolArray"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
+<span class="w">               </span><span class="nt">"parameters"</span><span class="p">:[</span>
+<span class="w">                  </span><span class="p">{</span>
+<span class="w">                     </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">,</span>
+<span class="w">                     </span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"BoolArray"</span>
+<span class="w">                  </span><span class="p">}</span>
+<span class="w">               </span><span class="p">]</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">         </span><span class="p">]</span>
 <span class="w">      </span><span class="p">}</span>
-<span class="w">    </span><span class="p">]</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="nt">"contentType"</span><span class="p">:</span><span class="s2">"application/json"</span>
 <span class="p">}</span>
-</code></pre></div></p>
+</code></pre></div>
 <h4 id="query-all">Query All</h4>
 <p>Example of querying all device core commands via messaging:</p>
 <ol>
@@ -3079,12 +3097,52 @@ Below is the default topic naming used by Core Command:</p>
 <li>
 <p>Receive query response message from external MQTT broker on topic <code>edgex/commandquery/response</code>:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"ApiVersion"</span><span class="p">:</span><span class="s2">"v2"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"ContentType"</span><span class="p">:</span><span class="s2">"application/json"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"CorrelationID"</span><span class="p">:</span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"RequestID"</span><span class="p">:</span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"ErrorCode"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"Payload"</span><span class="p">:</span><span class="s2">"..."</span>
+<span class="w">   </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">"receivedTopic"</span><span class="p">:</span><span class="s2">"edgex/commandquery/response"</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">"correlationID"</span><span class="p">:</span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">"requestID"</span><span class="p">:</span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">"errorCode"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">"payload"</span><span class="p">:{</span>
+<span class="w">      </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"requestId"</span><span class="p">:</span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"totalCount"</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"deviceCoreCommands"</span><span class="p">:[</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"profileName"</span><span class="p">:</span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"coreCommands"</span><span class="p">:[</span>
+<span class="w">               </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"get"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"set"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/BoolArray"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"parameters"</span><span class="p">:[</span>
+<span class="w">                     </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"BoolArray"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"BoolArray"</span>
+<span class="w">                     </span><span class="p">}</span>
+<span class="w">                  </span><span class="p">]</span>
+<span class="w">               </span><span class="p">},</span>
+<span class="w">               </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"WriteBoolValue"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"set"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"/api/v3/device/name/Random-Boolean-Device/WriteBoolValue"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"url"</span><span class="p">:</span><span class="s2">"http://edgex-core-command:59882"</span><span class="p">,</span>
+<span class="w">                  </span><span class="nt">"parameters"</span><span class="p">:[</span>
+<span class="w">                     </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"Bool"</span>
+<span class="w">                     </span><span class="p">},</span>
+<span class="w">                     </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"EnableRandomization_Bool"</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"Bool"</span>
+<span class="w">                     </span><span class="p">}</span>
+<span class="w">                  </span><span class="p">]</span>
+<span class="w">               </span><span class="p">}</span>
+<span class="w">   </span><span class="err">..............</span>
+<span class="w">   </span><span class="nt">"contentType"</span><span class="p">:</span><span class="s2">"application/json"</span>
 <span class="p">}</span>
 </code></pre></div></p>
 </li>
@@ -3117,72 +3175,68 @@ Below is the default topic naming used by Core Command:</p>
 </code></pre></div></li>
 <li>Receive command response message from external MQTT broker on topic <code>edgex/command/response/#</code>:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"ReceivedTopic"</span><span class="p">:</span><span class="s2">"edgex/command/response/Random-Boolean-Device/Bool/get"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"CorrelationID"</span><span class="p">:</span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"ApiVersion"</span><span class="p">:</span><span class="s2">"v2"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"RequestID"</span><span class="p">:</span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"ErrorCode"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"Payload"</span><span class="p">:</span><span class="s2">"eyJhcGlWZXJzaW9uIjoidjIiLCJyZXF1ZXN0SWQiOiJlNmU4YTJmNC1lYjE0LTQ2NDktOWUyYi0xNzUyNDc5MTEzNjkiLCJzdGF0dXNDb2RlIjoyMDAsImV2ZW50Ijp7ImFwaVZlcnNpb24iOiJ2MiIsImlkIjoiM2JiMDBlODYtMTZkZi00NTk1LWIwMWEtMWFhNTM2ZTVjMTM5IiwiZGV2aWNlTmFtZSI6IlJhbmRvbS1Cb29sZWFuLURldmljZSIsInByb2ZpbGVOYW1lIjoiUmFuZG9tLUJvb2xlYW4tRGV2aWNlIiwic291cmNlTmFtZSI6IkJvb2wiLCJvcmlnaW4iOjE2NjY1OTE2OTk4NjEwNzcwNzYsInJlYWRpbmdzIjpbeyJpZCI6IjFhMmM5NTNkLWJmODctNDhkZi05M2U3LTVhOGUwOWRlNDIwYiIsIm9yaWdpbiI6MTY2NjU5MTY5OTg2MTA3NzA3NiwiZGV2aWNlTmFtZSI6IlJhbmRvbS1Cb29sZWFuLURldmljZSIsInJlc291cmNlTmFtZSI6IkJvb2wiLCJwcm9maWxlTmFtZSI6IlJhbmRvbS1Cb29sZWFuLURldmljZSIsInZhbHVlVHlwZSI6IkJvb2wiLCJ2YWx1ZSI6ImZhbHNlIn1dfX0="</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"ContentType"</span><span class="p">:</span><span class="s2">"application/json"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"QueryParams"</span><span class="p">:{}</span>
+<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"receivedTopic"</span><span class="p">:</span><span class="s2">"edgex/command/response/Random-Boolean-Device/Bool/get"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"correlationID"</span><span class="p">:</span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"requestID"</span><span class="p">:</span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"errorCode"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"payload"</span><span class="p">:{</span>
+<span class="w">    </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"event"</span><span class="p">:{</span>
+<span class="w">      </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"0e8695fc-66fb-4a06-958a-8fe58b5ea7f9"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"origin"</span><span class="p">:</span><span class="mi">1740032646133177300</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"profileName"</span><span class="p">:</span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"readings"</span><span class="p">:[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"26822a65-9ff0-4a7b-a0b5-92506548d2ed"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"origin"</span><span class="p">:</span><span class="mi">1740032646133177300</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"profileName"</span><span class="p">:</span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"value"</span><span class="p">:</span><span class="s2">"true"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"Bool"</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"sourceName"</span><span class="p">:</span><span class="s2">"Bool"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"requestId"</span><span class="p">:</span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="mi">200</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"contentType"</span><span class="p">:</span><span class="s2">"application/json"</span>
 <span class="p">}</span>
 </code></pre></div></li>
 </ol>
-<p>Base64-decoding the Payload:
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v2"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"requestId"</span><span class="p">:</span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"event"</span><span class="p">:{</span>
-<span class="w">    </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v2"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"3bb00e86-16df-4595-b01a-1aa536e5c139"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"profileName"</span><span class="p">:</span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"sourceName"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"origin"</span><span class="p">:</span><span class="mi">1666591699861077076</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"readings"</span><span class="p">:[</span>
-<span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"1a2c953d-bf87-48df-93e7-5a8e09de420b"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"origin"</span><span class="p">:</span><span class="mi">1666591699861077076</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"deviceName"</span><span class="p">:</span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"resourceName"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"profileName"</span><span class="p">:</span><span class="s2">"Random-Boolean-Device"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"valueType"</span><span class="p">:</span><span class="s2">"Bool"</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">"value"</span><span class="p">:</span><span class="s2">"false"</span>
-<span class="w">      </span><span class="p">}</span>
-<span class="w">    </span><span class="p">]</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></p>
 <h4 id="set-command">Set Command</h4>
 <p>Example of making put command request via messaging:</p>
 <ol>
-<li>Send command request message to external MQTT broker on topic <code>edgex/command/request/Random-Boolean-Device/WriteBoolValue/set</code>:
+<li>
+<p>Send command request message to external MQTT broker on topic <code>edgex/command/request/Random-Boolean-Device/WriteBoolValue/set</code>:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"apiVersion"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v3"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"ContentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/json"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"CorrelationID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"RequestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"Payload"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJCb29sIjogImZhbHNlIn0="</span>
+<span class="w">  </span><span class="nt">"Payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"Bool"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div></li>
-</ol>
-<p>The payload is the base64-encoding json struct:
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"Bool"</span><span class="p">:</span><span class="w"> </span><span class="s2">"false"</span><span class="p">}</span>
 </code></pre></div></p>
-<ol>
-<li>Receive command response message from external MQTT broker on topic <code>edgex/command/response/#</code>
+</li>
+<li>
+<p>Receive command response message from external MQTT broker on topic <code>edgex/command/response/#</code>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">"ReceivedTopic"</span><span class="p">:</span><span class="s2">"edgex/command/response/Random-Boolean-Device/WriteBoolValue/set"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"CorrelationID"</span><span class="p">:</span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"ApiVersion"</span><span class="p">:</span><span class="s2">"v2"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"RequestID"</span><span class="p">:</span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"ErrorCode"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"Payload"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"ContentType"</span><span class="p">:</span><span class="s2">"application/json"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"QueryParams"</span><span class="p">:{}</span>
+<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v3"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"receivedTopic"</span><span class="p">:</span><span class="s2">"edgex/command/response/Random-Boolean-Device/WriteBoolValue/set"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"correlationID"</span><span class="p">:</span><span class="s2">"14a42ea6-c394-41c3-8bcd-a29b9f5e6835"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"requestID"</span><span class="p">:</span><span class="s2">"e6e8a2f4-eb14-4649-9e2b-175247911369"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"errorCode"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"payload"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"contentType"</span><span class="p">:</span><span class="s2">"application/json"</span>
 <span class="p">}</span>
-</code></pre></div></li>
+</code></pre></div></p>
+</li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
