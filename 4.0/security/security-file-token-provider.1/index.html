@@ -2310,6 +2310,11 @@
       </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="../Ch-SecretStoreSetup/">
+        Secret Store Setup
+      </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="../Ch-Authenticating/">
         Authenticating to EdgeX Microservices
       </a>
@@ -2390,13 +2395,13 @@
       </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_1_7_19" type="checkbox"/>
-<label class="md-nav__link" for="__nav_1_7_19" id="__nav_1_7_19_label" tabindex="0">
+<input class="md-nav__toggle md-toggle" id="__nav_1_7_20" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_7_20" id="__nav_1_7_20_label" tabindex="0">
           Threat Models
           <span class="md-nav__icon md-icon"></span>
 </label>
-<nav aria-expanded="false" aria-labelledby="__nav_1_7_19_label" class="md-nav" data-md-level="3">
-<label class="md-nav__title" for="__nav_1_7_19">
+<nav aria-expanded="false" aria-labelledby="__nav_1_7_20_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_7_20">
 <span class="md-nav__icon md-icon"></span>
           Threat Models
         </label>
@@ -2741,7 +2746,7 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="name">NAME</h1>
-<p>security-file-token-provider -- Generate Vault tokens for EdgeX services</p>
+<p>security-file-token-provider -- Generate OpenBao tokens for EdgeX services</p>
 <h1 id="synopsis">SYNOPSIS</h1>
 <p>security-file-token-provider [-h--configDir \&lt;configDir&gt;]
 [-p|--profile \&lt;name&gt;]</p>
@@ -2750,13 +2755,13 @@
 <p>The <code>--confdir</code> command line option is replaced by <code>--configDir</code> in EdgeX 3.0.</p>
 </div>
 <h1 id="description">DESCRIPTION</h1>
-<p>security-file-token-provider generates per-service Vault tokens for
-EdgeX services so that they can make authenticated connections to Vault
+<p>security-file-token-provider generates per-service OpenBao tokens for
+EdgeX services so that they can make authenticated connections to OpenBao
 to retrieve application secrets. security-file-token-provider implements
 a generic secret seeding mechanism based on pre-created files and is
 designed for maximum portability. security-file-token-provider takes a
 configuration file that specifies the services for which tokens shall be
-generated and the Vault access policy that shall be applied to those
+generated and the OpenBao access policy that shall be applied to those
 tokens. security-file-token-provider assumes that there is some
 underlying protection mechanism that will be used to prevent EdgeX
 services from reading each other's tokens.</p>
@@ -2765,31 +2770,44 @@ services from reading each other's tokens.</p>
 <p>-h, --help</p>
 <p>:   Display help text</p>
 <p>-cd, --configDir \&lt;configDir&gt;</p>
-<p>:   Look in this directory for configuration.yaml instead.</p>
-<p>-p, --profile \&lt;name&gt;</p>
-<p>:   Indicate configuration profile other than default</p>
+<p>:   Look in this directory for configuration.yaml instead.
+</p>
 </blockquote>
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 3.0</p>
 <p>The <code>-c, --confdir</code> command line option is replaced by <code>-cd, --configDir</code> in EdgeX 3.0.</p>
 </div>
+<h1 id="subcommands">SUBCOMMANDS</h1>
+<ul>
+<li><strong>createToken</strong></li>
+</ul>
+<p>Generate a new secret store token for the specified entity id.
+  Requires additional arguments:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">*</span> **--entityId** <span class="ge">_id_</span> (required)
+
+  The OpenBao entity ID to be linked with the generated OpenBao token.
+</code></pre></div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 4.0</p>
+<p>The <strong>createToken</strong> subcommand is new for EdgeX 4.0.</p>
+</div>
 <h1 id="files">FILES</h1>
 <h2 id="configurationyaml">configuration.yaml</h2>
-<p>This file specifies the TCP/IP location of the Vault service and
-parameters used for Vault token generation.</p>
+<p>This file specifies the TCP/IP location of the OpenBao service and
+parameters used for OpenBao token generation.</p>
 <div class="codehilite"><pre><span></span><code><span class="n">SecretService</span><span class="o">:</span>
 <span class="w">  </span><span class="n">Scheme</span><span class="o">:</span><span class="w"> </span><span class="s2">"https"</span>
 <span class="w">  </span><span class="n">Server</span><span class="o">:</span><span class="w"> </span><span class="s2">"localhost"</span>
 <span class="w">  </span><span class="n">Port</span><span class="o">:</span><span class="w"> </span><span class="mi">8200</span>
 
 <span class="n">TokenFileProvider</span><span class="o">:</span>
-<span class="w">  </span><span class="n">PrivilegedTokenPath</span><span class="o">:</span><span class="w"> </span><span class="s2">"/run/edgex/secrets/security-file-token-provider/secrets-token.json"</span>
+<span class="w">  </span><span class="n">PrivilegedTokenPath</span><span class="o">:</span><span class="w"> </span><span class="s2">"/run/edgex/secrets/tokenprovider/secrets-token.json"</span>
 <span class="w">  </span><span class="n">ConfigFile</span><span class="o">:</span><span class="w"> </span><span class="s2">"token-config.json"</span>
 <span class="w">  </span><span class="n">OutputDir</span><span class="o">:</span><span class="w"> </span><span class="s2">"/run/edgex/secrets/"</span>
 <span class="w">  </span><span class="n">OutputFilename</span><span class="o">:</span><span class="w"> </span><span class="s2">"secrets-token.json"</span>
 </code></pre></div>
 <h2 id="secrets-tokenjson">secrets-token.json</h2>
-<p>This file contains a token used to authenticate to Vault. The filename
+<p>This file contains a token used to authenticate to OpenBao. The filename
 is customizable via <em>OutputFilename</em>.</p>
 <div class="codehilite"><pre><span></span><code>{
   "auth": {
@@ -2854,28 +2872,60 @@ are held.</p>
 <p>For example:
 <code>/run/edgex/secrets/edgex-security-proxy-setup/secrets-token.json</code></p>
 <p>For each "service-name" in <code>{ConfigFile}</code>, a matching directory is
-created under <code>{OutputDir}</code> and the corresponding Vault token is stored
+created under <code>{OutputDir}</code> and the corresponding OpenBao token is stored
 as <code>{OutputFilename}</code>. This file contains the authorization token
 generated to allow the indicated EdgeX service to retrieve its secrets.</p>
 <h1 id="prerequisites">PREREQUISITES</h1>
-<p><code>PrivilegedTokenPath</code> points to a non-expired Vault token that the
+<p><code>PrivilegedTokenPath</code> points to a non-expired OpenBao token that the
 security-file-token-provider will use to install policies and create
 per-service tokens. It will create policies with the naming convention
 <code>"edgex-service-service-name"</code> where <code>service-name</code> comes from JSON keys
-in the configuration file and the Vault policy will be configured to
+in the configuration file and the OpenBao policy will be configured to
 allow creation and modification of policies using this naming
 convention. This token must have the following policy
 (<code>edgex-privileged-token-creator</code>) configured.</p>
-<div class="codehilite"><pre><span></span><code>path "auth/token/create" {
-  capabilities = ["create", "update", "sudo"]
+<div class="codehilite"><pre><span></span><code>path "identity/entity/name" {
+    capabilities = ["list"]
 }
 
-path "auth/token/create-orphan" {
-  capabilities = ["create", "update", "sudo"]
+path "identity/entity/name/*" {
+    capabilities = ["create", "update", "read"]
+}
+
+path "identity/entity/id/*" {
+    capabilities = ["read"]
+}
+
+path "identity/entity-alias" {
+    capabilities = ["create", "update"]
+}
+
+path "identity/oidc/role" {
+    capabilities = ["list"]
+}
+
+path "identity/oidc/role/*" {
+    capabilities = ["create", "update"]
+}
+
+path "auth/userpass/users/*" {
+    capabilities = ["create", "update"]
 }
 
 path "auth/token/create/*" {
   capabilities = ["create", "update", "sudo"]
+}
+
+path "auth/token/roles" {
+    capabilities = ["list"]
+}
+
+path "auth/token/roles/*" {
+    capabilities = ["create", "update"]
+}
+
+path "sys/auth" {
+    capabilities = ["read"]
 }
 
 path "sys/policies/acl/edgex-service-*"
@@ -2889,7 +2939,7 @@ path "sys/policies/acl"
 }
 </code></pre></div>
 <h1 id="author">AUTHOR</h1>
-<p>EdgeX Foundry \&lt;<a href="mailto:info@edgexfoundry.org">info@edgexfoundry.org</a>&gt;</p>
+<p>EdgeX Foundry &lt;<a href="mailto:info@edgexfoundry.org">info@edgexfoundry.org</a>&gt;</p>
 </article>
 </div>
 </div>
