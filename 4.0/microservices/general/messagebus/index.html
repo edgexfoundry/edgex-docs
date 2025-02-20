@@ -3108,6 +3108,10 @@
 <p class="admonition-title">Note</p>
 <p>Unless noted below, the <code>MessageEnvelope</code> is  JSON encoded when publishing it to the EdgeX MessageBus. This does result in the <code>MessageEnvelope</code>'s payload being double encoded.</p>
 </div>
+<div class="admonition edgey">
+<p class="admonition-title">Edgex 4.0</p>
+<p>In EdgeX v4, a new environment variable <code>EDGEX_MSG_BASE64_PAYLOAD</code> has been introduced. By default, <code>EDGEX_MSG_BASE64_PAYLOAD</code> is <strong>false</strong>, which means the payload can be a JSON object rather than a byte array. The change ensures that the payload is not double-encoded. If <code>EDGEX_MSG_BASE64_PAYLOAD</code> is set to <strong>true</strong>, the payload will be handled as it was in previous versions. </p>
+</div>
 <h2 id="implementations">Implementations</h2>
 <p>The EdgeX MessageBus is defined by the message bus abstraction implemented in <a href="https://github.com/edgexfoundry/go-mod-messaging">go-mod-messaging</a>. This module defines an abstract client API which currently has four implementations of the API for the different underlying message bus protocols. </p>
 <h3 id="common-messagebus-configuration">Common MessageBus Configuration</h3>
