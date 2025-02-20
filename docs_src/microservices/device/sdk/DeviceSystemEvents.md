@@ -31,7 +31,7 @@ The System Event DTO for the Device Service SDK APIs has the following propertie
 | Timestamp | Date and time of the System Event                                     | timestamp in nanoseconds                                                             |
 
 !!! example - "Example Device System Event"
-    An example decoded from base64 format for the `discovery` event payload:
+    An example of the `discovery` event payload:
     ```json
     {
       "apiVersion":"v3",

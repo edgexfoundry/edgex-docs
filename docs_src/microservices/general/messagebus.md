@@ -37,6 +37,9 @@ All messages published to the EdgeX MessageBus are wrapped in a `MessageEnvelope
 !!! note
     Unless noted below, the `MessageEnvelope` is  JSON encoded when publishing it to the EdgeX MessageBus. This does result in the `MessageEnvelope`'s payload being double encoded.
 
+!!! edgey "Edgex 4.0"
+    In EdgeX v4, a new environment variable `EDGEX_MSG_BASE64_PAYLOAD` has been introduced. By default, `EDGEX_MSG_BASE64_PAYLOAD` is **false**, which means the payload can be a JSON object rather than a byte array. The change ensures that the payload is not double-encoded. If `EDGEX_MSG_BASE64_PAYLOAD` is set to **true**, the payload will be handled as it was in previous versions. 
+
 ## Implementations
 
 The EdgeX MessageBus is defined by the message bus abstraction implemented in [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging). This module defines an abstract client API which currently has four implementations of the API for the different underlying message bus protocols. 

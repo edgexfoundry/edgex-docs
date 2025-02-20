@@ -60,6 +60,9 @@ Below is an example of the `MessageEnvelope` of command query response:
 The messages for formatted requests and responses are sharing a common base structure.
 The outermost JSON object represents the message envelope, which is used to convey metadata about request/response including `ApiVersion`, `RequestID`, `CorrelationID`...etc.
 
+!!! edgey "Edgex 4.0"
+    For EdgeX 4.0 `Payload` field contains a json response body instead of a base64-encoded response body. Refer to [Message Envelope](../../general/messagebus.md#message-envelope) for details.
+
 The `Payload` field contains the edgex event and reading.  
 The `ErrorCode` field provides the indication of error.
 The `ErrorCode` will be 0 (no error) or 1 (indicating error) as the two enums for error conditions.
