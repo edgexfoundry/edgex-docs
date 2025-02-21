@@ -101,9 +101,9 @@ level=INFO ts=2022-05-05T14:28:30.005673094Z app=device-virtual source=config.go
 level=INFO ts=2022-05-05T14:28:30.006211643Z app=device-virtual source=variables.go:352 msg="Variables override of 'SecretStore.RuntimeTokenProvider.Port' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_PORT=59841"
 level=INFO ts=2022-05-05T14:28:30.006286584Z app=device-virtual source=variables.go:352 msg="Variables override of 'SecretStore.RuntimeTokenProvider.Protocol' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_PROTOCOL=https"
 level=INFO ts=2022-05-05T14:28:30.006341968Z app=device-virtual source=variables.go:352 msg="Variables override of 'Clients.core-metadata.Host' by environment variable: CLIENTS_CORE_METADATA_HOST=edgex-core-metadata"
-level=INFO ts=2022-05-05T14:28:30.006382102Z app=device-virtual source=variables.go:352 msg="Variables override of 'MessageBus.Host' by environment variable: MESSAGEBUS_HOST=edgex-redis"
+level=INFO ts=2022-05-05T14:28:30.006382102Z app=device-virtual source=variables.go:352 msg="Variables override of 'MessageBus.Host' by environment variable: MESSAGEBUS_HOST=edgex-postgres"
 level=INFO ts=2022-05-05T14:28:30.006416098Z app=device-virtual source=variables.go:352 msg="Variables override of 'SecretStore.RuntimeTokenProvider.EndpointSocket' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_ENDPOINTSOCKET=/tmp/edgex/secrets/spiffe/public/api.sock"
-level=INFO ts=2022-05-05T14:28:30.006457406Z app=device-virtual source=variables.go:352 msg="Variables override of 'SecretStore.RuntimeTokenProvider.RequiredSecrets' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_REQUIREDSECRETS=redisdb"
+level=INFO ts=2022-05-05T14:28:30.006457406Z app=device-virtual source=variables.go:352 msg="Variables override of 'SecretStore.RuntimeTokenProvider.RequiredSecrets' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_REQUIREDSECRETS=postgres"
 level=INFO ts=2022-05-05T14:28:30.006495791Z app=device-virtual source=variables.go:352 msg="Variables override of 'SecretStore.RuntimeTokenProvider.Enabled' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_ENABLED=true"
 level=INFO ts=2022-05-05T14:28:30.006529808Z app=device-virtual source=variables.go:352 msg="Variables override of 'SecretStore.RuntimeTokenProvider.Host' by environment variable: SECRETSTORE_RUNTIMETOKENPROVIDER_HOST=edgex-security-spiffe-token-provider"
 level=INFO ts=2022-05-05T14:28:30.006575741Z app=device-virtual source=variables.go:352 msg="Variables override of 'Clients.core-data.Host' by environment variable: CLIENTS_CORE_DATA_HOST=edgex-core-data"
@@ -137,8 +137,8 @@ level=INFO ts=2022-05-05T14:29:25.172359472Z app=device-virtual source=secret.go
 level=INFO ts=2022-05-05T14:29:25.172539631Z app=device-virtual source=secrets.go:276 msg="kick off token renewal with interval: 30m0s"
 level=INFO ts=2022-05-05T14:29:25.172433598Z app=device-virtual source=config.go:551 msg="Using local configuration from file (14 envVars overrides applied)"
 level=INFO ts=2022-05-05T14:29:25.172916142Z app=device-virtual source=httpserver.go:131 msg="Web server starting (edgex-device-virtual:59900)"
-level=INFO ts=2022-05-05T14:29:25.172948285Z app=device-virtual source=messaging.go:69 msg="Setting options for secure MessageBus with AuthMode='usernamepassword' and SecretName='redisdb"
-level=INFO ts=2022-05-05T14:29:25.174321296Z app=device-virtual source=messaging.go:97 msg="Connected to redis Message Bus @ redis://edgex-redis:6379 publishing on 'edgex/events/device' prefix topic with AuthMode='usernamepassword'"
+level=INFO ts=2022-05-05T14:29:25.172948285Z app=device-virtual source=messaging.go:69 msg="Setting options for secure MessageBus with AuthMode='usernamepassword' and SecretName='postgres"
+level=INFO ts=2022-05-05T14:29:25.174321296Z app=device-virtual source=messaging.go:97 msg="Connected to mqtt Message Bus @ mqtt://edgex-mqtt:1883 publishing on 'edgex/events/device' prefix topic with AuthMode='usernamepassword'"
 level=INFO ts=2022-05-05T14:29:25.174585076Z app=device-virtual source=init.go:135 msg="Check core-metadata service's status by ping..."
 level=INFO ts=2022-05-05T14:29:25.176202842Z app=device-virtual source=init.go:54 msg="Service clients initialize successful."
 level=INFO ts=2022-05-05T14:29:25.176377929Z app=device-virtual source=clients.go:124 msg="Using configuration for URL for 'core-metadata': http://edgex-core-metadata:59881"
@@ -247,7 +247,7 @@ The port-forwarding is transparent to the EdgeX services running on the local ma
 
 This step is to show the reverse direction of SSH tunneling: from the remote back to the local machine.
 
-The reverse SSH tunneling is also needed because the device services depends on the core services like `core-data`, `core-metadata`, Redis (for message queuing), Vault (for the secret store), and Consul (for registry and configuration).
+The reverse SSH tunneling is also needed because the device services depends on the core services like `core-data`, `core-metadata`, MQTT (for message queuing), OpenBao (for the secret store), and Core-Keeper (for registry and configuration).
 These core services are running on the local machine and should be **reverse** tunneled back from the remote machine.
 Essentially, the `sshd` container will impersonate these services
 on the remote side.
@@ -284,10 +284,10 @@ device services:
         - edgex-core-consul
         - edgex-core-data
         - edgex-core-metadata
-        - edgex-redis
+        - edgex-postgres
+        - edgex-secret-store        
         - edgex-security-spire-server
         - edgex-security-spiffe-token-provider
-        - edgex-vault
 ```
 
 
@@ -392,7 +392,7 @@ $ curl -s http://127.0.0.1:59900/api/{{api_version}}/config | jq
       "LogLevel": "INFO",
       "InsecureSecrets": {
         "DB": {
-          "Path": "redisdb",
+          "Path": "postgres",
           "Secrets": {
             "password": "",
             "username": ""
@@ -478,18 +478,18 @@ $ curl -s http://127.0.0.1:59900/api/{{api_version}}/config | jq
         "Port": 59841,
         "TrustDomain": "edgexfoundry.org",
         "EndpointSocket": "/tmp/edgex/secrets/spiffe/public/api.sock",
-        "RequiredSecrets": "redisdb"
+        "RequiredSecrets": "posgres"
       }
     },
     "MessageBus": {
-      "Type": "redis",
-      "Protocol": "redis",
-      "Host": "edgex-redis",
+      "Type": "mqtt",
+      "Protocol": "mqtt",
+      "Host": "edgex-mqtt",
       "Port": 6379,
       "PublishTopicPrefix": "edgex/events/device",
       "SubscribeTopic": "",
       "AuthMode": "usernamepassword",
-      "SecretName": "redisdb",
+      "SecretName": "mqtt-bus",
       "Optional": {
         "AutoReconnect": "true",
         "ClientId": "device-virtual",
@@ -498,8 +498,7 @@ $ curl -s http://127.0.0.1:59900/api/{{api_version}}/config | jq
         "Password": "(redacted)",
         "Qos": "0",
         "Retained": "false",
-        "SkipCertVerify": "false",
-        "Username": "redis5"
+        "SkipCertVerify": "false"
       },
       "SubscribeEnabled": false
     },

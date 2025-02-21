@@ -15,7 +15,8 @@ Below are only the additional settings and sections that are specific to Core Da
 |---|---|---|
 ||Writable properties can be set and will dynamically take effect without service restart|
 |LogLevel|INFO|log entry [severity level](https://en.wikipedia.org/wiki/Syslog#Severity_level).  Log entries not of the default level or higher are ignored. |
-|PersistData|true|When true, core data persists all sensor data sent to it in its associated database|
+|PersistData|true|When true, Core Data persists all sensor data sent to it in its associated database|
+|EventPurge|false|When true, Core Data removes the related events and readings once received the device deletion system event|
 === "Writable.Telemetry"
 |Property|Default Value|Description|
 |---|---|---|
@@ -47,10 +48,10 @@ Below are only the additional settings and sections that are specific to Core Da
 === "Retention"
 |Property|Default Value|Description|    
 |---|---|---|
-| Enabled|false|Enable or disable data retention.|
-| Interval|30s|Purging interval defines when the database should be rid of readings above the MaxCap.|
-| MaxCap|10000|The maximum capacity defines where the high watermark of readings should be detected for purging the amount of the reading to the minimum capacity.|
-| MinCap|8000|The minimum capacity defines where the total count of readings should be returned to during purging.|
+| Interval|10m|Purging interval defines when the database should be rid of events above the MaxCap.|
+| DefaultMaxCap|-1|The default maximum capacity defines where the high watermark of events should be detected for purging the amount of the event to the minimum capacity. The default value is `-1` to disable this feature.|
+| DefaultMinCap|1|The default minimum capacity defines where the total count of event should be kept during purging. The default value is `1`. Be careful to use `minCap`, since the database uses offset to count the rows, the value becomes larger, and the database needs more time to count the rows.|
+| DefaultDuration|168h|The default duration to keep the event, the default value is `"168h"`.|
 
 ## V3 Configuration Migration Guide
 No configuration updated

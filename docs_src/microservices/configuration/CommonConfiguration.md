@@ -20,8 +20,8 @@ The common configuration is divided into 3 sections:
 
 - **All Services**- Configuration that is common to all EdgeX Services See below for details.
 
-- **App Services** - Configuration that is common to just application services. See [App Service Configuration](../../application/GeneralAppServiceConfig) section for more details.
-- **Device Services**- Configuration that is common to just devices services. See [Device Service Configuration](../../device/Ch-DeviceServices/#configuration-properties) section for more details.
+- **App Services** - Configuration that is common to just application services. See [App Service Configuration](../application/Configuration.md) section for more details.
+- **Device Services**- Configuration that is common to just devices services. See [Device Service Configuration](../device/Configuration.md#configuration) section for more details.
 
 When the Configuration Provider is used, the common configuration is seeded by the **core-common-config-bootstrapper** service, otherwise the common configuration comes from a file specified by the [`-cc/--commonConfig` command-line option](../CommonCommandLineOptions/#common-config).
 
@@ -43,7 +43,7 @@ The tables in each of the tabs below document configuration properties that are 
     |---|---|---|
     |||entries in the Writable section of the configuration can be changed on the fly while the service is running if the service is running with the `-cp/--configProvider` flag|
     |LogLevel|---|log entry [severity level](https://en.wikipedia.org/wiki/Syslog#Severity_level).  (specific for each service) |
-    |**InsecureSecrets**|---|This section a map of secrets which simulates the SecretStore for accessing secrets when running in non-secure mode. All services have a default entry for Redis DB credentials called `redisdb`|
+    |**InsecureSecrets**|---|This section a map of secrets which simulates the SecretStore for accessing secrets when running in non-secure mode. All services have a default entry for PostgreSQL DB credentials called `postgres`|
     
 
     !!! note
@@ -88,32 +88,32 @@ The tables in each of the tabs below document configuration properties that are 
     |---|---|---|
     ||| configuration that govern how to connect to the registry to register for service registration |
     |Host           |localhost                      |Registry host name|
-    |Port           |8500                           |Registry port number|
-    |Type           |consul                         |Registry implementation type|
+    |Port           |59890                           |Registry port number|
+    |Type           |keeper                         |Registry implementation type|
 === "Database"
     |Property|Default Value|Description|
     |---|---|---|
     |||configuration that govern database connectivity and the type of database to use. While not all services require DB connectivity, most do and so this has been included in the common configuration docs.|
     |Host |localhost                      |DB host name|
-    |Port |6379                         |DB port number|
+    |Port |5432                         |DB port number|
     |Name      |----                       |Database or document store name (Specific to the service)            |
     |Timeout      |5s           |DB connection timeout                                              |
-    |Type |redisdb                        |DB type.  Redis is the only supported DB|
+    |Type |postgres                        |DB type.  |
 === "MessageBus"
     |Property|Default Value|Description|
     |---|---|---|
     ||Entries in the MessageBus section of the configuration allow for connecting to the internal MessageBus and define a common base topic prefix|
-    |Protocol | redis| Indicates the connectivity protocol to use when connecting to the bus.|
+    |Protocol | mqtt| Indicates the connectivity protocol to use when connecting to the bus.|
     |Host | localhost | Indicates the host of the messaging broker, if applicable.|
-    |Port | 6379| Indicates the port to use when publishing a message.|
-    |Type | redis| Indicates the type of messaging library to use. Currently this is Redis by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
+    |Port | 1883| Indicates the port to use when publishing a message.|
+    |Type | mqtt| Indicates the type of messaging library to use. Currently this is MQTT by default. Refer to the [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging) module for more information. |
     |AuthMode | usernamepassword| Auth Mode to connect to EdgeX MessageBus.|
-    |SecretName | redisdb | Name of the secret in the Secret Store to find the MessageBus credentials.|
+    |SecretName | mqtt-bus | Name of the secret in the Secret Store to find the MessageBus credentials.|
     |BaseTopicPrefix | edgex| Indicates the base topic prefix which is prepended to all internal MessageBus topics. |
 === "MessageBus.Optional"
     |Property|Default Value|Description|
     |---|---|---|
-    ||Configuration and connection parameters for use with MQTT or NATS message bus - in place of Redis|
+    ||Configuration and connection parameters for use with MQTT or NATS message bus|
     |ClientId| ---|Client ID used to put messages on the bus (specific for each service)|
     |Qos|'0'| Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)|
     |KeepAlive |'10'| Period of time in seconds to keep the connection alive when there are no messages flowing (must be 2 or greater)|

@@ -10,9 +10,6 @@ pipeline {
     triggers {
         issueCommentTrigger('.*^recheck$.*')
     }
-    environment {
-        ENABLED_HTMLPROOFER = true
-    }
     stages {
         stage('Build Docs') {
             agent {
@@ -23,11 +20,16 @@ pipeline {
                 }
             }
             steps {
-                retry(4) {
-                    sh 'mkdocs build'
-                    sh 'sleep 5' // add a little delay to avoid potential rate limiting issues
-                }
+                script {
+                    if ((env.BRANCH_NAME).startsWith('PR-')) {
+                        env.ENABLED_HTMLPROOFER = true
+                    }
 
+                    retry(4) {
+                        sh 'mkdocs build'
+                        sh 'sleep 5' // add a little delay to avoid potential rate limiting issues
+                    }
+                }
                 // stash the site contents generated from mkdocs build
                 stash name: 'site-contents', includes: 'docs/**', useDefaultExcludes: false
             }

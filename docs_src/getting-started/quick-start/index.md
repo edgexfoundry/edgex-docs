@@ -38,7 +38,7 @@ docker compose ps
 *If all EdgeX containers pulled and started correctly and without error, you should see a process status (ps) that looks similar to the image above.*
 
 ## Connected Devices
-EdgeX Foundry provides a [Virtual device service](https://github.com/edgexfoundry/device-virtual-go/tree/{{edgexversion}}) which is useful for testing and development.  It simulates a number of [devices](../../general/Definitions.md#Device), each randomly generating data of various types and within configurable parameters.  For example, the Random-Integer-Device will generate random integers.
+EdgeX Foundry provides a [Virtual device service](https://github.com/edgexfoundry/device-virtual-go/tree/{{edgexversion}}) which is useful for testing and development.  It simulates a number of [devices](../../general/Definitions.md#device), each randomly generating data of various types and within configurable parameters.  For example, the Random-Integer-Device will generate random integers.
 
 The Virtual Device (also known as Device Virtual) service is already a service pulled and running as part of the default EdgeX configuration.
 
@@ -57,7 +57,7 @@ curl http://localhost:59880/api/{{api_version}}/event/device/name/Random-Integer
 
 ## Controlling the Device
 
-Reading data from devices is only part of what EdgeX is capable of.  You can also use it to control your devices - this is termed ['actuating'](../../general/Definitions.md#Actuate) the device. When a device registers with the EdgeX services, it provides a [Device Profile](../../microservices/core/metadata/details/DeviceProfile.md) that describes both the data readings available from that device, and also the commands that control it. 
+Reading data from devices is only part of what EdgeX is capable of.  You can also use it to control your devices - this is termed ['actuating'](../../general/Definitions.md#actuate) the device. When a device registers with the EdgeX services, it provides a [Device Profile](../../microservices/core/metadata/details/DeviceProfile.md) that describes both the data readings available from that device, and also the commands that control it. 
 
 When our Virtual Device service registered the device `Random-Integer-Device`, it used a [profile](https://github.com/edgexfoundry/device-virtual-go/blob/{{edgexversion}}/cmd/res/profiles/device.virtual.int.yaml) to also define commands that allow you to tell the service not to generate random integers, but to always return a value you set.
 
@@ -215,7 +215,7 @@ First add the following application service to your docker-compose.yml file righ
 ```
 
 !!! Note
-    This adds the application service configurable to your EdgeX system.  The application service configurable allows you to configure (versus program) new exports - in this case exporting the EdgeX sensor data to the HiveMQ broker at `tcp://broker.mqttdashboard.com:1883`.  You will be publishing to the EdgeXEvents topic.
+    This adds the application service configurable to your EdgeX system.  The application service configurable allows you to configure (versus program) new exports - in this case exporting the EdgeX sensor data to the HiveMQ broker at `tcp://broker.hivemq.com:1883`.  You will be publishing to the edgex-events topic.
 
     For convenience, see documentation on the [EdgeX Compose Builder](../Ch-GettingStartedDockerUsers/#generate-a-custom-docker-compose-file) to create custom Docker Compose files.
 
@@ -229,10 +229,10 @@ You can connect to this broker with any MQTT client to watch the sent data. Hive
 ![image](./EdgeX_ConnectToHiveMQ.png)
 *Using the HiveMQ provided client tool, connect to the same public HiveMQ broker your configurable application service is sending EdgeX data to.*
 
-Then, use the Subscriptions area to subscribe to the "EdgeXEvents" topic.
+Then, use the Subscriptions area to subscribe to the "edgex-events" topic.
 
 ![image](./EdgeX_HiveMQTTWebClient.png)
-*You must subscribe to the same topic - EdgeXEvents - to see the EdgeX data sent by the configurable application service.*
+*You must subscribe to the same topic - edgex-events - to see the EdgeX data sent by the configurable application service.*
 
 You will begin seeing your random number readings appear in the Messages area on the screen.
 

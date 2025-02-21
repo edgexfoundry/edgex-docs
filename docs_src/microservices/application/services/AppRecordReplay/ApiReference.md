@@ -9,7 +9,7 @@ this service does inherit the [common APIs](../../../../api/Ch-APIIntroduction.m
 the [Trigger API](../../details/Triggers.md#http-trigger) from the SDK.
 
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/app-record-replay/{{edgexversion}}/openapi/{{api_version}}/app-record-replay.yaml"></swagger-ui>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/app-record-replay/{{edgexversion}}/openapi/app-record-replay.yaml"></swagger-ui>
 
 ## Postman Collection
 

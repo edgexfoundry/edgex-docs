@@ -8,7 +8,7 @@ The Core Data microservice provides a centralized persistence for data collected
 Device services that collect sensor data call on the core data service to
 store the sensor data on the edge system (such as in a [gateway](../../../general/Definitions.md#gateway)) until the data gets moved "north" and then exported to Enterprise and cloud systems. 
 Core data persists the data in a local database.  
-[Redis](https://redis.io/) is used by default, but a database abstraction layer allows for other database implementations to be added.
+[PosgreSQL](https://www.postgresql.org/) is used by default, but a database abstraction layer allows for other database implementations to be added.
 
 ![image](EdgeX_CoreData.png)
 
@@ -26,7 +26,7 @@ Sensor data can be sent to core data via two different means:
     This is the default means of getting data to core data.
     Any service (like an application service or rules engine service) or 3rd system could also subscribe to the same topic.
     If the sensor data does not need to persisted locally, core data does not have to subscribe to the message bus topic - making core data completely optional.
-    By default, the message bus is implemented using Redis Pub/Sub.  
+    By default, the message bus is implemented using MQTT.  
     MQTT can be used as an alternate message bus implementation.
         ![image](EdgeX_CoreDataSubscriber.png)
 
@@ -36,7 +36,7 @@ Sensor data can be sent to core data via two different means:
        ![image](EdgeX_CoreDataRESTEndpoint.png)
 
 
-Core data moves data to the application service (and [edge analytcs](../../../general/Definitions.md#edge-analytics)) via Redis Pub/Sub by default. MQTT or NATS (opt-in at build time) can alternately be used. 
+Core data moves data to the application service (and [edge analytcs](../../../general/Definitions.md#edge-analytics)) via MQTT by default. MQTT or NATS (opt-in at build time) can alternately be used. 
 Use of MQTT requires the use of an MQTT broker like mosquitto.
 Use of NATS requires all service to be built with NATS enabled and the installation of NATS Server.  
 A messaging infrastructure abstraction is in place that allows for other message bus (e.g., AMQP) implementations to be created and used.

@@ -21,7 +21,7 @@ EdgeX environment up and running via Docker containers. How would you set up thi
     *Run the EdgeX containers and then stop the service container that you are going to work on - in this case the virtual device service container.*
 
     !!! Note
-        These notes assume you are working with the EdgeX Minnesota or later release.  It also assumes you have downloaded the appropriate Docker Compose file and have named it `docker-compose.yml` so you don't have to specify the file name each time you run a Docker Compose command.  Some versions of EdgeX may require other or additional containers to run.
+        These notes assume you are working with the EdgeX Minnesota or later release.  It also assumes you have downloaded the appropriate Docker Compose file and have named it `docker-compose.yml` so you don't have to specify the file name each time you run a Docker Compose command.  Some versions of EdgeX may require other or additional containers to run. If runnig with security, you may need to manually enter the memory limits for vault in the compose file.
 
     !!! Tip
         You can also use the EdgeX Compose Builder tool to create a custom Docker Compose file with just the services you want.  See the [Compose Builder documentation](./Ch-GettingStartedDockerUsers.md#generate-a-custom-docker-compose-file) on and checkout the [Compose Builder tool in GitHub](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder).
@@ -37,7 +37,7 @@ With the EdgeX containers running, you can now download, build and run natively 
 
 ### Get the service code
 
-Per [Getting Started Go Developers](./Ch-GettingStartedGoDevelopers.md#Get-the-code), pull the micro service code you want to work on from GitHub. In this example, we use the latest released tag for device-virtual-go as the micro service that is going to be worked on. The main branch is the development branch for the next release. The latest release tag should always be used so you are worked with the most recent stable code. The release tags can be found [here](https://github.com/edgexfoundry/device-virtual-go/tags). Release tags are those tags to do not have `-dev` in the name.
+Per [Getting Started Go Developers](./Ch-GettingStartedGoDevelopers.md#get-the-code), pull the micro service code you want to work on from GitHub. In this example, we use the latest released tag for device-virtual-go as the micro service that is going to be worked on. The main branch is the development branch for the next release. The latest release tag should always be used so you are worked with the most recent stable code. The release tags can be found [here](https://github.com/edgexfoundry/device-virtual-go/tags). Release tags are those tags to do not have `-dev` in the name.
 
 ``` bash
 git clone --branch <latest-release-tag> https://github.com/edgexfoundry/device-virtual-go.git
@@ -94,4 +94,4 @@ http://localhost:59880/api/{{api_version}}/event/count
 *For this example, you can check that the virtual device service is sending data into Core Data by checking the event count.*
 
 !!! Note
-    If you choose, you can also import the service into GoLand and then code and run the service from GoLand.  Follow the instructions in the [Getting Started - Go Developers ](Ch-GettingStartedGoDevelopers#edgex-foundry-in-goland) to learn how to import, build and run a service in GoLand.
+    If you choose, you can also import the service into GoLand and then code and run the service from GoLand.  Follow the instructions in the [Getting Started - Go Developers ](./Ch-GettingStartedGoDevelopers.md#edgex-foundry-in-goland) to learn how to import, build and run a service in GoLand.

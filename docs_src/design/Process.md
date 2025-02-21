@@ -3,7 +3,7 @@ This document describes the EdgeX use case driven requirements engineering and d
 
 Approved by consent of the TSC on 2022-07-13
 
-Supersedes the processes documented on the [EdgeX Wiki](https://wiki.edgexfoundry.org/pages/viewpage.action?pageId=73663048)
+Supersedes the processes documented on the [EdgeX Wiki](https://lf-edgexfoundry.atlassian.net/wiki/spaces/FA/pages/11668586/Project+Design+Architectural+Decisions)
 
 ## Use Case Driven Approach to Requirements and Design
 Designing an architecture is a very time consuming task. It is best to start that with a solid foundation. The obvious goal is to design an architecture that satisfies the functional requirements, while being secure, flexible, and robust. Requirements are very important factors when designing a system. They should be derived from established, validated, and most importantly, written use cases. To avoid feature creep, the architecture should focus on requirements that are backed by multiple use cases and in the meantime try to remain extensible.
@@ -27,7 +27,7 @@ Issues and new requirements lead to design decisions. Design decisions are also 
 
 EdgeX has two places to record design decisions.
 
-- Any and all design/architectural decisions regardless of size or impact shall be captured on the [EdgeX Foundry Design Decisions project board](https://github.com/orgs/edgexfoundry/projects/45).
+- Any and all design/architectural decisions regardless of size or impact shall be captured on the [EdgeX Foundry Design Decisions project board](https://github.com/orgs/edgexfoundry/projects/56).
 - **Significant architectural decisions** should be documented in an [architectural design record](https://docs.edgexfoundry.org/2.0/design/adr/0018-Service-Registry/) (ADR). ADRs must be reviewed and approved per the process outlined in this documentation.
 
 *Note: ADRs should also be documented on the project board with a link to the ADR in edgex-docs in the project board card.*

@@ -36,7 +36,7 @@ Can be overridden with [EDGEX_CONFIG_FILE](./CommonEnvironmentVariables.md#edgex
 
 `-cp/ --configProvider`
 
-Indicates to use Configuration Provider service at specified URL. URL Format: `{type}.{protocol}://{host}:{port}`. Default is `consul.http://localhost:8500`
+Indicates to use Configuration Provider service at specified URL. URL Format: `{type}.{protocol}://{host}:{port}`. Default is `keeper.http://localhost:59890`
 
 Can be overridden with [EDGEX_CONFIG_PROVIDER](./CommonEnvironmentVariables.md#edgex_config_provider) environment variable.
 

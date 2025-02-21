@@ -18,8 +18,7 @@ For the sake of this demonstration, the call to core metadata will
 provision the human/dog counting monitor camera as if the device service
 discovered it (by some unknown means) and provisioned the device as part
 of some startup process. To create a `Device`, it must be associated to a
-[`DeviceProfile`](./Ch-WalkthroughDeviceProfile.md), a
-[`DeviceService`](./Ch-WalkthroughDeviceService.md), and
+[`DeviceProfile`](./Ch-WalkthroughDeviceProfile.md) and
 contain one or more `Protocols` that define how and where to communicate with the device (possibly providing its address). 
 
 When creating a device, you specify both the admin state (just as you did for a device service) and an operating state. The operating state (aka op state) provides an indication on the part of EdgeX about the internal operating status of the device. The operating state is not set externally (as by another system or man), it is a signal from within EdgeX (and potentially the device service itself) about the condition of the device. The operating state of the device may be either `UP` or `DOWN` (it may alsy be `UNKNOWN` if the state cannot be determined). When the operating state of the device is `DOWN`, it is either experiencing some difficulty or going through some process (for example an upgrade) which does not allow it to function in its normal capacity.
@@ -88,4 +87,4 @@ all devices associated to a given `DeviceProfile`.
 curl -X GET http://localhost:59881/api/{{api_version}}/device/profile/name/camera-monitor-profile | json_pp
 ```
 
-[<Back](Ch-WalkthroughDeviceService.md){: .md-button } [Next>](Ch-WalkthroughCommands.md){: .md-button }
+[<Back](Ch-WalkthroughDeviceProfile.md){: .md-button } [Next>](Ch-WalkthroughCommands.md){: .md-button }

@@ -293,6 +293,44 @@ The `URLFormatter` option allows you to override the default formatter with your
 | NewMQTTSecretSender(mqttConfig MQTTSecretConfig, persistOnError bool)                                                         | This factory function returns a `MQTTSecretSender` instance initialized with the options specified in the `MQTTSecretConfig` and `persistOnError `.                                                                                      |
 | NewMQTTSecretSenderWithTopicFormatter(mqttConfig MQTTSecretConfig, persistOnError bool, topicFormatter StringValuesFormatter) | This factory function returns a `MQTTSecretSender` instance initialized with the options specified in the `MQTTSecretConfig`, `persistOnError ` and `topicFormatter `. See [Topic Formatting](#topic-formatting) below for more details. |
 
+| Method                                                       | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ConnectToBroker(lc logger.LoggingClient, sp bootstrapInterfaces.SecretProvider, retryCount int, retryInterval time.Duration) | Pre-connects to the external MQTT Broker that data will be exported. If this function is not called, then lazy connection will be made when the first data needs to be exported. |
+| SetOnConnectHandler(onConnect MQTT.OnConnectHandler) | SetOnConnect sets the OnConnect Handler before client is connected so client can be captured. |
+
+!!! example - "Pre-Connecting to MQTT Broker"
+    ```go
+    ...	
+    export := transforms.NewMQTTSecretSender(mqttConfig, false)
+    export.ConnectToBroker(app.service.LoggingClient(), app.service.SecretProvider(), 5, time.Second*3)
+    err := app.service.SetDefaultFunctionsPipeline(export.MQTTSend)
+    ...
+    ```
+
+!!! edgey - "EdgeX 4.0"
+    ConnectToBroker is new in EdgeX 4.0
+
+!!! example - "Subscribe from MQTT Broker"
+    ```go
+    ...
+    sender.SetOnConnectHandler(onConnectHandler)
+    sender.ConnectToBroker(lc,sp,1,10)
+    ...	
+    func onConnectHandler(client mqtt.Client) {
+        // subscribe topic
+        incomingTopic := "your_topic"
+        token := client.Subscribe(incomingTopic, qos, onIncomingDataReceived)
+        ...
+    }
+    ...
+    func onIncomingDataReceived(_ mqtt.client, message mqtt.Message) {
+        ...
+    }
+    ```
+
+!!! edgey - "EdgeX 4.0"
+    SetOnConnectHandler is new in EdgeX 4.0
+
 ```go
 type MQTTSecretConfig struct {
     // BrokerAddress should be set to the complete broker address i.e. mqtts://mosquitto:8883/mybroker
@@ -303,6 +341,8 @@ type MQTTSecretConfig struct {
     SecretName string
     // AutoReconnect indicated whether or not to retry connection if disconnected
     AutoReconnect bool
+	// MaxReconnectInterval is the max duration for attempting to reconnect to the broker. Default to 60s if left blank.
+	MaxReconnectInterval string
     // KeepAlive is the interval duration between client sending keepalive ping to broker
     KeepAlive string
     // ConnectTimeout is the duration for timing out on connecting to the broker
@@ -337,6 +377,9 @@ type WillConfig struct {
 	Topic string
 }
 ```
+
+!!! edgey - "EdgeX 4.0"
+    MaxReconnectInterval setting is new in EdgeX 4.0
 
 See [MQTT Last Will](https://cedalo.com/blog/mqtt-last-will-explained-and-example) for more details on MQTT Last Will capability.
 
@@ -479,7 +522,7 @@ There is one Tags transform included in the SDK that can be added to your pipeli
 | Factory Method                                     | Description                                                                                                                                                                                                                                                                                                                     |
 |----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | NewTags(tags `map[string]interface{}`) Tags | This factory function returns a `Tags` instance initialized with the passed in collection of generic tag key/value pairs. This `Tags` instance is used to access the following Tags function that will use the specified collection of tag key/value pairs. This allows for generic complex types for the Tag values.           |
-     
+
 
 ### Add Tags
 
@@ -512,7 +555,7 @@ There is one Tags transform included in the SDK that can be added to your pipeli
 `ToLineProtocol` - This pipeline function will transform the received `dtos.Metric` to a `Line Protocol` formatted string. See https://docs.influxdata.com/influxdb/v2.0/reference/syntax/line-protocol/ for details on the `Line Protocol` syntax.
 
 !!! note
-    When `ToLineProtocol` is the first function in the functions pipeline, the `TargetType` for the service must be set to `&dtos.Metric{}`. See [Target Type](../AdvancedTopics/#target-type) section for details on setting the service's `TargetType`. The Trigger configuration must also be set so  `SubscribeTopics="edgex/telemetry/#"` in order to receive the `dtos.Metric` data from other services. See the new App Service Configurable `metrics-influxdb` [profile](https://github.com/edgexfoundry/app-service-configurable/blob/{{edgexversion}}/res/metrics-influxdb/configuration.yaml) for an example.
+    When `ToLineProtocol` is the first function in the functions pipeline, the `TargetType` for the service must be set to `&dtos.Metric{}`. See [Target Type](../details/TargetType.md) section for details on setting the service's `TargetType`. The Trigger configuration must also be set so  `SubscribeTopics="edgex/telemetry/#"` in order to receive the `dtos.Metric` data from other services. See the new App Service Configurable `metrics-influxdb` [profile](https://github.com/edgexfoundry/app-service-configurable/blob/{{edgexversion}}/res/metrics-influxdb/configuration.yaml) for an example.
 
 !!! example
     ``` go

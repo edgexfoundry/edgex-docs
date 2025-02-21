@@ -96,7 +96,6 @@ as the example shown below:
     container_name: edgex-secretstore-setup
     depends_on:
     - security-bootstrapper
-    - vault
     environment:
       EDGEX_ADD_SECRETSTORE_TOKENS: 'device-onvif-camera'
 ...
@@ -139,7 +138,7 @@ the `known secret` and `device-virtual` is the service key of the add-on service
     container_name: edgex-secretstore-setup
     depends_on:
     - security-bootstrapper
-    - vault
+    - secret-store    
     environment:
       EDGEX_ADD_SECRETSTORE_TOKENS: 'device-onvif-camera, my-service'
       EDGEX_ADD_KNOWN_SECRETS: redisdb[app-rules-engine],redisdb[device-rest],redisdb[device-virtual]
@@ -177,7 +176,7 @@ An example of configuring ACL roles of the registry `Consul` for the add-on serv
     container_name: edgex-core-consul
     depends_on:
     - security-bootstrapper
-    - vault
+    - secret-store
     entrypoint:
     - /edgex-init/consul_wait_install.sh
     environment:

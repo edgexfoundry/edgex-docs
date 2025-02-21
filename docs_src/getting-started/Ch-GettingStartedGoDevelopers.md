@@ -55,7 +55,7 @@ This part of the documentation assumes you wish to get and work with the key Edg
 
 To work with the key services, you will need to download the source code from the [EdgeX Go repository](https://github.com/edgexfoundry/edgex-go). The EdgeX Go-based micro services are
 all available in a single GitHub repository download.  Once the code is pulled, the Go micro services are built and packaged as
-platform dependent executables.  If Docker is installed, the executable can also be [containerized](../general/Definitions.md#Containerized) for end user deployment/use.
+platform dependent executables.  If Docker is installed, the executable can also be [containerized](../general/Definitions.md#containerized) for end user deployment/use.
 
 To download the EdgeX Go code, first change directories to the location where you want to download the code (to edgex in the image below).  Then use your **git**
 tool and request to clone this repository with the following command:
@@ -108,8 +108,7 @@ make build
 Several of the EdgeX Foundry micro services use a database.
 This includes core-data, core-metadata, support-scheduler, among others. Therefore, when
 working with EdgeX Foundry its a good idea to have the database up and
-running as a general rule. See the [Redis Quick Start Guide](https://redis.io/topics/quickstart)
-for how to run Redis in a Linux environment (or find similar documentation for other environments).
+running as a general rule. See the [PostgreSQL Quick Start Guide](https://www.postgresql.org/docs/current/tutorial-start.html)for how to run PostgreSQL in a Linux environment (or find similar documentation for other environments).
 
 ### Run EdgeX Services
 

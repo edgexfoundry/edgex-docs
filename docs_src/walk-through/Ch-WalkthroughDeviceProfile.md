@@ -41,7 +41,7 @@ The device profile defines how to communicate with any device that abides by the
 
 #### Understanding Device Resources
 
-The device profile describes the elements of data that can be obtained from the device or sensor and how to change a setting on a device or sensor.  The data that can be obtained or the setting that can be changed are called **resources** or more precisely they are referred to as device [resources](../general/Definitions.md#Resource) in Edgex.  Learn more about `deviceReources` in the [Device Profile documentation](../microservices/core/metadata/details/DeviceProfile.md#deviceresources).
+The device profile describes the elements of data that can be obtained from the device or sensor and how to change a setting on a device or sensor.  The data that can be obtained or the setting that can be changed are called **resources** or more precisely they are referred to as device [resources](../general/Definitions.md#resource) in Edgex.  Learn more about `deviceReources` in the [Device Profile documentation](../microservices/core/metadata/details/DeviceProfile.md#deviceresources).
 
 In this walkthrough example, there are two pieces of data we want to be able to get or read from the camera:  dog and human counts.  Therefore, both are represented as device resources in the device profile.  Additionally, we want to be able to set two settings on the camera:  the scan depth and snapshot duration.  These are also represented as device resources in the device profile.
 
@@ -140,4 +140,4 @@ Click on the link below to download and save the device profile (YAML) to your s
 #### Test the GET API
 If you make a GET call to the `http://localhost:59881/api/{{api_version}}/deviceprofile/all` URL (with Postman or curl) you will get a listing (in JSON) of all the device profiles (and all of its associated `deviceResource` and `deviceCommand`) currently defined in your instance of EdgeX, including the one you just added.
 
-[<Back](Ch-WalkthroughUseCase.md){: .md-button } [Next>](Ch-WalkthroughDeviceService.md){: .md-button }
+[<Back](Ch-WalkthroughUseCase.md){: .md-button } [Next>](Ch-WalkthroughProvision.md){: .md-button }

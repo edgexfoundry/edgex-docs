@@ -2,7 +2,7 @@
 
 EdgeX Foundry's Command microservice is a conduit for other services to
 trigger action on devices and sensors through their managing Device
-Services. See [Core Command](../../../microservices/core/command/Ch-Command/)  for more details about this service.
+Services. See [Core Command](../../microservices/core/command/GettingStarted.md)  for more details about this service.
 
 The service provides an API to get the list of commands that
 can be issued for all devices or a single device. Commands are divided
@@ -19,4 +19,4 @@ into two groups for each device:
 
 ## Swagger
 
-<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{edgexversion}}/openapi/{{api_version}}/core-command.yaml"/>
+<swagger-ui src="https://raw.githubusercontent.com/edgexfoundry/edgex-go/{{edgexversion}}/openapi/core-command.yaml"/>

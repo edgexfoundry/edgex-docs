@@ -14,11 +14,11 @@ The EdgeX services intended as external entry points are:
 
 - **REST API on all the EdgeX services** - Accessed directly in non-secure mode or via the [API Gateway](../../../security/Ch-APIGateway) when running in secure mode
 
-- **App Service using External MQTT Trigger** - An App Service configured to use the [External MQTT Trigger](../../application/Triggers/#external-mqtt-trigger) will accept data from external services on an "external" MQTT connection
+- **App Service using External MQTT Trigger** - An App Service configured to use the [External MQTT Trigger](../application/details/Triggers.md#external-mqtt-trigger) will accept data from external services on an "external" MQTT connection
   
-- **App Service using HTTP Trigger** - An App Service configured to use the [HTTP Trigger](../../application/Triggers/#http-trigger) will accept data from external services on an "external" REST connection. Accessed in the same manner as other EdgeX REST APIs.
+- **App Service using HTTP Trigger** - An App Service configured to use the [HTTP Trigger](../application/details/Triggers.md#http-trigger) will accept data from external services on an "external" REST connection. Accessed in the same manner as other EdgeX REST APIs.
 
-- **App Service using Custom Trigger** - An App Service configured to use a [Custom Trigger](../../application/Triggers/#custom-trigger) can accept data from external services or over additional protocols with few limitations. See [Custom Trigger Example](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/application-services/custom/custom-trigger) for an example.
+- **App Service using Custom Trigger** - An App Service configured to use a [Custom Trigger](../application/details/Triggers.md#custom-triggers) can accept data from external services or over additional protocols with few limitations. See [Custom Trigger Example](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/application-services/custom/custom-trigger) for an example.
 
 - **Core Command External MQTT Connection** - Core Command now receives command requests and publishes responses via an external MQTT connection that is separate from the EdgeX MessageBus. The requests are forwarded to the EdgeX MessageBus and the corresponding responses are forwarded back to the external MQTT connection. 
 
@@ -26,7 +26,7 @@ Originally, the EdgeX MessageBus was only used to send *Event/Readings* from Cor
 
 - Device Services publish *Event/Readings* directly to the EdgeX MessageBus rather than sending them via REST to Core Data. 
 - [Service Metrics](../#service-metrics) are published to the EdgeX MessageBus
-- [System Events](../../core/metadata/Ch-Metadata/#device-system-events) are published to the EdgeX MessageBus. 
+- [System Events](../core/metadata/details/DeviceSystemEvents.md) are published to the EdgeX MessageBus. 
 - [Command Request/Reponses](../../../design/adr/0023-North-South-Messaging) are now published to the EdgeX MessageBus by Core Command and Devices Services.  
 - Device validation requests from Core Metadata to Device Services via the EdgeX MessageBus.
 
@@ -36,6 +36,9 @@ All messages published to the EdgeX MessageBus are wrapped in a `MessageEnvelope
 
 !!! note
     Unless noted below, the `MessageEnvelope` is  JSON encoded when publishing it to the EdgeX MessageBus. This does result in the `MessageEnvelope`'s payload being double encoded.
+
+!!! edgey "Edgex 4.0"
+    In EdgeX v4, a new environment variable `EDGEX_MSG_BASE64_PAYLOAD` has been introduced. By default, `EDGEX_MSG_BASE64_PAYLOAD` is **false**, which means the payload can be a JSON object rather than a byte array. The change ensures that the payload is not double-encoded. If `EDGEX_MSG_BASE64_PAYLOAD` is set to **true**, the payload will be handled as it was in previous versions. 
 
 ## Implementations
 
@@ -48,41 +51,20 @@ Each service that uses the EdgeX MessageBus has a configuration section which de
 The common MessageBus configuration elements for each implementation are:
 
 - Type - Specifies which of the following implementations to use. 
-    - **Redis Pub/Sub** (**default**) - `Type=redis`
-    - **MQTT 3.1** - `Type=mqtt`
+    - **MQTT 3.1**(**default**) - `Type=mqtt`
     - **NATS Core** - `Type=nats-core` 
     - **NATS JetStream** - `Type=nats-jetstream` 
 - Host - Specifies the name or IP for the message broker 
 - Port - Specifies the port number for the message broker 
 - Protocol - Specifies portocol used by the message broker
-    - `redis` for **Redis Pub/Sub**
-    - `tcp` for **MQTT 3.1**
+    - `tcp` for **MQTT 3.1 (default)**
     - `tcp` for **NATS Core**
     - `tcp` for **NATS JetStream**
 
 !!! note
-    In general all EdgeX Services running in a deployment must be configured to use the same EdgeX MessageBus implementation. By default all services that use the EdgeX MessageBus are configured to use the Redis Pub/Sub implementation. NATS does support a compatibility mode with MQTT. See the [NATS MQTT Mode](#nats-mqtt-mode) section below for details.
+    In general all EdgeX Services running in a deployment must be configured to use the same EdgeX MessageBus implementation. By default all services that use the EdgeX MessageBus are configured to use the MQTT implementation. NATS does support a compatibility mode with MQTT. See the [NATS MQTT Mode](#nats-mqtt-mode) section below for details.
 
-### Redis Pub/Sub
-
-As stated above this is the default implementation that all EdgeX Services are configured to use. It takes advantage of the existing Redis DB instance for the broker. Redis Pub/Sub is a fire and forget protocol, so delivery is not guaranteed. If more robustness is required, use the MQTT or NATS implementations.
-
-#### Configuration
-
-See [Common Configuration](#common-messagebus-configuration) section above for the common configuration elements for all implementations.
-
-##### Security Configuration 
-
-| Option     | Default Value      | Description                                                  |
-| ---------- | ------------------ | ------------------------------------------------------------ |
-| AuthMode   | `usernamepassword` | Mode of authentication to use. Values are `none`, `usernamepassword`<br />, `clientcert`, or `cacert`. In secure mode Redis Pub/Sub uses `usernamepassword` |
-| SecretName | `redisb`           | Secret name used to look up credentials in the service's SecretStore |
-
-##### Additional Configuration
-
-This implementation does not have any additional configuration.
-
-### MQTT 3.1
+### MQTT 3.1 (default)
 
 Robust message bus protocol, which has additional configuration options for robustness and requires an additional MQTT Broker to be running. See [MQTT Spec](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html) for more details on this protocol.
 
@@ -172,8 +154,6 @@ A JetStream enabled server can support MQTT connections on the same set of under
 
 The EdgeX MessageBus uses multi-level topics and wildcards to allow filtering of data via subscriptions and has standardized on a MQTT like scheme. See [MQTT multi-level topics and wildcards](https://www.hivemq.com/blog/mqtt-essentials-part-5-mqtt-topics-best-practices) for more information.
 
-The Redis implementation converts the Redis Pub/Sub multi-level topic scheme to match that of MQTT. In Redis Pub/Sub the "**.**" is used as a level separator, "\*" followed by a level separator is used as the single level wildcard and "*" at the end is used as the multiple level wildcard. These are converted to "/" and "+" and "#" respectively, which are used by MQTT.
-
 
 The NATS implementations convert the NATS multi-level topic scheme to match that of MQTT. In NATS "**.**" is used as a level separator, "\*" is used as the single level wildcard and ">" is used for the multi-level wild card. These are converted to "/", "+" and "#" respectively, which are compliant with the MQTT scheme.
 
@@ -201,11 +181,7 @@ The NATS implementations convert the NATS multi-level topic scheme to match that
 
 ## Deployment
 
-### Redis Pub/Sub (default)
-
-All EdgeX services are capable of using the Redis Pub/Sub without any changes to configuration. The released compose files use Redis Pub/Sub.
-
-### MQTT 3.1
+### MQTT 3.1 (default)
 
 All EdgeX services are capable of using MQTT 3.1 by simply making changes to each service's configuration. 
 

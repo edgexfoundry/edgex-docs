@@ -1,9 +1,9 @@
 site_name: EdgeX Foundry Documentation
 docs_dir: docs_src
-site_dir: docs/3.2
+site_dir: docs/4.0
 site_description: 'Documentation for use of EdgeX Foundry'
 site_author: 'Michael Johanson'
-site_url: 'https://docs.edgexfoundry.org/3.2'
+site_url: 'https://docs.edgexfoundry.org/4.0'
 repo_url: 'https://github.com/edgexfoundry/edgex-go'
 repo_name: 'edgex/edgex-go'
 copyright: 'Copyright &copy; 2023 EdgeX Foundry'
@@ -66,8 +66,9 @@ nav:
     - APIs:
         - api/Ch-APIIntroduction.md
         - api/core/Ch-APICoreCommand.md
-        - Core Data: microservices/core/data/ApiReference.md
+        - api/core/Ch-APICoredata.md
         - api/core/Ch-APICoreMetadata.md
+        - api/core/Ch-APICoreKeeper.md
         - api/core/Ch-APICoreConfigurationAndRegistry.md
         - api/support/Ch-APISupportNotifications.md
         - api/support/Ch-APISupportScheduler.md
@@ -103,7 +104,6 @@ nav:
             - Source Code: microservices/core/command/SourceCode.md
             - Additional Details:
               - Regex Get Command: microservices/core/command/details/RegexGetCommand.md
-        - microservices/core/database/Ch-Redis.md
       - Supporting: 
         - microservices/support/Ch-SupportingServices.md
         - Notifications:
@@ -122,6 +122,8 @@ nav:
             - Configuration: microservices/support/scheduler/Configuration.md
             - API Reference: microservices/support/scheduler/ApiReference.md
             - Source Code: microservices/support/scheduler/SourceCode.md
+            - Additional Details:
+                - Data Retention: microservices/support/scheduler/details/DataRetention.md
         - microservices/support/eKuiper/Ch-eKuiper.md
       - Device:
         - Device Service: microservices/device/DeviceService.md
@@ -144,6 +146,7 @@ nav:
             - Service Metrics: microservices/device/details/ServiceMetrics.md
         - Device Service SDK:
             - Purpose: microservices/device/sdk/Purpose.md
+            - Device System Events: microservices/device/sdk/DeviceSystemEvents.md
             - Getting Started:
                 - Go SDK: microservices/device/sdk/devicesdk-getting-started/GettingStartedSDK-Go.md
                 - C SDK: microservices/device/sdk/devicesdk-getting-started/GettingStartedSDK-C.md
@@ -239,6 +242,15 @@ nav:
               - API Reference: microservices/device/services/device-rest/ApiReference.md
               - Source Code: microservices/device/services/device-rest/SourceCode.md
           - Device RFID LLRP: microservices/device/services/device-rfid-llrp.md
+          - Device S7:
+              - Purpose: microservices/device/services/device-s7/Purpose.md
+              - Getting Started: microservices/device/services/device-s7/GettingStarted.md
+              - Configuration: microservices/device/services/device-s7/Configuration.md
+              - Protocol Properties: microservices/device/services/device-s7/ProtocolProperties.md
+              - API Reference: microservices/device/services/device-s7/ApiReference.md
+              - Source Code: microservices/device/services/device-s7/SourceCode.md
+              - Additional Details:
+                  - microservices/device/services/device-s7/details/DataTypeConversion.md
           - Device SNMP: microservices/device/services/device-snmp.md
           - Device UART:
               - Purpose: microservices/device/services/device-uart/Purpose.md
@@ -326,13 +338,18 @@ nav:
         - V3 Migration: microservices/configuration/V3MigrationCommonConfig.md
       - microservices/general/index.md
       - microservices/general/messagebus.md
+      - Database:
+        # - microservices/general/database/Ch-Redis.md
+        - microservices/general/database/Ch-Postgres.md
     - Security:
       - Security Services: security/Ch-Security.md
       - security/Ch-SecretStore.md
+      - security/Ch-SecretStoreSetup.md
       - security/Ch-Authenticating.md
       - security/Ch-SecretProviderApi.md
       - security/Ch-APIGateway.md
       - security/Ch-Secure-MessageBus.md
+      - security/Ch-Secure-Postgres.md
       - security/Ch-Configuring-Add-On-Services.md
       - security/Ch-Secure-Consul.md
       - security/Ch-SecurityIssues.md
@@ -342,6 +359,7 @@ nav:
       - security/Ch-CORS-Settings.md
       - security/Ch-DelayedStartServices.md
       - security/Ch-RemoteDeviceServices.md
+      - security/Rootless-Docker.md
       - V3 Migration: security/V3Migration.md
       - Threat Models:
         - threat-models/secret-store/README.md
@@ -366,7 +384,6 @@ nav:
         - walk-through/Ch-WalkthroughSetup.md
         - walk-through/Ch-WalkthroughUseCase.md
         - walk-through/Ch-WalkthroughDeviceProfile.md
-        - walk-through/Ch-WalkthroughDeviceService.md
         - walk-through/Ch-WalkthroughProvision.md
         - walk-through/Ch-WalkthroughCommands.md
         - walk-through/Ch-WalkthroughReading.md
@@ -375,7 +392,6 @@ nav:
       - Code Examples: examples/index.md
       - App Service Examples:
         - examples/AppServiceExamples.md
-        - examples/app-service-examples/camera-management/Ch-CameraManagement.md
   - Reference:
     - general/Definitions.md
     - general/PlatformRequirements.md
@@ -436,9 +452,14 @@ plugins:
       enabled: !ENV [ENABLED_HTMLPROOFER, false]
       raise_error: true
       raise_error_excludes:
+        400: ['https://help.axis.com/en-us/axis-os-hardening-guide#onvif-replay-attack-protection']
+        403: ['https://www.collinsdictionary.com/us/dictionary/english/unit-of-measurement',
+              'https://www.pcmag.com/encyclopedia/term/run-native','https://www.vmware.com/topics/glossary/content/kubernetes-cluster.html',
+              'https://app.getpostman.com/','https://www.raspberrypi.com/products/raspberry-pi-3-model-b/',
+              'https://www.raspberrypi.com/software/']
         404: ['https://support.google.com/accounts/answer/185833?hl=en',
               'https://support.google.com/accounts/answer/6010255?hl=en']
         429: ['*']
         -1: ['https://www.rfc-editor.org/rfc/rfc7519',
-             'https://tools.ietf.org/html/rfc5869','https://docs.iotaap.io/docs-rest/']
+             'https://tools.ietf.org/html/rfc5869','https://docs.iotaap.io/docs-rest/','https://unece.org/fileadmin/DAM/cefact/recommendations/rec20/rec20_rev3_Annex2e.pdf']
         500: [https://packages.ubuntu.com/bionic/build-essential]

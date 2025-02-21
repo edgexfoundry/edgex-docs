@@ -1,10 +1,9 @@
----
 title: App Services - Configuration
 ---
 
 # Application Services - Configuration
 
-Similar to other EdgeX services, application service configuration is first determined by the `configuration.yaml` file in the `/res` folder. Once loaded any environment overrides are applied. If `-cp` is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e. Consul) to push the configuration into the provider and monitor `Writable` configuration from there. Any environment overrides are applied prior to the values being pushed. You will find the configuration under the `edgex/{{api_version}}/` key in the provider (i.e. Consul). On re-restart the service will pull the configuration from the provider.
+Similar to other EdgeX services, application service configuration is first determined by the `configuration.yaml` file in the `/res` folder. Once loaded, any environment overrides are applied. If `-cp` is passed to the application on startup, the SDK will leverage the specific configuration provider (i.e. Core Keeper) to push the configuration into the provider and monitor `Writable` configuration from there. Any environment overrides are applied prior to the values being pushed. You will find the configuration under the `edgex/{{api_version}}/` prefix in the provider (i.e. Core Keeper). Upon restart, the service will pull the configuration from the provider.
 
 This section describes the configuration elements provided by the SDK that are unique to Application Services
 
@@ -95,8 +94,8 @@ The tabs below provide additional configuration which are applicable to Applicat
     |Configuration  |     Default Value     | Description |
     | --- | --- | -- |
     | Type | edgex-messagebus*   | Indicates the `Trigger` binding type. valid values are `edgex-messagebus`, `external-mqtt`, `http`, or `<custom>` |
-    | SubscribeTopics | events/#*   | Topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](details/Triggers.md#edgex-message-bus) Trigger for more details. |
-    | PublishTopic | blank*   | Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](details/Triggers.md#edgex-message-bus) Trigger for more details. |
+    | SubscribeTopics | events/#*   | Topic(s) to subscribe to. This is a comma separated list of topics. Supports filtering by subscribe topics. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](details/Triggers.md#edgex-messagebus-trigger) Trigger for more details. |
+    | PublishTopic | blank*   | Indicates the topic in which to publish the function pipeline response data, if any. Supports dynamic topic places holders. Only set when using `edgex-messagebus` or `external-mqtt`. See [EdgeXMessageBus](details/Triggers.md#external-mqtt-trigger) Trigger for more details. |
 
 === "Trigger ExternalMqtt"
 

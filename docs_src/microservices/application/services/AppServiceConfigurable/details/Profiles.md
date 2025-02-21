@@ -15,7 +15,7 @@ The profile name selected is used in the service key (`app-[profile name]`) to m
 e.g. `AppService-sample` when specifying `sample` as the profile.
 
 !!! note
-    If you need to run multiple instances with the same profile, e.g. `http-export`, but configured differently, you will need to override the service key with a custom name for one or more of the services. This is done with the `-sk/-serviceKey` command-line option or the `EDGEX_SERVICE_KEY` environment variable. See the [Command-line Options](../../../details/CommandLine.md#service-key) and [Environment Overrides](../../../details/EnvironmentVariables#edgexservicekey) sections for more detail.
+    If you need to run multiple instances with the same profile, e.g. `http-export`, but configured differently, you will need to override the service key with a custom name for one or more of the services. This is done with the `-sk/-serviceKey` command-line option or the `EDGEX_SERVICE_KEY` environment variable. See the [Command-line Options](../../../details/CommandLine.md#service-key) and [Environment Overrides](../../../details/EnvironmentVariables.md#edgex_service_key) sections for more detail.
 
 !!! note
     Functions can be declared in a profile but not used in the pipeline `ExecutionOrder`  allowing them to be added to the pipeline `ExecutionOrder` later at runtime if needed.
@@ -24,7 +24,7 @@ The following profiles and their purposes are provided with App Service Configur
 
 ### rules-engine
 
-Profile used to push Event messages to the Rules Engine via the **Redis Pub/Sub** Message Bus. This is used in the default docker compose files for the `app-rules-engine` service
+Profile used to push Event messages to the Rules Engine via the **MQTT** Message Bus. This is used in the default docker compose files for the `app-rules-engine` service
 
 One can optionally add Filter function via environment overrides
 

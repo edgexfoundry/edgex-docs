@@ -7,13 +7,13 @@ The following tables (organized by type of service) capture the default service 
     |core-data|	59880|
     |core-metadata	|59881|
     |core-command	|59882|
-    |redis|6379|
+    |postgres|5432|
     |consul|8500|
 === "Supporting"
     |Services Name|	Port Definition|
     |---|---|
     |support-notifications	|59860|
-    |support-scheduler|	59861|
+    |support-scheduler|	59863|
     |rules engine / eKuiper|59720|
     |system management agent (deprecated)|58890|
 === "Application"
@@ -44,6 +44,7 @@ The following tables (organized by type of service) capture the default service 
     |device-grove   |59992|
     |device-snmp	|59993|
     |device-gpio    |59910|
+    |device-s7      |59994|
 === "Security"
     |Services Name|	Port Definition|
     |---|---|
