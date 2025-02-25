@@ -10,7 +10,7 @@ In this example, we simulate the [OPC UA Simulation Server](https://www.prosysop
 
 ## Environment
 
-You can use any operating system that can install docker and
+You can use any operating system that supports docker and
 docker-compose. In this example, we use Ubuntu to deploy EdgeX using docker.
 
 ## Prosys OPC UA Simulation Server
