@@ -70,7 +70,7 @@ The tables in each of the tabs below document configuration properties that are 
     |MaxResultCount|1024*|Read data limit per invocation. *Default value is for core/support services. Application and Device services do not implement this setting. |
     |MaxRequestSize|0|Defines the maximum size of http request body in kilbytes. 0 represents default to system max.|
     |RequestTimeout         |5s                          | Specifies a timeout duration for handling requests |
-    |EnableNameFieldEscape|false|The name field escape could allow the system to use special or Chinese characters in the different name fields, including device, profile, and so on.  If the EnableNameFieldEscape is false, some special characters might cause system error. If EnableNameFieldEscape is true, the client of event or command message bus API clients have to escape the name to subscribe the topics.|
+    |EnableNameFieldEscape|false|The name field escape could allow the system to use special or Chinese characters in the different name fields, including device, profile, and so on. If the EnableNameFieldEscape is set to false, some special characters might cause system error. If EnableNameFieldEscape is set to true, the client of event or command message bus API clients have to escape the name to subscribe the topics.|
     
     !!! note
         While the `EnableNameFieldEscape` configuration is set to true, the message bus API clients have to escape the URI, MQTT and Regex reserved charaters in the name to subscribe the topics.
