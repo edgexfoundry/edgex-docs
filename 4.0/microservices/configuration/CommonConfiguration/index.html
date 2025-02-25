@@ -2991,10 +2991,16 @@
 <tr>
 <td>EnableNameFieldEscape</td>
 <td>false</td>
-<td>The name field escape could allow the system to use special or Chinese characters in the different name fields, including device, profile, and so on.  If the EnableNameFieldEscape is false, some special characters might cause system error. If EnableNameFieldEscape is true, the client of event or command message bus API clients have to escape the name to subscribe the topics, for example, if the device name is <code>test-device</code>, the escaped device name should be <code>test%2Ddevice</code>, and the event topic is similar to <code>edgex/events/device/device%2Dvirtual/test%2Dprofile/test%2Ddevice/test%2Dresource</code>.</td>
+<td>The name field escape could allow the system to use special or Chinese characters in the different name fields, including device, profile, and so on. If the EnableNameFieldEscape is set to false, some special characters might cause system error. If EnableNameFieldEscape is set to true, the client of event or command message bus API clients have to escape the name to subscribe the topics.</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While the <code>EnableNameFieldEscape</code> configuration is set to true, the message bus API clients have to escape the URI, MQTT and Regex reserved charaters in the name to subscribe the topics.
+For example, if the device name is <code>test-device</code>, the escaped device name should be <code>test%2Ddevice</code>, and the event topic is similar to <code>edgex/events/device/device%2Dvirtual/test%2Dprofile/test%2Ddevice/test%2Dresource</code>.</p>
+<p>Please refer to <a href="https://en.wikipedia.org/wiki/Percent-encoding">Percent-encoding</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions#escaping">Regular expression</a> and <a href="https://www.emqx.com/en/blog/advanced-features-of-mqtt-topics#mqtt-wildcards">MQTT Topics and Wildcards</a> for detailed information on reserved characters in percent-encoding, regular expressions, and MQTT topics.</p>
+</div>
 </div>
 <div class="tabbed-block">
 <table>
