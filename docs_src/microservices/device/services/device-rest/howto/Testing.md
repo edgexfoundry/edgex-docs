@@ -4,23 +4,38 @@ title: Device REST - Testing
 
 # Device REST - Testing
 
+## Running Service
+
+The simplest way to run all the required services is to use the [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder) tool from a terminal window
+
+1. Clone [https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}})
+
+2. Change to the **compose-builder** folder
+
+3. Run the services
+    ```
+    make run no-secty ds-rest
+    ```
+
+This runs, in non-secure mode, all the standard EdgeX services along with the Device Rest service.
+
 ## Async
 
 The best way to test this service with simulated data is to use **PostMan** to send data to the following endpoints defined for the above device profiles.
 
-- http://localhost:59986/api/v2/resource/sample-image/jpeg
+- http://localhost:59986/api/v3/resource/sample-image/jpeg
 
     - POSTing a JPEG binary image file will result in the `BinaryValue` of the `Reading` being set to the JPEG image data posted.
     - Example test JPEG to post:
         - Select any JPEG file from your computer or the internet
 
-- http://localhost:59986/api/v2/resource/sample-image/png
+- http://localhost:59986/api/v3/resource/sample-image/png
 
     - POSTing a PNG binary image file will result in the `BinaryValue` of the `Reading` being set to the PNG image data posted.
     - Example test PNG to post:
         - Select any PNG file from your computer or the internet
 
-- http://localhost:59986/api/v2/resource/sample-json/json
+- http://localhost:59986/api/v3/resource/sample-json/json
 
     - POSTing a JSON string value will result in the  `Value` of the `Reading` being set to the JSON string value posted.
 
@@ -36,7 +51,7 @@ The best way to test this service with simulated data is to use **PostMan** to s
       }
       ```
 
-- http://localhost:59986/api/v2/resource/sample-numeric/int
+- http://localhost:59986/api/v3/resource/sample-numeric/int
     - POSTing a text integer value will result in the  `Value` of the `Reading` being set to the string representation of the value as an `Int64`. The POSTed value is verified to be a valid `Int64` value.
 
     - A 400 error will be returned if the POSTed value fails the `Int64` type verification.
@@ -47,7 +62,7 @@ The best way to test this service with simulated data is to use **PostMan** to s
       1001
       ```
 
-- http://localhost:59986/api/v2/resource/sample-numeric/float
+- http://localhost:59986/api/v3/resource/sample-numeric/float
     - POSTing a text float value will result in the  `Value` of the `Reading` being set to the string representation of the value as an `Float64`. The POSTed value is verified to be a valid `Float64` value.
 
     - A 400 error will be returned if the POSTed value fails the `Float64` type verification.
@@ -85,7 +100,7 @@ These commands are explained in `GET Command` section below. End device can be a
 ### Simulated End Device
 
 Example simulated end device code using `nodejs` is as shown below. 
-This example code is has endpoint for `int8` resource. 
+This example code has endpoint for `int8` resource. 
 To test GET/SET commands for other resources, this code needs to be expanded in the same way for other device resources also.
 
 ```js
@@ -128,14 +143,14 @@ console.log("Server listening at http://%s:%s", host, port)
 
 Example Core Command GET request for `int8` device resource using curl command-line utility is as shown below.
 ```
-   $ curl --request GET http://localhost:59882/api/v2/device/name/2way-rest-device/int8
+   $ curl --request GET http://localhost:59882/api/v3/device/name/2way-rest-device/int8
 ```
 Example Core Command GET request for `int8` device resource using **PostMan** is as shown below.
 ```
-http://localhost:59882/api/v2/device/name/2way-rest-device/int8
+http://localhost:59882/api/v3/device/name/2way-rest-device/int8
 ```
 
-`2way-rest-device` is the device name as defined in the device file.
+`2way-rest-device` is the device name as defined in the [device file](https://github.com/edgexfoundry/device-rest-go/blob/main/cmd/res/devices/sample-devices.yaml).
 !!! example - "Example expected success response from the end device"
     ```json
        {
@@ -163,15 +178,30 @@ http://localhost:59882/api/v2/device/name/2way-rest-device/int8
        } 
     ```
 
+!!! note
+    You may receive the error response as shown below:
+    ```json
+    {"apiVersion":"v3","message":"request failed, status code: 500, err: {\"apiVersion\":\"v3\",\"message\":\"error reading Regex DeviceResource(s) int8 for 2way-rest-device -\\u003e Get request failed\",\"statusCode\":500}","statusCode":500}
+    ```
+    This error response is due to the fact that the [device file](https://github.com/edgexfoundry/device-rest-go/blob/main/cmd/res/devices/sample-devices.yaml) defines the simulated 2way-rest-device with `127.0.0.1` ip address; however, the simulated 2way-rest-device is actually running in the host network, so that the device-rest service cannot access the simulated 2way-rest-device through `127.0.0.1`. 
+    To resolve this issue, you will have to correct the ip address for the simulated 2way-rest-device through the following steps:
+
+    1. Find the ip address of the `docker0` network by running the following command in the terminal:
+        ```
+        $ ifconfig docker0 | grep 'inet ' | awk '{print $2}'        
+        ```
+    2. Open a web browser and access to the edgex UI at `http://localhost:4000/en-US/#/metadata/device-center/device-list`
+    3. Update the ip address of the simulated 2way-rest-device from `127.0.0.1` to the ip address of the `docker0` network
+
 ### SET Command
 
 !!! example - "Example Core Command SET request to `int8` device resource using curl"
     ```
-    $ curl -i -X PUT -H "Content-Type: application/json" -d '{"int8":12}' http://localhost:59882/api/v2/device/name/2way-rest-device/int8
+    $ curl -i -X PUT -H "Content-Type: application/json" -d '{"int8":12}' http://localhost:59882/api/v3/device/name/2way-rest-device/int8
     ```
 !!! example - "Example Core Command SET request to `int8` device resource using **PostMan**"
     ```
-    http://localhost:59882/api/v2/device/name/2way-rest-device/int8
+    http://localhost:59882/api/v3/device/name/2way-rest-device/int8
     ```
     - Body with a text integer value "12" will result in the  `Value` of the `Command` being set to the string representation of the value as an `Int8`. The PUT value is verified to be a valid `Int8` value.
     - A 400 error will be returned if the PUTted value fails the `Int8` type verification.
