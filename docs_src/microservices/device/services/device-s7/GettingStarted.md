@@ -430,7 +430,6 @@ curl http://localhost:59882/api/{{api_version}}/device/name/S7-Device03/heartbea
     "origin": 1702103303160428120,
     "readings": [
       {
-        "id": "8324105a-1843-415d-bea7-b61e6d12142c",
         "origin": 1702103303159722671,
         "deviceName": "S7-Device03",
         "resourceName": "heartbeat",

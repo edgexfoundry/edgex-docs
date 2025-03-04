@@ -72,7 +72,6 @@ curl http://localhost:59882/api/{{api_version}}/device/name/<device name>/Friend
     "origin": 1658441317910501400,
     "readings": [
       {
-        "id": "62a0424b-a3c1-45ea-b640-58c7aa3ea476",
         "origin": 1658441317910501400,
         "deviceName": "TP-Link-C200-3fa1fe68-b915-4053-a3e1-cc32e5000688",
         "resourceName": "FriendlyName",
@@ -147,7 +146,6 @@ curl http://localhost:59882/api/{{api_version}}/device/name/<device name>/MACAdd
     "origin": 1658441498356294000,
     "readings": [
       {
-        "id": "7a7735ed-3b61-4426-84df-5e9a524e4022",
         "origin": 1658441498356294000,
         "deviceName": "TP-Link-C200-3fa1fe68-b915-4053-a3e1-1027f5ea8888",
         "resourceName": "MACAddress",

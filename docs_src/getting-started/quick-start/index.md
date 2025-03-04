@@ -131,7 +131,6 @@ This command will return a JSON result that looks like this:
         "origin": 1625605672073875500,
         "readings": [
             {
-                "id": "545b7add-683b-4745-84f1-d859f3d839e0",
                 "origin": 1625605672073875500,
                 "deviceName": "Random-Integer-Device",
                 "resourceName": "Int16",

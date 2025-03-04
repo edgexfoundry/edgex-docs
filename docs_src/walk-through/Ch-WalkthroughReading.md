@@ -45,7 +45,6 @@ Use either the Postman or Curl tab below to walkthrough sending an `Event` with 
                     "origin": 1602168089665565200,
                     "readings": [
                         {
-                            "id": "7003cacc-0e00-4676-977c-4e58b9612abd",
                             "origin": 1602168089665565200,
                             "deviceName": "countcamera1",
                             "resourceName": "HumanCount",
@@ -54,7 +53,6 @@ Use either the Postman or Curl tab below to walkthrough sending an `Event` with 
                             "value": "5"
                         },
                         {
-                            "id": "7003cacc-0e00-4676-977c-4e58b9612abe",
                             "origin": 1602168089665565200,
                             "deviceName": "countcamera1",
                             "resourceName": "CanineCount",
@@ -79,7 +77,7 @@ Use either the Postman or Curl tab below to walkthrough sending an `Event` with 
     Make a curl POST request as shown below.
 
     ``` shell
-    curl -X POST -d '{"apiVersion" : "{{api_version}}","event": {"apiVersion" : "{{api_version}}","deviceName": "countcamera1","profileName": "camera-monitor-profile","sourceName": "HumanCount","id":"d5471d59-2810-419a-8744-18eb8fa03464","origin": 1602168089665565200,"readings": [{"id": "7003cacc-0e00-4676-977c-4e58b9612abc","origin": 1602168089665565200,"deviceName": "countcamera1","resourceName": "HumanCount","profileName": "camera-monitor-profile","valueType": "Int16","value": "5"},{"id": "7003cacc-0e00-4676-977c-4e58b9612abf","origin":1602168089665565200,"deviceName": "countcamera1","resourceName": "CanineCount","profileName": "camera-monitor-profile","valueType": "Int16","value": "3"}]}}' localhost:59880/api/{{api_version}}/event/camera-monitor-profile/countcamera1/HumanCount
+    curl -X POST -d '{"apiVersion" : "{{api_version}}","event": {"apiVersion" : "{{api_version}}","deviceName": "countcamera1","profileName": "camera-monitor-profile","sourceName": "HumanCount","id":"d5471d59-2810-419a-8744-18eb8fa03464","origin": 1602168089665565200,"readings": [{"origin": 1602168089665565200,"deviceName": "countcamera1","resourceName": "HumanCount","profileName": "camera-monitor-profile","valueType": "Int16","value": "5"},{"origin":1602168089665565200,"deviceName": "countcamera1","resourceName": "CanineCount","profileName": "camera-monitor-profile","valueType": "Int16","value": "3"}]}}' localhost:59880/api/{{api_version}}/event/camera-monitor-profile/countcamera1/HumanCount
     ```
 
     ![image](EdgeX_WalkthroughSendEvent_Curl.png)

@@ -59,7 +59,6 @@ $ curl http://localhost:59882/api/{{api_version}}/device/name/Simple-Device01/%2
     "origin": 1679464105224933600,
     "readings": [
       {
-        "id": "c008960a-c3cc-4cfc-b9f7-a1f1516168ea",
         "origin": 1679464105224933600,
         "deviceName": "Simple-Device01",
         "resourceName": "Xrotation",

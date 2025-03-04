@@ -343,7 +343,6 @@ We got the result, `"value" : "1.999900e+02"`:
     "readings": [
       {
         "deviceName": "SimulationServer1",
-        "id": "5c1ea763-bb50-4837-b78c-8ef1c2ed0035",
         "origin": 1702613269921,
         "profileName": "OPCUA-Server",
         "resourceName": "Constant",
