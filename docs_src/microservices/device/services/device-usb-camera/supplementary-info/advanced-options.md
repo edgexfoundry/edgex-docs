@@ -78,7 +78,6 @@ This command sets the frame rate for the capture device.
                 "origin": 1689621129335558590,
                 "readings": [
                     {
-                        "id": "7f4918ca-31c9-4bcf-9490-a328eb62beab",
                         "origin": 1689621129335558590,
                         "deviceName": "C270_HD_WEBCAM-8184F580",
                         "resourceName": "DataFormat",
@@ -175,7 +174,6 @@ This command sets the frame rate for the capture device.
                  "sourceName": "FrameRate",
                  "origin": 1692730015347762386,
                  "readings": [{
-                     "id": "b991d703-b7ac-4139-a598-87e0f190d617",
                      "origin": 1692730015347762386,
                      "deviceName": "C270_HD_WEBCAM-8184F580",
                      "resourceName": "FrameRate",
@@ -256,7 +254,6 @@ This command sets the desired pixel format for the capture device.
             "origin": 1692728351448270645,
             "readings": [
                 {
-                    "id": "ded64ad7-955a-4979-9acd-ff5f1cbc9e9c",
                     "origin": 1692728351448270645,
                     "deviceName": "C270_HD_WEBCAM-8184F580",
                     "resourceName": "PixelFormat",

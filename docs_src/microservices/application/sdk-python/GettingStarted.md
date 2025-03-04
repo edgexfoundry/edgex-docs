@@ -183,8 +183,7 @@ The following steps will guide you through the process of creating a simple appl
                     "deviceName": "Random-Float-Device",
                     "value": "76677",
                     "origin": 1540855006469,
-                    "valueType": "Float32",
-                    "id": "82eb2e36-0f24-48aa-ae4c-de9dac3fb920"
+                    "valueType": "Float32"
                 }
             ]
         }

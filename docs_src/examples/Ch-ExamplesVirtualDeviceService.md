@@ -54,7 +54,6 @@ The virtual device should respond (via the core command service) with event/read
     "origin": 1626227770833093400,
     "readings": [
       {
-        "id": "baf42bc7-307a-4647-8876-4e84759fd2ba",
         "origin": 1626227770833093400,
         "deviceName": "Random-Integer-Device",
         "resourceName": "Int8",

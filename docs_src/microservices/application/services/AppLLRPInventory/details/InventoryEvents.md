@@ -29,7 +29,6 @@ Arrived events are generated when _**ANY**_ of the following conditions are met:
       "readings": [
         {
           "apiVersion": "v3",
-          "id": "8d15d035-402f-4abc-85fc-a7ed7213122a",
           "origin": 1598043284109799400,
           "deviceName": "app-rfid-llrp-inventory",
           "resourceName": "InventoryEventArrived",
@@ -62,7 +61,6 @@ Moved events are generated when _**ALL**_ of the following conditions are met:
       "readings": [
         {
           "apiVersion": "v3",
-          "id": "323694d9-1a48-417a-9f43-25998536ae8f",
           "origin": 1598401259697580500,
           "deviceName": "app-rfid-llrp-inventory",
           "resourceName": "InventoryEventMoved",
@@ -96,7 +94,6 @@ first Antenna that reads the tag again.
       "readings": [
         {
           "apiVersion": "v3",
-          "id": "928ff90d-02d1-43be-81a6-a0d75886b0e4",
           "origin": 1598062424894043600,
           "deviceName": "app-rfid-llrp-inventory",
           "resourceName": "InventoryEventDeparted",
@@ -106,7 +103,6 @@ first Antenna that reads the tag again.
         },
         {
           "apiVersion": "v3",
-          "id": "abfff90d-02d1-43be-81a6-a0d75886cdaf",
           "origin": 1598062424894043600,
           "deviceName": "rfid-llrp-inventory",
           "resourceName": "InventoryEventDeparted",

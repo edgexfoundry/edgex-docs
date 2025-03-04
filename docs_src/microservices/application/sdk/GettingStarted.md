@@ -127,8 +127,7 @@ Using PostMan or curl send the following JSON to `localhost:<port>/api/{{api_ver
                 "deviceName": "Random-Float-Device",
                 "value": "76677",
                 "origin": 1540855006469,
-                "ValueType": "Float32",
-                "id": "82eb2e36-0f24-48aa-ae4c-de9dac3fb920"
+                "ValueType": "Float32"
             }
         ]
     }

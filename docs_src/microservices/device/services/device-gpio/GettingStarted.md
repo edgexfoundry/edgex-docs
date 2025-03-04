@@ -160,7 +160,6 @@ Assume another GPIO device (used for button detection) connected to pin 22 on cu
         "origin": 1634221479227566300,
         "readings": [
           {
-            "id": "240dc2ea-d69f-4229-94c4-3ad0507cf657",
             "origin": 1634221479227566300,
             "deviceName": "GPIO-Device01",
             "resourceName": "Switch",
