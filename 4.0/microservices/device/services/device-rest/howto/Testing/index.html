@@ -1630,6 +1630,11 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#running-service">
+    Running Service
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#async">
     Async
   </a>
@@ -2949,6 +2954,11 @@
     </label>
 <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#running-service">
+    Running Service
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#async">
     Async
   </a>
@@ -2985,11 +2995,27 @@
 <div class="md-content" data-md-component="content">
 <article class="md-content__inner md-typeset">
 <h1 id="device-rest-testing">Device REST - Testing</h1>
+<h2 id="running-service">Running Service</h2>
+<p>The simplest way to run all the required services is to use the <a href="https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder">Compose Builder</a> tool from a terminal window</p>
+<ol>
+<li>
+<p>Clone <a href="https://github.com/edgexfoundry/edgex-compose/tree/main">https://github.com/edgexfoundry/edgex-compose/tree/main</a></p>
+</li>
+<li>
+<p>Change to the <strong>compose-builder</strong> folder</p>
+</li>
+<li>
+<p>Run the services
+    <div class="highlight"><pre><span></span><code>make run no-secty ds-rest
+</code></pre></div></p>
+</li>
+</ol>
+<p>This runs, in non-secure mode, all the standard EdgeX services along with the Device Rest service.</p>
 <h2 id="async">Async</h2>
 <p>The best way to test this service with simulated data is to use <strong>PostMan</strong> to send data to the following endpoints defined for the above device profiles.</p>
 <ul>
 <li>
-<p>http://localhost:59986/api/v2/resource/sample-image/jpeg</p>
+<p>http://localhost:59986/api/v3/resource/sample-image/jpeg</p>
 <ul>
 <li>POSTing a JPEG binary image file will result in the <code>BinaryValue</code> of the <code>Reading</code> being set to the JPEG image data posted.</li>
 <li>Example test JPEG to post:<ul>
@@ -2999,7 +3025,7 @@
 </ul>
 </li>
 <li>
-<p>http://localhost:59986/api/v2/resource/sample-image/png</p>
+<p>http://localhost:59986/api/v3/resource/sample-image/png</p>
 <ul>
 <li>POSTing a PNG binary image file will result in the <code>BinaryValue</code> of the <code>Reading</code> being set to the PNG image data posted.</li>
 <li>Example test PNG to post:<ul>
@@ -3009,7 +3035,7 @@
 </ul>
 </li>
 <li>
-<p>http://localhost:59986/api/v2/resource/sample-json/json</p>
+<p>http://localhost:59986/api/v3/resource/sample-json/json</p>
 <ul>
 <li>POSTing a JSON string value will result in the  <code>Value</code> of the <code>Reading</code> being set to the JSON string value posted.</li>
 </ul>
@@ -3025,7 +3051,7 @@
 </code></pre></div>
 </li>
 <li>
-<p>http://localhost:59986/api/v2/resource/sample-numeric/int</p>
+<p>http://localhost:59986/api/v3/resource/sample-numeric/int</p>
 <ul>
 <li>
 <p>POSTing a text integer value will result in the  <code>Value</code> of the <code>Reading</code> being set to the string representation of the value as an <code>Int64</code>. The POSTed value is verified to be a valid <code>Int64</code> value.</p>
@@ -3041,7 +3067,7 @@
 </code></pre></div>
 </li>
 <li>
-<p>http://localhost:59986/api/v2/resource/sample-numeric/float</p>
+<p>http://localhost:59986/api/v3/resource/sample-numeric/float</p>
 <ul>
 <li>
 <p>POSTing a text float value will result in the  <code>Value</code> of the <code>Reading</code> being set to the string representation of the value as an <code>Float64</code>. The POSTed value is verified to be a valid <code>Float64</code> value.</p>
@@ -3144,7 +3170,7 @@
 These commands are explained in <code>GET Command</code> section below. End device can be anything, For example <code>nodejs based REST emulator</code> is used as end device for testing commanding functionaity of the REST device service. Example end device code is mentioned in <code>End Device</code> section below.</p>
 <h3 id="simulated-end-device">Simulated End Device</h3>
 <p>Example simulated end device code using <code>nodejs</code> is as shown below. 
-This example code is has endpoint for <code>int8</code> resource. 
+This example code has endpoint for <code>int8</code> resource. 
 To test GET/SET commands for other resources, this code needs to be expanded in the same way for other device resources also.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">///////////////////BUILD AND RUN INSTRUCTIONS/////////////////////</span>
 <span class="c1">// Install node, npm, express module in target machine</span>
@@ -3182,12 +3208,12 @@ To test GET/SET commands for other resources, this code needs to be expanded in 
 </code></pre></div>
 <h3 id="get-command">GET Command</h3>
 <p>Example Core Command GET request for <code>int8</code> device resource using curl command-line utility is as shown below.
-<div class="highlight"><pre><span></span><code>   $ curl --request GET http://localhost:59882/api/v2/device/name/2way-rest-device/int8
+<div class="highlight"><pre><span></span><code>   $ curl --request GET http://localhost:59882/api/v3/device/name/2way-rest-device/int8
 </code></pre></div>
 Example Core Command GET request for <code>int8</code> device resource using <strong>PostMan</strong> is as shown below.
-<div class="highlight"><pre><span></span><code>http://localhost:59882/api/v2/device/name/2way-rest-device/int8
+<div class="highlight"><pre><span></span><code>http://localhost:59882/api/v3/device/name/2way-rest-device/int8
 </code></pre></div></p>
-<p><code>2way-rest-device</code> is the device name as defined in the device file.</p>
+<p><code>2way-rest-device</code> is the device name as defined in the <a href="https://github.com/edgexfoundry/device-rest-go/blob/main/cmd/res/devices/sample-devices.yaml">device file</a>.</p>
 <div class="admonition example -">
 <p class="admonition-title">Example expected success response from the end device</p>
 <div class="highlight"><pre><span></span><code><span class="w">   </span><span class="p">{</span>
@@ -3215,15 +3241,30 @@ Example Core Command GET request for <code>int8</code> device resource using <st
 <span class="w">   </span><span class="p">}</span><span class="w"> </span>
 </code></pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You may receive the error response as shown below:
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="s2">"v3"</span><span class="p">,</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"request failed, status code: 500, err: {\"apiVersion\":\"v3\",\"message\":\"error reading Regex DeviceResource(s) int8 for 2way-rest-device -\\u003e Get request failed\",\"statusCode\":500}"</span><span class="p">,</span><span class="nt">"statusCode"</span><span class="p">:</span><span class="mi">500</span><span class="p">}</span>
+</code></pre></div>
+This error response is due to the fact that the <a href="https://github.com/edgexfoundry/device-rest-go/blob/main/cmd/res/devices/sample-devices.yaml">device file</a> defines the simulated 2way-rest-device with <code>127.0.0.1</code> ip address; however, the simulated 2way-rest-device is actually running in the host network, so that the device-rest service cannot access the simulated 2way-rest-device through <code>127.0.0.1</code>. 
+To resolve this issue, you will have to correct the ip address for the simulated 2way-rest-device through the following steps:</p>
+<ol>
+<li>Find the ip address of the <code>docker0</code> network by running the following command in the terminal:
+    <div class="highlight"><pre><span></span><code>$ ifconfig docker0 | grep 'inet ' | awk '{print $2}'        
+</code></pre></div></li>
+<li>Open a web browser and access to the edgex UI at <code>http://localhost:4000/en-US/#/metadata/device-center/device-list</code></li>
+<li>Update the ip address of the simulated 2way-rest-device from <code>127.0.0.1</code> to the ip address of the <code>docker0</code> network</li>
+</ol>
+</div>
 <h3 id="set-command">SET Command</h3>
 <div class="admonition example -">
 <p class="admonition-title">Example Core Command SET request to <code>int8</code> device resource using curl</p>
-<div class="highlight"><pre><span></span><code>$ curl -i -X PUT -H "Content-Type: application/json" -d '{"int8":12}' http://localhost:59882/api/v2/device/name/2way-rest-device/int8
+<div class="highlight"><pre><span></span><code>$ curl -i -X PUT -H "Content-Type: application/json" -d '{"int8":12}' http://localhost:59882/api/v3/device/name/2way-rest-device/int8
 </code></pre></div>
 </div>
 <div class="admonition example -">
 <p class="admonition-title">Example Core Command SET request to <code>int8</code> device resource using <strong>PostMan</strong></p>
-<p><div class="highlight"><pre><span></span><code>http://localhost:59882/api/v2/device/name/2way-rest-device/int8
+<p><div class="highlight"><pre><span></span><code>http://localhost:59882/api/v3/device/name/2way-rest-device/int8
 </code></pre></div>
 - Body with a text integer value "12" will result in the  <code>Value</code> of the <code>Command</code> being set to the string representation of the value as an <code>Int8</code>. The PUT value is verified to be a valid <code>Int8</code> value.
 - A 400 error will be returned if the PUTted value fails the <code>Int8</code> type verification.</p>
