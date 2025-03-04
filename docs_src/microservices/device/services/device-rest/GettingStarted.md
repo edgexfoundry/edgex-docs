@@ -4,31 +4,16 @@ title: Device REST - Getting Started
 
 # Device REST - Getting Started
 
-## Running Service
-
-The simplest way to run all the required services is to use the [Compose Builder](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder) tool from a terminal window
-
-1. Clone [https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}})
-
-2. Change to the **compose-builder** folder
-
-3. Run the services
-    ```
-    make run no-secty ds-rest
-    ```
-
-This runs, in non-secure mode, all the standard EdgeX services along with the Device Rest service.
-
 ## Sample Device Profiles
 
 The service contains the following sample Device Profiles as examples. 
 This is where `Device Resources` and `Device Commands` are defined.
 
-| Name                                                                                                                                               | Description                                                  |
-|----------------------------------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------ |
-| [sample-numeric-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/profiles/sample-numeric-device.yaml)     | Example of device type which can POST values for numeric resources |
-| [sample-json-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/profiles/sample-json-device.yaml)           | Example of device type which can POST values for object resources |
-| [sample-image-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/profiles/sample-image-device.yaml)         | Example of device type which can POST values for image resources |
+| Name                                                                                                                                               | Description                                                                |
+|----------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| [sample-numeric-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/profiles/sample-numeric-device.yaml)     | Example of device type which can POST values for numeric resources         |
+| [sample-json-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/profiles/sample-json-device.yaml)           | Example of device type which can POST values for object resources          |
+| [sample-image-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/profiles/sample-image-device.yaml)         | Example of device type which can POST values for image resources           |
 | [sample-2way-rest-device.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/profiles/sample-2way-rest-device.yaml) | Example of device type which supports commanding to read and set resources |
 
 Use these samples to determine the best way to module your REST device with a new Device Profile. 
@@ -38,8 +23,7 @@ Also see the [Device Profiles](../../details/DeviceProfiles.md) section for more
 
 The service contains the [sample-devices.yaml](https://github.com/edgexfoundry/device-rest-go/blob/{{edgexversion}}/cmd/res/devices/sample-devices.yaml) devices as examples of device instances for the above Device Profiles.
 
-This is where device instances are statically defined. Use these samples to determine the best way to define your 
-REST Device instances.
+This is where device instances are statically defined. Use these samples to determine the best way to define your REST Device instances.
 Also see the [Device Definitions](../../details/DeviceProfiles.md) section for more details about Device Definitions.
 
 ## REST Endpoints
