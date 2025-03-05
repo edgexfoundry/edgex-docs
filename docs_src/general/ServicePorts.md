@@ -53,6 +53,7 @@ The following tables (organized by type of service) capture the default service 
     |security-spire-server          |59840|
     |security-spiffe-token-provider |59841|
     |security-proxy-auth            |59842|
+    |security-secretstore-setup     |59843|
 === "Miscellaneous"
     |Services Name|	Port Definition|
     |---|---|
