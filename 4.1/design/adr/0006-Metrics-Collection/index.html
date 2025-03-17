@@ -1,0 +1,3534 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Documentation for use of EdgeX Foundry" name="description"/>
+<meta content="Michael Johanson" name="author"/>
+<link href="https://docs.edgexfoundry.org/4.1/design/adr/0006-Metrics-Collection/" rel="canonical"/>
+<link href="../../../assets/logo_edgex.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.1.19" name="generator"/>
+<title>EdgeX Metrics Collection - EdgeX Foundry Documentation</title>
+<link href="../../../assets/stylesheets/main.eebd395e.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/palette.ecc896b0.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../assets/stylesheets/version-select.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/branding.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/edgey.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/newexample.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/extra.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-38531ZZHBN"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-38531ZZHBN",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-38531ZZHBN",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+<script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="custom" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#edgex-metrics-collection">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="EdgeX Foundry Documentation" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="EdgeX Foundry Documentation">
+<img alt="logo" src="../../../assets/logo_edgex_white.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            EdgeX Foundry Documentation
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              EdgeX Metrics Collection
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="indigo" data-md-color-scheme="custom" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="indigo" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/edgexfoundry/edgex-go" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        Home
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../general/Definitions/">
+        Reference
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../Process/">
+        Use Case &amp; Design
+      </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="EdgeX Foundry Documentation" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="EdgeX Foundry Documentation">
+<img alt="logo" src="../../../assets/logo_edgex_white.png"/>
+</a>
+    EdgeX Foundry Documentation
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/edgexfoundry/edgex-go" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    edgex/edgex-go
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+          Home
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_1">
+<span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+        Overview
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../about/">
+        About
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="0">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_3">
+<span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/">
+        Guides
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/quick-start/">
+        Quick Start
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedUsers/">
+        Getting Started as a User
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedDockerUsers/">
+        Getting Started using Docker
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/tools/Ch-GUI/">
+        Graphical User Interface (GUI)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="0">
+          Developer
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_4">
+<span class="md-nav__icon md-icon"></span>
+          Developer
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedDevelopers/">
+        Getting Started as a Developer
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedGoDevelopers/">
+        Getting Started - Go Developers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedCDevelopers/">
+        Getting Started - C Developers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedHybrid/">
+        Working in a Hybrid Environment
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_4_5" id="__nav_1_4_5_label" tabindex="0">
+          Native Build and Run Guides
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_4_5">
+<span class="md-nav__icon md-icon"></span>
+          Native Build and Run Guides
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunNative/">
+        Native Build and Run
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunOnLinuxDistro/">
+        Build and Run on Linux on x86/x64
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunOnArm32/">
+        Build and Run on Linux on ARM 32
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/native/Ch-BuildRunOnWindows/">
+        Build and Run on Windows on x86/x64
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/Purpose/">
+        Application Functions SDK - Go
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk-python/Purpose/">
+        Application Functions SDK - Python
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_4_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_4_8" id="__nav_1_4_8_label" tabindex="0">
+          Device Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_4_8_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_4_8">
+<span class="md-nav__icon md-icon"></span>
+          Device Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/GettingStarted/">
+        Device Service - Getting Started
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedUsersNexus/">
+        Getting Docker Images from EdgeX Nexus Repository
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../getting-started/Ch-GettingStartedDTOValidation/">
+        DTO Validation
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_5" id="__nav_1_5_label" tabindex="0">
+          APIs
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_5_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_5">
+<span class="md-nav__icon md-icon"></span>
+          APIs
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/Ch-APIIntroduction/">
+        Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/core/Ch-APICoreCommand/">
+        Core Command
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/core/Ch-APICoredata/">
+        Core Data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/core/Ch-APICoreMetadata/">
+        Core Metadata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/core/Ch-APICoreKeeper/">
+        Core Keeper
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/core/Ch-APICoreConfigurationAndRegistry/">
+        Configuration and Registry
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/support/Ch-APISupportNotifications/">
+        Support Notifications
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/support/Ch-APISupportScheduler/">
+        Support Scheduler
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/devices/Ch-APIDeviceSDK/">
+        Device Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/ApiReference/">
+        App Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../api/applications/Ch-APIRulesEngine/">
+        Rules Engine
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6" id="__nav_1_6_label" tabindex="0">
+          Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_6">
+<span class="md-nav__icon md-icon"></span>
+          Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_1" id="__nav_1_6_1_label" tabindex="0">
+          Core
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_6_1">
+<span class="md-nav__icon md-icon"></span>
+          Core
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/Ch-CoreServices/">
+        Core Services
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_1_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_1_2" id="__nav_1_6_1_2_label" tabindex="0">
+          Core Data
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_1_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_1_2">
+<span class="md-nav__icon md-icon"></span>
+          Core Data
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_1_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_1_2_6" id="__nav_1_6_1_2_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_1_2_6_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_1_2_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/details/EventsAndReadings/">
+        Events and Readings
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/data/details/DataRetention/">
+        Data Retention
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_1_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_1_3" id="__nav_1_6_1_3_label" tabindex="0">
+          Core Metadata
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_1_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_1_3">
+<span class="md-nav__icon md-icon"></span>
+          Core Metadata
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/metadata/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/metadata/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/metadata/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/metadata/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/metadata/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_1_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_1_3_6" id="__nav_1_6_1_3_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_1_3_6_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_1_3_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/metadata/details/DeviceProfile/">
+        Device Profile
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/metadata/details/DeviceSystemEvents/">
+        Device System Events
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_1_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_1_4" id="__nav_1_6_1_4_label" tabindex="0">
+          Core Command
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_1_4_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_1_4">
+<span class="md-nav__icon md-icon"></span>
+          Core Command
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/command/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/command/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/command/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/command/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/command/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_1_4_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_1_4_6" id="__nav_1_6_1_4_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_1_4_6_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_1_4_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/core/command/details/RegexGetCommand/">
+        Regex Get Command
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_2" id="__nav_1_6_2_label" tabindex="0">
+          Supporting
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_6_2">
+<span class="md-nav__icon md-icon"></span>
+          Supporting
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/Ch-SupportingServices/">
+        Supporting Services
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_2_2" id="__nav_1_6_2_2_label" tabindex="0">
+          Notifications
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_2_2_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_2_2">
+<span class="md-nav__icon md-icon"></span>
+          Notifications
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/notifications/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/notifications/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_2_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_2_2_3" id="__nav_1_6_2_2_3_label" tabindex="0">
+          How-To Guides
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_2_2_3_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_2_2_3">
+<span class="md-nav__icon md-icon"></span>
+          How-To Guides
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/notifications/HowTo_EmailNotifications/">
+        Configure Email Notifications
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/notifications/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/notifications/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/notifications/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_2_2_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_2_2_7" id="__nav_1_6_2_2_7_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_2_2_7_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_2_2_7">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/notifications/details/DataRetention/">
+        Data Retention
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_2_3" id="__nav_1_6_2_3_label" tabindex="0">
+          Scheduler
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_2_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_2_3">
+<span class="md-nav__icon md-icon"></span>
+          Scheduler
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_2_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_2_3_6" id="__nav_1_6_2_3_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_2_3_6_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_2_3_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/scheduler/details/DataRetention/">
+        Data Retention
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/support/eKuiper/Ch-eKuiper/">
+        eKuiper Rules Engine
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3" id="__nav_1_6_3_label" tabindex="0">
+          Device
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_6_3">
+<span class="md-nav__icon md-icon"></span>
+          Device
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/DeviceService/">
+        Device Service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/GettingStarted/">
+        Device Service - Getting Started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_3" id="__nav_1_6_3_3_label" tabindex="0">
+          How-To Guides
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_3_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_3_3">
+<span class="md-nav__icon md-icon"></span>
+          How-To Guides
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_3_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_3_1" id="__nav_1_6_3_3_1_label" tabindex="0">
+          Remote Deployment
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_3_1_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_3_1">
+<span class="md-nav__icon md-icon"></span>
+          Remote Deployment
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/how-to/Ch-RemoteNonSecure/">
+        Non-Secure Mode
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/how-to/Ch-RemoteSecure/">
+        Secure Mode
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_6" id="__nav_1_6_3_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_6_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_3_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/DeviceProfiles/">
+        Device Profiles
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/DeviceCommands/">
+        Device Commands
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/DeviceDefinitions/">
+        Device Definitions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/AutoEvents/">
+        Auto Events
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/DeviceDiscovery/">
+        Device Discovery
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/CommandLine/">
+        Command-line Options
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/EnvironmentVariables/">
+        Environment Variables
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/SeedingSecrets/">
+        Seeding Secrets
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/details/ServiceMetrics/">
+        Service Metrics
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_7" id="__nav_1_6_3_7_label" tabindex="0">
+          Device Service SDK
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_7_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_3_7">
+<span class="md-nav__icon md-icon"></span>
+          Device Service SDK
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/DeviceSystemEvents/">
+        Device System Events
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_7_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_7_3" id="__nav_1_6_3_7_3_label" tabindex="0">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_7_3_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_7_3">
+<span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/devicesdk-getting-started/GettingStartedSDK-Go/">
+        Go SDK
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/devicesdk-getting-started/GettingStartedSDK-C/">
+        C SDK
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_7_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_7_4" id="__nav_1_6_3_7_4_label" tabindex="0">
+          APIs
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_7_4_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_7_4">
+<span class="md-nav__icon md-icon"></span>
+          APIs
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_7_4_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_7_4_1" id="__nav_1_6_3_7_4_1_label" tabindex="0">
+          Go SDK
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_7_4_1_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_7_4_1">
+<span class="md-nav__icon md-icon"></span>
+          Go SDK
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/api/GoDeviceSDK/GoDeviceSDKAPI/">
+        DeviceServiceSDK
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/api/GoDeviceSDK/GoProtocolDriverAPI/">
+        ProtocolDriver
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_7_4_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_7_4_2" id="__nav_1_6_3_7_4_2_label" tabindex="0">
+          C SDK
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_7_4_2_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_7_4_2">
+<span class="md-nav__icon md-icon"></span>
+          C SDK
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/api/CDeviceSDK/CDeviceSDKAPI/">
+        SDK
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/api/CDeviceSDK/CUtilities/">
+        C Utilities
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_7_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_7_6" id="__nav_1_6_3_7_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_7_6_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_7_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/details/CustomConfiguration/">
+        Custom Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/details/CustomRestApis/">
+        Custom Rest Apis
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/details/CustomServiceMetrics/">
+        Custom Service Metrics
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/sdk/details/Secrets/">
+        Secrets
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/V3Migration/">
+        V3 Migration
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9" id="__nav_1_6_3_9_label" tabindex="0">
+          Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_3_9">
+<span class="md-nav__icon md-icon"></span>
+          Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-bacnet/">
+        Device BacNet
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-coap/">
+        Device COAP
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_3" id="__nav_1_6_3_9_3_label" tabindex="0">
+          Device GPIO
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_3_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_3">
+<span class="md-nav__icon md-icon"></span>
+          Device GPIO
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/ProtocolProperties/">
+        Protocol Properties
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-gpio/SourceCode/">
+        Source Code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_4" id="__nav_1_6_3_9_4_label" tabindex="0">
+          Device Modbus
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_4_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_4">
+<span class="md-nav__icon md-icon"></span>
+          Device Modbus
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/ProtocolProperties/">
+        Protocol Properties
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/APIReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_4_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_4_7" id="__nav_1_6_3_9_4_7_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_4_7_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_4_7">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-modbus/details/DataTypeConversion/">
+        Data Type Conversion
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_5" id="__nav_1_6_3_9_5_label" tabindex="0">
+          Device MQTT
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_5_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_5">
+<span class="md-nav__icon md-icon"></span>
+          Device MQTT
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_5_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_5_3" id="__nav_1_6_3_9_5_3_label" tabindex="0">
+          How To Guides
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_5_3_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_5_3">
+<span class="md-nav__icon md-icon"></span>
+          How To Guides
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/Ch-ExamplesAddingMQTTDevice/">
+        How To Add an MQTT Device
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/ProtocolProperties/">
+        Protocol Properties
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/APIReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_5_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_5_8" id="__nav_1_6_3_9_5_8_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_5_8_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_5_8">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/details/MultiLevelTopics/">
+        Multi-Level Topics
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6" id="__nav_1_6_3_9_6_label" tabindex="0">
+          Device Onvif Camera
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_6">
+<span class="md-nav__icon md-icon"></span>
+          Device Onvif Camera
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/General/">
+        General
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/swagger/">
+        Device ONVIF Swagger API Documentation
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6_3" id="__nav_1_6_3_9_6_3_label" tabindex="0">
+          Walkthrough
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_3_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_6_3">
+<span class="md-nav__icon md-icon"></span>
+          Walkthrough
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/Walkthrough/setup/">
+        Setup
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/Walkthrough/deployment/">
+        Deployment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/Walkthrough/general-usage/">
+        General Usage
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/Walkthrough/custom-build/">
+        Custom Build
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6_4" id="__nav_1_6_3_9_6_4_label" tabindex="0">
+          Supplementary Information
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_4_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_6_4">
+<span class="md-nav__icon md-icon"></span>
+          Supplementary Information
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6_4_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6_4_1" id="__nav_1_6_3_9_6_4_1_label" tabindex="0">
+          ONVIF Protocol
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_4_1_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_6_3_9_6_4_1">
+<span class="md-nav__icon md-icon"></span>
+          ONVIF Protocol
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/ONVIF-protocol/">
+        Onvif Camera Device Service Specifications
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/onvif-user-authentication/">
+        Onvif User Authentication
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6_4_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6_4_2" id="__nav_1_6_3_9_6_4_2_label" tabindex="0">
+          Features
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_4_2_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_6_3_9_6_4_2">
+<span class="md-nav__icon md-icon"></span>
+          Features
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/custom-metadata-feature/">
+        Custom Metadata
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/friendlyname-mac/">
+        Friendly Name and MAC Address
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/device-status/">
+        Device Status
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/auto-discovery/">
+        Auto Discovery
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/credentials/">
+        Credentials
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/reboot-needed/">
+        RebootNeeded
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6_4_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6_4_3" id="__nav_1_6_3_9_6_4_3_label" tabindex="0">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_4_3_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_6_3_9_6_4_3">
+<span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/api-analytic-support/">
+        Analytic Support
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/api-event-handling/">
+        Event Handling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/api-usage-user-handling/">
+        User Handling
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6_4_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6_4_4" id="__nav_1_6_3_9_6_4_4_label" tabindex="0">
+          Utility
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_4_4_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_6_3_9_6_4_4">
+<span class="md-nav__icon md-icon"></span>
+          Utility
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/test-with-postman/">
+        Test with Postman
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/utility-scripts/">
+        Utility Scripts
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_6_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_6_4_5" id="__nav_1_6_3_9_6_4_5_label" tabindex="0">
+          Miscellaneous
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_6_4_5_label" class="md-nav" data-md-level="7">
+<label class="md-nav__title" for="__nav_1_6_3_9_6_4_5">
+<span class="md-nav__icon md-icon"></span>
+          Miscellaneous
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/control-plane-events/">
+        Control Plane Events
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/getting-started-with-docker-security/">
+        Getting Started With Docker (Security Mode)
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/ws-discovery/">
+        How does WS-Discovery work?
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-onvif-camera/supplementary-info/onvif-footnotes/">
+        ONVIF Footnotes
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_7" id="__nav_1_6_3_9_7_label" tabindex="0">
+          Device OPC-UA
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_7_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_7">
+<span class="md-nav__icon md-icon"></span>
+          Device OPC-UA
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-opcua/Purpose.md">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-opcua/GettingStarted.md">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-opcua/Configuration.md">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-opcua/ProtocolProperties.md">
+        Protocol Properties
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-opcua/ApiReference.md">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-opcua/SourceCode.md">
+        Source Code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_8" id="__nav_1_6_3_9_8_label" tabindex="0">
+          Device REST
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_8_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_8">
+<span class="md-nav__icon md-icon"></span>
+          Device REST
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_8_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_8_3" id="__nav_1_6_3_9_8_3_label" tabindex="0">
+          How-To Guides
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_8_3_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_8_3">
+<span class="md-nav__icon md-icon"></span>
+          How-To Guides
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/howto/Testing/">
+        Testing
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/ProtocolProperties/">
+        Protocol Properties
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rest/SourceCode/">
+        Source Code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-rfid-llrp/">
+        Device RFID LLRP
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_10" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_10" id="__nav_1_6_3_9_10_label" tabindex="0">
+          Device S7
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_10_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_10">
+<span class="md-nav__icon md-icon"></span>
+          Device S7
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-s7/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-s7/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-s7/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-s7/ProtocolProperties/">
+        Protocol Properties
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-s7/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-s7/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_10_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_10_7" id="__nav_1_6_3_9_10_7_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_10_7_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_10_7">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-s7/details/DataTypeConversion/">
+        Device S7 - Data Type Conversion
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-snmp/">
+        Device SNMP
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_12" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_12" id="__nav_1_6_3_9_12_label" tabindex="0">
+          Device UART
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_12_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_12">
+<span class="md-nav__icon md-icon"></span>
+          Device UART
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/ProtocolProperties/">
+        Protocol Properties
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/APIReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-uart/SourceCode/">
+        Source Code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_13" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_13" id="__nav_1_6_3_9_13_label" tabindex="0">
+          Device USB Camera
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_13_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_3_9_13">
+<span class="md-nav__icon md-icon"></span>
+          Device USB Camera
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/General/">
+        General
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_13_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_13_2" id="__nav_1_6_3_9_13_2_label" tabindex="0">
+          Walkthrough
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_13_2_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_13_2">
+<span class="md-nav__icon md-icon"></span>
+          Walkthrough
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/walkthrough/setup/">
+        Setup
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/walkthrough/deployment/">
+        Deployment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/walkthrough/general-usage/">
+        General Usage
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/walkthrough/custom-build/">
+        Custom Build
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_3_9_13_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_3_9_13_3" id="__nav_1_6_3_9_13_3_label" tabindex="0">
+          Supplementary Information
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_3_9_13_3_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_3_9_13_3">
+<span class="md-nav__icon md-icon"></span>
+          Supplementary Information
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/supplementary-info/USB-protocol/">
+        USB Camera Device Service Specifications
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/supplementary-info/discovery/">
+        Dynamic Discovery
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-usb-camera/supplementary-info/advanced-options/">
+        Advanced Options
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-virtual/Ch-VirtualDevice/">
+        Device Virtual
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4" id="__nav_1_6_4_label" tabindex="0">
+          Application
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_6_4">
+<span class="md-nav__icon md-icon"></span>
+          Application
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/ApplicationServices/">
+        Application Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/ApiReference/">
+        App Services
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_5" id="__nav_1_6_4_5_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_5_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_4_5">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/details/CommandLine/">
+        Command-Line Options
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/details/EnvironmentVariables/">
+        Environment Variables
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/details/SeedingSecrets/">
+        Seeding Secrets
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/details/ServiceMetrics/">
+        Service Metrics
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/details/Triggers/">
+        Triggers
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_6" id="__nav_1_6_4_6_label" tabindex="0">
+          App Functions SDK - Go
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_6_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_4_6">
+<span class="md-nav__icon md-icon"></span>
+          App Functions SDK - Go
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/Purpose/">
+        Application Functions SDK - Go
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_6_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_6_3" id="__nav_1_6_4_6_3_label" tabindex="0">
+          APIs
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_6_3_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_4_6_3">
+<span class="md-nav__icon md-icon"></span>
+          APIs
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/api/ApplicationServiceAPI/">
+        Application Service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/api/AppFunctionContextAPI/">
+        App Function Context
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/api/BuiltInPipelineFunctions/">
+        Pipeline Functions
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_6_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_6_5" id="__nav_1_6_4_6_5_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_6_5_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_4_6_5">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/BackgroundPublishing/">
+        Background Publishing
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/CustomConfiguration/">
+        Custom Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/CustomRestApis/">
+        Custom REST APIs
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/CustomServiceMetrics/">
+        Custom Service Metrics
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/PipelinesPerTopics/">
+        Pipelines Per Topic
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/Secrets/">
+        Secrets
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/StoreAndForward/">
+        Store and Forward
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk/details/TargetType/">
+        Target Type
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_7" id="__nav_1_6_4_7_label" tabindex="0">
+          App Functions SDK - Python
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_7_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_4_7">
+<span class="md-nav__icon md-icon"></span>
+          App Functions SDK - Python
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk-python/Purpose/">
+        Application Functions SDK - Python
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk-python/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_7_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_7_3" id="__nav_1_6_4_7_3_label" tabindex="0">
+          APIs
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_7_3_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_4_7_3">
+<span class="md-nav__icon md-icon"></span>
+          APIs
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk-python/api/ApplicationServiceAPI/">
+        Application Service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk-python/api/AppFunctionContextAPI/">
+        App Function Context
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk-python/api/BuiltInPipelineFunctions/">
+        Pipeline Functions
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk-python/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_7_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_7_5" id="__nav_1_6_4_7_5_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_7_5_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_4_7_5">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk-python/details/CustomConfiguration/">
+        Custom Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk-python/details/CustomRestApis/">
+        Custom REST APIs
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk-python/details/CustomServiceMetrics/">
+        Custom Service Metrics
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk-python/details/ErrorHandling/">
+        Error Handling
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk-python/details/PipelinesPerTopics/">
+        Pipelines Per Topic
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk-python/details/StoreAndForward/">
+        Store and Forward
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/sdk-python/details/TargetType/">
+        Target Type
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/V3Migration/">
+        V3 Migration
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_9" id="__nav_1_6_4_9_label" tabindex="0">
+          Services
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_9_label" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_1_6_4_9">
+<span class="md-nav__icon md-icon"></span>
+          Services
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_9_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_9_1" id="__nav_1_6_4_9_1_label" tabindex="0">
+          App Service Configurable
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_9_1_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_4_9_1">
+<span class="md-nav__icon md-icon"></span>
+          App Service Configurable
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_9_1_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_9_1_6" id="__nav_1_6_4_9_1_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_9_1_6_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_4_9_1_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/details/PipelinePerTopics/">
+        Pipeline Per Topics
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/details/AvailablePipelineFunctions/">
+        Available Pipeline Functions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/details/Profiles/">
+        Available Profiles
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppServiceConfigurable/details/TargetType/">
+        Target Type
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_9_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_9_2" id="__nav_1_6_4_9_2_label" tabindex="0">
+          App RFID LLRP Inventory
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_9_2_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_4_9_2">
+<span class="md-nav__icon md-icon"></span>
+          App RFID LLRP Inventory
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/SourceCode/">
+        Source Code
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_9_2_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_9_2_6" id="__nav_1_6_4_9_2_6_label" tabindex="0">
+          Additional Details
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_9_2_6_label" class="md-nav" data-md-level="6">
+<label class="md-nav__title" for="__nav_1_6_4_9_2_6">
+<span class="md-nav__icon md-icon"></span>
+          Additional Details
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/InventoryEvents/">
+        Inventory Events
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/TagLocationAlgorithm/">
+        Tag Location Algorithm
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/LocationAliases/">
+        Location Aliases
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/Behaviors/">
+        Behaviors
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppLLRPInventory/details/MobilityProfile/">
+        Mobility Profile
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_4_9_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_4_9_3" id="__nav_1_6_4_9_3_label" tabindex="0">
+          App Record &amp; Replay
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_4_9_3_label" class="md-nav" data-md-level="5">
+<label class="md-nav__title" for="__nav_1_6_4_9_3">
+<span class="md-nav__icon md-icon"></span>
+          App Record &amp; Replay
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/Purpose/">
+        Purpose
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/GettingStarted/">
+        Getting Started
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/Configuration/">
+        Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/ApiReference/">
+        API Reference
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/services/AppRecordReplay/SourceCode/">
+        Source Code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_5" id="__nav_1_6_5_label" tabindex="0">
+          Configuration &amp; Registry
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_6_5">
+<span class="md-nav__icon md-icon"></span>
+          Configuration &amp; Registry
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/configuration/ConfigurationAndRegistry/">
+        Configuration and Registry Providers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/configuration/CommonConfiguration/">
+        Service Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/configuration/CommonCommandLineOptions/">
+        Command Line Options
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/configuration/CommonEnvironmentVariables/">
+        Environment Variables
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/configuration/V3MigrationCommonConfig/">
+        V3 Migration
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/general/">
+        Cross Cutting Concerns
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/general/messagebus/">
+        EdgeX MessageBus
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_6_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_6_8" id="__nav_1_6_8_label" tabindex="0">
+          Database
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_6_8_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_6_8">
+<span class="md-nav__icon md-icon"></span>
+          Database
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/general/database/Ch-Postgres/">
+        PostgreSQL
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_7" id="__nav_1_7_label" tabindex="0">
+          Security
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_7_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_7">
+<span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-Security/">
+        Security Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-SecretStore/">
+        Secret Store
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-SecretStoreSetup/">
+        Secret Store Setup
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-Authenticating/">
+        Authenticating to EdgeX Microservices
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-SecretProviderApi/">
+        Secret Provider API
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-APIGateway/">
+        API Gateway
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-Secure-MessageBus/">
+        Secure MessageBus
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-Secure-Postgres/">
+        Secure PostgreSQL
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-Configuring-Add-On-Services/">
+        Configuring Add-on Service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-Secure-Consul/">
+        Secure Consul
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-SecurityIssues/">
+        Reporting Security Issues
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/secrets-config/">
+        Secrets config
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/secrets-config-proxy/">
+        Secrets config proxy
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/SeedingServiceSecrets/">
+        Seeding Service Secrets
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-CORS-Settings/">
+        CORS settings
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-DelayedStartServices/">
+        Delayed-Start Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Ch-RemoteDeviceServices/">
+        Remote Device Services in Secure Mode
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/Rootless-Docker/">
+        Rootless Docker Environment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/V3Migration/">
+        V3 Migration
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_7_20" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_7_20" id="__nav_1_7_20_label" tabindex="0">
+          Threat Models
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_7_20_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_7_20">
+<span class="md-nav__icon md-icon"></span>
+          Threat Models
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../threat-models/secret-store/">
+        EdgeX Foundry Secret Management Threat Model
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../threat-models/stride-model/EdgeX-STRIDE/">
+        EdgeX Foundry STRIDE Threat Model
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../threat-models/stride-model/EdgeXFoundryThreatReportV2.2/">
+        Threat Modeling Report
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_8" id="__nav_1_8_label" tabindex="0">
+          Migration
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_8_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_8">
+<span class="md-nav__icon md-icon"></span>
+          Migration
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_8_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_8_1" id="__nav_1_8_1_label" tabindex="0">
+          V3.0 Migration
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_8_1_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_8_1">
+<span class="md-nav__icon md-icon"></span>
+          V3.0 Migration
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../V3TopLevelMigration/">
+        General Migration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../security/V3Migration/">
+        V3 Migration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/configuration/V3MigrationCommonConfig/">
+        V3 Migration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/V3Migration/">
+        V3 Migration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/application/V3Migration/">
+        V3 Migration
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_9" id="__nav_1_9_label" tabindex="0">
+          Tutorials
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_9_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_9">
+<span class="md-nav__icon md-icon"></span>
+          Tutorials
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../examples/Ch-ExamplesVirtualDeviceService/">
+        Using the Virtual Device Service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../examples/Ch-ExamplesSendingAndConsumingBinary/">
+        Sending and Consuming Binary Data From EdgeX Device Services
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../examples/Ch-CommandingDeviceThroughRulesEngine/">
+        Command Devices with eKuiper Rules Engine
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_9_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_9_4" id="__nav_1_9_4_label" tabindex="0">
+          Adding a Device
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_9_4_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_9_4">
+<span class="md-nav__icon md-icon"></span>
+          Adding a Device
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../examples/Ch-ExamplesAddingSNMPDevice/">
+        SNMP
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../microservices/device/services/device-mqtt/Ch-ExamplesAddingMQTTDevice/">
+        How To Add an MQTT Device
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_9_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_9_5" id="__nav_1_9_5_label" tabindex="0">
+          Walkthrough
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_9_5_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_9_5">
+<span class="md-nav__icon md-icon"></span>
+          Walkthrough
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-Walkthrough/">
+        EdgeX Demonstration API Walk Through
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughSetup/">
+        Setup up your environment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughUseCase/">
+        Example Use Case
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughDeviceProfile/">
+        Defining your device
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughProvision/">
+        Provision a device
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughCommands/">
+        Calling commands
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughReading/">
+        Sending events and reading data
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../walk-through/Ch-WalkthroughExporting/">
+        Exporting your device data
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_10" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_10" id="__nav_1_10_label" tabindex="0">
+          Examples
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_10_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_1_10">
+<span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../examples/">
+        Code Examples
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_1_10_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_1_10_2" id="__nav_1_10_2_label" tabindex="0">
+          App Service Examples
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_1_10_2_label" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_1_10_2">
+<span class="md-nav__icon md-icon"></span>
+          App Service Examples
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../examples/AppServiceExamples/">
+        App Service Examples
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../general/Definitions/">
+        Definitions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../general/PlatformRequirements/">
+        Platform Requirements
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../general/ServicePorts/">
+        Default Service Ports
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../general/ContainerNames/">
+        EdgeX Container Names
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../general/ServiceConfiguration/">
+        Service Configuration
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../general/EdgeX_CN/">
+        Is EdgeX Foundry Cloud Native?
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Use Case &amp; Design
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          Use Case &amp; Design
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Process/">
+        Process
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../TOC/">
+        Documents
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+          Legacy
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_3_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_3">
+<span class="md-nav__icon md-icon"></span>
+          Legacy
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../legacy-design/">
+        Designs
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../legacy-requirements/">
+        Requirements
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#status">
+    Status
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#context">
+    Context
+  </a>
+<nav aria-label="Context" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#definitions">
+    Definitions
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metric-use">
+    Metric Use
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#requirements">
+    Requirements
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#requested-metrics">
+    Requested Metrics
+  </a>
+<nav aria-label="Requested Metrics" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#general">
+    General
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#coresupporting">
+    Core/Supporting
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#application-services">
+    Application Services
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#device-services">
+    Device Services
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security">
+    Security
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#design-proposal">
+    Design Proposal
+  </a>
+<nav aria-label="Design Proposal" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#collect-and-push-architecture">
+    Collect and Push Architecture
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metrics-messaging">
+    Metrics Messaging
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration">
+    Configuration
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#library-support">
+    Library Support
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#additional-open-questions">
+    Additional Open Questions
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#decision">
+    Decision
+  </a>
+<nav aria-label="Decision" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-details-for-go">
+    Implementation Details for Go
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#consequences">
+    Consequences
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reference">
+    Reference
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="edgex-metrics-collection">EdgeX Metrics Collection</h1>
+<h2 id="status">Status</h2>
+<p><strong>Approved</strong> 
+Original proposal 10/24/2020
+Approved by the TSC on 3/2/22</p>
+<p><strong>Metric (or telemetry) data</strong> is defined as the count or rate of some action, resource, or circumstance in the EdgeX instance or specific service.  Examples of metrics include:</p>
+<ul>
+<li>the number of EdgeX Events sent from core data to an application service</li>
+<li>the number of requests on a service API</li>
+<li>the average time it takes to process a message through an application service</li>
+<li>The number of errors logged by a service</li>
+</ul>
+<p><strong>Control plane events</strong> (CPE) are defined as <code>events</code> that occur within an EdgeX instance.  Examples of CPE include:</p>
+<ul>
+<li>a device was provisioned (added to core metadata)</li>
+<li>a service was stopped</li>
+<li>service configuration has changed</li>
+</ul>
+<p>CPE should not be confused with core data Events.  Core data Events represent a collection (one or more) of sensor/device readings.  Core data Events represent sensing of some measured state of the physical world (temperature, vibration, etc.).  CPE represents the detection of some happening inside of the EdgeX software.</p>
+<p>This ADR outlines ** metrics (or telemetry) ** collection and handling.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This ADR initially incorporated metrics collection and control plane event processing.  The EdgeX architects felt the scope of the design was too large to cover under one ADR.  Control plane event processing will be covered under a separate ADR in the future.</p>
+</div>
+<h2 id="context">Context</h2>
+<p><a href="about:blank">System Management services</a> (SMA and executors) currently provide a limited set of “metrics” to requesting clients (3rd party applications and systems external to EdgeX).  Namely, it provides requesting clients with service CPU and memory usage; both metrics about the resource utilization of the service (the executable) itself versus metrics that are about what is happening inside of the service.  Arguably, the current system management metrics can be provided by the container engine and orchestration tools (example: by Docker engine) or by the underlying OS tooling.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The SMA has been deprecated (since Ireland release) and will be removed in a future, yet named, release.</p>
+</div>
+<p>Going forward, users of EdgeX will want to have more insights – that is more metrics telemetry – on what is happening directly in the services and the tasks that they are preforming.  In other words, users of EdgeX will want more telemetry on service activities to include:</p>
+<ul>
+<li>sensor data collection (how much, how fast, etc.)</li>
+<li>command requests handled (how many, to which devices, etc.)</li>
+<li>sensor data transformation as it is done in application services (how fast, what is filtered, etc)</li>
+<li>sensor data export (how much is sent, how many exports have failed, etc. )</li>
+<li>API requests (how often, how quickly, how many success versus failed attempts, etc.)</li>
+<li>bootstrapping time (time to come up and be available to other services)</li>
+<li>activity processing time (amount of time it takes to perform a particular service function - such as respond to a command request)</li>
+</ul>
+<h3 id="definitions">Definitions</h3>
+<p><strong>Metric (or telemetry) data</strong> is defined as the count or rate of some action, resource, or circumstance in the EdgeX instance or specific service.  Examples of metrics include:</p>
+<ul>
+<li>the number of EdgeX Events sent from core data to an application service via message bus (or via device service to application service in Ireland and beyond)</li>
+<li>the number of requests on a service API</li>
+<li>the average time it takes to process a message through an application service</li>
+<li>The number of errors logged by a service</li>
+</ul>
+<p>The collection and dissemination of metric data will require internal service level instrumentation (relevant to that service) to capture and send data about relevant EdgeX operations.  EdgeX does not currently offer any service instrumentation.</p>
+<h3 id="metric-use">Metric Use</h3>
+<p>As a first step in implementation of metrics data, EdgeX will make metric data available to other subscribing 3rd party applications and systems, but will not necessarily consume or use this information itself.  </p>
+<p>In the future, EdgeX may consume its own metric data.  For example, EdgeX may, in the future, use a metric on the number of EdgeX events being sent to core data (or app services) as the means to throttle back device data collection.</p>
+<p>In the future, EdgeX application services may optionally subscribe to a service's metrics messages bus (by attaching to the appropriate message pipe for that service).  Thus allowing additional filtering, transformation, endpoint control of metric data from that service.  At the point where this feature is supported, consideration would need to be made as to whether all events (sensor reading messages and metric messages) go through the same application services.</p>
+<p>At this time, EdgeX will not persist the metric data (except as it may be retained as part of a message bus subsystem such as in an MQTT broker).  Consumers of metric data are responsible for persisting the data if needed, but this is external to EdgeX.  Persistence of metric information may be considered in the future based on requirements and adopter demand for such a feature.</p>
+<p>In general, EdgeX metrics are meant to provide internal services and external applications and systems better information about what is happening "inside" EdgeX services and the associated devices with which it communicates.</p>
+<h3 id="requirements">Requirements</h3>
+<ul>
+<li>Services will push specified metrics collected for that service to a specified (by configuration) message endpoint (as supported by the EdgeX  message bus implementation; currently either Redis Pub/Sub or MQTT implementations are supported)<ul>
+<li>Each service will have configuration that specifies a message endpoint for the service metrics.  The metrics message topic communications may be secured or unsecured (just as application services provide the means to export to secured or unsecured message pipes today).</li>
+<li>The configuration will be placed in the <code>Writable</code> area.  When a user wishes to change the configuration dynamically (such as turning on/off a metric), then Consul's UI can be used to change it.</li>
+</ul>
+</li>
+<li>Services will have configuration which indicates what metrics are available from the service.</li>
+<li>Services will have configuration which allows EdgeX system managers to select which metrics are <code>on</code> or <code>off</code> - in other words providing configuration that determines what metrics are collected and reported by default.<ul>
+<li>When a metric is turned <code>off</code> (the default setting) the service does not report the metric.  When a metric is turned <code>on</code> the service collects and sends the metric to the designated message topic.</li>
+<li>Metrics collection must be pushed to the designated message topic on some appointed schedule.  The schedule would be designated by configuration and done in a way similar to auto events in device services.</li>
+<li>For the initial implementation, there will be just one scheduled time when all metrics will be collected and pushed to the designated message topic.  In the future, there may be a desire to set up a separate schedule for each metric, but this was deemed too complex for the initial implementation.</li>
+</ul>
+</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Initially, it was proposed that metrics be associated with a "level" and allow metrics to be turned on or off by level (like levels associated to log messages in logging).  The level of metrics data seems arbitrary at this time and considered too complex for initial implementation.  This may be reconsidered in a future release and based on new requirements/use cases.</p>
+<p>It was also proposed to categorize or label metrics - essentially allowing grouping of various metrics.  This would allow groups of metrics to be turned on or off, and allow metrics to be organized per the group when reporting.  At this time, this feature is also considered beyond the scope of the initial implementation and to be reconsidered in a future release based on requirements/use case needs.</p>
+<p>It was also proposed that each service offer a REST API to provide metrics collection information (such as which metrics were being collected) and the ability to turn the collection on or off dynamically.  This is deemed out of scope for the first implementation and may be brought back if there are use case requirements / demand for it. </p>
+</div>
+<h3 id="requested-metrics">Requested Metrics</h3>
+<p>The following is a list of example metrics requested by the EdgeX community and adopters for various service areas.  Again, metrics would generally be collected and pushed to the message topic in some configured interval (example: 1/5/15 minutes or other defined interval).  This is just a sample of metrics thought relevant by each work group.  It may not reflect the metrics supported by the implementation.  The exact metrics collected by each service will be determined by the service implementers (or SDK implementers in the case of the app functions and device service SDKs).</p>
+<h4 id="general">General</h4>
+<p>The following metrics apply to all (or most) services.</p>
+<ul>
+<li>Service uptime (time since last service boot)</li>
+<li>Cumulative number of API requests succeeded / failed / invalid (2xx vs 5xx vs 4xx)</li>
+<li>Avg response time (in milliseconds or appropriate unit of measure) on APIs</li>
+<li>Avg and Max request size</li>
+</ul>
+<h4 id="coresupporting">Core/Supporting</h4>
+<ul>
+<li>Latency (measure of time) an event takes to get through core data</li>
+<li>Latency (measure of time) a command request takes to get to a device service</li>
+<li>Indication of health – that events are being processed during a configurable period</li>
+<li>Number of events in persistence</li>
+<li>Number of readings in persistence</li>
+<li>Number of validation failures (validation of device identification)</li>
+<li>Number of notification transactions</li>
+<li>Number of notifications handled</li>
+<li>Number of failed notification transmissions</li>
+<li>Number of notifications in retry status</li>
+</ul>
+<h4 id="application-services">Application Services</h4>
+<ul>
+<li>Processing time for a pipeline; latency (measure of time) an event takes to get through an  application service pipeline</li>
+<li>DB access times</li>
+<li>How often are we failing export to be sent to db to be retried at a later time</li>
+<li>What is the current store and forward queue size</li>
+<li>How much data (size in KBs or MBs) of packaged sensor data is being sent to an endpoint (or volume)</li>
+<li>Number of invalid messages that triggered pipeline</li>
+<li>Number of events processed</li>
+</ul>
+<h4 id="device-services">Device Services</h4>
+<ul>
+<li>Number of devices managed by this DS</li>
+<li>Device Requests (which may be more informative than reading counts and rates)</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is envisioned that there may be additional specific metrics for each device service.  For example, the ONVIF camera device service may report number of times camera tampering was detected. </p>
+</div>
+<h4 id="security">Security</h4>
+<p>Security metrics may be more difficult to ascertain as they are cross service metrics.  Given the nature of this design (on a per service basis), global security metrics may be out of scope or security metrics collection has to be copied into each service (leading to lots of duplicate code for now).  Also, true threat detection based on metrics may be a feature best provided by 3rd party based on particular threats and security profile needs.</p>
+<ul>
+<li>Number of API requests denied due to wrong access token (Kong) per service and within a given time</li>
+<li>Number of secrets accessed per service name</li>
+<li>Count of any accesses and failures to the data persistence layer</li>
+<li>Count of service start and restart attempts</li>
+</ul>
+<h3 id="design-proposal">Design Proposal</h3>
+<h4 id="collect-and-push-architecture">Collect and Push Architecture</h4>
+<p>Metric data will be collected and cached by each service.  At designated times (kicked off by configurable schedule), the service will collect telemetry data from the cache and push it to a designated message bus topic.</p>
+<h4 id="metrics-messaging">Metrics Messaging</h4>
+<p>Cached metric data, at the designated time, will be marshaled into a message and pushed to the pre-configured message bus topic.</p>
+<p>Each metric message consists of several key/value pairs:
+- a <strong>required</strong> name (the name of the metric) such as service-uptime
+- a <strong>required</strong> value which is the telemetry value collected such as 120 as the number of hours the service has been up.
+- a <strong>required</strong> timestamp is the time (in Epoch timestamp/milliseconds format) at which the data was collected (similar in nature to the origin of sensed data). 
+- an optional collection (array) of tags.  The tags are sets of key/value pairs of strings that provide amplifying information about the telemetry.  Tags may include:
+    - originating service name
+    - unit of measure associated with the telemetry value
+    - value type of the value
+    - additional values when the metric is more than just one value (example: when using a histogram, it would include min, max, mean and sum values)</p>
+<p>The metric name must be unique for that service.  Because some metrics are reported from multiple services (such as service uptime), the name is not required to be unique across all services.</p>
+<p>All information (keys, values, tags, etc.) is in string format and placed in a JSON array within the message body.  Here are some example representations:</p>
+<ul>
+<li>
+<p><strong>Example metric message body with a single value</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"service-up"</span><span class="p">,</span><span class="w"> </span><span class="nt">"value"</span><span class="p">:</span><span class="s2">"120"</span><span class="p">,</span><span class="w"> </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="s2">"1602168089665570000"</span><span class="p">,</span><span class="w"> </span><span class="nt">"tags"</span><span class="p">:{</span><span class="nt">"service"</span><span class="p">:</span><span class="s2">"coredata"</span><span class="p">,</span><span class="nt">"uom"</span><span class="p">:</span><span class="s2">"days"</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"int64"</span><span class="p">}}</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Example metric message body with multiple values</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"api-requests"</span><span class="p">,</span><span class="w"> </span><span class="nt">"value"</span><span class="p">:</span><span class="s2">"24"</span><span class="p">,</span><span class="w"> </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="s2">"1602168089665570001"</span><span class="p">,</span><span class="w"> </span><span class="nt">"tags"</span><span class="p">:{</span><span class="nt">"service"</span><span class="p">:</span><span class="s2">"coredata"</span><span class="p">,</span><span class="nt">"uom"</span><span class="p">:</span><span class="s2">"count"</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"int64"</span><span class="p">,</span><span class="w"> </span><span class="nt">"mean"</span><span class="p">:</span><span class="s2">"0.0665"</span><span class="p">,</span><span class="w"> </span><span class="nt">"rate1"</span><span class="p">:</span><span class="s2">"0.111"</span><span class="p">,</span><span class="w"> </span><span class="nt">"rate5"</span><span class="p">:</span><span class="s2">"0.150"</span><span class="p">,</span><span class="nt">"rate15"</span><span class="p">:</span><span class="s2">"0.111"</span><span class="p">}}</span>
+</code></pre></div>
+</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The key or metric name must be unique when using go-metrics as it requires the metric name to be unique per the registry.  Metrics are considered immutable.</p>
+</div>
+<h4 id="configuration">Configuration</h4>
+<p>Configuration, not unlike that provided in core data or any device service, will specify the message bus type and locations where the metrics messages should be sent.  In fact, the message bus configuration will use (or reuse if the service is already using the message bus) the common message bus configuration as defined below.</p>
+<p><strong>Common configuration</strong> for each service for message queue configuration (inclusive of metrics):</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">[</span><span class="nv">MessageQueue</span><span class="p p-Indicator">]</span>
+<span class="l l-Scalar l-Scalar-Plain">Protocol = 'redis'</span><span class="w">  </span><span class="c1">## or 'tcp'</span>
+<span class="l l-Scalar l-Scalar-Plain">Host = 'localhost'</span>
+<span class="l l-Scalar l-Scalar-Plain">Port = 5573</span>
+<span class="l l-Scalar l-Scalar-Plain">Type = 'redis'</span><span class="w">  </span><span class="c1">## or 'mqtt'</span>
+<span class="l l-Scalar l-Scalar-Plain">PublishTopicPrefix = "edgex/events/core"</span><span class="w"> </span><span class="c1"># standard and existing core or device topic for publishing  </span>
+<span class="w">  </span><span class="p p-Indicator">[</span><span class="nv">MessageQueue.Optional</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="c1"># Default MQTT Specific options that need to be here to enable environment variable overrides of them</span>
+<span class="w">  </span><span class="c1"># Client Identifiers</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">ClientId = "device-virtual"</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain"># Connection information</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Qos = "0"</span><span class="w"> </span><span class="c1"># Quality of Service values are 0 (At most once), 1 (At least once) or 2 (Exactly once)</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">KeepAlive = "10"</span><span class="w"> </span><span class="c1"># Seconds (must be 2 or greater)</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Retained = "false"</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">AutoReconnect = "true"</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">ConnectTimeout = "5"</span><span class="w"> </span><span class="c1"># Seconds</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">SkipCertVerify = "false"</span><span class="w"> </span><span class="c1"># Only used if Cert/Key file or Cert/Key PEMblock are specified</span>
+</code></pre></div>
+<p>Additional configuration must be provided in each service to provide metrics / telemetry specific configuration.  This area of the configuration will likely be different for each type of service.</p>
+<p><strong>Additional metrics collection configuration</strong> to be provided include: </p>
+<ul>
+<li>Trigger the collection of telemetry from the metrics cache and sending it into the appointed message bus.</li>
+<li>Define which metrics are available and which are turned <code>off</code> and <code>on</code>.  All are false by default.  The list of metrics can and likely will be different per service.  The keys in this list are the metric name.  True and false are used for <code>on</code> and <code>off</code> values.</li>
+<li>Specify the metrics topic prefix where metrics data will be published to (ex:  providing the prefix /edgex/telemetry/topic name where the service and metric name <code>[service-name]/[metric-name]</code> will be appended per metric (allowing subscribers to filter by service or metric name)</li>
+</ul>
+<p>These metrics configuration options will be defined in the <code>Writable</code> area of <code>configuration.toml</code> so as to allow for dynamic changes to the configuration (when using Consul).  Specifically, the <code>[Writable].[Writable.Telemetry]</code> area will dictate metrics collection configuration like this:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">[[</span><span class="nv">Writable</span><span class="p p-Indicator">]]</span>
+<span class="w">    </span><span class="p p-Indicator">[[</span><span class="nv">Writable.Telemetry</span><span class="p p-Indicator">]]</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">Interval = "30s"</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">PublishTopicPrefix  = "edgex/telemetry"</span><span class="w"> </span><span class="c1"># /&lt;service-name&gt;/&lt;metric-name&gt; will be added to this Publish Topic prefix</span>
+<span class="w">    </span><span class="c1">#available metrics listed here.  All metrics should be listed off (or false) by default</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">service-up = false</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">api-requests = false</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>It was discussed that in future EdgeX releases, services may want separate message bus connections.  For example one for sensor data and one for metrics telemetry data.  This would allow the QoS and other settings of the message bus connection to be different. This would allow sensor data collection, for example, to be messaged with a higher QoS than that of metrics.  As an alternate approach, we could modify go-mod-messaging to allow setting QoS per topic (and thereby avoid multiple connections).  For the initial release of this feature, the service will use the same connection (and therefore configuration) for metrics telemetry as well as sensor data.  </p>
+</div>
+<h4 id="library-support">Library Support</h4>
+<p>Each service will now need go-mod-messaging support (for GoLang services and the equivalent for C services).  Each service would determine when and what metrics to collect and push to the message bus, but will use a common library chosen for each EdgeX language supported (Go or C currently)</p>
+<p>Use of <a href="https://github.com/rcrowley/go-metrics">go-metrics</a> (a GoLang library to publish application metrics) would allow EdgeX to utilize (versus construct) a library utilized by over 7 thousand projects.  It provides the means to capture various types of metrics in a registry (a sophisticated map).  The metrics can then be published (<code>reported</code>) to a number of well known systems such as InfluxDB, Graphite, DataDog, and Syslog.  go-metrics is a Go library made from original Java package https://github.com/dropwizard/metrics.</p>
+<p>A similar package would need to be selected (or created) for C.  Per the Core WG meeting of 2/24/22 - it is important to provide an implementation that is the same in Go or C.  The adopter of EdgeX should not see a difference in whether the metrics/telemetry is collected by a C or Go service.  Configuration of metrics in a C or Go service should have the same structure.  The C based metrics collection mechanism in C services (specifically as provided for in our C device service SDK) may operate differently "under the covers" but its configuration and resulting metrics messages on the EdgeX message bus must be formatted/organized the same.</p>
+<p>** Considerations in the use of go-metrics **</p>
+<ul>
+<li>This is a Golang only library.  Using this library would not provide with any package to use for the C services.  If there are expectations for parity between the services, this may be more difficult to achieve given the features of go-metrics.</li>
+<li>go-metrics will still require the EdgeX team to develop a bootstrapping apparatus to take the metrics configuration and register each of the metrics defined in the configuration in go-metrics.</li>
+<li>go-metrics would also require the EdgeX team to develop the means to periodically extract the metrics data from the registry and ship it via message bus (something the current go-metrics library does not do).</li>
+<li>While go-metrics offers the ability for data to be reported to other systems, it would required EdgeX to expose these capabilities (possibly through APIs) if a user wanted to export to these subsystems in addition to the message bus.</li>
+<li>Per the Kamakura Planning Meeting, it was noted that go-metrics is already a dependency in our Go code due to its use other 3rd party packages (see https://github.com/edgexfoundry/edgex-go/blob/4264632f3ddafb0cbc2089cffbea8c0719035c96/go.sum#L18).</li>
+</ul>
+<p>** Community questions about go-metrics **
+Per the Monthly Architect's meeting of 9/20/21):</p>
+<ul>
+<li>How it manages the telemetry data (persistence, in memory, database, etc.)?<ul>
+<li>In memory - in a "registry"; essentially a key/value store where the key is the metric name</li>
+</ul>
+</li>
+<li>Does it offer a query API (in order to easily support the ADR suggested REST API)?<ul>
+<li>Yes - metrics are stored in a "Registry" (MetricRegistry - essentially a map).  Get (or GetAll) methods provided to query for metrics</li>
+</ul>
+</li>
+<li>What does the go-metrics package do so that its features can become requirements for C side?<ul>
+<li>About a dozen types of metrics collection (simple gauge or counter to more sophisticated structures like Histograms) - all stored in a registry (map).</li>
+</ul>
+</li>
+<li>How is the data made available?<ul>
+<li>Report out (export or publish) to various integrated packages (InfluxDB, Graphite, DataDog, Syslog, etc.).  Nothing to MQTT or other base message service.  This would have to be implemented from scratch.</li>
+</ul>
+</li>
+<li>Can the metric/telemetry count be reset if needed? Does this happen whenever it posts to the message bus?  How would this work for REST?<ul>
+<li>Yes, you can unregister and re-register the metric.  A REST API would have to be constructed to call this capability.</li>
+</ul>
+</li>
+</ul>
+<p>As an alternative to go-metrics, there is another library called <a href="https://opencensus.io/">OpenCensus</a>.  This is a multi-language metrics library, including Go and C++.  This library is more feature rich.  OpenCensus is also roughly 5x the size of the go-metrics library.</p>
+<h4 id="additional-open-questions">Additional Open Questions</h4>
+<ul>
+<li>Should consideration be given to allow metrics to be placed in different topics per name?  If so, we will have to add to the topic name like we do for device name in device services?<ul>
+<li>A future consideration</li>
+</ul>
+</li>
+<li>Should consideration be given to incorporate alternate protocols/standards for metric collection such as https://opentelemetry.io/ or https://github.com/statsd/?<ul>
+<li>Go metrics is already a library pulled into all Go services.  These packages may be used in C side implementations.</li>
+</ul>
+</li>
+</ul>
+<h2 id="decision">Decision</h2>
+<ul>
+<li>Per the Monthly Architect's meeting of 12/13/21 - it was decided to use go-metrics for Go services over creating our own library or using open census.  C services will either find/pick a package that provides similar functionality to go-metrics or implement internally something providing MVP capability.</li>
+<li>Use of go-metrics helps avoid too much service bloat since it is already in most Go services.</li>
+<li>Per the same Monthly Architect's meeting, it as decided to implement metrics in Go services first.</li>
+<li>Per the Monthly Architect's meeting of 1/24/22 - it was decided not to support a REST API on all services that would provide information on what metrics the service provides and the ability to turn them on / off.  Instead, the decision was to use <code>Writable</code> configuration and allow Consul to be the means to change the configuration (dynamically).  If an adopter chooses not to use Consul, then the configuration with regard to metrics collection, as with all configuration in this circumstance, would be static.  If an external API need is requested in the future (such as from an external UI or tool), a REST API may be added.  See older versions of this PR for ideas on implementation in this case.</li>
+<li>Per Core Working Group meeting of 2/24/22 (and in many other previous meetings on this ADR) - it was decided that the EdgeX approach should be one of push (via message bus/MQTT) vs. pull (REST API). Both approaches require each service to collect metric telemetry specific to that service.  After collecting it, the service must either <em>push</em> it onto a message topic (as a message) or cache it (into memory or some storage mechanism depending on whether the storage needs to be durable or not) and allow for a REST API call that would cause the data to be <em>pulled</em> from that cache and provided in a response to the REST call.  Given both mechanisms require the same collection process, the belief is that <em>push</em> is probably preferred today by adopters.  In the future, if highly desired, a <em>pull</em> REST API could be added (along with a decision on how to cache the metrics telemetry for that pull). </li>
+<li>Per Core Working Group meeting of 2/24/22 - <strong>importantly</strong>, EdgeX is just making the metrics telemetry available on the internal EdgeX message bus.  An adopter would need to create something to pull the data off this bus to use it in some way.  As voiced by several on the call, it is important for the adopter to realize that today, "we (EdgeX) are not providing the last mile in metrics data".  The adopter must provide that last mile which is to pick the data from the topic, make it available to their systems and do something with it.</li>
+<li>Per Core Working Group meeting of 2/24/22 (and in many other previous meetings on this ADR) - it was decided not to use Prometheus (or Prometheus library) as the means to provide for metrics.  The reasons for this are many:<ul>
+<li>Push vs pull is favored in the first implementation (see point above).  Also see <a href="https://thenewstack.io/exploring-prometheus-use-cases-brian-brazil">similar debate online</a> for the pluses/minuses of each approach.</li>
+<li>EdgeX wants to make telemetry data available without dictating the specific mechanism for making the data more widely available.  Specific debate centered on use of Prometheus as a popular collection library (to use inside of services to collect the data) as well as a monitoring system to watch/display the data.  While Prometheus is popular open source approach, it was felt that many organizations choose to use InfluxDB/Grafana, DataDog, AppDynamics, a cloud provided mechanism, or their own home-grown solution to collect, analyse, visualize and otherwise use the telemetry.  Therefore, rather than dictating the selection of the monitoring system, EdgeX would simply make the data available whereby and organization could choose their own monitoring system/tooling.  It should be noted that the EdgeX approach merely makes the telemetry data available by message bus.  A Prometheus approach would provide collection as well as backend system to otherwise collect, analyse, display, etc. the data.  Therefore, there is typically work to be done by the adopter to get the telemetry data from the proposed EdgeX message bus solution and do something with it.</li>
+<li>There are some <code>reporters</code> that come with go-metrics that allow for data to be taken directly from go-metrics and pushed to an intermediary for Prometheus and other monitoring/telemetry platforms as referenced above.  These capabilities may not be very well supported and is beyond the scope of this EdgeX ADR.  However, even without <code>reporters</code>, it was felt a relatively straightforward exercise (on the part of the adopter) to create an application that listens to the EdgeX metrics message bus and makes that data available via <em>pull</em> REST API for Prometheus if desired.</li>
+<li>The Prometheus client libraries would have to be added to each service which would bloat the services (although they are available for both Go an C).  The benefit of using go-metrics is that it is used already by Hashicorp Consul (so already in the Go services).</li>
+</ul>
+</li>
+</ul>
+<h3 id="implementation-details-for-go">Implementation Details for Go</h3>
+<p>The go-metrics package offers the following types of metrics collection:</p>
+<ul>
+<li>Gauges: holds a single integer (int64) value.<ul>
+<li>Example use:  Number of notifications in retry status</li>
+<li>Operations to update the gauge and get the gauge's value</li>
+<li>Example code:</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nx">g</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">metrics</span><span class="p">.</span><span class="nx">NewGauge</span><span class="p">()</span>
+<span class="nx">g</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span><span class="w">  </span><span class="c1">// set the value to 42</span>
+<span class="nx">g</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w">  </span><span class="c1">// now set the value to 10</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">g</span><span class="p">.</span><span class="nx">Value</span><span class="p">())</span><span class="w">  </span><span class="c1">// print out the current value in the gauge = 10</span>
+</code></pre></div>
+<ul>
+<li>Counter: holds a integer (in64) count.  A counter could be implemented with a Gauge.<ul>
+<li>Example use:  the current store and forward queue size</li>
+<li>Operations to increment, decrement, clear and get the counter's count (or value)</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nx">c</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">metrics</span><span class="p">.</span><span class="nx">NewCounter</span><span class="p">()</span>
+<span class="nx">c</span><span class="p">.</span><span class="nx">Inc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w">  </span><span class="c1">// add one to the current counter</span>
+<span class="nx">c</span><span class="p">.</span><span class="nx">Inc</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="c1">// add 10 to the current counter, making it 11</span>
+<span class="nx">c</span><span class="p">.</span><span class="nx">Dec</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w">  </span><span class="c1">// decrement the counter by 5, making it 6  </span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">Count</span><span class="p">())</span><span class="w">  </span><span class="c1">// print out the current count of the counter = 6</span>
+</code></pre></div>
+<ul>
+<li>Meter:  measures the rate (int64) of events over time (at one, five and fifteen minute intervals).<ul>
+<li>Example use:  the number or rate of requests on a service API</li>
+<li>Operations: provide the total count of events as well as the mean and rate at 1, 5, and 15 minute rates</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nx">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">metrics</span><span class="p">.</span><span class="nx">NewMeter</span><span class="p">()</span>
+<span class="nx">m</span><span class="p">.</span><span class="nx">Mark</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w">  </span><span class="c1">// add one to the current meter value</span>
+<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">15</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span><span class="w">  </span><span class="c1">// allow some time to go by</span>
+<span class="nx">m</span><span class="p">.</span><span class="nx">Mark</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w">  </span><span class="c1">// add one to the current meter value</span>
+<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">15</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span><span class="w">  </span><span class="c1">// allow some time to go by</span>
+<span class="nx">m</span><span class="p">.</span><span class="nx">Mark</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w">  </span><span class="c1">// add one to the current meter value</span>
+<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">15</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span><span class="w">  </span><span class="c1">// allow some time to go by</span>
+<span class="nx">m</span><span class="p">.</span><span class="nx">Mark</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w">  </span><span class="c1">// add one to the current meter value</span>
+<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">15</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span><span class="w">  </span><span class="c1">// allow some time to go by</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">Count</span><span class="p">())</span><span class="w">  </span><span class="c1">// prints 4</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">Rate1</span><span class="p">())</span><span class="w">  </span><span class="c1">// prints 0.11075889086811593</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">Rate5</span><span class="p">())</span><span class="w">  </span><span class="c1">// prints 0.1755318374350548</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">Rate15</span><span class="p">())</span><span class="w"> </span><span class="c1">// prints 0.19136522498856992</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">RateMean</span><span class="p">())</span><span class="w"> </span><span class="c1">//prints 0.06665062941438574</span>
+</code></pre></div>
+<ul>
+<li>Histograms: measure the statistical distribution of values (int64 values) in a collection of values.<ul>
+<li>Example use: response times on APIs</li>
+<li>Operations: update and get the min, max, count, percentile, sample, sum and variance from the collection</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nx">h</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">metrics</span><span class="p">.</span><span class="nx">NewHistogram</span><span class="p">(</span><span class="nx">metrics</span><span class="p">.</span><span class="nx">NewUniformSample</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="nx">h</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nx">h</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="nx">h</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="nx">h</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">((</span><span class="nx">h</span><span class="p">.</span><span class="nx">Max</span><span class="p">()))</span><span class="w">  </span><span class="c1">// prints 40</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">Min</span><span class="p">())</span><span class="w">    </span><span class="c1">// prints 10</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">Mean</span><span class="p">())</span><span class="w">   </span><span class="c1">// prints 25</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">Count</span><span class="p">())</span><span class="w">  </span><span class="c1">// prints 4</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">Percentile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">))</span><span class="w">  </span><span class="c1">//prints 12.5</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">Variance</span><span class="p">())</span><span class="w">  </span><span class="c1">//prints 125</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">Sample</span><span class="p">())</span><span class="w">  </span><span class="c1">//prints &amp;{4 {0 0} 4 [10 20 30 40]}</span>
+</code></pre></div>
+<ul>
+<li>Timer: measures both the rate a particular piece of code is called and the distribution of its duration<ul>
+<li>Example use:  how often an app service function gets called and how long it takes get through the function</li>
+<li>Operations:  update and get min, max, count, rate1, rate5, rate15, mean, percentile, sum and variance from the collection</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nx">t</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">metrics</span><span class="p">.</span><span class="nx">NewTimer</span><span class="p">()</span>
+<span class="nx">t</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">15</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="nx">t</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">15</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="nx">t</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">15</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="nx">t</span><span class="p">.</span><span class="nx">Update</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+<span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">15</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">((</span><span class="nx">t</span><span class="p">.</span><span class="nx">Max</span><span class="p">()))</span><span class="w">  </span><span class="c1">// prints 40</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Min</span><span class="p">())</span><span class="w">    </span><span class="c1">// prints 10</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Mean</span><span class="p">())</span><span class="w">   </span><span class="c1">// prints 25</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Count</span><span class="p">())</span><span class="w">  </span><span class="c1">// prints 4</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Sum</span><span class="p">())</span><span class="w">    </span><span class="c1">// prints 100</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Percentile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">))</span><span class="w">  </span><span class="c1">//prints 12.5</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Variance</span><span class="p">())</span><span class="w">  </span><span class="c1">//prints 125</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Rate1</span><span class="p">())</span><span class="w">  </span><span class="c1">// prints 0.1116017821771607</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Rate5</span><span class="p">())</span><span class="w">  </span><span class="c1">// prints 0.1755821073441404</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Rate15</span><span class="p">())</span><span class="w"> </span><span class="c1">// prints 0.1913711954736821</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">RateMean</span><span class="p">())</span><span class="w"> </span><span class="c1">//prints 0.06665773963998162</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The go-metrics package does offer some variants of these like the GaugeFloat64 to hold 64 bit floats.</p>
+</div>
+<h2 id="consequences">Consequences</h2>
+<ul>
+<li>Should there be a <em>global</em> configuration option to turn all metrics off/on?<ul>
+<li>EdgeX doesn't yet have global config so this will have to be by service.</li>
+</ul>
+</li>
+<li>Given the potential that each service publishes metrics to the same message topic, 0MQ is not implementation option unless each service uses a different 0MQ pipe (0MQ topics do not allow multiple publishers).  <ul>
+<li>Like the DS to App Services implementation, do we allow 0MQ to be used, but only if each service sends to a different 0MQ topic?  Probably not.</li>
+</ul>
+</li>
+<li>We need to avoid service bloat.  EdgeX is not an enterprise system.  How can we implement in a concise and economical way?<ul>
+<li>Use of Go metrics helps on the Go side since this is already a module used by EdgeX modules (and brought in by default).  Care and concern must be given to not cause too much bloat on the C side.</li>
+</ul>
+</li>
+<li>SMA reports on service CPU, memory, configuration and provides the means to start/stop/restart the services.  This is currently outside the scope of the new metric collection/monitoring.<ul>
+<li>In the future, 3rd party mechanisms which offer the same capability as SMA may warrant all of SMA irrelevant.</li>
+</ul>
+</li>
+<li>The existing notifications service serves to send a notification via alternate protocol outside of EdgeX.  This communication service is provided as a generic communication instrument from any micro service and is independent of any type of data or concern.<ul>
+<li>In the future, the notification service could be configured to be a subscriber of the metric messages and trigger appropriate external notification (via email, SMTP, etc.).</li>
+</ul>
+</li>
+</ul>
+<h2 id="reference">Reference</h2>
+<p>Possible standards for implementation</p>
+<ul>
+<li><a href="https://opentelemetry.io/">Open Telemetry</a></li>
+<li><a href="https://github.com/statsd/">statsd</a></li>
+<li><a href="https://github.com/rcrowley/go-metrics">go-metrics</a></li>
+<li><a href="https://opencensus.io/">OpenCensus</a></li>
+</ul>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+<div class="md-copyright__highlight">
+      Copyright © 2023 EdgeX Foundry
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+<div class="md-social">
+<a class="md-social__link" href="https://github.com/edgexfoundry" rel="noopener" target="_blank" title="github.com">
+<svg viewbox="0 0 480 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"></path></svg>
+</a>
+<a class="md-social__link" href="https://twitter.com/edgexfoundry" rel="noopener" target="_blank" title="twitter.com">
+<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
+</a>
+<a class="md-social__link" href="https://www.linkedin.com/company/edgexfoundry" rel="noopener" target="_blank" title="www.linkedin.com">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.footer"], "search": "../../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+<script src="../../../assets/javascripts/bundle.220ee61c.min.js"></script>
+<script>document$.subscribe(() => {
+            window.update_swagger_ui_iframe_height = function (id) {
+                var iFrameID = document.getElementById(id);
+                if (iFrameID) {
+                    full_height = (iFrameID.contentWindow.document.body.scrollHeight + 80) + "px";
+                    iFrameID.height = full_height;
+                    iFrameID.style.height = full_height;
+                }
+            }
+        
+            let iframe_id_list = []
+            var iframes = document.getElementsByClassName("swagger-ui-iframe");
+            for (var i = 0; i < iframes.length; i++) { 
+                iframe_id_list.push(iframes[i].getAttribute("id"))
+            }
+        
+            let ticking = true;
+            
+            document.addEventListener('scroll', function(e) {
+                if (!ticking) {
+                    window.requestAnimationFrame(()=> {
+                        let half_vh = window.innerHeight/2;
+                        for(var i = 0; i < iframe_id_list.length; i++) {
+                            let element = document.getElementById(iframe_id_list[i])
+                            if(element==null){
+                                return
+                            }
+                            let diff = element.getBoundingClientRect().top
+                            if(element.contentWindow.update_top_val){
+                                element.contentWindow.update_top_val(half_vh - diff)
+                            }
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        
+            const dark_scheme_name = "slate"
+            
+            window.scheme = document.body.getAttribute("data-md-color-scheme")
+            const options = {
+                attributeFilter: ['data-md-color-scheme'],
+            };
+            function color_scheme_callback(mutations) {
+                for (let mutation of mutations) {
+                    if (mutation.attributeName === "data-md-color-scheme") {
+                        scheme = document.body.getAttribute("data-md-color-scheme")
+                        var iframe_list = document.getElementsByClassName("swagger-ui-iframe")
+                        for(var i = 0; i < iframe_list.length; i++) {
+                            var ele = iframe_list.item(i);
+                            if (ele) {
+                                if (scheme === dark_scheme_name) {
+                                    ele.contentWindow.enable_dark_mode();
+                                } else {
+                                    ele.contentWindow.disable_dark_mode();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            observer = new MutationObserver(color_scheme_callback);
+            observer.observe(document.body, options);
+            })</script></body>
+</html>
