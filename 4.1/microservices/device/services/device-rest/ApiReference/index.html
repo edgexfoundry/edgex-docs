@@ -2910,7 +2910,7 @@
 <article class="md-content__inner md-typeset">
 <h1 id="device-rest-api-reference">Device REST - API Reference</h1>
 <p>In addition to the REST API below, this service inherits the <a href="../../../ApiReference/">Common Device Service APIs</a> from the SDK.</p>
-<p><iframe class="swagger-ui-iframe" frameborder="0" id="5c079777" src="swagger-5c079777.html" style="overflow:hidden;width:100%;" width="100%"></iframe></p>
+<p><iframe class="swagger-ui-iframe" frameborder="0" id="2069fc28" onload="this.style.display = 'block'; this.style.overflow = 'hidden'; this.style.width = '100%';" src="swagger-2069fc28.html" style="display:none;" width="100%"></iframe></p>
 </article>
 </div>
 </div>
@@ -2992,9 +2992,7 @@
             for (var i = 0; i < iframes.length; i++) { 
                 iframe_id_list.push(iframes[i].getAttribute("id"))
             }
-        
             let ticking = false;
-            
             document.addEventListener('scroll', function(e) {
                 if (!ticking) {
                     window.requestAnimationFrame(()=> {
@@ -3017,7 +3015,15 @@
         
             const dark_scheme_name = "slate"
             
-            window.scheme = document.body.getAttribute("data-md-color-scheme")
+            const schemeAttr = document.body.getAttribute("data-md-color-scheme");
+            const isMediaPrefersScheme = document.body.getAttribute("data-md-color-media") === "(prefers-color-scheme: dark)";
+
+            if (!isMediaPrefersScheme) {
+                window.__init_is_dark_mode = (schemeAttr === dark_scheme_name);
+            } else {
+                const computedScheme = window.getComputedStyle(document.body).getPropertyValue('color-scheme');
+                window.__init_is_dark_mode = computedScheme === "dark";
+            }
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
             };

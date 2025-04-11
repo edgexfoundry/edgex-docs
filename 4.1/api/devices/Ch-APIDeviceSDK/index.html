@@ -2940,7 +2940,7 @@
 <p>The EdgeX Foundry Device Service Software Development Kit (SDK) takes the Developer through the step-by-step process to create an EdgeX Foundry Device Service microservice. See <a href="../../../microservices/device/sdk/Purpose/">Device Service SDK</a> for more details on this SDK.</p>
 <p>The Device Service SDK provides a RESTful API that all Device Services inherit from the SDK.</p>
 <h2 id="swagger">Swagger</h2>
-<p><iframe class="swagger-ui-iframe" frameborder="0" id="8f2a89f6" src="swagger-8f2a89f6.html" style="overflow:hidden;width:100%;" width="100%"></iframe></p>
+<p><iframe class="swagger-ui-iframe" frameborder="0" id="e1ef5e98" onload="this.style.display = 'block'; this.style.overflow = 'hidden'; this.style.width = '100%';" src="swagger-e1ef5e98.html" style="display:none;" width="100%"></iframe></p>
 </article>
 </div>
 </div>
@@ -3022,9 +3022,7 @@
             for (var i = 0; i < iframes.length; i++) { 
                 iframe_id_list.push(iframes[i].getAttribute("id"))
             }
-        
             let ticking = false;
-            
             document.addEventListener('scroll', function(e) {
                 if (!ticking) {
                     window.requestAnimationFrame(()=> {
@@ -3047,7 +3045,15 @@
         
             const dark_scheme_name = "slate"
             
-            window.scheme = document.body.getAttribute("data-md-color-scheme")
+            const schemeAttr = document.body.getAttribute("data-md-color-scheme");
+            const isMediaPrefersScheme = document.body.getAttribute("data-md-color-media") === "(prefers-color-scheme: dark)";
+
+            if (!isMediaPrefersScheme) {
+                window.__init_is_dark_mode = (schemeAttr === dark_scheme_name);
+            } else {
+                const computedScheme = window.getComputedStyle(document.body).getPropertyValue('color-scheme');
+                window.__init_is_dark_mode = computedScheme === "dark";
+            }
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
             };
