@@ -6212,10 +6212,50 @@
   
 </li>
         
-          <li class="md-nav__item">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#timestamp-precision" class="md-nav__link">
     Timestamp Precision
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reserved-character" class="md-nav__link">
+    Reserved Character
+  </a>
+  
+    <nav class="md-nav" aria-label="Reserved Character">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reserved-characters-that-require-encoding" class="md-nav__link">
+    Reserved Characters That Require Encoding
+  </a>
+  
+    <nav class="md-nav" aria-label="Reserved Characters That Require Encoding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reserved-character-example" class="md-nav__link">
+    Reserved Character Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simplified-chinese-character-example" class="md-nav__link">
+    Simplified Chinese Character Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -7554,10 +7594,50 @@
   
 </li>
         
-          <li class="md-nav__item">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#timestamp-precision" class="md-nav__link">
     Timestamp Precision
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reserved-character" class="md-nav__link">
+    Reserved Character
+  </a>
+  
+    <nav class="md-nav" aria-label="Reserved Character">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reserved-characters-that-require-encoding" class="md-nav__link">
+    Reserved Characters That Require Encoding
+  </a>
+  
+    <nav class="md-nav" aria-label="Reserved Characters That Require Encoding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reserved-character-example" class="md-nav__link">
+    Reserved Character Example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simplified-chinese-character-example" class="md-nav__link">
+    Simplified Chinese Character Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -7691,7 +7771,7 @@ For a request header set as:
 &lt;name&gt;: &lt;contents&gt;
 </code></pre></div></p>
 </div>
-<h3 id="timestamp-precision">Timestamp Precision</h3>
+<h2 id="timestamp-precision">Timestamp Precision</h2>
 <p>We have several data models with a timestamp field, but the precision varies, please refer to the following measurements and examples:</p>
 <ul>
 <li>
@@ -7708,6 +7788,63 @@ For a request header set as:
 <p><code>origin</code> in Event and Readings is in <b>nanoseconds</b>, see <a href="../../walk-through/Ch-WalkthroughReading/#origin-timestamp">Origin Timestamp</a> for more information.</p>
 </li>
 </ul>
+<h2 id="reserved-character">Reserved Character</h2>
+<p>Reserved characters are special characters that have predefined meanings in certain technical contexts—such as URLs, APIs, or configuration files. For example, in a URI (Uniform Resource Identifier), the character <code>/</code> is used to separate different parts of a path, while <code>?</code> introduces a query string. Because these characters serve specific functions, they are considered <strong>reserved</strong>.</p>
+<p>However, users sometimes need to include these characters in metadata values—such as device names, resource name, or custom name fields—where the character is intended to be part of the data, not a control symbol. In such cases, these characters must be encoded to prevent misinterpretation. Encoding involves replacing the reserved character with a specific code (usually a percent sign % followed by two hexadecimal digits) so that systems can distinguish between data and control symbols, see <a href="https://en.wikipedia.org/wiki/Percent-encoding">URL encoding</a> for more information.</p>
+<p>If these characters are not properly encoded when used in places like URIs or configuration settings, systems may misread the data. This can lead to parsing errors, incorrect behavior, or failed requests, especially when the data is processed by APIs or web services that strictly follow URI standards.</p>
+<p>To avoid these issues, it's important to identify which characters are reserved in the specific context you're working in and ensure they are handled appropriately when included in metadata or input values.</p>
+<h3 id="reserved-characters-that-require-encoding">Reserved Characters That Require Encoding</h3>
+<p>In EdgeX Foundry, certain characters in metadata (like device names, resource name or other name fields) must be encoded. These characters are reserved due to how EdgeX handles URIs and configuration. If not encoded, they can cause errors or misinterpretation during processing.</p>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Description</th>
+<th>URL Encoded Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#</code></td>
+<td>Hash / Fragment Marker</td>
+<td><code>%23</code></td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>Dollar Sign</td>
+<td><code>%24</code></td>
+</tr>
+<tr>
+<td><code>&amp;</code></td>
+<td>Ampersand</td>
+<td><code>%26</code></td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>Question Mark / Query</td>
+<td><code>%3F</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="reserved-character-example">Reserved Character Example</h4>
+<p>If your device name is <code>device#1</code>, which contains the special character <code>#</code>, and you try to call this device using the following API URL:</p>
+<div class="highlight"><pre><span></span><code><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59881/api/v3/device/name/device#1</span>
+</code></pre></div>
+<p>You will receive a <code>404 Not Found</code> response because the <code>#</code>is not recognizeable:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v3&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;no device with name &#39;device&#39; found&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>To fix this, you must escape the <code>#</code> character using URL encoding <code>%23</code>, This will correctly match the device named device#1 in the system.</p>
+<div class="highlight"><pre><span></span><code><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59881/api/v3/device/name/device%231</span>
+</code></pre></div>
+<h4 id="simplified-chinese-character-example">Simplified Chinese Character Example</h4>
+<p>EdgeX Foundry supports Chinese characters directly, so there is no need to encode them in API calls or metadata. The system can handle these characters without any issues during processing.</p>
+<p>Thus, if your device name is 温度感测器 (a Simplified Chinese character string), you can call this device using the following API URL without encoding:</p>
+<div class="highlight"><pre><span></span><code><span class="err">curl</span><span class="w"> </span><span class="err">h</span><span class="kc">tt</span><span class="err">p</span><span class="p">:</span><span class="c1">//localhost:59881/api/v3/device/name/温度感测器</span>
+</code></pre></div>
 
 
   
