@@ -134,7 +134,7 @@ Only `httpheader` is currently supported. The `headername` specifies the authent
     ```
 
 
-### Timestamp Precision
+## Timestamp Precision
 
 We have several data models with a timestamp field, but the precision varies, please refer to the following measurements and examples:
 
@@ -149,8 +149,62 @@ We have several data models with a timestamp field, but the precision varies, pl
 - `origin` in Event and Readings is in <b>nanoseconds</b>, see [Origin Timestamp][5] for more information.
 
 
+## Reserved Character
+
+Reserved characters are special characters that have predefined meanings in certain technical contexts—such as URLs, APIs, or configuration files. For example, in a URI (Uniform Resource Identifier), the character `/` is used to separate different parts of a path, while `?` introduces a query string. Because these characters serve specific functions, they are considered **reserved**.
+
+However, users sometimes need to include these characters in metadata values—such as device names, resource name, or custom name fields—where the character is intended to be part of the data, not a control symbol. In such cases, these characters must be encoded to prevent misinterpretation. Encoding involves replacing the reserved character with a specific code (usually a percent sign % followed by two hexadecimal digits) so that systems can distinguish between data and control symbols, see [URL encoding][6] for more information.
+
+If these characters are not properly encoded when used in places like URIs or configuration settings, systems may misread the data. This can lead to parsing errors, incorrect behavior, or failed requests, especially when the data is processed by APIs or web services that strictly follow URI standards.
+
+To avoid these issues, it's important to identify which characters are reserved in the specific context you're working in and ensure they are handled appropriately when included in metadata or input values.
+
+### Reserved Characters That Require Encoding
+
+In EdgeX Foundry, certain characters in metadata (like device names, resource name or other name fields) must be encoded. These characters are reserved due to how EdgeX handles URIs and configuration. If not encoded, they can cause errors or misinterpretation during processing.
+
+| Character | Description             | URL Encoded Value |
+|-----------|-------------------------|--------------------|
+| `#`       | Hash / Fragment Marker  | `%23`              |
+| `$`       | Dollar Sign             | `%24`              |
+| `&`       | Ampersand               | `%26`              |
+| `?`       | Question Mark / Query   | `%3F`              |
+
+#### Reserved Character Example
+If your device name is `device#1`, which contains the special character `#`, and you try to call this device using the following API URL:
+
+```json
+curl http://localhost:59881/api/{{ api_version }}/device/name/device#1
+```
+
+You will receive a `404 Not Found` response because the `#`is not recognizeable:
+
+```json
+{
+    "apiVersion": "{{ api_version }}",
+    "message": "no device with name 'device' found",
+    "statusCode": 404
+}
+```
+
+To fix this, you must escape the `#` character using URL encoding `%23`, This will correctly match the device named device#1 in the system.
+
+```json
+curl http://localhost:59881/api/{{ api_version }}/device/name/device%231
+```
+
+#### Simplified Chinese Character Example
+EdgeX Foundry supports Chinese characters directly, so there is no need to encode them in API calls or metadata. The system can handle these characters without any issues during processing.
+
+Thus, if your device name is 温度感测器 (a Simplified Chinese character string), you can call this device using the following API URL without encoding:
+
+```json
+curl http://localhost:59881/api/{{ api_version }}/device/name/温度感测器
+```
+
 [1]: ../core/metadata/ApiReference.md
 [2]: ../support/scheduler/ApiReference.md
 [3]: #service-metrics
 [4]: ../core/metadata/details/DeviceSystemEvents.md#system-event-dto
 [5]: ../../walk-through/Ch-WalkthroughReading.md#origin-timestamp
+[6]: https://en.wikipedia.org/wiki/Percent-encoding
