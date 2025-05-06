@@ -2940,7 +2940,7 @@
 <p>Control of this service is accomplished via the following REST API. In addition, 
 this service does inherit the <a href="../../../../../api/Ch-APIIntroduction/">common APIs</a> and 
 the <a href="../../../details/Triggers/#http-trigger">Trigger API</a> from the SDK.</p>
-<p><iframe class="swagger-ui-iframe" frameborder="0" id="fdc00f43" src="swagger-fdc00f43.html" style="overflow:hidden;width:100%;" width="100%"></iframe></p>
+<p><iframe class="swagger-ui-iframe" frameborder="0" id="336e93c5" onload="this.style.display = 'block'; this.style.overflow = 'hidden'; this.style.width = '100%';" src="swagger-336e93c5.html" style="display:none;" width="100%"></iframe></p>
 <h2 id="postman-collection">Postman Collection</h2>
 <p>A sample Postman collection can be found <a href="https://github.com/edgexfoundry/app-record-replay/blob/main/Record%20and%20Reply.postman_collection.json">here</a>.</p>
 <div class="admonition note">
@@ -3035,9 +3035,7 @@ curl localhost:59712/api/v3/data?compression=zlib -o test.zlib
             for (var i = 0; i < iframes.length; i++) { 
                 iframe_id_list.push(iframes[i].getAttribute("id"))
             }
-        
             let ticking = false;
-            
             document.addEventListener('scroll', function(e) {
                 if (!ticking) {
                     window.requestAnimationFrame(()=> {
@@ -3060,7 +3058,15 @@ curl localhost:59712/api/v3/data?compression=zlib -o test.zlib
         
             const dark_scheme_name = "slate"
             
-            window.scheme = document.body.getAttribute("data-md-color-scheme")
+            const schemeAttr = document.body.getAttribute("data-md-color-scheme");
+            const isMediaPrefersScheme = document.body.getAttribute("data-md-color-media") === "(prefers-color-scheme: dark)";
+
+            if (!isMediaPrefersScheme) {
+                window.__init_is_dark_mode = (schemeAttr === dark_scheme_name);
+            } else {
+                const computedScheme = window.getComputedStyle(document.body).getPropertyValue('color-scheme');
+                window.__init_is_dark_mode = computedScheme === "dark";
+            }
             const options = {
                 attributeFilter: ['data-md-color-scheme'],
             };
