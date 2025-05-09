@@ -7634,8 +7634,6 @@ You'll notice that the commands have <code>get</code> or <code>set</code> (or bo
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">app-mqtt-export</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-app-mqtt-export</span>
 <span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">consul</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service_started</span>
 <span class="w">      </span><span class="nt">core-data</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service_started</span>
 <span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
@@ -7643,6 +7641,7 @@ You'll notice that the commands have <code>get</code> or <code>set</code> (or bo
 <span class="w">      </span><span class="nt">EDGEX_SECURITY_SECRET_STORE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;false&quot;</span>
 <span class="w">      </span><span class="nt">SERVICE_HOST</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-app-mqtt-export</span>
 <span class="w">      </span><span class="nt">WRITABLE_LOGLEVEL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INFO</span>
+<span class="w">      </span><span class="nt">WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_CLIENTID</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
 <span class="w">      </span><span class="nt">WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_BROKERADDRESS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MQTT_BROKER_ADDRESS_PLACE_HOLDER</span>
 <span class="w">      </span><span class="nt">WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_TOPIC</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-events</span>
 <span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edgex-app-mqtt-export</span>
