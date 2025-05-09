@@ -178,8 +178,6 @@ First add the following application service to your docker-compose.yml file righ
   app-mqtt-export:
     container_name: edgex-app-mqtt-export
     depends_on:
-      consul:
-        condition: service_started
       core-data:
         condition: service_started
     environment:
@@ -188,6 +186,7 @@ First add the following application service to your docker-compose.yml file righ
       SERVICE_HOST: edgex-app-mqtt-export
       WRITABLE_LOGLEVEL: INFO
       WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_BROKERADDRESS: MQTT_BROKER_ADDRESS_PLACE_HOLDER
+      WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_CLIENTID: ""
       WRITABLE_PIPELINE_FUNCTIONS_MQTTEXPORT_PARAMETERS_TOPIC: edgex-events
     hostname: edgex-app-mqtt-export
     image: nexus3.edgexfoundry.org:10004/app-service-configurable:latest
