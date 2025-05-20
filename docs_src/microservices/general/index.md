@@ -161,23 +161,69 @@ To avoid these issues, it's important to identify which characters are reserved 
 
 ### Reserved Characters That Require Encoding
 
-In EdgeX Foundry, certain characters in metadata (like device names, resource name or other name fields) must be encoded. These characters are reserved due to how EdgeX handles URIs and configuration. If not encoded, they can cause errors or misinterpretation during processing.
+In EdgeX Foundry, certain characters in metadata (like device names, resource name or other name fields) must be encoded in `HTTP request path` or `MQTT topic`. These characters are reserved due to how EdgeX handles URIs and configuration. If not encoded, they can cause errors or misinterpretation during processing.
 
-| Character | Description             | URL Encoded Value |
-|-----------|-------------------------|--------------------|
-| `#`       | Hash / Fragment Marker  | `%23`              |
-| `$`       | Dollar Sign             | `%24`              |
-| `&`       | Ampersand               | `%26`              |
-| `?`       | Question Mark / Query   | `%3F`              |
+The reserved characters are shown below.
 
-#### Reserved Character Example
-If your device name is `device#1`, which contains the special character `#`, and you try to call this device using the following API URL:
+- The URL hierarchical identifiers, refer to the [URI spec][7]:
 
-```json
-curl http://localhost:59881/api/{{ api_version }}/device/name/device#1
+  | Character | Description    | URL Encoded Value |
+  |-----------|----------------|-------------------|
+  | `/`       | Slash Mark     | `%2F`             |
+  | `?`       | Question Mark  | `%3F`             |  
+  | `#`       | Hash Mark      | `%23`             |
+
+- The MQTT wildcards, refer to the [mosquitto page][8]:
+
+  | Character   | Description | URL Encoded Value |
+  |-------------|-------------|-------------------|
+  | `+`         | Plus Mark   | `%2B`             |
+  | `#`         | Hash Mark   | `%23`             |
+
+!!! note
+    The `%` is reserved character in EdgeX to decode the name field, you should not use it in the `name field` to post the data.
+
+If the reserved characters are used, please enable the `NameFieldEscape`.
+```yaml
+services:
+  core-common-config-bootstrapper:
+    environment:
+      ALL_SERVICES_SERVICE_ENABLENAMEFIELDESCAPE: true
 ```
 
-You will receive a `404 Not Found` response because the `#`is not recognizeable:
+!!! note
+    After enabling the `NameFieldEscape`, EdgeX services will encode all characters except text(A-Za-z) and number(0-9) for HTTP request path and MQTT topic.
+    You can find the character encoding mapping tables `Common characters after percent-encoding` and `Reserved characters after percent-encoding` in the [URL encoding][6]. 
+
+### Reserved Character Example
+If your device name is `device/1`, which contains the special character `/`, 
+```shell
+curl 'http://localhost:59881/api/{{ api_version }}/device' \
+--data '[{
+    "device": {
+      "name": "device/1",
+      "adminState": "UNLOCKED",
+      "operatingState": "UP",
+      "location": {},
+      "serviceName": "device-virtual",
+      "profileName": "Random-Boolean-Device",
+      "protocols": {
+        "other": {}
+      }
+    },
+    "apiVersion":"v3"
+  }
+]
+'
+```
+
+And you try to call this device using the following `Core Command` API:
+
+```shell
+curl http://localhost:59882/api/{{ api_version }}/device/name/device/1/Bool
+```
+
+You will receive a `404 Not Found` response because the `/` cause the `Core Command` retrieve the device name incorrectly:
 
 ```json
 {
@@ -187,18 +233,56 @@ You will receive a `404 Not Found` response because the `#`is not recognizeable:
 }
 ```
 
-To fix this, you must escape the `#` character using URL encoding `%23`, This will correctly match the device named device#1 in the system.
+To fix this, you must escape the `/` character using URL encoding `%2F`,
 
-```json
-curl http://localhost:59881/api/{{ api_version }}/device/name/device%231
+```shell
+curl http://localhost:59882/api/{{ api_version }}/device/name/device%2F1/Bool
 ```
 
-#### Simplified Chinese Character Example
+But the `Core Command` still return error because the `Core Command` forward the `device name` to the `Virtual device service` incorrectly.
+
+```json
+{
+    "apiVersion": "{{ api_version }}",
+    "message": "request failed, status code: 404, err: {\"apiVersion\":\"v3\",\"message\":\"device device not found\",\"statusCode\":404}",
+    "statusCode": 404
+}
+```
+
+To resolve the previous error, you should know that EdgeX services communicate with each other by HTTP API or MQTT broker, and the communication might fail when using the HTTP or MQTT reserved characters, so you need to enable the `NameFieldEscape` for encoding the HTTP request path and MQTT topic.
+
+```yaml
+services:
+  core-common-config-bootstrapper:
+    environment:
+      EDGEX_OVERWRITE_CONFIG: "true"  # used to overwrite the configuration
+      ALL_SERVICES_SERVICE_ENABLENAMEFIELDESCAPE: true
+```
+
+The `ALL_SERVICES_SERVICE_ENABLENAMEFIELDESCAPE` is common configuration, you should run the `core-common-config-bootstrapper` service again and restart all services to apply the common configuration.
+
+#### Encoded MQTT topic
+After enabling the `NameFieldEscape`, the device service publish events to the MQTT topics are shown below.
+
+```shell
+$ docker exec mqtt-broker mosquitto_sub -v -t '#'
+edgex/events/device/device%2Dvirtual/Random%2DBoolean%2DDevice/device%2F1/Bool {...}
+```
+
+If the third-party service want to subscribe the MQTT message, the service must encode MQTT topic according to character encoding mapping tables `Common characters after percent-encoding` and `Reserved characters after percent-encoding` in the [URL encoding][6].
+
+For example, subscribe to the specified device resources.
+
+```shell
+$ docker exec mqtt-broker mosquitto_sub -v -t 'edgex/events/device/device%2Dvirtual/Random%2DBoolean%2DDevice/device%2F1/#'
+```
+
+### Simplified Chinese Character Example
 EdgeX Foundry supports Chinese characters directly, so there is no need to encode them in API calls or metadata. The system can handle these characters without any issues during processing.
 
 Thus, if your device name is 温度感测器 (a Simplified Chinese character string), you can call this device using the following API URL without encoding:
 
-```json
+```shell
 curl http://localhost:59881/api/{{ api_version }}/device/name/温度感测器
 ```
 
@@ -208,3 +292,5 @@ curl http://localhost:59881/api/{{ api_version }}/device/name/温度感测器
 [4]: ../core/metadata/details/DeviceSystemEvents.md#system-event-dto
 [5]: ../../walk-through/Ch-WalkthroughReading.md#origin-timestamp
 [6]: https://en.wikipedia.org/wiki/Percent-encoding
+[7]: https://www.rfc-editor.org/rfc/rfc3986.txt
+[8]: https://mosquitto.org/man/mqtt-7.html
