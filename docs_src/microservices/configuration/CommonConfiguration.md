@@ -26,7 +26,7 @@ The common configuration is divided into 3 sections:
 When the Configuration Provider is used, the common configuration is seeded by the **core-common-config-bootstrapper** service, otherwise the common configuration comes from a file specified by the [`-cc/--commonConfig` command-line option](../CommonCommandLineOptions/#common-config).
 
 !!! note
-    Common environment variable overrides set on the **core-common-config-bootstrapper** service are applied to the common configuration prior to seeding the values into the Configuration Provider. See [Common Configuration Overrides](../CommonEnvironmentVariables/#common-configuration-overrides) section for more details.
+    Common environment variable overrides set on the **core-common-config-bootstrapper** service are applied to the common configuration prior to seeding the values into the Configuration Provider. See [Common Configuration Overrides](./CommonEnvironmentVariables.md#configuration-overrides) section for more details.
 
 ### Common Configuration Properties
 
@@ -129,7 +129,7 @@ The tables in each of the tabs below document configuration properties that are 
     |ConnectTimeout|5|Message bus connection timeout in seconds|
     |SkipCertVerify|false|TLS configuration - Only used if Cert/Key file or Cert/Key PEMblock are specified|
     | | Additional Default NATS Specific options  |
-    | Format | nats | Format of the actual message published. See [NATs](../../general/messagebus/#configuration_2) section of the MessageBus documentation. |
+    | Format | nats | Format of the actual message published. See [NATs](../general/messagebus/#configuration_2) section of the MessageBus documentation. |
     | RetryOnFailedConnect | true | Retry on connection failure - expects a string representation of a boolean |
     | QueueGroup | blank | Specifies a queue group to distribute messages from a stream to a pool of worker services |
     | Durable | blank | Specifies a durable consumer should be used with the given name. Note that if a durable consumer with the specified name does not exist it will be considered ephemeral and deleted by the client on drain / unsubscribe (JetStream only) |

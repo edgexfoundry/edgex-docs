@@ -103,7 +103,7 @@ This section describes the *command-line overrides* that are common to most serv
 
 #### EDGEX_CONFIG_DIR
 
-This environment variable overrides the [`-cd/--configDir` command-line option](../CommonCommandLineOptions/#confdir). 
+This environment variable overrides the [`-cd/--configDir` command-line option](./CommonCommandLineOptions.md#config-directory). 
 
 !!! example "Example - Using docker-compose to override the configuration folder name"
     ```yaml
@@ -116,7 +116,7 @@ This environment variable overrides the [`-cd/--configDir` command-line option](
 
 #### EDGEX_CONFIG_FILE
 
-This environment variable overrides the [`-cf/--configFile` command-line option](../CommonCommandLineOptions#file).
+This environment variable overrides the [`-cf/--configFile` command-line option](./CommonCommandLineOptions.md#config-file).
 
 !!! example "Example - Using docker-compose to override the configuration file name used"
     ```yaml

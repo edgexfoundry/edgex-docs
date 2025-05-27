@@ -44,7 +44,7 @@ If along with this pipeline configuration, you also configured the `Trigger` to 
 
 ## Metric TargetType
 
-This setting when set to true will cause the `TargetType` to be `&dtos.Metric{}` and is meant to be used in conjunction with the new `ToLineProtocol` function. See [ToLineProtocol](AvailablePipelineFunctions.md#tolineprotocol) section below for more details. In addition, the `Trigger` `SubscribeTopics`must be set to `"edgex/telemetry/#"` so that the function receives the metric data from the other services.
+This setting when set to true will cause the `TargetType` to be `&dtos.Metric{}` and is meant to be used in conjunction with the new `ToLineProtocol` function. See [ToLineProtocol](./AvailablePipelineFunctions.md#tolineprotocol) section below for more details. In addition, the `Trigger` `SubscribeTopics`must be set to `"edgex/telemetry/#"` so that the function receives the metric data from the other services.
 
 !!! example - "Example -  Metric TargetType "
     ```yaml

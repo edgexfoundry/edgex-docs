@@ -4,7 +4,7 @@
 
 These instructions are for Developers and Contributors to get and run
 EdgeX Foundry. If you want to get the EdgeX platform and run it (but do not intend to change or add to the existing code base now) then you are considered a "User". Users should read:
-[Getting Started as a User](./Ch-GettingStartedUsers.md))
+[Getting Started as a User](./Ch-GettingStartedUsers.md)
 
 EdgeX is a collection of more than a dozen micro services that are deployed to provide a minimal edge platform capability. 
 EdgeX consists of a collection of reference implementation services and SDK tools. The micro services and SDKs are written in Go or C. 
@@ -51,8 +51,8 @@ These tools are covered under the documentation specific to each type of develop
 
 ## Versioning
 
-Please refer to the EdgeX Foundry [versioning policy](https://wiki.edgexfoundry.org/pages/viewpage.action?pageId=21823969) for information on how EdgeX services are released and how EdgeX services are compatible with one another.  Specifically, device services (and the associated SDK), application services (and the associated app functions SDK), and client tools (like the EdgeX CLI and UI) can have independent minor releases, but these services must be compatible with the latest major release of EdgeX.
+Please refer to the EdgeX Foundry [versioning policy](https://lf-edgexfoundry.atlassian.net/wiki/spaces/FA/pages/11668318/Releases) for information on how EdgeX services are released and how EdgeX services are compatible with one another.  Specifically, device services (and the associated SDK), application services (and the associated app functions SDK), and client tools (like the EdgeX CLI and UI) can have independent minor releases, but these services must be compatible with the latest major release of EdgeX.
 
 ## Long Term Support
 
-Please refer to the EdgeX Foundry [LTS policy](https://wiki.edgexfoundry.org/pages/viewpage.action?pageId=69173332) for information on support of EdgeX releases. The EdgeX community does not offer support on any non-LTS release outside of the latest release.
+Please refer to the EdgeX Foundry [LTS policy](https://lf-edgexfoundry.atlassian.net/wiki/spaces/FA/pages/11676227/Long+Term+Support) for information on support of EdgeX releases. The EdgeX community does not offer support on any non-LTS release outside of the latest release.
