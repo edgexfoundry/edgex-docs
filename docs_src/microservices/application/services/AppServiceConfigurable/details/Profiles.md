@@ -79,7 +79,7 @@ Optional Additional Tags:
   - Currently set to empty string
   - Example value: `"tag1:value1, tag2:value2"
 
-Optional Batching parameters (see [Batch function](AvailablePipelineFunctions.md#batch) for more details):
+Optional Batching parameters (see [Batch function](./AvailablePipelineFunctions.md#batch) for more details):
 
 - `WRITABLE_PIPELINE_FUNCTIONS_BATCH_PARAMETERS_MODE: <your batch mode>`
   - Currently set to `"bytimecount"`

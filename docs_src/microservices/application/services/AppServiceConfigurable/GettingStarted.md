@@ -6,9 +6,9 @@ title: App Service Configurable - Getting Started
 
 To get started with App Service Configurable, you'll want to start by determining which functions are required in your pipeline. Using a simple example, let's assume you wish to use the following functions from the SDK:
 
-1. [FilterByDeviceName](details/AvailablePipelineFunctions.md#filterbydevicename) -  to filter events for a specific device.
-2. [Transform](details/AvailablePipelineFunctions.md#transform) - to transform the data to XML
-3. [HTTPExport](details/AvailablePipelineFunctions.md#httpexport) - to send the data to an HTTP endpoint that takes our XML data   
+1. [FilterByDeviceName](./details/AvailablePipelineFunctions.md#filterbydevicename) -  to filter events for a specific device.
+2. [Transform](./details/AvailablePipelineFunctions.md#transform) - to transform the data to XML
+3. [HTTPExport](./details/AvailablePipelineFunctions.md#httpexport) - to send the data to an HTTP endpoint that takes our XML data   
 
 Once the functions have been identified, we'll go ahead and build out the configuration in the `configuration.yaml` file under the `Writable.Pipeline` section.
 

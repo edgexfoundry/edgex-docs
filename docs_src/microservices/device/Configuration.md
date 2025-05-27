@@ -31,7 +31,7 @@ Please refer to the general [Common Configuration documentation](../configuratio
 === "Writable.Telemetry*"
 |Property|<div style="width:300px">Default Value</div>|Description|
 |---|---|---|
-|||See `Writable.Telemetry` at [Common Configuration](../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
+|||See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration.md#common-configuration-properties) for the Telemetry configuration common to all services |
 |Metrics|     |Service metrics that the device service collects. Boolean value indicates if reporting of the metric is enabled. Common and custom metrics are also included.|
 ||`EventsSent` = false     |Enable/disable reporting of the built-in **EventsSent** metric|
 ||`ReadingsSent` = false     |Enable/disable reporting of the built-in **ReadingsSent** metric|

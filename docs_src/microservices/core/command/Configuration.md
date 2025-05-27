@@ -22,7 +22,7 @@ Below are only the additional settings and sections that are specific to Core Co
 === "Writable.Telemetry"
 |Property|Default Value|Description|
 |---|---|---|
-|||See `Writable.Telemetry` at [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties) for the Telemetry configuration common to all services |
+|||See `Writable.Telemetry` at [Common Configuration](../../configuration/CommonConfiguration.md#common-configuration-properties) for the Telemetry configuration common to all services |
 |Metrics| `<TBD>` |Service metrics that Core Command collects. Boolean value indicates if reporting of the metric is enabled.|
 |Tags|`<empty>`|List of arbitrary Core Metadata service level tags to included with every metric that is reported. |
 === "Service"

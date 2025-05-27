@@ -29,7 +29,7 @@ If you are a Go developer/contributor who is interested in how table schema migr
 
 This section introduces how to configure add-on services to access PostgreSQL database in secure mode.
 
-For more information about add-on services, see [Configuring Add-on Service](../../../security/Ch-Configuring-Add-On-Services/).
+For more information about add-on services, see [Configuring Add-on Service](../../../security/Ch-Configuring-Add-On-Services.md).
 
 ### Configure known secrets for add-on services
 
