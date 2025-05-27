@@ -78,8 +78,6 @@ Consumers of Device System Events will likely be custom application services as 
     - This service is the single point for device Add/Update/Delete and will be the producer of Device System Events.
 - Core Contracts module
     - The new `SystemEvent` DTO will be added to this repository
-- Camera Management App Service Example
-    - Once Device System Events are implemented, the [Camera Management](https://github.com/edgexfoundry/edgex-examples/tree/main/application-services/custom/camera-management) example can be updated to consume them.
 - Device SDK/Service (future)
     - Once Device System Events are implemented, the Device SDKs can switch to receiving them via MesssageBus rather than the REST callbacks from Core Metadata. Anything beyond recognizing this future enhancement, it is out-of-scope for this ADR.
 

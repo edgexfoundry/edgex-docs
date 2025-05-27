@@ -64,8 +64,8 @@ about Application Services and the Application Functions SDK at
 
 ## Versioning
 
-Please refer to the EdgeX Foundry [versioning policy](https://wiki.edgexfoundry.org/pages/viewpage.action?pageId=21823969) for information on how EdgeX services are released and how EdgeX services are compatible with one another.  Specifically, device services (and the associated SDK), application services (and the associated app functions SDK), and client tools (like the EdgeX CLI and UI) can have independent minor releases, but these services must be compatible with the latest major release of EdgeX.
+Please refer to the EdgeX Foundry [versioning policy](https://lf-edgexfoundry.atlassian.net/wiki/spaces/FA/pages/11668318/Releases) for information on how EdgeX services are released and how EdgeX services are compatible with one another.  Specifically, device services (and the associated SDK), application services (and the associated app functions SDK), and client tools (like the EdgeX CLI and UI) can have independent minor releases, but these services must be compatible with the latest major release of EdgeX.
 
 ## Long Term Support
 
-Please refer to the EdgeX Foundry [LTS policy](https://wiki.edgexfoundry.org/pages/viewpage.action?pageId=69173332) for information on support of EdgeX releases. The EdgeX community does not offer support on any non-LTS release outside of the latest release.
+Please refer to the EdgeX Foundry [LTS policy](https://lf-edgexfoundry.atlassian.net/wiki/spaces/FA/pages/11676227/Long+Term+Support) for information on support of EdgeX releases. The EdgeX community does not offer support on any non-LTS release outside of the latest release.

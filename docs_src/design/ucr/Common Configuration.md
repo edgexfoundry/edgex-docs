@@ -9,7 +9,7 @@
 Currently the configuration for all the EdgeX services have many common settings.  Most of these common settings have the same value for every service deployed in a single EdgeX based solution and possible across identical deployments of the same solution. The motivation for the UCR is to limit this redundancy by having common settings in one location which are then used across all EdgeX services.
 
 ### Description
-See [Common Configuration](../../../microservices/configuration/CommonConfiguration/#configuration-properties) for complete list of common configuration sections. As stated above most of the values for these common settings are the same across all the EdgeX Services. Below are a couple examples.
+See [Common Configuration](../../microservices/configuration/CommonConfiguration.md#configuration-properties)for complete list of common configuration sections. As stated above most of the values for these common settings are the same across all the EdgeX Services. Below are a couple examples.
 
 !!! example - "Example - Common configuration - **Service** & **Registry**"
     ```toml
