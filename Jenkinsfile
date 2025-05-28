@@ -26,8 +26,16 @@ pipeline {
                     }
 
                     retry(4) {
-                        sh 'mkdocs build'
-                        sh 'sleep 5' // add a little delay to avoid potential rate limiting issues
+                        sh '''
+                            if ! command -v git-lfs > /dev/null
+                            then
+                              echo "git-lfs could not be found"
+                              exit 2
+                            fi
+
+                            mkdocs build
+                            sleep 5
+                        '''
                     }
                 }
                 // stash the site contents generated from mkdocs build
