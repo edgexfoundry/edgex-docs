@@ -15,7 +15,7 @@ E.g.:
 -->
 
 ## Referenced Use Case(s)
-- [Performance Test Harness UCR](https://docs.edgexfoundry.org/3.0/design/ucr/Performance-Test-Harness/)
+- [Performance Test Harness UCR](../ucr/Performance-Test-Harness.md)
 
 ## Context
 The Performance Test Harness for EdgeX Foundry is architecturally significant as it plays a crucial role in ensuring the scalability and performance of the EdgeX platform under various scenarios. This ADR is created to outline the proposed design for the Performance Test Harness.
