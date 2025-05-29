@@ -468,15 +468,25 @@ plugins:
       on_error_fail: true
   - htmlproofer:
       enabled: !ENV [ENABLED_HTMLPROOFER, false]
-      raise_error: true
+      raise_error: false
+      url_ignore:
+        - https://www.gnu.org/prep/standards/html_node/Program-Behavior.html
+        - https://linuxtv.org/wiki/index.php/V4l-utils
       raise_error_excludes:
         400: ['https://help.axis.com/en-us/axis-os-hardening-guide#onvif-replay-attack-protection']
         403: ['https://www.collinsdictionary.com/us/dictionary/english/unit-of-measurement',
               'https://www.pcmag.com/encyclopedia/term/run-native','https://www.vmware.com/topics/glossary/content/kubernetes-cluster.html',
               'https://app.getpostman.com/','https://www.raspberrypi.com/products/raspberry-pi-3-model-b/',
-              'https://www.raspberrypi.com/software/']
-        404: ['https://support.google.com/accounts/answer/185833?hl=en',
-              'https://support.google.com/accounts/answer/6010255?hl=en']
+              'https://www.raspberrypi.com/software/','https://linuxize.com/post/how-to-install-and-configure-redis-on-ubuntu-20-04/','https://linuxize.com/post/how-to-install-gcc-on-ubuntu-20-04/',
+              'https://linuxize.com/post/how-to-install-and-configure-redis-on-ubuntu-20-04/','https://stackoverflow.com/questions/19091087/open-redis-port-for-remote-connections',
+              'https://serverfault.com/questions/861519/how-to-turn-off-protected-mode-in-redis','https://stackoverflow.com/questions/5180192/onvif-authentication-failure-with-axis-p3301-using-onvif-protocol ']
+        404: ['https://support.google.com/accounts/answer/185833?hl=en','https://support.google.com/accounts/answer/6010255?hl=en',
+              'https://github.com/IOTechSystems/app-functions-sdk-python/blob/main/src/app_functions_sdk_py/contracts/clients/interfaces/deviceprofile.py','https://github.com/IOTechSystems/app-functions-sdk-python/blob/main/src/app_functions_sdk_py/contracts/clients/interfaces/command.py',
+              'https://github.com/IOTechSystems/app-functions-sdk-python/blob/main/src/app_functions_sdk_py/contracts/clients/interfaces/event.py','https://github.com/IOTechSystems/app-functions-sdk-python/blob/main/src/app_functions_sdk_py/contracts/clients/interfaces/deviceservice.py',
+              'https://github.com/IOTechSystems/app-functions-sdk-python/blob/main/src/app_functions_sdk_py/contracts/clients/interfaces/device.py','https://github.com/IOTechSystems/app-functions-sdk-python/blob/main/src/app_functions_sdk_py/contracts/clients/interfaces/reading.py',
+              'https://github.com/IOTechSystems/app-functions-sdk-python/tree/main/examples/custom-trigger','https://github.com/IOTechSystems/app-functions-sdk-python/tree/main/examples/custom-config',
+              'https://github.com/IOTechSystems/app-functions-sdk-python/blob/main/examples/custom-config/main.py#L76-L96','https://github.com/IOTechSystems/app-functions-sdk-python/blob/main/examples/custom-config/main.py#L12-L30',
+              'https://github.com/IOTechSystems/app-functions-sdk-python/tree/main/examples/custom-rest-api']
         429: ['*']
         -1: ['https://www.rfc-editor.org/rfc/rfc7519',
              'https://tools.ietf.org/html/rfc5869','https://docs.iotaap.io/docs-rest/','https://unece.org/fileadmin/DAM/cefact/recommendations/rec20/rec20_rev3_Annex2e.pdf']

@@ -398,5 +398,4 @@ The following example shows how to set up Command service to connect to external
     Since EdgeX 3.0, the `SecretPath` configuration property of `ExternalMQTT` section is renamed to `SecretName`.
     However, in [source code](https://github.com/edgexfoundry/go-mod-bootstrap/blob/3568057c2bc587f06c498046610b571516c920c3/config/types.go#L302-L303) it is still referred as `SecretPath` and will break down the Command service if ExternalMQTT is enabled.
     This is a known issue and will be fixed in EdgeX 3.1.
-    Before EdgeX 3.1, to get rid of this issue you need to manually add `SecretPath` to configuration via [Consul UI](../../../api/core/Ch-APICoreConfigurationAndRegistry.md#consul-ui) and restart Command service to take effect.
     

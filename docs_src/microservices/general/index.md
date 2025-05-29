@@ -31,7 +31,7 @@ If the Event already has `Tags` when it arrives at the application service, then
 
 ## Service Metrics
 
-All services have the ability to collect [Common Service Metrics](#common-service-metrics), only **Core Data**, **Application Services** and **Device Services** are collecting additional service specific metrics. Additional service metrics will be added to all services in future releases.  See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration/#configuration-properties) for details on configuring the reporting of service metrics. 
+All services have the ability to collect [Common Service Metrics](#common-service-metrics), only **Core Data**, **Application Services** and **Device Services** are collecting additional service specific metrics. Additional service metrics will be added to all services in future releases.  See `Writable.Telemetry` at [Common Configuration](../configuration/CommonConfiguration.md#common-configuration-properties) for details on configuring the reporting of service metrics. 
 
 See [Custom Application Service Metrics](../application/sdk/details/CustomServiceMetrics.md) for more detail on Application Services capability to collect their own custom service metrics via use of the App SDK API. 
 
