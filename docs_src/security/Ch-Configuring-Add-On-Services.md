@@ -18,11 +18,7 @@ via `make` targets to generate `docker-compose` file for running them in secure 
 
 The above same guidelines can also be applied to custom device and application services, i.e. non-EdgeX built services.
 
-One of the major security features in EdgeX Ireland release is to utilize the service `security-bootstrapper`
-to ensure the right starting sequence so that all services have their needed security dependencies
-when they start up.
-
-Currently EdgeX uses `Vault` as the default implementation for secret store and Consul as the configuration
+Currently EdgeX uses `OpenBao` as the default implementation for secret store and Core Keeper as the configuration
 and/or registry server if user chooses to do so.  There are some default services pre-configured to have
 `Secret Stores` created by default such as EdgeX core/support services, device-virtual, device-rest, and
 app-rules-engine services.
@@ -84,9 +80,6 @@ when the entrypoint script is overridden.  In this case, we also override the `c
 
 ## Configure the service's `Secret Store` to use
 
-!!! edgey "Edgex 3.0"
-    For EdgeX 3.0 the **SecretStore** configuration has been removed from each service's configuration files. It has default values which can be overridden with environment variables. See the [SecretStore Overrides](../../microservices/configuration/CommonEnvironmentVariables/#secretstore-overrides) section for more details.
-
 Note that the service key , i.e.`device-onvif-camera`, must be used for the `Path` and in the `TokenFile` path to keep it consistent and easier to maintain. These are now part of the built in default values for the **SecretStore** configuration. Then the add-on service's service key must be added to the EdgeX service `secretstore-setup`'s`EDGEX_ADD_SECRETSTORE_TOKENS` environment variable in the `environment` section of `docker-compose`
 as the example shown below:
 
@@ -101,7 +94,7 @@ as the example shown below:
 ...
 ```
 
-With that, `secretstore-setup` then will generate `Secret Store` token from `Vault` and store it in
+With that, `secretstore-setup` then will generate `Secret Store` token from `OpenBao` and store it in
 the `TokenFile` path specified in the **SecretStore** configuration.
 
 Also note that the value of `EDGEX_ADD_SECRETSTORE_TOKENS` can take more than one service in a form of
@@ -112,25 +105,24 @@ comma separated list like "`device-camera`, `device-modbus`" if needed.
 The `EDGEX_ADD_KNOWN_SECRETS` environment variable on `secretstore-setup` allows for known secrets
 to be added to an add-on service's `Secret Store`.
 
-For the Ireland release, the only `known` secret is the `Redis DB credentials` identified by
-the name `redisdb`. Any add-on service needing access to the `Redis DB` such as
-App Service HTTP Export with Store and Forward enabled will need the `Redis DB credentials`
-put in its `Secret Store`. Also, since the `Redis DB` service is now used for the MessageBus implementation,
-all services that connect to the MessageBus also need the `Redis DB credentials`
+The `known` secret for PostgreSQL is the `PostgreSQL credentials` identified by
+the name `postgres`. Any add-on service needing access to the `PostgreSQL` such as
+App Service HTTP Export with Store and Forward enabled will need the `PostgreSQL credentials`
+put in its `Secret Store`.
 
 Note that the steps needed for connecting add-on services to the `Secure MessageBus` are:
 
 1. Utilizing the `security-bootstrapper` to ensure proper startup sequence
 2. Creating the `Secret Store` for the add-on service
-3. Adding the `redisdb`'s known secret to the add-on service's `Secret Store`
+3. Adding the `postgres` known secret to the add-on service's `Secret Store`
 
-and if the add-on service is not connecting to the bus or the Redis database, then this step can be skipped.
+and if the add-on service is not connecting to the PostgreSQL database, then this step can be skipped.
 
-So given an example for service `device-virtual` to use the `Redis` message bus in secure mode,
-we need to tell `secretstore-setup` to add the `redisdb` known secret to `Secret Store` for `device-virtual`.
-This can be done through the configuration of adding `redisdb[device-virtual]` into the environment variable
-`EDGEX_ADD_KNOWN_SECRETS` in `secretstore-setup` service's environment section, in which `redisdb` is the name of
-the `known secret` and `device-virtual` is the service key of the add-on service.
+So given an example for service `myservice` to use the PostgreSQL database in secure mode,
+we need to tell `secretstore-setup` to add the `postgres` known secret to `Secret Store` for `myservice`.
+This can be done through the configuration of adding `postgres[myservice]` into the environment variable
+`EDGEX_ADD_KNOWN_SECRETS` in `secretstore-setup` service's environment section, in which `postgres` is the name of
+the `known secret` and `myservice` is the service key of the add-on service.
 
 ```yaml
 ...
@@ -138,66 +130,31 @@ the `known secret` and `device-virtual` is the service key of the add-on service
     container_name: edgex-secretstore-setup
     depends_on:
     - security-bootstrapper
-    - secret-store    
+    - secret-store
     environment:
-      EDGEX_ADD_SECRETSTORE_TOKENS: 'device-onvif-camera, my-service'
-      EDGEX_ADD_KNOWN_SECRETS: redisdb[app-rules-engine],redisdb[device-rest],redisdb[device-virtual]
+      EDGEX_ADD_SECRETSTORE_TOKENS: myservice
+      EDGEX_ADD_KNOWN_SECRETS: postgres[myservice],message-bus[myservice],message-bus[device-virtual]
 ...
 
 ```
 
 In the above `docker-compose` section of `secretstore-setup`, we specify the known secret of
-`redisdb` to add/copy the Redis database credentials to the `Secret Store` for the `app-rules-engine`,
-`device-rest`, and `device-virtual` services.
+`postgres` to add/copy the PostgreSQL database credentials to the `Secret Store` for the `myservice` service.
 
 We can also use the alternative or simpler form of `EDGEX_ADD_KNOWN_SECRETS` environment variable's value like
 
 ```yaml
-    EDGEX_ADD_KNOWN_SECRETS: redisdb[app-rules-engine; device-rest; device-virtual]
+    EDGEX_ADD_KNOWN_SECRETS: postgres[myservice],message-bus[myservice],message-bus[device-virtual]
 ```
 
 in which all add-on services are put together in a comma separated list associated with the
-known secret `redisdb`.
-
-## (Optional) Configure the ACL role of configuration/registry to use if the service depends on it
-
-This is a new step coming from `securing Consul` security features as part of EdgeX Ireland release.
-
-If the add-on service uses `Consul` as the configuration and/or registry service, then we also need to
-configure the environment variable `EDGEX_ADD_REGISTRY_ACL_ROLES` to tell `security-bootstrapper` to generate
-an ACL role for `Consul` to associate with its token.
-
-An example of configuring ACL roles of the registry `Consul` for the add-on services
-`device-modbus` and `app-http-export` is shown as follows:
-
-```yaml
-...
-  consul:
-    container_name: edgex-core-consul
-    depends_on:
-    - security-bootstrapper
-    - secret-store
-    entrypoint:
-    - /edgex-init/consul_wait_install.sh
-    environment:
-      EDGEX_ADD_REGISTRY_ACL_ROLES: app-http-export,device-modbus
-...
-
-```
-
-The configuration of Edgex service `consul`'s environment variable `EDGEX_ADD_REGISTRY_ACL_ROLES` tells
-the `security-bootstrapper` to set up `Consul` ACL role so that the ACL token is generated,
-hence the permission is granted for that service with the access to `Consul` in secure mode.
-
-Without this step the add-on service will get status `Forbidden` (HTTP status code = 403) error
-when the service is depending on Consul and attempting to access Consul for configuration or
-service registry.
+known secret `postgres`.
 
 ## (Optional) Configure the API gateway access route for add-on service
 
 If it is desirable to let user or other application services outside EdgeX's Docker network access
-the endpoint of the add-on service, then we can configure and add it via `proxy-setup` service's
-`EDGEX_ADD_PROXY_ROUTE` environment variable.  `proxy-setup` adds those services listed in that environment
+the endpoint of the add-on service, then we can configure and add it via `security-proxy-setup` service's
+`EDGEX_ADD_PROXY_ROUTE` environment variable. `security-proxy-setup` adds those services listed in that environment
 variable into the API gateway routes so that the endpoint can be accessible via the gateway.
 
 One example of adding API gateway access routes for both `device-camera` and `device-modbus`
@@ -205,7 +162,7 @@ is given as follows:
 
 ```yaml
 ...
-edgex-proxy:
+security-proxy-setup:
       ...
     environment:
       ...
