@@ -759,42 +759,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#point-services-to-redis" class="md-nav__link">
-    Point Services to Redis
-  </a>
-  
-    <nav class="md-nav" aria-label="Point Services to Redis">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#modify-the-configuration-of-edgex-core-and-supporting-services" class="md-nav__link">
-    Modify the Configuration of EdgeX Core and Supporting Services
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#modify-the-configuration-of-the-edgex-configurable-app-service" class="md-nav__link">
-    Modify the configuration of the EdgeX Configurable App Service
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#modify-the-configuration-of-the-edgex-virtual-device-service" class="md-nav__link">
-    Modify the configuration of the EdgeX Virtual Device Service
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#start-consul" class="md-nav__link">
-    Start Consul
+  <a href="#start-core-keeper" class="md-nav__link">
+    Start Core Keeper
   </a>
   
 </li>
@@ -7657,42 +7623,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#point-services-to-redis" class="md-nav__link">
-    Point Services to Redis
-  </a>
-  
-    <nav class="md-nav" aria-label="Point Services to Redis">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#modify-the-configuration-of-edgex-core-and-supporting-services" class="md-nav__link">
-    Modify the Configuration of EdgeX Core and Supporting Services
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#modify-the-configuration-of-the-edgex-configurable-app-service" class="md-nav__link">
-    Modify the configuration of the EdgeX Configurable App Service
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#modify-the-configuration-of-the-edgex-virtual-device-service" class="md-nav__link">
-    Modify the configuration of the EdgeX Virtual Device Service
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#start-consul" class="md-nav__link">
-    Start Consul
+  <a href="#start-core-keeper" class="md-nav__link">
+    Start Core Keeper
   </a>
   
 </li>
@@ -7799,7 +7731,7 @@
 <h1 id="build-and-run-on-windows-on-x86x64">Build and Run on Windows on x86/x64</h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This build and run guide offers some assistance to seasoned developers or administrators to help build and run EdgeX on Windows natively (not using Docker and not running on <a href="https://docs.microsoft.com/en-us/windows/wsl/about">Windows Subsystem for Linux</a> ) but running natively on Windows is <strong>not supported by the project</strong>.  EdgeX was built to be platform independent.  As such, we believe most of EdgeX can run on almost any environment (on any hardware architecture and almost any operating system).  However, there are elements of the EdgeX platform that will not run <strong>natively</strong> on Windows.  Specifically, Redis, Kong and eKuiper will not run on Windows natively.  Additionally, there are a number of device services that will not work on native Windows.  In these instances, developers will need to find workarounds for services or run them outside of Windows and access them across the network.</p>
+<p>This build and run guide offers some assistance to seasoned developers or administrators to help build and run EdgeX on Windows natively (not using Docker and not running on <a href="https://docs.microsoft.com/en-us/windows/wsl/about">Windows Subsystem for Linux</a> ) but running natively on Windows is <strong>not supported by the project</strong>.  EdgeX was built to be platform independent.  As such, we believe most of EdgeX can run on almost any environment (on any hardware architecture and almost any operating system).  However, there are elements of the EdgeX platform that will not run <strong>natively</strong> on Windows.  Specifically, eKuiper will not run on Windows natively.  Additionally, there are a number of device services that will not work on native Windows.  In these instances, developers will need to find workarounds for services or run them outside of Windows and access them across the network.</p>
 <p>Existence of this guides <strong>does not imply current or future support</strong>.  Use of this guides should be used with care and with an understanding that it is the community's best effort to provide advanced developers with the means to begin their own custom EdgeX development and execution on Windows.</p>
 </div>
 <p>This build and run guide shows you how to get, compile/build, execute and test EdgeX (including the core and supporting services, the configurable application service, and a virtual device service) on Windows x86_64 hardware.  Specifically, this guide was done using <a href="https://www.microsoft.com/en-us/windows/windows-11">Windows 11</a>.  It is believed that this same guide works for Windows 10.</p>
@@ -7822,7 +7754,7 @@
 <p>The following software is assumed to already be installed and available on the host platform.  Follow the referenced guides if you need to install or setup this software.</p>
 <ul>
 <li>
-<p>Go Lang, version 1.21 as of the Napa release</p>
+<p>Go, version 1.23 as of the Odesa release</p>
 <ul>
 <li>See <a href="https://go.dev/doc/install">Go Download and install guide for help</a></li>
 <li>
@@ -7832,13 +7764,13 @@
 </ul>
 </li>
 <li>
-<p>Consul, version 1.16 as of the Napa release</p>
+<p>PostgreSQL, version 16.3 as of the Odesa release</p>
 <ul>
-<li>See <a href="https://www.consul.io/">Open Source Consul for help</a></li>
-<li>
-<p>How to check for existence and version on your machine</p>
-<p><img alt="image" src="../ConsulCheck.png" /></p>
-</li>
+<li>See <a href="https://www.postgresql.org/download/windows/">How to install PostgreSQL on Windows</a></li>
+<li>How to check for existence and version on your machine
+<div class="highlight"><pre><span></span><code><span class="w">  </span>C:<span class="se">\U</span>sers<span class="se">\e</span>dgex&gt;psql<span class="w"> </span>--version
+<span class="w">  </span>psql<span class="w"> </span><span class="o">(</span>PostgreSQL<span class="o">)</span><span class="w"> </span><span class="m">16</span>.9
+</code></pre></div></li>
 </ul>
 </li>
 <li>
@@ -7858,8 +7790,6 @@
 <li><a href="https://www.cygwin.com/">Cygwin</a></li>
 <li><a href="https://www.mingw-w64.org/downloads/">MinGW/MinGW-W64</a></li>
 </ul>
-<p>Redis will not run on Windows, but is required in order to run EdgeX.  Your Windows platform must be able to connect to a Redis instance on another platform via TCP/IP on port 6379 (by default). Redis,version 7.0 as of the Napa release.  As an example, see <a href="https://linuxize.com/post/how-to-install-and-configure-redis-on-ubuntu-20-04/">How to install and configure Redis on Ubuntu 20.04</a>.  </p>
-<p>Because EdgeX on your Windows platform will access Redis on another host, Redis should be configured to allow for traffic from other machines, you'll need to allow access from other addresses (see <a href="https://stackoverflow.com/questions/19091087/open-redis-port-for-remote-connections">Open Redis port for remote connections</a>).  Additionally, you will need to configure EdgeX to use a username/password to access Redis, or set Redis into unprotected mode (see <a href="https://serverfault.com/questions/861519/how-to-turn-off-protected-mode-in-redis">Turn off 'protected-mode' in Redis</a>)</p>
 <h2 id="prepare-your-environment">Prepare your environment</h2>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -7889,7 +7819,7 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/edgex
 <p>Note that a new folder, named for the repository, gets created containing source code with each of the git clones above.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>eKuiper will not run on Windows natively.  As with Redis, if you want to use eKuiper, you will need to run eKuiper outside of Windows and communicate via TCP/IP on a connected network.</p>
+<p>eKuiper will not run on Windows natively.  If you want to use eKuiper, you will need to run eKuiper outside of Windows and communicate via TCP/IP on a connected network.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -7918,67 +7848,48 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/edgex
 <p>Enter the <code>edgex-ui-go</code> folder and issue the <code>make build</code> command as shown below.</p>
 <p><img alt="image" src="../BuildGUI-Windows.png" /></p>
 <h2 id="run-edgex">Run EdgeX</h2>
-<p>Provided everything built correctly and without issue, you can now start your EdgeX services one at a time.  First make sure Redis Server is running on its host machine and is accessible via TCP/IP (assuming default port of 6379).  If Redis is not running, start it before the other services.  If it is running, you can start each of the EdgeX services <strong>in order</strong> as listed below.</p>
-<h3 id="point-services-to-redis">Point Services to Redis</h3>
-<p>Because Redis is not running on your Windows machine, the configuration of all the services need to be changed to point the services to Redis on the different host when they start.</p>
-<h4 id="modify-the-configuration-of-edgex-core-and-supporting-services">Modify the Configuration of EdgeX Core and Supporting Services</h4>
-<p>Each of core and supporting EdgeX services are located in <code>edgex-go\cmd</code> under a subfolder by the service name.  In the first case, core-metadate is located in <code>edgex-go\cmd\core-metadata</code>.  Core-metadata's configuration is located in a <code>configuration.yaml</code> file in <code>edgex-go\cmd\core-metadata\res</code>.  Use your favorite editor to open the configuration file and locate the <code>Database</code> section in that file (about 1/2 the way down the configuration listings).  Change the host address from <code>localhost</code> to the IP address of your Redis hosting machine (changed to 10.0.0.75 in the example below).</p>
-<p><img alt="image" src="../Windows-ChangeDatabaseHost.png" /></p>
-<p>Modify the host location for Redis in the <code>Database</code> section of <code>configuration.yaml</code> files for notifications (<code>edgex-go\cmd\support-notifications\res</code>) and scheduler (<code>edgex-go\cmd\support-scheduler\res</code>) services in the same way.</p>
-<p>In core-data, you need to modify two host settings.  You need to change the location for Redis in the <code>Database</code> section as well as the host location for Redis in the <code>MessageBus</code> section of <code>configuration.yaml</code>.  The latter setting is for accessing the Redis Pub/Sub message bus.</p>
-<p><img alt="image" src="../Windows-ChangeRedisHost.png" /></p>
-<h3 id="modify-the-configuration-of-the-edgex-configurable-app-service">Modify the configuration of the EdgeX Configurable App Service</h3>
-<p>The Configurable App Service uses both the Redis database and message bus like core-data does.  Locate the <code>configuration.yaml</code> file in <code>app-service-configurable\res\rules-engine</code> folder.  Open the file with an editor and change the Host in the <code>Database</code>, <code>Trigger.EdgexMessageBus.SubscribeHost</code>, and <code>Trigger.EdgexMessageBus.PublishHost</code> sections from <code>localhost</code> to the IP address of your Redis hosting machine.</p>
-<h3 id="modify-the-configuration-of-the-edgex-virtual-device-service">Modify the configuration of the EdgeX Virtual Device Service</h3>
-<p>The Virtual Device Service uses the Redis message bus like core-data does.  Locate the <code>configuration.yaml</code> file in <code>device-virtual-go\cmd\res</code> folder.  Open the file with an editor and change the Redis <code>MessageBus</code> host address from <code>localhost</code> to the IP address of your Redis hosting machine.</p>
-<h3 id="start-consul">Start Consul</h3>
-<p>Wherever you installed Consul, start Consul Agent with the following command.</p>
-<div class="highlight"><pre><span></span><code>consul<span class="w"> </span>agent<span class="w"> </span>-ui<span class="w"> </span>-bootstrap<span class="w"> </span>-server<span class="w"> </span>-data-dir<span class="o">=</span>tmp/consul<span class="w"> </span><span class="p">&amp;</span>
-</code></pre></div>
-<p>If Consul is running correctly, you should be able to reach the Consul UI through a browser at http://localhost:8500 on your Windows machine.</p>
-<p><img alt="image" src="../RunConsulUI.png" /></p>
-<h3 id="start-core-common-config-bootstrapper">Start Core Common Config Bootstrapper</h3>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>edgex-go/cmd/core-common-config-bootstrapper/
-nohup<span class="w"> </span>./core-common-config-bootstrapper<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span><span class="p">&amp;</span>
+<p>Provided everything built correctly and without issue, you can now start your EdgeX services one at a time.  First make sure PostgreSQL Server is running on its host machine and is accessible via TCP/IP (assuming default port of 6379).  If PostgreSQL is not running, start it before the other services.  If it is running, you can start each of the EdgeX services <strong>in order</strong> as listed below.</p>
+<h3 id="start-core-keeper">Start Core Keeper</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>edgex-go/cmd/core-keeper/
+nohup<span class="w"> </span>./core-keeper<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 <p>The <code>nohup</code> is used to execute the command and ignore all SIGHUP (hangup) signals.  The <code>&amp;</code> says to execute the process in the background.  Both <code>nohup</code> and <code>&amp;</code> will be used to run each of the services so that the same terminal can be used and the output will be directed to local nohup.out log files.</p>
-<p>The <code>-cp=consul.http://localhost:8500</code> command line parameter tells core-common-config-bootstrapper to use Consul as the Configuration Provider and where to find Consul running.</p>
+<h3 id="start-core-common-config-bootstrapper">Start Core Common Config Bootstrapper</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>edgex-go/cmd/core-common-config-bootstrapper/
+nohup<span class="w"> </span>./core-common-config-bootstrapper<span class="w"> </span>-cp<span class="o">=</span>keeper.http://localhost:59890<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<p>The <code>-cp=keeper.http://localhost:59890</code> command line parameter tells core-common-config-bootstrapper to use Core Keeper as the Configuration Provider and where to find Core Keeper running.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This service will exit once it has seeded the Configuration Provider with the common config.</p>
 </div>
 <h3 id="start-core-metadata">Start Core Metadata</h3>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>edgex-go/cmd/core-metadata/
-nohup<span class="w"> </span>./core-metadata<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
+nohup<span class="w"> </span>./core-metadata<span class="w"> </span>-cp<span class="o">=</span>keeper.http://localhost:59890<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
-<p>The <code>-cp=consul.http://localhost:8500</code> command line parameter tells core-metadata to use Consul and where to find Consul running.  The <code>-registry</code> command line parameter tells core-metadata to use (and register with) the registry service.  Both of these command line parameters will be use when launching all other EdgeX services.</p>
+<p>The <code>-cp=keeper.http://localhost:59890</code> command line parameter tells core-metadata to use Core Keeper and where to find Core Keeper running.  The <code>-registry</code> command line parameter tells core-metadata to use (and register with) the registry service.  Both of these command line parameters will be use when launching all other EdgeX services.</p>
 <h3 id="start-the-other-core-and-supporting-services">Start the other Core and Supporting Services</h3>
 <p>In a similar fashion, enter each of the other core and supporting service folders in <code>edgex-go\cmd</code> and launch the services.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>../core-data
-nohup<span class="w"> </span>./core-data<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
+nohup<span class="w"> </span>./core-data<span class="w"> </span>-cp<span class="o">=</span>keeper.http://localhost:59890<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
 <span class="nb">cd</span><span class="w"> </span>../core-command
-nohup<span class="w"> </span>./core-command<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
+nohup<span class="w"> </span>./core-command<span class="w"> </span>-cp<span class="o">=</span>keeper.http://localhost:59890<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
 <span class="nb">cd</span><span class="w"> </span>../support-notifications/
-nohup<span class="w"> </span>./support-notifications<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
+nohup<span class="w"> </span>./support-notifications<span class="w"> </span>-cp<span class="o">=</span>keeper.http://localhost:59890<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
 <span class="nb">cd</span><span class="w"> </span>../support-scheduler/
-nohup<span class="w"> </span>./support-scheduler<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
+nohup<span class="w"> </span>./support-scheduler<span class="w"> </span>-cp<span class="o">=</span>keeper.http://localhost:59890<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>If you still have the Consul UI up, you should see each of the EdgeX core and supporting services listed in Consul's <code>Services</code> page with green check marks next to them suggesting they are running.</p>
-<p><img alt="image" src="../CoreSupportingServicesRunning.png" /></p>
-</div>
 <h3 id="start-configurable-application-service">Start Configurable Application Service</h3>
 <p>The configurable application service is located in the root of <code>app-service-configurable</code> folder.</p>
 <p><img alt="image" src="../LocationConfigAppService.png" /></p>
 <p>The configurable application service is started in a similar way as the other EdgeX services.  The configurable application service is going to be used to route data to the rules engine.  Therefore, an additional command line parameter (<code>p</code>) is added to its launch command to tell the app service to use the rules engine configuration and profile.</p>
-<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>./app-service-configurable<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span>-p<span class="o">=</span>rules-engine<span class="w"> </span><span class="p">&amp;</span>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>./app-service-configurable<span class="w"> </span>-cp<span class="o">=</span>keeper.http://localhost:59890<span class="w"> </span>-registry<span class="w"> </span>-p<span class="o">=</span>rules-engine<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 <h3 id="start-the-virtual-device-service">Start the Virtual Device Service</h3>
 <p>The virtual device service is also started in similar way as the other EdgeX services.  The virtual device service manufactures data as if it was to come from a sensor and sends that data into the rest of EdgeX.  By default, the virtual device service will generate random numbers (integers, unsigned integers, floats), booleans and even binary data as simulated sensor data.  The virtual device service is located in the <code>device-virtual-go\cmd</code> folder.  </p>
 <p><img alt="image" src="../LocationDeviceVirtualService.png" /></p>
 <p>Change directories to the virtual device service's <code>cmd</code> folder and then launch the service with the command shown below.</p>
-<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>./device-virtual<span class="w"> </span>-cp<span class="o">=</span>consul.http://localhost:8500<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
+<div class="highlight"><pre><span></span><code>nohup<span class="w"> </span>./device-virtual<span class="w"> </span>-cp<span class="o">=</span>keeper.http://localhost:59890<span class="w"> </span>-registry<span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div>
 <h3 id="start-the-gui">Start the GUI</h3>
 <p>The EdgeX graphical user interface (GUI) provides an easy to use visual tool to monitor data passing through EdgeX services.  It also provides some capability to change an EdgeX instance's configuration or metadata.  The EdgeX GUI is located in the <code>edgex-ui-go\cmd\edgex-ui-server</code> folder.</p>
@@ -7993,12 +7904,12 @@ nohup<span class="w"> </span>./support-scheduler<span class="w"> </span>-cp<span
 <p>Some elements of the GUI will not work as you do not have all available EdgeX services running.  Notably, the System Management service and its executor are not running so the System view of the GUI will display an error.  By default, the System Management service and its executor operate by checking on the other services memory, CPU, etc. via Docker Stats.  In this case, since you are not running Docker containers, the System Management service would not function.  Also, as eKuiper does not run on Windows, any Rules Engine functionality will not work either.</p>
 </div>
 <h2 id="test-and-explore-edgex">Test and Explore EdgeX</h2>
-<p>With EdgeX up and running (inclusive of Consul, and with Redis running on a separate host), you can try these quick tests to see that EdgeX is running correctly.</p>
+<p>With EdgeX up and running (inclusive of PostgreSQL), you can try these quick tests to see that EdgeX is running correctly.</p>
 <h3 id="see-sensor-data-flowing-through-edgex">See sensor data flowing through EdgeX</h3>
-<p>You have already been using Consul and the EdgeX GUI to check on some items of EdgeX in this tutorial.  You can use the EdgeX GUI to further check that sensor data is flowing through the system.</p>
+<p>You have already been using the EdgeX GUI to check on some items of EdgeX in this tutorial.  You can use the EdgeX GUI to further check that sensor data is flowing through the system.</p>
 <p>In your Window's browser, go to http://localhost:4000.  Remember, it may take a few seconds for the GUI to initialize once you hit the URL.  Once the GUI displays, find and click on the <code>DataCenter</code> link on the left hand navigation bar (highlighted below).</p>
 <p><img alt="image" src="../DataCenterDisplayData.png" /></p>
-<p>The <code>DataCenter</code> display allows you to see the EdgeX event/readings as they are persisted by the core data service to Redis.  Simply press the <code>&gt;Start</code> button to see the "stream" of simulated sensor data that was generated by the virtual device service and sent to EdgeX. The simulated data may take a second or two to start to display in the <code>EventDataStream</code> area of the GUI.</p>
+<p>The <code>DataCenter</code> display allows you to see the EdgeX event/readings as they are persisted by the core data service to PostgreSQL.  Simply press the <code>&gt;Start</code> button to see the "stream" of simulated sensor data that was generated by the virtual device service and sent to EdgeX. The simulated data may take a second or two to start to display in the <code>EventDataStream</code> area of the GUI.</p>
 <p><img alt="image" src="../StreamOfEventReadings.png" /></p>
 <p>Press the <code>Pause</code> button to stop this display of data.  Notice that you can see the EdgeX Events (and associated Readings) or just the Readings with the two tabs on this <code>DataCenter</code> display.</p>
 <h3 id="check-edgex-service-api">Check EdgeX service API</h3>
@@ -8007,14 +7918,14 @@ nohup<span class="w"> </span>./support-scheduler<span class="w"> </span>-cp<span
 <span class="w">  </span>curl<span class="w"> </span>http://localhost:59881/api/v3/ping
 </code></pre></div>
 <p>Each service should respond with JSON data to indicate it is able to respond to requests.  Below is an example response from the core metadata "Ping" request.</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="s2">&quot;Thu May 12 23:25:04 UTC 2022&quot;</span><span class="p">,</span><span class="nt">&quot;serviceName&quot;</span><span class="p">:</span><span class="s2">&quot;core-metadata&quot;</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v3&quot;</span><span class="p">,</span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="s2">&quot;Thu May 12 23:25:04 UTC 2022&quot;</span><span class="p">,</span><span class="nt">&quot;serviceName&quot;</span><span class="p">:</span><span class="s2">&quot;core-metadata&quot;</span><span class="p">}</span>
 </code></pre></div>
 <p>See <a href="../../../general/ServicePorts/">the service port reference page</a> for a list of service ports to check the <code>ping</code> API of other services.</p>
 <p>As an added test, use curl to get the count of the number of events persisted by core data with the command below (you can also use a browser with the URL to get the same).</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:59880/api/v3/event/count
 </code></pre></div>
 <p>The response will indicate a "count" of events stored (in this case 6270).</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="s2">&quot;v2&quot;</span><span class="p">,</span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;Count&quot;</span><span class="p">:</span><span class="mi">6270</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;apiVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v3&quot;</span><span class="p">,</span><span class="nt">&quot;statusCode&quot;</span><span class="p">:</span><span class="mi">200</span><span class="p">,</span><span class="nt">&quot;Count&quot;</span><span class="p">:</span><span class="mi">6270</span><span class="p">}</span>
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
