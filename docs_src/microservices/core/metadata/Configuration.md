@@ -11,7 +11,7 @@ Below are only the additional settings and sections that are specific to Core Me
     **Notifications** configuration is removed in EdgeX 3.0. Metadata will leverage [Device System Events](details/DeviceSystemEvents.md) to replace the original device change notifications.
 
 !!! edgey "Edgex 3.0"
-    For EdgeX 3.0 the `MessageQueue` configuration has been moved to `MessageBus` in [Common Configuration](../../../configuration/CommonConfiguration/#configuration-properties).
+    For EdgeX 3.0 the `MessageQueue` configuration has been moved to `MessageBus` in [Common Configuration](../../configuration/CommonConfiguration.md#common-configuration-properties).
 
 === "Writable"
 |Property|Default Value|Description|
