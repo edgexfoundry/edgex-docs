@@ -25,7 +25,7 @@ Building and running EdgeX on Linux natively will require you have:
 
 The following software is assumed to already be installed and available on the host platform.  Follow the referenced guides if you need to install or setup this software.  Please note, the commands to check for the required software documented below are correct, but the actual results of the check may vary per OS distribution and version.
 
-- Go Lang, version 1.21 or later as of the Napa release
+- Go, version 1.23 as of the Odesa release
     - See [Go Download and install guide for help](https://go.dev/doc/install)
     - How to check for existence and version on your machine
 
@@ -38,19 +38,14 @@ The following software is assumed to already be installed and available on the h
         ![image](BuildEssentialCheck.png)
 
     - Your installation process may vary based on Linux version/distribution
-  
-- Consul, version 1.16 as of the Napa release
-    - See [Open Source Consul for help](https://www.consul.io/)
+
+- PostgreSQL, version 16.3 as of the Odesa release
+    - See [How to install PostgreSQL on Arm/Raspberry Pi](https://www.postgresql.org/download/linux/debian/)
     - How to check for existence and version on your machine
-
-        ![image](ConsulCheck.png)
-
-- Redis,version 7.0 as of the Napa release
-    - See [How to install Redis on Arm (32)/Raspberry Pi](https://amalgjose.com/2020/08/11/how-to-install-redis-in-raspberry-pi/)
-    - How to check for existence and version on your machine
-
-        ![image](RedisCheck.png)
-
+    ```shell
+      ubuntu@raspberrypi:~ $ psql --version
+      psql (PostgreSQL) 16.9 (Debian 16.9-1.pgdg120+1)
+    ```
     - Your installation process may vary based on Linux version/distribution
 
 - Git
@@ -145,30 +140,25 @@ Enter the `edgex-ui-go` folder and issue the `make build` command as shown below
 
 ## Run EdgeX
 
-Provided everything built correctly and without issue, you can now start your EdgeX services one at a time.  First make sure Redis Server is running.  If Redis is not running, start it before the other services.  If it is running, you can start each of the EdgeX services **in order** as listed below.
+Provided everything built correctly and without issue, you can now start your EdgeX services one at a time.  First make sure PostgreSQL Server is running.  If PostgreSQL is not running, start it before the other services.  If it is running, you can start each of the EdgeX services **in order** as listed below.
 
-### Start Consul
+### Start Core Keeper
 
-Start Consul Agent with the following command.
-
-``` Shell
-nohup consul agent -ui -bootstrap -server -client 0.0.0.0 -data-dir=tmp/consul &
+``` shell
+cd edgex-go/cmd/core-keeper/
+nohup ./core-keeper &
 ```
 
 The `nohup` is used to execute the command and ignore all SIGHUP (hangup) signals.  The `&` says to execute the process in the background.  Both `nohup` and `&` will be used to run each of the services so that the same terminal can be used and the output will be directed to local nohup.out log files.
-
-If Consul is running correctly, you should be able to reach the Consul UI through a browser at http://(host address):8500
-
-![image](RunConsulUI.png)
 
 ### Start Core Common Config Bootstrapper
 
 ``` shell
 cd edgex-go/cmd/core-common-config-bootstrapper/
-nohup ./core-common-config-bootstrapper -cp=consul.http://localhost:8500 &
+nohup ./core-common-config-bootstrapper -cp=keeper.http://localhost:59890 &
 ```
 
-The `-cp=consul.http://localhost:8500` command line parameter tells core-common-config-bootstrapper to use Consul as the Configuration Provider and where to find Consul running.
+The `-cp=keeper.http://localhost:59890` command line parameter tells core-common-config-bootstrapper to use Core Keeper as the Configuration Provider and where to find Core Keeper running.
 
 !!! note
     This service will exit once it has seeded the Configuration Provider with the common config.
@@ -177,10 +167,10 @@ The `-cp=consul.http://localhost:8500` command line parameter tells core-common-
 
 ``` shell
 cd edgex-go/cmd/core-metadata/
-nohup ./core-metadata -cp=consul.http://localhost:8500 -registry &
+nohup ./core-metadata -cp=keeper.http://localhost:59890 -registry &
 ```
 
-The `-cp=consul.http://localhost:8500` command line parameter tells core-metadata to use Consul and where to find Consul running.  The `-registry` command line parameter tells core-metadata to use (and register with) the registry service.  Both of these command line parameters will be use when launching all other EdgeX services.
+The `-cp=keeper.http://localhost:59890` command line parameter tells core-metadata to use Core Keeper and where to find Core Keeper running.  The `-registry` command line parameter tells core-metadata to use (and register with) the registry service.  Both of these command line parameters will be use when launching all other EdgeX services.
 
 ### Start the other Core and Supporting Services
 
@@ -188,19 +178,14 @@ In a similar fashion, enter each of the other core and supporting service folder
 
 ```Shell
 cd ../core-data
-nohup ./core-data -cp=consul.http://localhost:8500 -registry &
+nohup ./core-data -cp=keeper.http://localhost:59890 -registry &
 cd ../core-command
-nohup ./core-command -cp=consul.http://localhost:8500 -registry &
+nohup ./core-command -cp=keeper.http://localhost:59890 -registry &
 cd ../support-notifications/
-nohup ./support-notifications -cp=consul.http://localhost:8500 -registry &
+nohup ./support-notifications -cp=keeper.http://localhost:59890 -registry &
 cd ../support-scheduler/
-nohup ./support-scheduler -cp=consul.http://localhost:8500 -registry &
+nohup ./support-scheduler -cp=keeper.http://localhost:59890 -registry &
 ```
-
-!!! Tip
-    If you still have the Consul UI up, you should see each of the EdgeX core and supporting services listed in Consul's `Services` page with green check marks next to them suggesting they are running.
-
-    ![image](CoreSupportingServicesRunning.png)
 
 ### Start Configurable Application Service
 
@@ -211,7 +196,7 @@ The configurable application service is located in the root of `app-service-conf
 The configurable application service is started in a similar way as the other EdgeX services.  The configurable application service is going to be used to route data to the rules engine.  Therefore, an additional command line parameter (`p`) is added to its launch command to tell the app service to use the rules engine configuration and profile.
 
 ```Shell
-nohup ./app-service-configurable -cp=consul.http://localhost:8500 -registry -p=rules-engine &
+nohup ./app-service-configurable -cp=keeper.http://localhost:59890 -registry -p=rules-engine &
 ```
 
 ### Start the Virtual Device Service
@@ -223,7 +208,7 @@ The virtual device service is also started in similar way as the other EdgeX ser
 Change directories to the virtual device service's `cmd` folder and then launch the service with the command shown below.
 
 ```Shell
-nohup ./device-virtual -cp=consul.http://localhost:8500 -registry &
+nohup ./device-virtual -cp=keeper.http://localhost:59890 -registry &
 ```
 
 ### Start the GUI
@@ -260,17 +245,22 @@ Change directories to the `ekuiper/_build/kuiper-*version*-linux-arm/bin` folder
 As a 3rd party component, eKuiper can be setup to work with many streams of data from various systems or engines.  It must be provided knowledge about where it is receiving data and how to handle/treat the incoming data.  Therefore, before launching eKuiper, execute the following export of environmental variables in order to tell eKuiper where to receive data coming from the EdgeX configurable application service (via the EdgeX message bus).
 
 ``` Shell
-export CONNECTION__EDGEX__REDISMSGBUS__PORT=6379
-export CONNECTION__EDGEX__REDISMSGBUS__PROTOCOL=redis
-export CONNECTION__EDGEX__REDISMSGBUS__SERVER=localhost
-export CONNECTION__EDGEX__REDISMSGBUS__TYPE=redis
-export EDGEX__DEFAULT__PORT=6379
-export EDGEX__DEFAULT__PROTOCOL=redis
+export CONNECTION__EDGEX__MQTTMSGBUS__OPTIONAL__CLIENTID=kuiper-rules-engine
+export CONNECTION__EDGEX__MQTTMSGBUS__OPTIONAL__KEEPALIVE=500
+export CONNECTION__EDGEX__MQTTMSGBUS__PROTOCOL=tcp
+export CONNECTION__EDGEX__MQTTMSGBUS__TYPE=mqtt
+export EDGEX__DEFAULT__OPTIONAL__CLIENTID=kuiper-rules-engine
+export EDGEX__DEFAULT__OPTIONAL__KEEPALIVE=500
+export EDGEX__DEFAULT__PROTOCOL=tcp
+export EDGEX__DEFAULT__TOPIC=edgex/events/device/#
+export EDGEX__DEFAULT__MESSAGETYPE=request
+export EDGEX__DEFAULT__TYPE=mqtt
+export EDGEX__DEFAULT__CONNECTIONSELECTOR=mqttmsgbus
 export EDGEX__DEFAULT__SERVER=localhost
-export EDGEX__DEFAULT__TOPIC=rules-events
-export EDGEX__DEFAULT__TYPE=redis
-export KUIPER__BASIC__CONSOLELOG="true"
+export KUIPER__BASIC__CONSOLELOG=true
+export KUIPER__BASIC__ENABLEOPENZITI=false
 export KUIPER__BASIC__RESTPORT=59720
+export CONNECTION__EDGEX__MQTTMSGBUS__SERVER=localhost
 ```
 
 Setting these environment variables must be done in the same terminal from which you plan to execute the eKuiper server.
@@ -296,17 +286,17 @@ If eKuiper is not running correctly or if the environmental variables where inco
 
 ## Test and Explore EdgeX
 
-With EdgeX up and running (inclusive of Consul, Redis, and eKuiper), you can try these quick tests to see that EdgeX is running correctly.
+With EdgeX up and running (inclusive of PostgreSQL, and eKuiper), you can try these quick tests to see that EdgeX is running correctly.
 
 ### See sensor data flowing through EdgeX
 
-You have already been using Consul and the EdgeX GUI to check on some items of EdgeX in this tutorial.  You can use the EdgeX GUI to further check that sensor data is flowing through the system.
+You have already been using the EdgeX GUI to check on some items of EdgeX in this tutorial.  You can use the EdgeX GUI to further check that sensor data is flowing through the system.
 
 In a browser, go to http://(host address):4000.  Remember, it may take a few seconds for the GUI to initialize once you hit the URL.  Once the GUI displays, find and click on the `DataCenter` link on the left hand navigation bar (highlighted below).
 
 ![image](DataCenterDisplayData.png)
 
-The `DataCenter` display allows you to see the EdgeX event/readings as they are persisted by the core data service to Redis.  Simply press the `>Start` button to see the "stream" of simulated sensor data that was generated by the virtual device service and sent to EdgeX. The simulated data may take a second or two to start to display in the `EventDataStream` area of the GUI.
+The `DataCenter` display allows you to see the EdgeX event/readings as they are persisted by the core data service to PostgreSQL.  Simply press the `>Start` button to see the "stream" of simulated sensor data that was generated by the virtual device service and sent to EdgeX. The simulated data may take a second or two to start to display in the `EventDataStream` area of the GUI.
 
 ![image](StreamOfEventReadings.png)
 
@@ -324,7 +314,7 @@ Each EdgeX micro service has a REST API associated with it.  You can use curl or
 Each service should respond with JSON data to indicate it is able to respond to requests.  Below is an example response from the core metadata "Ping" request.
 
 ``` JSON
-{"apiVersion":"v2","timestamp":"Thu May 12 23:25:04 UTC 2022","serviceName":"core-metadata"}
+{"apiVersion": "{{api_version}}","timestamp":"Thu May 12 23:25:04 UTC 2022","serviceName":"core-metadata"}
 ```
 
 See [the service port reference page](../general/../../general/ServicePorts.md) for a list of service ports to check the `ping` API of other services.
@@ -338,7 +328,7 @@ curl http://localhost:59880/api/{{api_version}}/event/count
 The response will indicate a "count" of events stored (in this case 6270).
 
 ``` JSON
-{"apiVersion":"v2","statusCode":200,"Count":6270}
+{"apiVersion": "{{api_version}}","statusCode":200,"Count":6270}
 ```
 
 !!! Info
