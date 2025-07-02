@@ -28,7 +28,7 @@ This ADR proposes adding a new global configuration option to control whether de
 Details of these redundant fields and the conditions under which they can be removed are described in the next section.
 
 ## Proposed Design
-The proposal introduces a new global configuration option, `EDGEX_OPTIMIZE_EVENT_PAYLOAD`, within the `core-common-config-bootstrapper` service.
+The proposal introduces a new global environment variable, `EDGEX_OPTIMIZE_EVENT_PAYLOAD`, for all EdgeX services.
 When `EDGEX_OPTIMIZE_EVENT_PAYLOAD` is set to true, the event payload will be optimized as follows:
 
 1. The `id` field will be omitted from each reading since it isn’t used by other EdgeX services or stored in the database.
