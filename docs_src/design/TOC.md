@@ -55,3 +55,4 @@
 | [0028 Microservice communication security (token)](./adr/security/0028-authentication.md)    | Microservice communication security / authentication (token-based)                      |
 | [0029 Microservice communication security (E2EE)](./adr/security/0029-authentication-e2ee.md)     | Microservice communication security / authentication (end-to-end authentication)        |
 | [0030 Performance Test Harness](./adr/0030-Performance-Test-Harness.md)                      | Run Performance Test and generate report        |
+| [0031 Reducing Payload Size for Device Events](./adr/0031-Reduce-Payload-Size-For-Device-Events.md) | Reduce the payload size of device events by removing redundant fields |
