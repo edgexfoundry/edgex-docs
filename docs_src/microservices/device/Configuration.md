@@ -60,6 +60,7 @@ Please refer to the general [Common Configuration documentation](../configuratio
 |DeviceDownTimeout|0|If set, an interval in seconds after which a device which has been automatically set DOWN will be re-tried to see if it is accessible again|
 |Discovery/Enabled|false|Controls whether device discovery is enabled|
 |Discovery/Interval|30s|Interval between automatic discovery runs. Zero means do not run discovery automatically|
+|AutoEvents/SendChangedReadingsOnly|false|If set to true, only updated readings compared to the previous event are included in the generated auto event|
 === "MaxEventSize*"
 |Property|Default Value|Description|    
 |---|---|---|
