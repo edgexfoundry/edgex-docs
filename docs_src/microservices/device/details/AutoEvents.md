@@ -14,6 +14,8 @@ From the diagram above, <code>Autoevents</code> is used to define how often even
 - **sourceName**: the name of a deviceResource or deviceCommand indicating what to read.
 - **interval**: a string indicating the time to wait between reading, expressed as an integer followed by units of ms, s, m or h.
 - **onChange**: a boolean: if set to true, only generate new events if one or more of the contained readings has changed since the last event.
+!!! note
+    With both the `onChange` field and the `Device.AutoEvents.SendChangedReadingsOnly` configuration are set to true, the generated auto event includes only readings that have changed since the previous event.
 - **onChangeThreshold**: a float64 indicating any changed value that exceeds the threshold shall be generated new event if `onChange` is true, this feature only applies to the numeric reading. Available value types are `Uint8`, `Uint16`, `Uint32`, `Uint64`, `Int8`, `Int16`, `Int32`, `Int64`, `Float32`, `Float64`. For example, if the current value is 0.03, the previous value is 0.05, and the threshold is 0.01, then | 0.03 - 0.05 | > 0.01, the device service should generate a new event.
 
 ## Example and Usage
