@@ -15,7 +15,7 @@ For instance, the Core Data service owns the `core_data` schema and is permitted
 
 ## EdgeX Services Using PostgreSQL for Data Storage
 
-The following EdgeX services reply on PostgreSQL to store data and operate with the pre-defined database schemas:
+The following EdgeX services depend on PostgreSQL for data storage and operate using predefined database schemas:
 
 - Core Data
 - Core Metadata
