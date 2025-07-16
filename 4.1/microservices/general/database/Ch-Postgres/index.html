@@ -6195,8 +6195,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-postgresql-database" class="md-nav__link">
-    Using PostgreSQL Database
+  <a href="#edgex-services-using-postgresql-for-data-storage" class="md-nav__link">
+    EdgeX Services Using PostgreSQL for Data Storage
   </a>
   
 </li>
@@ -7429,8 +7429,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-postgresql-database" class="md-nav__link">
-    Using PostgreSQL Database
+  <a href="#edgex-services-using-postgresql-for-data-storage" class="md-nav__link">
+    EdgeX Services Using PostgreSQL for Data Storage
   </a>
   
 </li>
@@ -7488,9 +7488,17 @@
 <p>In non-secure mode, all services use the default <code>postgres</code> user to access the PostgreSQL database.</p>
 <p>In secure mode, each EdgeX service is assigned a unique username and password, with limited privileges. These users are restricted to accessing only the table schemas owned by their respective services. 
 For instance, the Core Data service owns the <code>core_data</code> schema and is permitted to use the <code>core_data</code> user to access the database. This <code>core_data</code> user is granted privileges specific to the tables within the <code>core_data</code> schema.</p>
-<h2 id="using-postgresql-database">Using PostgreSQL Database</h2>
-<p>PostgreSQL database can be started and used as the persistence store in the Docker-based EdgeX deployment.</p>
-<p>Please refer to <a href="https://github.com/edgexfoundry/edgex-compose?tab=readme-ov-file#use-postgresql-as-the-persistence-layer-in-edgex">Use PostgreSQL as the persistence layer in EdgeX</a> for the instructions to run the EdgeX services along with PostgreSQL database.</p>
+<h2 id="edgex-services-using-postgresql-for-data-storage">EdgeX Services Using PostgreSQL for Data Storage</h2>
+<p>The following EdgeX services depend on PostgreSQL for data storage and operate using predefined database schemas:</p>
+<ul>
+<li>Core Data</li>
+<li>Core Metadata</li>
+<li>Core Keeper</li>
+<li>Support Notifications</li>
+<li>Support Schedulers</li>
+<li>Security Proxy Auth</li>
+<li>App Services (specifically for the Store and Forward feature)</li>
+</ul>
 <h2 id="postgresql-table-schema-migration">PostgreSQL Table Schema Migration</h2>
 <p>The EdgeX services create and manage their own database schemas in PostgreSQL.
 The table schema migration is handled by the services themselves, which means that the services will automatically create and alter the necessary tables and indexes when they are started.
