@@ -13,11 +13,17 @@ In non-secure mode, all services use the default `postgres` user to access the P
 In secure mode, each EdgeX service is assigned a unique username and password, with limited privileges. These users are restricted to accessing only the table schemas owned by their respective services. 
 For instance, the Core Data service owns the `core_data` schema and is permitted to use the `core_data` user to access the database. This `core_data` user is granted privileges specific to the tables within the `core_data` schema.
 
-## Using PostgreSQL Database
+## EdgeX Services Using PostgreSQL for Data Storage
 
-PostgreSQL database can be started and used as the persistence store in the Docker-based EdgeX deployment.
+The following EdgeX services depend on PostgreSQL for data storage and operate using predefined database schemas:
 
-Please refer to [Use PostgreSQL as the persistence layer in EdgeX](https://github.com/edgexfoundry/edgex-compose?tab=readme-ov-file#use-postgresql-as-the-persistence-layer-in-edgex) for the instructions to run the EdgeX services along with PostgreSQL database.
+- Core Data
+- Core Metadata
+- Core Keeper
+- Support Notifications
+- Support Schedulers
+- Security Proxy Auth
+- App Services (specifically for the Store and Forward feature)
 
 ## PostgreSQL Table Schema Migration
 
