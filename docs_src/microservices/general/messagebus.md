@@ -211,6 +211,23 @@ The MessageBus configuration is in common configuration where the following chan
 !!! note
     The optional settings that apply to MQTT are already in the common configuration, so are not included above.
 
+#### Encode Message Envelope with CBOR
+
+This feature further reduces the payload size of all internal MQTT message envelopes, including system events, events, readings, and more.
+
+To enable CBOR encoding for the entire message envelope, set the environment variable `EDGEX_MSG_CBOR_ENCODE` to `true` for all EdgeX services. This can be done by adding the variable to the `.env` file before generating the docker-compose file. For guidance on generating the Docker Compose file, refer to the [Getting Started using Docker][1] guide.
+
+After deploying the EdgeX services, you can verify that the MQTT message envelopes are encoded with CBOR, as shown below.
+
+```shell
+$ docker exec mqtt-broker mosquitto_sub -v -t '#'
+edgex/system-events/core-metadata/deviceservice/update/device-virtual �japiVersionbv3mreceivedTopic`mcorrelationIDx$0f45bcba-3c67-40a6-a0a4-126e3a719aedirequestID`ierrorCodegpayload�japiVersionbv3dtypemdeviceservicefactionfupdatefsourcemcore-metadataeownerndevice-virtualdtags�gdetails�gcreated�+p�hmodifie4��kcontentTypepapplication/cbor05-bd8555c8321bdnamendevice-virtualkbaseAddressvhttp://localhost:59900jadminStatehUNLOCKEDjproperties�itimestampT,�
+edgex/events/device/device-virtual/Random-Boolean-Device/Random-Boolean-Device/Bool �japiVersionbv3mreceivedTopic`mcorrelationIDx$7abc82d9-9021-4bcf-8f9e-c4e9e37dd7aairequestID`ierrorCodegpayload�japiVersionbv3irequestIdx$48147021-4e24-4d2e-89b1-ac8046f51dcdeevent�japiVersionbv3bidx$c6afd22d-7f9f-47f7-93bf-cfdcac377445jdeviceNameuRandom-Boolean-DevicekprofileNameuRandom-Boolean-DevicejsourceNamedBoolforiginT,�a�^�hreadings��bidx$75063062-75fe-4c93-ad20-e7551d4c27f7foriginT,�a�^�jdeviceNameuRandom-Boolean-DevicelresourceNamedBoolkprofileNameuRandom-Boolean-DeviceivalueTypedBoolevalueefalsekcontentTypepapplication/cbor
+```
+
+!!! edgey "EdgeX 4.1"
+    Message envelope CBOR encoding is new in EdgeX 4.1.
+
 #### Docker
 
 The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for MQTT 3.1 using environment overrides. This is accomplished by using the `mqtt-bus` option. See [Compose Builder README](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder/README.md) for details on all available options.
@@ -277,3 +294,4 @@ The EdgeX Compose Builder utility provides an option to easily generate a compos
     make gen no-secty ds-virtual ds-rest nats-bus
     ```
 
+[1]: ../../getting-started/Ch-GettingStartedDockerUsers.md#generate-a-custom-docker-compose-file
