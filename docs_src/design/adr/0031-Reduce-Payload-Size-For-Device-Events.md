@@ -14,7 +14,8 @@ E.g.:
 - [approved](URL of PR) (2022-04-01)
 - [amended](URL of PR) (2022-05-01)
 -->
-- [pending]() (2025-07-01) - Initial draft of the ADR to reduce payload size for device events.
+- [proposed](https://github.com/edgexfoundry/edgex-docs/pull/1467) (2025-07-03) - Proposed design to reduce payload size for device events by removing redundant fields.
+- [approved](https://github.com/edgexfoundry/edgex-docs/pull/1467) (2025-08-05) - With approvals from Corey Mutter, James Butcher, Melvin Sun, Chirantan Ghosh, Jieke Choo, and Jude Hung, ADR 0031 is now officially approved.
 ## Referenced Use Case(s)
 This ADR proposes optimizing the size of device events. Currently, a single event with just one reading results in an event payload of approximately 600~700 bytes, which is relatively large for resource-constrained embedded devices.
 The existing device event payload contains numerous fields, some of which can be redundant in certain scenarios. This unnecessary data increases the payload size, which can negatively affect performance and efficiency, particularly for devices with limited resources.
@@ -58,6 +59,7 @@ Document alternatives, concerns, ancillary or related issues, questions that aro
 Document any agreed upon important implementation detail, caveats, future considerations, remaining or deferred design issues.
 Document any part of the requirements not satisfied by the proposed design.
 -->
+With approvals from Corey Mutter, James Butcher, Melvin Sun, Chirantan Ghosh, Jieke Choo, and Jude Hung, ADR 0031 is now officially approved to implement.
 
 ## Other Related ADRs
 <!--
