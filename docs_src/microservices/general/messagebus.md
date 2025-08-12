@@ -228,6 +228,62 @@ edgex/events/device/device-virtual/Random-Boolean-Device/Random-Boolean-Device/B
 !!! edgey "EdgeX 4.1"
     Message envelope CBOR encoding is new in EdgeX 4.1.
 
+#### Optimize Event Payload
+
+This feature is implemented based on the [ADR][2] to reduce device event payload size. 
+
+To enable this feature, set the `EDGEX_OPTIMIZE_EVENT_PAYLOAD` environment variable to `true` for all EdgeX services. 
+
+This can be done by adding the variable to the `.env` file before generating the docker-compose file. For guidance on generating the Docker Compose file, refer to the [Getting Started using Docker][1] guide.
+
+After deploying the EdgeX services, you can verify the optimized event payload in the MQTT message payload, as shown below.
+
+```shell
+$ docker exec mqtt-broker mosquitto_sub -v -t '#'
+edgex/events/device/device-simple/Random-UnsignedInteger-Device/Random-UnsignedInteger-Device/Uint8Array 
+{
+  "apiVersion":"v3", "receivedTopic":"","correlationID":"8ad7fd3f-a7f7-4c38-ac10-f631d3272ae8","requestID":"","errorCode":0,
+  "payload":{
+    "apiVersion":"v3","requestId":"9b9f99aa-5500-482d-89bb-67ff25d86cfd",
+    "event":{
+      "apiVersion":"v3","id":"e583c6fb-b1d0-4275-a1f5-7ede0858beeb",
+      "deviceName":"Random-UnsignedInteger-Device",
+      "profileName":"Random-UnsignedInteger-Device",
+      "sourceName":"Uint8Array","origin":1755009250244477420,
+      "readings":[{"valueType":"Uint8Array","value":"[0, 1, 2]"}]
+    }
+  },
+  "contentType":"application/json"
+}
+```
+
+You can see that the `id`, `origin`, `deviceName`, `profileName`, and `resourceName` fields of the reading have been removed from the payload, the payload is also reduced when querying events via the REST API, as shown below.
+
+```shell
+$ curl http://localhost:59882/api/v3/device/name/Random-UnsignedInteger-Device/Uint8Array | json_pp
+{
+   "apiVersion" : "v3",
+   "event" : {
+      "apiVersion" : "v3",
+      "deviceName" : "Random-UnsignedInteger-Device",
+      "id" : "c401e169-5075-413a-bfa4-fd900b6dc351",
+      "origin" : 1754538277483500499,
+      "profileName" : "Random-UnsignedInteger-Device",
+      "readings" : [
+         {
+            "value" : "[0, 1, 2]",
+            "valueType" : "Uint8Array"
+         }
+      ],
+      "sourceName" : "Uint8Array"
+   },
+   "statusCode" : 200
+}
+```
+
+!!! edgey "EdgeX 4.1"
+    Optimize event payload is new in EdgeX 4.1.
+
 #### Docker
 
 The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for MQTT 3.1 using environment overrides. This is accomplished by using the `mqtt-bus` option. See [Compose Builder README](https://github.com/edgexfoundry/edgex-compose/tree/{{edgexversion}}/compose-builder/README.md) for details on all available options.
@@ -295,3 +351,4 @@ The EdgeX Compose Builder utility provides an option to easily generate a compos
     ```
 
 [1]: ../../getting-started/Ch-GettingStartedDockerUsers.md#generate-a-custom-docker-compose-file
+[2]: ../../design/adr/0031-Reduce-Payload-Size-For-Device-Events.md
