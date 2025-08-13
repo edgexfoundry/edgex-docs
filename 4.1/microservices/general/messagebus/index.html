@@ -6324,6 +6324,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#optimize-event-payload" class="md-nav__link">
+    Optimize Event Payload
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#docker" class="md-nav__link">
     Docker
   </a>
@@ -7781,6 +7788,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#optimize-event-payload" class="md-nav__link">
+    Optimize Event Payload
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#docker" class="md-nav__link">
     Docker
   </a>
@@ -8167,6 +8181,53 @@ edgex/events/device/device-virtual/Random-Boolean-Device/Random-Boolean-Device/B
 <div class="admonition edgey">
 <p class="admonition-title">EdgeX 4.1</p>
 <p>Message envelope CBOR encoding is new in EdgeX 4.1.</p>
+</div>
+<h4 id="optimize-event-payload">Optimize Event Payload</h4>
+<p>This feature is implemented based on the <a href="../../../design/adr/0031-Reduce-Payload-Size-For-Device-Events/">ADR</a> to reduce device event payload size. </p>
+<p>To enable this feature, set the <code>EDGEX_OPTIMIZE_EVENT_PAYLOAD</code> environment variable to <code>true</code> for all EdgeX services. </p>
+<p>This can be done by adding the variable to the <code>.env</code> file before generating the docker-compose file. For guidance on generating the Docker Compose file, refer to the <a href="../../../getting-started/Ch-GettingStartedDockerUsers/#generate-a-custom-docker-compose-file">Getting Started using Docker</a> guide.</p>
+<p>After deploying the EdgeX services, you can verify the optimized event payload in the MQTT message payload, as shown below.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>mqtt-broker<span class="w"> </span>mosquitto_sub<span class="w"> </span>-v<span class="w"> </span>-t<span class="w"> </span><span class="s1">&#39;#&#39;</span>
+edgex/events/device/device-simple/Random-UnsignedInteger-Device/Random-UnsignedInteger-Device/Uint8Array<span class="w"> </span>
+<span class="o">{</span>
+<span class="w">  </span><span class="s2">&quot;apiVersion&quot;</span>:<span class="s2">&quot;v3&quot;</span>,<span class="w"> </span><span class="s2">&quot;receivedTopic&quot;</span>:<span class="s2">&quot;&quot;</span>,<span class="s2">&quot;correlationID&quot;</span>:<span class="s2">&quot;8ad7fd3f-a7f7-4c38-ac10-f631d3272ae8&quot;</span>,<span class="s2">&quot;requestID&quot;</span>:<span class="s2">&quot;&quot;</span>,<span class="s2">&quot;errorCode&quot;</span>:0,
+<span class="w">  </span><span class="s2">&quot;payload&quot;</span>:<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;apiVersion&quot;</span>:<span class="s2">&quot;v3&quot;</span>,<span class="s2">&quot;requestId&quot;</span>:<span class="s2">&quot;9b9f99aa-5500-482d-89bb-67ff25d86cfd&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;event&quot;</span>:<span class="o">{</span>
+<span class="w">      </span><span class="s2">&quot;apiVersion&quot;</span>:<span class="s2">&quot;v3&quot;</span>,<span class="s2">&quot;id&quot;</span>:<span class="s2">&quot;e583c6fb-b1d0-4275-a1f5-7ede0858beeb&quot;</span>,
+<span class="w">      </span><span class="s2">&quot;deviceName&quot;</span>:<span class="s2">&quot;Random-UnsignedInteger-Device&quot;</span>,
+<span class="w">      </span><span class="s2">&quot;profileName&quot;</span>:<span class="s2">&quot;Random-UnsignedInteger-Device&quot;</span>,
+<span class="w">      </span><span class="s2">&quot;sourceName&quot;</span>:<span class="s2">&quot;Uint8Array&quot;</span>,<span class="s2">&quot;origin&quot;</span>:1755009250244477420,
+<span class="w">      </span><span class="s2">&quot;readings&quot;</span>:<span class="o">[{</span><span class="s2">&quot;valueType&quot;</span>:<span class="s2">&quot;Uint8Array&quot;</span>,<span class="s2">&quot;value&quot;</span>:<span class="s2">&quot;[0, 1, 2]&quot;</span><span class="o">}]</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="w">  </span><span class="o">}</span>,
+<span class="w">  </span><span class="s2">&quot;contentType&quot;</span>:<span class="s2">&quot;application/json&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>You can see that the <code>id</code>, <code>origin</code>, <code>deviceName</code>, <code>profileName</code>, and <code>resourceName</code> fields of the reading have been removed from the payload, the payload is also reduced when querying events via the REST API, as shown below.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>http://localhost:59882/api/v3/device/name/Random-UnsignedInteger-Device/Uint8Array<span class="w"> </span><span class="p">|</span><span class="w"> </span>json_pp
+<span class="o">{</span>
+<span class="w">   </span><span class="s2">&quot;apiVersion&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="s2">&quot;v3&quot;</span>,
+<span class="w">   </span><span class="s2">&quot;event&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">      </span><span class="s2">&quot;apiVersion&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="s2">&quot;v3&quot;</span>,
+<span class="w">      </span><span class="s2">&quot;deviceName&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="s2">&quot;Random-UnsignedInteger-Device&quot;</span>,
+<span class="w">      </span><span class="s2">&quot;id&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="s2">&quot;c401e169-5075-413a-bfa4-fd900b6dc351&quot;</span>,
+<span class="w">      </span><span class="s2">&quot;origin&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="m">1754538277483500499</span>,
+<span class="w">      </span><span class="s2">&quot;profileName&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="s2">&quot;Random-UnsignedInteger-Device&quot;</span>,
+<span class="w">      </span><span class="s2">&quot;readings&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">         </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;value&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="s2">&quot;[0, 1, 2]&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;valueType&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="s2">&quot;Uint8Array&quot;</span>
+<span class="w">         </span><span class="o">}</span>
+<span class="w">      </span><span class="o">]</span>,
+<span class="w">      </span><span class="s2">&quot;sourceName&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="s2">&quot;Uint8Array&quot;</span>
+<span class="w">   </span><span class="o">}</span>,
+<span class="w">   </span><span class="s2">&quot;statusCode&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="m">200</span>
+<span class="o">}</span>
+</code></pre></div>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 4.1</p>
+<p>Optimize event payload is new in EdgeX 4.1.</p>
 </div>
 <h4 id="docker">Docker</h4>
 <p>The EdgeX Compose Builder utility provides an option to easily generate a compose file with all the selected services re-configured for MQTT 3.1 using environment overrides. This is accomplished by using the <code>mqtt-bus</code> option. See <a href="https://github.com/edgexfoundry/edgex-compose/tree/main/compose-builder/README.md">Compose Builder README</a> for details on all available options.</p>
