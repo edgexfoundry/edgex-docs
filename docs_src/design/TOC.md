@@ -12,6 +12,7 @@
 | [Core Data Retention and Persistent Cap](./ucr/Core-Data-Retention.md)              | Use Case for capping readings in Core Data                          |
 | [Device Parent-Child Relationships](./ucr/Device-Parent-Child-Relationships.md)     | Use Case for Device Parent-Child Relationships                      |
 | [Extending Device Data](./ucr/Extending-Device-Data.md)                             | Use Case for Extending of Device Data by Application Services       |
+| [Protocol Info In Device](./ucr/Protocol-Info-In-Device.md)                         | Use Case for adding Protocol Information into the Device object.    |
 | [Provision Watch via Device Metadata](./ucr/Provision-Watch-via-Device-Metadata.md) | Use Case for Provision Watching via Additional Device Metadata      |
 | [Record and Replay](./ucr/Record-and-Replay.md)                                     | Use Case for Recording and Replaying event/readings                 |
 | [System Events for Devices](./ucr/System-Events-for-Devices.md)                     | Use Case for System Events for Device add/update/delete             |
