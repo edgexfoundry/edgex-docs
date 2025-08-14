@@ -101,11 +101,14 @@ The tables in each of the tabs below document configuration properties that are 
     |Property|Default Value|Description|
     |---|---|---|
     |||configuration that govern database connectivity and the type of database to use. While not all services require DB connectivity, most do and so this has been included in the common configuration docs.|
-    |Host |localhost                      |DB host name|
-    |Port |5432                         |DB port number|
-    |Name      |----                       |Database or document store name (Specific to the service)            |
-    |Timeout      |5s           |DB connection timeout                                              |
-    |Type |postgres                        |DB type.  |
+    |Host            |localhost    |DB host name|
+    |Port            |5432         |DB port number|
+    |Name            |----         |Database or document store name (Specific to the service)            |
+    |Timeout         |5s           |DB connection timeout                                              |
+    |Type            |postgres     |DB type.  |
+    |MaxConns        |4            |The maximum size of the DB connection pool.|
+    |MaxConnIdleTime |30m          |The duration after which an idle connection will be automatically closed by the health check.|
+    |MaxConnLifetime |1h           |The duration since creation after which a connection will be automatically closed.|
 === "MessageBus"
     |Property|Default Value|Description|
     |---|---|---|
