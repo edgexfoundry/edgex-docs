@@ -6202,6 +6202,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#numeric-data-type-support" class="md-nav__link">
+    Numeric Data Type Support
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#postgresql-table-schema-migration" class="md-nav__link">
     PostgreSQL Table Schema Migration
   </a>
@@ -7436,6 +7443,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#numeric-data-type-support" class="md-nav__link">
+    Numeric Data Type Support
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#postgresql-table-schema-migration" class="md-nav__link">
     PostgreSQL Table Schema Migration
   </a>
@@ -7499,6 +7513,35 @@ For instance, the Core Data service owns the <code>core_data</code> schema and i
 <li>Security Proxy Auth</li>
 <li>App Services (specifically for the Store and Forward feature)</li>
 </ul>
+<h2 id="numeric-data-type-support">Numeric Data Type Support</h2>
+<p>To reduce disk consumption, numeric values are stored as <code>numeric</code> data type instead of <code>text</code> data type. For example, storing the number <code>128</code> as a string takes <code>3</code> bytes, whereas storing it as a numeric type takes only <code>2</code> bytes. See <a href="https://www.postgresql.org/docs/current/datatype-character.html">Character Types</a> and <a href="https://www.postgresql.org/docs/current/datatype-numeric.html">Numeric Types</a> for more details.</p>
+<p>The following data types are supported for storage as numeric values:</p>
+<ul>
+<li>Int8, Int16, Int32, Int64, </li>
+<li>Uint8, Uint16, Uint32, Uint64</li>
+<li>Float32, Float64</li>
+</ul>
+<p>Check if Core Data stores the value in the <code>numeric_value</code> column:
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>docker<span class="w"> </span><span class="nb">exec</span><span class="w">  </span>edgex-postgres<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>edgex_db<span class="w"> </span>-a<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;SELECT event_id, origin, value, numeric_value from core_data.reading order by origin DESC limit 10&quot;</span>
+SELECT<span class="w"> </span>event_id,<span class="w"> </span>origin,<span class="w"> </span>value,<span class="w"> </span>numeric_value<span class="w"> </span>from<span class="w"> </span>core_data.reading<span class="w"> </span>order<span class="w"> </span>by<span class="w"> </span>origin<span class="w"> </span>DESC<span class="w"> </span>limit<span class="w"> </span><span class="m">10</span>
+<span class="w">               </span>event_id<span class="w">               </span><span class="p">|</span><span class="w">       </span>origin<span class="w">        </span><span class="p">|</span><span class="w"> </span>value<span class="w"> </span><span class="p">|</span><span class="w">    </span>numeric_value<span class="w">     </span>
+--------------------------------------+---------------------+-------+----------------------
+<span class="w"> </span>00f57c72-35c6-424f-afc1-f63e835e49c4<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1756204540891284500</span><span class="w"> </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">                  </span><span class="m">161</span>
+<span class="w"> </span>440b6a52-e193-4c8e-8fb1-0005a7d181b4<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1756204540891235000</span><span class="w"> </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">           </span><span class="m">2870254211</span>
+<span class="w"> </span>f83c826d-3f07-4d31-8dc7-c2b8e41d8f64<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1756204540891147000</span><span class="w"> </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">                </span><span class="m">36326</span>
+<span class="w"> </span>d0a9a4b1-1418-4913-a624-4e9aac9fb619<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1756204540891081500</span><span class="w"> </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">  </span><span class="m">2170898694295277922</span>
+<span class="w"> </span>945b6e5a-bc9c-4cdb-b55d-f67682d0dc31<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1756204540890949600</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nb">false</span><span class="w"> </span><span class="p">|</span><span class="w">                     </span>
+<span class="w"> </span>e2b3c3f3-5df6-494c-bbeb-f8dcb8d51cb3<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1756204535891338500</span><span class="w"> </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">                </span><span class="m">15215</span>
+<span class="w"> </span>f8571377-2268-4b69-8496-cd03e3e5dd5a<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1756204535891121000</span><span class="w"> </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">                    </span><span class="m">8</span>
+<span class="w"> </span>febbe9c4-1e3c-40df-ab6f-ae123255a355<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1756204535891041300</span><span class="w"> </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w"> </span>-2798122935355531774
+<span class="w"> </span>467da520-29b6-4674-b523-16091687cdc8<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1756204535890933500</span><span class="w"> </span><span class="p">|</span><span class="w">       </span><span class="p">|</span><span class="w">          </span>-1128978172
+<span class="w"> </span>3e10eeae-0667-48aa-811f-9c303ccc4725<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1756204530890796000</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nb">false</span><span class="w"> </span><span class="p">|</span><span class="w">                     </span>
+<span class="o">(</span><span class="m">10</span><span class="w"> </span>rows<span class="o">)</span>
+</code></pre></div></p>
+<div class="admonition edgey -">
+<p class="admonition-title">EdgeX 4.1</p>
+<p>Numeric Data Type Support is new in EdgeX 4.1</p>
+</div>
 <h2 id="postgresql-table-schema-migration">PostgreSQL Table Schema Migration</h2>
 <p>The EdgeX services create and manage their own database schemas in PostgreSQL.
 The table schema migration is handled by the services themselves, which means that the services will automatically create and alter the necessary tables and indexes when they are started.
