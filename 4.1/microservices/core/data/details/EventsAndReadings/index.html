@@ -1173,9 +1173,60 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Events and Readings
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Events and Readings
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#events-and-readings-overview" class="md-nav__link">
+    Events and Readings Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-aggregations" class="md-nav__link">
+    Reading Aggregations
+  </a>
+  
+    <nav class="md-nav" aria-label="Reading Aggregations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    Example Usage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -7354,6 +7405,41 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#events-and-readings-overview" class="md-nav__link">
+    Events and Readings Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-aggregations" class="md-nav__link">
+    Reading Aggregations
+  </a>
+  
+    <nav class="md-nav" aria-label="Reading Aggregations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    Example Usage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -7371,6 +7457,7 @@
 
 
 <h1 id="core-data-events-and-readings">Core Data - Events and Readings</h1>
+<h2 id="events-and-readings-overview">Events and Readings Overview</h2>
 <p>Data collected from sensors is marshalled into EdgeX event and reading objects (delivered as JSON objects or a binary object encoded as <a href="../../../../../general/Definitions/#cbor">CBOR</a> to core data).
 An event represents a collection of one or more sensor readings.<br />
 The number of readings depend on the connected device/sensor.</p>
@@ -7385,6 +7472,64 @@ Reading data can be consumed by data visualization systems, analytics tools, etc
 The first reading indicates that the motor123 device reported the pressure of the motor was 1300 (the unit of measure might be something like PSI).</p>
 <p><img alt="image" src="../EdgeX_Event-Reading.png" /></p>
 <p>The value type property (shown as type above) on the reading lets the consumer of the information know that the value is an integer, base 64.  The second reading indicates that the motor123 device also reported the temperature of the motor was 120 at the same time it reported the pressure (perhaps in degrees Fahrenheit).</p>
+</div>
+<h2 id="reading-aggregations">Reading Aggregations</h2>
+<p>To support retrieval of aggregated reading values, a new query parameter <code>aggregateFunc</code> has been added to the Reading query APIs.
+This enhancement allows standard SQL aggregate functions to be applied directly through the API, minimizing additional client-side processing and calculations.</p>
+<p>The supported SQL aggregate functions follow the definitions outlined <a href="https://www.w3schools.com/sql/sql_aggregate_functions.asp">here</a>:</p>
+<ul>
+<li><code>MIN()</code></li>
+<li><code>MAX()</code></li>
+<li><code>COUNT()</code></li>
+<li><code>SUM()</code></li>
+<li><code>AVG()</code></li>
+</ul>
+<div class="admonition edgey -">
+<p class="admonition-title">EdgeX 4.1</p>
+<p><code>aggregateFunc</code> query parameter was introduced in EdgeX 4.1</p>
+</div>
+<h3 id="example-usage">Example Usage</h3>
+<p>Example request to the Core Data – Get All Readings API with <code>aggregateFunc</code>:</p>
+<ul>
+<li>
+<p>Request:
+    <div class="highlight"><pre><span></span><code><span class="w">    </span>curl<span class="w"> </span>http://&lt;core-data-microservice-ip&gt;:59880/api/v3/reading/all?aggregateFunc<span class="o">=</span>MAX
+</code></pre></div></p>
+</li>
+<li>
+<p>Response:
+    <div class="highlight"><pre><span></span><code><span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;apiVersion&quot;</span>:<span class="w"> </span><span class="s2">&quot;v3&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;statusCode&quot;</span>:<span class="w"> </span><span class="m">200</span>,
+<span class="w">    </span><span class="s2">&quot;aggregateFunc&quot;</span>:<span class="w"> </span><span class="s2">&quot;MAX&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;readings&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;deviceName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Test-Device&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;resourceName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Int16&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;profileName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Test-Integer-Device&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;valueType&quot;</span>:<span class="w"> </span><span class="s2">&quot;Int16&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;value&quot;</span>:<span class="w"> </span><span class="s2">&quot;32767&quot;</span>
+<span class="w">        </span><span class="o">}</span>,
+<span class="w">        </span><span class="o">{</span>
+<span class="w">            </span><span class="s2">&quot;deviceName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Test-Device&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;resourceName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Int8&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;profileName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Test-Integer-Device&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;valueType&quot;</span>:<span class="w"> </span><span class="s2">&quot;Int8&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;value&quot;</span>:<span class="w"> </span><span class="s2">&quot;79&quot;</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></p>
+</li>
+</ul>
+<p>For more details about the <code>aggregateFunc</code> parameter, see the <a href="../../../../../api/core/Ch-APICoredata/">Core Data API documentation</a>.</p>
+<div class="admonition note info">
+<p class="admonition-title">Note</p>
+<ul>
+<li><code>Aggregation</code> applies only to fields stored as <code>numeric</code> types in the database. See <a href="../../../../general/database/Ch-Postgres/#numeric-data-type-support">Numeric Data Type Support</a> for more details.</li>
+<li>For non-numeric value types (e.g., String, Bool), the aggregate result will be null.</li>
+<li>If <code>aggregateFunc</code> is specified in the query parameters, the <code>offset</code> and <code>limit</code> parameters are ignored.</li>
+</ul>
 </div>
 
 
