@@ -59,16 +59,16 @@ Example request to the Core Data – Get All Readings API with `aggregateFunc`:
             {
                 "deviceName": "Test-Device",
                 "resourceName": "Int16",
-                "profileName": "Test-Integer-Device",
-                "valueType": "Int16",
-                "value": "32767"
+                "profileName": "Test-Device-Profile",
+                "valueType": "Int64",
+                "value": 32767
             },
             {
                 "deviceName": "Test-Device",
-                "resourceName": "Int8",
-                "profileName": "Test-Integer-Device",
-                "valueType": "Int8",
-                "value": "79"
+                "resourceName": "Float32",
+                "profileName": "Test-Device-Profile",
+                "valueType": "Float64",
+                "value": 79.123456
             }
         ]
     }
@@ -78,5 +78,15 @@ For more details about the `aggregateFunc` parameter, see the [Core Data API doc
 
 !!! Note Info
     - `Aggregation` applies only to fields stored as `numeric` types in the database. See [Numeric Data Type Support](../../../general/database/Ch-Postgres.md#numeric-data-type-support) for more details.
-    - For non-numeric value types (e.g., String, Bool), the aggregate result will be null.
-    - If `aggregateFunc` is specified in the query parameters, the `offset` and `limit` parameters are ignored.
+    - The aggregate reading `value` is always represented as a numeric type rather than a string.
+    - For non-numeric value types (e.g., String, Bool), the aggregate result will be empty. 
+
+!!! Note Info
+    The `valueType` of an aggregated reading may differ from the original `valueType` defined in the device profile, depending on the aggregate function used:
+
+    - `COUNT()`: always returns a __Uint64__.
+    - `AVG()`: always returns a __Float64__.
+    - `SUM()`, `MIN()`, `MAX()`: 
+        - If the original type is Float32 or Float64, the result is __Float64__.
+        - If the original type is Int8, Int16, Int32 or Int64, the result is __Int64__.
+        - If the original type is Uint8, Uint16, Uint32 or Uint64, the result is __Uint64__.
