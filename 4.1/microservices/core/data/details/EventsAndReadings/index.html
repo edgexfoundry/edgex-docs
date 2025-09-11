@@ -7506,16 +7506,16 @@ This enhancement allows standard SQL aggregate functions to be applied directly 
 <span class="w">        </span><span class="o">{</span>
 <span class="w">            </span><span class="s2">&quot;deviceName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Test-Device&quot;</span>,
 <span class="w">            </span><span class="s2">&quot;resourceName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Int16&quot;</span>,
-<span class="w">            </span><span class="s2">&quot;profileName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Test-Integer-Device&quot;</span>,
-<span class="w">            </span><span class="s2">&quot;valueType&quot;</span>:<span class="w"> </span><span class="s2">&quot;Int16&quot;</span>,
-<span class="w">            </span><span class="s2">&quot;value&quot;</span>:<span class="w"> </span><span class="s2">&quot;32767&quot;</span>
+<span class="w">            </span><span class="s2">&quot;profileName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Test-Device-Profile&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;valueType&quot;</span>:<span class="w"> </span><span class="s2">&quot;Int64&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;value&quot;</span>:<span class="w"> </span><span class="m">32767</span>
 <span class="w">        </span><span class="o">}</span>,
 <span class="w">        </span><span class="o">{</span>
 <span class="w">            </span><span class="s2">&quot;deviceName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Test-Device&quot;</span>,
-<span class="w">            </span><span class="s2">&quot;resourceName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Int8&quot;</span>,
-<span class="w">            </span><span class="s2">&quot;profileName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Test-Integer-Device&quot;</span>,
-<span class="w">            </span><span class="s2">&quot;valueType&quot;</span>:<span class="w"> </span><span class="s2">&quot;Int8&quot;</span>,
-<span class="w">            </span><span class="s2">&quot;value&quot;</span>:<span class="w"> </span><span class="s2">&quot;79&quot;</span>
+<span class="w">            </span><span class="s2">&quot;resourceName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Float32&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;profileName&quot;</span>:<span class="w"> </span><span class="s2">&quot;Test-Device-Profile&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;valueType&quot;</span>:<span class="w"> </span><span class="s2">&quot;Float64&quot;</span>,
+<span class="w">            </span><span class="s2">&quot;value&quot;</span>:<span class="w"> </span><span class="m">79</span>.123456
 <span class="w">        </span><span class="o">}</span>
 <span class="w">    </span><span class="o">]</span>
 <span class="o">}</span>
@@ -7527,8 +7527,22 @@ This enhancement allows standard SQL aggregate functions to be applied directly 
 <p class="admonition-title">Note</p>
 <ul>
 <li><code>Aggregation</code> applies only to fields stored as <code>numeric</code> types in the database. See <a href="../../../../general/database/Ch-Postgres/#numeric-data-type-support">Numeric Data Type Support</a> for more details.</li>
-<li>For non-numeric value types (e.g., String, Bool), the aggregate result will be null.</li>
-<li>If <code>aggregateFunc</code> is specified in the query parameters, the <code>offset</code> and <code>limit</code> parameters are ignored.</li>
+<li>The aggregate reading <code>value</code> is always represented as a numeric type rather than a string.</li>
+<li>For non-numeric value types (e.g., String, Bool), the aggregate result will be empty. </li>
+</ul>
+</div>
+<div class="admonition note info">
+<p class="admonition-title">Note</p>
+<p>The <code>valueType</code> of an aggregated reading may differ from the original <code>valueType</code> defined in the device profile, depending on the aggregate function used:</p>
+<ul>
+<li><code>COUNT()</code>: always returns a <strong>Uint64</strong>.</li>
+<li><code>AVG()</code>: always returns a <strong>Float64</strong>.</li>
+<li><code>SUM()</code>, <code>MIN()</code>, <code>MAX()</code>: <ul>
+<li>If the original type is Float32 or Float64, the result is <strong>Float64</strong>.</li>
+<li>If the original type is Int8, Int16, Int32 or Int64, the result is <strong>Int64</strong>.</li>
+<li>If the original type is Uint8, Uint16, Uint32 or Uint64, the result is <strong>Uint64</strong>.</li>
+</ul>
+</li>
 </ul>
 </div>
 
