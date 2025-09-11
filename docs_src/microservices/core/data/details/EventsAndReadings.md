@@ -61,14 +61,14 @@ Example request to the Core Data – Get All Readings API with `aggregateFunc`:
                 "resourceName": "Int16",
                 "profileName": "Test-Device-Profile",
                 "valueType": "Int64",
-                "value": "32767"
+                "value": 32767
             },
             {
                 "deviceName": "Test-Device",
                 "resourceName": "Float32",
                 "profileName": "Test-Device-Profile",
                 "valueType": "Float64",
-                "value": "79.123456"
+                "value": 79.123456
             }
         ]
     }
@@ -78,6 +78,7 @@ For more details about the `aggregateFunc` parameter, see the [Core Data API doc
 
 !!! Note Info
     - `Aggregation` applies only to fields stored as `numeric` types in the database. See [Numeric Data Type Support](../../../general/database/Ch-Postgres.md#numeric-data-type-support) for more details.
+    - The aggregate reading `value` is always represented as a numeric type rather than a string.
     - For non-numeric value types (e.g., String, Bool), the aggregate result will be empty. 
 
 !!! Note Info
