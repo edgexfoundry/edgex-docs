@@ -27,7 +27,9 @@ The following EdgeX services depend on PostgreSQL for data storage and operate u
 
 ## Numeric Data Type Support
 
-To reduce disk consumption, numeric values are stored as `numeric` data type instead of `text` data type. For example, storing the number `128` as a string takes `3` bytes, whereas storing it as a numeric type takes only `2` bytes. See [Character Types][1] and [Numeric Types][2] for more details.
+To reduce disk consumption, numeric values are stored as `numeric` data type instead of `text` data type. 
+For example, storing the number `123456789.1234567891234` as a string requires `24` bytes (`23` bytes + `1` byte of overhead), whereas storing the same value as a numeric type consumes only `17` to `22` bytes (`14` bytes + `3` to `8` bytes of overhead).   
+See [Character Types][1] and [Numeric Types][2] for more details.
 
 The following data types are supported for storage as numeric values:
 
