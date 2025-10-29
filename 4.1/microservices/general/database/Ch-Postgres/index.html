@@ -7514,7 +7514,9 @@ For instance, the Core Data service owns the <code>core_data</code> schema and i
 <li>App Services (specifically for the Store and Forward feature)</li>
 </ul>
 <h2 id="numeric-data-type-support">Numeric Data Type Support</h2>
-<p>To reduce disk consumption, numeric values are stored as <code>numeric</code> data type instead of <code>text</code> data type. For example, storing the number <code>128</code> as a string takes <code>3</code> bytes, whereas storing it as a numeric type takes only <code>2</code> bytes. See <a href="https://www.postgresql.org/docs/current/datatype-character.html">Character Types</a> and <a href="https://www.postgresql.org/docs/current/datatype-numeric.html">Numeric Types</a> for more details.</p>
+<p>To reduce disk consumption, numeric values are stored as <code>numeric</code> data type instead of <code>text</code> data type. 
+For example, storing the number <code>123456789.1234567891234</code> as a string requires <code>24</code> bytes (<code>23</code> bytes + <code>1</code> byte of overhead), whereas storing the same value as a numeric type consumes only <code>17</code> to <code>22</code> bytes (<code>14</code> bytes + <code>3</code> to <code>8</code> bytes of overhead). <br />
+See <a href="https://www.postgresql.org/docs/current/datatype-character.html">Character Types</a> and <a href="https://www.postgresql.org/docs/current/datatype-numeric.html">Numeric Types</a> for more details.</p>
 <p>The following data types are supported for storage as numeric values:</p>
 <ul>
 <li>Int8, Int16, Int32, Int64, </li>
