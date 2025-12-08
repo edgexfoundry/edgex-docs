@@ -5083,6 +5083,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#setfunctionspipelinetopics" class="md-nav__link">
+    SetFunctionsPipelineTopics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#loadconfigurablefunctionpipelines" class="md-nav__link">
     LoadConfigurableFunctionPipelines
   </a>
@@ -7853,6 +7860,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#setfunctionspipelinetopics" class="md-nav__link">
+    SetFunctionsPipelineTopics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#loadconfigurablefunctionpipelines" class="md-nav__link">
     LoadConfigurableFunctionPipelines
   </a>
@@ -8138,6 +8152,7 @@
 <span class="w">    </span><span class="nx">AddFunctionsPipelineForTopics</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">topics</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">transforms</span><span class="w"> </span><span class="o">...</span><span class="nx">AppFunction</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">LoadConfigurableFunctionPipelines</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">FunctionPipeline</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span>
 <span class="w">    </span><span class="nx">RemoveAllFunctionPipelines</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">SetFunctionsPipelineTopics</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">topics</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">Run</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span>
 <span class="w">    </span><span class="nx">Stop</span><span class="p">()</span>
 <span class="w">    </span><span class="nx">SecretProvider</span><span class="p">()</span><span class="w"> </span><span class="nx">interfaces</span><span class="p">.</span><span class="nx">SecretProvider</span>
@@ -8384,6 +8399,18 @@
 <span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="o">...</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="setfunctionspipelinetopics">SetFunctionsPipelineTopics</h3>
+<p><code>SetFunctionsPipelineTopics(id string, topics []string) error</code></p>
+<p>This API replaces the list of topics for the given pipeline, which must have been created
+using <code>AddFunctionsPipelineForTopics</code>.</p>
+<div class="admonition example">
+<p class="admonition-title">Example - SetFunctionsPipelineTopics</p>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">AddATopic</span><span class="p">(</span><span class="nx">newTopic</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">myTopicList</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">myTopicList</span><span class="p">,</span><span class="w"> </span><span class="nx">newTopic</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">SetFunctionsPipelineTopics</span><span class="p">(</span><span class="s">&quot;Floats-Pipeline&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">myTopicList</span><span class="p">)</span><span class="w">        </span>
 <span class="p">}</span>
 </code></pre></div>
 </div>

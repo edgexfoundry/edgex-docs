@@ -7389,6 +7389,9 @@
 </div>
 <p>Refer to the <a href="../../../details/Triggers/#filter-by-topics">Filter By Topics</a> section for details on the structure of the received topic.</p>
 <p>All pipeline function capabilities such as Store and Forward, Batching, etc. can be used with one or more of the multiple function pipelines. Store and Forward uses the Pipeline's ID to find and restart the pipeline on retries.</p>
+<p>A pipeline's list of topics can be updated at runtime using
+<code>SetFunctionsPipelineTopics()</code>. The new list will entirely replace the
+list provided to <code>AddFunctionsPipelineForTopics()</code>.</p>
 <div class="admonition example">
 <p class="admonition-title">Example - Adding multiple function pipelines</p>
 <p>This example adds two pipelines. One to process data from the <code>Random-Float-Device</code> device and one to process data from the <code>Int32</code> and <code>Int64</code> sources.</p>
