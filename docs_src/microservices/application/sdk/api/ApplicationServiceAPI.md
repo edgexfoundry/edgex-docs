@@ -28,6 +28,7 @@ type ApplicationService interface {
 	AddFunctionsPipelineForTopics(id string, topics []string, transforms ...AppFunction) error
 	LoadConfigurableFunctionPipelines() (map[string]FunctionPipeline, error)
     RemoveAllFunctionPipelines()
+    SetFunctionsPipelineTopics(id string, topics []string) error
     Run() error
 	Stop()
     SecretProvider() interfaces.SecretProvider
@@ -335,6 +336,21 @@ This API adds a functions pipeline with the specified unique ID and list of func
     if err != nil {
         ...
         return -1
+    }
+    ```
+
+### SetFunctionsPipelineTopics
+
+`SetFunctionsPipelineTopics(id string, topics []string) error`
+
+This API replaces the list of topics for the given pipeline, which must have been created
+using `AddFunctionsPipelineForTopics`.
+
+!!! example "Example - SetFunctionsPipelineTopics"
+    ```go
+    func AddATopic(newTopic string) error {
+        myTopicList = append(myTopicList, newTopic)
+        return service.SetFunctionsPipelineTopics("Floats-Pipeline", myTopicList)        
     }
     ```
 

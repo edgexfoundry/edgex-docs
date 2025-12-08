@@ -24,6 +24,10 @@ Refer to the [Filter By Topics](../../details/Triggers.md#filter-by-topics) sect
 
 All pipeline function capabilities such as Store and Forward, Batching, etc. can be used with one or more of the multiple function pipelines. Store and Forward uses the Pipeline's ID to find and restart the pipeline on retries.
 
+A pipeline's list of topics can be updated at runtime using
+`SetFunctionsPipelineTopics()`. The new list will entirely replace the
+list provided to `AddFunctionsPipelineForTopics()`.
+
 !!! example "Example - Adding multiple function pipelines"
     This example adds two pipelines. One to process data from the `Random-Float-Device` device and one to process data from the `Int32` and `Int64` sources.
 
