@@ -7400,24 +7400,37 @@
 </tr>
 <tr>
 <td>Timeout</td>
-<td>The timeout when connecting or reading Device Modbus Service to device-modbus</td>
+<td>The timeout when connecting or reading Device Modbus Service to device-modbus. It can be a number (floating point) in which case it is interpreted as seconds, or it can be a duration string such as "500ms", "2s" or "1.5m" representing milliseconds, seconds or minutes respectively.</td>
 </tr>
 <tr>
 <td>IdleTimeout</td>
-<td>Idle timeout(seconds) to close the connection</td>
+<td>Idle timeout to close the connection (use 0 to dial for each request and negative value to never close) - default 0. It can be a number (floating point) in which case it is interpreted as seconds, or it can be a duration string such as "500ms", "2s" or "1.5m" representing milliseconds, seconds or minutes respectively.</td>
+</tr>
+<tr>
+<td>LinkRecoveryTimeout</td>
+<td>Recovery timeout if tcp communication misbehaves - default 0. It can be a number (floating point) in which case it is interpreted as seconds, or it can be a duration string such as "500ms", "2s" or "1.5m" representing milliseconds, seconds or minutes respectively.</td>
+</tr>
+<tr>
+<td>ProtocolRecoveryTimeout</td>
+<td>Recovery timeout if the protocol is malformed, e.g. wrong transaction ID - default 0. It can be a number (floating point) in which case it is interpreted as seconds, or it can be a duration string such as "500ms", "2s" or "1.5m" representing milliseconds, seconds or minutes respectively.</td>
+</tr>
+<tr>
+<td>ConnectDelay</td>
+<td>Silent period after successful connection - default 0. It can be a number (floating point) in which case it is interpreted as seconds, or it can be a duration string such as "500ms", "2s" or "1.5m" representing milliseconds, seconds or minutes respectively.</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition example -">
 <p class="admonition-title">Example Modbus TCP Protocol Properties</p>
+</div>
 <div class="highlight"><pre><span></span><code><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;modbus-tcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;Address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;172.17.0.1&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;Port&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1502&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;UnitID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
+<span class="w">    </span><span class="nt">&quot;UnitID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5s&quot;</span>
 <span class="p">}}</span>
 </code></pre></div>
-</div>
 <ul>
 <li>Modbus RTU Device<ul>
 <li>These properties reside under the <code>modbus-rtu</code> key in the <code>protocols</code> section of each device definition.</li>
@@ -7458,17 +7471,18 @@
 </tr>
 <tr>
 <td>Timeout</td>
-<td>The timeout when connecting or reading Device Modbus Service to device-modbus</td>
+<td>The timeout when connecting or reading Device Modbus Service to device-modbus. It can be a number (floating point) in which case it is interpreted as seconds, or it can be a duration string such as "500ms", "2s" or "1.5m" representing milliseconds, seconds or minutes respectively.</td>
 </tr>
 <tr>
 <td>IdleTimeout</td>
-<td>Idle timeout(seconds) to close the connection</td>
+<td>Idle timeout to close the connection (use 0 to dial for each request and negative value to never close) - default 0. It can be a number (floating point) in which case it is interpreted as seconds, or it can be a duration string such as "500ms", "2s" or "1.5m" representing milliseconds, seconds or minutes respectively.</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition example -">
 <p class="admonition-title">Example Modbus RTU Protocol Properties</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</div>
+<p><div class="highlight"><pre><span></span><code><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;modbus-rtu&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;Address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/dev/virtualport&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;BaudRate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;19200&quot;</span><span class="p">,</span>
@@ -7478,11 +7492,8 @@
 <span class="w">    </span><span class="nt">&quot;UnitID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
 <span class="p">}}</span>
 </code></pre></div>
-</div>
-<ul>
-<li>Modbus ASCII Device</li>
-<li>These properties reside under the <code>modbus-ascii</code> key in the <code>protocols</code> section of each device definition.</li>
-</ul>
+- Modbus ASCII Device
+  - These properties reside under the <code>modbus-ascii</code> key in the <code>protocols</code> section of each device definition.</p>
 <table>
 <thead>
 <tr>
@@ -7517,16 +7528,17 @@
 </tr>
 <tr>
 <td>Timeout</td>
-<td>The timeout when connecting or reading Device Modbus Service to device-modbus</td>
+<td>The timeout when connecting or reading Device Modbus Service to device-modbus. It can be a number (floating point) in which case it is interpreted as seconds, or it can be a duration string such as "500ms", "2s" or "1.5m" representing milliseconds, seconds or minutes respectively.</td>
 </tr>
 <tr>
 <td>IdleTimeout</td>
-<td>Idle timeout(seconds) to close the connection</td>
+<td>Idle timeout to close the connection (use 0 to dial for each request and negative value to never close) - default 0. It can be a number (floating point) in which case it is interpreted as seconds, or it can be a duration string such as "500ms", "2s" or "1.5m" representing milliseconds, seconds or minutes respectively.</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition example -">
 <p class="admonition-title">Example Modbus ASCII Protocol Properties</p>
+</div>
 <div class="highlight"><pre><span></span><code><span class="nt">&quot;protocols&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;modbus-ascii&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;Address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/dev/virtualport&quot;</span><span class="p">,</span>
@@ -7537,7 +7549,6 @@
 <span class="w">    </span><span class="nt">&quot;UnitID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
 <span class="p">}}</span>
 </code></pre></div>
-</div>
 
 
   
