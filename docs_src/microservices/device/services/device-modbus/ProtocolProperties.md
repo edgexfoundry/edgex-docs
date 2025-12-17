@@ -32,7 +32,7 @@ Device Modbus defines the following Protocol Properties for Modbus-TCP, Modbus-R
 }}
 ```
 
-> **_NOTE:_** About the timeout values: It can be a number (floating point) in which case it is interpreted as seconds. Or it can be a duration string such as "500ms", "2s" or "1.5m" representing milliseconds, seconds or minutes respectively.
+> **_NOTE:_** About the timeout values: It can be a number (floating point) in which case it is interpreted as seconds, or it can be a duration string such as "500ms", "2s" or "1.5m" representing milliseconds, seconds or minutes respectively.
 
 - Modbus RTU Device
     - These properties reside under the `modbus-rtu` key in the `protocols` section of each device definition.
