@@ -7484,14 +7484,6 @@ a rootless docker environment. You will find that you can now run docker command
 and that the docker socket is now located in /run/user/{USERID}/docker.sock instead of /var/run/docker.sock.</p>
 </li>
 <li>
-<p>Memory locking must be disabled for the Vault container:</p>
-<p>Vault locks memory by default to disable swapping to disk. While this is a more secure, it requires
-access to the mlock() sys call which requires root privileges.
-In order for us to run Vault in a rootless environment, we need to disable this feature.
-This is done by setting memory limits in the compose file and by adding <code>disable_mlock = true</code> to the local secret store config.
-More can be found at the <a href="https://www.vaultproject.io/docs/configuration/storage/file">Vault documentation</a>.</p>
-</li>
-<li>
 <p>Docker socket volume mappings must be mapped to non-root user docker installation location:</p>
 <p>In a default (rootful) docker installation, the docker socket is mapped to /var/run/docker.sock.
 When the docker installation is configured to be a rootless environment the location of the docker socket
@@ -7520,8 +7512,8 @@ volume mounting.</p>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>By default Vault has been configured to run in a rootless environment.
-The compose entries for Vault's memory limits are automatically resolved for the host system when
+<p>By default OpenBao has been configured to run in a rootless environment.
+The compose entries for OpenBao's memory limits are automatically resolved for the host system when
 you run <code>make build</code> in the <code>compose-builder</code> directory and written statically to the generated compose files.
 The compose entries for the docker socket volume mappings are automatically resolved for the
 host system when you add the <code>portainer</code> or <code>delayed-start</code> args to the <code>make run</code> command in the root edgex-compose directory.</p>
