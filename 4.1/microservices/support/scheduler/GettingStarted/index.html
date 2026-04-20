@@ -7515,7 +7515,8 @@
     &quot;contentType&quot;: &quot;application/json&quot;
 }
 </code></pre></div></li>
-<li><strong>EDGEXMESSAGEBUS</strong>: Sends a message to a specific topic on the EdgeX message bus.
+<li>
+<p><strong>EDGEXMESSAGEBUS</strong>: Sends a message to a specific topic on the EdgeX message bus.
     <div class="highlight"><pre><span></span><code>{
     &quot;type&quot;: &quot;EDGEXMESSAGEBUS&quot;,
     &quot;topic&quot;: &quot;edgex/trigger_app_service&quot;,
@@ -7529,8 +7530,22 @@
     Type: &quot;edgex-messagebus&quot;
     SubscribeTopics: &quot;edgex/trigger_app_service/#&quot;
 </code></pre></div>
-    For more configuration details, please refer to the <a href="../../../application/details/Triggers/#messagebus-connection-configuration">App Service Configuration</a>.</li>
-<li><strong>DEVICECONTROL</strong>: Issues a command of a specific device and resouce.
+    For more configuration details, please refer to the <a href="../../../application/details/Triggers/#messagebus-connection-configuration">App Service Configuration</a>.</p>
+<p>An optional field <strong>useRawPayload</strong> is available for the EDGEXMESSAGEBUS action. When <code>true</code>, the message is published as a raw payload without the EdgeX message envelope. This is useful when the subscriber does not expect an EdgeX message envelope format.
+<div class="highlight"><pre><span></span><code>{
+    &quot;type&quot;: &quot;EDGEXMESSAGEBUS&quot;,
+    &quot;topic&quot;: &quot;edgex/raw_trigger&quot;,
+    &quot;payload&quot;: { &quot;key&quot;: &quot;value&quot; },
+    &quot;useRawPayload&quot;: true
+}
+</code></pre></div></p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 4.1</p>
+<p>The <code>useRawPayload</code> field is available since EdgeX 4.1 and defaults to <code>false</code> to maintain backward compatibility.</p>
+</div>
+</li>
+<li>
+<p><strong>DEVICECONTROL</strong>: Issues a command of a specific device and resouce.
     <div class="highlight"><pre><span></span><code>{
     &quot;type&quot;: &quot;DEVICECONTROL&quot;,
     &quot;deviceName&quot;: &quot;Random-Boolean-Device&quot;,
@@ -7538,7 +7553,8 @@
     &quot;contentType&quot;: &quot;application/json&quot;,
     &quot;payload&quot;: { &quot;Bool&quot;: true }
 }
-</code></pre></div></li>
+</code></pre></div></p>
+</li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
