@@ -45,6 +45,19 @@ Examples of schedule action include:
         SubscribeTopics: "edgex/trigger_app_service/#"
     ```
     For more configuration details, please refer to the [App Service Configuration](../../application/details/Triggers.md#messagebus-connection-configuration).
+
+    An optional field **useRawPayload** is available for the EDGEXMESSAGEBUS action. When `true`, the message is published as a raw payload without the EdgeX message envelope. This is useful when the subscriber does not expect an EdgeX message envelope format.
+    ```
+    {
+        "type": "EDGEXMESSAGEBUS",
+        "topic": "edgex/raw_trigger",
+        "payload": { "key": "value" },
+        "useRawPayload": true
+    }
+    ```
+    !!! edgey "EdgeX 4.1"
+        The `useRawPayload` field is available since EdgeX 4.1 and defaults to `false` to maintain backward compatibility.
+
 3. **DEVICECONTROL**: Issues a command of a specific device and resouce.
     ```
     {
