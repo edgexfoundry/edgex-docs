@@ -231,24 +231,24 @@ Additionally, ensure that the service config has been deployed and that Core-Kee
     If running in secure mode this command needs the [Consul ACL token](#token-generation-secure-mode-only) generated previously.
 
 ```bash
-curl -sH "X-Consul-Token:<consul-token>" -X GET "http://localhost:59890/api/{{api_version}}/kvs/key/edgex/{{edgexversion}}/device-onvif-camera?keyOnly=true" | jq -r ".response"
+curl -sH "X-Consul-Token:<consul-token>" -X GET "http://localhost:59890/api/{{api_version}}/kvs/key/edgex/{{config_version}}/device-onvif-camera?keyOnly=true" | jq -r ".response"
 ```     
 
 Example output:
 ```bash
 [
-  "edgex/v4/device-onvif-camera/Writable/LogLevel",
-  "edgex/v4/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretName",
-  "edgex/v4/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/username",
-  "edgex/v4/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/password",
-  "edgex/v4/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/mode",
-  "edgex/v4/device-onvif-camera/Writable/InsecureSecrets/credentials002/SecretName",
-  "edgex/v4/device-onvif-camera/Writable/InsecureSecrets/credentials002/SecretData/mode",
+  "edgex/{{config_version}}/device-onvif-camera/Writable/LogLevel",
+  "edgex/{{config_version}}/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretName",
+  "edgex/{{config_version}}/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/username",
+  "edgex/{{config_version}}/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/password",
+  "edgex/{{config_version}}/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/mode",
+  "edgex/{{config_version}}/device-onvif-camera/Writable/InsecureSecrets/credentials002/SecretName",
+  "edgex/{{config_version}}/device-onvif-camera/Writable/InsecureSecrets/credentials002/SecretData/mode",
   ...
-  "edgex/v4/device-onvif-camera/AppCustom/CredentialsMap/NoAuth",
-  "edgex/v4/device-onvif-camera/AppCustom/RequestTimeout",
-  "edgex/v4/device-onvif-camera/AppCustom/DiscoveryMode",
-  "edgex/v4/device-onvif-camera/AppCustom/DiscoverySubnets"
+  "edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap/NoAuth",
+  "edgex/{{config_version}}/device-onvif-camera/AppCustom/RequestTimeout",
+  "edgex/{{config_version}}/device-onvif-camera/AppCustom/DiscoveryMode",
+  "edgex/{{config_version}}/device-onvif-camera/AppCustom/DiscoverySubnets"
 ]
 ```
 
@@ -414,17 +414,17 @@ Follow these instructions to add and update devices manually.
             If you want to map multiple mac addresses, enter a comma separated list in the command
 
         ```bash
-        curl --data '{ "value": "<mac-address>" }' -X PUT "http://localhost:59890/api/{{api_version}}/kvs/key/edgex/{{edgexversion}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
+        curl --data '{ "value": "<mac-address>" }' -X PUT "http://localhost:59890/api/{{api_version}}/kvs/key/edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
         ```
         
         Example output: 
         ```bash
-        {"apiVersion":"v3","statusCode":200,"response":["edgex/v4/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"]}
+        {"apiVersion":"v3","statusCode":200,"response":["edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"]}
         ```
         
         b. Check the status of the credentials map.
         ```bash
-        curl -X GET "http://localhost:59890/api/{{api_version}}/kvs/key/edgex/{{edgexversion}}/device-onvif-camera/AppCustom/CredentialsMap?keyOnly=true&plaintext=true" | jq .
+        curl -X GET "http://localhost:59890/api/{{api_version}}/kvs/key/edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap?keyOnly=true&plaintext=true" | jq .
         ```
         Example output:
         ```bash
@@ -432,15 +432,15 @@ Follow these instructions to add and update devices manually.
           "apiVersion": "v3",
           "statusCode": 200,
           "response": [
-            "edgex/v4/device-onvif-camera/AppCustom/CredentialsMap/NoAuth",
-            "edgex/v4/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
+            "edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap/NoAuth",
+            "edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
           ]
         }
         ```
 
         c. Check the mac addresses mapped to a specific credenential name. Insert the credential name in the command to see the mac addresses associated with it.
         ```bash
-        curl -sX GET "http://localhost:59890/api/{{api_version}}/kvs/key/edgex/{{edgexversion}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>?plaintext=true" | jq .
+        curl -sX GET "http://localhost:59890/api/{{api_version}}/kvs/key/edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>?plaintext=true" | jq .
         ```
         Example response:
         ```bash
@@ -449,7 +449,7 @@ Follow these instructions to add and update devices manually.
           "statusCode": 200,
           "response": [
             {
-              "key": "edgex/v4/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>",
+              "key": "edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>",
               "Created": 1777267786001,
               "Modified": 1777267786001,
               "value": "<mac-address>"
