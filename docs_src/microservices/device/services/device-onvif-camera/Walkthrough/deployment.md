@@ -226,19 +226,30 @@ Follow this guide to deploy and run the service.
             <i>Figure 4: EdgeX Console Device Profile List</i>
          </p>
 
-Additionally, ensure that the service config has been deployed and that Consul is reachable.
+Additionally, ensure that the service config has been deployed and that Core-Keeper is reachable.
 !!! note
     If running in secure mode this command needs the [Consul ACL token](#token-generation-secure-mode-only) generated previously.
 
 ```bash
-curl -H "X-Consul-Token:<consul-token>" -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera?keys=true"
+curl -sH "X-Consul-Token:<consul-token>" -X GET "http://localhost:59890/api/{{api_version}}/kvs/key/edgex/{{config_version}}/device-onvif-camera?keyOnly=true" | jq -r ".response"
 ```     
 
 Example output:
 ```bash
-["edgex/v3/device-onvif-camera/AppCustom/BaseNotificationURL", "edgex/v3/device-onvif-camera/AppCustom/CheckStatusInterval",
-  "edgex/v3/device-onvif-camera/AppCustom/CredentialsMap/NoAuth", ... , "edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/username", "edgex/v3/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretName",
-  "edgex/v3/device-onvif-camera/Writable/LogLevel"]
+[
+  "edgex/{{config_version}}/device-onvif-camera/Writable/LogLevel",
+  "edgex/{{config_version}}/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretName",
+  "edgex/{{config_version}}/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/username",
+  "edgex/{{config_version}}/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/password",
+  "edgex/{{config_version}}/device-onvif-camera/Writable/InsecureSecrets/credentials001/SecretData/mode",
+  "edgex/{{config_version}}/device-onvif-camera/Writable/InsecureSecrets/credentials002/SecretName",
+  "edgex/{{config_version}}/device-onvif-camera/Writable/InsecureSecrets/credentials002/SecretData/mode",
+  ...
+  "edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap/NoAuth",
+  "edgex/{{config_version}}/device-onvif-camera/AppCustom/RequestTimeout",
+  "edgex/{{config_version}}/device-onvif-camera/AppCustom/DiscoveryMode",
+  "edgex/{{config_version}}/device-onvif-camera/AppCustom/DiscoverySubnets"
+]
 ```
 
 ## Manage Devices
@@ -273,7 +284,7 @@ Follow these instructions to add and update devices manually.
                    "protocols": {
                       "Onvif": {
                          "Address": "10.0.0.0",
-                         "Port": "10000",
+                         "Port": "2020",
                          "MACAddress": "aa:bb:cc:11:22:33",
                          "FriendlyName":"Default Camera"
                       },
@@ -403,34 +414,48 @@ Follow these instructions to add and update devices manually.
             If you want to map multiple mac addresses, enter a comma separated list in the command
 
         ```bash
-        curl --data '<mac-address>' -X PUT "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
+        curl --data '{ "value": "<mac-address>" }' -X PUT "http://localhost:59890/api/{{api_version}}/kvs/key/edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
         ```
         
         Example output: 
         ```bash
-        true
+        {"apiVersion":"v3","statusCode":200,"response":["edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"]}
         ```
         
         b. Check the status of the credentials map.
         ```bash
-        curl -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap?keys=true" | jq .
+        curl -X GET "http://localhost:59890/api/{{api_version}}/kvs/key/edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap?keyOnly=true&plaintext=true" | jq .
         ```
         Example output:
         ```bash
-        [
-        "edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/NoAuth",
-        "edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/credentials001",
-        "edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/credentials002"
-        ]
+        {
+          "apiVersion": "v3",
+          "statusCode": 200,
+          "response": [
+            "edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap/NoAuth",
+            "edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>"
+          ]
+        }
         ```
 
         c. Check the mac addresses mapped to a specific credenential name. Insert the credential name in the command to see the mac addresses associated with it.
         ```bash
-        curl -X GET "http://localhost:8500/v1/kv/edgex/{{api_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>?raw=true"
+        curl -sX GET "http://localhost:59890/api/{{api_version}}/kvs/key/edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>?plaintext=true" | jq .
         ```
         Example response:
         ```bash
-        11:22:33:44:55:66
+        {
+          "apiVersion": "v3",
+          "statusCode": 200,
+          "response": [
+            {
+              "key": "edgex/{{config_version}}/device-onvif-camera/AppCustom/CredentialsMap/<creds-name>",
+              "Created": 1777267786001,
+              "Modified": 1777267786001,
+              "value": "<mac-address>"
+            }
+          ]
+        }
         ```
 
     !!! note
@@ -445,7 +470,6 @@ Follow these instructions to add and update devices manually.
     Example output: 
     ```bash
     deviceName: Camera001
-    deviceName: device-onvif-camera
     ```
      
     !!! note
@@ -453,7 +477,7 @@ Follow these instructions to add and update devices manually.
 
 #### Update Device
 
-   There are multiple commands that can update aspects of the camera entry in meta-data. Refer to the [Swagger documentation](./general-usage.md) for Core Metadata for more information. For editing specific fields, see the [General Usage](./general-usage.md) tab.
+   There are multiple commands that can update aspects of the camera entry in meta-data. Refer to the [Swagger documentation](../swagger.md) for Core Metadata for more information. For editing specific fields, see the [General Usage](./general-usage.md) tab.
 
 #### Delete Device
 
