@@ -1,0 +1,42 @@
+Writable:
+  LogLevel: INFO
+  Reading:
+    ReadingUnits: true
+  Telemetry:
+    Metrics:
+      # All service's custom metric names must be present in this list. All common metric names are in the Common Config
+      ReadCommandsExecuted: true
+Service:
+  Host: "localhost"
+  Port: 59999 # Device service are assigned the 599xx range
+  StartupMsg: device simple started
+
+Clients:
+  core-metadata:
+    Host: localhost
+    Port: 59881
+
+MessageBus:
+  Protocol: mqtt
+  Host: localhost
+  Port: 6379
+  Type: mqtt
+  AuthMode: "usernamepassword"  # required for mqtt messagebus (secure or insecure)
+  SecretName: mqtt-bus
+  Optional:
+    ClientId: device-example
+
+# Example overriding of Common Config settings
+Device:
+  AsyncBufferSize: 1
+  # These have common values (currently), but must be here for service local env overrides to apply when customized
+  ProfilesDir: "./res/profiles"
+  DevicesDir: "./res/devices"
+  # Only needed if device service implements auto provisioning
+  ProvisionWatchersDir: ./res/provisionwatchers
+# Example structured custom configuration
+SimpleCustom:
+  OnImageLocation: ./res/on.png
+  OffImageLocation: ./res/off.jpg
+  Writable:
+    DiscoverSleepDurationSecs: 10

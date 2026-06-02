@@ -1,0 +1,160 @@
+name: "patlite-snmp-profile"
+manufacturer: "IOTech"
+model: "NHL-FB2"
+labels: 
+- "patlite"
+- "signal tower"
+- "snmp"
+description: "Patlite NHL-FB2, Signal Tower accessed via SNMP"
+
+deviceResources:
+-
+  name: "RedLightControlState"
+  isHidden: true
+  description: "red light state"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.2.1", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "W"
+    defaultValue: "1"
+-
+  name: "AmberLightControlState"
+  isHidden: true
+  description: "amber light state"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.2.2", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "W"
+    defaultValue: "1"
+-
+  name: "GreenLightControlState"
+  isHidden: true
+  description: "green light state"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.2.3", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "W"
+    defaultValue: "1"
+-
+  name: "BuzzerControlState"
+  isHidden: true
+  description: "buzzer state"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.2.6", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "W"
+    defaultValue: "1"
+-
+  name: "RedLightTimer"
+  isHidden: true
+  description: "red light timer"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.3.1", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "W"
+    defaultValue: "1"
+-
+  name: "AmberLightTimer"
+  isHidden: true
+  description: "amber light timer"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.3.2", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "W"
+    defaultValue: "1"
+-
+  name: "GreenLightTimer"
+  isHidden: true
+  description: "green light timer"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.3.3", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "W"
+    defaultValue: "1"
+-
+  name: "BuzzerTimer"
+  isHidden: true
+  description: "buzzer timer"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.3.6", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "W"
+    defaultValue: "1"
+-
+  name: "RedLightCurrentState"
+  isHidden: false
+  description: "red light current state"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.4.1", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "R"
+    defaultValue: "1"
+-
+  name: "AmberLightCurrentState"
+  isHidden: false
+  description: "amber light current state"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.4.2", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "R"
+    defaultValue: "1"
+-
+  name: "GreenLightCurrentState"
+  isHidden: false
+  description: "green light current state"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.4.3", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "R"
+    defaultValue: "1"
+-
+  name: "BuzzerCurrentState"
+  isHidden: false
+  description: "buzzer current state"
+  attributes:
+    { oid: "1.3.6.1.4.1.20440.4.1.5.1.2.1.4.6", community: "private" }  
+  properties:
+    valueType:  "Int32"
+    readWrite: "R"
+    defaultValue: "1"
+
+deviceCommands:
+-
+  name: "RedLight"
+  readWrite: "W"
+  isHidden: false
+  resourceOperations:
+  - { deviceResource: "RedLightControlState" }
+  - { deviceResource: "RedLightTimer" }
+-
+  name: "GreenLight"
+  readWrite: "W"
+  isHidden: false
+  resourceOperations:
+  - { deviceResource: "GreenLightControlState" }
+  - { deviceResource: "GreenLightTimer" }
+-
+  name: "AmberLight"
+  readWrite: "W"
+  isHidden: false
+  resourceOperations:
+  - { deviceResource: "AmberLightControlState" }
+  - { deviceResource: "AmberLightTimer" }
+-
+  name: "Buzzer"
+  readWrite: "W"
+  isHidden: false
+  resourceOperations:
+  - { deviceResource: "BuzzerControlState" }
+  - { deviceResource: "BuzzerTimer" }
