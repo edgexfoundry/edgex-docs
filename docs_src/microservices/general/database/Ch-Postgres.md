@@ -56,8 +56,8 @@ SELECT event_id, origin, value, numeric_value from core_data.reading order by or
 (10 rows)
 ```
 
-!!! edgey - "EdgeX 4.1"
-    Numeric Data Type Support is new in EdgeX 4.1
+!!! edgey - "EdgeX 4.0.2"
+    Numeric Data Type Support is new in EdgeX 4.0.2
 
 ## PostgreSQL Table Schema Migration
 

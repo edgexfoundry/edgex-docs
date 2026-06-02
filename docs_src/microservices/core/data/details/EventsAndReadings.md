@@ -37,8 +37,8 @@ The supported SQL aggregate functions follow the definitions outlined [here](htt
 - `SUM()`
 - `AVG()`
 
-!!! edgey - "EdgeX 4.1"
-    `aggregateFunc` query parameter was introduced in EdgeX 4.1
+!!! edgey - "EdgeX 4.0.2"
+    `aggregateFunc` query parameter was introduced in EdgeX 4.0.2
 
 ### Example Usage
 

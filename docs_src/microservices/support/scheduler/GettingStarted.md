@@ -55,8 +55,8 @@ Examples of schedule action include:
         "useRawPayload": true
     }
     ```
-    !!! edgey "EdgeX 4.1"
-        The `useRawPayload` field is available since EdgeX 4.1 and defaults to `false` to maintain backward compatibility.
+    !!! edgey "EdgeX 4.0.2"
+        The `useRawPayload` field is available since EdgeX 4.0.2 and defaults to `false` to maintain backward compatibility.
 
 3. **DEVICECONTROL**: Issues a command of a specific device and resouce.
     ```

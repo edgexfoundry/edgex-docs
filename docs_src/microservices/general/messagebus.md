@@ -6,7 +6,7 @@ EdgeX has an internal message bus referred to as the **EdgeX MessageBus** , whic
 
 The following diagram shows how each of the EdgeX Service use the EdgeX MessageBus.
 
-![[Insert Image of EdgeX MessageBus]](./messagebus diagram.jpg)
+![Insert Image of EdgeX MessageBus](./messagebus diagram.jpg)
 
 The EdgeX MessageBus is meant for internal EdgeX service to service communications. It is not meant as an entry point for external services to communicate with the internal EdgeX services. The eKuiper Rules Engine is an exception to this as it is tightly integrated with EdgeX.
 
@@ -15,48 +15,48 @@ The EdgeX services intended as external entry points are:
 - **REST API on all the EdgeX services** - Accessed directly in non-secure mode or via the [API Gateway](../../../security/Ch-APIGateway) when running in secure mode
 
 - **App Service using External MQTT Trigger** - An App Service configured to use the [External MQTT Trigger](../application/details/Triggers.md#external-mqtt-trigger) will accept data from external services on an "external" MQTT connection
-  
+
 - **App Service using HTTP Trigger** - An App Service configured to use the [HTTP Trigger](../application/details/Triggers.md#http-trigger) will accept data from external services on an "external" REST connection. Accessed in the same manner as other EdgeX REST APIs.
 
 - **App Service using Custom Trigger** - An App Service configured to use a [Custom Trigger](../application/details/Triggers.md#custom-triggers) can accept data from external services or over additional protocols with few limitations. See [Custom Trigger Example](https://github.com/edgexfoundry/edgex-examples/tree/{{edgexversion}}/application-services/custom/custom-trigger) for an example.
 
-- **Core Command External MQTT Connection** - Core Command now receives command requests and publishes responses via an external MQTT connection that is separate from the EdgeX MessageBus. The requests are forwarded to the EdgeX MessageBus and the corresponding responses are forwarded back to the external MQTT connection. 
+- **Core Command External MQTT Connection** - Core Command now receives command requests and publishes responses via an external MQTT connection that is separate from the EdgeX MessageBus. The requests are forwarded to the EdgeX MessageBus and the corresponding responses are forwarded back to the external MQTT connection.
 
-Originally, the EdgeX MessageBus was only used to send *Event/Readings* from Core Data to the Application Services layer. In recent releases, more services use the EdgeX MessageBus rather than REST for inter service communication.  
+Originally, the EdgeX MessageBus was only used to send *Event/Readings* from Core Data to the Application Services layer. In recent releases, more services use the EdgeX MessageBus rather than REST for inter service communication.
 
-- Device Services publish *Event/Readings* directly to the EdgeX MessageBus rather than sending them via REST to Core Data. 
+- Device Services publish *Event/Readings* directly to the EdgeX MessageBus rather than sending them via REST to Core Data.
 - [Service Metrics](../#service-metrics) are published to the EdgeX MessageBus
-- [System Events](../core/metadata/details/DeviceSystemEvents.md) are published to the EdgeX MessageBus. 
-- [Command Request/Reponses](../../../design/adr/0023-North-South-Messaging) are now published to the EdgeX MessageBus by Core Command and Devices Services.  
+- [System Events](../core/metadata/details/DeviceSystemEvents.md) are published to the EdgeX MessageBus.
+- [Command Request/Responses](../../../design/adr/0023-North-South-Messaging) are now published to the EdgeX MessageBus by Core Command and Devices Services.
 - Device validation requests from Core Metadata to Device Services via the EdgeX MessageBus.
 
 ## Message Envelope
 
-All messages published to the EdgeX MessageBus are wrapped in a `MessageEnvelope`. This envelope contains metadata describing the message payload, such as the payload Content Type (JSON or CBOR), Correlation Id, etc. 
+All messages published to the EdgeX MessageBus are wrapped in a `MessageEnvelope`. This envelope contains metadata describing the message payload, such as the payload Content Type (JSON or CBOR), Correlation Id, etc.
 
 !!! note
     Unless noted below, the `MessageEnvelope` is  JSON encoded when publishing it to the EdgeX MessageBus. This does result in the `MessageEnvelope`'s payload being double encoded.
 
 !!! edgey "Edgex 4.0"
-    In EdgeX v4, a new environment variable `EDGEX_MSG_BASE64_PAYLOAD` has been introduced. By default, `EDGEX_MSG_BASE64_PAYLOAD` is **false**, which means the payload can be a JSON object rather than a byte array. The change ensures that the payload is not double-encoded. If `EDGEX_MSG_BASE64_PAYLOAD` is set to **true**, the payload will be handled as it was in previous versions. 
+    In EdgeX v4, a new environment variable `EDGEX_MSG_BASE64_PAYLOAD` has been introduced. By default, `EDGEX_MSG_BASE64_PAYLOAD` is **false**, which means the payload can be a JSON object rather than a byte array. The change ensures that the payload is not double-encoded. If `EDGEX_MSG_BASE64_PAYLOAD` is set to **true**, the payload will be handled as it was in previous versions.
 
 ## Implementations
 
-The EdgeX MessageBus is defined by the message bus abstraction implemented in [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging). This module defines an abstract client API which currently has four implementations of the API for the different underlying message bus protocols. 
+The EdgeX MessageBus is defined by the message bus abstraction implemented in [go-mod-messaging](https://github.com/edgexfoundry/go-mod-messaging). This module defines an abstract client API which currently has four implementations of the API for the different underlying message bus protocols.
 
 ### Common MessageBus Configuration
 
-Each service that uses the EdgeX MessageBus has a configuration section which defines the implementation to use, the connection method, and the underlying protocol client. This section is the `MessageBus:` section in the service common configuration for all EdgeX services. See the **MessageBus** tab in [Common Configuration](../../configuration/CommonConfiguration/#common-configuration-properties) for more details. 
+Each service that uses the EdgeX MessageBus has a configuration section which defines the implementation to use, the connection method, and the underlying protocol client. This section is the `MessageBus:` section in the service common configuration for all EdgeX services. See the **MessageBus** tab in [Common Configuration](../../configuration/CommonConfiguration/#common-configuration-properties) for more details.
 
 The common MessageBus configuration elements for each implementation are:
 
-- Type - Specifies which of the following implementations to use. 
+- Type - Specifies which of the following implementations to use.
     - **MQTT 3.1**(**default**) - `Type=mqtt`
-    - **NATS Core** - `Type=nats-core` 
-    - **NATS JetStream** - `Type=nats-jetstream` 
-- Host - Specifies the name or IP for the message broker 
-- Port - Specifies the port number for the message broker 
-- Protocol - Specifies portocol used by the message broker
+    - **NATS Core** - `Type=nats-core`
+    - **NATS JetStream** - `Type=nats-jetstream`
+- Host - Specifies the name or IP for the message broker
+- Port - Specifies the port number for the message broker
+- Protocol - Specifies protocol used by the message broker
     - `tcp` for **MQTT 3.1 (default)**
     - `tcp` for **NATS Core**
     - `tcp` for **NATS JetStream**
@@ -72,14 +72,14 @@ Robust message bus protocol, which has additional configuration options for robu
 
 See [Common Configuration](#common-messagebus-configuration) section above for the common configuration elements for all implementations.
 
-##### Security Configuration 
+##### Security Configuration
 
 | Option     | Default Value | Description                                                  |
 | ---------- | ------------- | ------------------------------------------------------------ |
 | AuthMode   | `none`        | Mode of authentication to use. Values are `none`, `usernamepassword`, `clientcert`, or `cacert`. In secure mode the MQTT Broker uses `usernamepassword` |
 | SecretName | blank         | Secret name used to look up credentials in the service's SecretStore |
 
-##### Additional Configuration 
+##### Additional Configuration
 
 Except where noted default values exist in the service common configuration.
 
@@ -109,7 +109,7 @@ The JetStream persistence layer binds NATS subjects to persistent streams which 
 
 See [Common Configuration](#common-messagebus-configuration) section above for the common configuration elements for all implementations.
 
-##### Security Configuration 
+##### Security Configuration
 
 | Option          | Default Value | Description                                                                                                                                                     |
 |-----------------|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -125,7 +125,7 @@ Except where noted default values exist in the service common configuration.
 | Option                  | Default Value | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 |-------------------------|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | ClientId                | service key   | Unique name of the client connecting to the NATS Server (**Set in each service's private configuration**)                                                                                                                                                                                                                                                                                                                                                          |
-| Format                  | `nats`        | Format of the actual message published. Valid values are:<br />- **nats** : Metadata from the `MessageEnvlope` are put into the NATS header and the payload from the `MessageEnvlope` is published as is. **Preferred format when all services are using NATS**<br />- **json** : JSON encodes the `MessageEnvelope` and publish it as the message. Use this format for compatibility when other services using MQTT 3.1 and running the NATS Server in MQTT mode. |
+| Format                  | `nats`        | Format of the actual message published. Valid values are:<br />- **nats** : Metadata from the `MessageEnvelope` are put into the NATS header and the payload from the `MessageEnvelope` is published as is. **Preferred format when all services are using NATS**<br />- **json** : JSON encodes the `MessageEnvelope` and publish it as the message. Use this format for compatibility when other services using MQTT 3.1 and running the NATS Server in MQTT mode. |
 | ConnectTimeout          | `30`          | Timeout in seconds for the connection to the broker to be successful                                                                                                                                                                                                                                                                                                                                                                                               |
 | RetryOnFailedConnect    | `false`       | Retry on connection failure - expects a string representation of a boolean                                                                                                                                                                                                                                                                                                                                                                                         |
 | QueueGroup              | blank         | Specifies a queue group to distribute messages from a stream to a pool of worker services                                                                                                                                                                                                                                                                                                                                                                          |
@@ -161,21 +161,21 @@ The NATS implementations convert the NATS multi-level topic scheme to match that
     - **edgex/events/#**
 
         All events coming from any device service or core data for any device profile, device or source
-      
+
     - **edgex/events/device/#**
-    
+
         All events coming from any device service for any device profile, device or source
-    
+
     - **edgex/events/+/device-onvif-camera/#**
-    
+
         Events coming from only device service "device-onvif-camera" for any device profile, device and source
-      
+
     - **edgex/events/+/+/+/camera-001/#**
-    
+
         Events coming from any device service or core data for any device profile, but only for the device "camera-001" and for any source
-      
+
     - **edgex/events/device/+/onvif/+/status**
-    
+
         Events coming from any device service for only the device profile "onvif", and any device and only for the source "status"
 
 
@@ -200,11 +200,11 @@ The MessageBus configuration is in common configuration where the following chan
     ```yaml
     MessageBus:
       Type: "mqtt"
-      Protocol: "tcp" 
-      Host: "localhost" # in docker this must be overriden to be the docker host name of the MQTT Broker
+      Protocol: "tcp"
+      Host: "localhost" # in docker this must be overridden to be the docker host name of the MQTT Broker
       Port: 1883
       AuthMode: "none"  # set to "usernamepassword" when running in secure mode
-      SecreName: "message-bus"
+      SecretName: "message-bus"
       ...
     ```
 
@@ -225,14 +225,14 @@ edgex/system-events/core-metadata/deviceservice/update/device-virtual �japiVer
 edgex/events/device/device-virtual/Random-Boolean-Device/Random-Boolean-Device/Bool �japiVersionbv3mreceivedTopic`mcorrelationIDx$7abc82d9-9021-4bcf-8f9e-c4e9e37dd7aairequestID`ierrorCodegpayload�japiVersionbv3irequestIdx$48147021-4e24-4d2e-89b1-ac8046f51dcdeevent�japiVersionbv3bidx$c6afd22d-7f9f-47f7-93bf-cfdcac377445jdeviceNameuRandom-Boolean-DevicekprofileNameuRandom-Boolean-DevicejsourceNamedBoolforiginT,�a�^�hreadings��bidx$75063062-75fe-4c93-ad20-e7551d4c27f7foriginT,�a�^�jdeviceNameuRandom-Boolean-DevicelresourceNamedBoolkprofileNameuRandom-Boolean-DeviceivalueTypedBoolevalueefalsekcontentTypepapplication/cbor
 ```
 
-!!! edgey "EdgeX 4.1"
-    Message envelope CBOR encoding is new in EdgeX 4.1.
+!!! edgey "EdgeX 4.0.2"
+    Message envelope CBOR encoding is new in EdgeX 4.0.2.
 
 #### Optimize Event Payload
 
-This feature is implemented based on the [ADR][2] to reduce device event payload size. 
+This feature is implemented based on the [ADR][2] to reduce device event payload size.
 
-To enable this feature, set the `EDGEX_OPTIMIZE_EVENT_PAYLOAD` environment variable to `true` for all EdgeX services. 
+To enable this feature, set the `EDGEX_OPTIMIZE_EVENT_PAYLOAD` environment variable to `true` for all EdgeX services.
 
 This can be done by adding the variable to the `.env` file before generating the docker-compose file. For guidance on generating the Docker Compose file, refer to the [Getting Started using Docker][1] guide.
 
@@ -240,7 +240,7 @@ After deploying the EdgeX services, you can verify the optimized event payload i
 
 ```shell
 $ docker exec mqtt-broker mosquitto_sub -v -t '#'
-edgex/events/device/device-simple/Random-UnsignedInteger-Device/Random-UnsignedInteger-Device/Uint8Array 
+edgex/events/device/device-simple/Random-UnsignedInteger-Device/Random-UnsignedInteger-Device/Uint8Array
 {
   "apiVersion":"v3", "receivedTopic":"","correlationID":"8ad7fd3f-a7f7-4c38-ac10-f631d3272ae8","requestID":"","errorCode":0,
   "payload":{
@@ -281,8 +281,8 @@ $ curl http://localhost:59882/api/v3/device/name/Random-UnsignedInteger-Device/U
 }
 ```
 
-!!! edgey "EdgeX 4.1"
-    Optimize event payload is new in EdgeX 4.1.
+!!! edgey "EdgeX 4.0.2"
+    Optimize event payload is new in EdgeX 4.0.2.
 
 #### Docker
 
@@ -308,7 +308,7 @@ The EdgeX Go based services are not capable of using the NATS implementation wit
 !!! example - "Core Data make target modified to include NATS"
     ````makefile
     cmd/core-data/core-data:
-    	$(GOCGO) build -tags "include_nats_messaging $(NON_DELAYED_START_GO_BUILD_TAG_FOR_CORE)" $(CGOFLAGS) -o $@ ./cmd/core-data
+        $(GOCGO) build -tags "include_nats_messaging $(NON_DELAYED_START_GO_BUILD_TAG_FOR_CORE)" $(CGOFLAGS) -o $@ ./cmd/core-data
     ````
 
 !!! note
@@ -326,8 +326,8 @@ The MessageBus configuration is in common configuration where the following chan
     ```yaml
     MessageBus:
       Type:  "nats-jetstream"
-      Protocol:  "tcp" 
-      Host:  "localhost" # in docker this must be overriden to be the docker host name of the NATS server
+      Protocol:  "tcp"
+      Host:  "localhost" # in docker this must be overridden to be the docker host name of the NATS server
       Port:  4222
       AuthMode:  "none"  # Currently in secure mode the NATS server is not secured
     ```
