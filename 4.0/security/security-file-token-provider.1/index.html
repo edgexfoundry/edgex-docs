@@ -7395,16 +7395,16 @@ services from reading each other's tokens.</p>
 <h2 id="configurationyaml">configuration.yaml</h2>
 <p>This file specifies the TCP/IP location of the OpenBao service and
 parameters used for OpenBao token generation.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">SecretService</span><span class="o">:</span>
-<span class="w">  </span><span class="n">Scheme</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https&quot;</span>
-<span class="w">  </span><span class="n">Server</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span>
-<span class="w">  </span><span class="n">Port</span><span class="o">:</span><span class="w"> </span><span class="mi">8200</span>
+<div class="codehilite"><pre><span></span><code>SecretService:
+  Scheme: &quot;https&quot;
+  Server: &quot;localhost&quot;
+  Port: 8200
 
-<span class="n">TokenFileProvider</span><span class="o">:</span>
-<span class="w">  </span><span class="n">PrivilegedTokenPath</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/run/edgex/secrets/tokenprovider/secrets-token.json&quot;</span>
-<span class="w">  </span><span class="n">ConfigFile</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;token-config.json&quot;</span>
-<span class="w">  </span><span class="n">OutputDir</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/run/edgex/secrets/&quot;</span>
-<span class="w">  </span><span class="n">OutputFilename</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;secrets-token.json&quot;</span>
+TokenFileProvider:
+  PrivilegedTokenPath: &quot;/run/edgex/secrets/tokenprovider/secrets-token.json&quot;
+  ConfigFile: &quot;token-config.json&quot;
+  OutputDir: &quot;/run/edgex/secrets/&quot;
+  OutputFilename: &quot;secrets-token.json&quot;
 </code></pre></div>
 
 <h2 id="secrets-tokenjson">secrets-token.json</h2>
