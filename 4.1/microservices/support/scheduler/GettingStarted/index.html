@@ -7562,10 +7562,17 @@
 </div>
 <h3 id="scheduledefinition">ScheduleDefinition</h3>
 <p>A schedule definition specifies an interval (type <strong>INTERVAL</strong>) or a crontab expression (type <strong>CRON</strong>) for a scheduleJob to be triggered at a specific time.</p>
-<p>Two optional fields are available for the schedule definition:</p>
+<p>Three optional fields are available for the schedule definition:</p>
 <ol>
 <li><strong>startTimestamp</strong>: The start Unix timestamp of the schedule job, in milliseconds.</li>
 <li><strong>endTimestamp</strong>: The end Unix timestamp of the schedule job, in milliseconds.</li>
+<li>
+<p><strong>activeYearlyTimeWindow</strong>: A recurring yearly active period, given as a start and end month/day. The job only runs on dates within this period each year and is skipped outside it. When omitted, the job runs on every trigger within its lifetime. If the start (month/day) is later than the end, the window is year-crossing, e.g. Nov 15 to Feb 10 keeps the job active every winter. This field works with both INTERVAL and CRON.</p>
+<div class="admonition edgey">
+<p class="admonition-title">EdgeX 4.1</p>
+<p>The <code>activeYearlyTimeWindow</code> field is available since EdgeX 4.1.</p>
+</div>
+</li>
 </ol>
 <p>Examples of schedule definition include:</p>
 <ol>
@@ -7581,6 +7588,18 @@
     <div class="highlight"><pre><span></span><code>{
     &quot;type&quot;: &quot;CRON&quot;,
     &quot;crontab&quot;: &quot;CRON_TZ=Asia/Taipei 0 0 0 * * *&quot;
+}
+</code></pre></div></li>
+<li><strong>activeYearlyTimeWindow</strong>: A schedule job will be triggered every hour, but only during winter (November 1 to February 28) each year.
+    <div class="highlight"><pre><span></span><code>{
+    &quot;type&quot;: &quot;INTERVAL&quot;,
+    &quot;interval&quot;: &quot;1h&quot;,
+    &quot;activeYearlyTimeWindow&quot;: {
+        &quot;startMonth&quot;: 11,
+        &quot;startDay&quot;: 1,
+        &quot;endMonth&quot;: 2,
+        &quot;endDay&quot;: 28
+    }
 }
 </code></pre></div></li>
 </ol>
