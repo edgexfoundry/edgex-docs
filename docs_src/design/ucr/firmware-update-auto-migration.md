@@ -12,7 +12,9 @@
 - Public & Services (critical infrastructure operations)
 
 ## Motivation
-Edge systems based on EdgeX commonly keep runtime state in persistence services, while service resource files are delivered in immutable firmware artifacts.
+In this use case, "firmware" means the software image or update package delivered to the EdgeX gateway or host system. It does not mean firmware running inside a southbound field device managed by EdgeX.
+
+Edge systems based on EdgeX commonly keep runtime state in persistence services, while service resource files are delivered in immutable firmware artifacts. Here, "service resource files" means the packaged files consumed by an EdgeX service at startup, such as configuration files, device profile files, and device definition files.
 
 During firmware upgrades, configuration, device profiles, and device definitions shipped in the new image may not be automatically reconciled with existing persisted state. This causes production risks:
 - New required keys or device resources may not become active
@@ -31,7 +33,9 @@ The use case goal is deterministic and safe migration of runtime state during fi
 - Service Provider
 
 ## Description
-A device receives a signed firmware package containing updated service resource files. After reboot into the updated firmware, each affected EdgeX service should perform version-aware migration against persisted state.
+An EdgeX gateway or host system receives a firmware image or software update package containing updated service resource files. These service resource files are the packaged startup artifacts for an EdgeX service, including configuration files, device profile files, and device definition files; they are not limited to device profiles alone.
+
+After reboot into the updated firmware, each affected EdgeX service should perform version-aware migration against persisted state.
 
 Expected behavior:
 - If incoming resource version is newer than stored version, migrate that category
@@ -90,7 +94,7 @@ No standardized EdgeX-native approach that consistently handles config/profile/d
 - Observability:
   - Structured logs indicating decision path, versions compared, and actions taken
 - Security and governance:
-  - Signed firmware path remains authoritative
+  - The migration design must work regardless of whether the deployment uses signed or unsigned update packages
   - No secrets written to logs during migration
 - E2E rollback considerations:
   - Define expected behavior if firmware rolls back to an older version while persistence remains at a newer migrated version
