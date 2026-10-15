@@ -76,8 +76,9 @@ You generally need to transform data when scaling readings between a
 
 The following limitations apply:
 
--  `rawType` supports only Int16, Uint16 and Int32 data types
--  The corresponding `valueType` must be Float32 or Float64
+-  `rawType` supports `Int16`, `Uint16`, `Int32`, `Uint32`, and `Uint64`.
+-  The corresponding `valueType` must be a supported floating-point type, as
+   listed in the table below. `Uint32` and `Uint64` require `Float64`.
 
 If an unsupported data type is defined for the `rawType` attribute, the
 device service throws an exception similar to the following:
@@ -97,3 +98,46 @@ The supported transformations are as follows:
   |Int32                        |Float64|
   |Uint16                       |Float32|
   |Uint16                       |Float64|
+  |Uint32                       |Float64|
+  |Uint64                       |Float64|
+
+## Unsigned Integer Raw Types
+
+Use `rawType: Uint32` or `rawType: Uint64` with `valueType: Float64` to convert
+unsigned register values to floating-point values before applying property
+transformations such as `scale`. These conversions support both read and write
+commands.
+
+- `Uint32` occupies two consecutive 16-bit registers. It uses big-endian byte
+  order and supports the existing `isByteSwap` and `isWordSwap` attributes.
+- `Uint64` occupies four consecutive 16-bit registers. It is always read and
+  written in big-endian byte order. `isByteSwap` and `isWordSwap` are ignored;
+  devices using another 64-bit byte order require a separate conversion.
+- `Float64` represents all `Uint32` values exactly. It represents every integer
+  from zero through 2^53 (9,007,199,254,740,992) exactly. Larger `Uint64` values can
+  lose precision during conversion, regardless of byte order.
+
+!!! example "Example - Unsigned Integer Device Resources"
+
+    ```yaml
+    deviceResources:
+      - name: "scaledCounter32"
+        attributes:
+          primaryTable: "HOLDING_REGISTERS"
+          startingAddress: 0
+          rawType: "Uint32"
+          isByteSwap: false
+          isWordSwap: false
+        properties:
+          valueType: "Float64"
+          readWrite: "RW"
+          scale: 0.01
+      - name: "counter64"
+        attributes:
+          primaryTable: "HOLDING_REGISTERS"
+          startingAddress: 2
+          rawType: "Uint64"
+        properties:
+          valueType: "Float64"
+          readWrite: "RW"
+    ```
