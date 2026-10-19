@@ -164,7 +164,10 @@ For example: `{ primaryTable: "INPUT_REGISTERS", startingAddress: "4", isByteSwa
 
 4.`RAW_TYPE`: This attribute defines the binary data read from the Modbus device, then we can use the value type to indicate the data type that the user wants to receive.
 
-We only support `Int16`, `Int32` and `Uint16` for rawType. The corresponding value type must be `Float32` and `Float64`.
+The supported `rawType` values are `Int16`, `Uint16`, `Int32`, `Uint32`, and
+`Uint64`. `Uint32` and `Uint64` require `valueType: Float64`. See
+[Data Type Conversion](details/DataTypeConversion.md#supported-transformations)
+for the supported combinations, byte order, and precision limits.
 For example:
 ```yaml
 deviceResources:
