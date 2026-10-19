@@ -64,8 +64,32 @@ Use consistent settings across participating devices. A device with different
 settings logs a warning and uses the existing session's settings.
 
 Removing one UnitID does not close the connection while another UnitID still uses
-it. The shared connection is closed when the last UnitID is removed or the device
-service stops.
+it. Each unit client releases its reference to the shared connection once. The
+connection closes when the last unit client is removed.
+
+**Errors and reconnection**
+
+A valid Modbus exception, such as "Illegal Data Address", leaves the shared
+connection open. A transport failure or malformed protocol response resets the
+socket; the next command reconnects through the same shared transport. The other
+UnitID clients remain available. Local validation and value transformation errors
+leave the connection intact.
+
+**Changing or removing devices**
+
+Device updates and removals are coordinated with commands already using that
+device. Changing the endpoint or `SharedConnection` setting closes the old client
+before the new configuration is used. Commands carrying stale connection settings,
+or targeting a removed device, are rejected. Devices already present in metadata
+are tracked when the service initializes.
+
+**Stopping the device service**
+
+A graceful stop rejects new commands and device changes, waits for admitted
+operations to finish, and closes all shared transports. A forced stop cancels
+queued commands and connection attempts. An in-flight network operation may still
+run until its configured timeout. Once a shared transport is closed for shutdown,
+it cannot reconnect.
 
 - Modbus RTU Device
     - These properties reside under the `modbus-rtu` key in the `protocols` section of each device definition.
