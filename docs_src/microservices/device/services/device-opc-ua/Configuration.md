@@ -29,3 +29,8 @@ OPCUAServer:
 | CertFile           | none              | Cert file of OPC-UA, path to cert.pem                                                                                                            |
 | KeyFile            | none              | Key file of OPC-UA, path to private key.pem                                                                                                      |
 | Writable.Resources | none              | Subscritions of OPC-UA                                                                                                                           |
+
+`Policy` and `Mode` are the defaults for a device that does not set those protocol properties.
+Username and password are not service configuration. A device sets `SecretName`, and the service reads `username` and `password` from the secret store with `SecretProvider.GetSecret`.
+An empty `SecretName` selects an anonymous user token.
+`CertFile` and `KeyFile` are required when the effective policy or mode is not `None`. They identify this device service, not an individual server.
