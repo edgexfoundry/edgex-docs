@@ -1,4 +1,4 @@
-# Firmware Update Safe Auto-Migration of Configuration, Profiles, and Devices
+# Firmware Update Safe Auto-Migration of Configuration, Profiles, and Device Records
 
 ## Submitters
 - Nilesh Dixit (Eaton)
@@ -12,16 +12,18 @@
 - Public & Services (critical infrastructure operations)
 
 ## Motivation
-In this use case, "firmware" means the software image or update package delivered to the EdgeX gateway or host system. It does not mean firmware running inside a southbound field device managed by EdgeX.
+In this use case, "firmware" means the software image or update package delivered to the EdgeX gateway or edge device host system. It does not mean firmware running inside a southbound field device managed by EdgeX. Whether that image/package is signed is deployment-specific and outside the core migration behavior defined here.
 
-Edge systems based on EdgeX commonly keep runtime state in persistence services, while service resource files are delivered in immutable firmware artifacts. Here, "service resource files" means the packaged files consumed by an EdgeX service at startup, such as configuration files, device profile files, and device definition files.
+On many EdgeX gateways, the firmware image ships the EdgeX services together with their service resource files, while EdgeX runtime state (configuration in the configuration key/value store, device profiles and device records in metadata) is persisted separately and survives a firmware update. Here, "service resource files" means the packaged files consumed by an EdgeX service at startup: configuration files, device profile files, and device record files; they are not limited to device profiles alone.
 
-During firmware upgrades, configuration, device profiles, and device definitions shipped in the new image may not be automatically reconciled with existing persisted state. This causes production risks:
+Example: firmware v1.0 ships a device service whose device profile `Meter-A` defines the resources `Voltage` and `Current`. Firmware v1.1 ships the same service with a new configuration key and a new resource `PowerFactor` in `Meter-A`. After the update, the service finds its configuration and the `Meter-A` profile already persisted and, by default, does not load the new versions. The new key and `PowerFactor` never take effect without a manual migration or a factory reset. The same applies to container deployments when a service image is upgraded and its persisted data is kept.
+
+As a result, configuration, device profiles, and device records shipped in a new image are not automatically reconciled with existing persisted state. This causes production risks:
 - New required keys or device resources may not become active
 - Deprecated values may remain and conflict with new behavior
 - Operators may need manual reset/reseed steps that increase downtime and error risk
 
-The use case goal is deterministic and safe migration of runtime state during firmware updates, without requiring factory reset or manual DB cleanup.
+The use case goal is deterministic and safe migration of runtime state during firmware updates, without requiring factory reset or manual persistence cleanup.
 
 ## Target Users
 - Device Manufacturer
@@ -33,17 +35,15 @@ The use case goal is deterministic and safe migration of runtime state during fi
 - Service Provider
 
 ## Description
-An EdgeX gateway or host system receives a firmware image or software update package containing updated service resource files. These service resource files are the packaged startup artifacts for an EdgeX service, including configuration files, device profile files, and device definition files; they are not limited to device profiles alone.
-
-After reboot into the updated firmware, each affected EdgeX service should perform version-aware migration against persisted state.
+An EdgeX host system receives a firmware image or software update package containing updated service resource files. After reboot into the updated firmware image, each EdgeX service that opts in should perform version-aware migration against persisted state.
 
 Expected behavior:
 - If incoming resource version is newer than stored version, migrate that category
 - Support three independent categories:
-  - Configuration (registry/KVS)
+  - Configuration (registry or configuration key/value store)
   - Device profiles (metadata)
-  - Device definitions (metadata)
-- Preserve backward compatibility for unversioned files
+  - Device records (metadata)
+- Opt-in only: services and resource files that do not declare a version keep the current behavior
 - Avoid cross-service side effects
 - Provide clear logs and auditability for all migration actions
 
@@ -64,17 +64,20 @@ Operational intent:
   - Gaps: Does not fully address profile/device migration and deletion lifecycle
 
 Gap summary:
-No standardized EdgeX-native approach that consistently handles config/profile/device migration during firmware update while preserving operational safety.
+No standardized EdgeX-native approach that consistently handles configuration, profile, and device-record migration during firmware update while preserving operational safety.
 
 ## Requirements
 - Introduce a standardized version-aware migration contract for service resource files:
-  - Config version field for registry migration
+  - Config version field for registry or configuration key/value-store migration
   - Profile version field for metadata profile migration
-  - Device version field for metadata device migration
+  - Device version field for metadata device-record migration
+- Backward compatibility:
+  - A service or resource file opts in only by declaring a version
+  - Without a declared version, existing behavior is unchanged and existing resource files keep working without modification
 - Migration trigger policy:
   - Migrate only when incoming version is greater than stored version
   - Skip when equal or lower
-  - Support legacy adoption when stored version is absent
+  - Support legacy adoption when the incoming file declares a version but no stored version exists
 - Config migration behaviors:
   - Full overwrite mode
   - Additive merge mode
@@ -83,7 +86,7 @@ No standardized EdgeX-native approach that consistently handles config/profile/d
   - Replace/update existing profile on version bump
   - Support add/modify/delete of profile resources
 - Device migration behaviors:
-  - Update existing device definition on version bump
+  - Update existing device record on version bump
   - Support add/modify of relevant device fields
 - Isolation and safety:
   - Scope operations per service namespace
@@ -102,7 +105,7 @@ No standardized EdgeX-native approach that consistently handles config/profile/d
   - Define standard mechanism for deleting entire profiles/devices removed by new firmware
 
 ## Related Issues
-- Firmware update migration for config/profile/device state (internal tracking ticket): LNXTK-35775
+- Firmware update migration for configuration, profile, and device-record state (tracked internally as LNXTK-35775)
 - Production concern: rollback mismatch between firmware version and persisted migrated state
 - Production concern: lifecycle handling for complete profile/device deletion
 
