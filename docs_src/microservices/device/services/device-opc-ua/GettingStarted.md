@@ -369,3 +369,17 @@ deviceList:
 ```
 
 After service startup, query `core-data's` API. The results show that the service auto-executes the command every `30 seconds`.
+
+## Browse one level
+
+Core command does not serve this route. Call the device service, port `59997` by default.
+
+One request returns the direct children of one node. Send a child's `nodeId` to open the next level. The full parameter list, response fields, and error codes are in the [API Reference](ApiReference.md#browse-one-level).
+
+```shell
+curl -fsS "http://localhost:59997/api/v3/opcua/device/SimulationServer/browse"
+curl -fsS --get "http://localhost:59997/api/v3/opcua/device/SimulationServer/browse" \
+  --data-urlencode "nodeId=ns=3;i=1001"
+```
+
+`SimulationServer` is the pre-defined device. `ns=3;i=1001` is the pre-defined `Constant` resource.
